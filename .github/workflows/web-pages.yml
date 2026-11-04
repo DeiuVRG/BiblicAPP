@@ -68,6 +68,9 @@ jobs:
       - name: Smoke test the deployable
         run: node scripts/smoke-web.mjs --dist apps/mobile/dist --base-path "$EXPO_PUBLIC_WEB_BASE_URL"
 
+      - name: Theme check on the deployable
+        run: node scripts/check-web-theme.mjs --dist apps/mobile/dist --base-path "$EXPO_PUBLIC_WEB_BASE_URL"
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -78,6 +78,10 @@ jobs:
       - name: Playwright smoke against the export
         run: node scripts/smoke-web.mjs
 
+      # The export must follow its theme in both colour schemes (docs/design-spec.md, section 1).
+      - name: Playwright theme check against the export
+        run: node scripts/check-web-theme.mjs
+
       - name: Upload smoke diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
