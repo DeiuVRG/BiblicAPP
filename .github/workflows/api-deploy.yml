@@ -1,0 +1,150 @@
+name: API deploy
+
+# The Ask gateway (apps/api): checks it, builds its Docker image and smoke-tests it, and on pushes
+# to main deploys it to Fly.io (app biblioteca-api, region fra).
+#
+# The deploy job needs the repository secret FLY_API_TOKEN (a deploy token for the app:
+# `fly tokens create deploy --app biblioteca-api`). Without it the deploy job is SKIPPED, not
+# failed, so the repository stays green until the owner has created the Fly app. The model key
+# (ANTHROPIC_API_KEY) is a Fly secret set with flyctl, never a GitHub secret. See docs/ask-api.md.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/api/**'
+      - 'apps/mobile/assets/packs/**'
+      - 'content/keys/**'
+      - 'packages/shared/**'
+      - 'packages/content-tools/src/signing.ts'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/api-deploy.yml'
+  pull_request:
+    paths:
+      - 'apps/api/**'
+      - 'apps/mobile/assets/packs/**'
+      - 'content/keys/**'
+      - 'packages/shared/**'
+      - 'packages/content-tools/src/signing.ts'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/api-deploy.yml'
+  workflow_dispatch:
+
+# Least privilege: the workflow can only read the repository. No job needs more.
+permissions:
+  contents: read
+
+concurrency:
+  group: api-deploy-${{ github.ref }}
+  # A deploy that is running is never cancelled halfway.
+  cancel-in-progress: false
+
+env:
+  # Keep in sync with ci.yml and package.json.
+  NODE_VERSION: 22.23.4
+  PNPM_VERSION: 10.28.0
+  # flyctl is pinned too; bump it deliberately (https://github.com/superfly/flyctl/releases).
+  FLYCTL_VERSION: 0.5.2
+
+jobs:
+  verify:
+    name: Check, build the image, smoke-test it
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck, lint, tests (apps/api)
+        run: |
+          pnpm --filter @biblioteca/api typecheck
+          pnpm --filter @biblioteca/api lint
+          pnpm --filter @biblioteca/api test
+
+      # Same command a developer runs; the build context is the repository root.
+      - name: Build the image
+        run: docker build -f apps/api/Dockerfile -t biblioteca-api:ci .
+
+      # The image must start without a key (mock provider), verify the packs it contains and
+      # answer a question with sources and citations.
+      - name: Smoke-test the image
+        run: |
+          docker run -d --name api -p 8787:8787 -e AI_PROVIDER=mock biblioteca-api:ci
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8787/v1/health > /dev/null 2>&1 && break
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8787/v1/health | tee /dev/stderr | jq -e '.ok == true and .packs >= 1 and .rejectedPacks == 0'
+          curl -fsS http://127.0.0.1:8787/v1/library | jq -e '.works | length >= 1'
+          curl -fsS -X POST 'http://127.0.0.1:8787/v1/ask?stream=false' \
+            -H 'content-type: application/json' \
+            -d '{"question":"kingdom of heaven","language":"en"}' \
+            | jq -e '(.sources | length) > 0 and (.citations | length) > 0 and (.answer | length) > 0'
+
+      - name: Container logs
+        if: failure()
+        run: docker logs api || true
+
+  # `secrets` cannot be used in a job-level `if`, so this tiny job turns "the secret exists" into
+  # an output that the deploy job can test. It never prints the secret.
+  gate:
+    name: Is FLY_API_TOKEN set?
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    outputs:
+      deploy: ${{ steps.secret.outputs.deploy }}
+    steps:
+      - id: secret
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          if [ -n "$FLY_API_TOKEN" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Deploy skipped::The FLY_API_TOKEN secret is not set, so nothing is deployed. See docs/ask-api.md, section Deploying to Fly.io."
+          fi
+
+  deploy:
+    name: Deploy to Fly.io
+    needs: [verify, gate]
+    # Only main, only with the token. (A skipped `gate` skips this job too.)
+    if: needs.gate.outputs.deploy == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # Third-party action: pinned to a full commit SHA (tag 1.6). Dependabot keeps it current.
+      - name: Set up flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1 # 1.6
+        with:
+          version: ${{ env.FLYCTL_VERSION }}
+
+      # Built on Fly's remote builder from the repository root; fly.toml names the Dockerfile and
+      # the ignore file. The command waits for the new machine to pass its /v1/health check and
+      # rolls back on failure.
+      - name: Deploy
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: flyctl deploy --config apps/api/fly.toml --remote-only
+
+      - name: Status
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: flyctl status --app biblioteca-api

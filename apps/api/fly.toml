@@ -1,0 +1,53 @@
+# Fly.io configuration of the Ask gateway (docs/ask-api.md has the deployment steps).
+# Deploy from the REPOSITORY ROOT (the build context needs the workspace packages and the packs;
+# the Dockerfile and the ignore file below are found relative to this file):
+#   fly deploy --config apps/api/fly.toml --remote-only
+# The Anthropic key is a secret, never a value in this file:
+#   fly secrets set ANTHROPIC_API_KEY=... --app biblioteca-api
+
+app = "biblioteca-api"
+primary_region = "fra"
+# SIGTERM starts the graceful shutdown (running answers get up to SHUTDOWN_GRACE_MS to finish).
+kill_signal = "SIGTERM"
+kill_timeout = "30s"
+
+[build]
+  dockerfile = "Dockerfile"
+  ignorefile = ".dockerignore"
+
+[env]
+  AI_PROVIDER = "claude"
+  MODEL = "claude-sonnet-5-5"
+  PORT = "8787"
+  # Fly's proxy sets Fly-Client-IP, which is what the per-address rate limit counts. The Docker image
+  # leaves TRUST_PROXY at its default (none) on purpose: anywhere else the header could be forged.
+  TRUST_PROXY = "fly"
+  ALLOWED_ORIGINS = "https://deiuvrg.github.io,http://localhost:8081,http://127.0.0.1:8081"
+  RATE_LIMIT_MAX = "20"
+  RATE_LIMIT_WINDOW_SECONDS = "600"
+  SHUTDOWN_GRACE_MS = "20000"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  # Stopped when idle, started by the first request (a cold start takes a couple of seconds).
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 40
+    hard_limit = 60
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/v1/health"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "15s"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "256mb"

@@ -1,0 +1,31 @@
+# The build context is the repository root (docker build -f apps/api/Dockerfile .). Nothing is
+# sent unless it is listed here, so that neither a private signing key nor a local .env nor
+# node_modules can end up in an image or on a remote builder.
+# The same list is in Dockerfile.dockerignore (BuildKit reads that name next to the Dockerfile);
+# a test keeps the two files identical.
+
+*
+
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!.npmrc
+!tsconfig.base.json
+
+!apps/api
+!apps/mobile/package.json
+!apps/mobile/assets/packs
+!packages/shared
+!packages/content-tools
+
+# Public keys only (content/keys also holds the private development key, which is git-ignored).
+!content/keys/*.pub
+
+# Whatever the folders above contain locally:
+**/node_modules
+**/dist
+**/coverage
+**/.env
+**/.env.*
+**/*.log
+**/*.key
