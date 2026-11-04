@@ -11,6 +11,7 @@ import type { VerifiedPack } from '@/content/repository';
 import { trustedKeys } from '@/content/trusted-keys';
 import { verifyPack } from '@/content/verify-pack';
 import {
+  bareEnglishPack,
   bundledPack,
   clone,
   createTestSigner,
@@ -304,16 +305,24 @@ describe('two editions of one work', () => {
   });
 
   it('puts the English title of the work together from whichever pack has it', async () => {
+    // The real source pack carries titleEn itself; the bare copy does not, so the translation's wins.
+    const bare = bareEnglishPack(signer);
     const en = translation({ language: 'en', titleEn: 'The Kingdom of God, in English' });
-    const { repository } = await load([bundled, en.signed]);
+    const { repository } = await load([bare, en.signed]);
     const [work] = await repository.listWorks();
     expect(work!.titleEn).toBe('The Kingdom of God, in English');
     expect((await repository.getWork(english.work.id))?.work.titleEn).toBe(
       'The Kingdom of God, in English',
     );
     // Without such a pack the field is simply not there.
-    const alone = await load([bundled]);
+    const alone = await load([bare]);
     expect('titleEn' in (await alone.repository.listWorks())[0]!).toBe(false);
+  });
+
+  it('takes the English title of the work from the real source pack when no other pack has one', async () => {
+    const { repository } = await load([bundled]);
+    expect((await repository.listWorks())[0]!.titleEn).toBe(english.work.titleEn);
+    expect(english.work.titleEn).toBeTruthy();
   });
 
   it('keeps the metadata of the source edition when the translation carries other metadata', async () => {

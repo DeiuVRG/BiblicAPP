@@ -10,7 +10,13 @@ import { readHref } from '@/navigation-hrefs';
 import { splitChapterHeading } from '@/reading/heading';
 import { legacyPositionKey, positionKey } from '@/reading/position-store';
 import { router, setMockParams } from '@/test-support/expo-router-mock';
-import { bundledPack, createTestSigner, signPack, translationOf } from '@/test-support/packs';
+import {
+  bareEnglishPack,
+  bundledPack,
+  createTestSigner,
+  signPack,
+  translationOf,
+} from '@/test-support/packs';
 import type { TranslationOptions } from '@/test-support/packs';
 import { createMemoryStore, createSettingsStore, renderWithProviders } from '@/test-support/render';
 import { vosEditions } from '@/test-support/vos';
@@ -22,14 +28,20 @@ const englishPack = bundledPack('vos-1903-kingdom-en');
 const english = englishPack.pack as Pack;
 
 /** The English source plus a synthetic Romanian translation of its first sections. */
-async function twoEditions(options: TranslationOptions = {}): Promise<{
+async function twoEditions(
+  options: TranslationOptions = {},
+  bare = false,
+): Promise<{
   loaded: LoadedRepository;
   translation: Pack;
   workId: string;
 }> {
   const translation = translationOf(english, { sections: 3, ...options });
   const loaded = await loadBundledRepository({
-    packs: [englishPack, signPack(translation, signer, { packId: 'vos-synthetic-ro' })],
+    packs: [
+      bare ? bareEnglishPack(signer) : englishPack,
+      signPack(translation, signer, { packId: 'vos-synthetic-ro' }),
+    ],
     trustedKeys: [...trustedKeys, signer.key],
   });
   return { loaded, translation, workId: english.work.id };
@@ -400,7 +412,8 @@ describe('WorkScreen titles and notes by language', () => {
   });
 
   it('titles a work with the English title of the pack for an English reader', async () => {
-    const { loaded, workId } = await twoEditions({ titleEn: 'The Kingdom, in English' });
+    // The bare source has no titleEn of its own, so the translation's is the one shown.
+    const { loaded, workId } = await twoEditions({ titleEn: 'The Kingdom, in English' }, true);
     const store = createSettingsStore({ readingLanguage: 'en' });
     await renderWithProviders(<WorkScreen workId={workId} />, { loaded, store });
     expect(await screen.findByText('The Kingdom, in English')).toBeTruthy();
@@ -408,8 +421,29 @@ describe('WorkScreen titles and notes by language', () => {
     expect(screen.getByText(english.work.titleOrig)).toBeTruthy();
   });
 
-  it('shows the licence note in the language of the interface, falling back to the note itself', async () => {
+  it('shows the licence note of the real English pack in Romanian or English, by the interface', async () => {
     const { loaded, workId } = await twoEditions();
+    const licence = english.edition.licence;
+    expect(licence.noteRo).toBeTruthy();
+    expect(licence.noteEn).toBeUndefined();
+    setMockParams({ id: workId });
+    const first = await renderWithProviders(<WorkRoute />, { loaded });
+    await screen.findByLabelText('Începe lectura');
+    await fireEvent.press(within(switchGroup()).getByLabelText('English'));
+    expect(screen.getByText(licence.noteRo!)).toBeTruthy();
+    expect(screen.queryByText(licence.note)).toBeNull();
+    await first.unmount();
+
+    // The English edition has no English-specific note: the English interface shows `note`.
+    setMockParams({ id: workId });
+    const store = createSettingsStore({ uiLanguage: 'en', readingLanguage: 'en' });
+    await renderWithProviders(<WorkRoute />, { loaded, store });
+    expect(await screen.findByText(licence.note)).toBeTruthy();
+    expect(screen.queryByText(licence.noteRo!)).toBeNull();
+  });
+
+  it('shows the licence note in the language of the interface, falling back to the note itself', async () => {
+    const { loaded, workId } = await twoEditions({}, true);
     setMockParams({ id: workId });
     const first = await renderWithProviders(<WorkRoute />, { loaded });
     expect(await screen.findByText('Traducere sintetică făcută pentru teste.')).toBeTruthy();

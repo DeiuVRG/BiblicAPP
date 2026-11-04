@@ -8,8 +8,8 @@ import { LibraryScreen } from '@/features/library/library-screen';
 import { workHref } from '@/navigation-hrefs';
 import { router } from '@/test-support/expo-router-mock';
 import {
+  barePack,
   bundledPack,
-  clone,
   createTestSigner,
   signPack,
   translationOf,
@@ -198,7 +198,8 @@ describe('LibraryScreen with several editions', () => {
 describe('LibraryScreen with a work whose original is not English', () => {
   // A Latin work read in Romanian and in English, whatever the original language.
   async function latinWork(): Promise<LoadedRepository> {
-    const latin = clone(english);
+    // Without the English title the real pack now carries: only the English translation has one.
+    const latin = barePack(english);
     latin.work = {
       ...latin.work,
       id: 'latin-work',

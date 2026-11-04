@@ -218,7 +218,9 @@ describe('secondary text', () => {
     const { work, english } = await vosEditions(repository);
     const detail = await repository.getEdition(english.editionId);
     await renderWithProviders(<WorkScreen workId={work.workId} editionId={english.editionId} />);
-    const note = await screen.findByText(detail!.edition.licence.note);
+    // The interface is Romanian: the real pack's Romanian note is the one shown.
+    expect(detail!.edition.licence.noteRo).toBeTruthy();
+    const note = await screen.findByText(detail!.edition.licence.noteRo!);
     expect(note).toHaveStyle({ maxWidth: PROSE_MAX_WIDTH });
   });
 

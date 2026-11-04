@@ -63,6 +63,24 @@ export function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
+/**
+ * A deep copy of `pack` without the optional display metadata the real packs now carry: the
+ * work's `titleEn` and the edition licence's `noteRo`/`noteEn`. For scenarios that need a source
+ * pack which does not have them (the fallbacks to `titleOrig` and to the English `note`).
+ */
+export function barePack(pack: Pack): Pack {
+  const bare = clone(pack);
+  delete bare.work.titleEn;
+  delete bare.edition.licence.noteRo;
+  delete bare.edition.licence.noteEn;
+  return bare;
+}
+
+/** `barePack` of the bundled English Vos edition, signed with the test key (trust `signer.key`). */
+export function bareEnglishPack(signer: TestSigner, packId = 'vos-bare-en'): BundledPack {
+  return signPack(barePack(bundledPack('vos-1903-kingdom-en').pack as Pack), signer, { packId });
+}
+
 export interface TranslationOptions {
   language?: string;
   /** How many of the source's sections the translation covers (it is partial when fewer). */
