@@ -1,10 +1,16 @@
-import { fireEvent, screen } from '@testing-library/react-native';
+import { act, fireEvent, screen } from '@testing-library/react-native';
 import type { Paragraph } from '@biblioteca/shared';
+import { Dimensions, Platform } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Chip } from '@/components/chip';
-import { SegmentedControl } from '@/components/segmented-control';
+import {
+  MIN_SEGMENT_WIDTH,
+  radioKeyAction,
+  SegmentedControl,
+  segmentColumns,
+} from '@/components/segmented-control';
 import { loadBundledRepository } from '@/content/repository';
 import { LibraryScreen } from '@/features/library/library-screen';
 import { ReaderParagraph } from '@/features/reader/reader-paragraph';
@@ -15,7 +21,7 @@ import NotFoundRoute from '@/app/+not-found';
 import { libraryHref, workHref } from '@/navigation-hrefs';
 import { loadedFonts, FontsProvider } from '@/theme/fonts';
 import { palettes } from '@/theme/palettes';
-import { router } from '@/test-support/expo-router-mock';
+import { router, screenOptions } from '@/test-support/expo-router-mock';
 import { renderWithProviders } from '@/test-support/render';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
@@ -27,9 +33,16 @@ async function bundled() {
   return { repository, work: work!, sections };
 }
 
+/** Installs (or removes) a stand-in `document`: there is none under Jest, and web code checks it. */
+function setFakeDocument(value: unknown) {
+  if (value === undefined) delete (globalThis as { document?: unknown }).document;
+  else (globalThis as { document?: unknown }).document = value;
+}
+
 beforeEach(() => {
   router.push.mockClear();
   router.replace.mockClear();
+  screenOptions.length = 0;
 });
 
 describe('AppText', () => {
@@ -91,6 +104,33 @@ describe('Button', () => {
     expect(screen.getByLabelText('Începe')).toHaveStyle({ backgroundColor: palettes.light.accent });
     expect(screen.getByText('Începe')).toHaveStyle({ color: palettes.light.onAccent });
   });
+
+  it('draws the outline of a secondary button with the control outline colour, not the hairline one', async () => {
+    await renderWithProviders(<Button title="Alege" onPress={jest.fn()} />);
+    expect(screen.getByLabelText('Alege')).toHaveStyle({
+      borderColor: palettes.light.borderStrong,
+    });
+  });
+
+  it('says whether the thing it opens is open, and keeps its disabled state', async () => {
+    await renderWithProviders(
+      <>
+        <Button title="A" label="Deschis" expanded onPress={jest.fn()} />
+        <Button title="B" label="Închis" expanded={false} onPress={jest.fn()} />
+        <Button title="C" label="Fără stare" onPress={jest.fn()} />
+        <Button title="D" label="Oprit" expanded disabled onPress={jest.fn()} />
+      </>,
+    );
+    expect(screen.getByLabelText('Deschis').props.accessibilityState).toMatchObject({
+      expanded: true,
+      disabled: false,
+    });
+    expect(screen.getByLabelText('Închis').props.accessibilityState).toMatchObject({
+      expanded: false,
+    });
+    expect(screen.getByLabelText('Fără stare').props.accessibilityState.expanded).toBeUndefined();
+    expect(screen.getByLabelText('Oprit')).toBeDisabled();
+  });
 });
 
 describe('Chip and SegmentedControl', () => {
@@ -119,6 +159,135 @@ describe('Chip and SegmentedControl', () => {
     });
     await fireEvent.press(screen.getByLabelText('Doi'));
     expect(onChange).toHaveBeenCalledWith('b');
+  });
+});
+
+describe('SegmentedControl layout and keyboard', () => {
+  const four = [
+    { value: 'system', label: 'Automat' },
+    { value: 'light', label: 'Luminos' },
+    { value: 'sepia', label: 'Sepia' },
+    { value: 'dark', label: 'Întunecat' },
+  ] as const;
+  const original = Dimensions.get('window');
+
+  afterEach(async () => {
+    // Still mounted here (the automatic cleanup runs later): the update has to go through act.
+    await act(async () => {
+      Dimensions.set({ window: original });
+    });
+  });
+
+  const control = (onChange = jest.fn(), value: (typeof four)[number]['value'] = 'system') => (
+    <SegmentedControl label="Tema" options={four} value={value} onChange={onChange} />
+  );
+  const resizeTo = (width: number) =>
+    fireEvent(screen.getByLabelText('Tema'), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, width, height: 44 } },
+    });
+
+  it('decides how many options share a row from the width and the system font size', () => {
+    expect(MIN_SEGMENT_WIDTH).toBe(84);
+    expect(segmentColumns(4, null)).toBe(4); // not laid out yet: one row
+    expect(segmentColumns(4, 0)).toBe(4);
+    expect(segmentColumns(4, 4 * MIN_SEGMENT_WIDTH)).toBe(4);
+    expect(segmentColumns(4, 4 * MIN_SEGMENT_WIDTH - 1)).toBe(2);
+    expect(segmentColumns(4, 342, 1)).toBe(4); // a 390 px phone
+    expect(segmentColumns(4, 312, 1)).toBe(2); // a 360 px phone
+    expect(segmentColumns(4, 342, 1.2)).toBe(2); // larger system text needs more room
+    expect(segmentColumns(4, 4 * MIN_SEGMENT_WIDTH * 1.5, 3)).toBe(4); // the scale is capped
+    expect(segmentColumns(3, 100)).toBe(2);
+    expect(segmentColumns(2, 100)).toBe(2); // two options never wrap
+    expect(segmentColumns(1, 10)).toBe(1);
+  });
+
+  it('keeps the options in one row when there is room and wraps them into two when there is not', async () => {
+    Dimensions.set({ window: { ...original, fontScale: 1 } });
+    await renderWithProviders(control());
+    const row = (label: string) => screen.getByLabelText(label).parent;
+
+    await resizeTo(342);
+    expect(row('Automat')).toBe(row('Întunecat'));
+
+    await resizeTo(312);
+    expect(row('Automat')).toBe(row('Luminos'));
+    expect(row('Sepia')).toBe(row('Întunecat'));
+    expect(row('Automat')).not.toBe(row('Sepia'));
+
+    await resizeTo(342);
+    expect(row('Automat')).toBe(row('Întunecat'));
+  });
+
+  it('draws the group and its dividers with the control outline colour', async () => {
+    await renderWithProviders(control());
+    expect(screen.getByLabelText('Tema')).toHaveStyle({ borderColor: palettes.light.borderStrong });
+    expect(screen.getByLabelText('Luminos')).toHaveStyle({
+      borderLeftColor: palettes.light.borderStrong,
+      borderLeftWidth: 1,
+    });
+    expect(screen.getByLabelText('Automat')).toHaveStyle({ borderLeftWidth: 0 });
+  });
+
+  it('maps keys to what a native radio group does', () => {
+    expect(radioKeyAction(' ')).toBe('select');
+    expect(radioKeyAction('Spacebar')).toBe('select');
+    expect(radioKeyAction('ArrowRight')).toBe('next');
+    expect(radioKeyAction('ArrowDown')).toBe('next');
+    expect(radioKeyAction('ArrowLeft')).toBe('previous');
+    expect(radioKeyAction('ArrowUp')).toBe('previous');
+    expect(radioKeyAction('Home')).toBe('first');
+    expect(radioKeyAction('End')).toBe('last');
+    expect(radioKeyAction('Tab')).toBeNull();
+    expect(radioKeyAction('a')).toBeNull();
+  });
+
+  it('lets the keyboard choose: Space selects, arrows move and wrap around, other keys do nothing', async () => {
+    const onChange = jest.fn();
+    await renderWithProviders(control(onChange, 'light'));
+    const press = async (label: string, key: string) => {
+      const preventDefault = jest.fn();
+      await fireEvent(screen.getByLabelText(label), 'keyDown', {
+        nativeEvent: { key },
+        preventDefault,
+      });
+      return preventDefault;
+    };
+
+    expect(await press('Luminos', ' ')).toHaveBeenCalled();
+    expect(onChange).toHaveBeenLastCalledWith('light');
+    await press('Luminos', 'ArrowRight');
+    expect(onChange).toHaveBeenLastCalledWith('sepia');
+    await press('Luminos', 'ArrowLeft');
+    expect(onChange).toHaveBeenLastCalledWith('system');
+    await press('Automat', 'ArrowLeft'); // wraps to the last option
+    expect(onChange).toHaveBeenLastCalledWith('dark');
+    await press('Întunecat', 'ArrowDown'); // and back to the first
+    expect(onChange).toHaveBeenLastCalledWith('system');
+    await press('Luminos', 'End');
+    expect(onChange).toHaveBeenLastCalledWith('dark');
+    await press('Luminos', 'Home');
+    expect(onChange).toHaveBeenLastCalledWith('system');
+
+    onChange.mockClear();
+    expect(await press('Luminos', 'Tab')).not.toHaveBeenCalled(); // the page keeps its own keys
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('is one tab stop on web: only the chosen option can be tabbed to', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(control(jest.fn(), 'sepia'));
+      expect(screen.getByLabelText('Sepia').props.tabIndex).toBe(0);
+      expect(screen.getByLabelText('Luminos').props.tabIndex).toBe(-1);
+      expect(screen.getByLabelText('Întunecat').props.tabIndex).toBe(-1);
+    } finally {
+      replaced.restore();
+    }
+  });
+
+  it('leaves the tab order to the platform on iOS and Android', async () => {
+    await renderWithProviders(control());
+    expect(screen.getByLabelText('Luminos').props.tabIndex).toBeUndefined();
   });
 });
 
@@ -165,6 +334,65 @@ describe('ReaderScreen design', () => {
 
     await fireEvent.press(toggle);
     expect(screen.queryByText('Mărimea textului')).toBeNull();
+  });
+
+  it('closes the typography sheet with Escape on web, and only then', async () => {
+    const listeners = new Map<string, (event: { key: string }) => void>();
+    setFakeDocument({
+      addEventListener: (type: string, listener: (event: { key: string }) => void) =>
+        listeners.set(type, listener),
+      removeEventListener: (type: string) => listeners.delete(type),
+    });
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      const { work, sections } = await bundled();
+      await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
+      const toggle = await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă');
+      expect(listeners.has('keydown')).toBe(false); // nothing listens while the sheet is closed
+
+      await fireEvent.press(toggle);
+      expect(screen.getByText('Mărimea textului')).toBeTruthy();
+      expect(listeners.has('keydown')).toBe(true);
+
+      await act(async () => listeners.get('keydown')!({ key: 'a' }));
+      expect(screen.getByText('Mărimea textului')).toBeTruthy();
+      await act(async () => listeners.get('keydown')!({ key: 'Escape' }));
+      expect(screen.queryByText('Mărimea textului')).toBeNull();
+      expect(toggle.props.accessibilityState).toMatchObject({ expanded: false });
+      expect(listeners.has('keydown')).toBe(false);
+    } finally {
+      replaced.restore();
+      setFakeDocument(undefined);
+    }
+  });
+
+  it('listens to no keys on iOS and Android', async () => {
+    const addEventListener = jest.fn();
+    setFakeDocument({ addEventListener, removeEventListener: jest.fn() });
+    try {
+      const { work, sections } = await bundled();
+      await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
+      await fireEvent.press(
+        await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă'),
+      );
+      expect(addEventListener).not.toHaveBeenCalled();
+    } finally {
+      setFakeDocument(undefined);
+    }
+  });
+
+  it('sets the work title in the native header as a quiet running head, not a second heading', async () => {
+    const { work, sections } = await bundled();
+    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
+    await screen.findByRole('progressbar');
+    expect(screenOptions.at(-1)).toMatchObject({
+      title: work.titleRo,
+      headerTitleStyle: {
+        fontFamily: undefined, // fonts are not loaded under Jest: the system face
+        fontSize: 15,
+        color: palettes.light.textMuted,
+      },
+    });
   });
 
   it('offers the table of contents instead of "next" on the last chapter', async () => {
@@ -234,6 +462,40 @@ describe('SearchScreen design', () => {
   });
 });
 
+describe('SearchScreen field and results', () => {
+  it('keeps the clear button inside the field, so typing never resizes the input', async () => {
+    await renderWithProviders(<SearchScreen />);
+    const input = screen.getByLabelText('Caută în text');
+    expect(screen.queryByLabelText('Șterge căutarea')).toBeNull();
+    const emptyStyle = { paddingRight: 44, borderColor: palettes.light.borderStrong };
+    expect(input).toHaveStyle(emptyStyle);
+
+    await fireEvent.changeText(input, 'k');
+    const clear = screen.getByLabelText('Șterge căutarea');
+    // The same box as the input (an overlay), and the room for it is reserved from the start.
+    expect(clear.parent).toBe(input.parent);
+    expect(clear).toHaveStyle({ position: 'absolute', right: 2, top: 2 });
+    expect(input).toHaveStyle(emptyStyle);
+    // A glyph Inter has (the heavy ballot cross U+2715 fell back to a system font).
+    expect(screen.getByText('×')).toBeTruthy();
+
+    await fireEvent.press(clear);
+    expect(screen.getByLabelText('Caută în text').props.value).toBe('');
+    expect(screen.queryByLabelText('Șterge căutarea')).toBeNull();
+  });
+
+  it('names only the chapter on a hit when every hit is from the same work', async () => {
+    const { work, sections } = await bundled();
+    await renderWithProviders(<SearchScreen initialQuery="kingdom" />);
+    const rows = await screen.findAllByRole('link');
+    expect(rows.length).toBeGreaterThan(0);
+    // The visible line is the chapter; the work title is repeated only for screen readers.
+    expect(screen.queryByText(new RegExp(work.titleRo))).toBeNull();
+    expect((await screen.findAllByText(sections[0]!.heading)).length).toBeGreaterThan(0);
+    expect(rows[0]!.props.accessibilityLabel).toContain(work.titleRo);
+  });
+});
+
 describe('SettingsScreen design', () => {
   it('groups the settings under label-style headings', async () => {
     await renderWithProviders(<SettingsScreen />);
@@ -247,6 +509,15 @@ describe('SettingsScreen design', () => {
 });
 
 describe('NotFoundRoute', () => {
+  it('says "Pagină negăsită" once on the page: the header names the library', async () => {
+    await renderWithProviders(<NotFoundRoute />);
+    expect(screenOptions.at(-1)).toMatchObject({
+      title: 'Pagină negăsită', // the browser tab
+      headerTitle: 'Biblioteca', // the header (the page itself carries the title below)
+    });
+    expect(screen.getAllByText('Pagină negăsită')).toHaveLength(1);
+  });
+
   it('shows a serif title and a text button back to the library', async () => {
     await renderWithProviders(<NotFoundRoute />);
     expect(screen.getByText('Pagină negăsită')).toBeTruthy();

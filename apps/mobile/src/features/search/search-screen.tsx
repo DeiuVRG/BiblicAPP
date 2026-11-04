@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TextInput, View } from 'react-native';
 
 import { AppText, UI_MAX_FONT_SCALE, useTypeStyle } from '@/components/app-text';
-import { Button } from '@/components/button';
+import { Button, MIN_TARGET } from '@/components/button';
 import { Column, useListContentStyle } from '@/components/column';
 import { Hairline } from '@/components/hairline';
 import { HighlightedText } from '@/components/highlighted-text';
 import { LinkRow } from '@/components/list-row';
+import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import type { SearchHit } from '@/content/types';
@@ -22,6 +23,9 @@ const DEBOUNCE_MS = 200;
 
 /** Same cap as the repository (`MAX_SEARCH_HITS`); used only to tell the user results are capped. */
 const RESULT_CAP = 50;
+
+/** Room the clear button takes at the right end of the field, so the text never runs under it. */
+const CLEAR_SLOT = MIN_TARGET;
 
 function useDebounced<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -48,40 +52,50 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
     },
     [query, active],
   );
+  // The work's title is only worth repeating on every hit when the hits come from several works.
+  const manyWorks =
+    results.status === 'ready' && results.data
+      ? new Set(results.data.hits.map((hit) => hit.workId)).size > 1
+      : false;
 
   return (
     <Screen>
       <Stack.Screen options={{ title: t.search.title }} />
+      <PageTitle parts={[t.search.title]} />
       <Column kind="list" style={styles.inputRow}>
-        <TextInput
-          value={text}
-          onChangeText={setText}
-          placeholder={t.search.placeholder}
-          placeholderTextColor={colors.textMuted}
-          accessibilityLabel={t.search.label}
-          autoFocus
-          autoCapitalize="none"
-          autoCorrect={false}
-          returnKeyType="search"
-          maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
-          style={[
-            styles.input,
-            {
-              color: colors.text,
-              borderColor: colors.border,
-              fontFamily: fonts.ui,
-            },
-          ]}
-        />
-        {text.length > 0 ? (
-          <Button
-            variant="text"
-            title="✕"
-            label={t.search.clear}
-            onPress={() => setText('')}
-            style={styles.clear}
+        <View style={styles.field}>
+          <TextInput
+            value={text}
+            onChangeText={setText}
+            placeholder={t.search.placeholder}
+            placeholderTextColor={colors.textMuted}
+            accessibilityLabel={t.search.label}
+            autoFocus
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="search"
+            maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
+            style={[
+              styles.input,
+              {
+                color: colors.text,
+                borderColor: colors.borderStrong,
+                fontFamily: fonts.ui,
+              },
+            ]}
           />
-        ) : null}
+          {text.length > 0 ? (
+            // Inside the field, over the room the input leaves free: the field never resizes.
+            <Button
+              variant="text"
+              title="×"
+              label={t.search.clear}
+              onPress={() => setText('')}
+              textStyle={[styles.clearText, { color: colors.textMuted }]}
+              style={styles.clear}
+            />
+          ) : null}
+        </View>
       </Column>
 
       {!active ? <MessageView message={t.search.hint} /> : null}
@@ -112,6 +126,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
               hit={item}
               query={query}
               workTitle={results.data?.titles.get(item.workId) ?? ''}
+              showWork={manyWorks}
             />
           )}
           contentContainerStyle={contentStyle}
@@ -125,21 +140,25 @@ function ResultRow({
   hit,
   query,
   workTitle,
+  showWork,
 }: {
   hit: SearchHit;
   query: string;
   workTitle: string;
+  showWork: boolean;
 }) {
   const snippetStyle = useTypeStyle('body', false);
-  // The chapter comes first: when the line is too long it is the work title that gets cut off.
+  // Screen readers always hear where the hit is; the visible line names the work only when the
+  // hits come from several works. It may use two lines and breaks between words.
   const place = [hit.sectionHeading, workTitle].filter(Boolean).join(' · ');
+  const visiblePlace = (showWork ? place : hit.sectionHeading) || place;
   return (
     <LinkRow
       href={readHref(hit.workId, hit.sectionId, { p: hit.paragraphId, q: query })}
       accessibilityLabel={`${t.search.openResult(place)}: ${hit.snippet}`}
     >
-      <AppText variant="label" numberOfLines={1}>
-        {place}
+      <AppText variant="label" numberOfLines={2}>
+        {visiblePlace}
       </AppText>
       <HighlightedText text={hit.snippet} query={query} style={snippetStyle} />
     </LinkRow>
@@ -147,21 +166,20 @@ function ResultRow({
 }
 
 const styles = StyleSheet.create({
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingTop: 24,
-    paddingBottom: 16,
-    gap: 8,
-  },
+  inputRow: { paddingTop: 24, paddingBottom: 16 },
+  field: { width: '100%' },
   input: {
-    flex: 1,
+    width: '100%',
+    minWidth: 0,
     height: 48,
     borderWidth: 1,
     borderRadius: 6,
-    paddingHorizontal: 14,
+    paddingLeft: 14,
+    paddingRight: CLEAR_SLOT,
     fontSize: 16,
   },
-  clear: { paddingHorizontal: 12 },
+  // 48 px field, 44 px button, 2 px around it.
+  clear: { position: 'absolute', top: 2, right: 2, paddingHorizontal: 0 },
+  clearText: { fontSize: 24, lineHeight: 28 },
   count: { paddingBottom: 12 },
 });

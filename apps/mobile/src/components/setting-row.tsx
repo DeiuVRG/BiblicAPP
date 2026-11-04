@@ -8,7 +8,8 @@ interface Props {
   children: ReactNode;
   /**
    * For a control that needs room (a segmented control): it takes the rest of the row, up to a
-   * maximum width, and wraps under the label when the row is too narrow.
+   * maximum width, wraps under the label when the row is too narrow and, on its own line, shrinks
+   * to the width of the row (a 320 px phone is narrower than the 300 px basis plus the gutters).
    */
   fill?: boolean;
 }
@@ -35,5 +36,5 @@ const styles = StyleSheet.create({
     rowGap: 8,
   },
   label: { flexShrink: 1 },
-  fill: { flexGrow: 1, flexBasis: 300, maxWidth: 420 },
+  fill: { flexGrow: 1, flexShrink: 1, flexBasis: 300, minWidth: 0, maxWidth: 420 },
 });

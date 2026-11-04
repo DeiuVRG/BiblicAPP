@@ -4,7 +4,8 @@ import type { ReactElement } from 'react';
 /**
  * Minimal stand-in for `expo-router` in component tests:
  *   jest.mock('expo-router', () => require('@/test-support/expo-router-mock'));
- * `Link asChild` makes its child call `router.push(href)`; `Stack.Screen` renders nothing.
+ * `Link asChild` makes its child call `router.push(href)`; `Stack.Screen` renders nothing but
+ * records its `options` in `screenOptions`.
  */
 export const router = {
   push: jest.fn(),
@@ -22,7 +23,15 @@ export function Link({
   return cloneElement(children, { onPress: () => router.push(href) });
 }
 
-export const Stack = { Screen: () => null };
+/** The `options` of every `Stack.Screen` rendered so far (newest last); tests can assert on them. */
+export const screenOptions: Record<string, unknown>[] = [];
+
+export const Stack = {
+  Screen: ({ options }: { options?: Record<string, unknown> }) => {
+    if (options) screenOptions.push(options);
+    return null;
+  },
+};
 
 export const useRouter = () => router;
 /** Runs the effect once on mount (focus is not modelled). */

@@ -1,13 +1,14 @@
 import type { Paragraph, Section } from '@biblioteca/shared';
 import { Stack, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Column } from '@/components/column';
+import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import { TypographyControls } from '@/components/typography-controls';
@@ -142,6 +143,16 @@ function ChapterView({
   const [panelOpen, setPanelOpen] = useState(false);
   const writer = useReadingPositionWriter(workId, section.id);
 
+  // Web: Escape closes the typography panel, like any other disclosure.
+  useEffect(() => {
+    if (!panelOpen || Platform.OS !== 'web' || typeof document === 'undefined') return undefined;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPanelOpen(false);
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [panelOpen]);
+
   const targetIndex = useMemo(
     () =>
       initialParagraphId
@@ -224,13 +235,28 @@ function ChapterView({
 
   return (
     <Screen>
-      <Stack.Screen options={{ title: detail.work.titleRo }} />
+      <Stack.Screen
+        options={{
+          title: detail.work.titleRo,
+          // A running head, quiet next to the chapter heading (the web header does the same).
+          headerTitleStyle: {
+            fontFamily: fonts.readingItalic,
+            fontSize: 15,
+            color: colors.textMuted,
+          },
+        }}
+      />
+      <PageTitle parts={[section.heading, detail.work.titleRo]} />
       <Column kind="reading" style={styles.runningHead}>
         <AppText
           variant="label"
           accessibilityRole="progressbar"
           accessibilityLabel={`${t.reader.progressLabel}: ${positionText}`}
           accessibilityValue={{ min: 0, max: 100, now: percent }}
+          // react-native-web reads the `aria-*` props only; React Native reads both forms.
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={percent}
         >
           {positionText}
         </AppText>
@@ -302,7 +328,7 @@ function ChapterView({
             variant="text"
             title={t.reader.typographyButton}
             label={t.reader.typographyLabel}
-            accessibilityState={{ expanded: panelOpen }}
+            expanded={panelOpen}
             onPress={() => setPanelOpen((open) => !open)}
             textStyle={{ fontFamily: fonts.readingMedium, fontSize: 18 }}
           />

@@ -6,12 +6,14 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AppText, useTypeStyle } from '@/components/app-text';
 import { useListContentStyle } from '@/components/column';
 import { Hairline } from '@/components/hairline';
+import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { FontSizeControl, LineHeightControl, ThemeControl } from '@/components/typography-controls';
 import { useContent } from '@/content/content-context';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
 import { t } from '@/i18n';
 import { licenceLabel } from '@/i18n/labels';
+import { PROSE_MAX_WIDTH } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
 
 import { READING_MAX_FONT_SCALE } from '../reader/reader-paragraph';
@@ -83,6 +85,7 @@ export function SettingsScreen() {
   return (
     <Screen>
       <Stack.Screen options={{ title: t.settings.title }} />
+      <PageTitle parts={[t.settings.title]} />
       <ScrollView contentContainerStyle={[contentStyle, styles.content]}>
         <Section title={t.settings.reading} first>
           <FontSizeControl />
@@ -96,7 +99,9 @@ export function SettingsScreen() {
           <ContentInfo />
         </Section>
         <Section title={t.settings.licenceTitle}>
-          <AppText variant="caption">{t.settings.licenceNote}</AppText>
+          <AppText variant="caption" style={styles.prose}>
+            {t.settings.licenceNote}
+          </AppText>
         </Section>
         <Section title={t.settings.about}>
           <View style={styles.lines}>
@@ -116,4 +121,5 @@ const styles = StyleSheet.create({
   section: { gap: 16, paddingTop: 20, paddingBottom: 28 },
   preview: { padding: 16, borderRadius: 6, gap: 8 },
   lines: { gap: 4 },
+  prose: { maxWidth: PROSE_MAX_WIDTH },
 });

@@ -26,31 +26,54 @@
       }
     </style>
     <!--
-      Paper and ink backgrounds (the `background` of the light and dark palettes in
+      Paper and ink (the `background` and `accent` of the light and dark palettes in
       src/theme/palettes.ts; a test keeps them equal), so that there is no white flash before
-      JavaScript runs. The app sets the same colours on <body> once it starts.
+      JavaScript runs. <html> and <body> both read the variables, so whichever of them the browser
+      paints shows the same colour. The app sets the variables again once it starts (the reader's
+      own choice of theme), and the script below does it earlier for a theme chosen in Settings.
+      The focus ring is the one place CSS has to know the accent colour.
     -->
     <style id="app-theme">
-      html,
-      body {
-        background: #fbfaf7;
+      :root {
+        --app-background: #fbfaf7;
+        --app-accent: #7a2e2a;
       }
       @media (prefers-color-scheme: dark) {
-        html,
-        body {
-          background: #141311;
+        :root {
+          --app-background: #141311;
+          --app-accent: #e0a58b;
         }
+      }
+      html,
+      body {
+        background: var(--app-background);
+      }
+      /* One focus ring for the whole app, for keyboard focus only (not after a tap or a click). */
+      :focus-visible {
+        outline: 2px solid var(--app-accent);
+        outline-offset: 2px;
+      }
+      /* A field's outline sits over its border, so the ring replaces the border instead of
+         doubling it. */
+      input:focus-visible,
+      textarea:focus-visible {
+        outline-offset: -1px;
       }
     </style>
     <script id="app-theme-stored">
       // A theme chosen in Settings wins over the system scheme: paint it before the app boots.
       (function () {
         try {
+          var themes = {
+            light: { background: '#fbfaf7', accent: '#7a2e2a' },
+            sepia: { background: '#f4ecd8', accent: '#7a3e12' },
+            dark: { background: '#141311', accent: '#e0a58b' },
+          };
           var stored = JSON.parse(localStorage.getItem('biblioteca:settings:v1') || '{}').theme;
-          var background = { light: '#fbfaf7', sepia: '#f4ecd8', dark: '#141311' }[stored];
-          if (!background) return;
+          if (!Object.prototype.hasOwnProperty.call(themes, stored)) return;
           var root = document.documentElement;
-          root.style.background = background;
+          root.style.setProperty('--app-background', themes[stored].background);
+          root.style.setProperty('--app-accent', themes[stored].accent);
           root.style.colorScheme = stored === 'dark' ? 'dark' : 'light';
         } catch (error) {
           /* storage unavailable: keep the system scheme */

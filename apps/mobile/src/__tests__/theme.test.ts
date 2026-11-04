@@ -40,6 +40,12 @@ const TEXT_PAIRS: readonly (readonly [keyof Palette, keyof Palette])[] = [
   ['textMuted', 'target'],
 ];
 
+/** The outline of every control sits on the page or on the surface block (reader panel, preview). */
+const OUTLINE_PAIRS: readonly (readonly [keyof Palette, keyof Palette])[] = [
+  ['borderStrong', 'background'],
+  ['borderStrong', 'surface'],
+];
+
 describe('palettes', () => {
   it('has the three palettes with the same tokens', () => {
     const tokens = Object.keys(palettes.light).sort();
@@ -55,6 +61,24 @@ describe('palettes', () => {
       ).toBeGreaterThanOrEqual(4.5);
     });
   });
+
+  describe.each(Object.entries(palettes) as [ThemeName, Palette][])(
+    '%s outlines',
+    (_name, palette) => {
+      it.each(OUTLINE_PAIRS)('%s on %s reaches 3:1 (WCAG 1.4.11)', (outline, background) => {
+        expect(
+          contrast(palette[outline] as string, palette[background] as string),
+        ).toBeGreaterThanOrEqual(3);
+      });
+
+      it('keeps hairlines quieter than control outlines', () => {
+        // The rule between entries must not compete with the outline of a control.
+        expect(contrast(palette.border, palette.background)).toBeLessThan(
+          contrast(palette.borderStrong, palette.background),
+        );
+      });
+    },
+  );
 
   it('follows the system scheme only for the automatic preference', () => {
     expect(resolveTheme('system', 'dark')).toBe('dark');
@@ -208,24 +232,39 @@ describe('document theme (web)', () => {
       },
     };
     const appended: unknown[] = [];
+    const properties: Record<string, string> = {};
     const doc = {
-      documentElement: { style: { colorScheme: '', backgroundColor: '' } },
+      documentElement: {
+        style: {
+          colorScheme: '',
+          backgroundColor: '',
+          setProperty: (name: string, value: string) => {
+            properties[name] = value;
+          },
+        },
+      },
       body: { style: { backgroundColor: '' } },
       head: { appendChild: (node: unknown) => appended.push(node) },
       querySelector: () => (withMeta ? meta : null),
       createElement: () => meta,
     };
-    return { doc: doc as unknown as ThemedDocument & typeof doc, meta, appended };
+    return { doc: doc as unknown as ThemedDocument & typeof doc, meta, appended, properties };
   }
 
   it.each(Object.entries(palettes) as [ThemeName, Palette][])(
     'paints the page with the %s palette',
     (name, palette) => {
-      const { doc, meta, appended } = fakeDocument(false);
+      const { doc, meta, appended, properties } = fakeDocument(false);
       applyDocumentTheme(doc, name, palette);
       expect(doc.documentElement.style.colorScheme).toBe(name === 'dark' ? 'dark' : 'light');
       expect(doc.documentElement.style.backgroundColor).toBe(palette.background);
       expect(doc.body.style.backgroundColor).toBe(palette.background);
+      // What the template's CSS reads (page background, focus ring) and the scrollbars.
+      expect(properties).toEqual({
+        '--app-background': palette.background,
+        '--app-accent': palette.accent,
+        'scrollbar-color': `${palette.borderStrong} ${palette.background}`,
+      });
       expect(meta.attributes).toEqual({ name: 'theme-color', content: palette.background });
       expect(appended).toEqual([meta]);
     },
@@ -243,23 +282,45 @@ describe('web template and splash', () => {
   const template = readFileSync(join(__dirname, '../../public/index.html'), 'utf8');
   const hex = (value: string) => value.toLowerCase();
 
+  const style = /<style id="app-theme">([\s\S]*?)<\/style>/.exec(template)?.[1] ?? '';
+  const script = /<script id="app-theme-stored">([\s\S]*?)<\/script>/.exec(template)?.[1] ?? '';
+
+  /** The value of a CSS custom property declared in `css` (lower-cased), in order of appearance. */
+  const variables = (css: string, name: string) =>
+    [...css.matchAll(new RegExp(`${name}:\\s*(#[0-9a-f]{6})`, 'gi'))].map((m) => hex(m[1]!));
+
   it('paints the paper and ink backgrounds before JavaScript runs', () => {
-    const style = /<style id="app-theme">([\s\S]*?)<\/style>/.exec(template)?.[1] ?? '';
-    const [light, dark] = [...style.matchAll(/background:\s*(#[0-9a-f]{6})/gi)].map((m) =>
-      hex(m[1]!),
-    );
-    expect(light).toBe(hex(palettes.light.background));
-    expect(dark).toBe(hex(palettes.dark.background));
+    // Light first, then the dark scheme's override inside the media query.
+    expect(variables(style, '--app-background')).toEqual([
+      hex(palettes.light.background),
+      hex(palettes.dark.background),
+    ]);
     expect(style).toContain('prefers-color-scheme: dark');
     expect(template).toContain('<meta name="color-scheme" content="light dark" />');
   });
 
+  it('gives <html> and <body> the same background, so the first paint cannot show two colours', () => {
+    expect(style).toMatch(/html,\s*body\s*\{\s*background:\s*var\(--app-background\);?\s*\}/);
+  });
+
+  it('draws one themed focus ring for keyboard focus, with the accent colour of the scheme', () => {
+    expect(variables(style, '--app-accent')).toEqual([
+      hex(palettes.light.accent),
+      hex(palettes.dark.accent),
+    ]);
+    expect(style).toMatch(/:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--app-accent\)/);
+  });
+
   it('paints a theme chosen in Settings, from the key Settings stores it under', () => {
-    const script = /<script id="app-theme-stored">([\s\S]*?)<\/script>/.exec(template)?.[1] ?? '';
     expect(script).toContain(`'${SETTINGS_KEY}'`);
     for (const name of ['light', 'sepia', 'dark'] as const) {
-      expect(script).toContain(`${name}: '${hex(palettes[name].background)}'`);
+      expect(script).toContain(
+        `${name}: { background: '${hex(palettes[name].background)}', accent: '${hex(palettes[name].accent)}' }`,
+      );
     }
+    // It must reach <body> too, through the variables the stylesheet reads.
+    expect(script).toContain("setProperty('--app-background'");
+    expect(script).toContain("setProperty('--app-accent'");
   });
 
   it('keeps the placeholders Expo fills in', () => {
@@ -279,5 +340,14 @@ describe('web template and splash', () => {
     ) as [string, { backgroundColor: string; dark: { backgroundColor: string } }];
     expect(hex(splash[1].backgroundColor)).toBe(hex(palettes.light.background));
     expect(hex(splash[1].dark.backgroundColor)).toBe(hex(palettes.dark.background));
+  });
+
+  it('puts the adaptive icon on the ink background of the app, not the Expo template colour', () => {
+    const config = jest.requireActual('../../app.config').default as {
+      android?: { adaptiveIcon?: { backgroundColor?: string } };
+    };
+    expect(hex(config.android?.adaptiveIcon?.backgroundColor ?? '')).toBe(
+      hex(palettes.dark.background),
+    );
   });
 });

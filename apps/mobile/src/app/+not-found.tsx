@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
+import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { t } from '@/i18n';
 import { libraryHref } from '@/navigation-hrefs';
@@ -10,7 +11,9 @@ import { libraryHref } from '@/navigation-hrefs';
 export default function NotFoundRoute() {
   return (
     <Screen style={styles.center}>
-      <Stack.Screen options={{ title: t.notFound.title }} />
+      {/* The page says what happened; the header only says where we are (not the same words twice). */}
+      <Stack.Screen options={{ title: t.notFound.title, headerTitle: t.library.title }} />
+      <PageTitle parts={[t.notFound.title]} />
       <AppText variant="title" style={styles.text}>
         {t.notFound.title}
       </AppText>

@@ -29,7 +29,8 @@ const config = {
   android: {
     package: 'ro.biblioteca.app',
     adaptiveIcon: {
-      backgroundColor: '#E6F4FE',
+      // The ink of the app (dark palette); the layers are drawn by scripts/generate-icons.mjs.
+      backgroundColor: '#141311',
       foregroundImage: './assets/images/android-icon-foreground.png',
       backgroundImage: './assets/images/android-icon-background.png',
       monochromeImage: './assets/images/android-icon-monochrome.png',
@@ -54,10 +55,10 @@ const config = {
         // The paper and ink backgrounds of the app (src/theme/palettes.ts).
         backgroundColor: '#FBFAF7',
         image: './assets/images/splash-icon.png',
-        imageWidth: 76,
+        imageWidth: 120,
         dark: {
           backgroundColor: '#141311',
-          image: './assets/images/splash-icon.png',
+          image: './assets/images/splash-icon-dark.png',
         },
       },
     ],

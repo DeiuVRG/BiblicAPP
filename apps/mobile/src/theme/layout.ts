@@ -11,6 +11,13 @@ export type ColumnKind = keyof typeof COLUMN_WIDTH;
 export const GUTTER_NARROW = 24;
 export const GUTTER_WIDE = 40;
 
+/**
+ * Longest line of a secondary paragraph (licence notes, captions) on wide screens: about 90
+ * characters of the 13 px caption face, the top of a comfortable measure. Wider columns hold lists
+ * and metadata, not running text.
+ */
+export const PROSE_MAX_WIDTH = 600;
+
 export interface LayoutMetrics {
   width: number;
   wide: boolean;

@@ -7,6 +7,7 @@ import { useListContentStyle } from '@/components/column';
 import { Hairline } from '@/components/hairline';
 import { HeaderLinks } from '@/components/header-links';
 import { LinkRow } from '@/components/list-row';
+import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import { useContent } from '@/content/content-context';
@@ -49,6 +50,7 @@ export function LibraryScreen() {
   return (
     <Screen>
       <Stack.Screen options={{ title: t.library.title, headerRight: () => <HeaderLinks /> }} />
+      <PageTitle parts={[t.library.title]} />
       {works.status === 'loading' ? <LoadingView message={t.library.loading} /> : null}
       {works.status === 'error' ? <MessageView message={t.common.error} /> : null}
       {works.status === 'ready' ? (

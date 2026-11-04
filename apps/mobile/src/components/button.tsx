@@ -18,6 +18,8 @@ interface Props extends Omit<PressableProps, 'children' | 'style'> {
   variant?: ButtonVariant;
   /** Accessible name; defaults to `title`. */
   label?: string;
+  /** For a button that opens and closes something: whether it is open (`aria-expanded` on web). */
+  expanded?: boolean;
   /** Layout of the button itself (must be a plain style: `Link asChild` merges it). */
   style?: ViewStyle;
   /** Overrides for the title text, for example a different font. */
@@ -28,6 +30,7 @@ export function Button({
   title,
   variant = 'secondary',
   label,
+  expanded,
   disabled,
   style,
   textStyle,
@@ -43,7 +46,12 @@ export function Button({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label ?? title}
-      accessibilityState={{ disabled: !!disabled }}
+      accessibilityState={{
+        disabled: !!disabled,
+        ...(expanded === undefined ? null : { expanded }),
+      }}
+      // react-native-web reads the `aria-*` props only; React Native reads both forms.
+      aria-expanded={expanded}
       disabled={disabled}
       {...hoverProps}
       {...rest}
@@ -58,7 +66,7 @@ export function Button({
               ? undefined
               : hover
                 ? colors.textMuted
-                : colors.border,
+                : colors.borderStrong,
           borderWidth: text ? 0 : 1,
           opacity: disabled ? 0.45 : pressed ? 0.7 : primary && hover ? 0.9 : 1,
         },

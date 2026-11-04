@@ -8,6 +8,7 @@ import { Button } from '@/components/button';
 import { useListContentStyle } from '@/components/column';
 import { Hairline } from '@/components/hairline';
 import { LinkRow } from '@/components/list-row';
+import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import type { WorkDetail } from '@/content/types';
@@ -26,7 +27,8 @@ import { sectionDepths } from '@/reading/navigation';
 import { loadPosition } from '@/reading/position-store';
 import type { ReadingPosition } from '@/reading/position-store';
 import { useStorage } from '@/storage/key-value-store';
-import { useLayout } from '@/theme/layout';
+import { PROSE_MAX_WIDTH, useLayout } from '@/theme/layout';
+import { balancedLines } from '@/theme/web-styles';
 
 /** One row of the two-column metadata block: a label and its value. */
 function MetaRow({ label, value }: { label: string; value: string }) {
@@ -63,7 +65,9 @@ function WorkHeader({
 
   return (
     <View style={styles.header}>
-      <AppText variant="display">{work.titleRo}</AppText>
+      <AppText variant="display" style={balancedLines}>
+        {work.titleRo}
+      </AppText>
       {work.titleOrig !== work.titleRo ? (
         <AppText variant="original">{work.titleOrig}</AppText>
       ) : null}
@@ -156,6 +160,7 @@ export function WorkScreen({ workId }: { workId: string }) {
     <Screen>
       {/* The title page below carries the work's title; the header only says where we are. */}
       <Stack.Screen options={{ title: detail.work.titleRo, headerTitle: t.work.title }} />
+      <PageTitle parts={[detail.work.titleRo]} />
       <FlatList
         data={sections}
         keyExtractor={(section) => section.id}
@@ -199,7 +204,7 @@ const styles = StyleSheet.create({
   metaRow: { flexDirection: 'row', alignItems: 'baseline', gap: 16 },
   metaLabel: { width: 96 },
   metaValue: { flex: 1 },
-  licenceNote: { marginTop: 4 },
+  licenceNote: { marginTop: 4, maxWidth: PROSE_MAX_WIDTH },
   cta: { alignSelf: 'stretch', marginTop: 24 },
   ctaWide: { alignSelf: 'flex-start', width: 320, marginTop: 24 },
   contentsTitle: { marginTop: 32, marginBottom: 8 },

@@ -92,8 +92,9 @@ export const ro = {
     about: 'Despre',
     version: 'Versiunea aplicației',
     content: 'Conținut',
+    // The counts follow the labels, so no word has to agree with a number ("1 verificate").
     packs: (verified: number, rejected: number) =>
-      `Pachete de conținut: ${verified} verificate, ${rejected} respinse.`,
+      `Pachete de conținut verificate: ${verified}. Respinse: ${rejected}.`,
     licenceTitle: 'Licența conținutului',
     licenceNote:
       'Fiecare ediție își declară statutul de licență în pagina lucrării. Textele din domeniul public pot fi citite și copiate liber; pentru celelalte se aplică licența indicată.',

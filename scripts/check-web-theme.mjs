@@ -16,11 +16,18 @@
 //   2. the document's color-scheme and theme-color follow that palette,
 //   3. no visible text is rendered with less than 4.5:1 contrast against what is behind it
 //      (light grey text on a white page is what the bug looked like),
-//   4. the page raised no uncaught error.
+//   4. the page does not scroll sideways and the browser tab is named after the screen,
+//   5. the page raised no uncaught error.
+// Before the app starts (its JavaScript held back) the page must already be painted in the
+// colours of the active theme, pixel by pixel, so there is no flash of the wrong one. Last, per
+// scenario, the semantics the design relies on are checked in the DOM: the themed focus ring, the
+// state of the theme radios (and that the keyboard drives them), the typography button and the
+// progress bar, and that nothing overflows on a narrow phone with the search field or the
+// typography sheet in use.
 // Exits 1 on any failure (a screenshot of the failing state goes to test-results/), 2 on a usage
 // or setup error. Build the export first: pnpm --filter mobile export:web
 
-/* global document, getComputedStyle, matchMedia, innerHeight -- evaluated inside the browser page */
+/* global document, getComputedStyle, matchMedia, innerHeight, innerWidth, Image -- evaluated inside the browser page */
 import { readFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -37,6 +44,7 @@ import {
 const args = parseArgs(process.argv.slice(2), 'theme');
 
 const PHONE = { width: 390, height: 844 };
+const NARROW = { width: 320, height: 640 };
 const DESKTOP = { width: 1280, height: 800 };
 const SETTINGS_KEY = 'biblioteca:settings:v1';
 const MIN_CONTRAST = 4.5;
@@ -62,6 +70,7 @@ const SCENARIOS = [
     stored: 'dark',
     expect: 'dark',
   },
+  { name: 'narrow phone, system light', viewport: NARROW, os: 'light', stored: null, expect: 'light' },
 ];
 
 // --- the palettes -------------------------------------------------------------------------------

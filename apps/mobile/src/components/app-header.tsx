@@ -13,6 +13,13 @@ import { useTheme } from '@/theme/theme-context';
 /** Screens laid out on the narrow reading column: their header lines up with that column too. */
 const READING_SCREENS: ReadonlySet<string> = new Set(['read/[id]/[section]', 'settings']);
 
+/**
+ * Screens whose header carries the name of the work, not the name of the page: it is set as a
+ * quiet running head (muted italic, up to two lines on phones) so that it never competes with the
+ * chapter heading below it or gets cut off mid-word.
+ */
+const RUNNING_TITLE_SCREENS: ReadonlySet<string> = new Set(['read/[id]/[section]']);
+
 /** Space the text buttons add around their text; pulled back so the text meets the column edge. */
 const BUTTON_PAD = 10;
 
@@ -26,7 +33,8 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
   const layout = useLayout();
   const column: ColumnKind = READING_SCREENS.has(route.name) ? 'reading' : 'list';
   const inset = barInset(column, layout);
-  // `headerTitle` is what the header shows; `title` also names the browser tab.
+  const running = RUNNING_TITLE_SCREENS.has(route.name);
+  // `headerTitle` is what the header shows when it differs from the screen's `title`.
   const title =
     typeof options.headerTitle === 'string'
       ? options.headerTitle
@@ -38,10 +46,11 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
   return (
     <View
       accessibilityRole="banner"
+      testID="app-header"
       style={[
         styles.bar,
         {
-          height: layout.wide ? 64 : 56,
+          minHeight: layout.wide ? 64 : 56,
           paddingHorizontal: inset - BUTTON_PAD,
           backgroundColor: colors.background,
           borderBottomColor: colors.border,
@@ -73,7 +82,14 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
         ) : (
           <View style={styles.titleGap} />
         )}
-        <AppText variant="headerTitle" numberOfLines={1} testID="header-title" style={styles.title}>
+        <AppText
+          variant={running ? 'original' : 'headerTitle'}
+          accessibilityRole="header"
+          level={1}
+          numberOfLines={running && !layout.wide ? 2 : 1}
+          testID="header-title"
+          style={styles.title}
+        >
           {title}
         </AppText>
       </View>
@@ -87,12 +103,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingVertical: 6,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   start: { flex: 1, flexDirection: 'row', alignItems: 'center', minWidth: 0 },
   arrow: { paddingHorizontal: BUTTON_PAD },
   arrowText: { fontSize: 20, lineHeight: 24 },
   titleGap: { width: BUTTON_PAD },
-  title: { flexShrink: 1, minWidth: 0 },
+  // The right margin keeps the text inside the gutter, like the arrow and the links on the other side.
+  title: { flexShrink: 1, minWidth: 0, marginRight: BUTTON_PAD },
   end: { flexDirection: 'row', alignItems: 'center', marginLeft: 12 },
 });
