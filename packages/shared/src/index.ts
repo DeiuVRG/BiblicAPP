@@ -23,4 +23,5 @@ export type {
   Section,
   Work,
 } from './schemas';
+export { compareSemver, parseSemver } from './semver';
 export { manifestSigningPayload } from './signing';

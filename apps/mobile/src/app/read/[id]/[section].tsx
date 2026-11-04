@@ -1,11 +1,17 @@
 import { useLocalSearchParams } from 'expo-router';
 
-import { PlaceholderScreen } from '@/components/placeholder-screen';
-import { t } from '@/i18n';
+import { ReaderScreen } from '@/features/reader/reader-screen';
 
-export default function ReaderScreen() {
-  const { id, section } = useLocalSearchParams<{ id: string; section: string }>();
+type Params = { id: string; section: string; p?: string; q?: string };
+
+export default function ReaderRoute() {
+  const { id, section, p, q } = useLocalSearchParams<Params>();
   return (
-    <PlaceholderScreen title={t.reader.title} description={`${t.work.title}: ${id} / ${section}`} />
+    <ReaderScreen
+      workId={String(id ?? '')}
+      sectionId={String(section ?? '')}
+      targetParagraphId={p ? String(p) : undefined}
+      query={q ? String(q) : undefined}
+    />
   );
 }

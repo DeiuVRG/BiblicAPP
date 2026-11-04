@@ -1,6 +1,5 @@
-import { PlaceholderScreen } from '@/components/placeholder-screen';
-import { t } from '@/i18n';
+import { SettingsScreen } from '@/features/settings/settings-screen';
 
-export default function SettingsScreen() {
-  return <PlaceholderScreen title={t.settings.title} />;
+export default function SettingsRoute() {
+  return <SettingsScreen />;
 }

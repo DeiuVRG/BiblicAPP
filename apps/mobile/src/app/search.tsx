@@ -1,6 +1,5 @@
-import { PlaceholderScreen } from '@/components/placeholder-screen';
-import { t } from '@/i18n';
+import { SearchScreen } from '@/features/search/search-screen';
 
-export default function SearchScreen() {
-  return <PlaceholderScreen title={t.search.title} />;
+export default function SearchRoute() {
+  return <SearchScreen />;
 }

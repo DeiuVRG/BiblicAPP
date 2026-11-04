@@ -1,9 +1,8 @@
 import { useLocalSearchParams } from 'expo-router';
 
-import { PlaceholderScreen } from '@/components/placeholder-screen';
-import { t } from '@/i18n';
+import { WorkScreen } from '@/features/work/work-screen';
 
-export default function WorkScreen() {
+export default function WorkRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  return <PlaceholderScreen title={t.work.contents} description={`${t.work.title}: ${id}`} />;
+  return <WorkScreen workId={String(id ?? '')} />;
 }

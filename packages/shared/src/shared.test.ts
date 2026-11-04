@@ -101,3 +101,19 @@ describe('PackManifestSchema', () => {
     expect(payload.startsWith('{"createdAt":')).toBe(true);
   });
 });
+
+describe('compareSemver', () => {
+  it('orders by major, minor and patch', async () => {
+    const { compareSemver } = await import('./index');
+    expect(compareSemver('1.0.0', '1.0.0')).toBe(0);
+    expect(compareSemver('1.2.0', '1.10.0')).toBeLessThan(0);
+    expect(compareSemver('2.0.0', '1.99.99')).toBeGreaterThan(0);
+    expect(compareSemver('0.1.0-beta.1', '0.1.0')).toBe(0);
+  });
+
+  it('rejects malformed versions', async () => {
+    const { compareSemver, parseSemver } = await import('./index');
+    expect(parseSemver('1.2')).toBeNull();
+    expect(() => compareSemver('x', '1.0.0')).toThrow(TypeError);
+  });
+});
