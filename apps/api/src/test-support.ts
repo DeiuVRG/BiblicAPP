@@ -92,9 +92,9 @@ export async function postAsk(
 // ---------------------------------------------------------------------------------------------
 // The real packs, loaded once per test file.
 
-import { buildLibrary } from './library/library';
-import type { Library } from './library/library';
+import { Library, buildLibrary } from './library/library';
 import { loadPacks, loadTrustedKeys } from './library/packs';
+import type { LoadedPack } from './library/packs';
 import { DEFAULT_KEYS_DIR, DEFAULT_PACKS_DIR } from './paths';
 
 let realLibrary: Library | undefined;
@@ -109,6 +109,156 @@ export function loadRealLibrary(): Library {
     realLibrary = buildLibrary(loaded.packs);
   }
   return realLibrary;
+}
+
+/**
+ * A tiny library whose shape does not depend on how far the real translation has got: an English
+ * source edition (`ED-EN`: section `EN-S1` with the paragraphs `EN-P1` to `EN-P3`, and a heading
+ * `EN-H1` before them) and a Romanian translation (`ED-RO`) that renders only `EN-P1` and `EN-P2`.
+ * `EN-P3` therefore exists in the English edition alone, whatever the real packs contain.
+ */
+export function syntheticLibrary(): Library {
+  return new Library(syntheticPacks());
+}
+
+function syntheticPacks(): LoadedPack[] {
+  const text = (name: string): string =>
+    `${name}: the kingdom of God is the supremacy of God in the sphere of saving power.`;
+  const work = {
+    id: 'WORK1',
+    slug: 'synthetic',
+    titleOrig: 'Synthetic',
+    titleRo: 'Sintetic',
+    author: { name: 'A. Author', tradition: 'protestant' },
+    year: 1900,
+  };
+  const licence = { status: 'public-domain' };
+  const english = {
+    work,
+    edition: { id: 'ED-EN', kind: 'source', language: 'en', licence },
+    sections: [{ id: 'EN-S1', ordinal: 0, heading: 'I. One', kind: 'chapter' }],
+    paragraphs: [
+      { id: 'EN-H1', kind: 'heading', ordinal: 0, sectionId: 'EN-S1', text: 'A heading' },
+      { id: 'EN-P1', kind: 'p', ordinal: 1, sectionId: 'EN-S1', text: text('first') },
+      { id: 'EN-P2', kind: 'p', ordinal: 2, sectionId: 'EN-S1', text: text('second') },
+      { id: 'EN-P3', kind: 'p', ordinal: 3, sectionId: 'EN-S1', text: text('third') },
+    ],
+  };
+  const romanian = {
+    work,
+    edition: {
+      id: 'ED-RO',
+      kind: 'translation',
+      language: 'ro',
+      sourceEditionId: 'ED-EN',
+      licence,
+    },
+    sections: [{ id: 'RO-S1', ordinal: 0, heading: 'I. Unu', kind: 'chapter', sourceId: 'EN-S1' }],
+    paragraphs: [
+      {
+        id: 'RO-P1',
+        kind: 'p',
+        ordinal: 1,
+        sectionId: 'RO-S1',
+        sourceId: 'EN-P1',
+        text: 'întâiul',
+      },
+      {
+        id: 'RO-P2',
+        kind: 'p',
+        ordinal: 2,
+        sectionId: 'RO-S1',
+        sourceId: 'EN-P2',
+        text: 'al doilea',
+      },
+    ],
+  };
+  return [
+    {
+      dir: '/synthetic/en',
+      manifest: { packId: 'synthetic-en', revision: 1, version: '1.0.0' },
+      pack: english,
+    },
+    {
+      dir: '/synthetic/ro',
+      manifest: { packId: 'synthetic-ro', revision: 1, version: '1.0.0' },
+      pack: romanian,
+    },
+  ] as unknown as LoadedPack[];
+}
+
+/**
+ * Two works, so that "one work" can be told from "everything": `WORK1` as in `syntheticLibrary()`
+ * (an English source, `ED-EN`, and a partial Romanian translation, `ED-RO`) and `WORK2`, an English
+ * source only (`ED2-EN`: section `EN2-S1` with a heading `EN2-H1` and the paragraphs `EN2-P1` to
+ * `EN2-P3`). Both speak of the kingdom of God, so a question about it finds passages in both until
+ * a scope says otherwise.
+ */
+export function syntheticTwoWorkLibrary(): Library {
+  const work = {
+    id: 'WORK2',
+    slug: 'second',
+    titleOrig: 'Second',
+    titleRo: 'Al doilea',
+    author: { name: 'B. Author', tradition: 'protestant' },
+    year: 1910,
+  };
+  const text = (name: string): string =>
+    `${name}: the kingdom of God is the reign of Christ over the church and the whole world.`;
+  const second = {
+    work,
+    edition: { id: 'ED2-EN', kind: 'source', language: 'en', licence: { status: 'public-domain' } },
+    sections: [{ id: 'EN2-S1', ordinal: 0, heading: 'I. Other', kind: 'chapter' }],
+    paragraphs: [
+      { id: 'EN2-H1', kind: 'heading', ordinal: 0, sectionId: 'EN2-S1', text: 'Another heading' },
+      { id: 'EN2-P1', kind: 'p', ordinal: 1, sectionId: 'EN2-S1', text: text('alpha') },
+      { id: 'EN2-P2', kind: 'p', ordinal: 2, sectionId: 'EN2-S1', text: text('beta') },
+      { id: 'EN2-P3', kind: 'p', ordinal: 3, sectionId: 'EN2-S1', text: text('gamma') },
+    ],
+  };
+  return new Library([
+    ...syntheticPacks(),
+    {
+      dir: '/synthetic/en2',
+      manifest: { packId: 'synthetic-en2', revision: 1, version: '1.0.0' },
+      pack: second,
+    },
+  ] as unknown as LoadedPack[]);
+}
+
+// ---------------------------------------------------------------------------------------------
+// The HTTP application over a library built in memory (no socket, no packs on disk).
+
+import { MockProvider } from './ai/mock';
+import { UsageLedger } from './ask/usage';
+import { AccessGate } from './http/access';
+import { createApp } from './http/app';
+import { DailyQuestionCap } from './http/daily-cap';
+import { Lifecycle } from './http/lifecycle';
+import { TokenBucketLimiter } from './http/rate-limit';
+import { silentLogger } from './logger';
+import { LogHasher } from './privacy';
+
+/**
+ * The application of `createApp` over `library` with the mock provider and silent logs, to be
+ * driven with `app.request(...)`. Settings are those of `testConfig(overrides)`.
+ */
+export function testApp(library: Library, overrides: Record<string, string> = {}) {
+  const config = testConfig(overrides);
+  return createApp({
+    config,
+    library,
+    provider: new MockProvider(),
+    logger: silentLogger,
+    hasher: new LogHasher('test-salt-for-hashes'),
+    ledger: new UsageLedger(),
+    lifecycle: new Lifecycle(),
+    access: new AccessGate(config.accessCodes, { failures: config.accessFailureLimit }),
+    dailyCap: new DailyQuestionCap({ limit: config.dailyQuestionCap, logger: silentLogger }),
+    askLimiter: new TokenBucketLimiter(config.rateLimit.ask),
+    readLimiter: new TokenBucketLimiter(config.rateLimit.read),
+    rejectedPacks: 0,
+  });
 }
 
 // ---------------------------------------------------------------------------------------------

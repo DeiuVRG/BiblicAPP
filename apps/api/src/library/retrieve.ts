@@ -24,7 +24,7 @@ const CITED_WEIGHT = 0.6;
 /** Multiplier for a paragraph in a language other than the one asked in. */
 const OTHER_LANGUAGE_FACTOR = 0.85;
 /** Passages scoring below this share of the best one are dropped. */
-const RELATIVE_CUTOFF = 0.15;
+export const RELATIVE_CUTOFF = 0.15;
 /** How many BM25 leaders per language get the (more expensive) phrase check. */
 const PHRASE_CANDIDATES = 80;
 /** Weight of an adjacent pair of query terms found adjacent in the paragraph. */
@@ -46,6 +46,8 @@ export interface RetrieveOptions {
   limit?: number;
   /** Restrict retrieval, and the aligned versions, to these editions. */
   editionIds?: ReadonlySet<string>;
+  /** Restrict retrieval further to the paragraphs this accepts (for example one section). */
+  filter?: (paragraph: LibraryParagraph) => boolean;
   /** Earlier questions of the dialogue, oldest first. */
   history?: readonly string[];
 }
@@ -127,6 +129,39 @@ function sameLanguage(paragraph: LibraryParagraph, language: Language): boolean 
 }
 
 /**
+ * One passage as the answer shows it: the version in the asked language when it exists (else the
+ * original), with the other versions that `accept` lets through attached, the original first.
+ * `entry` is the paragraph that was found (or chosen); it must be one of the group's paragraphs
+ * and, when `accept` rejects some, one that `accept` lets through.
+ */
+export function assemblePassage(
+  library: Library,
+  entry: LibraryParagraph,
+  language: Language,
+  accept: (paragraph: LibraryParagraph) => boolean,
+  score: number,
+  matchedRefs: readonly string[],
+): RetrievedPassage {
+  const members = (library.groups.get(entry.groupKey) ?? [entry]).filter(accept);
+  const inAskedLanguage = members.filter((member) => sameLanguage(member, language));
+  const original = members.find(
+    (member) => library.editions.get(member.editionId)?.kind === 'source',
+  );
+  const primary =
+    (sameLanguage(entry, language) ? entry : undefined) ?? inAskedLanguage[0] ?? original ?? entry;
+  const rank = (member: LibraryParagraph): number =>
+    library.editions.get(member.editionId)?.kind === 'source'
+      ? 0
+      : sameLanguage(member, language)
+        ? 1
+        : 2;
+  const aligned = members
+    .filter((member) => member.docId !== primary.docId)
+    .sort((a, b) => rank(a) - rank(b) || a.docId - b.docId);
+  return { groupKey: entry.groupKey, score, primary, aligned, matchedRefs: [...matchedRefs] };
+}
+
+/**
  * Finds the passages that answer a question: BM25 over the paragraphs of every installed
  * language, a bonus for adjacent query terms, and a boost for paragraphs that cite the scripture
  * references named in the question. The question is searched as it is in the index of its own
@@ -142,7 +177,8 @@ export function retrieve(
 ): RetrievalResult {
   const limit = options.limit ?? 10;
   const accept = (paragraph: LibraryParagraph): boolean =>
-    options.editionIds === undefined || options.editionIds.has(paragraph.editionId);
+    (options.editionIds === undefined || options.editionIds.has(paragraph.editionId)) &&
+    (options.filter === undefined || options.filter(paragraph));
 
   const parsed = parseReferences(question);
   const wanted: ScriptureRef[] = extractReferences(question);
@@ -241,34 +277,16 @@ export function retrieve(
     const groupKey = entry.paragraph.groupKey;
     if (seen.has(groupKey)) continue;
     seen.add(groupKey);
-
-    const members = (library.groups.get(groupKey) ?? [entry.paragraph]).filter(accept);
-    const inAskedLanguage = members.filter((member) => sameLanguage(member, options.language));
-    const original = members.find(
-      (member) => library.editions.get(member.editionId)?.kind === 'source',
+    passages.push(
+      assemblePassage(
+        library,
+        entry.paragraph,
+        options.language,
+        accept,
+        entry.score,
+        [...entry.matchedRefs].sort(),
+      ),
     );
-    const primary =
-      (sameLanguage(entry.paragraph, options.language) ? entry.paragraph : undefined) ??
-      inAskedLanguage[0] ??
-      original ??
-      entry.paragraph;
-    const rank = (member: LibraryParagraph): number =>
-      library.editions.get(member.editionId)?.kind === 'source'
-        ? 0
-        : sameLanguage(member, options.language)
-          ? 1
-          : 2;
-    const aligned = members
-      .filter((member) => member.docId !== primary.docId)
-      .sort((a, b) => rank(a) - rank(b) || a.docId - b.docId);
-
-    passages.push({
-      groupKey,
-      score: entry.score,
-      primary,
-      aligned,
-      matchedRefs: [...entry.matchedRefs].sort(),
-    });
   }
   return { passages, queryText, queries, refs: wanted, usedHistory };
 }

@@ -1,0 +1,1381 @@
+{
+  "report": "eval-v0",
+  "provider": "mock",
+  "note": "Structural checks with the mock provider, which cites [1] and [2] and quotes the first two sources word for word: sources, valid citations and verified quotations hold by construction and fail only if the pipeline breaks; the expected work and section rates measure retrieval. The gates of docs/roadmap-v2.md 3.3 for the real model (90 % of answers with a valid citation, 95 % without an unverified quotation) need AI_PROVIDER=claude and are not measured here.",
+  "evalSet": {
+    "file": "content/ask/eval-v0.json",
+    "sha256": "052115e9fbb6ac8c10a6b6874c8e51bd76ba9a21d43447e916e86f063cf79b30",
+    "questions": 40
+  },
+  "library": {
+    "packs": [
+      {
+        "packId": "vos-1903-kingdom-en",
+        "revision": 3,
+        "sha256": "457f9a68a18866656728a0ce2527dc80bf8117bb910c0e6712666a73b69c9a34"
+      },
+      {
+        "packId": "vos-1903-kingdom-ro",
+        "revision": 2,
+        "sha256": "3560e14ee2e72e97fd0ec07b56b5db93da15a6e9e2fdae744c04b022c789cafc"
+      }
+    ],
+    "works": 1,
+    "editions": 2,
+    "paragraphs": 139
+  },
+  "summary": {
+    "all": {
+      "questions": 40,
+      "sourcesPresent": {
+        "passed": 40,
+        "total": 40,
+        "rate": 1
+      },
+      "withCitation": {
+        "passed": 40,
+        "total": 40,
+        "rate": 1
+      },
+      "citationsInRange": {
+        "passed": 40,
+        "total": 40,
+        "rate": 1
+      },
+      "quotationsVerified": {
+        "passed": 40,
+        "total": 40,
+        "rate": 1
+      },
+      "expectedWorkHit": {
+        "passed": 40,
+        "total": 40,
+        "rate": 1
+      },
+      "expectedSectionHit": {
+        "passed": 38,
+        "total": 39,
+        "rate": 0.9744
+      },
+      "expectedSectionTop3": {
+        "passed": 35,
+        "total": 39,
+        "rate": 0.8974
+      },
+      "sectionMrr": 0.7979
+    },
+    "ro": {
+      "questions": 20,
+      "sourcesPresent": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "withCitation": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "citationsInRange": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "quotationsVerified": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "expectedWorkHit": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "expectedSectionHit": {
+        "passed": 19,
+        "total": 20,
+        "rate": 0.95
+      },
+      "expectedSectionTop3": {
+        "passed": 17,
+        "total": 20,
+        "rate": 0.85
+      },
+      "sectionMrr": 0.76
+    },
+    "en": {
+      "questions": 20,
+      "sourcesPresent": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "withCitation": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "citationsInRange": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "quotationsVerified": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "expectedWorkHit": {
+        "passed": 20,
+        "total": 20,
+        "rate": 1
+      },
+      "expectedSectionHit": {
+        "passed": 19,
+        "total": 19,
+        "rate": 1
+      },
+      "expectedSectionTop3": {
+        "passed": 18,
+        "total": 19,
+        "rate": 0.9474
+      },
+      "sectionMrr": 0.8377
+    }
+  },
+  "languageGap": {
+    "pairs": 14,
+    "bothHit": 14,
+    "onlyEnglishHit": 0,
+    "onlyRomanianHit": 0,
+    "neitherHit": 0
+  },
+  "gates": [
+    {
+      "name": "sourcesPresent",
+      "meaning": "every question finds at least one passage to answer from",
+      "value": 1,
+      "threshold": 1,
+      "pass": true
+    },
+    {
+      "name": "withCitation",
+      "meaning": "answers with at least one valid citation",
+      "value": 1,
+      "threshold": 0.9,
+      "pass": true
+    },
+    {
+      "name": "quotationsVerified",
+      "meaning": "answers without an unverified quotation",
+      "value": 1,
+      "threshold": 0.95,
+      "pass": true
+    }
+  ],
+  "ok": true,
+  "questions": [
+    {
+      "id": "en-01",
+      "language": "en",
+      "topic": "kingdom-church",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        6,
+        10,
+        0,
+        5
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-02",
+      "language": "en",
+      "topic": "present-future",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        1,
+        3,
+        8,
+        7
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 2,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-03",
+      "language": "en",
+      "topic": "righteousness",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        6,
+        3,
+        5,
+        9
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-04",
+      "language": "en",
+      "topic": "repentance-faith",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        9,
+        10,
+        6,
+        0
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-05",
+      "language": "en",
+      "topic": "old-testament",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        6,
+        7,
+        1,
+        8,
+        10,
+        2,
+        3
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 3,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-06",
+      "language": "en",
+      "topic": "god-or-heaven",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        2,
+        4,
+        0,
+        8,
+        3
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-07",
+      "language": "en",
+      "topic": "fourth-gospel",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        1,
+        3,
+        8,
+        0,
+        5,
+        7,
+        2,
+        9
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 3,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-08",
+      "language": "en",
+      "topic": "wheat-tares",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        3,
+        4,
+        0,
+        9,
+        7
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-09",
+      "language": "en",
+      "topic": "miracles",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        5,
+        3,
+        9
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-10",
+      "language": "en",
+      "topic": "sonship-life",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        7,
+        10,
+        0,
+        8,
+        4
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-11",
+      "language": "en",
+      "topic": "matthew-16-18",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        5,
+        10
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-12",
+      "language": "en",
+      "topic": "reward",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        6
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-13",
+      "language": "en",
+      "topic": "jewish-expectation",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        4,
+        3,
+        6,
+        9
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-14",
+      "language": "en",
+      "topic": "lords-prayer",
+      "sources": 7,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        2,
+        6,
+        4,
+        7,
+        5
+      ],
+      "shown": {
+        "en": 7
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 2,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-15",
+      "language": "en",
+      "topic": "matthew-6-33",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        3,
+        5,
+        6,
+        7,
+        9
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-16",
+      "language": "en",
+      "topic": "binding-loosing",
+      "sources": 7,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        10,
+        5,
+        6
+      ],
+      "shown": {
+        "en": 7
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-17",
+      "language": "en",
+      "topic": "central-claim",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        10,
+        3,
+        0,
+        1,
+        9,
+        5
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": null,
+      "firstExpectedRank": null,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-18",
+      "language": "en",
+      "topic": "holy-spirit",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        0,
+        2,
+        6,
+        5,
+        4,
+        8
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 4,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-19",
+      "language": "en",
+      "topic": "moral-community",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        5,
+        6,
+        3,
+        4,
+        8
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "en-20",
+      "language": "en",
+      "topic": "treasure-pearl",
+      "sources": 2,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        7,
+        6
+      ],
+      "shown": {
+        "en": 2
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-01",
+      "language": "ro",
+      "topic": "kingdom-church",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        10
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-02",
+      "language": "ro",
+      "topic": "present-future",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        1,
+        3,
+        8,
+        2
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 2,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-03",
+      "language": "ro",
+      "topic": "righteousness",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        6,
+        7,
+        3,
+        5
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-04",
+      "language": "ro",
+      "topic": "repentance-faith",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        9,
+        0
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-05",
+      "language": "ro",
+      "topic": "old-testament",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        1,
+        2,
+        5,
+        7,
+        10,
+        6,
+        3
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-06",
+      "language": "ro",
+      "topic": "god-or-heaven",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        4,
+        2,
+        8,
+        0,
+        3,
+        7
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 2,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-07",
+      "language": "ro",
+      "topic": "fourth-gospel",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        1,
+        3,
+        8,
+        0,
+        5,
+        2
+      ],
+      "shown": {
+        "en": 8,
+        "ro": 2
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 3,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-08",
+      "language": "ro",
+      "topic": "wheat-tares",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        3,
+        8,
+        6,
+        4,
+        0,
+        9,
+        7
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-09",
+      "language": "ro",
+      "topic": "miracles",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        5,
+        3,
+        9
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-10",
+      "language": "ro",
+      "topic": "sonship-life",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        7,
+        10,
+        1,
+        8,
+        5,
+        0
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-11",
+      "language": "ro",
+      "topic": "matthew-16-18",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        5,
+        0
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-12",
+      "language": "ro",
+      "topic": "reward",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        6,
+        0,
+        4
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-13",
+      "language": "ro",
+      "topic": "jewish-expectation",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        0,
+        5,
+        7,
+        6,
+        3,
+        9,
+        8
+      ],
+      "shown": {
+        "en": 7,
+        "ro": 3
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 6,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-14",
+      "language": "ro",
+      "topic": "lords-prayer",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        7,
+        2,
+        6,
+        4,
+        9,
+        5,
+        1,
+        8
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-15",
+      "language": "ro",
+      "topic": "matei-6-33",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        3,
+        5,
+        6,
+        7,
+        4,
+        1
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-16",
+      "language": "ro",
+      "topic": "ioan-3-3",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        0,
+        8,
+        1,
+        7,
+        5
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-17",
+      "language": "ro",
+      "topic": "predica-de-pe-munte",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        0,
+        3,
+        5,
+        6,
+        10,
+        9,
+        1
+      ],
+      "shown": {
+        "en": 8,
+        "ro": 2
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 1,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-18",
+      "language": "ro",
+      "topic": "portile-hadesului",
+      "sources": 2,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        4,
+        8
+      ],
+      "shown": {
+        "en": 2
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 2,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-19",
+      "language": "ro",
+      "topic": "concluzia-cartii",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        1,
+        6,
+        0,
+        8,
+        7,
+        5
+      ],
+      "shown": {
+        "en": 9,
+        "ro": 1
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": false,
+      "firstExpectedRank": null,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "ro-20",
+      "language": "ro",
+      "topic": "comunitate-morala",
+      "sources": 10,
+      "works": [
+        "01M6JQPCFFCK900E1P6353MWVK"
+      ],
+      "sections": [
+        8,
+        6,
+        3,
+        4,
+        5
+      ],
+      "shown": {
+        "en": 10
+      },
+      "expectedWorkHit": true,
+      "expectedSectionHit": true,
+      "firstExpectedRank": 5,
+      "citations": 2,
+      "invalidCitations": 0,
+      "quotations": {
+        "checked": 2,
+        "unverified": 0,
+        "uncited": 0
+      },
+      "stopReason": "end_turn"
+    }
+  ]
+}

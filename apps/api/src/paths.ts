@@ -16,3 +16,9 @@ export const DEFAULT_PACKS_DIR = resolve(REPO_ROOT, 'apps/mobile/assets/packs');
 
 /** Pinned public signing keys (`*.pub`). The Docker image sets KEYS_DIR instead. */
 export const DEFAULT_KEYS_DIR = resolve(REPO_ROOT, 'content/keys');
+
+/**
+ * Suggestions and the evaluation set of Ask (`content/ask`). Used by the tests and by the `eval`
+ * script in a checkout; the service itself does not read them and the image does not carry them.
+ */
+export const ASK_CONTENT_DIR = resolve(REPO_ROOT, 'content/ask');

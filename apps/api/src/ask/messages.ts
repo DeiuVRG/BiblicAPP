@@ -49,6 +49,13 @@ export function errorMessage(code: ErrorCode, language: Language): string {
   return MESSAGES[code][language];
 }
 
+/** Said when the global daily question cap is reached (`provider_busy`, with `Retry-After`). */
+export function dailyCapMessage(language: Language): string {
+  return language === 'ro'
+    ? 'S-a atins limita zilnică de întrebări a acestui serviciu. Încearcă din nou după miezul nopții (ora UTC).'
+    : 'The daily limit of questions for this service has been reached. Please try again after midnight UTC.';
+}
+
 /** Said instead of calling the model when retrieval finds nothing: no passage, no answer. */
 export function notCoveredAnswer(language: Language): string {
   return language === 'ro'

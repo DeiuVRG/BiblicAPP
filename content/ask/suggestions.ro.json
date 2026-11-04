@@ -1,0 +1,50 @@
+[
+  {
+    "id": "kingdom-church",
+    "group": "doctrine",
+    "text": "Cum se leagă Împărăția lui Dumnezeu de Biserică?",
+    "scope": "library"
+  },
+  {
+    "id": "present-future",
+    "group": "doctrine",
+    "text": "Este Împărăția lui Dumnezeu deja prezentă sau încă viitoare?",
+    "scope": "library"
+  },
+  {
+    "id": "righteousness",
+    "group": "doctrine",
+    "text": "Ce înseamnă dreptatea în învățătura lui Isus despre Împărăție?",
+    "scope": "library"
+  },
+  {
+    "id": "repentance-faith",
+    "group": "doctrine",
+    "text": "De ce sunt pocăința și credința calea spre Împărăție?",
+    "scope": "library"
+  },
+  {
+    "id": "old-testament",
+    "group": "idea",
+    "text": "Care este fundalul din Vechiul Testament al Împărăției lui Dumnezeu?",
+    "scope": "library"
+  },
+  {
+    "id": "john-synoptics",
+    "group": "idea",
+    "text": "Cum vorbește Evanghelia lui Ioan despre Împărăție, în comparație cu Evangheliile sinoptice?",
+    "scope": "library"
+  },
+  {
+    "id": "sermon-on-the-mount",
+    "group": "passage",
+    "text": "Ce învață Predica de pe Munte despre Împărăție?",
+    "scope": "library"
+  },
+  {
+    "id": "parables",
+    "group": "passage",
+    "text": "Ce ne învață pildele lui Isus despre Împărăție?",
+    "scope": "library"
+  }
+]

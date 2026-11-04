@@ -8,9 +8,11 @@ import type { ClaudeClientLike } from './ai/claude';
 import { MockProvider } from './ai/mock';
 import type { AIProvider } from './ai/provider';
 import { UsageLedger } from './ask/usage';
-import { describeConfig } from './config';
+import { WEAK_ACCESS_CODE_CHARS, describeConfig } from './config';
 import type { Config } from './config';
+import { AccessGate } from './http/access';
 import { createApp } from './http/app';
+import { DailyQuestionCap } from './http/daily-cap';
 import { Lifecycle } from './http/lifecycle';
 import { TokenBucketLimiter } from './http/rate-limit';
 import { buildLibrary } from './library/library';
@@ -131,6 +133,22 @@ export async function startServer(
   const lifecycle = new Lifecycle();
   const hasher = new LogHasher(config.logHashSalt);
   const limiterClock = options.now !== undefined ? { now: options.now } : {};
+  const weakCodes = config.accessCodes.filter((code) => code.length < WEAK_ACCESS_CODE_CHARS);
+  if (weakCodes.length > 0) {
+    // Only how many, never which: a short code is the one a guesser finds, throttled or not.
+    logger.warn('access.weak_codes', { count: weakCodes.length, minChars: WEAK_ACCESS_CODE_CHARS });
+  }
+  if (config.accessCodes.length === 0) {
+    // Nothing to check: anyone who can reach the service may ask. That is the open beta when it is
+    // meant, but an ACCESS_CODE that was set to nothing (a secret nobody filled in) or a paid model
+    // behind it must not go unnoticed, so those are warnings.
+    const mistake = config.accessCodeBlank || provider.name === 'claude';
+    logger[mistake ? 'warn' : 'info']('access.open', {
+      blank: config.accessCodeBlank,
+      provider: provider.name,
+      hint: 'POST /v1/ask is open to anyone who can reach this service; set ACCESS_CODE to close the beta',
+    });
+  }
   const app = createApp({
     config,
     library,
@@ -139,6 +157,11 @@ export async function startServer(
     hasher,
     ledger,
     lifecycle,
+    access: new AccessGate(config.accessCodes, {
+      failures: config.accessFailureLimit,
+      ...limiterClock,
+    }),
+    dailyCap: new DailyQuestionCap({ limit: config.dailyQuestionCap, logger, ...limiterClock }),
     askLimiter: new TokenBucketLimiter({ ...config.rateLimit.ask, ...limiterClock }),
     readLimiter: new TokenBucketLimiter({ ...config.rateLimit.read, ...limiterClock }),
     // Superseded copies of an edition are not a problem; failed verification is.

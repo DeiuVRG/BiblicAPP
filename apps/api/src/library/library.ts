@@ -28,6 +28,12 @@ export interface LibraryParagraph {
   passageId: string;
   /** `workId|passageId`: the key under which the versions of a passage are grouped. */
   groupKey: string;
+  /**
+   * `workId|sectionId` of the section in the source edition (a translation's section carries the
+   * id of the section it renders as `sourceId`), so every language version of a section shares one
+   * key, like `groupKey` does for paragraphs.
+   */
+  sectionKey: string;
   /** Scripture references the paragraph cites. */
   refs: ScriptureRef[];
 }
@@ -72,6 +78,11 @@ export interface LanguageIndex {
 /** Paragraph kinds that can be retrieved; headings are structure, not content. */
 const SEARCHABLE_KINDS: ReadonlySet<Paragraph['kind']> = new Set(['p', 'quote', 'note']);
 
+/** Whether a paragraph is text that can be retrieved and shown as a source (not a heading). */
+export function isSearchable(paragraph: Pick<LibraryParagraph, 'kind'>): boolean {
+  return SEARCHABLE_KINDS.has(paragraph.kind);
+}
+
 function referenceLanguage(language: string): ReferenceLanguage {
   const base = baseLanguage(language);
   return base === 'ro' || base === 'en' ? base : 'any';
@@ -79,9 +90,15 @@ function referenceLanguage(language: string): ReferenceLanguage {
 
 export class Library {
   readonly works: LibraryWork[] = [];
+  /** Work id -> the work with its editions. */
+  readonly worksById = new Map<string, LibraryWork>();
   readonly editions = new Map<string, LibraryEdition>();
   /** Every paragraph of every verified pack, in `docId` order. */
   readonly paragraphs: LibraryParagraph[] = [];
+  /** Paragraph id -> paragraph (ids are unique across editions). */
+  readonly paragraphsById = new Map<string, LibraryParagraph>();
+  /** Section id of an edition -> its paragraphs in reading order (headings included). */
+  readonly sections = new Map<string, LibraryParagraph[]>();
   /** `groupKey` -> the versions of one passage across editions. */
   readonly groups = new Map<string, LibraryParagraph[]>();
   /** Base language -> BM25 index over that language's searchable paragraphs. */
@@ -92,17 +109,15 @@ export class Library {
 
   constructor(packs: readonly LoadedPack[]) {
     this.packCount = packs.length;
-    const worksById = new Map<string, LibraryWork>();
-    const seenParagraphIds = new Set<string>();
     const byLanguage = new Map<string, LibraryParagraph[]>();
 
     for (const loaded of packs) {
       const { pack, manifest } = loaded;
       const sections = new Map(pack.sections.map((section) => [section.id, section]));
-      let entry = worksById.get(pack.work.id);
+      let entry = this.worksById.get(pack.work.id);
       if (entry === undefined) {
         entry = { work: pack.work, editions: [] };
-        worksById.set(pack.work.id, entry);
+        this.worksById.set(pack.work.id, entry);
         this.works.push(entry);
       }
       const edition: LibraryEdition = {
@@ -127,8 +142,7 @@ export class Library {
       for (const paragraph of pack.paragraphs) {
         // Ids are unique across editions by construction (ADR-012); a clash would make citations
         // ambiguous, so the later paragraph is ignored.
-        if (seenParagraphIds.has(paragraph.id)) continue;
-        seenParagraphIds.add(paragraph.id);
+        if (this.paragraphsById.has(paragraph.id)) continue;
         const section = sections.get(paragraph.sectionId);
         const libraryParagraph: LibraryParagraph = {
           docId: this.paragraphs.length,
@@ -144,12 +158,18 @@ export class Library {
           text: paragraph.text,
           passageId: paragraph.sourceId ?? paragraph.id,
           groupKey: `${pack.work.id}|${paragraph.sourceId ?? paragraph.id}`,
+          sectionKey: `${pack.work.id}|${section?.sourceId ?? paragraph.sectionId}`,
           refs: SEARCHABLE_KINDS.has(paragraph.kind)
             ? extractReferences(paragraph.text, { language: referenceLanguage(edition.language) })
             : [],
         };
         this.paragraphs.push(libraryParagraph);
+        this.paragraphsById.set(libraryParagraph.id, libraryParagraph);
         edition.paragraphs.push(libraryParagraph);
+        const inSection = this.sections.get(libraryParagraph.sectionId);
+        if (inSection === undefined)
+          this.sections.set(libraryParagraph.sectionId, [libraryParagraph]);
+        else inSection.push(libraryParagraph);
         const group = this.groups.get(libraryParagraph.groupKey);
         if (group === undefined) this.groups.set(libraryParagraph.groupKey, [libraryParagraph]);
         else group.push(libraryParagraph);
@@ -166,6 +186,9 @@ export class Library {
         }
       }
     }
+
+    // Reading order does not depend on the order the pack lists its paragraphs in.
+    for (const inSection of this.sections.values()) inSection.sort((a, b) => a.ordinal - b.ordinal);
 
     for (const [language, paragraphs] of byLanguage) {
       const analyzer = getAnalyzer(language);
@@ -205,4 +228,17 @@ export class Library {
 
 export function buildLibrary(packs: readonly LoadedPack[]): Library {
   return new Library(packs);
+}
+
+/**
+ * The ordinal (from 0) of the section a paragraph belongs to in the source edition of its
+ * passage: the same number for every language version of the passage, whichever edition the
+ * paragraph is in (a translation that covers only some sections numbers them by itself).
+ */
+export function sourceSectionOrdinal(library: Library, paragraph: LibraryParagraph): number {
+  const members = library.groups.get(paragraph.groupKey) ?? [paragraph];
+  const source = members.find(
+    (member) => library.editions.get(member.editionId)?.kind === 'source',
+  );
+  return (source ?? paragraph).sectionOrdinal;
 }

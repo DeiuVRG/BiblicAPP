@@ -56,6 +56,8 @@ describe('the Docker build context', () => {
     for (const file of [
       'content/keys/dev.key',
       'content/keys/anything.key',
+      'content/ask/eval-v0.json',
+      'content/ask/suggestions.en.json',
       'apps/api/.env',
       'apps/api/.env.local',
       '.env',
@@ -274,5 +276,13 @@ describe('secrets and documentation', () => {
 
   it('leaves the API key empty in .env.example', () => {
     expect(read('apps/api/.env.example')).toMatch(/^# ANTHROPIC_API_KEY=$/m);
+  });
+
+  it('keeps the tester access code a secret: not in .env.example, fly.toml or the image', () => {
+    expect(ENV_NAMES).toContain('ACCESS_CODE');
+    expect(read('apps/api/.env.example')).toMatch(/^# ACCESS_CODE=$/m);
+    expect(read('apps/api/fly.toml')).not.toMatch(/^\s*ACCESS_CODE\s*=/m);
+    expect(read('apps/api/Dockerfile')).not.toMatch(/^\s*(ENV\s+)?ACCESS_CODE\s*=/m);
+    expect(read('.github/workflows/api-deploy.yml')).not.toMatch(/ACCESS_CODE\s*[:=]\s*\S/);
   });
 });

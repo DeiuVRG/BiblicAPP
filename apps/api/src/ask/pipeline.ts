@@ -1,11 +1,14 @@
 import { performance } from 'node:perf_hooks';
 
-import { CitationTracker, verifyQuotations } from '../ai/citations';
+import { CitationTracker, verifyQuotationsByCitation } from '../ai/citations';
+import type { UnverifiedQuotation } from '../ai/citations';
 import { MAX_HISTORY_TURNS, buildPrompt } from '../ai/prompt';
 import { ProviderError } from '../ai/provider';
 import type { AIProvider, StopReason } from '../ai/provider';
+import { retrieveWithPassage } from '../library/passage';
 import { retrieve } from '../library/retrieve';
-import type { Library } from '../library/library';
+import type { RetrievalResult } from '../library/retrieve';
+import type { Library, LibraryParagraph } from '../library/library';
 import type { Logger } from '../logger';
 import type { LogHasher } from '../privacy';
 import type { Citation, ConversationTurn, Language, Source, Usage } from '../types';
@@ -19,7 +22,10 @@ export interface AskRequest {
   question: string;
   language: Language;
   conversation: ConversationTurn[];
+  /** Restrict retrieval to these editions (already checked against the library). */
   editionIds?: string[] | undefined;
+  /** The paragraph the question is about (already checked against the library): see `retrieveWithPassage`. */
+  passage?: LibraryParagraph | undefined;
 }
 
 export interface AskDeps {
@@ -36,6 +42,11 @@ export interface AskContext {
   clientHash: string;
   /** Aborted with 'client', 'deadline' or 'shutdown'. */
   signal: AbortSignal;
+  /**
+   * Called, before anything is sent, when the question ends without a model call because nothing
+   * in the library matched (the daily question cap gives the question back).
+   */
+  onNoModelCall?: (() => void) | undefined;
 }
 
 export interface DonePayload {
@@ -48,8 +59,20 @@ export interface DonePayload {
   stopReason: StopReason | 'not_covered';
   /** `[n]` markers that pointed outside the sources. */
   invalidCitations: number;
-  /** Quotation marks in the answer: how many were checked and how many are not in the sources. */
-  quotations: { checked: number; unverified: number };
+  /**
+   * The quotations of the answer (text between quotation marks, 20 characters or more), each
+   * checked against the sources its sentence cites (all sources when it cites none).
+   */
+  quotations: {
+    /** How many were checked. */
+    checked: number;
+    /** How many are not word for word in the sources they were checked against. */
+    unverified: number;
+    /** How many sat in a sentence that cites no source and were checked against all of them. */
+    uncited: number;
+    /** The unverified ones, with the sentence that holds them. */
+    unverifiedItems: UnverifiedQuotation[];
+  };
 }
 
 export interface AskError {
@@ -99,20 +122,28 @@ export async function* runAsk(
     language,
     provider: provider.name,
     turns: request.conversation.length,
+    scoped: request.editionIds !== undefined,
+    passage: request.passage !== undefined,
   };
 
   const priorQuestions = request.conversation
     .slice(-MAX_HISTORY_TURNS)
     .filter((turn) => turn.role === 'user')
     .map((turn) => turn.content);
-  const retrieval = retrieve(library, request.question, {
+  const retrievalOptions = {
     language,
     history: priorQuestions,
     ...(request.editionIds !== undefined ? { editionIds: new Set(request.editionIds) } : {}),
-  });
+  };
+  const retrieval: RetrievalResult & { attached?: boolean } =
+    request.passage !== undefined
+      ? retrieveWithPassage(library, request.question, request.passage, retrievalOptions)
+      : retrieve(library, request.question, retrievalOptions);
   const promptSources = buildSources(library, retrieval, language);
   const sources = promptSources.map((entry) => entry.source);
   const retrievalMs = Math.round(performance.now() - started);
+  // No passage, no answer, and no model call to count against the daily cap.
+  if (promptSources.length === 0) context.onNoModelCall?.();
   yield { type: 'sources', sources };
 
   // No passage, no answer: say so without spending a model call.
@@ -126,7 +157,7 @@ export async function* runAsk(
         requestId: context.requestId,
         stopReason: 'not_covered',
         invalidCitations: 0,
-        quotations: { checked: 0, unverified: 0 },
+        quotations: { checked: 0, unverified: 0, uncited: 0, unverifiedItems: [] },
       },
     };
     logger.info('ask.completed', {
@@ -144,6 +175,8 @@ export async function* runAsk(
     question: request.question,
     history: request.conversation,
     sources: promptSources,
+    // The attached passage comes first (retrieveWithPassage), so it is document 1.
+    ...(retrieval.attached === true ? { attachedIndex: 1 } : {}),
   });
   const tracker = new CitationTracker(sources.length);
   const generator = provider.generate({
@@ -180,13 +213,14 @@ export async function* runAsk(
       return;
     }
 
-    const quotations = verifyQuotations(tracker.answer, promptSources);
+    const quotations = verifyQuotationsByCitation(tracker.answer, promptSources);
     if (quotations.unverified.length > 0) {
       // Logged by count only: the text of an answer can echo the question.
       logger.warn('ask.unverified_quotations', {
         ...base,
         count: quotations.unverified.length,
         checked: quotations.checked,
+        uncited: quotations.uncited,
       });
     }
     ledger.record(result.usage);
@@ -196,7 +230,12 @@ export async function* runAsk(
       requestId: context.requestId,
       stopReason: result.stopReason,
       invalidCitations: tracker.invalidMarkers,
-      quotations: { checked: quotations.checked, unverified: quotations.unverified.length },
+      quotations: {
+        checked: quotations.checked,
+        unverified: quotations.unverified.length,
+        uncited: quotations.uncited,
+        unverifiedItems: quotations.unverified,
+      },
     };
     if (result.providerRequestId !== undefined) done.providerRequestId = result.providerRequestId;
     yield { type: 'done', done };
@@ -216,6 +255,7 @@ export async function* runAsk(
       invalidCitations: tracker.invalidMarkers,
       quotationsChecked: quotations.checked,
       quotationsUnverified: quotations.unverified.length,
+      quotationsUncited: quotations.uncited,
       ...result.usage,
     });
   } catch (error) {

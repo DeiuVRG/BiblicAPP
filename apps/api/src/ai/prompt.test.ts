@@ -87,6 +87,34 @@ describe('buildPrompt', () => {
     expect(content.trimEnd().endsWith('<question>\nWhat is the kingdom?\n</question>')).toBe(true);
   });
 
+  it('says which document the person selected, in the language of the answer, and only then', () => {
+    const sources = [entry(), entry({ paragraphId: 'PARA2' }, { text: 'Second text.' })];
+    const plain = buildPrompt({ language: 'en', question: 'What?', history: [], sources });
+    expect(plain.messages[0]!.content).not.toContain('selected_passage');
+    const en = buildPrompt({
+      language: 'en',
+      question: 'What does this mean?',
+      history: [],
+      sources,
+      attachedIndex: 1,
+    }).messages[0]!.content;
+    expect(en).toContain(
+      '<selected_passage>The person selected document 1 in the library and the question is about it.',
+    );
+    // Between the documents and the question, so that the question stays last.
+    expect(en.indexOf('</documents>')).toBeLessThan(en.indexOf('<selected_passage>'));
+    expect(en.indexOf('</selected_passage>')).toBeLessThan(en.indexOf('<question>'));
+    expect(en.trimEnd().endsWith('<question>\nWhat does this mean?\n</question>')).toBe(true);
+    const ro = buildPrompt({
+      language: 'ro',
+      question: 'Ce înseamnă?',
+      history: [],
+      sources,
+      attachedIndex: 1,
+    }).messages[0]!.content;
+    expect(ro).toContain('<selected_passage>Persoana a ales documentul 1 din bibliotecă');
+  });
+
   it('gives the model both versions of a translated passage', () => {
     const translated = entry(
       { language: 'ro', kind: 'translation', tradition: 'protestant' },

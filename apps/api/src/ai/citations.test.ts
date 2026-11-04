@@ -5,8 +5,11 @@ import {
   CitationTracker,
   extractQuotations,
   findCitations,
+  findQuotations,
+  splitSentences,
   stripMarkers,
   verifyQuotations,
+  verifyQuotationsByCitation,
 } from './citations';
 
 /** Feeds `text` to a tracker in pieces of the given sizes (cycled). */
@@ -218,5 +221,197 @@ describe('quotations', () => {
       verifyQuotations('„Împărăția lui Dumnezeu este supremația lui Dumnezeu”', translated)
         .unverified,
     ).toEqual([]);
+  });
+});
+
+describe('findQuotations', () => {
+  it('tells where each quotation sits, marks included', () => {
+    const answer = 'He said "one thing" and „alta” too.';
+    const found = findQuotations(answer);
+    expect(found.map((quote) => quote.text)).toEqual(['one thing', 'alta']);
+    expect(answer[found[0]!.start]).toBe('"');
+    expect(answer[found[0]!.end]).toBe('"');
+    expect(answer.slice(found[1]!.start, found[1]!.end + 1)).toBe('„alta”');
+  });
+});
+
+describe('splitSentences', () => {
+  const cut = (answer: string): string[] =>
+    splitSentences(answer).map((sentence) => answer.slice(sentence.start, sentence.end).trim());
+
+  it('cuts after . ! ? and … when a new sentence starts, and at line breaks', () => {
+    expect(cut('It is near. Is it here? It is! Yes… But later.\nNext line')).toEqual([
+      'It is near.',
+      'Is it here?',
+      'It is!',
+      'Yes…',
+      'But later.',
+      'Next line',
+    ]);
+    expect(cut('')).toEqual([]);
+    expect(cut('   \n  ')).toEqual([]);
+  });
+
+  it('does not cut after an abbreviation, an initial, a verse reference or inside a number', () => {
+    expect(cut('Paul met St. Peter in Antioch. Then he left.')).toEqual([
+      'Paul met St. Peter in Antioch.',
+      'Then he left.',
+    ]);
+    expect(cut('G. Vos wrote it. Next.')).toEqual(['G. Vos wrote it.', 'Next.']);
+    expect(cut('See Matt. 4:17 and Mat. 6:33. Then rest.')).toEqual([
+      'See Matt. 4:17 and Mat. 6:33.',
+      'Then rest.',
+    ]);
+    expect(cut('Pi is 3.14 roughly. Done.')).toEqual(['Pi is 3.14 roughly.', 'Done.']);
+    expect(cut('It is near, i.e. here. Done.')).toEqual(['It is near, i.e. here.', 'Done.']);
+    expect(cut('Some, e.g. Ritschl, disagree [2]. Done.')).toEqual([
+      'Some, e.g. Ritschl, disagree [2].',
+      'Done.',
+    ]);
+  });
+
+  it('does not cut inside a quotation, and keeps citation markers with the sentence they follow', () => {
+    expect(cut('He wrote "First idea. Second idea!" and left. Then more [1].')).toEqual([
+      'He wrote "First idea. Second idea!" and left.',
+      'Then more [1].',
+    ]);
+    expect(cut('Works follow. [2] Then rest. [1][3] End.')).toEqual([
+      'Works follow. [2]',
+      'Then rest. [1][3]',
+      'End.',
+    ]);
+  });
+
+  it('ends the sentence at a quotation that ends with its own full stop', () => {
+    expect(cut('He said "it is near." Then he left [1].')).toEqual([
+      'He said "it is near."',
+      'Then he left [1].',
+    ]);
+    // ...but not when the sentence goes on in lower case.
+    expect(cut('"It is near." says Vos [1]. Done.')).toEqual([
+      '"It is near." says Vos [1].',
+      'Done.',
+    ]);
+  });
+});
+
+describe('verifyQuotationsByCitation', () => {
+  const first =
+    'The kingdom of God is the supremacy of God in the sphere of saving power, and nothing else.';
+  const second =
+    'Repentance is a change of mind that turns the whole person away from sin towards God himself.';
+  const sources = [source(first), source(second)];
+
+  it('accepts a quotation found in the source its sentence cites', () => {
+    const answer =
+      'Vos writes "the supremacy of God in the sphere of saving power" [1]. ' +
+      'He adds that "a change of mind that turns the whole person away from sin" [2].';
+    expect(verifyQuotationsByCitation(answer, sources)).toEqual({
+      checked: 2,
+      uncited: 0,
+      unverified: [],
+    });
+  });
+
+  it('catches a quotation that is in the sources but not in the one its sentence cites', () => {
+    const answer = 'Vos writes "the supremacy of God in the sphere of saving power" [2].';
+    // The old check looked at every source and was satisfied...
+    expect(verifyQuotations(answer, sources).unverified).toEqual([]);
+    // ...this one looks at source 2 only.
+    const result = verifyQuotationsByCitation(answer, sources);
+    expect(result.checked).toBe(1);
+    expect(result.uncited).toBe(0);
+    expect(result.unverified).toEqual([
+      {
+        text: 'the supremacy of God in the sphere of saving power',
+        sentence: 0,
+        offset: answer.indexOf('"'),
+        cited: [2],
+      },
+    ]);
+  });
+
+  it('checks the quotations of a sentence against all the sources that sentence cites', () => {
+    const answer =
+      'He says "the supremacy of God in the sphere of saving power" and ' +
+      '"a change of mind that turns the whole person away from sin" [1, 2].';
+    expect(verifyQuotationsByCitation(answer, sources).unverified).toEqual([]);
+    const ranged = answer.replace('[1, 2]', '[1-2]');
+    expect(verifyQuotationsByCitation(ranged, sources).unverified).toEqual([]);
+    // One marker is not enough for a sentence that quotes both.
+    const only = answer.replace('[1, 2]', '[1]');
+    const result = verifyQuotationsByCitation(only, sources);
+    expect(result.unverified.map((quote) => quote.text)).toEqual([
+      'a change of mind that turns the whole person away from sin',
+    ]);
+    expect(result.unverified[0]!.cited).toEqual([1]);
+  });
+
+  it('falls back to all the sources for a sentence that cites none, and says so', () => {
+    const answer =
+      'Vos writes "the supremacy of God in the sphere of saving power". It matters [1]. ' +
+      'Elsewhere "a quotation that no source contains at all, anywhere" appears.';
+    const result = verifyQuotationsByCitation(answer, sources);
+    expect(result.checked).toBe(2);
+    expect(result.uncited).toBe(2);
+    expect(result.unverified).toHaveLength(1);
+    expect(result.unverified[0]).toMatchObject({ sentence: 2, cited: [] });
+    // A marker that names no source does not count as a citation either.
+    const invalid = verifyQuotationsByCitation(
+      'He writes "the supremacy of God in the sphere of saving power" [9][0].',
+      sources,
+    );
+    expect(invalid).toMatchObject({ checked: 1, uncited: 1, unverified: [] });
+  });
+
+  it('takes a marker that follows the full stop as the citation of the sentence before it', () => {
+    const answer = 'Vos writes "the supremacy of God in the sphere of saving power". [2] Next [1].';
+    expect(verifyQuotationsByCitation(answer, sources).unverified).toMatchObject([
+      { sentence: 0, cited: [2] },
+    ]);
+  });
+
+  it('keeps a quotation of several sentences whole and checks it with the sentence that holds it', () => {
+    const long = source(
+      'Faith is a conviction. It also involves the recognition of the willingness of God to save.',
+    );
+    const answer =
+      'He explains "Faith is a conviction. It also involves the recognition of the willingness of God" [1].';
+    expect(verifyQuotationsByCitation(answer, [long]).unverified).toEqual([]);
+    expect(verifyQuotationsByCitation(answer, [long, ...sources]).checked).toBe(1);
+  });
+
+  it('accepts text from the original of a translated source when that source is cited', () => {
+    const translated = [
+      source('Împărăția lui Dumnezeu este supremația lui Dumnezeu.', first),
+      ...sources,
+    ];
+    const answer = 'Vos writes "supremacy of God in the sphere of saving power" [1].';
+    expect(verifyQuotationsByCitation(answer, translated).unverified).toEqual([]);
+    expect(
+      verifyQuotationsByCitation('„supremația lui Dumnezeu” [1]. Apoi încă ceva.', translated),
+    ).toMatchObject({ checked: 1, unverified: [] });
+  });
+
+  it('leaves short quoted terms alone and reports nothing for an answer without quotations', () => {
+    expect(verifyQuotationsByCitation('The word "kingdom" matters [1].', sources)).toEqual({
+      checked: 0,
+      uncited: 0,
+      unverified: [],
+    });
+    expect(verifyQuotationsByCitation('No quotes here [1].', sources)).toEqual({
+      checked: 0,
+      uncited: 0,
+      unverified: [],
+    });
+  });
+
+  it('reports where the quotation is: its sentence and the position of its opening mark', () => {
+    const answer =
+      'First a plain sentence [1]. Then Vos writes "a made up line that is nowhere in any source" [2].';
+    const [item] = verifyQuotationsByCitation(answer, sources).unverified;
+    expect(item).toMatchObject({ sentence: 1, cited: [2] });
+    expect(answer.slice(item!.offset, item!.offset + 1)).toBe('"');
+    expect(answer.slice(item!.offset + 1, item!.offset + 6)).toBe('a mad');
   });
 });

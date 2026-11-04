@@ -28,6 +28,10 @@ describe('loadConfig defaults', () => {
       providerMaxRetries: 2,
       askDeadlineMs: 120_000,
       trustProxy: 'none',
+      accessCodes: [],
+      accessCodeBlank: false,
+      accessFailureLimit: { capacity: 20, windowMs: 600_000 },
+      dailyQuestionCap: 0,
       maxBodyBytes: 65_536,
       requestTimeoutMs: 15_000,
       headersTimeoutMs: 10_000,
@@ -73,6 +77,10 @@ describe('loadConfig overrides', () => {
       RATE_LIMIT_READ_MAX: '50',
       RATE_LIMIT_READ_WINDOW_SECONDS: '10',
       TRUST_PROXY: 'fly',
+      ACCESS_CODE: 'alpha-code, beta-code',
+      ACCESS_FAILURE_MAX: '5',
+      ACCESS_FAILURE_WINDOW_SECONDS: '120',
+      DAILY_QUESTION_CAP: '250',
       MAX_BODY_BYTES: '2048',
       REQUEST_TIMEOUT_MS: '5000',
       HEADERS_TIMEOUT_MS: '2000',
@@ -101,6 +109,10 @@ describe('loadConfig overrides', () => {
         read: { capacity: 50, windowMs: 10_000 },
       },
       trustProxy: 'fly',
+      accessCodes: ['alpha-code', 'beta-code'],
+      accessCodeBlank: false,
+      accessFailureLimit: { capacity: 5, windowMs: 120_000 },
+      dailyQuestionCap: 250,
       maxBodyBytes: 2048,
       requestTimeoutMs: 5000,
       headersTimeoutMs: 2000,
@@ -217,6 +229,83 @@ describe('loadConfig errors', () => {
     ).not.toThrow();
   });
 
+  it('reads the access codes: one or several, trimmed, without duplicates', () => {
+    expect(loadConfig({ ACCESS_CODE: 'one-code' }).accessCodes).toEqual(['one-code']);
+    expect(loadConfig({ ACCESS_CODE: ' a1 ,b2,,  c3 , a1 ' }).accessCodes).toEqual([
+      'a1',
+      'b2',
+      'c3',
+    ]);
+    // Empty counts as unset: the beta is open.
+    expect(loadConfig({ ACCESS_CODE: '' }).accessCodes).toEqual([]);
+    expect(loadConfig({ ACCESS_CODE: '   ' }).accessCodes).toEqual([]);
+    expect(loadConfig({ ACCESS_CODE: 'x'.repeat(128) }).accessCodes).toHaveLength(1);
+  });
+
+  it('notes an ACCESS_CODE that is set but empty: an open beta that nobody asked for, most likely', () => {
+    // Empty counts as unset (the beta is open), but the difference between "never set" and "set to
+    // nothing" is kept, so that start-up can warn about the second (`access.open`).
+    for (const blank of ['', '   ', '\t']) {
+      const config = loadConfig({ ACCESS_CODE: blank });
+      expect(config.accessCodes, JSON.stringify(blank)).toEqual([]);
+      expect(config.accessCodeBlank, JSON.stringify(blank)).toBe(true);
+    }
+    expect(loadConfig({}).accessCodeBlank).toBe(false);
+    expect(loadConfig({ ACCESS_CODE: 'one-code' }).accessCodeBlank).toBe(false);
+    // A value of only separators is still an error, not a blank: it was written on purpose.
+    expect(() => loadConfig({ ACCESS_CODE: ',' })).toThrow(ConfigError);
+  });
+
+  it('keeps the allowance of wrong codes within sane bounds', () => {
+    for (const [name, bad] of [
+      ['ACCESS_FAILURE_MAX', '0'],
+      ['ACCESS_FAILURE_MAX', '-1'],
+      ['ACCESS_FAILURE_MAX', '1.5'],
+      ['ACCESS_FAILURE_MAX', 'many'],
+      ['ACCESS_FAILURE_MAX', '100001'],
+      ['ACCESS_FAILURE_WINDOW_SECONDS', '0'],
+      ['ACCESS_FAILURE_WINDOW_SECONDS', '86401'],
+      ['ACCESS_FAILURE_WINDOW_SECONDS', 'soon'],
+    ] as const) {
+      expect(
+        problems({ [name]: bad }).some((issue) => issue.startsWith(`${name}:`)),
+        `${name}=${bad}`,
+      ).toBe(true);
+    }
+    expect(loadConfig({ ACCESS_FAILURE_MAX: '1' }).accessFailureLimit.capacity).toBe(1);
+    expect(loadConfig({ ACCESS_FAILURE_MAX: '' }).accessFailureLimit.capacity).toBe(20);
+    expect(loadConfig({ ACCESS_FAILURE_WINDOW_SECONDS: '86400' }).accessFailureLimit.windowMs).toBe(
+      86_400_000,
+    );
+  });
+
+  it('refuses access codes that cannot travel in a header, without repeating them', () => {
+    for (const bad of ['has space in it', 'tab\tcode', 'accént-code', 'x'.repeat(129)]) {
+      const issues = problems({ ACCESS_CODE: bad });
+      expect(issues, bad).toEqual([expect.stringContaining('ACCESS_CODE:')]);
+      expect(issues.join('\n'), bad).not.toContain(bad);
+    }
+    // One bad code among good ones is still a mistake.
+    expect(problems({ ACCESS_CODE: 'good-code, bad code' })).toHaveLength(1);
+    // A value that lists no code must not quietly leave the beta open.
+    expect(problems({ ACCESS_CODE: ' , ,' })).toEqual([
+      expect.stringContaining('ACCESS_CODE: lists no code'),
+    ]);
+  });
+
+  it('refuses a daily cap that is not a whole number of questions', () => {
+    for (const bad of ['-1', '1.5', 'many', '1000001']) {
+      expect(
+        problems({ DAILY_QUESTION_CAP: bad }).some((issue) =>
+          issue.startsWith('DAILY_QUESTION_CAP:'),
+        ),
+        bad,
+      ).toBe(true);
+    }
+    expect(loadConfig({ DAILY_QUESTION_CAP: '0' }).dailyQuestionCap).toBe(0);
+    expect(loadConfig({ DAILY_QUESTION_CAP: '' }).dailyQuestionCap).toBe(0);
+  });
+
   it('lists all problems at once in the error message and never prints the key', () => {
     try {
       loadConfig({
@@ -246,6 +335,25 @@ describe('describeConfig', () => {
     expect(text).not.toContain('super-secret-key-value');
     expect(text).not.toContain('salt-salt-salt');
     expect(text).toContain('"anthropicApiKeySet":true');
+  });
+
+  it('hides the access codes and says only whether the beta is closed', () => {
+    const shown = describeConfig(loadConfig({ ACCESS_CODE: 'tester-code-1234, other-code-5678' }));
+    const text = JSON.stringify(shown);
+    expect(text).not.toContain('tester-code-1234');
+    expect(text).not.toContain('other-code-5678');
+    expect(shown).not.toHaveProperty('accessCodes');
+    expect(shown.accessCodeCount).toBe(2);
+    expect(describeConfig(loadConfig({})).accessCodeCount).toBe(0);
+  });
+
+  it('shows that an empty ACCESS_CODE was seen, and the allowance of wrong codes', () => {
+    const shown = describeConfig(loadConfig({ ACCESS_CODE: '  ', ACCESS_FAILURE_MAX: '7' }));
+    expect(shown).toMatchObject({
+      accessCodeCount: 0,
+      accessCodeBlank: true,
+      accessFailureLimit: { capacity: 7, windowMs: 600_000 },
+    });
   });
 
   it('shows the base URL of the model API without user info, query or fragment', () => {

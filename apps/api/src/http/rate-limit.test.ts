@@ -68,6 +68,50 @@ describe('TokenBucketLimiter', () => {
   });
 });
 
+describe('TokenBucketLimiter.peek', () => {
+  it('says what take would answer without using a token', () => {
+    const time = clock();
+    const limiter = new TokenBucketLimiter({ capacity: 2, windowMs: 60_000, now: time.now });
+    for (let i = 0; i < 5; i += 1) expect(limiter.peek('a')).toMatchObject({ allowed: true });
+    // Looking never used a token: both are still there.
+    expect(limiter.take('a').allowed).toBe(true);
+    expect(limiter.take('a').allowed).toBe(true);
+    expect(limiter.peek('a')).toMatchObject({ allowed: false, remaining: 0, limit: 2 });
+    expect(limiter.take('a').allowed).toBe(false);
+  });
+
+  it('reports the wait, and follows the refill', () => {
+    const time = clock();
+    const limiter = new TokenBucketLimiter({ capacity: 2, windowMs: 60_000, now: time.now });
+    limiter.take('a');
+    limiter.take('a');
+    expect(limiter.peek('a').retryAfterSeconds).toBe(30); // 2 per 60 s: one token every 30 s
+    time.advance(10_000);
+    expect(limiter.peek('a').retryAfterSeconds).toBe(20);
+    time.advance(20_000);
+    expect(limiter.peek('a')).toMatchObject({ allowed: true, retryAfterSeconds: 0, remaining: 0 });
+  });
+
+  it('counts the remaining requests like take does', () => {
+    const limiter = new TokenBucketLimiter({ capacity: 20, windowMs: 600_000, now: clock().now });
+    expect(limiter.peek('a').remaining).toBe(19); // a full bucket, minus the request being asked about
+    limiter.take('a');
+    expect(limiter.peek('a').remaining).toBe(18);
+  });
+
+  it('does not start tracking a client, so that looking cannot grow the table', () => {
+    const limiter = new TokenBucketLimiter({ capacity: 2, windowMs: 1_000, now: clock().now });
+    for (let i = 0; i < 100; i += 1) limiter.peek(`client-${i}`);
+    expect(limiter.size).toBe(0);
+  });
+
+  it('prices a request of any cost', () => {
+    const limiter = new TokenBucketLimiter({ capacity: 5, windowMs: 50_000, now: clock().now });
+    expect(limiter.peek('a', 5).allowed).toBe(true);
+    expect(limiter.peek('a', 6)).toMatchObject({ allowed: false, retryAfterSeconds: 10 });
+  });
+});
+
 describe('rateLimitKey', () => {
   it('keeps IPv4 addresses as they are and groups IPv6 by /64', () => {
     expect(rateLimitKey('203.0.113.7')).toBe('203.0.113.7');

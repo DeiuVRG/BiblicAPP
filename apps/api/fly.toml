@@ -26,6 +26,16 @@ kill_timeout = "30s"
   RATE_LIMIT_MAX = "20"
   RATE_LIMIT_WINDOW_SECONDS = "600"
   SHUTDOWN_GRACE_MS = "20000"
+  # The closed beta: ACCESS_CODE (the tester code) is a secret, never a value in this file:
+  #   fly secrets set ACCESS_CODE=... --app biblioteca-api
+  # Without it (or with an empty one) the beta is open: start-up logs `access.open` as a warning.
+  # Wrong codes are throttled per client (20 per 10 minutes, then a 429 until the allowance
+  # refills); add ACCESS_FAILURE_MAX / ACCESS_FAILURE_WINDOW_SECONDS lines here to change that,
+  # for example for testers who share one address.
+  # A global cap of questions per UTC day (0 = off) is an ordinary setting: add a line such as
+  #   DAILY_QUESTION_CAP = "200"
+  # The count is in memory and starts again when the machine restarts, which it does after it has
+  # been idle (auto_stop_machines below), so the cap holds per machine run, not per calendar day.
 
 [http_service]
   internal_port = 8787

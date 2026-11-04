@@ -14,6 +14,17 @@ export type TrustProxy = 'none' | 'fly' | 'xff';
 
 const ORIGIN = /^https?:\/\/[^/\s?#]+$/i;
 
+/** An access code travels in a request header: visible ASCII, no spaces, and short enough to type. */
+const ACCESS_CODE_PATTERN = /^[\x21-\x7E]{1,128}$/;
+/** Codes shorter than this are accepted but reported at start-up: they are the ones a guesser finds. */
+export const WEAK_ACCESS_CODE_CHARS = 12;
+/**
+ * How many wrong access codes one client may present, and over how long, before it is locked out
+ * for a while (a token bucket: the allowance refills continuously, so 20 per 10 minutes is one more
+ * attempt every 30 seconds once it has run out).
+ */
+export const DEFAULT_ACCESS_FAILURES = { capacity: 20, windowMs: 600_000 } as const;
+
 const DEFAULT_REQUEST_TIMEOUT_MS = 15_000;
 const DEFAULT_HEADERS_TIMEOUT_MS = 10_000;
 
@@ -49,6 +60,21 @@ const EnvSchema = z.object({
   RATE_LIMIT_READ_MAX: intInRange(1, 100_000, 120),
   RATE_LIMIT_READ_WINDOW_SECONDS: intInRange(1, 86_400, 60),
   TRUST_PROXY: z.enum(['none', 'fly', 'xff']).default('none'),
+
+  /**
+   * Tester access codes of the closed beta: one, or several separated by commas. Set, POST
+   * /v1/ask needs the header X-Access-Code with one of them. Unset (or empty: `accessCodeBlank`),
+   * the beta is open. A secret; validated in `loadConfig`, where the messages can avoid repeating it.
+   */
+  ACCESS_CODE: z.string().optional(),
+  /**
+   * Wrong access codes one client address may present per window before it is refused for a while
+   * (`429`, before its code is even looked at). Only a code that is present and wrong counts.
+   */
+  ACCESS_FAILURE_MAX: intInRange(1, 100_000, DEFAULT_ACCESS_FAILURES.capacity),
+  ACCESS_FAILURE_WINDOW_SECONDS: intInRange(1, 86_400, DEFAULT_ACCESS_FAILURES.windowMs / 1000),
+  /** Questions answered per UTC day, all clients together; above it `provider_busy`. 0 = off. */
+  DAILY_QUESTION_CAP: intInRange(0, 1_000_000, 0),
 
   MAX_BODY_BYTES: intInRange(1024, 1_048_576, 65_536),
   /** Time a client gets to send a whole request (headers and body); slower senders are cut off (408). */
@@ -90,6 +116,17 @@ export interface Config {
   allowedOrigins: string[];
   rateLimit: { ask: RateLimitConfig; read: RateLimitConfig };
   trustProxy: TrustProxy;
+  /** The accepted access codes; none = open beta. A secret: log `describeConfig`, never this. */
+  accessCodes: string[];
+  /**
+   * `ACCESS_CODE` was set but empty (or only spaces). Like every empty variable it counts as unset,
+   * so the beta is open; it is most likely a secret that was not filled in, so start-up says so.
+   */
+  accessCodeBlank: boolean;
+  /** Wrong access codes per client and window before the client is locked out. */
+  accessFailureLimit: RateLimitConfig;
+  /** Questions answered per UTC day, all clients together; 0 = no cap. */
+  dailyQuestionCap: number;
   maxBodyBytes: number;
   requestTimeoutMs: number;
   headersTimeoutMs: number;
@@ -106,6 +143,33 @@ export class ConfigError extends Error {
     this.name = 'ConfigError';
     this.issues = issues;
   }
+}
+
+/**
+ * The codes of `ACCESS_CODE`, trimmed, without duplicates. A code with a space, a control or a
+ * non-ASCII character, or longer than 128 characters, is a problem; so is a value that lists no
+ * code at all (the owner meant to close the beta, and an open one must not come of a typo). The
+ * messages never repeat a code.
+ */
+function parseAccessCodes(raw: string | undefined): { codes: string[]; problems: string[] } {
+  const codes: string[] = [];
+  const problems: string[] = [];
+  if (raw === undefined) return { codes, problems };
+  let malformed = 0;
+  for (const part of raw.split(',')) {
+    const code = part.trim();
+    if (code === '') continue;
+    if (!ACCESS_CODE_PATTERN.test(code)) malformed += 1;
+    else if (!codes.includes(code)) codes.push(code);
+  }
+  if (malformed > 0) {
+    problems.push(
+      `ACCESS_CODE: ${malformed} code(s) are not 1 to 128 visible ASCII characters without spaces (codes are separated by commas and travel in a header)`,
+    );
+  } else if (codes.length === 0) {
+    problems.push('ACCESS_CODE: lists no code (leave it unset for an open beta)');
+  }
+  return { codes, problems };
 }
 
 function parseOrigins(raw: string): { origins: string[]; problems: string[] } {
@@ -178,6 +242,10 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   }
   const origins = parseOrigins(present.ALLOWED_ORIGINS ?? DEFAULT_ALLOWED_ORIGINS.join(','));
   issues.push(...origins.problems);
+  const accessCodes = parseAccessCodes(present.ACCESS_CODE);
+  issues.push(...accessCodes.problems);
+  // Present in the environment but dropped above as empty: a blank value, not an absent one.
+  const accessCodeBlank = env.ACCESS_CODE !== undefined && present.ACCESS_CODE === undefined;
   const requestTimeout = Number(present.REQUEST_TIMEOUT_MS ?? DEFAULT_REQUEST_TIMEOUT_MS);
   const headersTimeout = Number(present.HEADERS_TIMEOUT_MS ?? DEFAULT_HEADERS_TIMEOUT_MS);
   if (headersTimeout > requestTimeout) {
@@ -209,6 +277,13 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       },
     },
     trustProxy: values.TRUST_PROXY,
+    accessCodes: accessCodes.codes,
+    accessCodeBlank,
+    accessFailureLimit: {
+      capacity: values.ACCESS_FAILURE_MAX,
+      windowMs: values.ACCESS_FAILURE_WINDOW_SECONDS * 1000,
+    },
+    dailyQuestionCap: values.DAILY_QUESTION_CAP,
     maxBodyBytes: values.MAX_BODY_BYTES,
     requestTimeoutMs: values.REQUEST_TIMEOUT_MS,
     headersTimeoutMs: values.HEADERS_TIMEOUT_MS,
@@ -223,11 +298,12 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
 
 /** The configuration as it may be logged: secrets replaced by a flag, URLs without user info or query. */
 export function describeConfig(config: Config): Record<string, unknown> {
-  const { anthropicApiKey, logHashSalt, anthropicBaseUrl, ...rest } = config;
+  const { anthropicApiKey, logHashSalt, anthropicBaseUrl, accessCodes, ...rest } = config;
   return {
     ...rest,
     ...(anthropicBaseUrl !== undefined ? { anthropicBaseUrl: redactUrl(anthropicBaseUrl) } : {}),
     anthropicApiKeySet: anthropicApiKey !== undefined,
     logHashSaltSet: logHashSalt !== undefined,
+    accessCodeCount: accessCodes.length,
   };
 }

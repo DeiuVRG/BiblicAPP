@@ -11,10 +11,13 @@ deferred) is in [`docs/ask-api.md`](../../docs/ask-api.md).
 AI_PROVIDER=mock pnpm --filter @biblioteca/api dev    # http://localhost:8787
 pnpm --filter @biblioteca/api test                    # Vitest
 pnpm --filter @biblioteca/api build                   # tsc --noEmit + bundle to dist/server.js
+pnpm --filter @biblioteca/api eval                    # evaluation set v0 (mock provider) -> content/ask/eval-v0.report.json
 docker build -f apps/api/Dockerfile -t biblioteca-api .   # from the repository root
 ```
 
 Layout: `src/config.ts` (environment, zod), `src/library/` (pack loading and verification, the
 index, retrieval), `src/text/` (folding, stop words, stemmers, scripture references, the Romanian-English glossary that carries a question across languages), `src/search/`
 (BM25), `src/ai/` (providers, prompt, citation parsing), `src/ask/` (the ask flow), `src/http/`
-(app, rate limit, shutdown), `src/main.ts` / `src/server.ts` (start-up).
+(app, rate limit, access code, daily cap, shutdown), `src/eval/` (the evaluation set runner),
+`src/main.ts` / `src/server.ts` (start-up). The suggestions and the evaluation set are data in
+`content/ask/`.

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "kingdom-church",
+    "group": "doctrine",
+    "text": "How does the kingdom of God relate to the church?",
+    "scope": "library"
+  },
+  {
+    "id": "present-future",
+    "group": "doctrine",
+    "text": "Is the kingdom of God already here, or is it still to come?",
+    "scope": "library"
+  },
+  {
+    "id": "righteousness",
+    "group": "doctrine",
+    "text": "What does righteousness mean in Jesus' teaching about the kingdom?",
+    "scope": "library"
+  },
+  {
+    "id": "repentance-faith",
+    "group": "doctrine",
+    "text": "Why are repentance and faith the way into the kingdom?",
+    "scope": "library"
+  },
+  {
+    "id": "old-testament",
+    "group": "idea",
+    "text": "What is the Old Testament background of the kingdom of God?",
+    "scope": "library"
+  },
+  {
+    "id": "john-synoptics",
+    "group": "idea",
+    "text": "How does the Gospel of John speak of the kingdom, compared with the Synoptic Gospels?",
+    "scope": "library"
+  },
+  {
+    "id": "sermon-on-the-mount",
+    "group": "passage",
+    "text": "What does the Sermon on the Mount teach about the kingdom?",
+    "scope": "library"
+  },
+  {
+    "id": "parables",
+    "group": "passage",
+    "text": "What do the parables of Jesus teach about the kingdom?",
+    "scope": "library"
+  }
+]

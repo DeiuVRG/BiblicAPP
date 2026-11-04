@@ -6,17 +6,22 @@ service described in `docs/arhitectura-app-biblica.md` (sections 4 to 6): Hono o
 API behind an `AIProvider` interface, deployed on Fly.io in Frankfurt.
 
 This is the **beta without accounts**: there is no sign-in, no consent screen and no per-user budget
-yet (see [What is deferred](#what-is-deferred)). Abuse is limited by a per-IP rate limit and, above
-all, by a spend limit you set in the Anthropic Console (see [Costs](#costs-and-spend-limits)).
+yet (see [What is deferred](#what-is-deferred)). While the beta is limited to testers it is closed
+by an **access code** (`ACCESS_CODE`, sent as the header `X-Access-Code`); without that variable it
+is open. Abuse and cost are limited by that code, a per-IP rate limit, a global daily question cap
+and, above all, by a spend limit you set in the Anthropic Console (see
+[Costs](#costs-and-spend-limits)).
 
 - [Run it locally](#run-it-locally)
 - [Endpoint contract](#endpoint-contract)
 - [How an answer is made](#how-an-answer-is-made)
 - [Configuration](#configuration)
 - [Limits, privacy and security](#limits-privacy-and-security)
+- [Suggestions and evaluation set v0](#suggestions-and-evaluation-set-v0)
 - [Deploying to Fly.io (steps for the owner)](#deploying-to-flyio-steps-for-the-owner)
 - [Costs and spend limits](#costs-and-spend-limits)
 - [What is deferred](#what-is-deferred)
+- [What the app has to pick up](#what-the-app-has-to-pick-up)
 - [Decisions and deviations](#decisions-and-deviations)
 
 ## Run it locally
@@ -47,25 +52,45 @@ curl -sN -X POST localhost:8787/v1/ask -H 'content-type: application/json' \
   -d '{"question":"What does Vos say about the kingdom of heaven?","language":"en"}'
 curl -s -X POST 'localhost:8787/v1/ask?stream=false' -H 'content-type: application/json' \
   -d '{"question":"Împărăția cerurilor","language":"ro"}'
+
+# A closed beta (the server started with ACCESS_CODE=<code>): every question carries the code.
+curl -sN -X POST localhost:8787/v1/ask -H 'content-type: application/json' -H 'X-Access-Code: <code>' \
+  -d '{"question":"What does the Sermon on the Mount teach about the kingdom?","language":"en"}'
+
+# Limit the search to one work, and ask about a paragraph the person selected in the reader
+# (ids from GET /v1/library and from the packs):
+curl -s -X POST 'localhost:8787/v1/ask?stream=false' -H 'content-type: application/json' \
+  -d '{"question":"What does this mean?","language":"en","scope":{"workId":"<work id>"},"passage":{"editionId":"<edition id>","paragraphId":"<paragraph id>"}}'
+
+# The evaluation set, with the mock provider (writes content/ask/eval-v0.report.json):
+pnpm --filter @biblioteca/api eval
 ```
 
 Checks (all part of `pnpm -r typecheck | lint | test` from the root):
 `pnpm --filter @biblioteca/api typecheck`, `... lint`, `... test` (Vitest: retrieval on the real
 Vos packs, scripture references, citations, SSE framing, rate limiting, CORS, configuration,
 mock end to end through a started server, the Claude provider against a stand-in API, health,
-library, graceful shutdown, packaging).
+library, graceful shutdown, packaging, the access code, the daily cap, scope and passage, request
+ids, the quotation check per cited source, the suggestions and the evaluation set).
 
 ## Endpoint contract
 
-All bodies are JSON (UTF-8). Every response carries `X-Request-Id`. Errors have one shape:
+All bodies are JSON (UTF-8). Every response carries `X-Request-Id`. Errors have one shape, and the
+body names the request too (`requestId`: the value of the header and of the log lines, so that a
+failure seen on a phone can be traced from the "Detalii" disclosure of the app):
 
 ```json
-{ "error": { "code": "invalid_request", "message": "question: must not be empty", "issues": [{ "path": "question", "message": "must not be empty" }] } }
+{ "error": { "code": "invalid_request", "message": "question: must not be empty", "requestId": "5d5db93e-...", "issues": [{ "path": "question", "message": "must not be empty" }] } }
 ```
+
+`issues` appears on validation errors, `retryAfterSeconds` where waiting helps (`rate_limited`,
+`provider_busy`).
 
 ### `POST /v1/ask`
 
-Request (`Content-Type: application/json` is required):
+Request (`Content-Type: application/json` is required; when the beta is closed, that is when
+`ACCESS_CODE` is set, the header `X-Access-Code: <code>` is required too, see
+[The access code](#limits-privacy-and-security)):
 
 | Field | Type | Rules |
 | --- | --- | --- |
@@ -73,6 +98,8 @@ Request (`Content-Type: application/json` is required):
 | `language` | `"ro"` or `"en"` | The language of the answer, and the language whose edition is shown when a passage exists in both. |
 | `conversation` | `{ role: "user" \| "assistant", content: string }[]` | Optional. Earlier turns, oldest first; up to 50 are accepted (each 1 to 8000 characters after trimming, cleaned like the question: a turn of only spaces or with a NUL is a `400`) and **the last 6 are used**. Citation markers (`[1]`) in earlier answers are dropped: their numbers belonged to earlier documents; a turn that is empty once its markers are gone is left out (the model API does not take empty messages). |
 | `editionIds` | `string[]` | Optional. Restrict retrieval, and the aligned versions, to these editions (ids from `GET /v1/library`). Unknown ids are ignored; if none is known the answer is `400 unknown_editions`. |
+| `scope` | `{ workId: string }` | Optional. Restrict retrieval, and the aligned versions, to the editions of one work (id from `GET /v1/library`). With `editionIds` the two narrow each other: only the editions of that work that are in the list remain. A work the library does not have, or no edition left, is `400 unknown_editions` (the app's "the scope you chose no longer exists"). No other key is accepted inside `scope`. |
+| `passage` | `{ editionId: string, paragraphId: string }` | Optional. The paragraph the question is about, as the person selected it in the reader (ids from the packs). Its section is searched first and the whole library tops the answer up: [How an answer is made](#how-an-answer-is-made), step 3. The paragraph must exist in that edition, be text (not a heading) and be readable in at least one of the editions that `editionIds` and `scope` leave; otherwise `400 unknown_passage` (the app may ask again without `passage`). No other key is accepted inside `passage`. |
 
 Without a query string the response is a **Server-Sent Events stream**; with `?stream=false` it is
 one JSON document.
@@ -100,15 +127,39 @@ one JSON document.
   `providerRequestId`: the provider's own id (Anthropic `request-id`), for support tickets.
 - `stopReason`: `end_turn`, `max_tokens` (the answer was cut at 1200 tokens), `stop_sequence`,
   `other`, or `not_covered` (no passage matched; the model was not called and `usage` is zero).
-- `quotations`: `{ checked, unverified }`. Every quotation in the answer (text between quotation
-  marks, 20 characters or more) is checked to be word for word in the sources, modulo case,
-  diacritics and punctuation; `unverified > 0` means the model quoted something that is not there.
-  Clients may show such an answer with a warning.
+- `quotations`: `{ checked, unverified, uncited, unverifiedItems }`. Every quotation in the answer
+  (text between quotation marks, 20 characters or more; split at ellipses into pieces of 12
+  characters or more) is checked to be word for word, modulo case, diacritics and punctuation, in
+  **the sources that the sentence holding it cites**: all the valid `[n]` markers of that sentence
+  together (ranges and lists included; for a translated passage the original text counts too).
+  A sentence that cites no valid source falls back to all the sources of the request.
+  - `checked`: how many quotations were checked. `unverified`: how many failed; it stays a count,
+    so `unverified > 0` means "the model quoted something that is not there, or not where it says".
+  - `uncited`: how many of the checked quotations sat in a sentence with no valid marker and were
+    checked against all sources (a line such as "checked against the cited sources: n of m" counts
+    `checked - uncited` of `checked`).
+  - `unverifiedItems`: the failures, `{ text, sentence, offset, cited }` each: the quoted text (at
+    most 200 characters, markers removed); `sentence`, the index from 0 of the sentence of the
+    answer that holds it; `offset`, the position of its opening quotation mark in the answer (UTF-16
+    units, like a citation's `offset`); `cited`, the numbers of the sources it was checked against
+    (empty: all of them). The list has `unverified` entries. A client can show the strings and mark
+    the place.
 
-`error`: `{ code, message, retryAfterSeconds? }` with a message in the language of the question and
-no provider detail. Codes: `provider_busy` (429/529 upstream), `provider_unavailable`,
-`provider_misconfigured`, `provider_error`, `timeout` (deadline passed), `refused` (the model
-declined), `shutting_down`, `internal_error`. Text already streamed stays valid.
+  A sentence ends at `.`, `!`, `?` or `…` followed by a space and a capital letter, a digit or a
+  quotation mark, and at a line break. Text between quotation marks never ends one (a quotation of
+  several sentences stays whole), unless the quotation ends with its own full stop and a new
+  sentence follows. Markers right after the full stop ("... follow. [2]") belong to the sentence
+  before them. A full stop after an abbreviation or an initial ("St.", "cf.", "G. Vos") or between a
+  word and a number ("Matt. 4:17") does not end one. It is a heuristic with a safe failure: a wrong
+  cut can only separate a quotation from its marker, and then the quotation is checked against all
+  sources, as before.
+
+`error`: `{ code, message, requestId, retryAfterSeconds? }` with a message in the language of the
+question and no provider detail (`requestId` as in the JSON errors). Codes: `provider_busy`
+(429/529 upstream), `provider_unavailable`, `provider_misconfigured`, `provider_error`, `timeout`
+(deadline passed), `refused` (the model declined), `shutting_down`, `internal_error`. Text already
+streamed stays valid. (The global daily cap, which is also `provider_busy`, is refused before the
+stream starts, as an HTTP 503: see below.)
 
 A `sources` element:
 
@@ -142,7 +193,10 @@ A `sources` element:
 }
 ```
 
-- Sources are **numbered by position**: `sources[0]` is `[1]` in the answer.
+- Sources are **numbered by position**: `sources[0]` is `[1]` in the answer. They are in order of
+  relevance, best first, except when the request carries a `passage`: then the attached passage is
+  `[1]`, its neighbours follow, then the best of its section, then the rest of the library, and
+  `score` is `0` for a passage that is only there for context and matched no word of the question.
 - `id` is the **stable id of the passage**: the id of the paragraph in the source edition, shared by
   every language version of it. `paragraphId` and `editionId` identify the version shown, which is
   the one in the asked `language` when that edition is installed and covers the paragraph, otherwise
@@ -176,7 +230,7 @@ data: {"sourceIndex":1,"text":"Vos susține că Împărăția este deja prezent�
 id: 17
 
 event: done
-data: {"usage":{"inputTokens":2122,"outputTokens":101,"cacheReadInputTokens":0,"cacheCreationInputTokens":0},"model":"claude-sonnet-5-5","requestId":"5d5db93e-...","providerRequestId":"req_...","stopReason":"end_turn","invalidCitations":0,"quotations":{"checked":1,"unverified":0}}
+data: {"usage":{"inputTokens":2122,"outputTokens":101,"cacheReadInputTokens":0,"cacheCreationInputTokens":0},"model":"claude-sonnet-5-5","requestId":"5d5db93e-...","providerRequestId":"req_...","stopReason":"end_turn","invalidCitations":0,"quotations":{"checked":1,"unverified":0,"uncited":0,"unverifiedItems":[]}}
 id: 31
 ```
 
@@ -197,28 +251,48 @@ a blank line, and ignore lines that start with `:`. On the web a plain `fetch` w
   "providerRequestId": "req_...",
   "stopReason": "end_turn",
   "invalidCitations": 0,
-  "quotations": { "checked": 1, "unverified": 0 }
+  "quotations": { "checked": 1, "unverified": 0, "uncited": 0, "unverifiedItems": [] }
 }
 ```
 
 A failure is an HTTP error with the error shape above: `502` (`provider_unavailable`,
 `provider_misconfigured`, `provider_error`, `refused`), `503` (`provider_busy`, `shutting_down`,
-`library_unavailable`; with `Retry-After` when known), `504` (`timeout`), `500` (`internal_error`).
+`library_unavailable`; with `Retry-After`, and `error.retryAfterSeconds`, when known), `504`
+(`timeout`), `500` (`internal_error`).
 
 #### Other status codes
 
 | Status | `error.code` | When |
 | --- | --- | --- |
-| 400 | `invalid_json`, `invalid_request`, `unknown_editions` | The body is not JSON, fails validation, or none of `editionIds` is installed. |
+| 400 | `invalid_json`, `invalid_request`, `unknown_editions`, `unknown_passage` | The body is not JSON or fails validation (a malformed `scope` or `passage` included); none of `editionIds` is installed, `scope.workId` is not a work of the library, or `editionIds` and `scope` leave no edition (`unknown_editions`); the `passage` does not exist, is a heading, or is in none of the editions left (`unknown_passage`). |
+| 401 | `access_required` | `ACCESS_CODE` is set and the header `X-Access-Code` is missing or is not one of the codes. |
 | 413 | `payload_too_large` | Body over `MAX_BODY_BYTES` (64 KiB by default). |
 | 415 | `unsupported_media_type` | `Content-Type` is not `application/json`. |
-| 429 | `rate_limited` | Over the limit; `Retry-After` (seconds) and `error.retryAfterSeconds`. |
+| 429 | `rate_limited` | Over the question limit. Also, in the closed beta, a client that has presented too many wrong access codes (`ACCESS_FAILURE_MAX` per `ACCESS_FAILURE_WINDOW_SECONDS`): it is refused, without its code being looked at, until its allowance refills (the message says "Too many wrong access codes"). `Retry-After` (seconds) and `error.retryAfterSeconds` in both cases; the lockout answer carries no `RateLimit-*` headers. |
+| 503 | `provider_busy` | The global daily question cap (`DAILY_QUESTION_CAP`) is reached; `Retry-After` and `error.retryAfterSeconds` are the seconds until midnight UTC. Refused before any stream starts, in both modes; the message is in the language of the question. |
 | 503 | `library_unavailable` | No pack verified at startup (see `GET /v1/health`). |
+
+A question is checked in this order and the first failure answers: the access code (`401`; a client
+that has presented too many wrong codes is refused with `429` before its code is looked at); a server
+that is stopping or a library that did not load (`503 shutting_down`, `503 library_unavailable`);
+the per-address limit (`429`, the only check that takes a token of the question limiter); the size,
+type and JSON of the body (`413`, `415`, `400`); the scope and the passage (`400 unknown_editions`,
+`400 unknown_passage`); the daily cap (`503 provider_busy`). Only then is the question retrieved and
+answered.
+
+**Telling the daily cap from a busy model.** Both are `provider_busy`; what differs is the wait. An
+overloaded model says 30 s, an upstream rate limit what the provider sends (at most 600 s, and no
+`retryAfterSeconds` at all when it sends nothing), the daily cap the seconds until midnight UTC (1 to
+86,400). A client should show the wait it is given (`error.retryAfterSeconds`, also the `Retry-After`
+header) and, when it is long (more than a minute), the localized `error.message`, which names the
+cause, instead of "try again in a few seconds"; and it should not offer an immediate retry then,
+because that retry would be refused again.
 
 The responses of `GET /`, `GET /v1/health`, `GET /v1/library` and `POST /v1/ask` that reach their
 rate limiter carry `RateLimit-Limit` and `RateLimit-Remaining` for the caller's bucket. `404`
-answers, CORS preflights and the `503` answers given before the limiter (`shutting_down`,
-`library_unavailable`) do not. Every response carries `X-Request-Id`.
+answers, CORS preflights and the answers given before the limiter (`401 access_required`, the
+`429` of an access lockout, `503 shutting_down`, `503 library_unavailable`) do not. Every response
+carries `X-Request-Id`.
 
 ### `GET /v1/health`
 
@@ -291,9 +365,25 @@ progress). It is cached for 5 minutes (`Cache-Control: public, max-age=300`).
    chapter) are boosted and found even when the question has no other word. The asked language is
    preferred. The top 10 **passages** are kept, each with its aligned versions. A very short
    follow-up ("and what else?") borrows the previous question of the conversation.
+
+   **Scope.** `editionIds` and `scope.workId` limit the search, and the aligned versions shown, to
+   those editions (the question is still carried across languages). **Passage.** With `passage`
+   the section of that paragraph is searched first and the whole library tops the answer up
+   (`src/library/passage.ts`). The sources are, in this order: (1) the attached passage itself,
+   whether or not it shares a word with the question ("what does this mean?" has nothing to search
+   for, and is a good question about a passage); (2) the paragraph just before it and the one just
+   after it, in the same section; (3) the best matches for the question inside the same section,
+   until steps 1 to 3 give 5 passages, and only those that score at least 15 % of the best passage
+   of the whole library (a section with nothing to say about the question does not fill the
+   answer); (4) the usual retrieval over everything the request allows, for the rest of the 10: the
+   global top-up. "The same section" is the section in every installed edition (a translation's
+   section shares the key of the section it renders), a passage counts once however many editions
+   carry it, and it is shown in the language of the answer when that edition exists. The model is
+   told which document is the selected one (a `<selected_passage>` line before the question), so
+   that "this passage" has a meaning.
 4. **No passage, no answer.** If nothing matches, the model is not called: the stream is
    `sources: []`, one `delta` that says the library does not cover this yet, and `done` with
-   `stopReason: "not_covered"`.
+   `stopReason: "not_covered"`. (An attached passage is a passage: the model is called.)
 5. **Prompt.** The system prompt (in the language of the answer) makes the model answer only from
    the numbered documents, cite inline as `[1]`, say plainly when the documents do not cover the
    question, never invent quotations (quotation marks only for text copied word for word; Scripture
@@ -312,8 +402,10 @@ progress). It is cached for 5 minutes (`Cache-Control: public, max-age=300`).
    parsed from the stream, however the deltas cut them (down to one character at a time), into
    `citation` events and the `citations` array. A marker that names no source (`[0]`, `[99]`,
    `[3-1]`, `[1-100]`) is counted in `invalidCitations` and never announced.
-8. **Quotation check.** Quoted text in the answer that is not in the sources is counted in
-   `done.quotations.unverified` and logged by count.
+8. **Quotation check.** Each quotation of the answer is checked against the sources its own
+   sentence cites (all sources when the sentence cites none); the failures are counted in
+   `done.quotations.unverified`, listed in `done.quotations.unverifiedItems` with their sentence,
+   and logged by count only (never the text). See `done` above for the exact rules.
 9. **Usage** is recorded in the `ask.completed` log line (and in a running total printed at
    shutdown).
 
@@ -362,6 +454,10 @@ process with every problem listed, never printing a secret. Empty variables coun
 | `RATE_LIMIT_READ_MAX` | `120` | Requests to `/`, `/v1/health`, `/v1/library` per window per client. |
 | `RATE_LIMIT_READ_WINDOW_SECONDS` | `60` | The window of the read limit. |
 | `TRUST_PROXY` | `none` | How to find the client address: `none` (socket), `fly` (`Fly-Client-IP`), `xff` (last `X-Forwarded-For` entry). A forwarded value that is not an IP address is ignored and the socket address is used. The Docker image leaves it at `none`; only `fly.toml` sets `fly`. |
+| `ACCESS_CODE` | none (open beta) | The tester access code(s) of the closed beta: one, or several separated by commas, each 1 to 128 visible ASCII characters without spaces. Set, `POST /v1/ask` needs the header `X-Access-Code` with one of them, otherwise `401 access_required`. A value that lists no code (only commas) is a start-up error (a typo must not open the beta). An empty value counts as unset, like every empty variable, so it opens the beta; start-up then logs `access.open` as a warning (`blank: true`), and also as a warning whenever the model behind an open beta is the real one (`info` for the mock). **A secret**: environment only, on Fly `fly secrets set`. Codes under 12 characters are accepted but reported at start-up (`access.weak_codes`, a count only). |
+| `ACCESS_FAILURE_MAX` | `20` | Wrong access codes one client address may present per window before it is locked out (1 to 100,000; a client is counted like the question limiter counts it, IPv6 by /64). Only a code that is present and wrong counts: a missing one costs nothing. Set it high to switch the lockout off in practice, for example for testers who share one address. |
+| `ACCESS_FAILURE_WINDOW_SECONDS` | `600` | The window of the lockout, in seconds (1 to 86,400). It is a token bucket: 20 per 600 s is a burst of 20 wrong codes, then one more attempt every 30 seconds. |
+| `DAILY_QUESTION_CAP` | `0` (off) | Questions answered per UTC day, all clients together (0 to 1,000,000). Above it `POST /v1/ask` answers `503 provider_busy` with `Retry-After` until midnight UTC. In memory: see [Limits](#limits-privacy-and-security). |
 | `MAX_BODY_BYTES` | `65536` | Largest request body. |
 | `REQUEST_TIMEOUT_MS` | `15000` | Time a client gets to send a whole request (headers and body). A slower sender is cut off with `408`; the answer that streams back is not affected. |
 | `HEADERS_TIMEOUT_MS` | `10000` | Time a client gets to send the request headers (must not exceed `REQUEST_TIMEOUT_MS`). |
@@ -371,6 +467,50 @@ process with every problem listed, never printing a secret. Empty variables coun
 
 ## Limits, privacy and security
 
+- **The access code** (`ACCESS_CODE`): while the beta is closed, `POST /v1/ask` needs the header
+  `X-Access-Code` with one of the configured codes and answers `401 access_required` without it.
+  The check runs first: before the shutdown and library checks, before the rate limiter (a request
+  without the code takes no token and shows no `RateLimit-*` headers), before the body is read and
+  before any model call. `GET /`, `GET /v1/health`, `GET /v1/library` and CORS preflights stay open
+  (the preflight allows the header: `Access-Control-Allow-Headers: Content-Type, X-Access-Code`).
+  The codes are kept as SHA-256 digests and the presented code is compared with every one of them
+  using `timingSafeEqual`, with no early exit. A code is never logged: the log says only
+  `access.denied` with `reason` `missing` or `invalid`, and `accessCodeCount` in the configuration.
+  **Wrong codes are throttled per client** by a bucket of their own (`ACCESS_FAILURE_MAX` per
+  `ACCESS_FAILURE_WINDOW_SECONDS`, 20 per 10 minutes by default), never by a token of the question
+  limiter: only a code that is present and wrong uses up an attempt (a missing one is a first visit
+  and costs nothing, a right one is never charged, and it does not clear earlier failures either, so
+  a tester cannot use their own code to keep guessing at the others). A client that has run out is
+  refused with `429 rate_limited` and `Retry-After` **before its code is looked at, even a right one**,
+  so a guesser cannot tell a hit from a miss while it waits; the lockout ends as the allowance
+  refills. The price is that people behind one address share the allowance (a class on one router):
+  raise `ACCESS_FAILURE_MAX` for them. The address must be the real one (`TRUST_PROXY`, see "Client
+  address" below): behind a proxy that is not understood, every tester has the proxy's address and
+  one guesser would lock them all out. This slows a guesser from line speed (thousands of tries per
+  second were measured on loopback) to about 2,900 a day per address at the defaults; it does not
+  stop many addresses, so **use a long random code** (`openssl rand -base64 18`); short ones are
+  reported at start-up. The log keeps pace: one `access.denied` line per wrong code (so at most the allowance per
+  window and client), one `access.locked` line when a client runs out, and a missing code is only a
+  debug line, the `request` line already records the 401. The code is the gate of a closed beta, not
+  an account: everyone who has it shares it, and several codes can be valid at once, to rotate one
+  without a gap. If `ACCESS_CODE` is not set, or is empty, the beta is open: start-up logs
+  `access.open` (a warning when the value was empty or the model is the real one) so that this is
+  never silent.
+- **The daily question cap** (`DAILY_QUESTION_CAP`): at most that many questions are answered per UTC
+  day, all clients together, so that the spend limit of the model account is not the only brake. A
+  question takes a slot after it has passed every check above (a request refused earlier costs
+  nothing) and before the model is called, so questions that arrive together cannot all slip under
+  the cap. A question that ends without a model call because nothing in the library matched
+  (`not_covered`) gives its slot back; one that fails or is cut off counts, because the call was
+  made. The mock provider counts too. Above the cap: `503 provider_busy` with `Retry-After` (and
+  `error.retryAfterSeconds`) until midnight UTC, as an HTTP error before any stream starts. Every
+  change of the count is logged (`daily_cap.count`, `daily_cap.reached`, `daily_cap.refused`,
+  `daily_cap.reset`). **The count is in memory**, like the rate limiter's: it belongs to one
+  machine and starts from zero when the process restarts. On Fly the machine stops when idle and
+  starts on the next request (`auto_stop_machines`), so until the count moves to shared storage
+  (Supabase, P2) the cap holds for one run of the machine, not for the calendar day; keep the
+  machine running (`min_machines_running = 1`) if a hard daily bound matters, and keep the spend
+  limit of the model account as the real protection.
 - **Rate limit**: a token bucket per client address, default **20 questions per 10 minutes** (a burst
   of 20, then one more every 30 seconds). Every `POST /v1/ask` counts, valid or not, but a request
   that is refused with 429 costs nothing more. IPv6 clients are counted by /64. Read endpoints have
@@ -387,8 +527,10 @@ process with every problem listed, never printing a secret. Empty variables coun
   (`REQUEST_TIMEOUT_MS`, `HEADERS_TIMEOUT_MS`: a slower sender gets `408` and loses the connection, so
   half-sent questions cannot hold the machine's request slots; the streamed answer is not covered),
   question 2000 characters, 6 turns of history, 120 s per answer, 1200 output tokens.
-- **CORS**: an explicit allow-list (`ALLOWED_ORIGINS`); other origins get no `Access-Control-*`
-  headers and a `403` preflight. `Vary: Origin` is on every response, also when the request names no
+- **CORS**: an explicit allow-list (`ALLOWED_ORIGINS`) and an explicit header list
+  (`Access-Control-Allow-Headers: Content-Type, X-Access-Code`); other origins get no
+  `Access-Control-*` headers and a `403` preflight. The `401` of a missing code carries the CORS
+  headers of an allowed origin, so that the page can read it and ask for the code. `Vary: Origin` is on every response, also when the request names no
   origin, because the library listing is publicly cacheable.
 - **Security headers** on every response: `X-Content-Type-Options`, `X-Frame-Options: DENY`,
   `Referrer-Policy: no-referrer`, a `default-src 'none'` CSP, HSTS, `Permissions-Policy`, and
@@ -405,8 +547,8 @@ process with every problem listed, never printing a secret. Empty variables coun
   the stack or the body of the upstream response**: the SDK builds its message from the body, and a
   proxy or stand-in server (`ANTHROPIC_BASE_URL`) can put anything in it, a copy of the request or
   of the key included.
-- **Secrets**: the only secret is `ANTHROPIC_API_KEY`, read from the environment. It is not in the
-  repository, the image, `fly.toml` or any log (tests check this).
+- **Secrets**: the secrets are `ANTHROPIC_API_KEY` and `ACCESS_CODE`, read from the environment.
+  Neither is in the repository, the image, `fly.toml` or any log (tests check this).
 - **Prompt injection**: documents come from verified packs, and neither their text nor the question
   nor the earlier turns can forge the prompt's tags: every `<` (also the fullwidth and small forms)
   becomes `‹`, whatever the spelling of the tag (`< /question>`, zero-width characters, other case),
@@ -420,6 +562,86 @@ process with every problem listed, never printing a secret. Empty variables coun
   instant gets `503 shutting_down` and `/v1/health` reports `ok: false`; answers in flight finish
   (up to `SHUTDOWN_GRACE_MS`), the rest end with an `error` event `shutting_down`, and the totals of
   model usage are logged.
+
+## Suggestions and evaluation set v0
+
+Both live in `content/ask/` (outside the service: the image does not carry them; the app bundles the
+suggestions, the tests and the `eval` script read them in a checkout).
+
+**Suggestions.** `suggestions.ro.json` and `suggestions.en.json` hold the prompts of the Ask welcome
+screen (`docs/ui-spec-v2.md` 9.3): a JSON array of 8 objects per language, the same ids, groups and
+scopes in both files, in the same order.
+
+```json
+{ "id": "kingdom-church", "group": "doctrine", "text": "How does the kingdom of God relate to the church?", "scope": "library" }
+```
+
+- `id`: stable, shared by the two languages. `group`: `doctrine`, `idea` or `passage`, the three
+  groups of the welcome screen (two prompts at least in each, so that "one random prompt, never the
+  one shown before" has something to choose from). `text`: the question, which a click puts in the
+  composer and never sends. `scope`: `"library"` or `{ "workId": "<id>" }`, the scope chip the
+  prompt asks for (`{ workId }` is sent as the request's `scope`).
+- The 8 subjects over the installed work (Vos): the kingdom of God and the church, the present and
+  the future kingdom, righteousness, repentance and faith, the Old Testament background, John and the
+  Synoptics, the Sermon on the Mount, the parables. The owner approves the texts (roadmap P1-G1).
+- `apps/api/src/suggestions.test.ts` sends every suggestion through the gateway with the mock
+  provider (`?stream=false`, in its own language, with its scope) and fails unless the answer has
+  sources from the expected work, in the chapters that answer it, with a citation and no unverified
+  quotation. A suggestion the library cannot answer is a broken promise: add a prompt to the files
+  and to the table of expected subjects in that test, and it is held to the same standard.
+
+**Evaluation set v0.** `eval-v0.json` has 40 questions, 20 Romanian and 20 English, over the
+installed work: 14 subjects asked in both languages (so that the gap between them can be measured)
+and 6 more in each language (scripture references in both notations, a question without a single
+place in the book, the conclusion of the book). Each question has `expectedWorkIds` and, where one
+place answers it, `expectedSectionOrdinals`: the 0-based ordinals of the sections of the source
+edition (0 is chapter I, 10 is chapter XI), chosen from the book and not from what retrieval returns.
+
+`pnpm --filter @biblioteca/api eval` (`apps/api/src/eval/run-eval.ts`) runs every question through
+the real pipeline with the **mock provider**, prints the checks below and writes
+`content/ask/eval-v0.report.json`. The report has no timestamps, request ids or scores, and the mock
+provider is deterministic, so the same questions on the same packs give the same file byte for
+byte: a change in the report is a change in retrieval or in the content, and the report records the
+hash of the question file and the id, revision and hash of every pack it was made on. `--check`
+compares a fresh run with the committed report (exit 1 if they differ), `--no-write` only prints.
+The exit code is 1 when a gate fails. The unit tests (`eval/eval.test.ts`) check the set against the
+library, the arithmetic, the determinism, that the report matches the question file, and that it
+equals a fresh run as long as the packs are the ones it was made on (when a translation grows, the
+test only warns that the report is stale, so that the content work is never blocked by it).
+
+What the mock provider can and cannot show: it quotes and cites the first two sources word for word,
+so "sources present", "valid citation", "markers in range" and "quotations verified" hold by
+construction and fail only if the pipeline breaks; the rates that measure something are the
+expected work and expected section ones, which are retrieval. The gates of `docs/roadmap-v2.md`
+3.3 for the real model (90 % of answers with a valid citation, 95 % without an unverified quotation)
+need `AI_PROVIDER=claude` and a key, and are not measured here. The three gates this run enforces
+are `sourcesPresent` 100 %, `withCitation` 90 % and `quotationsVerified` 95 %; retrieval quality is
+reported and not gated, so that the gaps stay visible.
+
+Result on the installed packs (Vos, English revision 3 and Romanian revision 2, 139 paragraphs; the
+Romanian edition covers chapter I only, so the other chapters are reached in English through the
+glossary):
+
+| | all | Romanian | English |
+| --- | --- | --- | --- |
+| questions | 40 | 20 | 20 |
+| sources present | 40/40 | 20/20 | 20/20 |
+| with a valid citation | 40/40 | 20/20 | 20/20 |
+| every marker names a source | 40/40 | 20/20 | 20/20 |
+| quotations verified | 40/40 | 20/20 | 20/20 |
+| expected work among the sources | 40/40 | 20/20 | 20/20 |
+| expected section among the 10 sources | 38/39 (97.4 %) | 19/20 (95.0 %) | 19/19 (100 %) |
+| expected section among the first 3 | 35/39 (89.7 %) | 17/20 (85.0 %) | 18/19 (94.7 %) |
+| mean reciprocal rank of the first expected section | 0.798 | 0.760 | 0.838 |
+
+Of the 14 subjects asked in both languages, both languages reach their section in 14. The one
+question that reaches no expected section is `ro-19` ("Care este concluzia cărții despre
+Împărăția?", chapter XI, the recapitulation): a lexical search has no way to find "the conclusion of
+the book", and its English counterpart has no expected section for the same reason. Read the numbers
+as a baseline for the hybrid retrieval and for the cross-language work of roadmap P1-B4, not as a
+quality bar: 39 questions on one book of 11 chapters, with expected sections that are often several
+chapters wide, are easy to satisfy; the first-three rate and the reciprocal rank are the ones that
+will move.
 
 ## Deploying to Fly.io (steps for the owner)
 
@@ -438,6 +660,15 @@ and an Anthropic API key. Run the commands from the **repository root**.
    ```bash
    fly secrets set ANTHROPIC_API_KEY=... --app biblioteca-api
    ```
+   For the closed beta set the tester code the same way (a long random value; several codes
+   separated by commas work too). Without it the gateway answers anyone who finds the URL, and so
+   it does with an empty one (a secret that was set to nothing); `fly logs` shows an `access.open`
+   warning at start-up in both cases:
+   ```bash
+   fly secrets set ACCESS_CODE="$(openssl rand -base64 18)" --app biblioteca-api
+   ```
+   The daily cap is an ordinary setting: a line such as `DAILY_QUESTION_CAP = "200"` in `[env]` of
+   `fly.toml` (see [Limits](#limits-privacy-and-security) for what it can and cannot promise).
 3. **First deploy, by hand, on one machine** (the in-memory rate limit needs one):
    ```bash
    fly deploy --config apps/api/fly.toml --remote-only --ha=false
@@ -449,6 +680,10 @@ and an Anthropic API key. Run the commands from the **repository root**.
    ```bash
    curl https://biblioteca-api.fly.dev/v1/health
    curl -sN https://biblioteca-api.fly.dev/v1/ask -H 'content-type: application/json' \
+     -H 'X-Access-Code: <the code>' \
+     -d '{"question":"What is the kingdom of heaven?","language":"en"}'
+   # Without the header the answer is 401 access_required:
+   curl -s https://biblioteca-api.fly.dev/v1/ask -H 'content-type: application/json' \
      -d '{"question":"What is the kingdom of heaven?","language":"en"}'
    fly logs --app biblioteca-api
    ```
@@ -503,6 +738,11 @@ the gateway, put the key of that workspace in the Fly secret, and set a monthly 
 alert in the Console. The `ask.completed` log lines carry the token counts for a cost report.
 Prompt caching is not used yet (the prefix that repeats is only the system prompt).
 
+Two brakes come before the spend limit. The access code keeps the gateway to the testers who have
+it. The daily cap bounds the day: at the sizes above, a cap of 200 questions is about 1 to 3 USD a
+day, and about 10 USD if every question were the largest possible. It counts in memory, so it
+holds per run of the machine (see Limits); the spend limit stays the real protection.
+
 ## What is deferred
 
 Decided in `docs/arhitectura-app-biblica.md` and not part of this slice:
@@ -520,15 +760,73 @@ Decided in `docs/arhitectura-app-biblica.md` and not part of this slice:
   checked after the fact.
 - **Prompt and answer caching** (prefix cache for the system prompt and the documents, identical
   answers for the free tier), and the **Haiku classifier** (on-topic, injection, crisis, contested).
-- **Evaluation set** and thresholds (recall, citation validity, grounding), the nightly canary.
+- **Evaluation with the real model**: the set v0 and its structural run exist (above); what is
+  still to do is the run with `AI_PROVIDER=claude` against the thresholds of roadmap 3.3, recall
+  against a judged set, grounding, and the nightly canary.
 - **Process split and edge**: the `gateway`/`ops` groups with separate secrets, Cloudflare Tunnel
   and WAF, a shared rate limiter for more than one machine, Sentry and uptime monitoring.
 - **Reload without a deploy**: packs are read at start.
 
+## What the app has to pick up
+
+The screens were specified (`docs/ui-spec-v2.md` 9.5, 9.8 and 9.11, check A22) before the gateway work
+of P1-B2 and P1-B3, and the gateway now does a little more than they describe. Until the spec is
+brought up to date these are the differences (each is defined where this document says so):
+
+| The gateway | The screen spec says | The app should |
+| --- | --- | --- |
+| `error.requestId` is inside the error object and in the SSE `error` event; `retryAfterSeconds` is also in non-streaming JSON errors ([Endpoint contract](#endpoint-contract)) | 9.11: `error { code, message, retryAfterSeconds? }` | Read the id for the "Detalii" disclosure. |
+| `400 unknown_passage` ([Other status codes](#other-status-codes)) | 9.8 has no row for it, so it would show the generic "Ceva nu a mers" | Ask again without `passage`. |
+| `done.quotations` has `uncited` and `unverifiedItems` (`{ text, sentence, offset, cited }`) next to the number `unverified` | 9.5 item 9 and 9.11: `{ checked, unverified }` | List the strings of `unverifiedItems`; keep reading `unverified` as a number. |
+| `503 provider_busy` with a long wait, which is the daily cap (see "Telling the daily cap from a busy model") | 9.8: "try again in a few seconds" with "Reia întrebarea" | Show the wait and `error.message`; no immediate retry above a minute. |
+| `429 rate_limited` for too many wrong access codes | 9.8: "Ai pus multe întrebări într-un timp scurt" | The countdown fits; the copy can name the code, as `error.message` does. |
+| With a `passage` the sources are not sorted by score: the attached passage is source `[1]`, the passages around it have `score` 0 | 9.5 | Keep the order of `sources`; do not sort by score. |
+| `passage: { editionId, paragraphId }` and `scope: { workId }` are request fields | 9.11 and A22: until a `passage` field exists the passage is sent inside the question as quoted text | Send the fields, and the question as typed. |
+
 ## Decisions and deviations
 
 Notes for `docs/decizii.md` (a project rule: every deviation from the architecture document is
-written down there with its reason):
+written down there with its reason). The first block is the P1-B2 and P1-B3 addendum of
+4 November 2026 (also written in `docs/decizii.md`, under ADR-015); the rest is the first slice.
+
+- **A closed beta by access code, ahead of accounts** (architecture 7 asks for the DPIA before AI
+  reaches a preview, and for accounts after it). `ACCESS_CODE` is checked before anything else on
+  `POST /v1/ask`, so that a request without the code costs no rate-limit token and no model call.
+  Wrong codes were first left unthrottled (the answer was a long random code, with a start-up
+  warning for short ones, and not a second limiter, which the roadmap did not ask for). The review
+  of the same day measured 2,200 guesses a second against it and that choice was reversed: wrong
+  codes now use up an allowance of their own per client (`ACCESS_FAILURE_MAX` per
+  `ACCESS_FAILURE_WINDOW_SECONDS`) and a client that has run out is refused with `429` before its
+  code is looked at. It is a second in-memory limiter, so like the first it holds per machine; its
+  price (people behind one address share the allowance) is why the numbers are settings. An
+  `ACCESS_CODE` that is set but empty still opens the beta (an empty variable is an unset one), but
+  start-up now says so (`access.open`) instead of leaving it to a count in the configuration line.
+- **A global daily cap, in memory.** `DAILY_QUESTION_CAP` counts the questions that reach the answer
+  pipeline (the mock provider included) and gives back the ones that never called the model. It is
+  per process: Fly stops an idle machine and the count starts again, so the cap bounds a run of the
+  machine, not the calendar day, until it moves to shared storage in P2. Written down because the
+  roadmap sold it as a brake "so the spend limit is not the only one", and it is a weaker brake than
+  it looks on a machine that sleeps.
+- **`scope` and `passage` are fields of the request, not new endpoints.** An unknown work in
+  `scope` reuses `unknown_editions` (the app already shows "the scope you chose no longer exists");
+  an unknown or unusable `passage` is a new `400 unknown_passage` and not a silent fallback to the
+  whole library, because a client that sends a wrong paragraph id has a bug to find, and the app
+  can retry without `passage` on that code. With a `passage` the sources are no longer sorted by
+  score (the attached passage is `[1]`).
+- **The model is told which document is the selected passage** (a `<selected_passage>` line before
+  the question). This goes beyond "scope retrieval to the section": without it "what does this mean?"
+  has no subject. It is sent only with a `passage`, so every other prompt is unchanged.
+- **The request id is inside the error object** (`error.requestId`, and in the SSE `error` event),
+  not beside it, and `retryAfterSeconds` is now in the JSON body of a non-streaming failure too.
+- **`quotations.unverified` stays a number.** The roadmap and the screen spec ask for "the
+  unverified strings in `done`"; the screen spec also tests `quotations.unverified > 0`, which an
+  array would silently turn false (`[x] > 0` is false in JavaScript). The strings, the sentence
+  index and the position are therefore in the new `unverifiedItems`, and `uncited` says how many
+  quotations had no citing sentence and were checked against all sources, so that the copy
+  "checked against the cited sources" stays true. The check itself is stricter than before: a
+  quotation that is in the sources but not in the one its sentence cites is now unverified.
+- **The evaluation runs on the mock provider only**, as asked; the real-model gates need a key. The
+  retrieval rates are reported and not gated, so that the gaps stay visible for roadmap P1-B4.
 
 - **One service now, not two groups.** `gateway` and `ops` are one process while there are no
   payments or publishing; the Ask code does not depend on that and can move.

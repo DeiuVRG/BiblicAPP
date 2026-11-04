@@ -118,14 +118,31 @@ function renderDocument(entry: PromptSource, index: number, language: Language):
   return lines.join('\n');
 }
 
-/** The user message of the final turn: the numbered documents, then the question. */
+/**
+ * Said when the person selected a passage in the reader before asking: "this passage" of the
+ * question is that document. The text is the gateway's own (the index is a number), so nothing
+ * from the person or the library can reach it.
+ */
+function selectedPassage(index: number, language: Language): string {
+  return language === 'ro'
+    ? `<selected_passage>Persoana a ales documentul ${index} din bibliotecă, iar întrebarea se referă la el. Celelalte documente sunt pasajele din jurul lui și pasaje înrudite din bibliotecă.</selected_passage>`
+    : `<selected_passage>The person selected document ${index} in the library and the question is about it. The other documents are the passages around it and related passages from the library.</selected_passage>`;
+}
+
+/**
+ * The user message of the final turn: the numbered documents, then (when a passage was selected)
+ * which one it is, then the question.
+ */
 export function renderRequest(
   question: string,
   sources: readonly PromptSource[],
   language: Language,
+  attachedIndex?: number,
 ): string {
   const documents = sources.map((entry, i) => renderDocument(entry, i + 1, language)).join('\n');
-  return `<documents>\n${documents}\n</documents>\n\n<question>\n${neutralise(question.trim())}\n</question>`;
+  const attached =
+    attachedIndex !== undefined ? `${selectedPassage(attachedIndex, language)}\n\n` : '';
+  return `<documents>\n${documents}\n</documents>\n\n${attached}<question>\n${neutralise(question.trim())}\n</question>`;
 }
 
 /**
@@ -140,6 +157,8 @@ export function buildPrompt(input: {
   question: string;
   history: readonly ConversationTurn[];
   sources: readonly PromptSource[];
+  /** 1-based number of the document the person selected in the reader, when they did. */
+  attachedIndex?: number;
 }): Prompt {
   const cleaned: ChatMessage[] = input.history
     .map((turn) => ({
@@ -153,7 +172,7 @@ export function buildPrompt(input: {
   while (messages.length > 0 && messages[0]?.role === 'assistant') messages.shift();
   messages.push({
     role: 'user',
-    content: renderRequest(input.question, input.sources, input.language),
+    content: renderRequest(input.question, input.sources, input.language, input.attachedIndex),
   });
   return { system: systemPrompt(input.language), messages };
 }

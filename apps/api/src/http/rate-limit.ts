@@ -44,12 +44,8 @@ export class TokenBucketLimiter {
   take(key: string, cost = 1): BucketDecision {
     const now = this.now();
     const existing = this.buckets.get(key);
-    let tokens = this.capacity;
+    let tokens = this.tokensOf(existing, now);
     if (existing !== undefined) {
-      tokens = Math.min(
-        this.capacity,
-        existing.tokens + (now - existing.updatedAt) * this.refillPerMs,
-      );
       this.buckets.delete(key); // re-inserted below: Map order doubles as least-recently-used order
     }
     if (tokens >= cost) {
@@ -73,8 +69,36 @@ export class TokenBucketLimiter {
     };
   }
 
+  /**
+   * What `take(key, cost)` would answer now, without using a token. A client that is not tracked
+   * yet stays untracked, so looking costs no memory and cannot be used to grow the table.
+   */
+  peek(key: string, cost = 1): BucketDecision {
+    const tokens = this.tokensOf(this.buckets.get(key), this.now());
+    if (tokens >= cost) {
+      return {
+        allowed: true,
+        limit: this.capacity,
+        remaining: Math.floor(tokens - cost),
+        retryAfterSeconds: 0,
+      };
+    }
+    return {
+      allowed: false,
+      limit: this.capacity,
+      remaining: 0,
+      retryAfterSeconds: Math.max(1, Math.ceil((cost - tokens) / this.refillPerMs / 1000)),
+    };
+  }
+
   get size(): number {
     return this.buckets.size;
+  }
+
+  /** Tokens a client holds at `now`: a full bucket when it is not tracked, else refilled up to capacity. */
+  private tokensOf(bucket: Bucket | undefined, now: number): number {
+    if (bucket === undefined) return this.capacity;
+    return Math.min(this.capacity, bucket.tokens + (now - bucket.updatedAt) * this.refillPerMs);
   }
 
   private evict(): void {
