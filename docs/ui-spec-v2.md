@@ -10,7 +10,7 @@ stays valid for behaviour that this document does not change (routes keep workin
 no-hardcoded-colours test stays); its palette, type scale and layout sections are superseded here. This document also supersedes
 ADR-UI and its amendments 1 and 2 (`docs/decizii.md`) on: no gradients and no shadows, fonts, the text size range (14-26 becomes 14-34),
 column widths, accent usage (the accent is no longer limited to links, the primary button, the active segment and the chapter rule) and
-the focus-ring colour; the decision is recorded as ADR-016 (roadmap 12.1). `docs/multi-edition-spec.md`
+the focus-ring colour; the decision is proposed as ADR-016 (roadmap 12.1) and goes into `docs/decizii.md` with the first P1 commit. `docs/multi-edition-spec.md`
 (editions, reading language, interface language) is the data and behaviour base of the bilingual features below.
 
 ## Contents
@@ -178,7 +178,7 @@ Rules that follow from the table: (1) In the light theme a label on an `accent` 
 4.49:1 in light). (3) Text over a photograph sits on a scrim that makes the lightest 5 % of the covered area at least
 4.5:1 against the text (checked by sampling the screenshot, section 20). (4) Colour never carries meaning alone:
 statuses have text, and stance or shelf colours always come with a label. (5) On `masthead` bands and over photographs, links, outlines and the focus ring use `mastheadAccent` or `mastheadInk`, never `accentStrong`
-(2.64:1 in light, 2.36:1 in sepia): the 2 px focus ring there is `mastheadInk` (12.61:1), `text` links are `mastheadAccent` (5.67:1), and a filled `primary` button on a dark band is identified by its label (5.87:1 on its `accentStrong` fill), not by the edge of its fill.
+(2.64:1 in light, 2.36:1 in sepia): the 2 px focus ring there is `mastheadInk` (12.61:1), plain links are `mastheadAccent` (5.67:1), and a filled `primary` button on a dark band is identified by its label (5.87:1 on its `accentStrong` fill), not by the edge of its fill.
 
 **Derived tokens (flat strings).** Every colour that this document writes as a literal anywhere else is a token of `Palette`, written as `#RRGGBB` or `#RRGGBBAA`, so that the no-hardcoded-colours test keeps working and the scripts that read `palettes.ts` keep working:
 
@@ -201,7 +201,7 @@ statuses have text, and stance or shelf colours always come with a label. (5) On
 
 **Migration checklist (P1-A1).** Changing `apps/mobile/src/theme/palettes.ts` also changes:
 1. `public/index.html`: the default `--app-background` and `--app-accent` and the `themes` map of the stored theme (sepia `#f4ecd8`, `#7a3e12`); the "web template and splash" test of `theme.test.ts` compares them with `palettes.*.background` and `.accent`.
-2. `app.config.ts`: the splash backgrounds (`#FBFAF7`, `#141311`) and the adaptive-icon background (`#141311`), checked by the same test; the icons are regenerated with `scripts/generate-icons.mjs` (`icons.test.ts` compares PNG pixels with the palettes: seven tests).
+2. `app.config.ts`: the splash backgrounds (`#FBFAF7`, `#141311`) and the adaptive-icon background (`#141311`), checked by the same test; the icons are regenerated with `scripts/generate-icons.mjs` (`icons.test.ts` compares PNG pixels with the palettes).
 3. `src/theme/document-theme.ts` writes `--app-accent` from `colors.accent` and the web focus ring reads it, but the ring is `accentStrong` (and `mastheadInk` on dark bands, rule 5): the variable is set from `accentStrong`, and `masthead` bands override it. `navigation-theme.ts` sets `primary` and `notification` from `accentStrong`.
 4. `__tests__/theme.test.ts` lists `accent` on `background` and on `surface` and `onAccent` on `accent` at 4.5:1; in v2 these are 3.99, 4.34 and 4.41 (allowed for fills and graphics only, rule 1), so they move to a 3:1 graphics list and the text pairs become the table above; `__tests__/design.test.tsx` expects the primary button fill `palettes.light.accent` and it becomes `accentStrong`.
 5. `scripts/generate-icons.mjs` and `scripts/check-web-theme.mjs` read `palettes.ts` with a regular expression that stops at the first closing brace of a palette and reads only quoted six-digit hex values: `Palette` stays flat (no nested objects); eight-digit values are skipped safely.
@@ -212,7 +212,7 @@ statuses have text, and stance or shelf colours always come with a label. (5) On
 | Role | Family (package) | Files bundled | Notes |
 |---|---|---|---|
 | Display | IM Fell Great Primer (`@expo-google-fonts/im-fell-great-primer` 0.4.0) | `400Regular`, `400Regular_Italic` (207 + 239 KB; both in the first-paint set: the brand wordmark is `displayS` italic) | hero and band headings, stat numerals, gate and panel titles (italic). Only weight 400 exists: never request a bold weight (Android synthesises it badly). Verified with fontTools on the pinned package: covers `ă â î ș ț Ă Â Î Ș Ț`, `„ ” « »`, dashes, ellipsis, pilcrow; has no arrows (`← → ↑ ↓`), no thin space (U+2009) and no Greek, so `display*` styles never carry those |
-| Text and UI | Source Serif 4 (`@expo-google-fonts/source-serif-4` 0.4.2) | `400Regular`, `400Regular_Italic`, `600SemiBold` (first paint), `600SemiBold_Italic` (on demand) (322 + 203 + 322 + 203 KB; no `700Bold` before P2: Markdown bold and the verse numbers of 11 use 600) | the family the reference calls Source Serif Pro; covers Romanian comma-below letters (verified) |
+| Text and UI | Source Serif 4 (`@expo-google-fonts/source-serif-4` 0.4.2) | `400Regular`, `400Regular_Italic`, `600SemiBold` (first paint), `600SemiBold_Italic` (on demand) (322 + 203 + 322 + 203 KB; no `700Bold` before P2: Markdown bold and the verse numbers of section 11 use 600) | the family the reference calls Source Serif Pro; covers Romanian comma-below letters (verified) |
 | Reading option | Literata (already bundled, `@expo-google-fonts/literata`) | existing five files | stays as a choice in Settings and `Aa` ("Literata") |
 | Sans option | Inter (already bundled) | existing three files | not used for chrome any more; kept only as the "Sans" reading option. Remove it in P2 if unused |
 | Greek originals | Gentium Plus (`@expo-google-fonts/gentium-plus` 0.4.0) | `400Regular`, `400Regular_Italic` (780 + 829 KB) | used for a reading lane whose edition language is `grc` (and any text with Greek Extended letters). Source Serif 4 covers basic Greek (U+0370-03FF) but **not** polytonic Greek (U+1F00-1FFF), verified with a cmap check; Gentium Plus covers polytonic Greek and the Romanian letters. Loaded with `Font.loadAsync` when a Greek edition is opened |
@@ -745,7 +745,7 @@ This is the control that makes the product ours. Reference RD-26 is the starting
 
 - **Single lane**: the language control of the toolbar chooses the edition (RO, EN, Original when installed). Switching opens the aligned section of the other edition and scrolls to the paragraph aligned
   with the one in view, so the reader keeps their place; the URL gets `?lang=`.
-- **Two lanes** ("⇄"): the pair is chosen in a small menu (`Popover`, `Sheet` on phone): "Română + English" (default: the reading language first), "Română + Original", "English + Original" when three
+- **Two lanes** (the `lanes` `Icon`): the pair is chosen in a small menu (`Popover`, `Sheet` on phone): "Română + English" (default: the reading language first), "Română + Original", "English + Original" when three
   editions exist; the choice is remembered per work and as a default (`settings.readerPair`). The URL gets `?pair=ro+en`.
 - **Desktop and wide tablet (a text area of 900 px and up, which means a window of about 1200 px with the 300 px outline open)**: one row per aligned source paragraph; left lane = first edition of the pair, right = second; grid 50/50 by default, a drag handle on the gap changes it between 35 and 65 percent
   (double-click resets; keyboard: Left/Right on the focused handle); a 1 px `border` divider; each lane has a sticky `label` header, the edition's own label of 17.7 in capitals ("ROMÂNĂ · TRADUCERE", "ENGLISH · TRADUCERE" for the English translation of a Latin work, "ENGLISH · ORIGINAL", "LATINĂ · ORIGINAL"); heading cards appear in both lanes; the container grows to 1440. Row height is the taller lane.
@@ -825,7 +825,7 @@ label) revealed over Contents and Search from the left edge of the thumb bar. It
 ### 8.9 Paragraph actions and selection
 
 - **Web, pointer devices**: hovering a paragraph shows a rail 30 px left of the text with two 24 x 24 buttons (link: "Copiază linkul către acest paragraf"; copy: "Copiază paragraful cu citare"); the face flashes a check for 1.1 s; hidden where `hover: none`.
-- **Native and touch**: the paragraph text stays `selectable` (a long press and the system selection handles belong to the platform: word and range selection, copy, dictionary, translate), and the `¶ n` button at the start of every paragraph (44 x 44 hit area, always visible on touch devices) opens a `Sheet` with: Evidențiază (five wash swatches and "Șterge evidențierea"), Copiază cu citare, Copiază linkul, Întreabă despre acest pasaj, Raportează; Notă and Salvează [P2]. A long press cannot open the sheet: on Android a selectable text view takes it to start the selection and on iOS it opens the system copy menu (checked by hand on an APK, N8 in 20.6).
+- **Native and touch**: the paragraph text stays `selectable` (a long press and the system selection handles belong to the platform: word and range selection, copy, dictionary, translate), and the `¶ n` button at the start of every paragraph (44 x 44 hit area, always visible on touch devices) opens a `Sheet` with: Evidențiază (five wash swatches and "Șterge evidențierea"), Copiază cu citare, Copiază linkul, Întreabă despre acest pasaj, Raportează; Notă and Salvează [P2]. A long press is not used to open the sheet: on Android a selectable text view takes it to start the selection and on iOS it opens the system copy menu, so a parent long-press handler is unreliable (to be confirmed by hand on an APK, N8 in 20.6).
 - **Citation format**: copy-with-citation is the paragraph text, a blank line, then "— <Autor>, <Titlu>, <secțiune> (<ediția română | English edition | ...>). — <URL>"; the edition suffix appears only when the work has several editions, inside the citation, before ". — <URL>". The URL is `<origin>/read/<workId>/<sectionId>?p=<paragraphId>`, where `<origin>` is `window.location.origin` on web and `EXPO_PUBLIC_SITE_URL` on native (`https://deiuvrg.github.io/BiblicAPP` until the domain exists, roadmap section 9). Copying uses `expo-clipboard` on native (fallback: the system Share sheet). A citation export per edition (BibTeX, Chicago: edition kind, model, date) is P3; the reference offers "Copy BibTeX" among its passage tools.
   Passage permalinks `/passage/<id>` [P2] resolve to the edition in the visitor's reading language.
 - **Ask from a paragraph**: opens `/ask?scope=work:<id>&passage=<paragraphId>`; the composer shows a passage card (citation, the text as a quote, ×) and sends it with the question.
@@ -954,7 +954,7 @@ Not covered (`stopReason: not_covered`): the body is replaced by "Biblioteca nu 
 ### 9.7 Source pane
 
 Wide: the right pane holds `ReaderPane`, the reader screen as a component without the section bar, outline panel or thumb bar: a slim header (a "‹" "Înapoi la conversație", the title "Pasaj sursă · <lucrare>", links "Deschide cartea" and a close ×), the section scrolled to the cited paragraph with the `target` wash,
-and a lane toggle "RO | EN | ⇄" when the passage has aligned editions. A 9 px handle (`role=separator`, `aria-valuemin 28`, `aria-valuemax 76`; Left/Right move 3 %, Home and End jump, Enter, Space or double-click reset to 45 %) resizes it; the width is remembered. Opening a source pushes one history entry. Status line "Se deschide pasajul..." and, after 15 s, "Pasajul se încarcă greu. Îl poți deschide în carte." Phone: the full-screen layer with the two tabs of 9.2.
+and a lane toggle (RO, EN and the `lanes` `Icon`) when the passage has aligned editions. A 9 px handle (`role=separator`, `aria-valuemin 28`, `aria-valuemax 76`; Left/Right move 3 %, Home and End jump, Enter, Space or double-click reset to 45 %) resizes it; the width is remembered. Opening a source pushes one history entry. Status line "Se deschide pasajul..." and, after 15 s, "Pasajul se încarcă greu. Îl poți deschide în carte." Phone: the full-screen layer with the two tabs of 9.2.
 
 ### 9.8 States and errors
 
@@ -1038,7 +1038,7 @@ Later: P2 v1, P3 the rest. Reference: SC-01 to SC-32. It needs Bible texts (deci
   when classified [P3], "Citește în carte"), and "Întreabă despre acest verset" (opens Ask with the question "Ce spun cărțile bibliotecii despre <referință>?" prefilled, not sent). With no verse open the pane shows "Acest capitol în bibliotecă": counts, "x din y versete citate" and the most-cited verses with bars.
 - **Layout modes** (50/50, 40/60, 60/40, only text, only panel; from 900 up) [P3]; the dark mode is the global theme (SC-17).
 - **Data**: signed Bible packs with a licence record per translation (flags checked at publication), a versification map from day one (Romanian Psalms follow another count; the reference only mentions superscriptions), the paragraph-to-reference index built at pack-build time with the RO and EN parsers, the Fidela/KJV style attribution line under the text.
-- **Verse Desk** [P3]: one verse and everything the library holds on it: the head with the reference, verse and translations, a century ruler and tiles composed from counts, key voices, how each age read it, creeds that cite it, the commentary ladder, chapter heat, citations with filters, similar passages, ask. Every figure carries a Methodology note; modules without data render nothing.
+- **Verse Desk** [P3]: one page per verse that gathers all the library holds on it: the head with the reference, verse and translations, a century ruler and tiles composed from counts, key voices, how each age read it, creeds that cite it, the commentary ladder, chapter heat, citations with filters, similar passages, ask. Every figure carries a Methodology note; modules without data render nothing.
 
 ---
 
@@ -1118,7 +1118,7 @@ a "De ce plătim?" page, an in-app paywall sheet (RevenueCat paywalls on iOS and
 - Targets 44 x 44 (inline links and citation chips: a 44 px hit area on web and at least 24 px on native, where the receipts of 9.5 are the 44 px path; section-bar items have the full bar height as hit area; toolbar controls are 44 px with a coarse pointer); focus visible everywhere (2 px `accentStrong`, offset 2; 2 px `mastheadInk` on `masthead` bands and over photographs); no focus trap except inside `Dialog` and `Sheet`; Esc and the visible close always work.
 - Structure: one `h1` per screen; the section bar is `navigation` with the name "Secțiuni"; the reader has a skip link "Treci la text"; `main` holds the screen; tabs follow the manual-activation pattern; drawers use `aria-expanded` and `aria-controls`; live regions (`role=status`, `polite`) for counts, find results, Ask progress and "Răspuns complet".
 - Reading: system font scaling is honoured up to 1.6 for reading text and capped at 1.5 for chrome (the existing `READING_MAX_FONT_SCALE` and `UI_MAX_FONT_SCALE`); line spacing and size are user settings; two lanes stack rather than shrink when the text area is below 900; each lane has a `lang` attribute; soft hyphens are not required.
-- Hover is never the only way: every hover preview has a focus and a tap equivalent; the paragraph rail has the long-press sheet on touch.
+- Hover is never the only way: every hover preview has a focus and a tap equivalent; the paragraph rail has the `¶ n` button and its sheet on touch.
 - Motion: all animation respects reduced motion (2.6); nothing flashes.
 - The drag handles (lane split, source pane) are operable with arrow keys and have a value.
 - Native equivalents: `aria-current`, `aria-controls` and `aria-level` are not React Native props (web gets them through casts, as `reader-paragraph.tsx` already does for `aria-level`); native maps `aria-current` to `accessibilityState.selected`, live announcements to `AccessibilityInfo.announceForAccessibility("Răspuns complet")`, and the drag handles to `accessibilityRole="adjustable"` with increment and decrement actions (a unit test with a mocked `AccessibilityInfo`, A21).
@@ -1133,7 +1133,7 @@ a "De ce plătim?" page, an in-app paywall sheet (RevenueCat paywalls on iOS and
 | Sticky bars | `position: sticky` for the section bar and the work-hub tab strip (react-native-web renders `stickyHeaderIndices` that way) | the bars are the first two children of the screen's scroll container and the section bar is a sticky header (`stickyHeaderIndices`); the tab strip uses the same mechanism |
 | Hide on scroll | scroll listener with direction and threshold (56 px) | `onScroll` on the list with `Animated` translate |
 | Drawers | width animation (desktop), panel under the bar (phone) | the phone panel on all native screens |
-| Hover previews and the paragraph rail | pointer events with delay | not used; `Sheet` on tap or long press |
+| Hover previews and the paragraph rail | pointer events with delay | not used; `Sheet` on tap (previews) and from the `¶ n` button (paragraph actions) |
 | Text selection bar | DOM selection API [P2] | `selectable` text keeps the system selection (copy, dictionary, translate); custom actions through the `¶ n` button and its sheet |
 | Backdrop blur, `content-visibility`, CSS columns | allowed where harmless | not available: opaque colours, list windowing, flex-wrap grids |
 | Fixed progress bar | `position: fixed` | absolute view above the safe area |
@@ -1156,11 +1156,13 @@ Not added in P1: `expo-linear-gradient` (the hero scrim is two flat `View`s, 2.8
 
 ### 20.1 Method
 
-A reviewer runs the checks with Playwright against the static web export and reads the screenshots. Build: `pnpm --filter mobile export:web`. Serve with the helpers of `scripts/lib/web-export.mjs`. For Ask start the gateway in mock mode
-(`AI_PROVIDER=mock pnpm --filter @biblioteca/api dev`, `EXPO_PUBLIC_ASK_API_URL=http://localhost:8787`) and use a small stub server for the error and edge cases. Content: the committed packs (fixture **F-1**: the Vos English source and the Romanian translation) and, for list behaviour, a synthetic catalogue built in tests
-(fixture **F-2**: 15 authors, six shelves, centuries 5 to 20; enabled with a test-only build flag). New script: `scripts/check-ui-v2.mjs` (reuses `launchChromium`, `serveExport`, `waitForScreen`) writes `test-results/ui-v2/report.json` (one entry per check id with pass or fail and the measured value) and the screenshots.
+A reviewer runs the checks with Playwright against the static web export and reads the screenshots; native behaviour is checked by the smoke list of 20.6. Build: `pnpm --filter mobile export:web`. Serve with the helpers of `scripts/lib/web-export.mjs`, on a fixed port (`--port 8081`) or with the mock gateway started with `ALLOWED_ORIGINS=<export origin>`: the gateway's default allow-list is `https://deiuvrg.github.io`, `http://localhost:8081` and `http://127.0.0.1:8081`, so a random export port fails every Ask preflight with 403.
+For Ask start the gateway in mock mode (`AI_PROVIDER=mock pnpm --filter @biblioteca/api dev`, `EXPO_PUBLIC_ASK_API_URL=http://localhost:8787`) and use a small stub server for the error and edge cases. The helpers that exist today know only the library, work, reader and settings routes and treat `/` as the library (`discoverRoutes`, `waitForScreen`, `smoke-web.mjs`, `screenshots-web.mjs`): they are updated in P1-A3 and P1-A13, and `ci.yml` and `android-apk.yml` verify every pack, not only `vos-1903-kingdom-en` (P1-E1).
+Content: **F-1**, the committed packs (the Vos English source and the Romanian translation, complete after P1-C1). **F-2**, a synthetic catalogue built in tests (15 authors, six shelves, centuries 5 to 20, and one anonymous work with an issuing body, for example a council), signed with a test key that the pinned-key list accepts only under a test-only build flag.
+**F-3**, test-only signed packs built in tests under the same flag: Vos Romanian truncated to 1 of 11 sections (a partial edition); one edition per provenance kind (`ai`, `human`, `native`, `source`, `transcription`, `unknown`); one edition with six corrections; one Latin work with source `la` and translations `en` and `ro`. W2, R6, R7, R8, T1 and T3 run on F-3.
+New script: `scripts/check-ui-v2.mjs` (reuses `launchChromium`, `serveExport`, `waitForScreen`) writes `test-results/ui-v2/report.json` (one entry per check id with pass or fail and the measured value, plus the hand-recorded N1-N10 of 20.6) and the screenshots.
 
-Screens are captured at **1366x900** and **390x844** (device scale factor 1, the sizes of the reference capture so a side-by-side with `test-results/tfr/` is possible) and at 1024x768 for the shell and the reader; themes light, sepia, dark (stored setting plus `colorScheme`); every shot in a fresh context (empty storage).
+Screens are captured at **1366x900** and **390x844** (device scale factor 1, the sizes of the reference capture so a side-by-side with `test-results/tfr/` is possible; that folder is gitignored and ephemeral, the capture scripts are committed under `scripts/reference/` so the captures can be regenerated, and the reference changes during the day) and at 1024x768 and 768x1024 for the shell and the reader (the iPad bands of 2.4); themes light, sepia, dark (stored setting plus `colorScheme`); every shot in a fresh context (empty storage).
 Naming: `docs/screenshots/v2/<screen>-<theme>-<size>.png`, where size is `desktop`, `tablet` or `phone`. Screens: `landing`, `library`, `library-all`, `work`, `reader`, `reader-lanes`, `reader-aa`, `reader-tools`, `reader-outline` (phone), `transparency`, `ask-welcome`, `ask-answer`, `ask-preview`, `ask-source`, `search`, `bookmarks`, `settings`, `about`, `about-transparency`.
 Minimum matrix: every screen in light and dark at desktop and phone; landing, work and reader also in sepia.
 Convention: labels shown in capitals in this document (SECȚIUNI, CAPITOLUL I, "ÎNCEPE LECTURA") are sentence case in the DOM and uppercase by style; checks compare the DOM text case-insensitively and read the computed `text-transform`.
@@ -1171,26 +1173,28 @@ Convention: labels shown in capitals in this document (SECȚIUNI, CAPITOLUL I, "
 |---|---|
 | Shell | `brand-bar`, `section-bar`, `section-item-<key>` (home, search, read, scripture, topics, research, resources, about), `section-drawer-<key>`, `drawer-entry-<key>-<route>`, `language-switch`, `theme-button`, `ask-button` |
 | Landing | `hero`, `hero-title`, `hero-highlight`, `hero-cta-primary`, `hero-cta-secondary`, `door-<key>`, `stat-<key>`, `work-card-<slug>`, `shelf-card-<slug>`, `beta-band`, `transparency-band` |
-| Library | `library-search`, `library-count`, `filter-<shelf\|century\|tradition\|lang\|availability>`, `az-bar`, `az-<letter>`, `author-accordion-<slug>`, `library-row-<workSlug>`, `century-tile-<n>`, `view-tab-<author\|century>` |
+| Library | `library-search`, `library-count`, `filter-<shelf\|century\|tradition\|lang\|availability>`, `az-bar`, `az-<letter>`, `author-accordion-<slug>`, `library-row-<workSlug>`, `century-tile-<n>`, `view-tab-<author\|century>`, `authors-count`, `author-row-<slug>`, `issuing-body-<slug>` |
 | Work hub | `work-card`, `work-title`, `edition-switch`, `status-chip`, `transparency-open`, `work-cta-start`, `work-cta-lanes`, `work-cta-ask`, `work-tabs`, `tab-<key>`, `contents-row-<sectionId>`, `start-list` |
-| Reader | `reader-toolbar`, `outline-panel`, `outline-tab-<key>`, `outline-search`, `outline-count`, `outline-entry-<sectionId>`, `reader-title`, `reader-counter`, `lang-<ro\|en\|orig>`, `lang-pair-toggle`, `transparency-button`, `find-button`, `aa-button`, `tools-button`, `reader-text`, `chapter-card`, `paragraph-<paragraphId>`, `lane-left`, `lane-right`, `lane-label-<lang>`, `target-paragraph` (exists), `find-bar`, `find-status`, `thumb-bar`, `thumb-cell-<key>`, `progress-bar`, `next-chapter-card` |
+| Reader | `reader-toolbar`, `outline-panel`, `outline-tab-<key>`, `outline-search`, `outline-count`, `outline-entry-<sectionId>`, `reader-title`, `reader-counter`, `lang-<ro\|en\|orig>`, `lang-pair-toggle`, `transparency-button`, `find-button`, `aa-button`, `tools-button`, `reader-text`, `chapter-card`, `paragraph-<paragraphId>`, `paragraph-marker-<paragraphId>`, `paragraph-sheet`, `highlight-bar-<paragraphId>`, `target-bar`, `lane-left`, `lane-right`, `lane-label-<lang>`, `target-paragraph` (exists), `find-bar`, `find-status`, `thumb-bar`, `thumb-cell-<key>`, `progress-bar`, `next-chapter-card` |
 | Transparency | `transparency-panel`, `transparency-lead`, `transparency-review`, `transparency-corrections`, `transparency-report` |
-| Ask | `ask-welcome`, `ask-suggestion-<n>`, `ask-composer`, `ask-input`, `ask-send`, `ask-stop`, `ask-scope-chip`, `ask-lang-chip`, `ask-turn`, `ask-progress`, `ask-answer`, `ask-cite-<n>`, `ask-preview`, `ask-receipts`, `ask-sources`, `ask-ai-label`, `ask-notice-unverified`, `ask-error`, `ask-source-pane`, `ask-split-handle`, `ask-new`, `ask-first-use` |
+| Ask | `ask-welcome`, `ask-suggestion-<n>`, `ask-composer`, `ask-input`, `ask-send`, `ask-stop`, `ask-scope-chip`, `ask-lang-chip`, `ask-turn`, `ask-progress`, `ask-answer`, `ask-cite-<n>`, `ask-preview`, `ask-receipts`, `ask-sources`, `ask-ai-label`, `ask-notice-unverified`, `ask-error`, `ask-source-pane`, `ask-split-handle`, `ask-new`, `ask-first-use`, `ask-access-code`, `ask-link-card-read`, `ask-passage-card`, `ask-counter`, `ask-copy-answer`, `ask-paused` |
 | Search | `search-input`, `search-mode-<key>`, `search-count`, `search-result-<n>` |
+| Settings, About | `settings-ask-notice`, `settings-clear-conversations`, `footer` |
 
 ### 20.3 Global checks (every screen, every size and theme in the matrix)
 
 | ID | Check | How | Expected |
 |---|---|---|---|
 | G1 | No horizontal page scroll | `scrollWidth <= innerWidth` for `html` and `body` | true; only the section bar, the tab strips and the A-Z strip scroll sideways inside their own container |
-| G2 | Fonts | `document.fonts.check` and computed `font-family` of the hero title, a body paragraph and a rail item | IM Fell Great Primer, Source Serif 4 (or the chosen reading font); `document.fonts.status === 'loaded'` before the shot; no fallback flash (screenshot taken after fonts) |
+| G2 | Fonts | `document.fonts.check` and computed `font-family` of the hero title, a body paragraph and a rail item | IM Fell Great Primer, Source Serif 4 (or the chosen reading font); `document.fonts.status === 'loaded'` before the shot; no fallback flash (screenshot taken after the first-paint set of 2.2; Literata, Inter and Gentium Plus are checked after the test has requested them) |
 | G3 | Tokens | computed colours of: page background, section-bar border, primary button fill and label, link colour, reading text | equal the theme's `background`, `border`, `accentStrong`, `onAccent`, `accentStrong`, `text` (exact rgb) |
 | G4 | Text contrast | walk every visible text leaf, resolve its effective background (first opaque ancestor), compute the WCAG ratio | at least 4.5 (3 for text of 24 px or more, or 18.66 px bold); text over images is exempt and checked in G5 |
 | G5 | Text over photographs | sample the screenshot behind each hero text box (lightest 5 % of pixels) | at least 4.5 against the text colour |
-| G6 | Tap targets (phone) | bounding boxes of `a, button, [role=button], [role=tab], input, select` | at least 44 x 44, except inline links in paragraphs (hit area 44 by padding) |
-| G7 | Focus | press Tab five times from the top | each focused element has an outline of 2 px `accentStrong` (or the native equivalent) and is not clipped |
+| G6 | Tap targets (phone) | bounding boxes of `a, button, [role=button], [role=tab], input, select` (hit areas, so a section-bar item counts with the full bar height) | at least 44 x 44, except inline links and citation chips inside running text (their hit area is 44 px on web through an overlay element) |
+| G6b | Tap targets (coarse pointer) | at 1024x768 with `hasTouch`, the G6 bounding-box check on the reader toolbar, the brand bar and the section bar | at least 44 x 44 (the toolbar grows from 36 px) |
+| G7 | Focus | press Tab five times from the top | each focused element has an outline of 2 px, `accentStrong` on the page bands and `mastheadInk` on `masthead` bands and over photographs (the expected colour is chosen by the band behind the element), at least 3:1 against what is behind it, and is not clipped |
 | G8 | Keyboard and layers | open each drawer, dialog and sheet; press Esc | closes; focus returns to the trigger; nothing else closes |
-| G9 | Languages | run with UI RO and with UI EN | all labels change; no raw keys; `html[lang]` follows; no string equal in both tables unless a proper noun; key parity test (`i18n.test.tsx`) green |
+| G9 | Languages | run with UI RO and with UI EN | all labels change; no raw keys; `html[lang]` follows; no string equal in both tables unless it is listed in `i18n-same.json` (proper nouns and cognates such as Index and Original); key parity test (`i18n.test.tsx`) green |
 | G10 | Diacritics | regex over `document.body.innerText` and the string tables | no U+015E, U+015F, U+0162, U+0163 |
 | G11 | Console and network | collect `console.error`, `pageerror`, failed requests | none, except the Ask API when it is stubbed offline |
 | G12 | Reduced motion | emulate `prefers-reduced-motion: reduce` | hero sweep and kicker pulse absent (no running animation), drawer opens without transition |
@@ -1204,7 +1208,7 @@ Convention: labels shown in capitals in this document (SECȚIUNI, CAPITOLUL I, "
 | ID | Check | Expected |
 |---|---|---|
 | S1 | 1366x900: brand bar and section bar | brand bar 64 px (plus or minus 1), `cream`; section bar directly below, 48 px, 1 px `border` under it; items in the order home, search, read, research, about (P1 flags); text uppercase, 13 px, letter spacing 1.3 px, `textMuted`; "BIBLIOTECA" 600 |
-| S2 | 390x844: section bar | 43 px; scrolls horizontally inside itself; first three items fully visible; an edge fade element present; the page does not scroll sideways |
+| S2 | 390x844: section bar | 44 px (plus its 1 px border); scrolls horizontally inside itself; first three items fully visible; an edge fade element present; the page does not scroll sideways |
 | S3 | Drawer (desktop) | pressing `read` opens a drawer of three entries within 400 ms; `aria-expanded=true`; the caret flips; Esc closes and focus returns to the toggle; ArrowRight moves to the next bar item |
 | S4 | Drawer (phone) | a full-width panel directly under the bar with 48 px rows, a child of the bar container, visible in the first frame after the press (no animation frame wait) |
 | S5 | Current location | on `/library/all` the `read` toggle has the current style and the entry "Toată biblioteca" has `aria-current=page` |
@@ -1223,7 +1227,7 @@ Convention: labels shown in capitals in this document (SECȚIUNI, CAPITOLUL I, "
 | L5 | Collection | one `WorkCard` per work with "RO" and "EN" badges; at 390 the description and arrow are not displayed and the card is 140 px high or less |
 | L6 | Shelves | only shelves that hold works; counts follow the plural rule ("1 lucrare"); each links to `/library/all?shelf=` |
 | L7 | Bands | beta band and transparency band present; the button goes to `/about/transparency` |
-| L8 | Offline | after load, `setOffline(true)` and reload from cache: the catalogue sections still render |
+| L8 | Offline | after load, `setOffline(true)` and navigate client-side (landing, library, a work, the reader): the catalogue sections and the reader still render (a reload while offline needs the service worker, P2-D4) |
 
 **Library**
 
@@ -1234,17 +1238,25 @@ Convention: labels shown in capitals in this document (SECȚIUNI, CAPITOLUL I, "
 | B3 | Search by name | typing "vos" updates the count line ("1 lucrare cu „vos” în toată biblioteca"), highlights the match, and the A-Z bar lists only letters that have authors |
 | B4 | URL state | choosing SECOL = XX gives `century=20` in the URL; reload restores it; default values never appear in the URL |
 | B5 | By century | the tab shows tiles only for centuries that have works; a tile sets `century` and returns to "După autor" |
-| B6 | Row anatomy | title in the reading language (switch the reading language to EN and the English title shows), italic original title when different, uppercase meta line, edition chips; no licence text anywhere in rows (no match for /licen/i) |
+| B6 | Row anatomy | title in the reading language (switch the reading language to EN and the English title shows), italic original title when different, uppercase meta line, edition chips; no licence text anywhere in rows (no match for /licen/i); the English edition of the F-3 Latin work reads "English · traducere" in its work hub |
 | B7 | Accordions | F-1 (1 author) open; F-2 (15 authors) all closed at first; a search that leaves 12 or fewer authors opens them |
 | B8 | Empty | a query with no match shows "Nicio lucrare nu corespunde filtrelor." and "Șterge filtrele" restores the list |
 | B9 | Phone | filter controls are full width and stacked; the A-Z bar scrolls inside its container only |
+| B10 | Authors | `/authors` lists the F-2 authors with "N autori" and "N lucrări" per row; `/authors/[slug]` shows the name, dates, the biography label ("Prezentare editorială" or "Text generat cu AI") and the works as rows; "Întreabă despre acest autor" opens `/ask?scope=edition:<ids>` over that author's editions |
+| B11 | Anonymous work | the F-2 anonymous work (issuing body, no author) is listed under its issuing body in the accordions and in the A-Z bar; its work hub and reader title block show the issuing body and year as plain text, with no author link and no breadcrumb; the creeds shelf page lists tradition, issuing body, document |
+
+**Catalogue**
+
+| ID | Check | Expected |
+|---|---|---|
+| C1 | Signed catalogue | a tampered `catalogue.json` is rejected: the library lists the works under "Altele" without blurbs and no count comes from the rejected file; with the genuine catalogue the landing, library and work hub counts agree; a pack whose sha256 differs from the catalogue is refused when its edition is opened |
 
 **Work hub**
 
 | ID | Check | Expected |
 |---|---|---|
 | W1 | Card | title IM Fell Great Primer (34/40 wide, 30/36 phone); italic original title; author link; kind chip; tiles SECȚIUNI (= sections of the selected edition) and CUVINTE (rounded word count) |
-| W2 | Editions | the switch changes the contents, the status chip and the start target; `?edition=` is written; the partial chip shows for the Romanian edition while it has fewer sections than the source |
+| W2 | Editions (F-3) | the switch changes the contents, the status chip and the start target; `?edition=` is written; the partial chip shows for the truncated Romanian edition while it has fewer sections than the source; the English edition of the Latin work reads "English · traducere" and its source "Latină · original" |
 | W3 | Transparency row | chip text matches the provenance kind; "Detalii" opens the same `transparency-panel` as the reader |
 | W4 | Actions | first visit "Începe lectura", after reading "Continuă lectura"; "Citește în două limbi" opens the reader with `pair=`; "Întreabă despre această carte" opens `/ask?scope=work:<id>`; no offline button in P1 |
 | W5 | Tabs | after scrolling 600 px the strip's top equals the section bar's bottom (plus or minus 1); "Prezentare" is 600 with a 2 px `accent` underline; only tabs with content exist; counts in labels |
@@ -1260,68 +1272,100 @@ Convention: labels shown in capitals in this document (SECȚIUNI, CAPITOLUL I, "
 | R3 | Type | paragraph in Source Serif 4; default size 20 at 1366 and 17 at 390 for a fresh profile; line height 1.55 in light |
 | R4 | Chapter card | eyebrow "Capitolul I" (uppercase by style); title 600 at 1.42 em (plus or minus 1 px); 1 px `border`; fill `surface` |
 | R5 | Outline | tab row, search field, count line "11 intrări în cuprins"; the current entry has `aria-current=location`, 600 and a 2 px left bar in `accentStrong`; typing filters; "Arată curentul" scrolls to it |
-| R6 | Language switch | choosing EN opens the aligned section and keeps the aligned paragraph (the paragraph in view has the same `data-source-id`); `?lang=en` in the URL; reload keeps it |
-| R7 | Two lanes | at 1366 two columns, each row's two blocks the same height (plus or minus 1), left and right paragraph share a `data-source-id`, lane labels and a hairline divider; at 390 the lanes stack with lane labels |
-| R8 | Gaps | in the partial Romanian edition the rows of untranslated paragraphs show the placeholder; the row count equals the source paragraph count |
+| R6 | Language switch (F-1, F-3) | choosing EN opens the aligned section and keeps the aligned paragraph (the paragraph in view has the same `data-source-id`); `?lang=en` in the URL; reload keeps it; on the F-3 Latin work the control offers RO, EN and Original |
+| R7 | Two lanes | at 1366 two columns, each row's two blocks the same height (plus or minus 1), left and right paragraph share a `data-source-id`, lane labels and a hairline divider; at 390 the lanes stack with lane labels; on the F-3 Latin work the pair English + Română reads "ENGLISH · TRADUCERE" and "ROMÂNĂ · TRADUCERE" in the lane headers |
+| R8 | Gaps (F-3) | in the truncated Romanian edition the rows of untranslated paragraphs show the placeholder; the row count equals the source paragraph count |
 | R9 | Transparency | the button reads "Transparență AI" for the Romanian Vos edition; the dialog is 560 px (plus or minus 2) with the rows SURSA, TRADUCEREA, VERIFICARE, CORECTURI; Esc closes; focus returns |
 | R10 | Aa | size 24 gives 24 px paragraphs at once and after reload; "Aerisit" gives line height 1.85; font Literata changes the family; theme Sepia gives background `#EEE7D9` |
 | R11 | Find | `/` opens the bar focused; "împărăția" gives "1 din N" with N at least 1; Enter moves on; Esc closes and the scroll position returns |
 | R12 | Keyboard | → opens the next chapter; `[` toggles the outline; Tab starts in the section bar |
-| R13 | Phone shell (390x844) | toolbar 53 px; thumb bar 61 px with five cells for a bilingual work (four otherwise); the section bar hides after 600 px down and returns after 100 px up; the outline drawer is 390 px wide and closes after choosing an entry; Language and Text open as bottom sheets |
-| R14 | Citation | hovering a paragraph shows the rail; the copy button puts on the clipboard text matching `^[\s\S]+\n\n— .+\. — https?://\S+/read/\S+\?p=\S+$` |
-| R15 | Deep link | `?p=<id>&q=words` scrolls the paragraph into view and gives it the `target` background (within 8 rgb units of the token); the words are marked |
-| R16 | Local state | "Marcaj" adds the work to `/bookmarks`; a highlight survives a reload |
+| R13 | Phone shell (390x844) | toolbar 53 px; thumb bar 61 px with five cells for a bilingual work (four otherwise); the section bar hides once 56 px have been scrolled down and returns on the first upward scroll of 8 px or more; the outline drawer is 390 px wide and closes after choosing an entry; Language and Text open as bottom sheets |
+| R14 | Citation | hovering a paragraph shows the rail; the copy button puts on the clipboard text matching `^[\s\S]+\n\n— .+( \(.+\))?\. — https?://\S+/read/\S+\?p=\S+$` (the edition suffix, only when the work has several editions, sits inside the citation before ". — <URL>") |
+| R15 | Deep link | `?p=<id>&q=words` scrolls the paragraph into view and gives it the `target` background (within 8 rgb units of the token) and the 3 px `accentStrong` left bar; the words are marked |
+| R16 | Local state | "Marcaj" adds the work to `/bookmarks`; a highlight survives a reload; the highlighted paragraph has the wash, the 3 px `borderStrong` left bar and the accessible name "evidențiat, <culoare>" |
 | R17 | Chapter end | the next-chapter card opens the next section; at the last section the end-of-work message shows "Întreabă despre această carte" |
 | R18 | Progress | the 3 px bar at the bottom grows with scroll |
 | R19 | Resume | leaving and coming back opens at the same paragraph (plus or minus one) |
+| R20 | Pairing of every work | for every installed work with two editions, rows pair by `sourceId` and the placeholder rows equal the missing paragraphs; a content test beside `committed-content.test.ts` checks that every work has a Romanian and an English edition or is flagged partial, and that `sourceId` is 1:1 |
+| R21 | Touch paragraph actions | with touch emulation no hover rail exists; every paragraph shows the `¶ n` button (44 x 44); pressing it opens the sheet with Evidențiază, Copiază cu citare, Copiază linkul, Întreabă despre acest pasaj and Raportează; the paragraph text stays selectable |
 
 **Transparency panel**
 
 | ID | Check | Expected |
 |---|---|---|
-| T1 | Kinds | for each provenance kind fixture (ai, human, native, source, transcription, unknown) the lead sentence matches the table in 8.6 in RO and EN |
+| T1 | Kinds (F-3) | for each provenance fixture (ai, human, native, source, transcription, unknown) the lead sentence matches the table in 8.6 in RO and EN; the `transcription` flag on a native or a source edition adds the second note |
 | T2 | Review | the chip reads NEVERIFICATĂ or VERIFICATĂ with the date when reviewed; the sentence names a reviewer (translations) or an editor (other kinds) and shows the role only when reviewed |
-| T3 | Corrections | empty text when none; with six corrections five show and "Mai vechi" works |
-| T4 | Report | the button builds a mail link whose body contains the citation of the open section |
+| T3 | Corrections (F-3) | empty text when none; with the six-corrections edition five show and "Mai vechi" works |
+| T4 | Report | the button builds a mail link whose body contains the Tip line, the ids of the open paragraph and of its aligned source paragraph, and the citation |
 | T5 | Phone | a sheet at most 70 % of the viewport high, scrollable, with focus on its close button |
 
 **Ask** (mock gateway, fixture F-1)
 
 | ID | Check | Expected |
 |---|---|---|
-| A1 | Welcome | H1 "Întreabă biblioteca"; four suggestion cards (2 x 2 wide); the composer is fully visible without scrolling at 1366x900 and at 390x844 |
-| A2 | Suggestion | pressing a card fills the textarea with its prompt and sends no request |
-| A3 | Send | the request body has `language` = reading language and the typed `question`; no `editionIds` for the whole library; "Am găsit N pasaje" appears before the first text; the stop button replaces send while streaming and aborts the request ("Oprit.") |
+| A1 | Welcome | H1 "Întreabă cărțile"; four cards (2 x 2 wide: three suggestion cards and the "Ce să citesc" link card); the composer is fully visible without scrolling at 1366x900 and at 390x844 |
+| A2 | Suggestion | pressing a suggestion card fills the textarea with its prompt and sends no request; the "Ce să citesc" card opens `/library` and sends no request |
+| A3 | Send | the request body has `language` = reading language and the typed `question`; no `editionIds` for the whole library; "Am găsit N pasaje" appears before the first text; the stop button replaces send while streaming and aborts the request ("Oprit."); no stage text appears without the event that carries it (a stub that delays `done` shows "Scriu răspunsul..." and nothing else until `done` arrives) |
 | A4 | Stream | the answer text grows over at least two observations; no raw `[1]` remains in the final text; chips exist |
-| A5 | Chips | each chip is a button named "Sursa n: ..." with a 44 x 44 hit area; hover (desktop) opens the preview within 400 ms with the excerpt and, for sources with `aligned`, the other language under its label; Esc closes it and focus returns to the chip |
-| A6 | Open in book | "Citește în carte" opens `/read/<workId>/<sectionId>?p=<paragraphId>`; the paragraph is in view with the `target` wash; Back returns to `/ask` with the same number of turns and scroll within 40 px |
+| A5 | Chips | each chip is a button named "Sursa n: ..." with a hit area of at least 44 x 44 on web; hover (desktop) opens the preview within 400 ms with the excerpt and, for sources with `aligned`, the other edition under its own label of 17.7 (on the F-3 Latin work the English translation reads "ENGLISH · TRADUCERE"); Esc closes it and focus returns to the chip |
+| A6 | Open in book | "Citește în carte" opens `/read/<workId>/<sectionId>?p=<paragraphId>`; the paragraph is in view with the `target` wash and the 3 px `accentStrong` left bar; Back returns to `/ask` with the same number of turns and scroll within 40 px |
 | A7 | Source pane | 1366: "Citește aici" opens a pane 45 % wide (plus or minus 3) with the cited paragraph; dragging the handle 100 px changes the width, which is remembered after reload; double-click resets; 390: a full-screen layer with the tabs "Conversație" and "Citește sursa" |
 | A8 | Receipts | at most three rows in citation order; "Toate sursele" counts equal the `sources` event (N passages, M works) |
 | A9 | Labels | the AI label is under every answer; "Raportează" builds a mail link containing the request id |
-| A10 | Notices | a stub with `quotations.unverified = 1` shows the notice with the exact wording; `invalidCitations = 2` shows the caption |
+| A10 | Notices | a stub with `quotations.unverified = 1` shows the notice with the exact wording of 9.5 item 9 (quoted fragments, passages sent to the model); `quotations.checked = 3` shows the check line "Fragmente între ghilimele găsite în pasajele trimise modelului: 3 din 3."; `invalidCitations = 2` shows the caption |
 | A11 | Not covered | a stub with `stopReason = not_covered` replaces the body with the message and lists the works of `/v1/library` |
-| A12 | Errors | 429 with `Retry-After: 5` shows a falling countdown and keeps the question; 503 shows the message and "Reia întrebarea" works; a stream cut shows "Răspunsul s-a oprit" and keeps the text |
+| A12 | Errors | 429 with `Retry-After: 5` shows a falling countdown and keeps the question; 503 shows the message and "Reia întrebarea" works; an SSE `error` with `provider_unavailable`, `provider_misconfigured`, `provider_error` or `internal_error` shows "Întreabă este oprit temporar. Cărțile se pot citi în continuare." with no retry button and keeps the question; `unknown_editions` shows its message and fetches `/v1/library` again; a stream cut shows "Răspunsul s-a oprit" and keeps the text |
 | A13 | Language | UI EN with reading RO: the language chip reads RO; switching it to EN sends `language: "en"` |
 | A14 | Scope | opened from a work hub the context line reads "Despre: <titlu>" and `editionIds` equal the work's edition ids; the chip set to the whole library removes `editionIds` |
 | A15 | First use | the notice dialog shows once, traps focus, "Am înțeles" stores it, Esc closes without storing |
 | A16 | Keys | Enter sends and Shift+Enter inserts a newline on desktop; with touch emulation Enter does not send |
 | A17 | Persistence | the conversation survives a reload; "Conversație nouă" clears it |
 | A18 | Limits | a response header `RateLimit-Remaining: 3` shows the caption "Mai poți pune 3 întrebări ..." |
-| A19 | Suggestions | every prompt in `suggestions.ro.json` and `suggestions.en.json` returns at least one source on the installed packs (unit test) |
+| A19 | Suggestions | every prompt in `suggestions.ro.json` and `suggestions.en.json` returns at least one source on the installed packs (unit test in `apps/api`) |
+| A20 | Stream decoder | a unit test splits a chunk inside "ș" (and inside a citation marker); the decoded text and the citations equal those of the unsplit stream (one `TextDecoder` with `{ stream: true }`) |
+| A21 | Native announcements | a unit test with a mocked `AccessibilityInfo`: "Răspuns complet" and each error are announced once; the drag handles expose `adjustable` with increment and decrement actions |
+| A22 | Passage | `/ask?scope=work:<id>&passage=<paragraphId>` shows the passage card (citation, quote, ×); the sent `question` carries the quoted text and stays within 2,000 characters (the quote is trimmed) |
+| A23 | Entry points | the author page opens `/ask?scope=edition:<ids>` with the author as context; Search "Întreabă" opens `/ask?q=` prefilled and sends nothing; Ctrl/Cmd+Shift+A opens Ask from anywhere (for the open work inside the reader) |
+| A24 | Composer limits | the counter shows from 1,800 characters and send is disabled above 2,000; the draft survives a reload; with `setOffline(true)` send is disabled with the offline message; changing the scope chip asks for a confirm and starts a new conversation |
+| A25 | Copy answer | "Copiază răspunsul" puts the answer text and a numbered list of sources with links on the clipboard |
+| A26 | Access code | with a stub that answers `401 access_required` the first-use dialog shows the "Cod de acces" field; a wrong code shows "Cod incorect."; the right one is stored, sent as `X-Access-Code`, and the question goes through; "Revocă" in Settings clears it |
 
 **Search, Settings, About, Bookmarks**
 
 | ID | Check | Expected |
 |---|---|---|
-| Q1 | Search | three or more characters give results grouped by work with the match marked; "Lucrări" finds works by name; `/` focuses the field; a hit opens the reader with `?q=` |
+| Q1 | Search | two or more characters give results grouped by work with the match marked (find in text starts at three); "Lucrări" finds works by name; `/` focuses the field; a hit opens the reader with `?q=` |
 | Q2 | Settings | the font line names IM Fell Great Primer, Source Serif 4, Literata and Inter; theme and reading font persist; the Ask notice state and "Revocă" work |
 | Q3 | About | `/about/transparency` lists the Romanian Vos edition with its status, shows the eight commitment headings and the report button |
 | Q4 | Bookmarks | a bookmarked work appears with title, author, edition label and place; "Elimină" needs two presses |
+| Q5 | About and footer | `/about` has the sections of 15 (what the library is, how the translations are made, what Ask does and does not do, sources and licences with art credits, contact, version); the footer of the landing and of `/about` has Despre, Transparență, Contact and the language switch |
+| Q6 | Data controls | Settings "DATE ȘI AI" shows the notice state, "Revocă" and "Șterge conversațiile salvate pe acest dispozitiv"; after the last one the Ask conversation is empty and a reload keeps it empty |
 
 ### 20.5 Look checklist (read the screenshots next to the reference captures)
 
 For each screen in the matrix a reviewer confirms by eye: warm paper ground, not white; hairlines and spacing instead of boxes; small caps with generous tracking on bars and labels; terracotta only on the active or selected state, links and the primary action; IM Fell only in large display type; no icon without a text name;
 cards have 3 px corners; the reader toolbar and outline look like inventory 4.5; the two-lane view reads as one aligned page; Ask looks like a page of a book with chips, not a chat bubble wall; dark and sepia keep the same hierarchy; nothing is cut off at 390 px.
+
+### 20.6 Native smoke (APK or emulator, by hand until Maestro exists)
+
+Beta 1 requires the APK, so the behaviours that only exist on native are checked by hand, recorded in `report.json` and signed by the owner.
+
+| ID | Check |
+|---|---|
+| N1 | Offline start (airplane mode) lists Vos and opens a chapter |
+| N2 | Pressing the `¶ n` button of a paragraph opens the sheet (Evidențiază, Copiază cu citare, Copiază linkul, Întreabă, Raportează) |
+| N3 | Theme and text size survive a restart |
+| N4 | Ask against the deployed gateway (with the access code) streams, and a chip opens the reader at the paragraph |
+| N5 | Airplane mode disables Ask with the offline message while reading keeps working |
+| N6 | Fonts: IM Fell Great Primer and Source Serif 4 render (not the system serif) and a Greek lane renders polytonic letters in Gentium Plus |
+| N7 | The section bar stays sticky under the brand bar and the bottom bar respects the safe area |
+| N8 | Selecting a word shows the system selection handles, and the paragraph actions still open from the `¶ n` button |
+| N9 | Copy actions (link, citation, answer) reach the clipboard or the Share sheet |
+| N10 | Cold start with every bundled pack on a mid-range Android: pack verification adds at most 2 s |
+
+### 20.7 Unit and content tests
+
+Run by `pnpm -r test`: the contrast pairs and the forbidden pair of 2.1, the flat derived tokens and the migration checklist (`theme.test.ts`, `icons.test.ts`, `design.test.tsx`, `no-hardcoded-colors.test.ts`); `pluralCategory` against `Intl.PluralRules` on Node for n = 0 to 1000 (17.2); the cedilla lint and the key parity of the string tables (G9, G10); the stream decoder (A20) and the announcements (A21); the suggestions against the installed packs (A19, in `apps/api`); `committed-content.test.ts` with the pairing test of R20; the catalogue verification of C1.
 
 ---
 
@@ -1336,21 +1380,21 @@ cards have 3 px corners; the reader toolbar and outline look like inventory 4.5;
 | Library | Selecție, Toată biblioteca (shelves, centuries, A-Z, search by name), Authors (simple), signed catalogue | Traditions, author room, Library tab | Guides, Dictionary pattern | |
 | Work hub | card, editions, transparency row, Prezentare, Cuprins | Scriptura, Index (Scripture part), downloads | the other tabs | |
 | Reader | toolbar, outline, chapter cards, one or two lanes, Aa, Tools, find, Transparency, paragraph actions, bookmarks, local highlights, phone shell, keyboard | continuous flow, expand contents, footnotes, Scripture previews, range selection, docked Ask, notebook actions, focus mode | scans, margin notes, cross-work citations, Define | quote images, Modernize equivalent |
-| Ask | page, SSE, chips, preview, source pane, scope by work or author, labels, errors, first-use notice, local conversation | history, share, docked panel, support check, account gate, meter, scope by shelf | Deep research, notebook, palette | |
+| Ask | page, SSE, chips, preview, source pane, scope by work or author (retrieval over the editions), labels, errors, first-use notice with the tester access code, local conversation | history, share, docked panel, whole-book mode A, support check, perspective cards, crisis banner, outline card and tables, account gate, meter, scope by shelf | Deep research, notebook, palette | |
 | Search | local works and passages | Scripture mode, by meaning | | |
 | Scripture | | v1 (reader, citations list) | Verse Desk, commentary pane | |
 | Topics | | | index and topic page | |
 | Notebook, Desk, Compare, Connections, Lexicon | | Notebook | Compare, Lexicon, Desk, Connections | |
-| Account and consent | Ask notice (local) | sign-in, AI consent, deletion screen | | analytics consent, export |
+| Account and consent | Ask notice (local), tester access code | sign-in, AI consent, art. 9 consent, deletion screen | | analytics consent, export |
 | Membership | | | | plans, paywall |
-| Books | Vos RO and EN; first Latin work in EN and RO; first creeds shelf (roadmap) | more works | | |
+| Books | Vos RO and EN complete; Augustine (Latin source, EN and RO as far as translated, flagged partial); first creeds shelf, at least two documents (roadmap) | more works | | |
 
 ### 21.2 Open questions for the owner
 
 | ID | Question | Why it matters | Default if unanswered |
 |---|---|---|---|
 | OQ-1 | The product name, wordmark and domain | brand bar, landing, emails, store listing | "Biblioteca" |
-| OQ-2 | Hero and band art: which public-domain paintings (credits on About) | landing look and licence record | we propose a short list; the owner picks |
+| OQ-2 | Hero and band art: which public-domain paintings (credits on About) | landing look, licence record, and the scrim (2.8: the default scrim suits any image; a lighter one needs an image with a 95th-percentile luminance of at most 0.35 behind the text) | we propose a short list; the owner picks |
 | OQ-3 | The shelf taxonomy of 6.3, in particular an Orthodox shelf | catalogue and landing | the eight shelves of 6.3 |
 | OQ-4 | Publication policy for AI translations that no human has reviewed: show them in the beta with the explicit status "Neverificată" (as the reference does) or hold them back | trust and reputation in an Orthodox-majority market | beta shows them with the status; store release only reviewed editions |
 | OQ-5 | Bible texts: which Romanian and English translations, permissions and the public-domain fallbacks (KJV, ASV, WEB for English; historical Romanian Bibles) | Scripture view, previews, Ask context | English public-domain first; Romanian when a licence arrives |

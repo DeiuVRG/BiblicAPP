@@ -41,6 +41,7 @@ bilingual interface, offline, native apps).
 | JSON files the browser itself downloaded while rendering | Data schemas (keys and types only) | `[data]` |
 | Public how-to page (copy and 20 product screenshots of signed-in tools), tutorial tours, gate dialogs, pricing pages | Everything behind accounts | `[howto]`, `[tour]` |
 | One extra live capture made while writing this document (the work hub of a library work, signed out, four tabs read) | The work hub anatomy | `[live-wh]` |
+| A second pass on the evening of 4 November 2026 (Playwright, desktop user agent, signed out, nothing submitted) | Re-measured work hubs, Verse Desk, Full Library, changelog, How-to page, reader tabs, section bar on phone, report dialog fields | `[live-2]` |
 | The synthesiser's own inference, always marked | Implications for our rebuild | `[inference]` |
 
 **Rules followed.** No account was created, nobody signed in, no form was submitted, no e-mail address was
@@ -49,6 +50,10 @@ tours, its public product screenshots and its public client code. Page text is n
 and short fragments appear here. Screenshots and raw captures are copyrighted reference material and stay in
 `test-results/tfr/` (gitignored) and the session scratchpad; none of it belongs in `docs/` or `content/`.
 Hero paintings and portraits of the reference are not ours to reuse (see `docs/ui-spec-v2.md`, art direction).
+
+**The reference changes during the day** (the Verse Desk was reorganised between 17:29 UTC and the evening of 4 November); every measurement carries its capture date and, for volatile pages, time. The reader's outline panel also stopped showing an Index tab for works that have no index. The second pass `[live-2]`, between about 20:00 and 21:30 UTC,
+re-measured the work hubs of eight works (3.4), the Verse Desk for Romans 3:28 (4.6), the Full Library and its shelf pages (4.2), the About changelog counters (TR-10), the How-to page (4.12), the reader's outline tabs (RD-11), the `Aa` panel, the section bar on phone (5.4), the fields of the report dialog (TR-07) and the shelf counts of section 8, and checked the publisher-root paths of the membership pages (2.1).
+Counts differ by surface and drift: the number of shelves is ten (Tutorial), eleven (Full Library, landing) or thirteen (Guides).
 
 **Vocabulary used in the catalogue.**
 
@@ -87,7 +92,7 @@ four sister reading sites).
 | Topics | 10 parts, 45 curated loci; 198 mined topics (379,490 indexed passages on one topic alone) |
 | Reference works | Dictionary of Catholic Theology (1,916 articles, French and English paragraph by paragraph); Glossary (about 34 MB in 296 buckets) |
 | Essays and podcasts | 494 articles and 93 episodes of the publisher, about the library |
-| Changelog | 161 changes, 37 open reader reports |
+| Changelog | 161 changes, 38 open reader reports (evening of 4 November; 37 at the first capture) |
 
 **Business model.** Every text is free to read and stays free. Research tools (Search, Ask, Compare,
 Connections, Notebook, Desk, Lexicon, Commentary Decks, Disputed Questions, Set Indexes, Page Scans,
@@ -125,7 +130,7 @@ links back to a page.
 
 The section bar ("rail") is the primary navigation. It sits under the publisher's own masthead (not part of
 the product). Labels are small caps. `[open]` no account, `[acct]` free account, `[overlay]` blocking account
-overlay, `[srv]` server-gated.
+overlay, `[srv]` server-gated. Paths are relative to `/the-faith-received/` unless marked publisher root.
 
 ```
 Publisher chrome (Ghost): masthead  HOME · ABOUT · JOURNAL · THE DAILY LITURGY · THE FAITH RECEIVED
@@ -144,7 +149,7 @@ Section bar (sticky, 48 px D / 43 px P)
    Authors ........................ /authors/ (alias /author/)         index of 1,879 authors       [open]
        author room ................ /author/?sh=<shelf>#<slug>         tabs: Works, Positions, Scripture,
                                                                          Topics, Reception, Connections, Search [open]
-       work hub ................... /author/?sh=<shelf>#w/<slug>       11 tabs (see 4.4)            [open]
+       work hub ................... /author/?sh=<shelf>#w/<slug>       up to 11 tabs (see 4.4)      [open]
    Traditions ..................... /tradition/  ->  /tradition/?t=<slug>   15 listed, 17 records    [open]
    Guides ......................... /guide/  ->  /guide/?s=<shelf>     century ruler + 14 guides    [overlay]
    Dictionary ..................... /dictionary/                       1,916 articles FR + EN       [open]
@@ -181,7 +186,7 @@ Reachable but not in the bar
    Today's Reading ................ /today/                             one passage a day            [open]
    Notebooks page ................. /pins/  (?view=research = "Personal research")                  [acct]
    Shared Ask answers ............. /ask/?share=<id>                    public, noindex              [open]
-   Membership ..................... /membership/  /give/  /groups/  /institutions/  /student/       [open]
+   Membership (publisher root) .... /membership/  /give/  /groups/  /institutions/  /student/       [open]
    Legacy forwarders .............. /bible/  /library  /fathers  /dtc  /pins  ...  rewritten at load
 ```
 
@@ -237,7 +242,7 @@ see that they were considered. The count by priority is at the end of this secti
 | SH-08 | Server-gated tool shell and arrival modal | Search, Ask, Compare, Connections, Desk, Decks, Lexicon... | The server sends only a sign-up panel; the modal opens on arrival | - | srv | No | SKIP: we show the real screen with an in-context prompt, enforced server side (P2) |
 | SH-09 | Inline gate band | `/pins/` | Cream band with the six-tool list and a sign-up form | - | open | No | SKIP: covered by SH-06 |
 | SH-10 | Survey tab "Tell Us What You Think" | every page except the reader | Fixed bottom strip with a tab; eight-question bottom sheet, auto-advance, "don't show again"; local state | survey endpoint | open | No | LATER P3: a three-question in-app feedback; P1 has a feedback link |
-| SH-11 | Give feedback / Report an issue dialog | beta band, transparency | Modal form (names, e-mail, work, author, issue type, comment) with a bot check, posted to a forms backend | forms backend | open | No | SHOULD P2 (P1: a mail link) |
+| SH-11 | Give feedback / Report an issue dialog | beta band, transparency | Modal form ("Give feedback": first and last name, e-mail, work name, author, issue type, comment) with a bot check, posted to a forms backend; the issue type is one of Translation, Formatting, Page Error, Other, and the report form also posts the page URL, the corpus and the work id | forms backend | open | No | SHOULD P2 (P1: a mail link with the same fields, ui-spec 8.6) |
 | SH-12 | "Methodology" disclosure | under figures, AI notes | Closed details; opens for print; says how a figure or ranking was made | text per module | open | No | MUST P1 |
 | SH-13 | BETA pill and beta band | hero, most pages | Label plus a cream band with a feedback button | copy | open | No | MUST P1 (our beta) |
 | SH-14 | Support band | inner pages | Dark CTA "free to read, paid for by readers" with a membership button | membership | open | No | LATER P4 (membership) |
@@ -273,14 +278,14 @@ see that they were considered. The count by priority is at the end of this secti
 | ID | Feature | Where | What it does | Data | Gate | AI | Priority for us |
 |---|---|---|---|---|---|---|---|
 | LB-01 | Browse ("Curated") | `/curated/` | Hero with a search form (scope, collection, tradition, century selects hidden) and five buttons; five folding bands: creeds, classics, 30 authors, fathers, guide teasers, shelf samples | hand-written lists, catalogue | open | No | MUST P1: a band renders only when it has items |
-| LB-02 | Full Library | `/all-works/` | One template for the library and each shelf: shelf fold, view tabs, filter panel, A-Z bar, author accordions, pager | work catalogue | open | No | MUST P1 |
+| LB-02 | Full Library | `/all-works/` | One template for the library and each shelf: shelf fold, view tabs, filter panel, A-Z bar, author accordions, pager; a ghost button DICTIONARY in the hero; the "Browse the shelves" fold (11 shelves) ends with the sentence "Smaller traditions are in the Tradition filter below." and a "Guides to the shelves" button | work catalogue | open | No | MUST P1 |
 | LB-03 | Filters | Full Library | Collection, century (with counts), tradition, conditional denomination/party, "has page scans"; the count line always says what the list is | facets | open | No | MUST P1: shelf, century, tradition, language, availability; denomination and party LATER |
-| LB-04 | A-Z letter bar with counts | Full Library | Letters with counts, empty letters omitted, selecting resets page | author names | open | No | MUST P1 (Romanian collation) |
+| LB-04 | A-Z letter bar with counts | Full Library | Letters with counts of authors, not of works (ALL 3,319 equals the sum of the 27 letter counts, while the count line says 17,903 works), a "#" bucket for names that do not start with a letter, empty letters omitted, selecting resets page | author names | open | No | MUST P1 (Romanian collation) |
 | LB-05 | Search an author or a title | Full Library, Browse | 180 ms debounce; ranking: matching authors, works naming them, unattributed works | catalogue | open | No | MUST P1 (search by name) |
-| LB-06 | By-century view | Full Library | Twenty numbered tiles with counts and a "no century" note; choosing one filters | derived century | open | No | MUST P1 |
+| LB-06 | By-century view | Full Library | Twenty tiles with Arabic numerals 1-20 and "N works" (73 x 56 px), the count line "20 CENTURIES · 17,903 WORKS IN THE WHOLE LIBRARY" and a "no century" note ("742 works have no date"); choosing one filters | derived century | open | No | MUST P1 |
 | LB-07 | Author accordions with work rows | Full Library | Name, "N works", then rows: title, italic original title, right-aligned citation; "View contents (N sections)" | catalogue, contents | open | No | MUST P1 |
 | LB-08 | Edition groups (facsimile vs born-digital witness of one edition) | list rows | Labels such as "Digital text held" | editions file | open | No | SKIP: our model is one edition per language with `sourceEditionId` |
-| LB-09 | Shelf pages | `/confessions/`, Migne, EEBO | Same template with its own hero, tabs (by tradition, by volume, by tome) and counts | corpus catalogues | open | No | MUST P1: one shelf template driven by a `shelf` slug |
+| LB-09 | Shelf pages | `/confessions/`, Migne, EEBO | Same template with its own hero, tabs (by tradition, by volume, by tome) and counts; on the Migne shelves the author rows add dates and office ("ABBO OF FLEURY c. 945–1004 · 7 works · Abbot of Fleury (Saint-Benoît-sur-Loire)"); `/confessions/` is a three-level accordion: tradition ("The Whole Church, 20 documents"), then issuing body with its year and a count ("Council of Nicaea I 325, 2 documents"), then the documents | corpus catalogues | open | No | MUST P1: one shelf template driven by a `shelf` slug |
 | LB-10 | "Study this shelf" panel | Full Library, Migne shelves | Ask this shelf, Scripture, Authors, Topics, Connections, Guide | shelf keys | open (tools gated) | No | SHOULD P2: "Ask this shelf" first |
 | LB-11 | Authors index | `/authors/` | Find box, period filter, order (library selection, A-Z, most works, most Scripture citations), nine shelf accordions, Expand all, Reset | author directory | open | No | MUST P1: simple alphabetical index; filters SHOULD P2 |
 | LB-12 | Author room (profile) | `/author/` | Portrait, dates, "from the library" picks, quick facts, cites most / cited by, related authors, kind-of-work filter, Read / Explore / Save work | enrichment per author | open | LLM-pre | SHOULD P2: bio, works, quick facts; the rest LATER |
@@ -295,13 +300,13 @@ see that they were considered. The count by priority is at the end of this secti
 
 ### 3.4 Work hub (WK)
 
-The hub is documented from a live capture of a Migne work (`[live-wh]`) and from the site's CSS. It is open (no
-account). Works without enrichment data answer "Not found." at that address (observed for a curated English work).
+The hub is documented from a live capture of a Migne work (`[live-wh]`), from the second pass on the hubs of seven more works (`[live-2]`: Calvin's Institutes, the Heidelberg and Westminster Shorter Catechisms, the Nicene and Apostles' Creeds, The Imitation of Christ, The Didache) and from the site's CSS. It is open (no
+account). Works with no enrichment layer at all answer "Not found." at that address (The Imitation of Christ, The Didache); works with some layers show only those tabs and, for anonymous creeds, no author line.
 
 | ID | Feature | Where | What it does | Data | Gate | AI | Priority for us |
 |---|---|---|---|---|---|---|---|
 | WK-01 | Work card | `/author/#w/<slug>` | Title, author link, volume/column citation, kind-of-work chip, stat tiles (pages, Scripture citations), "Open in the reader" | work meta | open | Rule | MUST P1 (sections, words, editions, Scripture citations when indexed) |
-| WK-02 | Sticky tab strip with counts | work hub | 11 tabs; one scrolling row on phone; 44 px tabs, active underlined | enrichment | open | mixed | MUST P1 for the strip; tabs appear by phase |
+| WK-02 | Sticky tab strip with counts | work hub | Up to 11 tabs (Overview, The argument, Sections, Index, Quotations, Later readers, Scripture, Topics, Positions, Sources cited, Names); a tab renders only when its data layer exists (Nicene Creed: Topics, Names; Heidelberg Catechism: Sections, Index, Topics, Names; Westminster Shorter Catechism: seven; Augustine and Calvin's Institutes: all 11); one scrolling row on phone; 46 px tabs, active underlined | enrichment | open | mixed | MUST P1 for the strip; tabs appear by phase |
 | WK-03 | Overview | work hub | Machine-written blurb, kind tags, "Where to start" numbered list (page and one-line reason), Methodology | blurb, start list | open | LLM-pre | MUST P1: our blurb and 3-5 start points, labelled |
 | WK-04 | The argument | work hub | Summary, numbered theses with page spans, objections and answers, "how it is argued" | theses | open | LLM-pre | LATER P3 |
 | WK-05 | Sections | work hub | Each section with a one- or two-sentence summary | section summaries | open | LLM-pre | SHOULD P2 (P1 lists contents without summaries) |
@@ -335,7 +340,7 @@ work in the DOM, fed from JSON. Geometry at 1366x900: site masthead 77 px, secti
 | RD-08 | Hide toolbar (focus mode) | Tools | Hides all bars; a fixed "SHOW TOOLBAR" button stays; remembered | - | open | No | SHOULD P2 |
 | RD-09 | Progress, skip link, focus rings | reader | 3 px ink progress bar; 2 px focus ring offset 2 px | - | open | No | MUST P1 |
 | RD-10 | Loading and error states | reader | Shimmering "Loading" text; unknown work and missing work messages with a library link | - | open | No | MUST P1 |
-| RD-11 | Outline panel with tabs | left panel | Tabs Outline (default), Pages, Index, Library, as joined segments; active filled terracotta | sections | open | No | MUST P1 (Outline); Index and Library P2; Pages LATER |
+| RD-11 | Outline panel with tabs | left panel | Tabs Outline (default), Pages, Index, Library, as joined segments; active filled terracotta; a tab appears only when the work has the data (evening of 4 November: Outline and Library for The Imitation of Christ, Augustine PL 35, the Westminster Shorter Catechism, the Nicene Creed and The Didache; Outline, Index, Library for Calvin's Institutes; Outline, Pages, Library for Athanasius PG 25, a scanned Migne work; at the first capture The Imitation of Christ still showed an Index tab reading "No index has been made for this work yet.") | sections | open | No | MUST P1 (Outline); Index and Library P2; Pages LATER |
 | RD-12 | Hierarchical outline | outline | Entries 14 px with depth indent and chevrons; current entry bold with a 2 px bar and `aria-current`; follows scroll | section tree | open | No | MUST P1 |
 | RD-13 | Search contents | outline | Live heading filter, "N matching headings", Clear, Esc, arrow keys | - | open | No | MUST P1 |
 | RD-14 | Show current; Expand/Collapse all | outline | Scrolls to the current entry; folds branches (hierarchical outlines only) | - | open | No | MUST P1 |
@@ -362,7 +367,7 @@ work in the DOM, fed from JSON. Geometry at 1366x900: site masthead 77 px, secti
 | RD-35 | Highlights | selection bar | Five colours (amber, sage, slate, rose, lilac), stored locally with colour, range and citation; Remove | local state | open | No | MUST P1 as paragraph-level highlights; range highlights on web SHOULD P2 |
 | RD-36 | Copy and Link | selection bar, rail | Copy = words, blank line, citation, URL; Link = exact block URL | - | open | No | MUST P1 |
 | RD-37 | Define | selection bar | Single word opens the Lexicon | lexicon | acct | LLM-pre | LATER P3 |
-| RD-38 | Note, Save, Image, Ask, More | selection bar | Notebook note; clip; quote-image maker (five sizes, PNG); discuss the passage in Ask; research menu | notebook, Ask | acct | LLM (Ask) | Ask MUST P1; Note and Save SHOULD P2; Image LATER P4 |
+| RD-38 | Note, Save, Image, Ask, More | selection bar | Notebook note; clip; quote-image maker (five sizes, PNG); discuss the passage in Ask; research menu; in the Passage tab a fold "More passage tools": Copy with citation, Copy passage link, Find parallels, Save reference, Copy BibTeX ("Write translation" is hidden) | notebook, Ask | acct | LLM (Ask) | Ask MUST P1; Note and Save SHOULD P2; Image LATER P4; a citation export per edition (BibTeX and Chicago, naming the edition kind, model and date) SHOULD P3 |
 | RD-39 | Paragraph rail | text, pointer devices | Hover shows link and copy buttons 30 px left of the text | - | open | No | MUST P1 (web hover rail; native long-press sheet) |
 | RD-40 | Find in text | toolbar, `/`, Ctrl+K | Count ("1 of 27"), prev/next, Esc; marks hits; loaded text only; `&hl=` opens it | - | open | No | MUST P1 (whole edition, local) |
 | RD-41 | Search whole work | find bar | Server search across the work | search API | acct | No | SKIP: the whole edition is local, so this is free |
@@ -392,10 +397,10 @@ work in the DOM, fed from JSON. Geometry at 1366x900: site masthead 77 px, secti
 | TR-04 | Review state | dialog | Pill NEEDS REVIEW or REVIEWED with date; committee wording for AI, editor wording otherwise; reviewer stored but never shown | review record | open | No | MUST P1 |
 | TR-05 | Reported issues | dialog | "No issues reported yet" or "N open, M settled" | reports | open | No | SHOULD P2 (needs a server) |
 | TR-06 | Corrections | dialog | Dated entries, newest first, five per page | revisions | open | No | MUST P1 (from signed pack revisions) |
-| TR-07 | Report a problem | dialog, selection bar, toolbar | Form with passage prefill; the toolbar button is gated, the dialog's is not | reports inbox | open / acct | No | P1: a mail link with the citation; P2: a form |
+| TR-07 | Report a problem | dialog, selection bar, toolbar | Form with passage prefill and an issue type (Translation, Formatting, Page Error, Other); it posts the page URL, the corpus and the work id; the toolbar button is gated, the dialog's is not | reports inbox | open / acct | No | P1: a mail link with the issue type, the edition, paragraph and source paragraph ids and the citation (ui-spec 8.6); P2: a form |
 | TR-08 | Policy page | `/transparency/` | Eight commitments: label before the text, original beside the translation, Modernize is not AI, anyone can report, reports counted in public, corrections dated, a committee is formed, every work says Reviewed or Needs review | policy | open | No | MUST P1: our own policy |
 | TR-09 | Registry of machine-translated works | `/transparency/` | Closed disclosure listing every machine-translated work (14,811), 50 at a time | registry | open | No | SHOULD P3 (P1: the list is short and printed in full) |
-| TR-10 | Changelog and open reports | About tab | 161 changes, 37 open reports; badges STAFF, REPORTED, FEATURE; sort; thumbs counts | forms backend | open | No | SHOULD P3 |
+| TR-10 | Changelog and open reports | About tab | 161 changes, 38 open reports (evening of 4 November); badges STAFF, REPORTED, FEATURE; sort; thumbs counts | forms backend | open | No | SHOULD P3 |
 | TR-11 | Most read works | About tab | Monthly list of 150, paged | telemetry | open | No | LATER P4 |
 | TR-12 | Machine-text labelling pattern | everywhere | Plain notes such as "Gathered by machine", "AI-assisted: answers cite the library's pages", "Software reads each answer from the author's pages", "a profile match is never a citation" | - | open | No | MUST P1 |
 
@@ -425,17 +430,17 @@ many views. In the reference it is behind the blocking overlay; the Verse Desk i
 | SC-17 | Dark mode of the working surface | view bar | Own toggle, follows reader theme and OS | - | overlay | No | MUST P1: a global theme |
 | SC-18 | Phone layout | reader on phone | Panel and pane open inline after the verse's paragraph as accordion rows; no layout buttons | - | overlay | No | SHOULD P2 |
 | SC-19 | Scripture tour | `?tour=scripture` | 27 steps across reader and desk; several stale on desktop | - | open | No | SHOULD P3 |
-| SC-20 | Desk head | Verse Desk | Verse in four translations, century ruler of works citing it, four stat tiles, a lede composed from the counts | verse index | open | Rule | SHOULD P3 |
-| SC-21 | Key voices | desk | Six authors, oldest first, portrait, machine gist, link to the page | rank, gists | open | LLM-pre | LATER P3 |
-| SC-22 | How the church read it; Points in dispute | desk | Leading reading per age (needs five placed pages); questions with competing positions, counts of pages and authors, no names | readings | open | LLM-pre | LATER P3 |
-| SC-23 | Who confesses it | desk | Creeds citing the verse grouped by tradition, linked to the paragraph | proof-text index | open | No | SHOULD P3 |
-| SC-24 | Commentary ladder | desk | Seven age cards with three exemplar commentators each | commentary map | open | No | LATER P3 |
-| SC-25 | Chapter heat | desk | One bar per verse sized by works citing it; each a link; most cited verses | verse counts | open | Rule | SHOULD P3 |
-| SC-26 | Share this verse | desk | "Copy link to this verse" | - | open | No | SHOULD P2 |
-| SC-27 | Desk citations and commentaries | desk | Two bar charts (century, tradition), filters, kind chips (Quotes, Cites, Alludes, Expounds), author cards, pagination (250 per load), commentary rows with Preview | verse index | open | No | SHOULD P3 |
-| SC-28 | Similar passages | desk | Read with; similar Scripture use (shared pages); similar wording (meaning search) | co-citation, embeddings | open / member | Emb | SHOULD P3 |
-| SC-29 | Ask about this verse | desk | Question box that opens Ask | Ask | member | LLM | SHOULD P2 (hand-off to Ask with the reference attached) |
-| SC-30 | Essays on the verse | desk | Publisher essays about the verse then its chapter | essay index | open | No | SKIP |
+| SC-20 | Desk head | Verse Desk | Hero (H1 "Verse Desk", IM Fell 52 px), then the head: H2 with the reference (Source Serif Pro 32/500), previous and next chevrons, a verse select, the verse text with a translation select (ESV, CSB, KJV, NASB), "Compare translations" and "Read Romans 3"; then "Who treats this verse": counts (97 authors, 44 commentaries with a note on the verse, 2,191 citations of which the first 1,000 load) over a stacked century-by-tradition chart with exemplar names over the bars, six age bands and a tradition legend, with a Methodology note (state of the evening of 4 November, 4.6) | verse index | open | Rule | SHOULD P3 |
+| SC-21 | Key voices | desk | Module "Who to read first" (fold SHOW KEY VOICES): six authors, oldest first, portrait, machine gist, link to the page | rank, gists | open | LLM-pre | LATER P3 |
+| SC-22 | How the church read it; Points in dispute | desk | Modules "The reading in each age" and "Positions the library records" (folds SHOW HOW THE CHURCH READ IT and SHOW POINTS IN DISPUTE): leading reading per age (needs five placed pages; a card says "Too few pages to name a leading reading" otherwise); questions with competing positions, counts of pages and authors, no names | readings | open | LLM-pre | LATER P3 |
+| SC-23 | Who confesses it | desk | Module "Creeds and confessions that cite Romans 3:28" (fold SHOW CREEDS): creeds citing the verse grouped by tradition, linked to the paragraph | proof-text index | open | No | SHOULD P3 |
+| SC-24 | Commentary ladder | desk | Module "The note on this verse, by age" (fold SHOW COMMENTARY LADDER): seven age cards with three exemplar commentators each | commentary map | open | No | LATER P3 |
+| SC-25 | Chapter heat | desk | Module "Chapter heat" (fold SHOW CHAPTER HEAT): one bar per verse sized by works citing it; each a link; most cited verses | verse counts | open | Rule | SHOULD P3 |
+| SC-26 | Share this verse | desk | Module "Share this verse" (fold SHOW SHARE): "Copy link to this verse" | - | open | No | SHOULD P2 |
+| SC-27 | Desk citations and commentaries | desk | Chips All, Commentaries, Homilies and sermons, Citations over a two-pane block: on the left "Landmark commentaries on this verse" (rows with author, dates, work, note and a column or page link) and folded groups by tradition, homilies and sermons, and "Citations of Romans 3:28" with a tradition bar; on the right a reading pane (commentator pills, excerpt, "Read on: English, Latin or Both", "Earlier page" and "Later page", "Open in the reader"); "Load the other 1,191" loads the remaining citations; "Browse sources" and "Compare passages" open the library tools (the 17:29 capture also showed kind chips Quotes, Cites, Alludes, Expounds and author cards, not seen in the later layout) | verse index | open | No | SHOULD P3 |
+| SC-28 | Similar passages | desk | Module "Similar passages": Read with (five verses, each with a one-line reason); Similar Scripture use (shared pages, three verse cards); Similar wording (meaning search, marked "Open to members") | co-citation, embeddings | open / member | Emb | SHOULD P3 |
+| SC-29 | Ask about this verse | desk | Module "Ask about this verse": a "Your question" box prefilled with a question about the verse that opens Ask ("open to members") | Ask | member | LLM | SHOULD P2 (hand-off to Ask with the reference attached) |
+| SC-30 | Essays on the verse | desk | Module "On this passage": publisher essays about the verse then its chapter | essay index | open | No | SKIP |
 | SC-31 | Desk navigation | desk | Previous/Next verse, Back to chapter, 12 "on this page" anchors | - | open | No | SHOULD P3 |
 | SC-32 | Scripture text sourcing | data | Third-party text API; deuterocanon is Douay-Rheims from the library's own index; verses numbered as the ASV (Psalm superscriptions differ) | Bible text | - | No | SHOULD P2: own hosting and an explicit versification map (Romanian Psalms follow another count) |
 
@@ -657,22 +662,22 @@ Row anatomy: title 17 px (28 px in the big bands), italic original-language titl
 catalogues (English title, original title, author).
 
 **Full Library (`/all-works/?collection=all`).** Hero 395 px. A "Browse the shelves" fold (62 px row, `#fbf8f3`,
-border; opens to a three-column grid of shelf cards: name 18 px, count in orange, italic who-line, a guide button and
-a "Study this shelf" disclosure). View tabs `By author | By century` (18 px; the label becomes `By volume` or `By tome`
+border; opens to a three-column grid of shelf cards: name 18 px, count in orange, italic who-line, a "Guide to this shelf" button and
+a "Study this shelf" disclosure; the English-writers card also shows "WITHIN Puritan 2,802 · Anglican 1,647 · Methodist 218 · Westminster Assembly 906" and "GUIDES TO the Puritans · the Anglicans · the Methodists · the Westminster Assembly"; 11 shelves in all, ending with the sentence "Smaller traditions are in the Tradition filter below." and a "Guides to the shelves" button; the hero also has a ghost button DICTIONARY). View tabs `By author | By century` (18 px; the label becomes `By volume` or `By tome`
 on Migne shelves). Filter panel (card `#fbf8f3`, 1,124 px): search input (180 ms debounce), a count line in 11 px caps
 that always states what the list is ("N works in the whole library", "N works matching X in ..."), selects with caps
 labels (collection, century with counts, tradition with counts, conditional denomination), a "has page scans"
-checkbox, "N works have no date". A-Z bar with counts (two rows on D, one scrolling strip on P). The list: 100 authors
+checkbox, "N works have no date". A-Z bar with counts of authors (ALL 3,319 over 26 letters and a "#" bucket of 2; the count line counts works) (two rows on D, one scrolling strip on P). The list: 100 authors
 per page in two columns, each an accordion (chevron, name 13/600 caps terracotta, "N works" right-aligned); opened:
 "ABOUT NAME" link, then rows (title 16 px, original title 13 px italic, citation 12 px muted "PL 139, cols. 419-462").
-Pager `PREVIOUS | numbers | NEXT`; a page break only falls between authors. By-century view: twenty tiles (about
-73x55 px) with counts. The whole state is in the URL (see 2.2). Phone: filters stack one per row, the A-Z bar scrolls,
+Pager `PREVIOUS | numbers | NEXT`; a page break only falls between authors. By-century view: twenty tiles (73x56 px) with Arabic numerals 1-20 and "N works", under the count line "20 CENTURIES · 17,903 WORKS IN THE WHOLE LIBRARY". The whole state is in the URL (see 2.2). Phone: filters stack one per row, the A-Z bar scrolls,
 one column.
 
 **Shelf pages.** Same template with its own hero and counts: confessions (tabs By tradition / By century, groups
 ordered The Whole Church, Eastern Orthodox, Roman Catholic, Waldensian, Bohemian Brethren, Protestant, Lutheran,
-Reformed, Anglican, Presbyterian, Congregational, Baptist, Arminian), the three Migne pages with a "Study this shelf"
-panel (Ask this shelf plus four cards: Scripture, Authors, Topics, Connections), Early English Books.
+Reformed, Anglican, Presbyterian, Congregational, Baptist, Arminian; each group is a three-level accordion: tradition with its document count, then issuing body with year and count such as "Council of Nicaea I 325, 2 documents", then the documents; the Whole Church group holds 20 documents,
+"Creeds and formulas" and the councils up to Chalcedon among them), the three Migne pages with a "Study this shelf"
+panel (Ask this shelf plus four cards: Scripture, Authors, Topics, Connections) and author rows that carry dates and offices ("ABBO OF FLEURY c. 945–1004 · 7 works · Abbot of Fleury (Saint-Benoît-sur-Loire)"), Early English Books.
 
 **Traditions (`/tradition/`).** Hero 390 px; a hairline list of 15 link rows (78 px): name 21 px (18 px for the ten
 indented children of Protestant), one-line description, and a caps meta line "FROM <year>, N DOCUMENTS, N AUTHORS".
@@ -703,8 +708,8 @@ has a page, with or without a room.
 
 **Purpose.** One page per work that explains it and opens it: what it is, where to start, how it is built, what it
 cites and who cited it. It reuses the Authors hero (H1 "Authors", 358 px on D) and the section bar; the page title is
-"Authors". Open to everyone. Observed on a Migne work (Augustine, Ten Tractates on the First Epistle of John); a
-curated English work answered "Not found." at the same address because no enrichment file exists for it.
+"Authors". Open to everyone. Observed in full on a Migne work (Augustine, Ten Tractates on the First Epistle of John). The strip is not always eleven tabs: a tab renders only when its data layer exists (WK-02), and works with no enrichment layer at all answer "Not found." at the same address
+(The Imitation of Christ, The Didache; `[live-2]`, 4 November, evening). The cards of the anonymous creeds have no author line (title, PAGES and SCRIPTURE CITATIONS only; the Westminster Shorter Catechism shows the corporate "Westminster Assembly").
 
 | Zone | Content (D) |
 |---|---|
@@ -784,14 +789,12 @@ the verse's paragraph as accordion rows (reception history, readings, points in 
 the book, cited elsewhere, citations of this verse, read with, similar passages). Attribution line at the foot. Dark
 palette: page `#222320`, card `#2B2C29`, panel `#272824`, ink `#E9E9E5`, muted `#B0B0A8`, rule `#454740`, accent `#D79380`.
 
-**Verse Desk (`/scripture/desk/?ref=romans.3.28`).** One long page (13,756 px D, 22,657 P), module order is DOM order:
-desk head (reference in IM Fell 44 px, verse 30/41.4 px, previous / back / next links, century ruler with 18 bars and
-the library's usual share marked), four stat tiles (works citing it, commentaries, confession proofs, readings), a lede
-composed from counts only, "on this page" anchors, in four translations (four cards), essays (skip), key voices (six
-portraits), how the church read it (five age cards, readings ranked by pages), points in dispute (questions with
-positions, no names), who confesses it (three columns by tradition), commentary ladder (seven age cards), chapter heat
-(one bar per verse, each a link), share, commentaries with Preview, citations (two bar charts, filters, kind chips,
-author cards, "load 250 more"), similar passages, ask. Every figure module has a Methodology note.
+**Verse Desk (`/scripture/desk/?ref=romans.3.28`).** The page was reorganised after the first capture (17:29 UTC: a head card with a century ruler and four stat tiles, four translation cards, a 13,756 px page; `scripture-dev-desk.js` was 44,108 bytes and the `.vd-tiles` module existed). Re-measured at about 21:00 UTC `[live-2]`: the tiles and the translation cards are gone, `scripture-dev-desk.js` is 42,649 bytes and the page is 5,450 px tall on D (the folds are closed). Module order is DOM order:
+the hero (H1 "Verse Desk" in IM Fell 52 px, one sentence) and a Dark mode toggle; the head (H2 "Romans 3:28" in Source Serif Pro 32/500, previous and next chevrons, a verse select 3:1 to 3:31, the verse text with a decorative quotation mark, a translation select ESV, CSB, KJV, NASB with "Compare translations" and "Read Romans 3");
+"Who treats this verse" (a summary line: 97 authors from the 2nd to the 19th century, 44 commentaries that carry a note on the verse, 2,191 citations of which the first 1,000 load, with a "Load the other 1,191" link; a stacked chart of authors by century and tradition with exemplar names over the bars, six age bands from Early patristic to Later authors, a tradition legend with counts and "3 undated, not drawn", and a Methodology disclosure);
+the chips All, Commentaries 74, Homilies and sermons 4, Citations 1,000; a two-pane block (on the left "Landmark commentaries on this verse", 14 rows with author, dates, work, "Note on 3:28" and a column or page link, then folded groups: whole-Bible commentaries, Greek Fathers, Latin Fathers, Medieval, Continental Reformed, Lutheran, Roman Catholic, English Divines, homilies and sermons on Romans 3, and "Citations of Romans 3:28, 1,000 source pages" with a tradition bar, "Browse sources" and "Compare passages"; on the right a reading pane with commentator pills, the commentator's head, an excerpt, "Read on: English | Latin | Both", "Earlier page", "Later page" and "Open in the reader");
+seven closed folds whose buttons read SHOW KEY VOICES, SHOW HOW THE CHURCH READ IT, SHOW POINTS IN DISPUTE, SHOW CREEDS, SHOW COMMENTARY LADDER, SHOW CHAPTER HEAT and SHOW SHARE, with the module titles "Who to read first" (six authors), "The reading in each age" (five age cards), "Positions the library records" (six questions), "Creeds and confessions that cite Romans 3:28" (six tradition groups), "The note on this verse, by age", "Chapter heat" and "Share this verse";
+then "On this passage" (publisher essays, skip), "Similar passages" (Read with, Similar Scripture use, Similar wording "Open to members") and "Ask about this verse" (a question box, "open to members"). Every figure module has a Methodology note.
 
 ### 4.7 Topics
 
@@ -895,8 +898,8 @@ plan names, check-mark benefit lists), "Other memberships" in four numbered colu
   static explainer of the shelves. The tour card is 360 px (docked at the bottom on phone), eyebrow "STEP n OF m", optional
   MEMBERS pill, title 18 px, body 17 px, an optional dashed "EXAMPLE" box, Skip tour, Back, Next.
 - **How to use (`/how-to-use/`).** Hero 192 px; tabs Laity / Pastors / Academics (48 px, underline); each panel is a 2-column
-  grid of cards (small-caps feature label, H3 task, one or two sentences, notes such as "Needs a free account" and
-  "AI-assisted: answers cite the library's pages", a 546x341 screenshot, a `Try it` link).
+  grid of cards (small-caps feature label, H2 task at 19 px/600, one or two sentences, notes such as "Needs a free account" and
+  "AI-assisted: answers cite the library's pages", a 546x341 screenshot of a 1200x750 original with descriptive alt text, a `Try it` link that goes straight to the live page, not to a tour); 34 cards: Laity 11, Pastors 11, Academics 12 (`[live-2]`).
 - **Transparency (`/transparency/`).** A 664 px column: opening statement, eight commitments (each H2 plus a paragraph), a
   `Report an issue` button, and a closed disclosure listing every machine-translated work alphabetically (title, author,
   year, shelf label) with `Show 50 more`.
@@ -1015,7 +1018,7 @@ applied on those templates, measured): a visible inconsistency.
 | Where | Size / weight / tracking | Colour |
 |---|---|---|
 | Ghost top nav | 11 / 600 / 1.98 px | `#2d2927`, hover `#ee7d51` |
-| Section bar items | 13 / 400 / 1.3 px (brand 600) | `#6b6660`; hover and active `#c1593c` |
+| Section bar items | 13 / 400 / 1.3 px (brand 600); phone 12.5 / 400 / 0.75 px (brand 12 / 600 / 0.84 px) | `#6b6660`; hover and active `#c1593c` |
 | Rail drawer items | 12 / 400 / 0.72 px (P 13 / 0.78) | `#2d2927` |
 | Section kicker | 11 / 400 / 3.3 px | `#b45f3d` (on dark `#ee7d51`) |
 | Hero eyebrow | 12 / 400 / 3.6 px | white 77 % |
@@ -1033,7 +1036,7 @@ applied on those templates, measured): a visible inconsistency.
 - Band padding 88/0 (P 56/0); hero padding 128/0/120 (landing), 92/0/84 (tool pages), 56/0/40 (Browse); hero heights 192-480 px
   by page (the landing hero is 698 px).
 - Bars: masthead 77/61, rail 48/43 (sticky at 76.77), reader toolbar 67/53, thumb bar 61, survey strip 8 px.
-- Rows: 44 px minimum touch targets on tool pages and phone; outline rows 56-59 px on phone; rail drawer rows 42 px (D) and 48 px (P).
+- Rows: 44 px minimum touch targets on tool pages and phone (the phone rail items are the exception: 36 px high inside the 43 px bar, "Search" 52 x 36); outline rows 56-59 px on phone; rail drawer rows 42 px (D) and 48 px (P).
 - Grids: doors 4/2/1; collection cards 4/2/1; shelves 5 per row on D; research hub 3/2/1 columns; resources cards 4/3/2/1.
 
 ### 5.6 Radii, borders, elevation
@@ -1059,7 +1062,7 @@ rise over .55 s; Ask dots pulse 1.4 s. Everything is switched off under `prefers
 | Pill button | 999 px radius, 12/600 caps, 44 px | "Create free account" |
 | Text link | underlined, terracotta; "NAME arrow" caps links | arrow moves 3 px on hover |
 | Segmented control | 1 px border, selected segment filled | roving focus, arrow keys, Home/End |
-| Tabs | 13/600 caps with 2-3 px underline in `#9c4d37`, or 14 px with accent underline (work hub), 44 px | manual activation (arrows move focus, Enter or Space activates) |
+| Tabs | 13/600 caps with 2-3 px underline in `#9c4d37`, or 14 px with accent underline (work hub); the library view tabs are 18 px; tabs are 46 px high | manual activation (arrows move focus, Enter or Space activates) |
 | Disclosure | closed `details`, 36 px summary with a rotating caret | "Methodology"; opens for print |
 | Card | white, 1 px border, 3 px radius, padding 18/20/16 | hover: border terracotta |
 | Chip | 1 px border, 3 px radius or 999 px, 13-14 px | selected: ink fill |
@@ -1111,7 +1114,7 @@ our model stands today (`packages/shared/src/schemas.ts`: `Work`, `Author`, `Edi
 
 | Entity | Reference fields and files | Our model today | Gap for the target |
 |---|---|---|---|
-| Work | `slug` (corpus-prefixed `pld-`, `pg-`, `po-`, `eebo-`, or free), `title` (English), `title_en`, `title_la`, `title_orig`, `author` and name forms (`author_en`, `author_la`, `author_gr`), `tradition` (shelf), `party`, `volume`, `kind`, Migne `cols`, `n_pages`, `has_pages`, `has_tei`, `en_only`, `la_chars`/`en_chars`, `dup_of`, `group`; `works-index.json` (19,445 rows) | `Work`: `id`, `slug`, `titleRo`, `titleEn?`, `titleOrig`, `author`, `languageOrig`, `year` | shelves (many-to-many), century (derived), kind of work, tradition/denomination, blurb and "where to start", cover plate, work counts |
+| Work | `slug` (corpus-prefixed `pld-`, `pg-`, `po-`, `eebo-`, or free), `title` (English), `title_en`, `title_la`, `title_orig`, `author` and name forms (`author_en`, `author_la`, `author_gr`), `tradition` (shelf), `party`, `volume`, `kind`, Migne `cols`, `n_pages`, `has_pages`, `has_tei`, `en_only`, `la_chars`/`en_chars`, `dup_of`, `group`; `works-index.json` (19,445 rows) | `Work`: `id`, `slug`, `titleRo`, `titleEn?`, `titleOrig`, `author`, `languageOrig`, `year` | shelves (many-to-many), century (derived), kind of work, tradition/denomination, blurb and "where to start", cover plate, work counts, an issuing body instead of an author for creeds and council acts |
 | Author | `authors/people.json`, portraits, `enrich/authors/<slug>.json`: profile, `positions[]`, `sources[]` (cites most), `scripture[]`, `quotes[]`, `start[]`, `controversies[]`; neighbours graph; period and tradition tags | `Author`: `name`, `born`, `died`, `tradition` | slug, names per language (`nameRo`, `nameEn`, original), short bio per language, portrait (public-domain image), tradition list |
 | Edition and translation | One English text per work; `volume`; edition groups (facsimile and born-digital witnesses); `en_only` for English originals; status record per work: `reports{open,done}`, `review`, `reviewedAt`, `reviewer`, `revisions[{at,summary}]` | `Edition`: `language`, `kind` (source or translation), `sourceEditionId`, `licence`, `provenance` (free text) | structured provenance: kind (AI, human, native, source), model, date, source edition description, review state, reviewer role, checks, corrections list; partial flag (exists as derived) |
 | Original text and scans | Source lane (Latin, Greek, Latin beside Greek); page scans `p/<n>.webp`, Migne scans; `scanned-works.json` (4,642 slugs); TEI sidecars | source editions can be installed as editions (`kind: source`) | page anchors per paragraph (printed page or column), page images, scan viewer data |
@@ -1190,7 +1193,7 @@ endpoint; Plausible page events; PostHog for identified users; one `tfr_used` ev
 ## 8. Quirks and drift in the reference (do not copy)
 
 - Counts disagree by surface: 19,921 / 19,763 / 17,903 / 19,445 works; Latin Fathers 7,720 versus 8,989; copy says "ten shelves"
-  and "thirty thousand works" while the data has eleven and about twenty thousand. Derive every count from one catalogue.
+  (Tutorial), "thirteen shelves" (Guides) and "thirty thousand works" while the Full Library says 11 shelves and the data about twenty thousand works (re-confirmed on the evening of 4 November). Derive every count from one catalogue.
 - Gating copy contradicts itself: tour cards say "Available to members" and show a MEMBERS pill while the dialogs say "free
   during the beta"; the landing lists tradition guides as free while the Guides page is behind the overlay; the Scripture
   free-trial counter described in code and the changelog is a hard gate in practice.
@@ -1216,7 +1219,7 @@ endpoint; Plausible page events; PostHog for identified users; one `tfr_used` ev
 - Real devices: touch gestures, iOS safe areas, landscape and widths from 400 to 760 px; only Chromium emulation at 390x844,
   768x1024, 1024x768 and 1366x900. Print, high contrast and reduced-motion variants were not rendered.
 - Hover and active states other than those measured; keyboard order of tab bars; behaviour of `Both` for other languages.
-- Work hubs were read for one Migne work (four tabs by text, eleven tab labels); other works and the phone layout of the hub were
+- Work hubs were read in full for one Migne work (four tabs by text, eleven tab labels); on the evening of 4 November the tab strips and first screens of seven more hubs were captured (3.4); the phone layout of the hub was
   captured only at the first screen.
 - Counts are a snapshot of 4 November 2026 (the works index was generated on 27 September 2026) and drift daily.
 - Licensing and provenance of the Bible texts, portraits and the machine-translated English were not examined.
@@ -1225,7 +1228,7 @@ endpoint; Plausible page events; PostHog for identified users; one `tfr_used` ev
 
 ## 10. Evidence index
 
-All paths are local and gitignored; none is committed. `test-results/tfr/` is under `/home/user/biblicapp/`.
+All paths are local and gitignored; none is committed. `test-results/tfr/` is under `/home/user/biblicapp/`. This folder and the session scratchpad are ephemeral: the capture scripts are to be committed under `scripts/reference/` (roadmap P1-A13; they hold no captured text or images), so that `test-results/tfr/` can be regenerated and the numbers re-checked (the reference moves during the day, see section 0).
 
 | Path | Holds |
 |---|---|
@@ -1235,4 +1238,6 @@ All paths are local and gitignored; none is committed. `test-results/tfr/` is un
 | `test-results/tfr/st/` | Scripture, Verse Desk, Topics, Doctrines, Lexicon, Search, Commentary Decks, Resources (screenshots, tours, how-to images) |
 | `test-results/tfr/ra/` | Research hub, gated shells, author room, tours, 20 public product images of the signed-in tools (`ra/howto/`) |
 | `test-results/tfr/wh/` | the work hub capture of this document (`info.json`, `tabs.json`, screenshots) |
+| `test-results/tfr/crit/` | the review pass of the evening of 4 November: work hubs of eight works (`hub-scan.json`), Verse Desk, Full Library, shelf pages, report dialog, changelog, rail geometry, scan scripts |
+| `test-results/tfr/verify/` | the second pass `[live-2]` made while applying the review: hubs, Verse Desk (with its fold buttons), Full Library and shelf pages, changelog, How-to cards, reader outline tabs, section bar on phone, `Aa` rows, report dialog fields (`v-*.mjs` scripts and JSON) |
 | session scratchpad `tfr/*.md` | the four crawl reports this inventory consolidates |
