@@ -1,0 +1,45 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-02",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZB",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "a conquering, destructive, judging power",
+      "quoteTarget": "o putere biruitoare, o putere distrugătoare, o putere judecătoare",
+      "problem": "Același adjectiv „conquering” încheie paragraful precedent al capitolului („this divine conquering power”, context.previousParagraph), pe care ciorna lotului 06-01 îl redă „puteri divine cuceritoare”, în același argument în care „conquest” este „cucerire” (06-01: „ca proces de cucerire”, „Cuceririle la care se referă el”). Aici Vos reia aceeași putere și îi numește prima latură, cea îndreptată împotriva dușmanilor lui Dumnezeu, dar „conquering” devine „biruitoare”: același cuvânt englezesc primește două adjective în loturi vecine, iar legătura lexicală dintre cele două paragrafe (care dă și unitatea argumentului) se pierde. Sensul nu se schimbă („biruitor” și „cuceritor” sunt apropiate), deci nu este o eroare de fidelitate, ci o inconsecvență terminologică între loturi.",
+      "proposal": "o putere cuceritoare, o putere distrugătoare, o putere judecătoare (aliniat cu 06-01 și cu familia cucerire / cuceririle); alternativ, dacă se preferă „biruitoare”, armonizarea se face invers, în 06-01 („puteri divine biruitoare”). Decizia aparține orchestratorului, la armonizarea dintre loturi."
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZC",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "negatie",
+      "quoteSource": "this is now here directly stated",
+      "quoteTarget": "aceasta nu este afirmată nicăieri direct",
+      "problem": "Sursa are „now here” (două cuvinte), la fel în ambele extrageri brute (content/sources/vos-1903-kingdom/raw.txt, rândul 2308, și raw-layout.txt, rândul 2390) și în ediția engleză din depozit (content/works/vos-1903-kingdom/edition-en.json), deci nu este o greșeală a segmentării din ingest. Citită literal („aceasta este acum aici afirmată direct”), propoziția nu se leagă de context: concesiva „although the external and the internal are sometimes significantly placed side by side …” are sens numai după o negație, iar propoziția următoare („In the Fourth Gospel, however, Jesus gives clearly to understand …”) opune Evangheliile sinoptice celei de-a patra tocmai prin faptul că în aceasta ideea este spusă limpede. Lectura „nowhere” este deci aproape sigură (lapsus de tipar sau reziduu de OCR), iar redarea din ciornă („nu … nicăieri”) este cea potrivită. Nu este o eroare de traducere: ciorna a semnalat deja locul (SURSA_POSIBIL_ERONATA, MAJOR) și nu l-a corectat în tăcere; îl confirm. Negația din română nu are corespondent literal în sursă, de aceea locul rămâne în fișa de revizie pentru confirmarea pe ediția tipărită.",
+      "proposal": "Fără modificare de text în română: se păstrează „aceasta nu este afirmată nicăieri direct”, iar flag-ul SURSA_POSIBIL_ERONATA (MAJOR) rămâne în varianta revizuită, fără glosă în text. Revizorul uman confirmă pe ediția tipărită (Vos, 1903, p. 96, după antetele din raw.txt); dacă se confirmă „nowhere”, „now here” se corectează în ediția engleză (edition-en.json) și se reface pachetul, ca textul englez din aplicație să coincidă cu cel românesc."
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZD",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "gramatica",
+      "quoteSource": "a renewal of the physical as well of the spiritual world",
+      "quoteTarget": "o înnoire atât a lumii fizice, cât și a celei spirituale",
+      "problem": "Sursa are „as well of” în loc de „as well as of” (lipsește al doilea „as”); la fel în raw.txt (rândul 2333), în raw-layout.txt (rândul 2420) și în ediția engleză, deci nu provine din ingest. Sensul este neîndoielnic („atât … cât și”), iar româna îl redă corect; ciorna a normalizat lapsusul fără să-l semnaleze, iar în ediția engleză, pe care cititorul o vede în aplicație, rămâne forma defectuoasă. Nu schimbă nimic în traducere.",
+      "proposal": "Fără modificare de text în română. Revizorul confirmă pe ediția tipărită; dacă și tiparul are „as well of”, în ediția engleză se poate face corectura editorială „as well as of” (cu mențiune în fișa de revizie) sau textul se lasă ca atare, după decizia editorială."
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZD",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "some solid anticipations of the eschatological change",
+      "quoteTarget": "unele anticipări solide ale schimbării escatologice",
+      "problem": "„Solid” înseamnă aici „real, substanțial, palpabil” și se opune imediat lui „verbal” („Verbal prophecy was not sufficient: a prophecy in acts was required”). În română „solid” spune „temeinic, bine întemeiat” („argumente solide”, „baze solide”), așa că „anticipări solide” se citește mai degrabă ca „anticipări sigure, bine fundamentate” decât ca „anticipări concrete, în fapte”; contrastul cu profeția doar verbală, pe care se sprijină propoziția următoare, se estompează. Sensul general (miracolele sunt anticipări ale schimbării finale) se păstrează, de aceea MINOR.",
+      "proposal": "unele anticipări concrete ale schimbării escatologice (sau „anticipări palpabile”)"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Nicio constatare CRITIC sau MAJOR; verdict ok. Două SURSA_POSIBIL_ERONATA (lapsusul „now here” din par. 4, redat corect de ciornă după lectura probabilă „nowhere” și semnalat; „as well of” din par. 5, normalizat tăcut) și două MINOR („biruitoare” pentru „conquering”, inconsecvent cu „cuceritoare” din lotul 06-01; „anticipări solide” pentru „solid anticipations”). Cele 36 de propoziții ale sursei (8 + 4 + 7 + 8 + 9) au corespondent una la una în română, verificate în ambele sensuri; numărul propozițiilor românești este același în fiecare paragraf. Negațiile și restricțiile („nu doar … ci”, „nu numai că … ci … și”, „nu … nicăieri”, „nu sunt altceva decât”, „nu este altul decât”, „nu urmărește nimic mai puțin decât”, „nu era suficientă”), cauzalele și concesivele („pentru că”, „căci”, „întrucât”, „deși”, „e drept”) și modalitatea („fără îndoială”, „s-ar părea”, „trebuie” / „trebuia”, „mai ales”, „în primul rând”, „exclusiv”, „cel puțin în parte”, „în mare parte”) sunt păstrate. Rolurile coincid: miracolele sunt semne ale sosirii Împărăției, nu doar autentificări ale misiunii; Isus răspunde întrebării lui Ioan, iar „el” din întrebare este Isus, ca în sursă; puterea satanică îl reduce pe om la robie; Vechiul Testament a tratat cele două sfere împreună; miracolele furnizează profeția în fapte. Numeralele („o singură excepție”, „două laturi”, „ambele laturi”, „cele două”) sunt identice. Trimiterile din references[].target (cinci intrări: Mat. 11:5 / Lc. 4:18, 19 / Mc. 2:9 / Mat. 24:30; Mc. 12:24 / Mat. 19:28) apar în text exact în forma din job și nu există altele, iar cele două citate din par. 2 sunt integrale și în ordinea sursei. Textul-sursă al job-ului coincide cu content/sources/vos-1903-kingdom/raw.txt (rândurile 2218–2353), cu excepția corecturilor OCR ale ingest-ului („tha~”, „COlnes”, „suggestin g”, „J esus aim~”, „rej newal”, „Messianic'”) și a antetelor de pagină. Glosarul și profilul sunt respectate (Împărăția, Isus, Domnul nostru, Duhul, sinoptici, a patra Evanghelie, Vechiul Testament, escatologic, putere mântuitoare, adică, Bisericii apostolice); niciun calc din listă; NFC, diacritice cu virgulă, ghilimele românești; translation-check --strict pe ciornă iese cu 0 (doar INFO FLAG_PROPOSED). Alegerile semnalate de ciornă sunt acceptabile și nu schimbă sensul: „miracol” / „miraculos”, „lucrări” pentru „works”, „puterea Împărăției”, „semnele meteorologice” (opoziția cu „semnele vremurilor” se păstrează; „semnele vremii de afară” rămâne o alternativă firească), „Isus” în loc de „He” (par. 1 și 3), „anul bineplăcut”, „Iehova”, repetarea lui „putere” în cele două triade din par. 3 (lasă „putere mântuitoare” întreg), „demonstrații” pentru „exhibitions”, „învierea morților” pentru „the raising of the dead” (contextul, alături de „vindecarea orbilor”, exclude învierea de apoi), „indiferentă”, „prevestește”. Ambiguitatea referentului din „dacă el era cel care urma să vină” (par. 2) este a sursei, păstrată, și se rezolvă din context. Notă pentru orchestrator: „miracol” este redarea dominantă (01-01, 04-02, 04-03, 06-02, 06-03, 10-01, 10-02), dar 04-01 („minuni”) și 05-01 („minunea”, „minunilor”) au „minune”, deci armonizarea între loturi privește acele două loturi, nu pe acesta."
+}

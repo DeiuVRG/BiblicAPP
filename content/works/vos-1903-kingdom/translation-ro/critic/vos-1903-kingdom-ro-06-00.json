@@ -1,0 +1,45 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ5",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "he must have had a positive reason for this",
+      "quoteTarget": "trebuie să fi avut un motiv pozitiv pentru aceasta",
+      "problem": "„Positive reason” are aici sensul de motiv de substanță, real, în opoziție cu „mere accommodation” și „mere dependence” din frazele vecine și cu opoziția formă/substanță care urmează. „Motiv pozitiv” este un calc după engleză: fără acest context, în română se citește „motiv favorabil, bun” și estompează contrastul autorului. Sensul general (Isus a avut un motiv real) rămâne, deci nu este o eroare de fidelitate; ciorna a semnalat deja îndoiala (ALTA, MINOR) și o confirm.",
+      "proposal": "trebuie să fi avut un motiv de fond pentru aceasta (sau: „un motiv real”)"
+    },
+    {
+      "sourceId": "01M6JQZW8W2X559XN2Q9RD4Y2Z",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "the true kingdom-forming principle",
+      "quoteTarget": "adevăratul principiu formator de împărăție",
+      "problem": "„Kingdom-forming” este redat prin compusul „formator de împărăție”, calchiat după tiparul englezesc. În română „formator” se spune mai ales despre persoane sau despre educație („formator de opinie”); ca atribut al unui principiu, „formator de împărăție” sună forțat. În plus, același compus al autorului apare în cap. IV (lotul vos-1903-kingdom-ro-04-04, „kingdom-forming movement”) și este redat acolo „mișcare continuă de formare a Împărăției”, deci aceeași expresie primește două redări diferite în lucrare. Sensul (principiul care face dintr-o comunitate o împărăție) este păstrat; ciorna a semnalat redarea ca TERMEN_NOU (INFO) și a propus alternative.",
+      "proposal": "adevăratul principiu de formare a împărăției (majusculă sau minusculă, la alegerea revizorului; cf. cap. IV: „mișcare continuă de formare a Împărăției”); alternativă: „adevăratul principiu constitutiv al împărăției”"
+    },
+    {
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSC",
+      "severity": "MINOR",
+      "category": "gramatica",
+      "quoteSource": "God is in some such sense the supreme and controlling factor as the ruler in a human kingdom",
+      "quoteTarget": "Dumnezeu este factorul suprem și determinant într-un sens oarecum asemănător celui în care este stăpânitorul unei împărății omenești",
+      "problem": "Elipsa sursei („as the ruler in a human kingdom [is]”) a fost preluată mecanic: în „celui în care este stăpânitorul unei împărății omenești”, copula „este” rămâne fără predicat. Într-o limbă cu subiect subînțeles, subiectul subordonatei se citește firesc ca fiind cel al principalei („Dumnezeu”), iar „stăpânitorul” ca nume predicativ: „sensul în care Dumnezeu este stăpânitorul unei împărății omenești”. Astfel comparația dintre Dumnezeu și stăpânitorul omenesc, ambii fiind „factorul suprem și determinant”, se șterge, iar cititorul trebuie să reanalizeze fraza ca să o refacă. Sensul se recuperează din context, deci nu este o eroare de fidelitate.",
+      "proposal": "Dumnezeu este factorul suprem și determinant într-un sens oarecum asemănător celui în care stăpânitorul unei împărății omenești este factorul suprem și determinant (sau altă structură care dă stăpânitorului rolul de subiect al comparației)"
+    },
+    {
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSC",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "the institution of the state with its magistrate",
+      "quoteTarget": "instituția statului, cu magistratul ei",
+      "problem": "„Magistrate” este folosit în sensul politic de demnitar suprem al statului (în forma republicană, corespondentul regelui din propoziția următoare, „even the king”), nu în cel judiciar. În româna de azi „magistrat” înseamnă în primul rând judecător sau procuror, așa că cititorul general poate înțelege „statul cu judecătorul/procurorul lui” și pierde paralela magistrat–rege. Sensul din tradiția reformată („magistratul civil”) există, dar nu este transparent în afara ei, iar glosarul și profilul nu fixează termenul. Ciorna a semnalat deja îndoiala (DE_VERIFICAT, MINOR).",
+      "proposal": "instituția statului, cu cârmuitorul ei (alternativă: „cu conducătorul ei”); dacă se preferă forma din tradiția reformată, „magistratul” se păstrează și se fixează în glosar, cu explicația sensului politic"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Fără constatări CRITIC sau MAJOR. Cele 33 de propoziții ale sursei (15 + 5 + 7 + 6) au corespondent una la una în română, verificate în ambele sensuri; numărul propozițiilor românești este același în fiecare paragraf, iar titlul capitolului urmează profilul („supremație”, „putere mântuitoare”, numerotarea „VI.” păstrată). Negațiile și corelativele („in no wise suggestive”, „Nor can we explain”, „never a mere matter of form”, „must not expect to find”, „not the philosophical one … but the popular”, „does not involve a lack”, „will not fail to discover”, „but little emphasized”, „not nearly wide enough”, „not ultimate”, „not the union of men as such, but that in God”, „not merely … but equally much”, „not naturally led”, „was not to teach … but to reflect”, „not merely God is supreme … but where God …”), condiționalele („If Jesus nevertheless favored it …”, „If we can ascertain these …”), concesivele („Now whatever may be …”, „though undoubtedly … can be learned”) și cauzalele („because not the union … is the true … principle”, „for that is true at all times”) sunt păstrate. Modalitatea este păstrată: „must have had”, „certainly would be wrong”, „undoubtedly”, „appears to consist”, „may be considered”, „can properly construe”, „obviously”. Rolurile sunt corecte, inclusiv direcția atribuirilor („by our modern idea of the state we are not naturally led …”, „Judaism … had shifted the center of gravity from God to man”, „God … brings man to the willing recognition”). Cele două trimiteri din text (Rom. 14:17; Mat. 13:24–30, 47–50) coincid cu references[].target și cu scripture din ciornă (mode reference); paragrafele 3 și 4 nu au trimiteri sau citate biblice ale autorului, iar „Împărăția lui Dumnezeu” este numele discutat, nu un citat. Numele (Isus, Pavel, Israel, iudei, Iudaism) și numeralele sunt identice. Textul-sursă al job-ului coincide cu content/sources/vos-1903-kingdom/raw.txt (rândurile 1963–2086), cu excepția corecturilor de OCR ale ingestiei („d.” → „cf.”, „brought onto Taking” → „brought out. Taking”, „Israel'S)” → „Israel’s” ș.a.); nu am găsit anomalii rămase, deci niciun SURSA_POSIBIL_ERONATA, iar cele două serii de trimiteri indică versete existente. Glosarul și profilul sunt respectate (Împărăția cu majusculă, „împărăție” generic cu minusculă, Isus, Domnul nostru, Vechiul Testament, „domnie” pentru kingship, „supremație”, „stăpânitor/stăpânire” ca în cap. II, „noțiune” pentru conception, „centrat pe Dumnezeu” ca în cap. I–II, „epoca mesianică” ca în cap. II, „centrul de greutate” ca în cap. IV, „pildă” și nu „parabolă”); niciun calc din listă; NFC, diacritice cu virgulă, ghilimele „…”, un singur rând de text pe paragraf; translation-check --strict pe ciornă iese cu 0 (doar două INFO FLAG_PROPOSED). Patru constatări MINOR, niciuna cu efect asupra sensului: două calcuri („motiv pozitiv”; „principiu formator de împărăție”, acesta din urmă și inconsecvent cu „formare a Împărăției” din cap. IV), o elipsă preluată mecanic („celui în care este stăpânitorul …”) și un termen cu risc de citire greșită („magistratul”). Celelalte alegeri semnalate de ciornă sunt acceptabile și nu schimbă sensul: „Or,” pentru „Now”, „insuficientă” pentru „inadequate”, „în orice caz” pentru „at least” (ambele lecturi ale lui „at least only a partial explanation” duc la aceeași concluzie), „în pilde” pentru „parabolic”, „determinant” pentru „controlling”, „subordonare” pentru „subserviency”, „perspectivă” pentru „view of religion”, „raporturi” pentru „intercourse”, „principiu constructiv” pentru „constructive principle” și „își impune” pentru „carries through” (nuanța de ducere la capăt se estompează ușor, dar opoziția față de „puterile potrivnice” și „recunoașterea de bunăvoie” din continuare păstrează ideea). Verdictul este ok."
+}
