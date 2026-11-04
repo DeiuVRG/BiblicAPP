@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+import { Fragment } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
@@ -11,39 +12,67 @@ import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import { useContent } from '@/content/content-context';
+import { isPartialEdition } from '@/content/editions';
+import { originalTitleToShow, workTitle } from '@/content/titles';
 import type { WorkSummary } from '@/content/types';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
-import { t } from '@/i18n';
-import { formatYear, languageName, licenceLabel } from '@/i18n/labels';
+import { useT } from '@/i18n';
+import { editionLabel, formatYear, languageName, licenceLabel } from '@/i18n/labels';
+import type { Strings } from '@/i18n/strings';
 import { workHref } from '@/navigation-hrefs';
+import { useSettings } from '@/settings/settings-context';
 
-export function workMeta(work: WorkSummary): string {
-  const year = formatYear(work.year);
-  return [work.authorName, year, languageName(work.languageOrig)].filter(Boolean).join(' · ');
+/** "Geerhardus Vos · 1903 · Engleză": author, year of the original and its language. */
+export function workMeta(work: WorkSummary, t: Strings): string {
+  const year = formatYear(work.year, t);
+  return [work.authorName, year, languageName(work.languageOrig, t)].filter(Boolean).join(' · ');
 }
 
 function WorkRow({ work }: { work: WorkSummary }) {
-  const showOriginal = work.titleOrig.trim() !== '' && work.titleOrig !== work.titleRo;
+  const t = useT();
+  const { settings } = useSettings();
+  const title = workTitle(work, settings.readingLanguage);
+  const original = originalTitleToShow(work, title);
+  const primary = work.editions.find((edition) => edition.editionId === work.primaryEditionId);
+  // Screen readers get the editions in the label of the row (the chips below carry them visually).
+  const editions = work.editions
+    .map((edition) =>
+      isPartialEdition(edition, work.editions)
+        ? `${editionLabel(edition, t)}, ${t.work.partial.toLowerCase()}`
+        : editionLabel(edition, t),
+    )
+    .join('; ');
   return (
     <LinkRow
       href={workHref(work.workId)}
-      accessibilityLabel={`${t.library.openWork(work.titleRo)}. ${workMeta(work)}`}
+      accessibilityLabel={`${t.library.openWork(title)}. ${workMeta(work, t)}. ${t.library.editions}: ${editions}`}
     >
-      <AppText variant="title">{work.titleRo}</AppText>
-      {showOriginal ? <AppText variant="original">{work.titleOrig}</AppText> : null}
+      <AppText variant="title">{title}</AppText>
+      {original ? <AppText variant="original">{original}</AppText> : null}
       <AppText variant="label" style={styles.meta}>
-        {workMeta(work)}
+        {workMeta(work, t)}
       </AppText>
       <View style={styles.chips}>
-        <Chip label={licenceLabel(work.licenceStatus)} />
+        {primary ? <Chip label={licenceLabel(primary.licenceStatus, t)} /> : null}
+        {work.editions.map((edition) => (
+          <Fragment key={edition.editionId}>
+            <Chip label={editionLabel(edition, t)} />
+            {isPartialEdition(edition, work.editions) ? <Chip label={t.work.partial} /> : null}
+          </Fragment>
+        ))}
       </View>
     </LinkRow>
   );
 }
 
 export function LibraryScreen() {
+  const t = useT();
+  const { settings } = useSettings();
   const content = useContent();
-  const works = useRepositoryQuery((repository) => repository.listWorks(), []);
+  const works = useRepositoryQuery(
+    (repository) => repository.listWorks(settings.readingLanguage),
+    [settings.readingLanguage],
+  );
   const rejectedCount = content.status === 'ready' ? content.rejected.length : 0;
   const contentStyle = useListContentStyle('list');
 
@@ -56,7 +85,7 @@ export function LibraryScreen() {
       {works.status === 'ready' ? (
         <FlatList
           data={works.data}
-          keyExtractor={(work) => work.editionId}
+          keyExtractor={(work) => work.workId}
           renderItem={({ item }) => <WorkRow work={item} />}
           ItemSeparatorComponent={Hairline}
           ListHeaderComponent={
@@ -82,5 +111,5 @@ export function LibraryScreen() {
 const styles = StyleSheet.create({
   header: { paddingTop: 24, gap: 16 },
   meta: { marginTop: 4 },
-  chips: { flexDirection: 'row', marginTop: 8 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
 });

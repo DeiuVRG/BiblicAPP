@@ -29,7 +29,11 @@ export type VerifyFailureReason =
   | 'app-too-old'
   | 'unknown-key'
   | 'bad-signature'
-  | 'unverified';
+  | 'unverified'
+  // Not found by `verifyPack` (it sees one pack): the repository finds them when it puts verified
+  // packs together. The later pack of a clash is rejected.
+  | 'duplicate-edition'
+  | 'duplicate-id';
 
 export interface VerifyPackInput {
   /** Parsed manifest.json (untrusted). */

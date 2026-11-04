@@ -49,6 +49,13 @@ export const WorkSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'expected kebab-case slug'),
   titleRo: NonEmpty,
   titleOrig: NonEmpty,
+  /**
+   * English title, for works whose original is not English (an English translation needs one).
+   * Optional and left out of source packs, so a pack built before the field existed is unchanged;
+   * `translation-merge` fills it from the translated edition's metadata. The app shows it to
+   * readers whose reading language is English.
+   */
+  titleEn: NonEmpty.optional(),
   author: AuthorSchema,
   /** BCP 47 style code of the original language, e.g. 'en', 'la', 'grc', 'ang', 'de'. */
   languageOrig: NonEmpty,
@@ -58,7 +65,14 @@ export type Work = z.infer<typeof WorkSchema>;
 
 export const LicenceSchema = z.object({
   status: z.enum(['public-domain', 'licensed', 'unknown']),
+  /** The note in prose, in the language of the edition itself. */
   note: z.string(),
+  /**
+   * The same note in Romanian and in English, for the language of the interface. Both are
+   * optional (absent in packs built before they existed); the app falls back to `note`.
+   */
+  noteRo: z.string().optional(),
+  noteEn: z.string().optional(),
 });
 export type Licence = z.infer<typeof LicenceSchema>;
 

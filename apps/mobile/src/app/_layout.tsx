@@ -5,7 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { Platform } from 'react-native';
 
 import { AppHeader } from '@/components/app-header';
-import { t } from '@/i18n';
+import { useT, useUiLanguage } from '@/i18n';
 import { AppProviders } from '@/providers';
 import { useSettings } from '@/settings/settings-context';
 import { applyDocumentTheme } from '@/theme/document-theme';
@@ -19,6 +19,8 @@ import { useTheme } from '@/theme/theme-context';
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
 function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
+  const t = useT();
+  const language = useUiLanguage();
   const { name, colors } = useTheme();
   const fonts = useFontFamilies();
   const { ready: settingsReady } = useSettings();
@@ -39,6 +41,13 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       applyDocumentTheme(document, name, colors);
     }
   }, [name, colors]);
+
+  // Web: the document language follows the interface language (screen readers, hyphenation).
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
+  }, [language]);
 
   if (!ready) return null;
 

@@ -1,4 +1,5 @@
 // Romanian UI strings. Use comma-below diacritics (ș ț), never cedilla forms.
+// `en.ts` must have every key of this table: its type, `Strings` (strings.ts), is derived from it.
 export const ro = {
   appName: 'Biblioteca',
   common: {
@@ -15,6 +16,8 @@ export const ro = {
     search: 'Căutare',
     settings: 'Setări',
     openWork: (title: string) => `Deschide lucrarea ${title}`,
+    // Spoken before the list of editions of a work (the chips carry the same text visually).
+    editions: 'Ediții',
     unverified: (count: number) =>
       count === 1
         ? 'Un pachet de conținut nu a putut fi verificat și nu este afișat.'
@@ -36,6 +39,10 @@ export const ro = {
     edition: 'Ediție',
     licence: 'Licență',
     openSection: (heading: string) => `Deschide ${heading}`,
+    // The label of the control that switches between the editions of the work.
+    editionSwitch: 'Alege ediția',
+    // A translation that covers fewer sections than its source edition.
+    partial: 'Traducere parțială',
   },
   reader: {
     title: 'Citire',
@@ -50,9 +57,9 @@ export const ro = {
     typographyLabel: 'Aspectul textului: mărime, spațiere, temă',
     progressLabel: 'Progresul lecturii',
     // A no-break space keeps "9 %" together on one line.
-    percent: (percent: number) => `${percent}\u00a0%`,
+    percent: (percent: number) => `${percent} %`,
     position: (index: number, total: number, percent: number) =>
-      `${index} din ${total} · ${percent}\u00a0%`,
+      `${index} din ${total} · ${percent} %`,
     endOfWork: 'Ai ajuns la sfârșitul lucrării.',
     toContents: 'La cuprins',
   },
@@ -86,6 +93,17 @@ export const ro = {
       sepia: 'Sepia',
       dark: 'Întunecat',
     },
+    language: 'Limbă',
+    readingLanguage: 'Limba lecturii',
+    readingLanguageHint:
+      'Ediția în această limbă se deschide prima. Dacă lucrarea nu o are, se deschide cea mai apropiată.',
+    uiLanguage: 'Limba interfeței',
+    uiLanguageHint: 'Sistem urmează limba dispozitivului.',
+    uiLanguages: {
+      system: 'Sistem',
+      ro: 'Română',
+      en: 'English',
+    },
     preview: 'Previzualizare',
     previewText:
       'Împărăția lui Dumnezeu nu vine în chip văzut. Textul este aliniat la stânga, cu diacritice corecte: ș, ț, ă, â, î.',
@@ -106,14 +124,45 @@ export const ro = {
     licensed: 'Sub licență',
     unknown: 'Licență necunoscută',
   },
+  // What an edition is: the original text, or a translation of it. The lower-case form of these
+  // words ends the short edition labels ("Română · traducere").
   editionKind: {
-    source: 'Text sursă',
+    source: 'Original',
     translation: 'Traducere',
+  },
+  // The two reading languages, each written in its own language (as in any language picker), in
+  // every interface language.
+  readingLanguages: {
+    ro: 'Română',
+    en: 'English',
+  },
+  // Names of the languages of the works, in this interface language.
+  languageNames: {
+    ro: 'Română',
+    en: 'Engleză',
+    ang: 'Engleza veche',
+    enm: 'Engleza medie',
+    de: 'Germană',
+    goh: 'Germana veche',
+    gmh: 'Germana medie',
+    la: 'Latină',
+    grc: 'Greaca veche',
+    el: 'Greacă',
+    he: 'Ebraică',
+    hbo: 'Ebraica biblică',
+    fr: 'Franceză',
+    it: 'Italiană',
+    es: 'Spaniolă',
+    syc: 'Siriacă',
+    cop: 'Coptă',
+  },
+  dates: {
+    bc: (year: number) => `${year} î.Hr.`,
+    born: (year: string) => `n. ${year}`,
+    died: (year: string) => `m. ${year}`,
   },
   notFound: {
     title: 'Pagină negăsită',
     message: 'Pagina căutată nu există.',
   },
 } as const;
-
-export type Strings = typeof ro;

@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
-import { t } from '@/i18n';
+import { useT } from '@/i18n';
 import { libraryHref } from '@/navigation-hrefs';
 import { barInset, useLayout } from '@/theme/layout';
 import type { ColumnKind } from '@/theme/layout';
@@ -29,6 +29,7 @@ const BUTTON_PAD = 10;
  * screen's header actions on the right. (iOS and Android keep their native headers.)
  */
 export function AppHeader({ options, route, back, navigation }: NativeStackHeaderProps) {
+  const t = useT();
   const { colors } = useTheme();
   const layout = useLayout();
   const column: ColumnKind = READING_SCREENS.has(route.name) ? 'reading' : 'list';

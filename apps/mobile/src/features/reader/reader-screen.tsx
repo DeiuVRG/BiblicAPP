@@ -7,14 +7,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
+import { Chip } from '@/components/chip';
 import { Column } from '@/components/column';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import { TypographyControls } from '@/components/typography-controls';
-import type { WorkDetail } from '@/content/types';
+import { workTitle } from '@/content/titles';
+import type { EditionDetail, WorkDetail } from '@/content/types';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
-import { t } from '@/i18n';
+import { useT } from '@/i18n';
+import { editionLanguageLabel } from '@/i18n/labels';
 import { readHref, workHref } from '@/navigation-hrefs';
 import { scrollFraction, sectionNeighbours, toPercent } from '@/reading/navigation';
 import { loadPosition } from '@/reading/position-store';
@@ -28,7 +31,9 @@ import { READING_MAX_FONT_SCALE, ReaderParagraph } from './reader-paragraph';
 import { useReadingPositionWriter } from './use-reading-position';
 
 interface Props {
+  /** The work the section is expected to belong to (the `id` of the route). */
   workId: string;
+  /** A section id identifies its edition: the reader shows that edition. */
   sectionId: string;
   /** Paragraph to scroll to (search result); wins over the saved reading position. */
   targetParagraphId?: string;
@@ -41,25 +46,43 @@ interface ViewToken {
   index?: number | null;
 }
 
-interface Loaded {
-  detail: WorkDetail | null;
-  sections: Section[];
-  paragraphs: Paragraph[];
-  savedParagraphId: string | null;
-}
+type Loaded =
+  | { found: false }
+  | {
+      found: true;
+      detail: WorkDetail;
+      edition: EditionDetail;
+      /** The sections of this edition only: previous and next stay inside it. */
+      sections: Section[];
+      paragraphs: Paragraph[];
+      savedParagraphId: string | null;
+    };
 
 export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Props) {
+  const t = useT();
   const store = useStorage();
   const data = useRepositoryQuery<Loaded>(
     async (repository) => {
-      const [detail, sections, paragraphs, saved] = await Promise.all([
+      const location = await repository.locateSection(sectionId);
+      // A section that is not in this work (or not in any) is not found.
+      if (!location || location.workId !== workId) return { found: false };
+      const [detail, edition, sections, paragraphs] = await Promise.all([
         repository.getWork(workId),
-        repository.getSections(workId),
+        repository.getEdition(location.editionId),
+        repository.getSections(location.editionId),
         repository.getParagraphs(sectionId),
-        loadPosition(store, workId),
       ]);
+      if (!detail || !edition) return { found: false };
+      // The source edition also finds the position an older version saved for the whole work.
+      const saved = await loadPosition(
+        store,
+        edition.editionId,
+        edition.kind === 'source' ? workId : undefined,
+      );
       return {
+        found: true,
         detail,
+        edition,
         sections,
         paragraphs,
         savedParagraphId: saved?.sectionId === sectionId ? saved.paragraphId : null,
@@ -82,19 +105,22 @@ export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Pr
       </Screen>
     );
   }
-  const { detail, sections, paragraphs, savedParagraphId } = data.data;
-  const section = sections.find((candidate) => candidate.id === sectionId);
-  if (!detail || !section) {
+  const section = data.data.found
+    ? data.data.sections.find((candidate) => candidate.id === sectionId)
+    : undefined;
+  if (!data.data.found || !section) {
     return (
       <Screen>
         <MessageView message={t.reader.notFound} />
       </Screen>
     );
   }
+  const { detail, edition, sections, paragraphs, savedParagraphId } = data.data;
   return (
     <ChapterView
       key={sectionId}
       detail={detail}
+      edition={edition}
       sections={sections}
       section={section}
       paragraphs={paragraphs}
@@ -107,6 +133,7 @@ export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Pr
 
 interface ChapterProps {
   detail: WorkDetail;
+  edition: EditionDetail;
   sections: Section[];
   section: Section;
   paragraphs: Paragraph[];
@@ -121,6 +148,7 @@ const MAX_EAGER_PARAGRAPHS = 400;
 
 function ChapterView({
   detail,
+  edition,
   sections,
   section,
   paragraphs,
@@ -128,6 +156,7 @@ function ChapterView({
   highlightedParagraphId,
   query,
 }: ChapterProps) {
+  const t = useT();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const column = useColumnStyle('reading');
@@ -135,13 +164,18 @@ function ChapterView({
   const { colors } = useTheme();
   const fonts = useFontFamilies();
   const workId = detail.work.id;
+  const editionId = edition.editionId;
   const neighbours = sectionNeighbours(sections, section.id);
+  const title = workTitle(detail.work, settings.readingLanguage);
+  // The language of the text, said in the header only when the work has more than one.
+  const languageLabel =
+    detail.editions.length > 1 ? editionLanguageLabel(edition.language, t) : null;
 
   const listRef = useRef<FlatList<Paragraph>>(null);
   const retries = useRef(0);
   const [fraction, setFraction] = useState(0);
   const [panelOpen, setPanelOpen] = useState(false);
-  const writer = useReadingPositionWriter(workId, section.id);
+  const writer = useReadingPositionWriter(editionId, section.id);
 
   // Web: Escape closes the typography panel, like any other disclosure.
   useEffect(() => {
@@ -237,16 +271,17 @@ function ChapterView({
     <Screen>
       <Stack.Screen
         options={{
-          title: detail.work.titleRo,
+          title,
           // A running head, quiet next to the chapter heading (the web header does the same).
           headerTitleStyle: {
             fontFamily: fonts.readingItalic,
             fontSize: 15,
             color: colors.textMuted,
           },
+          headerRight: languageLabel ? () => <Chip label={languageLabel} /> : undefined,
         }}
       />
-      <PageTitle parts={[section.heading, detail.work.titleRo]} />
+      <PageTitle parts={[section.heading, title]} />
       <Column kind="reading" style={styles.runningHead}>
         <AppText
           variant="label"
@@ -344,7 +379,7 @@ function ChapterView({
             <Button
               variant="text"
               title={t.reader.toContents}
-              onPress={() => router.replace(workHref(workId))}
+              onPress={() => router.replace(workHref(workId, editionId))}
               style={styles.navEnd}
             />
           )}

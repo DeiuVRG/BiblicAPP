@@ -5,10 +5,11 @@ import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
-import { t } from '@/i18n';
+import { useT } from '@/i18n';
 import { libraryHref } from '@/navigation-hrefs';
 
 export default function NotFoundRoute() {
+  const t = useT();
   return (
     <Screen style={styles.center}>
       {/* The page says what happened; the header only says where we are (not the same words twice). */}

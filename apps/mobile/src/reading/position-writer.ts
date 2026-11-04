@@ -4,7 +4,7 @@ import type { KeyValueStore } from '@/storage/key-value-store';
 const SAVE_DELAY_MS = 500;
 
 /**
- * Debounced persistence of the reading position of one work. `track()` is cheap and may be
+ * Debounced persistence of the reading position of one edition. `track()` is cheap and may be
  * called on every scroll. Nothing is written before `enable()`, so the position that is being
  * restored is not overwritten by the initial top-of-page position. Methods are arrow
  * properties so they can be passed around as stable callbacks.
@@ -16,13 +16,13 @@ export class PositionWriter {
 
   constructor(
     private store: KeyValueStore,
-    private workId: string,
+    private editionId: string,
     private sectionId: string,
   ) {}
 
-  configure(store: KeyValueStore, workId: string, sectionId: string): void {
+  configure(store: KeyValueStore, editionId: string, sectionId: string): void {
     this.store = store;
-    this.workId = workId;
+    this.editionId = editionId;
     this.sectionId = sectionId;
   }
 
@@ -46,6 +46,6 @@ export class PositionWriter {
     if (!this.enabled || this.pending === undefined) return;
     const paragraphId = this.pending;
     this.pending = undefined;
-    void savePosition(this.store, this.workId, { sectionId: this.sectionId, paragraphId });
+    void savePosition(this.store, this.editionId, { sectionId: this.sectionId, paragraphId });
   };
 }

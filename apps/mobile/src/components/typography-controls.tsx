@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { SegmentedControl } from '@/components/segmented-control';
 import { SettingRow } from '@/components/setting-row';
 import { Stepper } from '@/components/stepper';
-import { t } from '@/i18n';
+import { useT } from '@/i18n';
 import { clamp, roundLineHeight } from '@/settings/sanitize';
 import { useSettings } from '@/settings/settings-context';
 import {
@@ -17,6 +17,7 @@ import {
 
 /** Font size stepper. */
 export function FontSizeControl() {
+  const t = useT();
   const { settings, update } = useSettings();
   return (
     <Stepper
@@ -38,6 +39,7 @@ export function FontSizeControl() {
 
 /** Line height stepper. */
 export function LineHeightControl() {
+  const t = useT();
   const { settings, update } = useSettings();
   return (
     <Stepper
@@ -59,6 +61,7 @@ export function LineHeightControl() {
 
 /** Automatic / light / sepia / dark. `labelled={false}` when a section heading already says "Tema". */
 export function ThemeControl({ labelled = true }: { labelled?: boolean }) {
+  const t = useT();
   const { settings, update } = useSettings();
   const themeOptions = THEME_PREFERENCES.map((value) => ({
     value,

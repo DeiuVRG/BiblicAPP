@@ -11,10 +11,13 @@ import { LinkRow } from '@/components/list-row';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
+import { workTitle } from '@/content/titles';
 import type { SearchHit } from '@/content/types';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
-import { t } from '@/i18n';
+import { useT } from '@/i18n';
+import { editionLanguageLabel } from '@/i18n/labels';
 import { readHref } from '@/navigation-hrefs';
+import { useSettings } from '@/settings/settings-context';
 import { useFontFamilies } from '@/theme/fonts';
 import { useTheme } from '@/theme/theme-context';
 
@@ -37,6 +40,8 @@ function useDebounced<T>(value: T, delayMs: number): T {
 }
 
 export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
+  const t = useT();
+  const { settings } = useSettings();
   const { colors } = useTheme();
   const fonts = useFontFamilies();
   const contentStyle = useListContentStyle('list');
@@ -47,10 +52,16 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
   const results = useRepositoryQuery(
     async (repository) => {
       if (!active) return null;
-      const [hits, works] = await Promise.all([repository.search(query), repository.listWorks()]);
-      return { hits, titles: new Map(works.map((work) => [work.workId, work.titleRo])) };
+      const [hits, works] = await Promise.all([
+        repository.search(query),
+        repository.listWorks(settings.readingLanguage),
+      ]);
+      const titles = new Map(
+        works.map((work) => [work.workId, workTitle(work, settings.readingLanguage)]),
+      );
+      return { hits, titles };
     },
-    [query, active],
+    [query, active, settings.readingLanguage],
   );
   // The work's title is only worth repeating on every hit when the hits come from several works.
   const manyWorks =
@@ -139,7 +150,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
 function ResultRow({
   hit,
   query,
-  workTitle,
+  workTitle: title,
   showWork,
 }: {
   hit: SearchHit;
@@ -147,19 +158,29 @@ function ResultRow({
   workTitle: string;
   showWork: boolean;
 }) {
+  const t = useT();
   const snippetStyle = useTypeStyle('body', false);
+  // The language of the edition the hit is in, written next to the chapter.
+  const language = editionLanguageLabel(hit.language, t);
   // Screen readers always hear where the hit is; the visible line names the work only when the
   // hits come from several works. It may use two lines and breaks between words.
-  const place = [hit.sectionHeading, workTitle].filter(Boolean).join(' · ');
-  const visiblePlace = (showWork ? place : hit.sectionHeading) || place;
+  const place = [hit.sectionHeading, language, title].filter(Boolean).join(' · ');
+  const visibleHeading = (showWork ? place : hit.sectionHeading) || place;
   return (
     <LinkRow
       href={readHref(hit.workId, hit.sectionId, { p: hit.paragraphId, q: query })}
       accessibilityLabel={`${t.search.openResult(place)}: ${hit.snippet}`}
     >
-      <AppText variant="label" numberOfLines={2}>
-        {visiblePlace}
-      </AppText>
+      <View style={styles.place}>
+        <AppText variant="label" numberOfLines={2} style={styles.heading}>
+          {visibleHeading}
+        </AppText>
+        {showWork ? null : (
+          <AppText variant="label" style={styles.language}>
+            {language}
+          </AppText>
+        )}
+      </View>
       <HighlightedText text={hit.snippet} query={query} style={snippetStyle} />
     </LinkRow>
   );
@@ -182,4 +203,7 @@ const styles = StyleSheet.create({
   clear: { position: 'absolute', top: 2, right: 2, paddingHorizontal: 0 },
   clearText: { fontSize: 24, lineHeight: 28 },
   count: { paddingBottom: 12 },
+  place: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline', columnGap: 10 },
+  heading: { flexShrink: 1 },
+  language: { flexShrink: 0 },
 });

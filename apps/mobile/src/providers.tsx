@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { ContentProvider } from '@/content/content-context';
 import type { LoadedRepository } from '@/content/repository';
+import { I18nProvider } from '@/i18n';
 import { SettingsProvider } from '@/settings/settings-context';
 import { StorageProvider } from '@/storage/key-value-store';
 import type { KeyValueStore } from '@/storage/key-value-store';
@@ -18,14 +19,16 @@ interface Props {
   loader?: () => Promise<LoadedRepository>;
 }
 
-/** Everything the screens need from context: fonts, settings, theme and verified content. */
+/** Everything the screens need from context: fonts, settings, language, theme and verified content. */
 export function AppProviders({ children, families = fallbackFonts, store, loader }: Props) {
   const tree = (
     <FontsProvider value={families}>
       <SettingsProvider>
-        <ThemeProvider>
-          <ContentProvider loader={loader}>{children}</ContentProvider>
-        </ThemeProvider>
+        <I18nProvider>
+          <ThemeProvider>
+            <ContentProvider loader={loader}>{children}</ContentProvider>
+          </ThemeProvider>
+        </I18nProvider>
       </SettingsProvider>
     </FontsProvider>
   );

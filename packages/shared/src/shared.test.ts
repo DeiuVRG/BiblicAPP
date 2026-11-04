@@ -148,6 +148,52 @@ describe('PackSchema translations', () => {
   });
 });
 
+describe('WorkSchema titleEn', () => {
+  it('is optional: a work without it parses to the same canonical JSON (packs stay unchanged)', () => {
+    const parsed = PackSchema.parse(validPack);
+    expect(parsed.work.titleEn).toBeUndefined();
+    expect('titleEn' in parsed.work).toBe(false);
+    expect(canonicalJson(parsed.work)).toBe(canonicalJson(validPack.work));
+  });
+
+  it('keeps an English title when the work has one', () => {
+    const withTitle = {
+      ...validPack,
+      work: { ...validPack.work, languageOrig: 'la', titleEn: 'On the Spirit and the Letter' },
+    };
+    const parsed = PackSchema.parse(withTitle);
+    expect(parsed.work.titleEn).toBe('On the Spirit and the Letter');
+    expect(canonicalJson(parsed.work)).toContain('"titleEn":"On the Spirit and the Letter"');
+  });
+
+  it('rejects an empty English title', () => {
+    const bad = { ...validPack, work: { ...validPack.work, titleEn: '' } };
+    const result = PackSchema.safeParse(bad);
+    expect(result.success).toBe(false);
+    expect(JSON.stringify(result.error?.issues)).toContain('titleEn');
+  });
+});
+
+describe('LicenceSchema notes by interface language', () => {
+  it('leaves noteRo and noteEn out when a licence does not have them', () => {
+    const parsed = PackSchema.parse(validPack);
+    expect('noteRo' in parsed.edition.licence).toBe(false);
+    expect('noteEn' in parsed.edition.licence).toBe(false);
+    expect(canonicalJson(parsed.edition.licence)).toBe(canonicalJson(validPack.edition.licence));
+  });
+
+  it('keeps both translations of the note next to the note itself', () => {
+    const licence = {
+      status: 'public-domain' as const,
+      note: 'Original text first published in 1903.',
+      noteRo: 'Textul original a apărut în 1903.',
+      noteEn: 'Original text first published in 1903.',
+    };
+    const parsed = PackSchema.parse({ ...validPack, edition: { ...validPack.edition, licence } });
+    expect(parsed.edition.licence).toEqual(licence);
+  });
+});
+
 describe('PackManifestSchema', () => {
   const manifest = {
     packId: 'pack1',
