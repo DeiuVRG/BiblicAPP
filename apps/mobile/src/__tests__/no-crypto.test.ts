@@ -14,10 +14,10 @@ describe('shared package without crypto', () => {
   it('imports the package index and the verifier when globalThis.crypto is missing', () => {
     Object.defineProperty(globalThis, 'crypto', { value: undefined, configurable: true });
     jest.isolateModules(() => {
-      const shared = require('@biblioteca/shared') as Record<string, unknown>;
+      const shared = jest.requireActual('@biblioteca/shared') as Record<string, unknown>;
       expect(typeof shared.canonicalJson).toBe('function');
       expect('stableId' in shared).toBe(false);
-      expect(() => require('../content/verify-pack')).not.toThrow();
+      expect(() => jest.requireActual('../content/verify-pack')).not.toThrow();
     });
   });
 });

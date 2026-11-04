@@ -105,3 +105,14 @@ describe('labels', () => {
     expect(formatLifespan(null, null)).toBe('');
   });
 });
+
+describe('app version', () => {
+  it('package.json and app.config.ts declare the same version, and it is readable', () => {
+    const config = jest.requireActual('../../app.config').default as { version?: string };
+    const { version } = jest.requireActual('../../package.json') as { version: string };
+    expect(config.version).toBe(version);
+    const { getAppVersion } =
+      jest.requireActual<typeof import('@/content/app-version')>('@/content/app-version');
+    expect(getAppVersion()).toMatch(/^\d+\.\d+\.\d+/);
+  });
+});
