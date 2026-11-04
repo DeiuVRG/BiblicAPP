@@ -1,0 +1,287 @@
+{
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "targetLanguage": "ro",
+  "sourceSha256": "1ba020d711f8e2c9217c5324554c3e2deacaabade601ee3f4d9b3101753d0eda",
+  "jobs": [
+    {
+      "jobId": "vos-1903-kingdom-ro-01-00",
+      "file": "vos-1903-kingdom-ro-01-00.json",
+      "sectionOrdinal": 0,
+      "part": 0,
+      "parts": 2,
+      "paragraphs": 7,
+      "words": 1121
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-01-01",
+      "file": "vos-1903-kingdom-ro-01-01.json",
+      "sectionOrdinal": 0,
+      "part": 1,
+      "parts": 2,
+      "paragraphs": 1,
+      "words": 301
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-02-00",
+      "file": "vos-1903-kingdom-ro-02-00.json",
+      "sectionOrdinal": 1,
+      "part": 0,
+      "parts": 2,
+      "paragraphs": 4,
+      "words": 1053
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-02-01",
+      "file": "vos-1903-kingdom-ro-02-01.json",
+      "sectionOrdinal": 1,
+      "part": 1,
+      "parts": 2,
+      "paragraphs": 4,
+      "words": 1108
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-03-00",
+      "file": "vos-1903-kingdom-ro-03-00.json",
+      "sectionOrdinal": 2,
+      "part": 0,
+      "parts": 2,
+      "paragraphs": 5,
+      "words": 1154
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-03-01",
+      "file": "vos-1903-kingdom-ro-03-01.json",
+      "sectionOrdinal": 2,
+      "part": 1,
+      "parts": 2,
+      "paragraphs": 3,
+      "words": 790
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-04-00",
+      "file": "vos-1903-kingdom-ro-04-00.json",
+      "sectionOrdinal": 3,
+      "part": 0,
+      "parts": 5,
+      "paragraphs": 4,
+      "words": 927
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-04-01",
+      "file": "vos-1903-kingdom-ro-04-01.json",
+      "sectionOrdinal": 3,
+      "part": 1,
+      "parts": 5,
+      "paragraphs": 6,
+      "words": 959
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-04-02",
+      "file": "vos-1903-kingdom-ro-04-02.json",
+      "sectionOrdinal": 3,
+      "part": 2,
+      "parts": 5,
+      "paragraphs": 4,
+      "words": 964
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-04-03",
+      "file": "vos-1903-kingdom-ro-04-03.json",
+      "sectionOrdinal": 3,
+      "part": 3,
+      "parts": 5,
+      "paragraphs": 3,
+      "words": 908
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-04-04",
+      "file": "vos-1903-kingdom-ro-04-04.json",
+      "sectionOrdinal": 3,
+      "part": 4,
+      "parts": 5,
+      "paragraphs": 3,
+      "words": 609
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-05-00",
+      "file": "vos-1903-kingdom-ro-05-00.json",
+      "sectionOrdinal": 4,
+      "part": 0,
+      "parts": 2,
+      "paragraphs": 5,
+      "words": 987
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-05-01",
+      "file": "vos-1903-kingdom-ro-05-01.json",
+      "sectionOrdinal": 4,
+      "part": 1,
+      "parts": 2,
+      "paragraphs": 5,
+      "words": 1073
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-06-00",
+      "file": "vos-1903-kingdom-ro-06-00.json",
+      "sectionOrdinal": 5,
+      "part": 0,
+      "parts": 4,
+      "paragraphs": 4,
+      "words": 952
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-06-01",
+      "file": "vos-1903-kingdom-ro-06-01.json",
+      "sectionOrdinal": 5,
+      "part": 1,
+      "parts": 4,
+      "paragraphs": 4,
+      "words": 956
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-06-02",
+      "file": "vos-1903-kingdom-ro-06-02.json",
+      "sectionOrdinal": 5,
+      "part": 2,
+      "parts": 4,
+      "paragraphs": 5,
+      "words": 1007
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-06-03",
+      "file": "vos-1903-kingdom-ro-06-03.json",
+      "sectionOrdinal": 5,
+      "part": 3,
+      "parts": 4,
+      "paragraphs": 2,
+      "words": 639
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-07-00",
+      "file": "vos-1903-kingdom-ro-07-00.json",
+      "sectionOrdinal": 6,
+      "part": 0,
+      "parts": 3,
+      "paragraphs": 6,
+      "words": 975
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-07-01",
+      "file": "vos-1903-kingdom-ro-07-01.json",
+      "sectionOrdinal": 6,
+      "part": 1,
+      "parts": 3,
+      "paragraphs": 4,
+      "words": 1060
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-07-02",
+      "file": "vos-1903-kingdom-ro-07-02.json",
+      "sectionOrdinal": 6,
+      "part": 2,
+      "parts": 3,
+      "paragraphs": 6,
+      "words": 1370
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-08-00",
+      "file": "vos-1903-kingdom-ro-08-00.json",
+      "sectionOrdinal": 7,
+      "part": 0,
+      "parts": 2,
+      "paragraphs": 5,
+      "words": 1007
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-08-01",
+      "file": "vos-1903-kingdom-ro-08-01.json",
+      "sectionOrdinal": 7,
+      "part": 1,
+      "parts": 2,
+      "paragraphs": 4,
+      "words": 1210
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-09-00",
+      "file": "vos-1903-kingdom-ro-09-00.json",
+      "sectionOrdinal": 8,
+      "part": 0,
+      "parts": 5,
+      "paragraphs": 4,
+      "words": 976
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-09-01",
+      "file": "vos-1903-kingdom-ro-09-01.json",
+      "sectionOrdinal": 8,
+      "part": 1,
+      "parts": 5,
+      "paragraphs": 3,
+      "words": 937
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-09-02",
+      "file": "vos-1903-kingdom-ro-09-02.json",
+      "sectionOrdinal": 8,
+      "part": 2,
+      "parts": 5,
+      "paragraphs": 4,
+      "words": 1038
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-09-03",
+      "file": "vos-1903-kingdom-ro-09-03.json",
+      "sectionOrdinal": 8,
+      "part": 3,
+      "parts": 5,
+      "paragraphs": 3,
+      "words": 1146
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-09-04",
+      "file": "vos-1903-kingdom-ro-09-04.json",
+      "sectionOrdinal": 8,
+      "part": 4,
+      "parts": 5,
+      "paragraphs": 2,
+      "words": 485
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-10-00",
+      "file": "vos-1903-kingdom-ro-10-00.json",
+      "sectionOrdinal": 9,
+      "part": 0,
+      "parts": 3,
+      "paragraphs": 6,
+      "words": 1232
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-10-01",
+      "file": "vos-1903-kingdom-ro-10-01.json",
+      "sectionOrdinal": 9,
+      "part": 1,
+      "parts": 3,
+      "paragraphs": 4,
+      "words": 1124
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-10-02",
+      "file": "vos-1903-kingdom-ro-10-02.json",
+      "sectionOrdinal": 9,
+      "part": 2,
+      "parts": 3,
+      "paragraphs": 3,
+      "words": 1122
+    },
+    {
+      "jobId": "vos-1903-kingdom-ro-11-00",
+      "file": "vos-1903-kingdom-ro-11-00.json",
+      "sectionOrdinal": 10,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 8,
+      "words": 468
+    }
+  ]
+}

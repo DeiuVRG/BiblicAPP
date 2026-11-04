@@ -1,0 +1,86 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-03",
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "sourceLanguage": "en",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6JQPD96YP58WZ5QMH3DRGVD",
+    "ordinal": 5,
+    "kind": "chapter",
+    "heading": "VI. The Essence of the Kingdom: The Kingdom as the Supremacy of God in the Sphere of Saving Power"
+  },
+  "part": 3,
+  "parts": 4,
+  "paragraphs": [
+    {
+      "id": "01M6JQPD97PGBYC4M45B9F7EZE",
+      "ordinal": 13,
+      "kind": "p",
+      "text": "The source of this kingdom-power is according to our Lord’s teaching the Spirit. In the saying Matt. xii. 28 the point evidently is, that where the Spirit of God operates, there the kingdom of God comes. To his being anointed with the Spirit Jesus ascribes all his power to do miracles, Lk. iv. 18. To accuse him of casting out demons in league with Beelzebub is to blaspheme the Spirit, cf. for the interchangeableness of the conceptions of “Spirit” and “power,” such passages as Lk. i. 17,35; xxiv. 19,49; Acts i. 8; x. 38. Indeed our Lord’s references to the Spirit as the author of saving acts are almost entirely connected with his miracles. Still it would be inaccurate, as is sometimes done, to deny to Jesus the idea, so beautifully worked out by Paul, that the Spirit is the source of the moral and religious renewal of man, the author and bearer of the entire Christian life with all its graces and virtues. In the Fourth Gospel the presence of this idea is acknowledged by all. Here our Lord teaches that man must be born of water and the Spirit in order to see and to enter the kingdom of God. In the closing discourses of this Gospel the work of the Spirit as guiding all the disciples into the knowledge of the truth is made very prominent, and the knowledge of the truth in our Lord’s Johannine teaching distinctly includes its moral and spiritual saving apprehension and appropriation by the disciples, so that the Spirit is here brought into direct connection with the ethical and religious life of man.",
+      "references": [
+        {
+          "source": "Matt. xii. 28",
+          "target": "Mat. 12:28",
+          "canonical": [
+            "Matt 12:28"
+          ]
+        },
+        {
+          "source": "Lk. iv. 18",
+          "target": "Lc. 4:18",
+          "canonical": [
+            "Luke 4:18"
+          ]
+        },
+        {
+          "source": "Lk. i. 17,35; xxiv. 19,49; Acts i. 8; x. 38",
+          "target": "Lc. 1:17, 35; 24:19, 49; Fapte 1:8; 10:38",
+          "canonical": [
+            "Luke 1:17",
+            "Luke 1:35",
+            "Luke 24:19",
+            "Luke 24:49",
+            "Acts 1:8",
+            "Acts 10:38"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01M6JQPD97PGBYC4M45B9F7EZF",
+      "ordinal": 14,
+      "kind": "p",
+      "text": "Even from the Synoptical sayings the same idea is not entirely absent. Though the Spirit may work in the sphere of the miracles, yet these miracles are wrought for the moral purpose of overthrowing the kingdom of evil. The Spirit leads Jesus into the wilderness to be tempted of Satan and thus appears as pursuing the end of the Messiah’s moral victory over the Prince of Evil. Satan exerts an evil influence over man in the moral and religious sphere, consequently on the principle of opposition the Spirit of God must have been believed to exert a good influence. Probably also the saying of Jesus, that the heavenly Father out of his goodness is ready to give the Spirit to his children, Lk. xi. 13, does not have exclusive reference to the Spirit as the source of miracles. Thus we see that the first outlines of the doctrine of the Spirit, as afterwards developed in apostolic revelation, are already drawn by Jesus. The full disclosure of this doctrine could not be expected then, because the full bestowal of the Spirit could not come until after the Saviour’s death, Jno. vii. 39. But in his Messianic works Jesus exhibited in a revelation of facts the fundamental part taken by the Spirit in the salvation of man. Thus Jesus stands at the transition point between the Old Testament doctrine of the Spirit on the one side and the full apostolic unfolding of the doctrine on the other side. In the Old Testament the emphasis still rests on the charismatic character of the Spirit’s work as qualifying the office-bearers of the theocracy for their task. Jesus began to show how the official Spirit, which belongs to him as Messiah, becomes a source of communication of the Spirit to others, and that not merely for the performance of supernatural works but also for conferring the religious and moral blessings of the kingdom. The part, however, of our Lord’s teaching in which the connection between the Spirit and the internal aspect of the kingdom finds clearest expression, and which approaches most closely to the apostolic type of doctrine, is that relating to the church. With this we shall deal in a later chapter.",
+      "references": [
+        {
+          "source": "Lk. xi. 13",
+          "target": "Lc. 11:13",
+          "canonical": [
+            "Luke 11:13"
+          ]
+        },
+        {
+          "source": "Jno. vii. 39",
+          "target": "In. 7:39",
+          "canonical": [
+            "John 7:39"
+          ]
+        }
+      ]
+    }
+  ],
+  "context": {
+    "previousParagraph": "On the other hand, it should not be overlooked that these physical signs have also a connection with the kingdom in the external sphere itself. The miraculous power is prophetic of that great kingdom-power which will be exerted at the end. It is especially in eschatological connections that a revelation of power is referred to, Matt. xxiv. 30; Mk. xii. 24. All the supernatural phenomena that accompanied not merely the ministry of Jesus, but characterized also the history of the apostolic church, must be interpreted in this light. It had to be shown immediately, that the work inaugurated by Jesus aims at nothing less than a supernatural renewal of the world, whereby all evil will be overcome, a renewal of the physical as well of the spiritual world, Matt. xix. 28. Because the Old Testament had treated these two as belonging inseparably together, and because in reality it would now appear that the two lay far apart in point of time, it was all the more necessary that some solid anticipations of the eschatological change should be given. Verbal prophecy was not sufficient: a prophecy in acts was required, and this the miracles furnished. In so far there is an element of truth in the modern view which represents Jesus as looking upon the miracles as the beginning of the final arrival of the kingdom. Here, as on other points, our Lord’s teaching warns us against that excessive spiritualizing tendency, to which the external world becomes altogether worthless and indifferent or even withdrawn from the direct control of God.",
+    "nextParagraph": null,
+    "previousSectionHeading": "V. Current Misconceptions regarding the Present and Future Kingdom"
+  },
+  "wordCount": 639,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/vos-1903-kingdom.md"
+  }
+}

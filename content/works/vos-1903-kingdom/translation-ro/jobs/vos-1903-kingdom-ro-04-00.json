@@ -1,0 +1,58 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-00",
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "sourceLanguage": "en",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6JQPD95T3NDB2JWKE2W0M1J",
+    "ordinal": 3,
+    "kind": "chapter",
+    "heading": "IV. The Present and the Future Kingdom"
+  },
+  "part": 0,
+  "parts": 5,
+  "paragraphs": [
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGTJ",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "We have already seen that our Lord makes a sharp distinction between the Old Testament order of things and the kingdom of God, and in doing this conforms to that side of the Old Testament representation which itself looks upon the kingdom as future. Now the very important question arises: how did he conceive of the coming of this kingdom both as to time and manner? Until not long ago the view quite generally prevailed and was thought to be in harmony with Jesus’ own teaching, that the coming referred to might be conceived of as a lengthy process covering ages and reaching its consummation by a sudden crisis at the end coinciding with the second coming of Christ and the end of the present world. And this prolonged process, in distinction from the final crisis, was supposed to consist in our Lord’s view of essentially inward, spiritual, invisible changes. The kingdom, it was believed, comes when the gospel is spread, hearts are changed, sin and error overcome, righteousness cultivated, a living communion with God established. In this sense the kingdom began its coming when Jesus entered upon his public ministry, his work upon earth, including his death, was part of its realization, the disciples were in it, the whole subsequent history of the church is the history of its gradual extension, we ourselves can act our part in its onward movement and are members of it as a present organization.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGTK",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "In recent years, however, this view has been subjected to severe criticism by a certain group of writers and rejected as unhistorical. It is claimed, that Jesus took an entirely different view of the matter than that outlined above. Jesus did not for a moment think that by his prophetic activity or by any spiritual changes thus wrought among Israel, the kingdom would come. All that he meant to accomplish by his labors was merely preparatory to its coming: the people had to be made ready for its appearance. To introduce the kingdom was God’s work, not his. No man could do anything towards either hastening or delaying it. And when it came it would come at one single stroke, by a sudden supernatural interposition of God, in a great world-crisis, consequently not for a part but with its whole content all at once, fulfilling all the promises, giving the signal by its arrival for the end of the present world. And this stupendous event Jesus expected to happen in his lifetime, or, after he had attained to the certainty of his intervening death, at least within the time of the then living generation.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGTM",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Before endeavoring to test which of these two opposing views is in accord with our Lord’s teaching, we must carefully note the real point of divergence between them and must also make clear to ourselves what issues are at stake in our decision in favor of the one or the other. The two views have this in common that they both recognize the coming of the kingdom in its final absolute sense to have been associated by Jesus with the end of the world. The older view therefore is inclusive of the more recent one, and the difference arises from the fact that the former affirms something more which the latter denies. The sole point in.dispute concerns our right to ascribe to Jesus such a conception of the kingdom that he could also find the beginning of its arrival in the purely spiritual results of his labors and accordingly extend this gradual coming of it over an indefinite period of time.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGTN",
+      "ordinal": 3,
+      "kind": "p",
+      "text": "But this sole point at issue is fraught with the gravest consequences as it is decided one way or the other. For, first of all, it involves the question of the infallibility of our Lord as a religious teacher. If he expected and announced only one coming of the kingdom and that to happen shortly within his lifetime or the lifetime of that generation-then there is no escape from the conclusion that the outcome has proved him mistaken. Secondly, the distribution of emphasis in our Lord’s teaching becomes essentially different if we adopt the most modern view on this matter. By common consent the center of gravity in his preaching, that to which he attaches supreme importance, is the kingdom. Now, if we may believe that this kingdom was to him in part identical with the existence of certain spiritual states, such as righteousness and communion with God, then these receive with the kingdom the highest place in our Lord’s estimation of values. If, on the other hand, these lie outside of the kingdom and are mere preparatory states, then they lose their central position and become means to an ulterior end consisting in the kingdom. In the third place, the controversy affects the character of our Lord’s ethics. The advocates of the recent view believe that Jesus’ conviction with reference to the rapidly approaching end of the world largely colored his ethical views, in that it prevented him from developing a positive interest for the duties which pertain to this present life. Finally, the conception of our Lord’s character itself may be said to be involved. Some at least who ascribe to him such high-strung expectations seek to explain this on the theory, that he was an ecstatic visionary person, rather than a man of calm, equable spiritual temper. It thus appears that the aspect of our Lord’s kingdom-doctrine now under discussion is interlinked with the gravest problems touching the value and authority of his character and work in general.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": null,
+    "nextParagraph": "It must be admitted that the Old Testament does not distinguish between several stages or phases in the fulfilment of the promises regarding the kingdom, but looks upon its coming as an undivided whole. John the Baptist also seems to have still occupied this Old Testament standpoint. This, however, was due to the peculiar character of prophecy in general, in which there is a certain lack of perspective, a vision of things separated in time on one plane. We may not argue from this, that Jesus, who was more than a prophet and stood face to face with the reality, must have been subject to the same limitations. Nor are we justified in saying, that, because contemporary Judaism took such a view of the matter, Jesus likewise must have held this. For, on the one hand, Judaism was no norm for him; on the other hand, within Judaism itself a distinction between successive stages in the fulfilment of the Messianic promises had already arisen.",
+    "previousSectionHeading": "III. Kingdom and Kingship. The Kingdom of God and the Kingdom of Heaven"
+  },
+  "wordCount": 927,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/vos-1903-kingdom.md"
+  }
+}

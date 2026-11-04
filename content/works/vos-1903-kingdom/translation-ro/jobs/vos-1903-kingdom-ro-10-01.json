@@ -1,0 +1,149 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-01",
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "sourceLanguage": "en",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6JQPD99NDNB29VP3T7F0YWF",
+    "ordinal": 9,
+    "kind": "chapter",
+    "heading": "X. The Entrance into the Kingdom: Repentance and Faith"
+  },
+  "part": 1,
+  "parts": 3,
+  "paragraphs": [
+    {
+      "id": "01M6JQSCXY8XY1PEYDSYW0AHY9",
+      "ordinal": 6,
+      "kind": "p",
+      "text": "Jesus affirms the necessity of repentance for all men, Mk. vi. 12; Lk. xiii. 3, 5; xxiv. 47. In an indirect way the universal need of it is shown by his utterances on the universality and pervasiveness of sin. Even to the disciples it can be said without qualification, “If ye then, being evil, etc.,” Matt. vii. 11. None is good save one, even God, Mk. x. 18. It is true Jesus draws a distinction between “righteous” and “sinners,” Matt. ix. 13; Mk. ii. 17. But the context shows that this distinction is drawn from the point of view of the judgment pronounced by men on themselves, not from the objective standpoint of Jesus’ own knowledge of them. These statements were made in answer to the charge of the Pharisees that Jesus ate with publicans and sinners. The Saviour means to say that, if their comparative estimate concerning themselves and these degraded people be correct, there is all the more necessity for his associating with the latter in order to save them. Perhaps the reference to the ninety and nine righteous persons, which need no repentance, in Lk. xv. 7, 10, must be explained on the same principle.",
+      "references": [
+        {
+          "source": "Mk. vi. 12; Lk. xiii. 3, 5; xxiv. 47",
+          "target": "Mc. 6:12; Lc. 13:3, 5; 24:47",
+          "canonical": [
+            "Mark 6:12",
+            "Luke 13:3",
+            "Luke 13:5",
+            "Luke 24:47"
+          ]
+        },
+        {
+          "source": "Matt. vii. 11",
+          "target": "Mat. 7:11",
+          "canonical": [
+            "Matt 7:11"
+          ]
+        },
+        {
+          "source": "Mk. x. 18",
+          "target": "Mc. 10:18",
+          "canonical": [
+            "Mark 10:18"
+          ]
+        },
+        {
+          "source": "Matt. ix. 13; Mk. ii. 17",
+          "target": "Mat. 9:13; Mc. 2:17",
+          "canonical": [
+            "Matt 9:13",
+            "Mark 2:17"
+          ]
+        },
+        {
+          "source": "Lk. xv. 7, 10",
+          "target": "Lc. 15:7, 10",
+          "canonical": [
+            "Luke 15:7",
+            "Luke 15:10"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01M6JQSCXY8XY1PEYDSYW0AHYC",
+      "ordinal": 7,
+      "kind": "p",
+      "text": "The connection between faith and the saving grace and power of God in the kingdom is just as close and vital as that just traced between repentance and righteousness. It is a striking fact that in the Synoptical Gospels nearly the whole of our Lord’s teaching on faith attaches itself to the performance of miracles. This implies that the miracles were eminently adapted to bring out the inner essence of faith and to reveal the true reason for its necessity. They embody that aspect of the kingdom to which faith is the subjective counterpart. Now the miracles almost without exception have two features in common. In the first place, they are transactions where the result absolutely and exclusively depends on the forth-putting of the divine supernatural power, where no human effort could possibly contribute anything towards its accomplishment. And secondly, the miracles are, as we have seen, healing miracles in which the gracious love of God offers itself to man for his salvation. Faith is the spiritual attitude called for by this twofold element in the saving work of God. It is the recognition of the divine power and grace, not, of course, in a purely intellectual way, but practically so as to involve not only conviction of the mind but to carry with it also the movement of the will and the affections. How faith stands related to the saving power of God is most clearly illustrated in the narrative Mk. ix. 17-24. When the disciples could not heal the child with the dumb spirit Jesus exclaimed, “O unbelieving generation.” The father says, after describing the severity of the case, “But if thou canst do anything, have compassion on us and help us.” To this Jesus replies, “If thou canst! all things are possible to him that believeth.” This ascribes to faith something that can be affirmed of God alone, viz., absolute omnipotence. Elsewhere also this principle is emphasized by our Lord, Matt. xxi. 21, 22; Mk. xi. 22, 23; Lk. xvii. 6. The explanation lies in this that faith is nothing else than that act whereby man lays hold of, appropriates for himself the endless power of God. If faith were a human endeavor, something working by its own inherent strength, then it would be indeed reasonable to say with reference to the one exercising it, “If thou canst.” On the other hand, if the innermost meaning of faith consist precisely in this, that man with an utter renunciation of his own strength, casts himself upon the strength of God, then plainly all further concern about what is possible or impossible, every “If thou canst,” is out of place. Hence also faith is not a quantitative matter, as it would have to be, were it a principle of human endeavor; faith like a grain of mustard seed will accomplish the greatest conceivable results, because, small though it be, it nevertheless, provided it be genuine faith, connects man with the exhaustless reservoir of divine omnipotence, Lk. xvii. 6.",
+      "references": [
+        {
+          "source": "Mk. ix. 17-24",
+          "target": "Mc. 9:17–24",
+          "canonical": [
+            "Mark 9:17-24"
+          ]
+        },
+        {
+          "source": "Matt. xxi. 21, 22; Mk. xi. 22, 23; Lk. xvii. 6",
+          "target": "Mat. 21:21, 22; Mc. 11:22, 23; Lc. 17:6",
+          "canonical": [
+            "Matt 21:21",
+            "Matt 21:22",
+            "Mark 11:22",
+            "Mark 11:23",
+            "Luke 17:6"
+          ]
+        },
+        {
+          "source": "Lk. xvii. 6",
+          "target": "Lc. 17:6",
+          "canonical": [
+            "Luke 17:6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWP",
+      "ordinal": 8,
+      "kind": "p",
+      "text": "This line of reasoning, however, is not applicable to the miracles only. The miracles illustrate the saving work of God in general. All salvation partakes, humanly speaking, of the nature of the impossible, can be accomplished by God alone. Jesus answers the question of the disciples, “Who then can be saved?” with an appeal to the almighty power of God, “With men this is impossible, but with God all things are possible,” Matt. xix. 25, 26. All genuine saving faith is as profoundly conscious of its utter dependence on God for deliverance from sin as the recipients of our Lord’s miraculous cures were convinced that God alone could heal their bodies from disease.",
+      "references": [
+        {
+          "source": "Matt. xix. 25, 26",
+          "target": "Mat. 19:25, 26",
+          "canonical": [
+            "Matt 19:25",
+            "Matt 19:26"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWQ",
+      "ordinal": 9,
+      "kind": "p",
+      "text": "But faith is more than a conviction regarding the necessity and sufficiency of the divine power. It also involves the recognition of God’s willingness and readiness to save, is a practical appropriation of the divine grace. Thus there enters into it an element of trust. Jesus never encouraged the exercise of faith as a mere external belief in supernatural power. The performance of a sign from heaven, which men might have witnessed without such trust in God or himself, he persistently refused. Where there existed an antecedent hindrance to the. exercise of this trust, he would not even perform any healing miracles. He, who truly believes, vividly realizes that God is loving, merciful, forgiving, glad to receive sinners. Faith transfers to God what human parents experience in themselves with reference to their own children, the desire to help and supply, Matt. vii. 7-11. Not to trust would be to ascribe to him the evil disposition of sinful men towards one another. This reliance of faith is not confined to the critical moments of life, it is to be the abiding, characteristic inner disposition of the disciple with reference to every concern. To trust God for food and raiment is as truly the mark of the disciple in the kingdom as to depend on him for eternal salvation, Matt. vi. 30. Faith in those on whom the wonderful cures were wrought may have manifested itself at first as a momentary act, but Jesus frequently called the attention of such people to what faith had done for them, thus suggesting that this faith could be made fruitful also on future occasions. Of the disciples he explicitly required faith as an abiding disposition of trust. When in the storm they came to him saying, “Save Lord, we perish,” he rebuked them because they were without confidence in his presence with them as a source of absolute safety.",
+      "references": [
+        {
+          "source": "Matt. vii. 7-11",
+          "target": "Mat. 7:7–11",
+          "canonical": [
+            "Matt 7:7-11"
+          ]
+        },
+        {
+          "source": "Matt. vi. 30",
+          "target": "Mat. 6:30",
+          "canonical": [
+            "Matt 6:30"
+          ]
+        }
+      ]
+    }
+  ],
+  "context": {
+    "previousParagraph": "Again, in the new life which follows repentance the absolute supremacy of God is the controlling principle. He who repents turns away from the service of mammon and self to the service of God. Our Lord is emphatic in insisting upon this absolute, undivided surrender of the soul to God as the goal of all true repentance. Because this and nothing less is the goal, he urges the necessity of a constant repetition of the process. Even to his followers he said at a comparatively late stage of his ministry, “Except ye turn and become as little children, ye shall in no wise enter into the kingdom of heaven,” Matt. xviii. 3. From this necessity we must also explain the uncompromising manner in which Jesus requires of -his disciples the renunciation of all earthly bonds and possessions which would dispute God his supreme sway over their life, Matt. x. 39; xvi. 25; Lk. xiv. 25-35. The statements to this effect are not meant in the sense that external abandonment of these things is sufficient or even required. The idea is that the inward attachment of the soul to them as the highest good must be in principle destroyed, that God may take the place hitherto claimed by them. Within the kingdom they are entitled to affection on the disciple’s part in so far only as they can be made subordinate and subservient to the love of God. The demand for sacrifice always presupposes that what is to be renounced forms an obstacle to that absolute devotion which the kingdom of God requires, Mk. ix.43. That not the external possession but the internal entanglement of the heart with temporal goods is condemned, Jesus strikingly indicates by the demand “to hate” one’s father and mother and wife and children and brethren and sisters, yea and one’s own life also. The energetic determination of the will to forego even the pleasures of natural affection, where they come in conflict with the supreme duty of the kingdom, is thus described and the word “hating” chosen on purpose to express that in such cases an internal change of mind alone, not a mere external act, can make man fit for the kingdom of God. Matt. x. 37 gives us Jesus’ own interpretation of such seemingly harsh sayings.",
+    "nextParagraph": "Being in its very essence trust, faith necessarily rests in a person. It is not confidence about any abstract proposition, but reliance upon a personal character and disposition. The disciples are urged to have “faith in God,” Mk. xi. 22. But, inasmuch as Jesus is the revelation and representative of God, nay, one with God, he also is the personal object of faith. It is true, in the Synoptical Gospels this is explicitly stated in one passage only, viz., Matt. xviii. 6, “These little ones that believe on me.” But this almost entire absence of the formula is easily explained. It was the result of Jesus’ method of not directly proclaiming at first his own position in the kingdom, but rather of allowing it to be gradually inferred from practical experience. It does not prove the assertion of some modern writers, that in the gospel, as Jesus preached it, there was no place for his own person, that it was merely a gospel about God. Though not frequently in so many words, yet in acts we find our Lord seeking to elicit and cultivate a personal relationship of faith between the disciple and himself and in himself with God. Conscious of being the Messiah, he could not help assigning to himself a place in the gospel, and viewing himself as in a real sense the object of religions trust. This appears from his saying to Peter shortly before the passion, “Simon, Simon, behold Satan asked to have you, that he might sift you (notice the plural pronoun) as wheat: but I made supplication for thee, that thy faith fail not.” Here the crisis of our Lord’s suffering is represented as the great testing crisis of true discipleship. Satan will in it sift the true disciples from the false. The true will approve themselves in this, that, when everything goes against Jesus, their faith fails not. And, on the other hand, when Peter’s faith begins to fail, this is described as a denial of Jesus; faith, therefore, must involve the opposite of denial, an avowal, a personal bond of identification between the master and the disciple, Lk. xxii. 31-34. And it is psychologically inconceivable that in those who were helped by the miracles of Jesus, faith should not have assumed the form of personal trust in him as the instrument of the saving grace and power of God. Faith in God and faith in Jesus here inevitably coalesced.",
+    "previousSectionHeading": "IX. The Kingdom and the Church"
+  },
+  "wordCount": 1124,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/vos-1903-kingdom.md"
+  }
+}

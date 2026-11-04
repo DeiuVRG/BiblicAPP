@@ -2,6 +2,9 @@
 import { runBuildPack } from './commands/build-pack';
 import { runIngestText } from './commands/ingest-text';
 import { runKeygen } from './commands/keygen';
+import { runTranslationCheck } from './commands/translation-check';
+import { runTranslationJobs } from './commands/translation-jobs';
+import { runTranslationMerge } from './commands/translation-merge';
 import { runVerifyPack } from './commands/verify-pack';
 
 export interface Command {
@@ -26,10 +29,23 @@ export const commands: Record<string, Command> = {
     summary: 'generate an Ed25519 keypair (private key goes to content/keys/, gitignored)',
     run: runKeygen,
   },
+  'translation-jobs': {
+    summary: 'source edition -> translation jobs (parts of a section, references, context)',
+    run: runTranslationJobs,
+  },
+  'translation-check': {
+    summary: 'deterministic checks of a translation output against its job',
+    run: runTranslationCheck,
+  },
+  'translation-merge': {
+    summary: 'final translation outputs -> aligned translated edition + review sheet',
+    run: runTranslationMerge,
+  },
 };
 
 export function usage(): string {
-  const lines = Object.entries(commands).map(([name, c]) => `  ${name.padEnd(12)} ${c.summary}`);
+  const width = Math.max(...Object.keys(commands).map((name) => name.length));
+  const lines = Object.entries(commands).map(([name, c]) => `  ${name.padEnd(width)}  ${c.summary}`);
   return `Usage: biblioteca-content <command> [options]\n\nCommands:\n${lines.join('\n')}\n`;
 }
 

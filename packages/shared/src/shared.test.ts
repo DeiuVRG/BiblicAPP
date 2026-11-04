@@ -74,6 +74,80 @@ describe('PackSchema', () => {
   });
 });
 
+describe('PackSchema translations', () => {
+  const sourceParagraphId = stableId();
+  const sourceSectionId = stableId();
+  const translation = {
+    ...validPack,
+    edition: {
+      ...validPack.edition,
+      id: stableId(),
+      language: 'ro',
+      kind: 'translation' as const,
+      sourceEditionId: validPack.edition.id,
+    },
+    sections: [
+      {
+        id: 'sec1',
+        ordinal: 0,
+        kind: 'chapter' as const,
+        heading: 'I',
+        sourceId: sourceSectionId,
+      },
+    ],
+    paragraphs: [
+      {
+        id: 'par1',
+        sectionId: 'sec1',
+        ordinal: 0,
+        kind: 'p' as const,
+        text: 'Text',
+        sourceId: sourceParagraphId,
+      },
+      {
+        id: 'par2',
+        sectionId: 'sec1',
+        ordinal: 1,
+        kind: 'p' as const,
+        text: 'Alt text',
+        sourceId: stableId(),
+      },
+    ],
+  };
+
+  it('accepts an aligned translation that names its source edition', () => {
+    expect(PackSchema.safeParse(translation).success).toBe(true);
+  });
+
+  it('rejects a translation without sourceEditionId', () => {
+    const { sourceEditionId: _omitted, ...edition } = translation.edition;
+    const result = PackSchema.safeParse({ ...translation, edition });
+    expect(result.success).toBe(false);
+    expect(JSON.stringify(result.error?.issues)).toContain('sourceEditionId');
+  });
+
+  it('rejects two paragraphs that render the same source paragraph', () => {
+    const duplicate = {
+      ...translation,
+      paragraphs: [
+        translation.paragraphs[0],
+        { ...translation.paragraphs[1], sourceId: sourceParagraphId },
+      ],
+    };
+    const result = PackSchema.safeParse(duplicate);
+    expect(result.success).toBe(false);
+    expect(JSON.stringify(result.error?.issues)).toContain('rendered twice');
+  });
+
+  it('parses a source pack without the new fields to identical canonical JSON', () => {
+    const parsed = PackSchema.parse(validPack);
+    expect(canonicalJson(parsed)).toBe(canonicalJson(validPack));
+    expect(parsed.edition.sourceEditionId).toBeUndefined();
+    expect(parsed.sections[0]?.sourceId).toBeUndefined();
+    expect(parsed.paragraphs[0]?.sourceId).toBeUndefined();
+  });
+});
+
 describe('PackManifestSchema', () => {
   const manifest = {
     packId: 'pack1',

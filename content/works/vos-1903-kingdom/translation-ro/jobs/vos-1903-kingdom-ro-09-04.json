@@ -1,0 +1,52 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-04",
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "sourceLanguage": "en",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6JQPD98083QXRPZVTRT486E",
+    "ordinal": 8,
+    "kind": "chapter",
+    "heading": "IX. The Kingdom and the Church"
+  },
+  "part": 4,
+  "parts": 5,
+  "paragraphs": [
+    {
+      "id": "01M6JQX44EFNEHQ9JP2NKV1TVA",
+      "ordinal": 14,
+      "kind": "p",
+      "text": "As already stated, this is a subject on which our Lord’s teaching does not bring any explicit disclosures and which can only be treated by way of inference. It has sometimes been thought that the parables of the wheat and the tares and of the fish-net contain an explicit declaration concerning the kingdom as a wider sphere than the church. This is assumed, because these parables imply that in the kingdom the good and the evil are to be allowed to intermingle, which cannot be the rule in the church, as the obligation to exercise church discipline plainly shows. Historically interpreted, however, these parables do not warrant such an inference. The current doctrine of the kingdom, shared up to that point by the disciples, assumed that the very first act of God at the coming of the kingdom would consist in an absolute and eternal separation between the good and the evil. This assumption was natural so long as no distinction between the two stages of the history of the kingdom had been made. When Jesus introduced this distinction, it became necessary to emphasize that not everything which was true of the final appearance of the kingdom could therefore also be predicated of its present, invisible mode of coming. As a warning to this effect these two parables must be interpreted.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "ordinal": 15,
+      "kind": "p",
+      "text": "Our Lord desires to make plain that, while the kingdom is now actually coming, a complete separation between the evil and the good cannot be effected until the end of the world. During the present age the kingdom must partake of the limitations and imperfections to which a sinful environment exposes it. Of the church, as the externally organized kingdom, this is eminently true. It exists upon the field of the world. At no time until the very last will it be entirely purified of all evil elements. This truth, however, in no wise interferes with the possibility nor absolves from the duty of church discipline. The process to which our Lord refers in Matt. xviii. 17 is not intended for effecting an absolute separation between the good and the evil, and thus rendering the church as ideally pure as she will be in the final state of the kingdom. Its proximate end is the self-preservation of the church in that state of holiness which befits her profession, and would be destroyed by the exercise of religious fellowship with such as remain unrepentant in the face of open sin. Its ulterior end is remedial, consisting in the salvation of the sinner thus left to himself. Both ends can be pursued without forgetting or denying the lesson taught in the parables, that it is not given to men to judge the heart, and that God alone in the day of judgment will infallibly remove from the church all elements which, while simulating its outward appearance, do not belong to it in the inner spiritual reality.",
+      "references": [
+        {
+          "source": "Matt. xviii. 17",
+          "target": "Mat. 18:17",
+          "canonical": [
+            "Matt 18:17"
+          ]
+        }
+      ]
+    }
+  ],
+  "context": {
+    "previousParagraph": "From this, however, it does not necessarily follow, that the visible church is the only outward expression of the invisible kingdom. Undoubtedly the kingship of God, as his recognized and applied supremacy, is intended to pervade and control the whole of human life in all its forms of existence. This the parable of the leaven plainly teaches. These various forms of human life have each their own sphere in which they work and embody themselves. There is a sphere of science, a sphere of art, a sphere of the family and of the state, a sphere of commerce and industry. Whenever one of these spheres comes under the controlling influence of the principle of the divine supremacy and glory, and this outwardly reveals itself, there we can truly say that the kingdom of God has become manifest. Now our Lord in his teaching seldom makes explicit reference to these things. He contented himself with laying down the great religious and moral principles which ought to govern the life of man in every sphere. Their detailed application it was not his work to show. But we may safely affirm two things. On the one hand, his doctrine! of the kingdom was founded on such a profound and broad conviction of the absolute supremacy of God in all things, that he could not but look upon every normal and legitimate province of human life as intended to form part of God’s kingdom. On the other hand, it was not his intention that this result should be reached by making human life in all its spheres subject to the visible church. It is true that under the Old Covenant something of this nature had existed. In the theocracy the church had dominated the life of the people of God in all its extent. State and church were in it most intimately united. Jesus on more than one occasion gave to understand that in this respect at least the conditions of the Old Covenant were not to be perpetuated, cf. Matt. xxii. 21; Jno. xviii. 36; xix. 11. And what is true of the relation between church and state, may also be applied to the relation between the visible church and the various other branches into which the organic life of humanity divides itself. It is entirely in accordance with the spirit of Jesus’ teaching to subsume these under the kingdom of God and to co-ordinate them with the visible church as true manifestations of this kingdom, in so far as the divine sovereignty and glory have become in them the controlling principle. But it must always be remembered, that the latter can only happen, when all these, no less than the visible church, stand in living contact with the forces of regeneration supernaturally introduced into the world by the Spirit of God. While it is proper to separate between the visible church and such things as the Christian state, Christian art, Christian science, etc., these things, if they truly belong to the kingdom of God, grow up out of the regenerated life of the invisible church.",
+    "nextParagraph": null,
+    "previousSectionHeading": "VIII. The Essence of the Kingdom Continued: The Kingdom as a State of Blessedness"
+  },
+  "wordCount": 485,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/vos-1903-kingdom.md"
+  }
+}

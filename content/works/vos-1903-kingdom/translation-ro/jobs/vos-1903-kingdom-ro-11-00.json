@@ -1,0 +1,86 @@
+{
+  "jobId": "vos-1903-kingdom-ro-11-00",
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "sourceLanguage": "en",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6JQPD99NDNB29VP3T7F0YWV",
+    "ordinal": 10,
+    "kind": "chapter",
+    "heading": "XI. Recapitulation"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWW",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Having reached the end of our discussion we may now endeavor briefly to formulate the important principles embodied in our Lord’s teaching on the Kingdom of God and the Church. They are the following:",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWX",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "In the first place, the kingdom-conception involves the historic unity of Jesus’ work with the Old Testament work of God. These two constitute one body of supernatural revelation and redemption.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWY",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Secondly, the doctrine of the kingdom stands for the principle that the Christian religion is not a mere matter of subjective ideas or experiences, but is related to a great system of objective, supernatural facts and transactions. The kingdom means the renewal of the world through the introduction of supernatural forces.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YWZ",
+      "ordinal": 3,
+      "kind": "p",
+      "text": "Thirdly, the kingdom-idea is the clearest expression of the principle that in the sphere of objective reality, as well as in the sphere of human consciousness, everything is subservient to the glory of God. In this respect the kingdom is the most profoundly religious of all biblical conceptions.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YX0",
+      "ordinal": 4,
+      "kind": "p",
+      "text": "Fourthly, the message of the kingdom imparts to Christianity, as Jesus proclaims it, the professed character of a religion of salvation, and of salvation not primarily by man’s own efforts but by the power and grace of God. The kingdom represents the specifically evangelical element in our Lord’s teaching. The same principle finds subjective expression in his teaching on faith.",
+      "references": []
+    },
+    {
+      "id": "01M6JQSCXZEAE1PF5EZXVR3YV8",
+      "ordinal": 5,
+      "kind": "p",
+      "text": "Fifthly, Jesus’ doctrine of the kingdom as both inward and outward, coming first in the heart of man and afterwards in the external world, upholds the primacy of the spiritual and ethical over the physical. The invisible world of the inner religious life, the righteousness of the disposition, the sonship of God are in it made supreme, the essence of the kingdom, the ultimate realities to which everything else is subordinate. The inherently ethical character of the kingdom finds subjective expression in the demand for repentance.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YX1",
+      "ordinal": 6,
+      "kind": "p",
+      "text": "Sixthly, that form which the kingdom assumes in the church shows it to be inseparably associated with the person and work of Jesus himself. The religion of the kingdom is a religion in which there is not only a place but in which the central place is for the Saviour. The church form of the kingdom rightly bears the name of Christianity, because in it on Christ everything depends.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD99NDNB29VP3T7F0YX2",
+      "ordinal": 7,
+      "kind": "p",
+      "text": "Finally, the thought of the kingdom of God implies the subjection of the entire range of human life in all its forms and spheres to the ends of religion. The kingdom reminds us of the absoluteness, the pervasiveness, the unrestricted dominion, which of right belong to all true religion. It proclaims that religion, and religion alone, can act as the supreme unifying, centralizing factor in the life of man, as that which binds all together and perfects all by leading it to its final goal in the service of God.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": null,
+    "nextParagraph": null,
+    "previousSectionHeading": "X. The Entrance into the Kingdom: Repentance and Faith"
+  },
+  "wordCount": 468,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/vos-1903-kingdom.md"
+  }
+}

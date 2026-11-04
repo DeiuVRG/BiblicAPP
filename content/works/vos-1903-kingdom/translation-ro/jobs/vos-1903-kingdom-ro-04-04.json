@@ -1,0 +1,51 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-04",
+  "workSlug": "vos-1903-kingdom",
+  "sourceEditionId": "01M6JQPCFGW7EM3S59E2BAASGZ",
+  "sourceLanguage": "en",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6JQPD95T3NDB2JWKE2W0M1J",
+    "ordinal": 3,
+    "kind": "chapter",
+    "heading": "IV. The Present and the Future Kingdom"
+  },
+  "part": 4,
+  "parts": 5,
+  "paragraphs": [
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGV1",
+      "ordinal": 17,
+      "kind": "p",
+      "text": "In Jesus’ objective teaching, on the other hand, as distinguished from his subjective consciousness, a certain development in the presentation of truth concerning the kingdom cannot be denied. We are able to affirm this, not so much from a comparison of the utterances belonging to the earlier or later periods. This would be difficult since the material in our Gospels is not all arranged on the chronological plan. The fact appears rather in this way, that at two points in our Lord’s ministry a certain phase of the doctrine of the kingdom is introduced with such emphasis as to mark it relatively new. These two points are the occasion on which our Lord uttered the great kingdom-parables and the announcement of his passion near Caesarea Philippi.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGV2",
+      "ordinal": 18,
+      "kind": "p",
+      "text": "From the manner in which the great parables draw the distinction between the immanent and eschatological coming of the kingdom, and from the elaborateness with which Jesus here describes the gradual, invisible character of the former as resembling the process of organic growth, we are led to infer that previously this principle had not been accentuated in his teaching. This does not mean that he had hitherto abstained from referring to the spiritual side of the subject. We have seen above that the opposite is true. It simply means, that up to this point, while sometimes predicating of the kingdom things true of it in its purely spiritual stage, sometimes predicating of it things of eschatological character, he did not on purpose formulate the difference and the relation between the two, but treated the kingdom as a unit of which both classes of statements could be equally affirmed. The historical explanation of this peculiarity is probably to be sought in our Lord’s desire to keep in close touch during the first period of his ministry with the Old Testament type of teaching, which, as we have seen, did not as yet distinguish between periods and stages in the realization of the kingdom. Thus in condescension to Israel he took up the thread of revelation where the Old Testament had left it, to give a new and richer development to it soon after in his epoch-making parabolic deliverances. The new element introduced at the second critical juncture, in the region of Caesarea Philippi, concerns the relation of the church to the kingdom and will be discussed afterwards in a separate chapter.",
+      "references": []
+    },
+    {
+      "id": "01M6JQPD96YP58WZ5QMH3DRGV3",
+      "ordinal": 19,
+      "kind": "p",
+      "text": "It should be observed that our Lord’s teaching relates to two aspects of the same kingdom, not to two separate kingdoms. The ancient theological distinction between a kingdom of grace and a kingdom of glory is infelicitous for this reason. In the parable the growing of the grain and the harvest belong together as connected parts of the same process. There is one continuous kingdom-forming movement which first lays hold upon the inward spiritual center of life by itself, and then once more seizes the same in connection with its external visible embodiment. In the second stage the essence of the first is re-included and remains of supreme importance. The immanent kingdom as at first realized continues to partake of imperfections. Hence the eschatological crisis will not merely supply this soul of the kingdom with its fitting body, but will also bring the ideal perfection of the inner spirit itself. Our Lord’s doctrine of the two-sided kingdom thus understood is an eloquent witness to the unique energy with which he subordinated the physical to the spiritual, as well as to the sobriety with which he upheld the principle, that the physical is not to be despised, but appreciated in its regenerated form, as the natural and necessary instrument of revelation for the spiritual.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "A single glance at the Gospels, however, will show how impossible it is to distribute the sayings relating to the present and final form of the kingdom in such a way as to make out a period at the beginning of which Jesus knew only the latter. Some of the clearest utterances regarding the spiritual coming of the kingdom belong to a comparatively early stage of his teaching, cf. Matt. xi. 11; Mk. ii. 18-22. Nor do the general arguments adduced in favor of this hypothesis have sufficient force to commend it. It is true Jesus began with representing the kingdom as future, but this applied at the beginning equally to its spiritual, and to its visible, final realization. He urged the disciples continually to seek after the kingdom, but this only implies that within them it has to come ever increasingly. He speaks of the eschatological kingdom as “the kingdom” absolutely, but this mode of speech is not confined to the early period of his teaching: it occurs also later at a time when he is admitted to have been familiar with the idea of an immanent kingdom. He could thus speak because only at the end of time will the kingdom in its ideal completeness appear. This does not exclude that he recognized less complete embodiments of the kingdom-idea as present long before. Again it is true that he does not at first announce himself as Messiah, and from this the inference might be drawn that with his Messiahship he put also the coming of the kingdom into the future. This inference would be correct, if restraint in the announcement of himself as Messiah had proceeded from the conviction that he was not as yet the Messiah, nor his present work Messianic work in the strict sense of the term. In point of fact Jesus kept his Messianic claims in the background for pedagogical reasons, while perfectly conscious that he was exercising Messianic functions. The correct view on this point is that he distinguished two forms of Messianic activity, one on earth in humility, one from the throne of glory, and corresponding to this two forms of the kingdom, one invisible now, one visible at the end, and, thus understood, the two-sidedness of his Messianic consciousness affords a striking parallel to the two-sidedness of his kingdom-conception. On the whole, therefore, we have no reason to believe that in our Lord’s subjective apprehension of the truth there was any appreciable progress on this important subject within the limits of his public ministry.",
+    "nextParagraph": null,
+    "previousSectionHeading": "III. Kingdom and Kingship. The Kingdom of God and the Kingdom of Heaven"
+  },
+  "wordCount": 609,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/vos-1903-kingdom.md"
+  }
+}
