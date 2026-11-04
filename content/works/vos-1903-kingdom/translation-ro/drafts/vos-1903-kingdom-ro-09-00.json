@@ -1,0 +1,197 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "IX. Împărăția și Biserica",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YW7",
+      "text": "Noțiunea de Împărăție este comună tuturor perioadelor învățăturii Domnului nostru, iar noțiunea de Biserică apare doar în două momente deosebite ale slujirii sale, așa cum sunt consemnate în Mat. 16:18 și 18:17. Al doilea dintre aceste două pasaje se referă la Biserică în chip cu totul incidental și nu aruncă nicio lumină în plus asupra noțiunii, chiar dacă vorbește despre Biserica creștină, și nu, cum au crezut unii, despre organizarea ecleziastică iudaică. Primul, în schimb, se ocupă de Biserică cu scopul expres de a o introduce ca pe ceva nou, de a-i descrie caracterul și de a-i defini raportul cu Împărăția. Suntem norocoși că avem o declarație atât de explicită a Domnului nostru cu privire la această chestiune importantă. Subiectul ar trebui, desigur, să fie abordat din perspectivă istorică. Trebuie să ne întrebăm ce anume se afla în situația acelui moment precis al slujirii Domnului nostru care să explice această declarație singulară și semnificativă despre Biserică. Simon Petru tocmai făcuse importanta sa mărturisire: „Tu ești Hristos, Fiul Dumnezeului celui viu.” Îndată după aceea, Domnul nostru anunță că pe Petru, ca prim mărturisitor al calității sale de Mesia în fața necredinței majorității poporului, își va zidi Biserica, ἐκκλησία sa. Nu se presupune că Petru a ajuns aici, pentru prima dată, la această convingere cu privire la demnitatea mesianică a lui Isus și nici măcar că aici s-a dat glas, pentru prima dată, unei asemenea convingeri. Afară de cazul în care trebuie să nu dăm crezare niciuneia dintre Evangheliile noastre, ambele se petrecuseră cu prilejuri anterioare. Dar însemnătatea capitală a mărturisirii de față consta în aceea că ea a fost făcută într-un moment în care mulți dintre cei care îl urmaseră mai înainte pe Isus îl părăsiseră. Ceea ce laudă Isus este caracterul de stâncă, statornicia lui Petru, faptul că, atunci când alții șovăiau, el rămăsese credincios convingerii sale. Revelația pe care o primise de la Tatăl din ceruri nu a fost prima dezvăluire a calității lui Isus de Mesia, ci o revelație care l-a pus în măsură ca, spre deosebire de mulțime, să deslușească în Isus adevăratele însușiri ale calității de Mesia, în ciuda aparenței exterioare contrare.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "“Thou art the Christ, the Son of the living God.”",
+          "quoteTarget": "„Tu ești Hristos, Fiul Dumnezeului celui viu.”",
+          "note": "Citat al autorului (mărturisirea lui Petru), fără trimitere în sursă; trimiterea probabilă este Mat. 16:16 (identificată din memorie, neverificată în acest job; nu apare în text, doar în scripture). Tradus din engleza lui Vos („Thou art the Christ”), nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «The Christ» este redat „Hristos”, fără articol enclitic (titlu și nume), conform rândului FIX din glosar."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The revelation he had received from the Father in heaven",
+          "quoteTarget": "Revelația pe care o primise de la Tatăl din ceruri",
+          "note": "Aluzie la declarația Domnului către Petru despre izvorul mărturisirii lui, probabil Mat. 16:17; trimiterea nu este în sursă și a fost identificată din memorie, neverificată în acest job; marcată doar în scripture, ca aluzie. Formularea este traducerea textului lui Vos, nu a unei ediții românești a Bibliei."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the first confessor of his Messiahship",
+          "quoteTarget": "prim mărturisitor al calității sale de Mesia",
+          "note": "«Messiahship» este redat „calitatea de Mesia” (nu „mesianitate”), ca în 04-03; termenul revine în tot capitolul IX (în toate cele patru paragrafe ale lotului). Fără rând în glosar; propus pentru glosar după aprobare. Alternativă: „mesianitate”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "Unless we must disbelieve all our Gospels",
+          "quoteTarget": "Afară de cazul în care trebuie să nu dăm crezare niciuneia dintre Evangheliile noastre",
+          "note": "Formulare greoaie (dublă negație), de care nu sunt sigur. Sensul: numai respingerea tuturor Evangheliilor ar împiedica această concluzie; „niciuneia”, nu „tuturor”, pentru că „să nu dăm crezare tuturor” s-ar putea citi „nu tuturor”. Alternativă pentru revizor: „Doar dacă ar trebui să respingem toate Evangheliile noastre”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:18",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 18:17",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 16:16",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 16:17",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCXPP0SBWE2QEBYTX2PB",
+      "text": "Mărturisirea lui Petru a fost, așadar, în chip vădit o mărturisire aflată în contrast cu respingerea lui Isus de către alții. De aici putem deduce că Biserica despre care vorbește Isus va avea ca trăsătură distinctivă recunoașterea calității lui Isus de Mesia, spre deosebire de tăgăduirea acestei calități de către cei din afară. Dar aceasta nu rezultă numai din situația în care au fost rostite cuvintele; aceeași concluzie o putem trage și din sensul general al cuvintelor înseși. Când Isus spune: „Voi zidi Biserica mea”, el așază, evident, această Biserică în opoziție cu alta, căreia denumirea aceasta nu i se aplică. Cuvântul ecclesia este redarea cuvintelor ebraice Qahal și ‘Edah, acestea din urmă fiind denumirile consacrate ale adunării lui Israel. Într-un asemenea context, „Biserica mea” nu poate însemna nimic altceva decât „Biserica care, recunoscându-mă ca Mesia, va lua locul bisericii iudaice de acum”.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "I will build my church",
+          "quoteTarget": "Voi zidi Biserica mea",
+          "note": "Citat al autorului din cuvintele Domnului către Petru, Mat. 16:18 (referința apare în sursă în primul paragraf al lotului, nu și aici; marcată în scripture). Tradus din engleza lui Vos, nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the congregation of Israel",
+          "quoteTarget": "adunării lui Israel",
+          "note": "«Congregation» (redarea ebraicelor Qahal / ‘Edah) este redat „adunare”; revine în paragraful 3 al lotului («that new congregation», «the old congregation of Israel»). Distincția față de «church» = „Biserică” este menținută (regula §6). Fără rând în glosar; propus pentru glosar după aprobare. Alternative: „comunitate”, „obște”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the present Jewish church",
+          "quoteTarget": "bisericii iudaice de acum",
+          "note": "Vos numește „church” și vechea adunare iudaică. Aici este redat cu minusculă („biserica iudaică”), spre deosebire de „Biserica” (instituția creștină, majusculă, regula §7); „my church” = „Biserica mea”. Revizorul poate decide dacă păstrează minuscula sau folosește „adunarea iudaică”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:18",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JRJVY2X8SR8YXPSX796EQB",
+      "text": "Ar fi însă o greșeală să presupunem că noua Biserică se va sprijini exclusiv pe o credință subiectivă cu privire la calitatea lui Isus de Mesia. Domnul nostru spune apăsat: „Voi zidi” și își revendică astfel, pentru sine, sarcina obiectivă de a chema această Biserică la existență prin faptele sale mesianice. Chiar dacă temelia este Petru, cel care mărturisește, Biserica nu este lucrarea lui Petru și nici a vreunui om, ci Domnul însuși o va zidi. Și nu numai atât – el va domni în ea în chip suprem, căci, din plinătatea autorității sale, trece imediat la a-l învesti pe Petru cu puterea cheilor: „Îți voi da”. Privită obiectiv, așadar, Biserica este acea nouă adunare ce ia locul vechii adunări a lui Israel, adunare formată de Isus în calitatea sa de Mesia și aflată sub stăpânirea sa mesianică.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "I will build",
+          "quoteTarget": "Voi zidi",
+          "note": "Citat al autorului din Mat. 16:18; trimiterea este dată de autor în primul paragraf al lotului, nu și aici (marcată doar în scripture). Tradus din engleza lui Vos, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "I will give unto thee",
+          "quoteTarget": "Îți voi da",
+          "note": "Citat al autorului din Mat. 16:19, întrerupt de autor înaintea obiectului („cheile Împărăției cerurilor”, citat întreg în paragraful următor, unde autorul dă trimiterea «vs. 19»). Trimiterea nu este în acest paragraf (marcată doar în scripture). Tradus din engleza lui Vos, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Though Peter confessing be the foundation",
+          "quoteTarget": "Chiar dacă temelia este Petru, cel care mărturisește",
+          "note": "„Peter confessing” este redat „Petru, cel care mărturisește” (Petru în actul mărturisirii; nici „mărturisirea lui Petru” în abstract, nici „Petru ca persoană”). Punct exegetic sensibil; lectura aleasă urmează logica paragrafului (Biserica nu este lucrarea lui Petru sau a vreunui om). Concesivul „be” este redat prin „Chiar dacă” cu indicativul."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "appropriates for himself the objective task",
+          "quoteTarget": "își revendică astfel, pentru sine, sarcina obiectivă",
+          "note": "«Appropriates for himself» este redat „își revendică, pentru sine”, pentru nuanța de sarcină asumată în exclusivitate (față de Petru sau de orice om, cum arată fraza următoare). Alternative: „și-o asumă”, „și-o rezervă”. Opoziția „subiectivă” / „obiectivă” este păstrată."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:18",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 16:19",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YW8",
+      "text": "Nici măcar aceasta, însă, nu epuizează pe deplin semnificația declarației Domnului nostru. Se va observa că el plasează în viitor atât zidirea Bisericii, cât și exercitarea autorității sale cu privire la ea: „Voi zidi” și „Voi da”. În momentul în care vorbește, Biserica nu există încă; dacă originea și cârmuirea ei depind de calitatea lui Isus de Mesia, atunci este limpede că această calitate de Mesia trebuie înțeleasă aici într-un sens specific, a cărui înfăptuire se afla și ea încă în viitor. Domnul nostru nu se poate referi la nimic altceva decât la noua stare înălțată, cerească, în care aveau să intre persoana și lucrarea sa prin moartea, învierea și așezarea sa de-a dreapta lui Dumnezeu. Pentru a înțelege aceasta, trebuie să ne amintim că Isus, deși într-un sens era conștient că are autoritate mesianică și săvârșește lucrare mesianică deja aici, pe pământ, totuși într-un alt sens socotea că exercitarea funcției sale mesianice avea să înceapă odată cu starea sa de slavă. Era în deplin acord cu punctul de vedere al lui Isus însuși ceea ce a declarat Petru mai târziu, anume că Dumnezeu, prin înviere, l-a făcut atât Domn, cât și Hristos, Fapte 2:36. Or, în acest sens putem spune că, potrivit învățăturii Domnului nostru, Biserica nu putea începe înainte ca el să fi intrat în stadiul înălțat al calității sale de Mesia. Că Isus, atunci când vorbește la timpul viitor, se referă la aceasta și la nimic altceva, se poate deduce și din următorul fapt: evanghelistul ne spune că, de la acel anunț privitor la Biserică încolo, Isus a început să le arate ucenicilor săi că trebuie să meargă la Ierusalim, să pătimească multe din partea bătrânilor, a marilor preoți și a cărturarilor, să fie ucis și, a treia zi, să fie înviat, Mat. 16:21. Este limpede, așadar, că în mintea lui exista o legătură între rezultatele suferinței sale și originea Bisericii.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "“I will build” and “I will give.”",
+          "quoteTarget": "„Voi zidi” și „Voi da”",
+          "note": "Citate scurte ale autorului din Mat. 16:18 (trimitere dată de autor în primul paragraf al lotului) și 16:19 (trimitere dată de autor în paragraful următor, «vs. 19»); trimiterile nu sunt în acest paragraf (marcate doar în scripture). Traduse din engleza lui Vos, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "God by the resurrection had made him both Lord and Christ",
+          "quoteTarget": "Dumnezeu, prin înviere, l-a făcut atât Domn, cât și Hristos",
+          "note": "Parafrază a autorului, în vorbire indirectă, după Fapte 2:36 (trimiterea din sursă este păstrată identic în text). „Prin înviere” este interpretarea autorului. Tradus ca text al autorului, nu reprodus după o ediție românească a Bibliei."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "suffer many things of the elders and chief priests and scribes, and be killed, and the third day be raised up",
+          "quoteTarget": "să pătimească multe din partea bătrânilor, a marilor preoți și a cărturarilor, să fie ucis și, a treia zi, să fie înviat",
+          "note": "Adaptare de către autor, în vorbire indirectă și fără ghilimele, a versetului din Mat. 16:21 (trimiterea din sursă este păstrată identic în text); nu se înlocuiește automat cu o ediție licențiată. Tradusă din engleza lui Vos. «Chief priests» = „marii preoți” (alternativă: „preoții de frunte”); «elders» = „bătrânii”; «be raised up» = „să fie înviat” (pasiv; agentul, Dumnezeu, rămâne subînțeles ca în sursă)."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "speaking in terms of the future",
+          "quoteTarget": "vorbește la timpul viitor",
+          "note": "Calcul „în termeni de viitor” (WARN în lista de calcuri) este evitat. Lectura gramaticală (verbele la viitor: «I will build», «I will give») și cea referențială (Isus vorbește despre ceva viitor) duc la același sens aici; aleasă formularea „la timpul viitor”. Alternativă: „când vorbește despre viitor”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Now in this sense",
+          "quoteTarget": "Or, în acest sens",
+          "note": "«Now» este conector de argument, nu temporal; redat prin conectorul logic „Or,”. Alternative: „Așadar, în acest sens”, „În acest sens, deci,”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:18",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 16:19",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Fapte 2:36",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 16:21",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 0 (prima) din 5 a cap. IX (4 paragrafe, 976 cuvinte-sursă). Titlul: «IX. The Kingdom and the Church» = „IX. Împărăția și Biserica”. Redări de ținut consecvent în părțile 09-01…09-04: the church (instituția creștină) = Biserica, cu majusculă („my church” = „Biserica mea”); vechea adunare iudaică numită „church” de Vos = „biserica iudaică”, cu minusculă (vezi flag); congregation = adunare (TERMEN_NOU); ecclesia, Qahal și ‘Edah, ca și ἐκκλησία, sunt copiate exact din sursă; Messiahship = calitatea de Mesia (ca în 04-03); Messianic = mesianic; conception = noțiune; ministry = slujire; juncture / point = moment (ca în 04-04); realization = înfăptuire; exalted state / stage = stare înălțată / stadiu înălțat (ca în 04-03); revelation = revelație; rule (verb) = a domni (ca în 03-00), rule (substantiv) = stăpânire (profil); authority = autoritate; suffering = suferință (ca în 07-02), dar „suffer many things” = „să pătimească multe” (în redarea lui Mat. 16:21); the keys of the kingdom of heaven (în partea următoare) = „cheile Împărăției cerurilor”. Referințele din job apar identic în text (Mat. 16:18 și 18:17; Fapte 2:36; Mat. 16:21). Mat. 16:16 (mărturisirea lui Petru) și Mat. 16:17 (aluzia din ultima propoziție a par. 1) au fost identificate din memorie, sunt neverificate și apar doar în scripture și în flaguri, nu în text. Mat. 16:18 apare ca citat în par. 2–4, iar Mat. 16:19 în par. 3–4, fără trimitere în acele paragrafe: 16:18 este dat de autor în par. 1, iar 16:19 în paragraful următor («vs. 19»); ambele sunt marcate doar în scripture, nu în text. Nicio anomalie de sursă găsită. Textul nu este certificat ca publicabil."
+}
