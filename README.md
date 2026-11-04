@@ -71,7 +71,8 @@ pnpm -r lint
 pnpm -r test                     # Vitest (packages) + Jest (apps/mobile)
 pnpm format:check                # pnpm format pentru a formata
 
-node scripts/check-public-env.mjs   # nicio valoare EXPO_PUBLIC_* nu arată a secret
+node scripts/check-public-env.mjs   # nicio valoare EXPO_PUBLIC_* nu arată a secret (sursă)
+node scripts/check-public-env.mjs --env --dist apps/mobile/dist   # + mediul curent și bundle-ul exportat
 node --test scripts/*.test.mjs      # testele scripturilor
 node scripts/audit-gate.mjs         # pnpm audit --prod, nivel moderate (vezi docs/security.md)
 
@@ -79,14 +80,14 @@ pnpm --filter mobile export:web
 node scripts/smoke-web.mjs          # Playwright: biblioteca listează o lucrare, cititorul arată paragrafe
 ```
 
-Smoke-ul pornește `serve` pe un port liber, deschide exportul în Chromium și iese cu cod diferit de zero la orice eșec (la eșec salvează o captură în `test-results/`). Prima dată pe un calculator nou: `pnpm exec playwright install chromium`. Opțiuni: `--dist <dir>`, `--base-path /BiblicAPP`, `--port <n>`; `SMOKE_CHROMIUM_PATH` indică un alt executabil Chromium.
+Smoke-ul pornește `serve` pe un port liber, deschide exportul în Chromium și iese cu cod diferit de zero la orice eșec (la eșec salvează o captură în `test-results/`). Prima dată pe un calculator nou: `pnpm exec playwright install chromium`. Opțiuni: `--dist <dir>`, `--base-path /biblicapp`, `--port <n>`; `SMOKE_CHROMIUM_PATH` indică un alt executabil Chromium.
 
-Simularea locală a ceea ce se publică pe GitHub Pages (bază `/BiblicAPP`, `404.html`, deep link):
+Simularea locală a ceea ce se publică pe GitHub Pages (bază = numele depozitului, aici `/biblicapp`; `404.html`, deep link):
 
 ```bash
-EXPO_PUBLIC_WEB_BASE_URL=/BiblicAPP pnpm --filter mobile export:web --output-dir /tmp/pages-dist
+EXPO_PUBLIC_WEB_BASE_URL=/biblicapp pnpm --filter mobile export:web --output-dir /tmp/pages-dist
 node scripts/prepare-pages.mjs /tmp/pages-dist
-node scripts/smoke-web.mjs --dist /tmp/pages-dist --base-path /BiblicAPP
+node scripts/smoke-web.mjs --dist /tmp/pages-dist --base-path /biblicapp
 ```
 
 ## GitHub: CI, site web, APK
@@ -94,15 +95,15 @@ node scripts/smoke-web.mjs --dist /tmp/pages-dist --base-path /BiblicAPP
 | Workflow           | Când                         | Ce face                                                                                                  |
 | ------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `ci.yml`           | push pe `main`, orice PR     | instalare înghețată, verificare env public, typecheck, lint, format, Vitest + Jest, verificare pachet, export web, smoke Playwright; job separat de audit |
-| `web-pages.yml`    | push pe `main`, manual       | export cu baza `/BiblicAPP`, `.nojekyll` + `404.html`, smoke pe ce se publică, deploy pe GitHub Pages    |
+| `web-pages.yml`    | push pe `main`, manual       | export cu baza `/<nume depozit>` (derivată în workflow), `.nojekyll` + `404.html`, smoke pe ce se publică, deploy pe GitHub Pages    |
 | `android-apk.yml`  | push pe `main`, tag `v*`, manual | `expo prebuild`, `./gradlew assembleRelease`, APK ca artefact; pe tag `v*` îl atașează la un GitHub Release |
 | `supabase-tests.yml` | doar manual                | pornește stack-ul Supabase local, aplică migrările, rulează pgTAP                                        |
 
 ### Activarea GitHub Pages (o singură dată)
 
-Workflow-ul `web-pages.yml` nu poate activa Pages cu `GITHUB_TOKEN`. În depozit: **Settings, Pages, Build and deployment, Source: GitHub Actions**. Alternativ, cu GitHub CLI: `gh api -X POST repos/<owner>/BiblicAPP/pages -f build_type=workflow`. După primul deploy reușit, site-ul este la `https://<owner>.github.io/BiblicAPP/`. Depozitele private cer un plan GitHub care permite Pages.
+Workflow-ul `web-pages.yml` nu poate activa Pages cu `GITHUB_TOKEN`. În depozit: **Settings, Pages, Build and deployment, Source: GitHub Actions**. Alternativ, cu GitHub CLI: `gh api -X POST repos/<owner>/<depozit>/pages -f build_type=workflow`. După primul deploy reușit, site-ul este la `https://<owner>.github.io/<depozit>/`. Depozitele private cer un plan GitHub care permite Pages.
 
-Aplicația este exportată static (`output: static`); GitHub Pages nu are rescrieri, deci `404.html` (generat de `scripts/prepare-pages.mjs`) pornește aplicația pentru linkuri directe precum `/BiblicAPP/read/<id>/<secțiune>`. Pagina `.nojekyll` este adăugată și ea.
+Aplicația este exportată static (`output: static`); GitHub Pages nu are rescrieri, deci `404.html` (generat de `scripts/prepare-pages.mjs`) pornește aplicația pentru linkuri directe precum `/<depozit>/read/<id>/<secțiune>`. Pagina `.nojekyll` este adăugată și ea.
 
 ### APK de test
 

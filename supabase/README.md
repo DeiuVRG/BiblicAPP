@@ -26,6 +26,16 @@ supabase/
   `search_path`. In this migration they are stubs that raise `0A000`; `EXECUTE` is granted only
   to `gateway_role` and `service_role`. Clients ask the gateway, which applies rate limits and
   entitlement checks (`has_active_entitlement()`).
+- Default privileges: the migration runs `ALTER DEFAULT PRIVILEGES REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC`
+  globally for the migration role (a per-schema variant cannot remove PostgreSQL's built-in
+  grant), so a function added by a later migration is not callable by `anon` until it is granted
+  explicitly. Run migrations as `postgres`.
+- `public.editions` is readable by clients column by column (no `provenance`): list the columns
+  you need, `select *` is a permission error by design. Headings and paragraph ids of published
+  editions are public on purpose (table of contents); text is only in `content`.
+- `audit_log` and `content.paragraph_revisions` are append-only, including `TRUNCATE` and for
+  `service_role`. User tables have per-user row quotas (highlights 20 000, notes 5 000,
+  bookmarks 5 000).
 - `gateway_role` is created `NOLOGIN`. Give it a login and password out of band (dashboard or
   secret manager), never in a migration or in git.
 - `supabase/tests/grants.sql` lists, per role, every privilege `anon` and `authenticated` are

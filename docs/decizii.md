@@ -10,7 +10,7 @@ Format: decizie, context, consecințe. Orice abatere de la `docs/arhitectura-app
 
 ## ADR-002 – Web pe GitHub Pages sub subcale (`/BiblicAPP`)
 
-- Decizie: exportul web (`expo export -p web`, output `static`) se publică pe GitHub Pages ca „project site", deci sub `/BiblicAPP`. Baza se setează la export prin `EXPO_PUBLIC_WEB_BASE_URL` (sau `WEB_BASE_URL`), citită în `app.config.ts` ca `experiments.baseUrl`. Local și pe un domeniu propriu rămâne nesetată.
+- Decizie: exportul web (`expo export -p web`, output `static`) se publică pe GitHub Pages ca „project site", deci sub `/<nume depozit>` (în prezent `/biblicapp`; workflow-ul îl derivă din `github.event.repository.name`, ca o redenumire sau un fork să nu strice căile). Baza se setează la export prin `EXPO_PUBLIC_WEB_BASE_URL` (sau `WEB_BASE_URL`), citită în `app.config.ts` ca `experiments.baseUrl`. Local și pe un domeniu propriu rămâne nesetată.
 - Consecințe: rutele dinamice (`/work/[id]`, `/read/[id]/[section]`) sunt exportate ca un singur fișier HTML fiecare, iar GitHub Pages nu are rewrite; deep-link-urile către id-uri concrete necesită un `404.html` care încarcă aplicația (SPA fallback) sau `generateStaticParams`. Se rezolvă în fluxul de deploy. Pages trebuie activat cu sursa „GitHub Actions".
 
 ## ADR-003 – APK de test semnat cu cheia de debug
