@@ -231,7 +231,7 @@ describe('mergeTranslation: coverage', () => {
     expect(pack.paragraphs.map((p) => p.sourceId)).toEqual(['src-a1', 'src-a2', 'src-a3']);
     expect(pack.edition.provenance.notes).toBe('Draft. Partial translation: 1 of 2 sections.');
     expect(result.coverage).toEqual({ paragraphs: [3, 5], sections: [1, 2] });
-    expect(result.review).toContain('3/5 paragrafe, 1/2 secțiuni');
+    expect(result.review).toContain('- Coverage: 3/5 paragraphs, 1/2 sections');
     expect(PackSchema.safeParse(pack).success).toBe(true);
   });
 
@@ -269,6 +269,94 @@ describe('mergeTranslation: coverage', () => {
     expect(dup.problems.join('\n')).toMatch(
       /final\/fixture-work-ro-01-00\.json: source paragraph src-a1 is already rendered in final\/copy\.json/,
     );
+  });
+});
+
+describe('mergeTranslation: partial merges keep the ids of what was merged', () => {
+  const sectionAOnly = () => finalsFor(makeSource()).slice(0, 1);
+
+  it('refuses a partial merge that would drop a section the existing edition contains', () => {
+    const first = merge();
+    const result = merge({
+      previous: packOf(first),
+      meta: metaFor({ id: first.editionId }),
+      finals: sectionAOnly(),
+      partial: true,
+    });
+    expect(result.pack).toBeUndefined();
+    expect(result.review).toBeUndefined();
+    expect(result.problems).toHaveLength(1);
+    expect(result.problems[0]).toContain('--partial would drop 1 section(s)');
+    expect(result.problems[0]).toContain('section 2 "II. The Church"');
+    expect(result.problems[0]).toContain('--allow-shrink');
+    expect(result.coverage).toEqual({ paragraphs: [3, 5], sections: [1, 2] });
+  });
+
+  it('drops it with allowShrink, warns, and the section gets new ids when it returns', () => {
+    const full = merge();
+    const before = packOf(full);
+    const shrunk = merge({
+      previous: before,
+      meta: metaFor({ id: full.editionId }),
+      finals: sectionAOnly(),
+      partial: true,
+      allowShrink: true,
+    });
+    const partial = packOf(shrunk);
+    expect(partial.sections.map((s) => s.sourceId)).toEqual(['sec-a']);
+    expect(shrunk.warnings.join('\n')).toMatch(/--partial drops 1 section\(s\).*ids are lost/);
+    expect(shrunk.warnings.join('\n')).toContain('2 "II. The Church"');
+
+    const again = packOf(
+      merge({ previous: partial, meta: metaFor({ id: full.editionId }), partial: false }),
+    );
+    // the kept section keeps its ids; the dropped one was lost and is new
+    expect(again.sections[0]?.id).toBe(before.sections[0]?.id);
+    expect(again.sections[1]?.id).not.toBe(before.sections[1]?.id);
+    expect(
+      again.paragraphs.filter((p) => p.sectionId === again.sections[0]?.id).map((p) => p.id),
+    ).toEqual(
+      before.paragraphs.filter((p) => p.sectionId === before.sections[0]?.id).map((p) => p.id),
+    );
+  });
+
+  it('keeps all ids when a partial merge grows into a full one', () => {
+    const partial = merge({ finals: sectionAOnly(), partial: true });
+    const small = packOf(partial);
+    expect(small.sections).toHaveLength(1);
+    const full = packOf(
+      merge({ previous: small, meta: metaFor({ id: partial.editionId }), partial: false }),
+    );
+    expect(full.sections[0]?.id).toBe(small.sections[0]?.id);
+    expect(full.paragraphs.slice(0, 3).map((p) => p.id)).toEqual(small.paragraphs.map((p) => p.id));
+    // and the same partial merge twice is not a shrink
+    const twice = merge({
+      previous: small,
+      meta: metaFor({ id: partial.editionId }),
+      finals: sectionAOnly(),
+      partial: true,
+    });
+    expect(twice.pack).toBeDefined();
+    expect(twice.warnings).toEqual([]);
+  });
+
+  it('does not count a section that is gone from the source as dropped', () => {
+    const first = packOf(merge());
+    const source = makeSource();
+    source.sections = source.sections.filter((s) => s.id !== 'sec-b');
+    source.paragraphs = source.paragraphs.filter((p) => p.sectionId !== 'sec-b');
+    const finals = finalsFor(source);
+    const result = merge({ source, previous: first, finals, partial: true });
+    expect(result.problems).toEqual([]);
+    expect(packOf(result).sections.map((s) => s.sourceId)).toEqual(['sec-a']);
+  });
+
+  it('refuses nothing without partial or without an existing edition', () => {
+    expect(merge({ finals: sectionAOnly(), partial: true }).pack).toBeDefined();
+    const full = merge();
+    expect(
+      merge({ previous: packOf(full), meta: metaFor({ id: full.editionId }) }).pack,
+    ).toBeDefined();
   });
 });
 
@@ -443,11 +531,11 @@ describe('review sheet', () => {
       [
         '# Fișă de revizie: Lucrare de probă',
         '',
-        '- Lucrare: Fixture work (fixture-work)',
-        '- Limbi: en -> ro',
-        '- Acoperire: 5/5 paragrafe, 2/2 secțiuni',
-        '- Modele: draft: -; critic: -; revised: claude-sonnet-5-5',
-        '- Constatări: CRITIC 0, MAJOR 0, SURSA_POSIBIL_ERONATA 0, MINOR 0, INFO 0',
+        '- Work: Fixture work (fixture-work)',
+        '- Languages: en -> ro',
+        '- Coverage: 5/5 paragraphs, 2/2 sections',
+        '- Models: draft: -; critic: -; revised: claude-sonnet-5-5',
+        '- Findings: CRITIC 0, MAJOR 0, SURSA_POSIBIL_ERONATA 0, MINOR 0, INFO 0',
         '',
         '| Severitate | Secțiune | Paragraf (sourceId) | Sursă | Traducere | Problemă | Propunere | Origine |',
         '| --- | --- | --- | --- | --- | --- | --- | --- |',
@@ -525,10 +613,10 @@ describe('review sheet', () => {
       ['INFO', '1', '1 (src-a1)', 'check'],
     ]);
     expect(result.review).toContain(
-      '- Modele: draft: -; critic: claude-opus-5-5; revised: claude-sonnet-5-5',
+      '- Models: draft: -; critic: claude-opus-5-5; revised: claude-sonnet-5-5',
     );
     expect(result.review).toContain(
-      '- Constatări: CRITIC 1, MAJOR 3, SURSA_POSIBIL_ERONATA 1, MINOR 2, INFO 2',
+      '- Findings: CRITIC 1, MAJOR 3, SURSA_POSIBIL_ERONATA 1, MINOR 2, INFO 2',
     );
     expect(result.counts).toEqual({
       CRITIC: 1,
@@ -573,6 +661,56 @@ describe('review sheet', () => {
       ['MAJOR', 'revised'],
       ['MINOR', 'critic'],
     ]);
+  });
+
+  describe('critic findings with an empty quote', () => {
+    const omission = (quoteTarget: string) => ({
+      sourceId: 'src-a1',
+      severity: 'CRITIC' as const,
+      category: 'omisiune' as const,
+      quoteSource: 'This message stood at the center of his teaching for three years.',
+      quoteTarget,
+      problem: 'the last sentence is omitted',
+      proposal: 'translate it',
+    });
+
+    /** The rows of a merge in which a flag and a critic finding concern the same paragraph. */
+    function rowsWith(flagQuote: string | undefined, criticQuote: string) {
+      const source = makeSource();
+      const [job] = makeJobs(source);
+      if (!job) throw new Error('fixture');
+      const finals = finalsFor(source, (output) =>
+        sourceFlag(output, 'src-a1', [
+          { ...flag('MINOR', flagQuote), note: 'check the rendering of the reference' },
+        ]),
+      );
+      const critics = [
+        { file: `critic/${job.jobId}.json`, data: criticReport(job, [omission(criticQuote)]) },
+      ];
+      const result = merge({ finals, critics, allowCritic: true });
+      return { rows: rowsOf(result.review), counts: result.counts };
+    }
+
+    it('keeps an omission finding when an unrelated flag also has an empty quote', () => {
+      const { rows, counts } = rowsWith('', '');
+      expect(rows.map((r) => [r[0], r[7]])).toEqual([
+        ['CRITIC', 'critic'],
+        ['MINOR', 'revised'],
+      ]);
+      expect(counts).toMatchObject({ CRITIC: 1, MINOR: 1 });
+    });
+
+    it('treats white space like an empty quote, and a flag without a quote like one too', () => {
+      expect(rowsWith('  ', ' ').counts).toMatchObject({ CRITIC: 1, MINOR: 1 });
+      expect(rowsWith(undefined, '').counts).toMatchObject({ CRITIC: 1, MINOR: 1 });
+      expect(rowsWith('pocăință', '').counts).toMatchObject({ CRITIC: 1, MINOR: 1 });
+    });
+
+    it('still lists a finding once when the quotes are equal and not empty', () => {
+      const { rows, counts } = rowsWith('  ce a rămas ', 'ce a rămas');
+      expect(rows.map((r) => r[7])).toEqual(['revised']);
+      expect(counts).toMatchObject({ CRITIC: 0, MINOR: 1 });
+    });
   });
 
   it('escapes pipes and line breaks in table cells', () => {

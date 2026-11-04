@@ -41,7 +41,15 @@ describe('references in the committed Vos edition (docs/traducere-pipeline.md, s
     expect(full).toHaveLength(176);
     expect(book.filter((s) => s.verses.length === 0)).toHaveLength(6); // Matt. xiii, Ex. xv, ...
     expect(book.filter((s) => s.chapter === null)).toHaveLength(1); // Obad. 21
-    expect(runs.reduce((sum, r) => sum + r.runs.length, 0)).toBe(153);
+    // 153 runs of books and bare chapters, and the one chapter named after "Chap." (xxi)
+    expect(runs.reduce((sum, r) => sum + r.runs.length, 0)).toBe(154);
+  });
+
+  it('converts the chapter that the text names after "Chap." and finds nothing else without a book', () => {
+    const named = runs.flatMap(({ runs: found }) => found).filter((r) => r.canonical.length === 0);
+    expect(named.map((r) => [r.source, r.target])).toEqual([['xxi', '21']]);
+    const text = runs.find(({ runs: found }) => found.some((r) => r.source === 'xxi'))?.text ?? '';
+    expect(text).toContain('in the two other instances in Chap. xxi, no reason');
   });
 
   it('renders every paragraph in Romanian and reads the same references back', () => {

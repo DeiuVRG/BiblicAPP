@@ -20,6 +20,12 @@ import type { BookInfo } from './books';
  * a run (`xviii. 36`, the book is only implied) is a bookless reference; `Book chapter` without
  * verses (`Matt. xiii`) is a chapter reference; `vs. 28` without an antecedent in its run
  * inherits the last reference of the paragraph; `and xviii. 17` continues a run like `;` does.
+ *
+ * Further ones, found by review: a comma may introduce a bare chapter as well (`Matt. v. 3,
+ * vi. 5`, written with `;` in Romanian); after a comma a digit that begins the next citation
+ * (`Rom. v. 12, 1 Cor. xv. 22`) is not a verse; `sq.` and `sqq.` mean `ff.`; a lower-case numeral
+ * right after `Chap.` (`in Chap. xxi`) is a chapter without verses, converted to Arabic but
+ * without a canonical item, because its book is only implied.
  */
 
 const MAX_CHAPTER = 150;
@@ -153,14 +159,23 @@ const RANGE = sticky(
 const COMMA = sticky(String.raw`\s*,\s*`);
 const GAP_NUMBER = sticky(String.raw`\s+(\d{1,3})(?![A-Za-z0-9])`);
 const AFTER_REFERENCE = sticky(String.raw`\s*(?:[.,;:)\]”’"]|$)`);
-const SOURCE_FOLLOWING = sticky(String.raw`\s*ff?(?![A-Za-z0-9])\.?`);
+const SOURCE_FOLLOWING = sticky(String.raw`\s*(?:ff?|sqq?)(?![A-Za-z0-9])\.?`);
 const TARGET_FOLLOWING = sticky(
-  String.raw`\s*(?:[\u0219\u015F]\.\s*urm\.?|[\u0219\u015F]i\s+urm\.?)`,
+  String.raw`\s*(?:[\u0219\u015F]\.\s*urm(?:\.|(?![\p{L}\p{N}]))|[\u0219\u015F]i\s+urm(?:\.|(?![\p{L}\p{N}])))`,
+  'u',
 );
 
 interface VerseList {
   verses: VerseItem[];
   end: number;
+}
+
+/** What differs between the English and the Romanian notation inside a list of verses. */
+interface ListGrammar {
+  /** The `ff.` / `ș.urm.` marker. */
+  following: RegExp;
+  /** True when the number at `pos` is the number of the next book (`1 Cor.`), not a verse. */
+  startsBook: (text: string, pos: number) => boolean;
 }
 
 function matchRange(text: string, pos: number): { item: VerseItem; end: number } | null {
@@ -190,7 +205,7 @@ function mergeLostHyphen(text: string, end: number, verses: VerseItem[]): number
   return secondEnd;
 }
 
-function parseVerseList(text: string, pos: number, following: RegExp): VerseList | null {
+function parseVerseList(text: string, pos: number, grammar: ListGrammar): VerseList | null {
   const first = matchRange(text, pos);
   if (!first) return null;
   const verses: VerseItem[] = [first.item];
@@ -198,7 +213,10 @@ function parseVerseList(text: string, pos: number, following: RegExp): VerseList
   for (;;) {
     const comma = matchAt(COMMA, text, end);
     if (comma) {
-      const next = matchRange(text, end + comma[0].length);
+      const at = end + comma[0].length;
+      // `Rom. v. 12, 1 Cor. xv. 22`: the 1 belongs to the next book, the list ends before the comma.
+      if (grammar.startsBook(text, at)) break;
+      const next = matchRange(text, at);
       if (!next) break;
       verses.push(next.item);
       end = next.end;
@@ -208,7 +226,7 @@ function parseVerseList(text: string, pos: number, following: RegExp): VerseList
     if (merged === null) break;
     end = merged;
   }
-  const marker = matchAt(following, text, end);
+  const marker = matchAt(grammar.following, text, end);
   const last = verses[verses.length - 1];
   if (marker && last) {
     last.following = true;
@@ -229,7 +247,7 @@ const ALLOWED_LEADS: Record<JoinerKind, ReadonlySet<Segment['lead']>> = {
   semicolon: new Set(['book', 'chapter', 'verse']),
   'comma-and': new Set(['chapter', 'verse']),
   and: new Set(['chapter', 'verse']),
-  comma: new Set(['verse']),
+  comma: new Set(['chapter', 'verse']),
   'comma-with': new Set(['verse']),
   with: new Set(['verse']),
 };
@@ -271,6 +289,8 @@ const EN_BOOK = sticky(
   String.raw`(?<![A-Za-z0-9])(?:([123])\s?)?(${ENGLISH_BOOK_PATTERN})(?![A-Za-z])(\.?)`,
 );
 const EN_VERSE_MARKER = sticky(String.raw`(?<![A-Za-z0-9])(?:vss?|vers?)\.\s*(?=\d)`, 'i');
+/** Matches (empty) right after `Chap. `: the word that makes a lone numeral a chapter. */
+const CHAPTER_LABEL_BEFORE = sticky(String.raw`(?<=(?<![A-Za-z])[Cc]hap(?:ter)?s?\.?\s+)`);
 const ROMAN = sticky(String.raw`([ivxlcIVXLC]{1,8})(?![A-Za-z0-9])`);
 const CHAPTER_DOT = sticky(String.raw`\s*\.\s*`);
 const DIGIT = sticky(String.raw`\d`);
@@ -281,12 +301,31 @@ function skipSpaces(text: string, pos: number): number {
   return pos + (match?.[0].length ?? 0);
 }
 
+/**
+ * The first verse or range only: enough to know that a book citation is well formed. After a
+ * comma inside a list of verses, `, 5` is a verse but `, 1 Cor. xv. 22` is the next citation; the
+ * book parser decides, in `probe` mode (which looks at the first verse only, so it cannot
+ * recurse), and that keeps the English and the Romanian reading of the same text in step.
+ */
+function probeList(text: string, pos: number): VerseList | null {
+  const first = matchRange(text, pos);
+  return first ? { verses: [first.item], end: first.end } : null;
+}
+
+const EN_LISTS: ListGrammar = {
+  following: SOURCE_FOLLOWING,
+  startsBook: (text, pos) =>
+    /[123]/.test(text.charAt(pos)) && parseEnglishBook(text, pos, true) !== null,
+};
+
 /** A chapter that is only named (`Matt. xiii`) must be lower case and not look like a word. */
 function chapterOnlyAllowed(token: string, name: string, hasPeriod: boolean): boolean {
   return token === token.toLowerCase() && (hasPeriod || name.length >= 3);
 }
 
-function parseEnglishBook(text: string, pos: number): BookSegment | null {
+function parseEnglishBook(text: string, pos: number, probe = false): BookSegment | null {
+  const verseList = (at: number): VerseList | null =>
+    probe ? probeList(text, at) : parseVerseList(text, at, EN_LISTS);
   const match = matchAt(EN_BOOK, text, pos);
   if (!match) return null;
   const name = match[2] ?? '';
@@ -296,7 +335,7 @@ function parseEnglishBook(text: string, pos: number): BookSegment | null {
   const afterBook = skipSpaces(text, pos + match[0].length);
 
   if (book.singleChapter) {
-    const list = parseVerseList(text, afterBook, SOURCE_FOLLOWING);
+    const list = verseList(afterBook);
     return list
       ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end }
       : null;
@@ -312,7 +351,7 @@ function parseEnglishBook(text: string, pos: number): BookSegment | null {
   const dot = matchAt(CHAPTER_DOT, text, afterChapter);
   if (dot) {
     const versesAt = afterChapter + dot[0].length;
-    const list = parseVerseList(text, versesAt, SOURCE_FOLLOWING);
+    const list = verseList(versesAt);
     if (list) {
       return { lead: 'book', book, chapter, verses: list.verses, start: pos, end: list.end };
     }
@@ -326,40 +365,55 @@ function parseEnglishBook(text: string, pos: number): BookSegment | null {
 function parseEnglishVerse(text: string, pos: number): VerseSegment | null {
   const marker = matchAt(EN_VERSE_MARKER, text, pos);
   if (!marker) return null;
-  const list = parseVerseList(text, pos + marker[0].length, SOURCE_FOLLOWING);
+  const list = parseVerseList(text, pos + marker[0].length, EN_LISTS);
   if (!list) return null;
   const plural = /^vss/i.test(marker[0]);
   return { lead: 'verse', plural, verses: list.verses, start: pos, end: list.end };
 }
 
 /**
- * A bare chapter. At the start of a run the book is unknown, so only lower-case numerals that
- * are unlikely to be abbreviations qualify (not `c.` or `l.`).
+ * A bare chapter. Where the book is unknown (the start of a run) or the chapter follows a comma
+ * (`Matt. v. 3, vi. 5`, where `, l. 7` is a line), only lower-case numerals that are unlikely to
+ * be abbreviations qualify (not `c.` or `l.`). A numeral right after the word `Chap.` may stand
+ * without verses (`in Chap. xxi`): it has no book to compare, but it is converted.
  */
-function parseEnglishChapter(text: string, pos: number, startsRun: boolean): ChapterSegment | null {
+function parseEnglishChapter(
+  text: string,
+  pos: number,
+  startsRun: boolean,
+  strict: boolean,
+): ChapterSegment | null {
   const roman = matchAt(ROMAN, text, pos);
   const token = roman?.[1];
   if (!roman || token === undefined) return null;
   const chapter = parseRoman(token);
   if (chapter === null) return null;
-  if (
-    startsRun &&
-    (token !== token.toLowerCase() || (token.length < 2 && !'ivx'.includes(token)))
-  ) {
+  if (strict && (token !== token.toLowerCase() || (token.length < 2 && !'ivx'.includes(token)))) {
     return null;
   }
-  const dot = matchAt(CHAPTER_DOT, text, pos + roman[0].length);
-  if (!dot) return null;
-  const list = parseVerseList(text, pos + roman[0].length + dot[0].length, SOURCE_FOLLOWING);
-  if (!list) return null;
-  return { lead: 'chapter', chapter, verses: list.verses, start: pos, end: list.end };
+  const afterNumeral = pos + roman[0].length;
+  const dot = matchAt(CHAPTER_DOT, text, afterNumeral);
+  const versesAt = afterNumeral + (dot?.[0].length ?? 0);
+  const list = dot ? parseVerseList(text, versesAt, EN_LISTS) : null;
+  if (list) return { lead: 'chapter', chapter, verses: list.verses, start: pos, end: list.end };
+  // Digits after the period that are not a verse list: malformed, do not guess.
+  if (dot && matchAt(DIGIT, text, versesAt)) return null;
+  if (startsRun && matchAt(CHAPTER_LABEL_BEFORE, text, pos)) {
+    return { lead: 'chapter', chapter, verses: [], start: pos, end: afterNumeral };
+  }
+  return null;
 }
 
-function parseEnglishSegment(text: string, pos: number, startsRun: boolean): Segment | null {
+function parseEnglishSegment(
+  text: string,
+  pos: number,
+  startsRun: boolean,
+  strict: boolean,
+): Segment | null {
   return (
     parseEnglishBook(text, pos) ??
     parseEnglishVerse(text, pos) ??
-    parseEnglishChapter(text, pos, startsRun)
+    parseEnglishChapter(text, pos, startsRun, strict)
   );
 }
 
@@ -375,12 +429,23 @@ const RO_NUMBER = sticky(String.raw`\s*(\d{1,3})(?!\d)`);
 const RO_COLON = sticky(String.raw`\s*:\s*(?=\d)`);
 const RO_CHAPTER_COLON = sticky(String.raw`(\d{1,3})\s*:\s*(?=\d)`);
 
-function parseRomanianBook(text: string, pos: number): BookSegment | null {
+const RO_LISTS: ListGrammar = {
+  following: TARGET_FOLLOWING,
+  startsBook: (text, pos) =>
+    /[123]/.test(text.charAt(pos)) && parseRomanianBook(text, pos, true) !== null,
+};
+
+function parseRomanianBook(text: string, pos: number, probe = false): BookSegment | null {
+  const verseList = (at: number): VerseList | null =>
+    probe ? probeList(text, at) : parseVerseList(text, at, RO_LISTS);
   const match = matchAt(RO_BOOK, text, pos);
   if (!match) return null;
   const book = lookupRomanianBook(match[1], match[2] ?? '');
   if (!book) return null;
   const hasPeriod = match[3] === '.';
+  // Probing for the next citation after a verse: only the abbreviation exactly as in the table
+  // counts, so that the English word `In` before `2 Pet.` is not the book `2 In.`.
+  if (probe && hasPeriod !== book.ro.endsWith('.')) return null;
   const number = matchAt(RO_NUMBER, text, pos + match[0].length);
   const digits = number?.[1];
   if (!number || digits === undefined) return null;
@@ -392,7 +457,7 @@ function parseRomanianBook(text: string, pos: number): BookSegment | null {
     // `Obad. 21`; `Obad. 1:21` is accepted and means the same.
     if (colon && Number.parseInt(digits, 10) !== 1) return null;
     const versesAt = colon ? numberEnd + colon[0].length : numberStart;
-    const list = parseVerseList(text, skipSpaces(text, versesAt), TARGET_FOLLOWING);
+    const list = verseList(skipSpaces(text, versesAt));
     return list
       ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end }
       : null;
@@ -401,7 +466,7 @@ function parseRomanianBook(text: string, pos: number): BookSegment | null {
   const chapter = Number.parseInt(digits, 10);
   if (!validChapter(chapter)) return null;
   if (colon) {
-    const list = parseVerseList(text, numberEnd + colon[0].length, TARGET_FOLLOWING);
+    const list = verseList(numberEnd + colon[0].length);
     return list
       ? { lead: 'book', book, chapter, verses: list.verses, start: pos, end: list.end }
       : null;
@@ -414,7 +479,7 @@ function parseRomanianBook(text: string, pos: number): BookSegment | null {
 function parseRomanianVerse(text: string, pos: number): VerseSegment | null {
   const marker = matchAt(RO_VERSE_MARKER, text, pos);
   if (!marker) return null;
-  const list = parseVerseList(text, pos + marker[0].length, TARGET_FOLLOWING);
+  const list = parseVerseList(text, pos + marker[0].length, RO_LISTS);
   if (!list) return null;
   return {
     lead: 'verse',
@@ -437,7 +502,7 @@ function parseRomanianChapter(
   if (!match || digits === undefined) return null;
   const chapter = Number.parseInt(digits, 10);
   if (!validChapter(chapter)) return null;
-  const list = parseVerseList(text, pos + match[0].length, TARGET_FOLLOWING);
+  const list = parseVerseList(text, pos + match[0].length, RO_LISTS);
   if (!list) return null;
   return { lead: 'chapter', chapter, verses: list.verses, start: pos, end: list.end };
 }
@@ -454,7 +519,8 @@ function parseRomanianSegment(text: string, pos: number, startsRun: boolean): Se
 // Runs
 
 interface Grammar {
-  segment: (text: string, pos: number, startsRun: boolean) => Segment | null;
+  /** `strict`: the segment starts a run or follows a comma, so a bare chapter must look the part. */
+  segment: (text: string, pos: number, startsRun: boolean, strict: boolean) => Segment | null;
   joiners: readonly [RegExp, JoinerKind][];
 }
 
@@ -468,16 +534,17 @@ interface ParsedRun {
 
 function parseRunAt(text: string, pos: number, grammar: Grammar): ParsedRun | null {
   if (isWordChar(text[pos - 1]) || !isWordChar(text[pos])) return null;
-  const first = grammar.segment(text, pos, true);
+  const first = grammar.segment(text, pos, true, true);
   if (!first) return null;
   const segments: Segment[] = [first];
   let end = first.end;
   for (;;) {
     const joiner = matchJoiner(grammar.joiners, text, end);
     if (!joiner) break;
-    const next = grammar.segment(text, joiner.end, false);
+    const next = grammar.segment(text, joiner.end, false, joiner.kind === 'comma');
     if (!next || !ALLOWED_LEADS[joiner.kind].has(next.lead)) break;
-    next.joiner = joiner.kind;
+    // `Matt. v. 3, vi. 5` is a chapter continuation: in Romanian it is written with `;`.
+    next.joiner = joiner.kind === 'comma' && next.lead === 'chapter' ? 'semicolon' : joiner.kind;
     segments.push(next);
     end = next.end;
   }
@@ -564,7 +631,7 @@ function renderSegment(segment: Segment): string {
         : `${segment.book.ro} ${segment.chapter}:${verses}`;
     }
     case 'chapter':
-      return `${segment.chapter}:${verses}`;
+      return verses === '' ? String(segment.chapter) : `${segment.chapter}:${verses}`;
     case 'verse': {
       const several =
         segment.plural || segment.verses.length > 1 || segment.verses.some((v) => v.to);
@@ -725,11 +792,19 @@ const LOOSE_PATTERNS: readonly RegExp[] = [
   ),
   // verse markers: `vs. 23`
   /(?<![A-Za-z0-9])(?:vss?|vers?|vv)\.\s*\d/gi,
+  // a lower-case numeral named as a chapter: `Chap. xxi`
+  /(?<=(?<![A-Za-z])[Cc]hap(?:ter)?s?\.?\s+)[ivxlc]{1,8}(?![A-Za-z0-9])/g,
 ];
 
 /**
+ * What may stand between the end of a run and a number that it should have taken along: white
+ * space (`Lk. vi. 32 7`), a comma or semicolon (`, 200`: not a verse), `and` (`17, 18 and 19`).
+ */
+const CUT_SHORT = /^(?:\s*[,;&]\s*(?:and\s+)?|\s+and\s+|\s+)(?=\d)/;
+
+/**
  * Reference-like fragments of `text` that `parseSourceReferences` did not turn into a run, plus
- * numbers that follow a run after white space only (a run cut short).
+ * numbers that follow a run after a joiner (a run cut short) and are not the start of a run.
  */
 export function findUnparsedReferenceFragments(
   text: string,
@@ -745,8 +820,11 @@ export function findUnparsedReferenceFragments(
     }
   }
   for (const run of runs) {
-    const rest = /^\s+(?=\d)/.exec(text.slice(run.end));
-    if (rest) found.push({ start: run.end + rest[0].length, end: run.end + rest[0].length + 1 });
+    const rest = CUT_SHORT.exec(text.slice(run.end));
+    if (!rest) continue;
+    const at = run.end + rest[0].length;
+    // `, 1 Cor. xv. 22` is the next run, not a leftover.
+    if (!covered(at)) found.push({ start: at, end: at + 1 });
   }
   // One malformed reference matches several loose patterns: report it once.
   return outermost(found).map((span) => ({

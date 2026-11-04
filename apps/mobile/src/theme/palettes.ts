@@ -7,6 +7,7 @@ export interface Palette {
   text: string;
   textMuted: string;
   border: string;
+  /** Links, the primary button, the active segment and the current-chapter rule. */
   accent: string;
   /** Text colour on top of `accent`. */
   onAccent: string;
@@ -19,19 +20,22 @@ export interface Palette {
   statusBar: 'dark' | 'light';
 }
 
-// Text/background contrast ratios are all above 4.5:1 (WCAG AA) for body text and muted text.
+// The only place where colours are written down: every component reads them through `useTheme()`
+// (a test fails on colour literals anywhere else in `src`). All text/background pairs meet 4.5:1
+// (WCAG AA), body text and muted text alike; `theme.test.ts` checks every pair.
 export const palettes: Record<ThemeName, Palette> = {
+  // Paper
   light: {
-    background: '#FFFFFF',
-    surface: '#F3F3F0',
-    text: '#1A1A1A',
-    textMuted: '#555555',
-    border: '#D6D6D0',
-    accent: '#1F4E8C',
+    background: '#FBFAF7',
+    surface: '#F3F1EB',
+    text: '#141414',
+    textMuted: '#66645E',
+    border: '#E3E0D8',
+    accent: '#7A2E2A',
     onAccent: '#FFFFFF',
-    highlight: '#FFE58A',
-    onHighlight: '#1A1A1A',
-    target: '#FFF6D1',
+    highlight: '#F3E3A6',
+    onHighlight: '#141414',
+    target: '#F7F1DC',
     statusBar: 'dark',
   },
   sepia: {
@@ -47,17 +51,18 @@ export const palettes: Record<ThemeName, Palette> = {
     target: '#EFE0B5',
     statusBar: 'dark',
   },
+  // Ink
   dark: {
-    background: '#121212',
-    surface: '#1E1E1E',
-    text: '#E8E6E1',
-    textMuted: '#A9A9A3',
-    border: '#383838',
-    accent: '#8DB6F0',
-    onAccent: '#0B1220',
-    highlight: '#7A6500',
+    background: '#141311',
+    surface: '#1E1D1A',
+    text: '#E9E6DF',
+    textMuted: '#A5A29A',
+    border: '#2E2C27',
+    accent: '#E0A58B',
+    onAccent: '#1A120F',
+    highlight: '#5A4A12',
     onHighlight: '#FFFFFF',
-    target: '#2A2A1A',
+    target: '#2A2718',
     statusBar: 'light',
   },
 };

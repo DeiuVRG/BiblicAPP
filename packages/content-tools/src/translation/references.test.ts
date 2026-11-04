@@ -174,6 +174,175 @@ describe('parseSourceReferences: grammar details', () => {
   });
 });
 
+describe('references that follow a comma', () => {
+  const canonicalOf = (text: string) => parseSourceReferences(text).map((r) => r.canonical);
+  const extract = (text: string) => extractTargetReferences(text).map((r) => r.canonical);
+
+  it('keeps the number of the next book out of the verse list (source)', () => {
+    expect(canonicalOf('See Rom. v. 12, 1 Cor. xv. 22.')).toEqual([['Rom 5:12'], ['1Cor 15:22']]);
+    expect(canonicalOf('Matt. v. 3, 1 John iv. 8 and 2 Pet. iii. 9')).toEqual([
+      ['Matt 5:3'],
+      ['1John 4:8'],
+      ['2Pet 3:9'],
+    ]);
+    expect(canonicalOf('Jno. iii. 16, 2 John 5')).toEqual([['John 3:16'], ['2John 5']]);
+    expect(canonicalOf('Isa. liii. 5, 2 Tim. iii. 16, 3 Jno. 4')).toEqual([
+      ['Isa 53:5'],
+      ['2Tim 3:16'],
+      ['3John 4'],
+    ]);
+    const [first, second] = parseSourceReferences('See Rom. v. 12, 1 Cor. xv. 22.');
+    expect(first?.target).toBe('Rom. 5:12');
+    expect(second?.target).toBe('1 Cor. 15:22');
+  });
+
+  it('keeps the number of the next book out of the verse list (Romanian)', () => {
+    expect(extract('Rom. 5:12, 1 Cor. 15:22')).toEqual([['Rom 5:12'], ['1Cor 15:22']]);
+    expect(extract('In. 3:16, 2 In. 5, 1 Pet. 1:3')).toEqual([
+      ['John 3:16'],
+      ['2John 5'],
+      ['1Pet 1:3'],
+    ]);
+    expect(extract('Mat. 5:3, 1 Tes. 4:16')).toEqual([['Matt 5:3'], ['1Thess 4:16']]);
+  });
+
+  it('still reads a number as a verse when no citation follows it', () => {
+    expect(canonicalOf('Matt. v. 3, 1 John says so')).toEqual([['Matt 5:3', 'Matt 5:1']]);
+    expect(canonicalOf('Matt. v. 3, 5 Mark iv. 3')).toEqual([
+      ['Matt 5:3', 'Matt 5:5'],
+      ['Mark 4:3'],
+    ]);
+    expect(canonicalOf('Matt. v. 3, 2 John is short')).toEqual([['Matt 5:3', 'Matt 5:2']]);
+    // `In` without the period of the abbreviation is the English word, not the book `2 In.`
+    expect(extract('Rom. 2:5, 3 In Mat. 11:12')).toEqual([['Rom 2:5', 'Rom 2:3'], ['Matt 11:12']]);
+    expect(extract('Mat. 5:3, 1 In prima zi')).toEqual([['Matt 5:3', 'Matt 5:1']]);
+  });
+
+  it('does not report the next citation as a leftover number', () => {
+    expect(findUnparsedReferenceFragments('See Rom. v. 12, 1 Cor. xv. 22.')).toEqual([]);
+    expect(findUnparsedReferenceFragments('Matt. i. 1 2 Cor. xi. 3')).toEqual([]);
+  });
+
+  it('takes a bare chapter after a comma as a continuation of the run', () => {
+    const [run, other] = parseSourceReferences('See Matt. v. 3, vi. 5 and Rom. viii. 1.');
+    expect(run).toMatchObject({
+      source: 'Matt. v. 3, vi. 5',
+      target: 'Mat. 5:3; 6:5',
+      canonical: ['Matt 5:3', 'Matt 6:5'],
+    });
+    expect(other?.canonical).toEqual(['Rom 8:1']);
+    const several = parseSourceReferences('Mk. i. 17, 18, xix. 3, 4')[0];
+    expect(several?.canonical).toEqual(['Mark 1:17', 'Mark 1:18', 'Mark 19:3', 'Mark 19:4']);
+    expect(several?.target).toBe('Mc. 1:17, 18; 19:3, 4');
+  });
+
+  it('reads the Romanian comma form of a chapter continuation as well as the semicolon', () => {
+    expect(extract('Mat. 5:3; 6:5')).toEqual([['Matt 5:3', 'Matt 6:5']]);
+    expect(extract('Mat. 5:3, 6:5 și Rom. 8:1')).toEqual([['Matt 5:3', 'Matt 6:5'], ['Rom 8:1']]);
+    const rendered = parseSourceReferences('Matt. v. 3, vi. 5')[0]?.target ?? '';
+    expect(extract(rendered)).toEqual([['Matt 5:3', 'Matt 6:5']]);
+  });
+
+  it('does not take a line number or a letter after a comma for a chapter', () => {
+    expect(canonicalOf('Mk. i. 15, l. 7 of the text')).toEqual([['Mark 1:15']]);
+    expect(canonicalOf('Mk. i. 15, c. 5 above')).toEqual([['Mark 1:15']]);
+    expect(canonicalOf('Mk. i. 15, I. 5 above')).toEqual([['Mark 1:15']]);
+  });
+});
+
+describe('ff., f., sq. and sqq.', () => {
+  it('reads sq. and sqq. like ff.', () => {
+    for (const marker of ['sqq.', 'sq.', 'sqq', 'ff.', 'f.']) {
+      const [run] = parseSourceReferences(`Rom. viii. 19 ${marker} and so on`);
+      expect(run?.canonical, marker).toEqual(['Rom 8:19ff']);
+      expect(run?.target, marker).toBe('Rom. 8:19 ș.urm.');
+    }
+    expect(parseSourceReferences('Rom. viii. 19 sqqx')[0]?.canonical).toEqual(['Rom 8:19']);
+  });
+
+  it('closes the "and following" marker of the Romanian notation at a word boundary', () => {
+    const extract = (text: string) => extractTargetReferences(text).map((r) => r.canonical);
+    expect(extract('Vezi Mat. 4:17 și urmează să vină')).toEqual([['Matt 4:17']]);
+    expect(extract('Mat. 4:17 și urmașii lui, ș.urmează')).toEqual([['Matt 4:17']]);
+    expect(extract('Mat. 4:17 și urmare')).toEqual([['Matt 4:17']]);
+    expect(extract('Mat. 4:17 și urm. și Lc. 1:5 ș.urm. și In. 3:16 și urm')).toEqual([
+      ['Matt 4:17ff'],
+      ['Luke 1:5ff'],
+      ['John 3:16ff'],
+    ]);
+    expect(extract('Mat. 4:17 ș. urm., apoi Mc. 1:15 și urm.')).toEqual([
+      ['Matt 4:17ff'],
+      ['Mark 1:15ff'],
+    ]);
+  });
+});
+
+describe('a chapter named after "Chap."', () => {
+  const NAMED = 'in the two other instances in Chap. xxi, no reason for the substitution';
+
+  it('is a run without verses and without a canonical item, converted to Arabic', () => {
+    const runs = parseSourceReferences(NAMED);
+    expect(runs).toHaveLength(1);
+    expect(runs[0]).toMatchObject({ source: 'xxi', target: '21', canonical: [] });
+    expect(runs[0] && NAMED.slice(runs[0].start, runs[0].end)).toBe('xxi');
+    expect(findUnparsedReferenceFragments(NAMED)).toEqual([]);
+    // the book is only implied, so nothing can go missing: the parity check has nothing to compare
+    expect(
+      extractTargetReferences('în celelalte două cazuri din cap. 21, nu există motiv'),
+    ).toEqual([]);
+  });
+
+  it('leaves "Chap. xii. 28" a bookless reference with verses', () => {
+    const [run] = parseSourceReferences('In Chap. xii. 28 the use of God');
+    expect(run).toMatchObject({ source: 'xii. 28', target: '12:28', canonical: ['12:28'] });
+  });
+
+  it('needs the word, a lower-case numeral and a well-formed numeral', () => {
+    expect(parseSourceReferences('the xxi in the list')).toEqual([]);
+    expect(parseSourceReferences('see Chapter XXI of this book')).toEqual([]);
+    expect(parseSourceReferences('see chap. xv of Matthew')[0]).toMatchObject({ target: '15' });
+    // an invalid numeral or a digit string after the dot is not guessed, but it is reported
+    expect(parseSourceReferences('as in Chap. cc, where')).toEqual([]);
+    expect(findUnparsedReferenceFragments('as in Chap. cc, where').map((f) => f.index)).toEqual([
+      12,
+    ]);
+    expect(parseSourceReferences('see Chap. xxi. 1903 was the year')).toEqual([]);
+  });
+
+  it('is found again in an untranslated target as a numeral in the wrong notation', () => {
+    expect(detectNonRomanianNotation('În Chap. xxi nu se vede niciun motiv')).toEqual(['xxi']);
+    expect(detectNonRomanianNotation('în cap. 21 nu se vede niciun motiv')).toEqual([]);
+  });
+});
+
+describe('numbers a run should have taken along', () => {
+  const unparsed = (text: string) => findUnparsedReferenceFragments(text).map((f) => f.index);
+
+  it('reports a number after "and", "," or ";" that is not a verse of the run', () => {
+    const and = 'Matt. iv. 17, 18 and 19 is cited';
+    expect(unparsed(and)).toEqual([and.indexOf('19')]);
+    const oxford = 'Matt. iv. 17, 18, and 19 is cited';
+    expect(unparsed(oxford)).toEqual([oxford.indexOf('19')]);
+    const big = 'Mk. i. 15, 200 men';
+    expect(unparsed(big)).toEqual([big.indexOf('200')]);
+    const semicolon = 'Mk. i. 15; 5 men';
+    expect(unparsed(semicolon)).toEqual([semicolon.indexOf('5 men')]);
+    const space = 'Lk. vi. 32 7 men';
+    expect(unparsed(space)).toEqual([space.indexOf('7')]);
+  });
+
+  it('is silent when nothing is left over', () => {
+    for (const text of [
+      'Rom. viii. 19 sqq. and more',
+      'Matt. iv. 17, 18, 19 and Mk. i. 15',
+      'Matt. iv. 17 and Mk. i. 15, 1 Cor. xv. 22',
+      'Mk. i. 15, and in 1903 the book',
+    ]) {
+      expect(unparsed(text), text).toEqual([]);
+    }
+  });
+});
+
 describe('renderRomanian', () => {
   it('renders the run of a parse result', () => {
     const [run] = parseSourceReferences('Jno. iii. 3, 5; xviii. 36');
@@ -285,6 +454,10 @@ describe('extractTargetReferences', () => {
       'xxii. 1-14',
       'Matt. xiii',
       'Rev. i. 18',
+      'Matt. v. 3, vi. 5',
+      'Rom. viii. 19 sqq.',
+      'Rom. v. 12, 1 Cor. xv. 22',
+      'in Chap. xxi',
     ]);
     for (const sample of samples) {
       for (const run of parseSourceReferences(sample)) {

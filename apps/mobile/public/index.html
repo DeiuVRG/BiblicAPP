@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="%LANG_ISO_CODE%">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- The page follows the system scheme until the app applies the reader's own choice. -->
+    <meta name="color-scheme" content="light dark" />
+    <title>%WEB_TITLE%</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+    <!--
+      Paper and ink backgrounds (the `background` of the light and dark palettes in
+      src/theme/palettes.ts; a test keeps them equal), so that there is no white flash before
+      JavaScript runs. The app sets the same colours on <body> once it starts.
+    -->
+    <style id="app-theme">
+      html,
+      body {
+        background: #fbfaf7;
+      }
+      @media (prefers-color-scheme: dark) {
+        html,
+        body {
+          background: #141311;
+        }
+      }
+    </style>
+    <script id="app-theme-stored">
+      // A theme chosen in Settings wins over the system scheme: paint it before the app boots.
+      (function () {
+        try {
+          var stored = JSON.parse(localStorage.getItem('biblioteca:settings:v1') || '{}').theme;
+          var background = { light: '#fbfaf7', sepia: '#f4ecd8', dark: '#141311' }[stored];
+          if (!background) return;
+          var root = document.documentElement;
+          root.style.background = background;
+          root.style.colorScheme = stored === 'dark' ? 'dark' : 'light';
+        } catch (error) {
+          /* storage unavailable: keep the system scheme */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <noscript> Pentru a folosi aplicația este necesar JavaScript. </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  </body>
+</html>

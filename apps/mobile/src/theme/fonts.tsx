@@ -3,6 +3,8 @@ import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
 import { Literata_400Regular } from '@expo-google-fonts/literata/400Regular';
 import { Literata_400Regular_Italic } from '@expo-google-fonts/literata/400Regular_Italic';
+import { Literata_500Medium } from '@expo-google-fonts/literata/500Medium';
+import { Literata_600SemiBold } from '@expo-google-fonts/literata/600SemiBold';
 import { Literata_700Bold } from '@expo-google-fonts/literata/700Bold';
 import { useFonts } from 'expo-font';
 import { createContext, useContext } from 'react';
@@ -12,6 +14,10 @@ export interface FontFamilies {
   /** Reading serif (Literata covers U+0218 to U+021B, the comma-below s/t). */
   reading: string | undefined;
   readingItalic: string | undefined;
+  /** Literata 500, for typographic samples such as the "Aa" button. */
+  readingMedium: string | undefined;
+  /** Literata 600, for titles. */
+  readingSemiBold: string | undefined;
   readingBold: string | undefined;
   /** UI sans (Inter). */
   ui: string | undefined;
@@ -27,6 +33,8 @@ export const fallbackFonts: FontFamilies = Platform.select<FontFamilies>({
   web: {
     reading: webSerif,
     readingItalic: webSerif,
+    readingMedium: webSerif,
+    readingSemiBold: webSerif,
     readingBold: webSerif,
     ui: webSans,
     uiMedium: webSans,
@@ -35,6 +43,8 @@ export const fallbackFonts: FontFamilies = Platform.select<FontFamilies>({
   default: {
     reading: undefined,
     readingItalic: undefined,
+    readingMedium: undefined,
+    readingSemiBold: undefined,
     readingBold: undefined,
     ui: undefined,
     uiMedium: undefined,
@@ -45,6 +55,8 @@ export const fallbackFonts: FontFamilies = Platform.select<FontFamilies>({
 export const loadedFonts: FontFamilies = {
   reading: 'Literata_400Regular',
   readingItalic: 'Literata_400Regular_Italic',
+  readingMedium: 'Literata_500Medium',
+  readingSemiBold: 'Literata_600SemiBold',
   readingBold: 'Literata_700Bold',
   ui: 'Inter_400Regular',
   uiMedium: 'Inter_500Medium',
@@ -54,6 +66,8 @@ export const loadedFonts: FontFamilies = {
 const fontSources = {
   Literata_400Regular,
   Literata_400Regular_Italic,
+  Literata_500Medium,
+  Literata_600SemiBold,
   Literata_700Bold,
   Inter_400Regular,
   Inter_500Medium,

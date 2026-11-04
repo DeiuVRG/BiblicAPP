@@ -6,6 +6,8 @@ import { loadPosition } from '@/reading/position-store';
 import { sanitizeSettings } from '@/settings/sanitize';
 import { DEFAULT_SETTINGS } from '@/settings/types';
 import { formatLifespan, formatYear, languageName } from '@/i18n/labels';
+import { t } from '@/i18n';
+import { splitChapterHeading } from '@/reading/heading';
 import { createMemoryStore } from '@/test-support/render';
 
 describe('search folding', () => {
@@ -103,6 +105,41 @@ describe('labels', () => {
     expect(formatYear(-5)).toBe('5 î.Hr.');
     expect(formatLifespan(1862, 1949)).toBe('1862–1949');
     expect(formatLifespan(null, null)).toBe('');
+  });
+});
+
+describe('chapter headings', () => {
+  it('splits a Roman numeral from the title, as printed in the source', () => {
+    expect(splitChapterHeading('I. Introductory')).toEqual({ numeral: 'I', title: 'Introductory' });
+    expect(splitChapterHeading('IV. The Present and the Future Kingdom')).toEqual({
+      numeral: 'IV',
+      title: 'The Present and the Future Kingdom',
+    });
+    expect(splitChapterHeading('XVIII. Concluding')).toEqual({
+      numeral: 'XVIII',
+      title: 'Concluding',
+    });
+  });
+
+  it('leaves headings without a numeral alone', () => {
+    expect(splitChapterHeading('Preface')).toEqual({ numeral: '', title: 'Preface' });
+    expect(splitChapterHeading('Capitolul 1. Început')).toEqual({
+      numeral: '',
+      title: 'Capitolul 1. Început',
+    });
+    // Words made of numeral letters, and malformed numerals, are not numerals.
+    expect(splitChapterHeading('CIVIL. Law')).toEqual({ numeral: '', title: 'CIVIL. Law' });
+    expect(splitChapterHeading('IIII. Four')).toEqual({ numeral: '', title: 'IIII. Four' });
+    expect(splitChapterHeading('V.')).toEqual({ numeral: '', title: 'V.' });
+    expect(splitChapterHeading('')).toEqual({ numeral: '', title: '' });
+  });
+});
+
+describe('progress text', () => {
+  it('writes a percentage with a no-break space, as in "2 din 11 · 9 %"', () => {
+    expect(t.reader.percent(9)).toBe('9\u00a0%');
+    expect(t.reader.position(2, 11, 9)).toBe('2 din 11 · 9\u00a0%');
+    expect(t.reader.position(2, 11, 9).replace('\u00a0', ' ')).toBe('2 din 11 · 9 %');
   });
 });
 

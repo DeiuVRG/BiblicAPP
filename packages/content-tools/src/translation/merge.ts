@@ -26,6 +26,11 @@ export interface MergeInput {
   checks: readonly LoadedFile<CheckReport>[];
   /** Emit only the sections whose paragraphs are all covered. */
   partial: boolean;
+  /**
+   * With `partial`: allow dropping sections that the existing edition already contains (and so
+   * their ids). Without it such a merge is refused.
+   */
+  allowShrink?: boolean;
   /** Merge although a CRITIC flag or CRITIC check finding is open. */
   allowCritic: boolean;
 }
@@ -139,6 +144,24 @@ function missingReport(
   return lines;
 }
 
+/**
+ * Sections of the source that the existing edition renders but that this merge leaves out. Their
+ * ids would exist nowhere any more, and a later merge would issue new ones: a bookmark or reading
+ * position kept against the old ids would break. Sections that are gone from the source do not
+ * count: their ids are meant to disappear.
+ */
+function droppedSections(
+  sections: readonly Section[],
+  emittedIds: ReadonlySet<string>,
+  previous: Pack | undefined,
+): Section[] {
+  const rendered = new Set<string>();
+  for (const section of previous?.sections ?? []) {
+    if (section.sourceId !== undefined) rendered.add(section.sourceId);
+  }
+  return sections.filter((section) => rendered.has(section.id) && !emittedIds.has(section.id));
+}
+
 function reuseMap<T extends { id: string; sourceId?: string | undefined }>(
   units: readonly T[] | undefined,
 ): Map<string, string> {
@@ -180,6 +203,24 @@ export function mergeTranslation(input: MergeInput): MergeResult {
   if (!input.partial && missing.length > 0) problems.push(...missing);
   if (input.partial && emitted.length === 0)
     problems.push('no section is fully covered, nothing to merge');
+  if (input.partial) {
+    const dropped = droppedSections(sections, emittedIds, previous);
+    if (dropped.length > 0) {
+      const listed = dropped.map((s) => `${s.ordinal + 1} "${s.heading}"`).join(', ');
+      if (input.allowShrink) {
+        warnings.push(
+          `--partial drops ${dropped.length} section(s) that the existing edition contains; ` +
+            `their ids are lost: ${listed}`,
+        );
+      } else {
+        problems.push(
+          `--partial would drop ${dropped.length} section(s) that the existing edition contains, ` +
+            `and with them their ids (a later merge would issue new ones): section ${listed}. ` +
+            'Restore their final outputs, or pass --allow-shrink to drop them',
+        );
+      }
+    }
+  }
   if (problems.length > 0) return { ...base, problems, coverage };
 
   // Ids: reused by sourceId from the previous edition, new units get new ids.

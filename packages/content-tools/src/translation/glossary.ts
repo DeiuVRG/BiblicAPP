@@ -48,42 +48,93 @@ export interface CalqueRule {
   note: string;
 }
 
-const WORD = String.raw`[\p{L}\p{N}_]`;
+const WORD_CHARS = String.raw`\p{L}\p{N}_`;
+const WORD = `[${WORD_CHARS}]`;
+const NON_WORD = `[^${WORD_CHARS}]`;
 const WORD_BOUNDARY = `(?:(?<=${WORD})(?!${WORD})|(?<!${WORD})(?=${WORD}))`;
 const NOT_WORD_BOUNDARY = `(?:(?<=${WORD})(?=${WORD})|(?<!${WORD})(?!${WORD}))`;
 
+/** Index of the `]` that closes the class opened at `open`; -1 when the class is not closed. */
+function classEnd(source: string, open: number): number {
+  for (let i = open + 1; i < source.length; i += 1) {
+    const char = source.charAt(i);
+    if (char === '\\') i += 1;
+    else if (char === ']') return i;
+  }
+  return -1;
+}
+
 /**
- * `\b` and `\B` of JavaScript only know ASCII word characters, so `\bîmpărăț` or `biserică\b` would
- * never match around a Romanian diacritic. Patterns of the materials get Unicode-aware word
- * boundaries instead; escaped backslashes and `[\b]` (backspace in a class) are left alone.
+ * A character class with `\w` and `\W` made Unicode-aware. `\w` becomes the letters, digits and
+ * underscore; `\W` cannot be a member of a class without the `v` flag, so it turns the class into
+ * an alternation (`[a\W]` is `(?:[a]|[^...])`, `[^a\W]` is `(?![a])[...]`).
  */
-export function unicodeWordBoundaries(source: string): string {
+function rewriteClass(body: string): string {
+  const negated = body.startsWith('^');
+  const items = negated ? body.slice(1) : body;
+  let kept = '';
+  let nonWord = false;
+  for (let i = 0; i < items.length; i += 1) {
+    const char = items.charAt(i);
+    if (char !== '\\') {
+      kept += char;
+      continue;
+    }
+    const next = items.charAt(i + 1);
+    if (next === 'w') kept += WORD_CHARS;
+    else if (next === 'W') nonWord = true;
+    else kept += char + next;
+    i += 1;
+  }
+  if (!nonWord) return `[${negated ? '^' : ''}${kept}]`;
+  // What is left of `[\W^]` must not start with a bare `^`, which would negate the class.
+  const members = kept.startsWith('^') ? `\\${kept}` : kept;
+  if (negated) return members === '' ? WORD : `(?:(?![${members}])${WORD})`;
+  return members === '' ? NON_WORD : `(?:[${members}]|${NON_WORD})`;
+}
+
+/**
+ * `\b`, `\B`, `\w` and `\W` of JavaScript only know ASCII word characters, so `\bîmpărăț`,
+ * `biserică\b` or `poart\w* sensul` would never match around or across a Romanian diacritic
+ * (`poartă sensul`). Patterns of the materials get Unicode-aware versions instead: a word
+ * character is a letter, a digit or `_`. Escaped backslashes and `[\b]` (backspace in a class) are
+ * left alone; `\d` and `\s` already do what the materials need.
+ */
+export function unicodeWordEscapes(source: string): string {
   let out = '';
-  let inClass = false;
   for (let i = 0; i < source.length; i += 1) {
     const char = source.charAt(i);
     if (char === '\\') {
       const next = source.charAt(i + 1);
-      if (!inClass && next === 'b') out += WORD_BOUNDARY;
-      else if (!inClass && next === 'B') out += NOT_WORD_BOUNDARY;
+      if (next === 'b') out += WORD_BOUNDARY;
+      else if (next === 'B') out += NOT_WORD_BOUNDARY;
+      else if (next === 'w') out += WORD;
+      else if (next === 'W') out += NON_WORD;
       else out += char + next;
       i += 1;
-      continue;
+    } else if (char === '[') {
+      const end = classEnd(source, i);
+      if (end < 0) {
+        // Not closed: leave the rest alone so that the RegExp constructor reports the error.
+        out += source.slice(i);
+        break;
+      }
+      out += rewriteClass(source.slice(i + 1, end));
+      i = end;
+    } else {
+      out += char;
     }
-    if (char === '[') inClass = true;
-    else if (char === ']') inClass = false;
-    out += char;
   }
   return out;
 }
 
 /**
  * Patterns are JavaScript regular expressions, case-insensitive with the `u` flag, with
- * Unicode-aware `\b`.
+ * Unicode-aware `\b`, `\B`, `\w` and `\W`.
  */
 function compilePattern(source: string, where: string): RegExp {
   try {
-    return new RegExp(unicodeWordBoundaries(source), 'iu');
+    return new RegExp(unicodeWordEscapes(source), 'iu');
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
     throw new UsageError(`${where}: invalid regular expression /${source}/: ${reason}`);

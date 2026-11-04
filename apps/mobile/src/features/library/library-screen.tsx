@@ -2,6 +2,9 @@ import { Stack } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
+import { Chip } from '@/components/chip';
+import { useListContentStyle } from '@/components/column';
+import { Hairline } from '@/components/hairline';
 import { HeaderLinks } from '@/components/header-links';
 import { LinkRow } from '@/components/list-row';
 import { Screen } from '@/components/screen';
@@ -25,18 +28,14 @@ function WorkRow({ work }: { work: WorkSummary }) {
       href={workHref(work.workId)}
       accessibilityLabel={`${t.library.openWork(work.titleRo)}. ${workMeta(work)}`}
     >
-      <AppText variant="heading">{work.titleRo}</AppText>
-      {showOriginal ? (
-        <AppText variant="caption" muted style={styles.italic}>
-          {work.titleOrig}
-        </AppText>
-      ) : null}
-      <AppText variant="caption" muted>
+      <AppText variant="title">{work.titleRo}</AppText>
+      {showOriginal ? <AppText variant="original">{work.titleOrig}</AppText> : null}
+      <AppText variant="label" style={styles.meta}>
         {workMeta(work)}
       </AppText>
-      <AppText variant="caption" muted>
-        {licenceLabel(work.licenceStatus)}
-      </AppText>
+      <View style={styles.chips}>
+        <Chip label={licenceLabel(work.licenceStatus)} />
+      </View>
     </LinkRow>
   );
 }
@@ -45,6 +44,7 @@ export function LibraryScreen() {
   const content = useContent();
   const works = useRepositoryQuery((repository) => repository.listWorks(), []);
   const rejectedCount = content.status === 'ready' ? content.rejected.length : 0;
+  const contentStyle = useListContentStyle('list');
 
   return (
     <Screen>
@@ -56,16 +56,21 @@ export function LibraryScreen() {
           data={works.data}
           keyExtractor={(work) => work.editionId}
           renderItem={({ item }) => <WorkRow work={item} />}
+          ItemSeparatorComponent={Hairline}
           ListHeaderComponent={
             <View style={styles.header}>
-              <AppText muted>{t.library.subtitle}</AppText>
+              <AppText variant="lead">{t.library.subtitle}</AppText>
               {rejectedCount > 0 ? (
-                <AppText accessibilityRole="alert">{t.library.unverified(rejectedCount)}</AppText>
+                <AppText variant="ui" accessibilityRole="alert">
+                  {t.library.unverified(rejectedCount)}
+                </AppText>
               ) : null}
+              {works.data.length > 0 ? <Hairline /> : null}
             </View>
           }
+          ListFooterComponent={works.data.length > 0 ? <Hairline /> : undefined}
           ListEmptyComponent={<MessageView message={t.library.empty} />}
-          contentContainerStyle={styles.list}
+          contentContainerStyle={contentStyle}
         />
       ) : null}
     </Screen>
@@ -73,7 +78,7 @@ export function LibraryScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { flexGrow: 1, paddingBottom: 24 },
-  header: { padding: 16, gap: 8 },
-  italic: { fontStyle: 'italic' },
+  header: { paddingTop: 24, gap: 16 },
+  meta: { marginTop: 4 },
+  chips: { flexDirection: 'row', marginTop: 8 },
 });

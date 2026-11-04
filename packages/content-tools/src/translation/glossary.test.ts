@@ -11,7 +11,7 @@ import {
   parseCalques,
   parseGlossary,
   ruleApplies,
-  unicodeWordBoundaries,
+  unicodeWordEscapes,
 } from './glossary';
 
 const HEADER = 'term_id,source_pattern,target_pattern,tradition,scope,force,status,note';
@@ -65,8 +65,8 @@ describe('parseGlossary', () => {
   });
 });
 
-describe('unicodeWordBoundaries', () => {
-  const compile = (source: string) => new RegExp(unicodeWordBoundaries(source), 'iu');
+describe('unicodeWordEscapes', () => {
+  const compile = (source: string) => new RegExp(unicodeWordEscapes(source), 'iu');
 
   it('makes \\b work around Romanian diacritics', () => {
     expect(compile('\\bbiserică\\b').test('o Biserică nouă')).toBe(true);
@@ -83,6 +83,69 @@ describe('unicodeWordBoundaries', () => {
     expect(compile('a\\Bb').test('a b')).toBe(false);
     expect(compile('[\\b]x').test('\bx')).toBe(true);
     expect(compile('\\\\b').test('\\b')).toBe(true);
+  });
+
+  it('makes \\w consume Romanian diacritics, and still stops at spaces and punctuation', () => {
+    // the shipped calques are written like this: the verb form ends in a diacritic
+    const carries = compile('\\bpoart\\w* (?:sensul|ideea|înțelesul)\\b');
+    expect(carries.test('Această frază poartă sensul')).toBe(true);
+    expect(carries.test('Fraza poarta sensul')).toBe(true);
+    expect(carries.test('Ei poartă ideea acestui text')).toBe(true);
+    expect(carries.test('poartă, sensul')).toBe(false);
+    expect(compile('\\bsensibil\\w* la\\b').test('Ea este sensibilă la durere')).toBe(true);
+    expect(compile('\\brealiz\\w* că\\b').test('Ei realizează că este așa')).toBe(true);
+    expect(compile('\\bexperiment\\w* harul\\b').test('El experimentează harul')).toBe(true);
+    expect(compile('a\\wb').test('aăb')).toBe(true);
+    expect(compile('a\\wb').test('a1b')).toBe(true);
+    expect(compile('a\\wb').test('a_b')).toBe(true);
+    expect(compile('a\\wb').test('a b')).toBe(false);
+    expect(compile('a\\wb').test('a-b')).toBe(false);
+  });
+
+  it('makes \\W the exact complement of \\w', () => {
+    expect(compile('a\\Wb').test('a-b')).toBe(true);
+    expect(compile('a\\Wb').test('a b')).toBe(true);
+    expect(compile('a\\Wb').test('aăb')).toBe(false);
+    expect(compile('a\\Wb').test('a1b')).toBe(false);
+    expect(compile('\\W+$').exec('cuvânt, ')?.[0]).toBe(', ');
+  });
+
+  it('rewrites \\w and \\W inside character classes', () => {
+    expect(compile('^[\\w-]+$').test('într-o')).toBe(true);
+    expect(compile('^[\\w-]+$').test('într o')).toBe(false);
+    expect(compile('^[\\wăâ]+$').test('ȘțîÎ')).toBe(true);
+    expect(compile('[^\\w]').test('ă')).toBe(false);
+    expect(compile('[^\\w]').test(' ')).toBe(true);
+    expect(compile('[\\W]').test('ă')).toBe(false);
+    expect(compile('[\\W]').test('.')).toBe(true);
+    // a class that holds \W next to other members becomes an alternation
+    const nonWordOrA = compile('^[a\\W]$');
+    expect([...'a .'].map((c) => nonWordOrA.test(c))).toEqual([true, true, true]);
+    expect(['b', 'ă', '1'].map((c) => nonWordOrA.test(c))).toEqual([false, false, false]);
+    const wordButA = compile('^[^a\\W]$');
+    expect(['b', 'ă', '1'].map((c) => wordButA.test(c))).toEqual([true, true, true]);
+    expect(['a', ' ', '.'].map((c) => wordButA.test(c))).toEqual([false, false, false]);
+    // a caret left at the front of the class is a caret, not a negation
+    const caretOrNonWord = compile('^[\\W^]$');
+    expect(['^', ' ', '.'].map((c) => caretOrNonWord.test(c))).toEqual([true, true, true]);
+    expect(['a', 'ă', '1'].map((c) => caretOrNonWord.test(c))).toEqual([false, false, false]);
+    // the alternation is one atom, so quantifiers and anchors still apply to it
+    expect(compile('^[a\\W]{3}$').test('a, ')).toBe(true);
+    expect(compile('^[a\\W]{3}$').test('aăa')).toBe(false);
+  });
+
+  it('leaves escaped backslashes, \\d, \\s, \\p{...} and escaped brackets alone', () => {
+    expect(compile('\\\\w').test('\\w')).toBe(true);
+    expect(compile('\\\\w').test('ă')).toBe(false);
+    expect(compile('\\\\\\w').test('\\ă')).toBe(true);
+    expect(compile('\\d\\s\\p{Lu}').test('1 Ș')).toBe(true);
+    expect(compile('\\[\\w+\\]').test('[ăb]')).toBe(true);
+    expect(compile('[\\]\\w]+').exec('x]ăy')?.[0]).toBe('x]ăy');
+  });
+
+  it('does not repair a class that is never closed', () => {
+    expect(() => compile('a[bc')).toThrow(SyntaxError);
+    expect(() => compile('[')).toThrow(SyntaxError);
   });
 });
 

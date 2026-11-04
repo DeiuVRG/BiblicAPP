@@ -39,7 +39,11 @@ const config = {
     allowBackup: false,
   },
   web: {
-    output: 'static',
+    // A single-page app: no pre-rendering, so there is no server HTML for the client to hydrate
+    // (a build-time light render hydrated under a dark scheme kept the light styles).
+    output: 'single',
+    lang: 'ro',
+    description: 'Cărți vechi, traduse cu grijă.',
     favicon: './assets/images/favicon.png',
   },
   plugins: [
@@ -47,9 +51,14 @@ const config = {
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#FAF7F0',
+        // The paper and ink backgrounds of the app (src/theme/palettes.ts).
+        backgroundColor: '#FBFAF7',
         image: './assets/images/splash-icon.png',
         imageWidth: 76,
+        dark: {
+          backgroundColor: '#141311',
+          image: './assets/images/splash-icon.png',
+        },
       },
     ],
   ],

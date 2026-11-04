@@ -124,6 +124,53 @@ describe('translation commands end to end', () => {
       expect(index.jobs.length).toBeGreaterThan(2);
     });
 
+    it('removes job files of an earlier chunking that the index no longer lists', async () => {
+      const fine = ['--target-words', '20', '--max-words', '100', '--min-last-words', '0'];
+      expect(await jobsRun(...fine)).toBe(0);
+      const jobsDir = file('work/translation-ro/jobs');
+      const fineNames = fs.readdirSync(jobsDir).sort();
+      expect(fineNames.length).toBeGreaterThan(4); // index.json and more than two jobs
+      expect(fineNames).toContain('fixture-work-ro-01-02.json');
+      write('work/translation-ro/jobs/notes.json', '{}\n'); // not a job file: never touched
+      out = '';
+
+      expect(await jobsRun()).toBe(0);
+      expect(fs.readdirSync(jobsDir).sort()).toEqual([
+        'fixture-work-ro-01-00.json',
+        'fixture-work-ro-02-00.json',
+        'index.json',
+        'notes.json',
+      ]);
+      expect(out).toContain('removed stale job file fixture-work-ro-01-02.json');
+      const index = readJson<{ jobs: { jobId: string }[] }>('work/translation-ro/jobs/index.json');
+      expect(index.jobs.map((j) => j.jobId)).toEqual(jobs().map((j) => j.jobId));
+      for (const name of fs.readdirSync(jobsDir)) {
+        if (!name.startsWith('fixture-work-ro-')) continue;
+        expect(index.jobs.map((j) => `${j.jobId}.json`)).toContain(name);
+      }
+    });
+
+    it('with --sections only cleans the chapters of the run', async () => {
+      const fine = ['--target-words', '20', '--max-words', '100', '--min-last-words', '0'];
+      expect(await jobsRun(...fine)).toBe(0);
+      const jobsDir = file('work/translation-ro/jobs');
+      const before = fs.readdirSync(jobsDir).filter((n) => n.startsWith('fixture-work-ro-01-'));
+      expect(await jobsRun('--sections', '2')).toBe(0);
+      const after = fs.readdirSync(jobsDir).sort();
+      // chapter 1 (not in the run) keeps all its fine-grained jobs; chapter 2 is down to one job
+      expect(after.filter((n) => n.startsWith('fixture-work-ro-01-'))).toEqual(before.sort());
+      expect(after.filter((n) => n.startsWith('fixture-work-ro-02-'))).toEqual([
+        'fixture-work-ro-02-00.json',
+      ]);
+    });
+
+    it('rejects an enormous --sections range at once with exit code 2', async () => {
+      err = '';
+      expect(await jobsRun('--sections', '1-300000000')).toBe(2);
+      expect(err).toContain('--sections: no chapter 3-300000000 (the edition has 2)');
+      expect(fs.existsSync(file('work/translation-ro/jobs'))).toBe(false);
+    });
+
     it('prints the usage on --help (0) and on missing arguments (2)', async () => {
       expect(await runTranslationJobs(['--help'])).toBe(0);
       expect(out).toContain('Usage: translation-jobs');
@@ -245,6 +292,35 @@ describe('translation commands end to end', () => {
       expect(out).not.toContain('CEDILLA');
     });
 
+    it('--fix writes the output back in the canonical format even when nothing needed fixing', async () => {
+      writeFinals();
+      const [job] = jobs();
+      if (!job) throw new Error('fixture');
+      const minified = JSON.stringify(
+        readJson<TranslationOutput>(finalOf(job)),
+        (key, value: unknown) => (key === 'flags' ? undefined : value),
+      );
+      write(finalOf(job), minified);
+      expect(minified).not.toContain('\n');
+
+      expect(await runTranslationCheck(checkArgs(job))).toBe(0);
+      expect(read(finalOf(job))).toBe(minified); // without --fix the file is left alone
+
+      expect(await runTranslationCheck(checkArgs(job, '--fix'))).toBe(0);
+      const canonical = read(finalOf(job));
+      expect(canonical).not.toBe(minified);
+      expect(canonical.split('\n').length).toBeGreaterThan(10);
+      expect(canonical.endsWith('}\n')).toBe(true);
+      expect(canonical).toContain('  "paragraphs": [\n');
+      expect(canonical).toContain('"flags": []');
+      expect(JSON.parse(canonical)).toEqual(
+        JSON.parse(JSON.stringify(readJson<TranslationOutput>(finalOf(job)))),
+      );
+
+      expect(await runTranslationCheck(checkArgs(job, '--fix'))).toBe(0);
+      expect(read(finalOf(job))).toBe(canonical); // and writing it again changes nothing
+    });
+
     it('writes the report to --report', async () => {
       writeFinals();
       const [job] = jobs();
@@ -321,6 +397,9 @@ describe('translation commands end to end', () => {
     it('prints the usage on --help (0) and on missing arguments (2)', async () => {
       expect(await runTranslationCheck(['--help'])).toBe(0);
       expect(out).toContain('Usage: translation-check');
+      // the escapes of the pattern syntax are printed as written, not as control characters
+      expect(out).toContain('\\b, \\B, \\w and \\W are');
+      expect(out).not.toContain('\b');
       expect(await runTranslationCheck(['only-output.json'])).toBe(2);
       expect(err).toContain('missing arguments');
     });
@@ -409,6 +488,29 @@ describe('translation commands end to end', () => {
       expect(pack.sections).toHaveLength(1);
       expect(pack.edition.provenance.notes).toBe('Draft. Partial translation: 1 of 2 sections.');
       expect(out).toContain('coverage 3/5 paragraphs, 1/2 sections');
+    });
+
+    it('refuses a --partial merge that would drop merged sections, unless --allow-shrink', async () => {
+      writeFinals();
+      expect(await mergeRun()).toBe(0);
+      const merged = read('work/edition-ro.json');
+      const before = PackSchema.parse(JSON.parse(merged) as unknown);
+      fs.rmSync(file(finalOf(defined(jobs()[1], 'second job'))));
+      out = '';
+
+      expect(await mergeRun('--partial')).toBe(1);
+      expect(err).toContain('refused, nothing written');
+      expect(err).toContain('--partial would drop 1 section(s)');
+      expect(err).toContain('--allow-shrink');
+      expect(read('work/edition-ro.json')).toBe(merged);
+
+      expect(await mergeRun('--partial', '--allow-shrink')).toBe(0);
+      expect(out).toMatch(/WARNING: --partial drops 1 section\(s\).*ids are lost/);
+      const after = PackSchema.parse(JSON.parse(read('work/edition-ro.json')) as unknown);
+      expect(after.sections).toHaveLength(1);
+      expect(after.sections[0]?.id).toBe(before.sections[0]?.id);
+      expect(await runTranslationMerge(['--help'])).toBe(0);
+      expect(out).toContain('--allow-shrink');
     });
 
     it('prints a warning when headingRo is missing and uses the source heading', async () => {

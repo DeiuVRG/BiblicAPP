@@ -1,9 +1,11 @@
 import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View } from 'react-native';
 
-import { AppText, UI_MAX_FONT_SCALE } from '@/components/app-text';
-import { MIN_TARGET } from '@/components/button';
+import { AppText, UI_MAX_FONT_SCALE, useTypeStyle } from '@/components/app-text';
+import { Button } from '@/components/button';
+import { Column, useListContentStyle } from '@/components/column';
+import { Hairline } from '@/components/hairline';
 import { HighlightedText } from '@/components/highlighted-text';
 import { LinkRow } from '@/components/list-row';
 import { Screen } from '@/components/screen';
@@ -33,6 +35,7 @@ function useDebounced<T>(value: T, delayMs: number): T {
 export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
   const { colors } = useTheme();
   const fonts = useFontFamilies();
+  const contentStyle = useListContentStyle('list');
   const [text, setText] = useState(initialQuery);
   const query = useDebounced(text.trim(), DEBOUNCE_MS);
   const active = query.length >= MIN_QUERY_LENGTH;
@@ -49,7 +52,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
   return (
     <Screen>
       <Stack.Screen options={{ title: t.search.title }} />
-      <View style={styles.inputRow}>
+      <Column kind="list" style={styles.inputRow}>
         <TextInput
           value={text}
           onChangeText={setText}
@@ -65,25 +68,21 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
             styles.input,
             {
               color: colors.text,
-              backgroundColor: colors.surface,
               borderColor: colors.border,
               fontFamily: fonts.ui,
             },
           ]}
         />
         {text.length > 0 ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.search.clear}
+          <Button
+            variant="text"
+            title="✕"
+            label={t.search.clear}
             onPress={() => setText('')}
             style={styles.clear}
-          >
-            <AppText variant="label" style={{ color: colors.accent }}>
-              ✕
-            </AppText>
-          </Pressable>
+          />
         ) : null}
-      </View>
+      </Column>
 
       {!active ? <MessageView message={t.search.hint} /> : null}
       {active && results.status === 'loading' ? <LoadingView message={t.search.searching} /> : null}
@@ -93,20 +92,20 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
           data={results.data.hits}
           keyExtractor={(hit) => hit.paragraphId}
           keyboardShouldPersistTaps="handled"
+          ItemSeparatorComponent={Hairline}
           ListHeaderComponent={
             results.data.hits.length > 0 ? (
-              <AppText
-                variant="caption"
-                muted
-                style={styles.count}
-                accessibilityLiveRegion="polite"
-              >
-                {results.data.hits.length >= RESULT_CAP
-                  ? t.search.resultsCapped(results.data.hits.length)
-                  : t.search.results(results.data.hits.length)}
-              </AppText>
+              <View>
+                <AppText variant="caption" style={styles.count} accessibilityLiveRegion="polite">
+                  {results.data.hits.length >= RESULT_CAP
+                    ? t.search.resultsCapped(results.data.hits.length)
+                    : t.search.results(results.data.hits.length)}
+                </AppText>
+                <Hairline />
+              </View>
             ) : undefined
           }
+          ListFooterComponent={results.data.hits.length > 0 ? <Hairline /> : undefined}
           ListEmptyComponent={<MessageView message={t.search.noResults} />}
           renderItem={({ item }) => (
             <ResultRow
@@ -115,7 +114,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
               workTitle={results.data?.titles.get(item.workId) ?? ''}
             />
           )}
-          contentContainerStyle={styles.list}
+          contentContainerStyle={contentStyle}
         />
       ) : null}
     </Screen>
@@ -131,48 +130,38 @@ function ResultRow({
   query: string;
   workTitle: string;
 }) {
-  const { colors } = useTheme();
-  const fonts = useFontFamilies();
-  const place = [workTitle, hit.sectionHeading].filter(Boolean).join(' · ');
+  const snippetStyle = useTypeStyle('body', false);
+  // The chapter comes first: when the line is too long it is the work title that gets cut off.
+  const place = [hit.sectionHeading, workTitle].filter(Boolean).join(' · ');
   return (
     <LinkRow
       href={readHref(hit.workId, hit.sectionId, { p: hit.paragraphId, q: query })}
       accessibilityLabel={`${t.search.openResult(place)}: ${hit.snippet}`}
     >
-      <AppText variant="caption" muted>
+      <AppText variant="label" numberOfLines={1}>
         {place}
       </AppText>
-      <HighlightedText
-        text={hit.snippet}
-        query={query}
-        style={{
-          color: colors.text,
-          fontFamily: fonts.reading,
-          fontSize: 16,
-          lineHeight: 24,
-          textAlign: 'left',
-        }}
-      />
+      <HighlightedText text={hit.snippet} query={query} style={snippetStyle} />
     </LinkRow>
   );
 }
 
 const styles = StyleSheet.create({
-  inputRow: { flexDirection: 'row', alignItems: 'center', padding: 16, gap: 8 },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 24,
+    paddingBottom: 16,
+    gap: 8,
+  },
   input: {
     flex: 1,
-    minHeight: MIN_TARGET,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
-    paddingHorizontal: 12,
+    height: 48,
+    borderWidth: 1,
+    borderRadius: 6,
+    paddingHorizontal: 14,
     fontSize: 16,
   },
-  clear: {
-    minHeight: MIN_TARGET,
-    minWidth: MIN_TARGET,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  list: { flexGrow: 1, paddingBottom: 24 },
-  count: { paddingHorizontal: 16, paddingBottom: 8 },
+  clear: { paddingHorizontal: 12 },
+  count: { paddingBottom: 12 },
 });

@@ -271,6 +271,34 @@ describe('RESIDUE_EN (MAJOR)', () => {
     ).toEqual([]);
   });
 
+  it('does not take the abbreviation of Isaiah (Is.) for the English word "is"', () => {
+    // 1 hit in 11 tokens would be 9 %: MAJOR for every short paragraph with an Isaiah citation
+    const cited =
+      'Profetul a vorbit despre aceasta în Is. 53:5, unde descrie suferința slujitorului.';
+    expect(
+      found(
+        check((o) => setText(o, 'src-a3', cited)),
+        'RESIDUE_EN',
+      ),
+    ).toEqual([]);
+    const several = 'Vezi Is. 53:5; 40:3 și Is. 7:14, apoi Is. 9:6.';
+    expect(
+      found(
+        check((o) => setText(o, 'src-a3', several)),
+        'RESIDUE_EN',
+      ),
+    ).toEqual([]);
+  });
+
+  it('still counts the word "is" outside a reference', () => {
+    const text = `${romanian(30)} Is. 53:5 is the and`;
+    const result = check((o) => setText(o, 'src-a3', text));
+    expect(found(result, 'RESIDUE_EN')).toMatchObject([{ severity: 'MAJOR', sourceId: 'src-a3' }]);
+    expect(found(result, 'RESIDUE_EN')[0]?.message).toBe(
+      '3 English function word(s) left in 33 tokens: is x1, the x1, and x1',
+    );
+  });
+
   it('never counts words with Romanian diacritics or parts of longer words', () => {
     const text = 'Într-o parte ofițerul și îndrumătorul din „ceață” sunt aici, nu cu mulți.';
     expect(
@@ -447,6 +475,72 @@ describe('NUMBER_MISSING (MINOR)', () => {
   });
 });
 
+describe('no-break spaces and space-grouped numbers', () => {
+  const nbsp = '\xa0';
+  const narrow = String.fromCharCode(0x202f);
+
+  /** The check of one paragraph whose source and translation are given. */
+  function checkNumbersOf(source: string, target: string, fix = false): CheckResult {
+    const variant = {
+      ...job,
+      paragraphs: job.paragraphs.map((p) => (p.id === 'src-a3' ? { ...p, text: source } : p)),
+    };
+    const output = goodOutput(job);
+    setText(output, 'src-a3', target);
+    return checkOutput({ job: variant, output, file: 'f', glossary: [], calques: [], fix });
+  }
+  const SOURCE = 'About 1,500 men came to hear him speak at the lake in the morning of that day.';
+  const target = (number: string) =>
+    `Aproximativ ${number} de oameni au venit să îl asculte vorbind la lac în dimineața acelei zile.`;
+
+  it('keeps a lone no-break space and does not call it a WHITESPACE defect', () => {
+    for (const space of [nbsp, narrow]) {
+      const text = `Vezi Mat.${space}4:17 și 1${space}Cor. 15:23.`;
+      expect(normaliseText(text)).toMatchObject({ text, whitespace: false });
+      const result = check((o) => setText(o, 'src-a3', text), { fix: true });
+      expect(found(result, 'WHITESPACE')).toEqual([]);
+      expect(textOf(result.output, 'src-a3')).toBe(text);
+      expect(result.changed).toBe(false);
+    }
+  });
+
+  it('still collapses runs that contain a no-break space, and trims it at the ends', () => {
+    expect(normaliseText(`a${nbsp}${nbsp}b`)).toMatchObject({ text: 'a b', whitespace: true });
+    expect(normaliseText(`a ${nbsp}b`).text).toBe('a b');
+    expect(normaliseText(`${nbsp}a b${nbsp}`).text).toBe('a b');
+    expect(normaliseText('a\tb').text).toBe('a b');
+    expect(normaliseText('a\nb').text).toBe('a b');
+    expect(normaliseText(`a${String.fromCharCode(0x2009)}b`).text).toBe('a b');
+    expect(normaliseText('a  b').whitespace).toBe(true);
+  });
+
+  it('accepts thousands grouped with a no-break space, a plain space, a dot or a comma', () => {
+    for (const number of [`1${nbsp}500`, `1${narrow}500`, '1 500', '1.500', '1,500', '1500']) {
+      const result = checkNumbersOf(SOURCE, target(number));
+      expect(found(result, 'NUMBER_MISSING'), number).toEqual([]);
+      expect(found(result, 'WHITESPACE'), number).toEqual([]);
+    }
+  });
+
+  it('still flags a number that is really missing or different', () => {
+    for (const number of ['1 600', '1.600', '15 00', '2']) {
+      const result = checkNumbersOf(SOURCE, target(number));
+      expect(found(result, 'NUMBER_MISSING')[0]?.quoteSource, number).toBe('1500');
+    }
+  });
+
+  it('does not let a joined reading hide the numbers as written', () => {
+    const source = 'There were 5 men and 600 horses in the year 1903, a fact that is clear.';
+    const result = checkNumbersOf(
+      source,
+      'Au fost 5 600 de oameni și cai în anul 1903, e limpede.',
+    );
+    expect(found(result, 'NUMBER_MISSING')).toEqual([]);
+    const lost = checkNumbersOf(source, 'Au fost 5 oameni și cai în anul 1903, e limpede.');
+    expect(found(lost, 'NUMBER_MISSING')[0]?.message).toContain('600');
+  });
+});
+
 describe('GLOSSARY (MINOR)', () => {
   const fix = glossary('kingdom,\\bkingdom\\b,\\bîmpărăți,all,all,FIX,APROBAT,Împărăția');
 
@@ -503,13 +597,29 @@ describe('quotation marks (MINOR)', () => {
     expect(found(with_('El a spus „da”.'), 'QUOTES_ENGLISH')).toEqual([]);
   });
 
-  it('QUOTES_UNBALANCED: counts „ and ” and does not count “', () => {
+  it('QUOTES_UNBALANCED: counts „ against ” after discounting “', () => {
     expect(found(with_('El a spus „da.'), 'QUOTES_UNBALANCED')).toHaveLength(1);
     expect(found(with_('El a spus „da” și „nu”.'), 'QUOTES_UNBALANCED')).toEqual([]);
+    expect(found(with_('El a spus da”.'), 'QUOTES_UNBALANCED')).toHaveLength(1);
     const mixed = with_('El a spus „da“.');
     expect(found(mixed, 'QUOTES_UNBALANCED')).toHaveLength(1);
+    expect(found(mixed, 'QUOTES_UNBALANCED')[0]?.message).toBe(
+      '1 opening „ but 0 closing ” quotation marks (after discounting 1 “)',
+    );
     expect(found(mixed, 'QUOTES_ENGLISH')).toHaveLength(1);
     expect(found(check(), 'QUOTES_UNBALANCED')).toEqual([]);
+  });
+
+  it('reports a passage in English quotation marks once, as QUOTES_ENGLISH', () => {
+    // the closing ” of an English pair is discounted, so the pair is not also "unbalanced"
+    const english = with_('El a spus “da” și “nu”.');
+    expect(found(english, 'QUOTES_ENGLISH')).toHaveLength(1);
+    expect(found(english, 'QUOTES_UNBALANCED')).toEqual([]);
+    // an unclosed English opening is still only QUOTES_ENGLISH; Romanian and English pairs mix
+    expect(found(with_('El a spus “da.'), 'QUOTES_UNBALANCED')).toEqual([]);
+    expect(found(with_('El a spus „da” și “nu”.'), 'QUOTES_UNBALANCED')).toEqual([]);
+    // but a Romanian opening that nothing closes is reported even next to English pairs
+    expect(found(with_('El a spus „da și “nu”.'), 'QUOTES_UNBALANCED')).toHaveLength(1);
   });
 });
 

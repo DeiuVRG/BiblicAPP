@@ -35,17 +35,22 @@ Options:
   --work <dir>      work directory, content/works/<slug> (required)
   --lang <lang>     target language (required)
   --partial         emit only the sections whose paragraphs are all covered
+  --allow-shrink    with --partial, drop sections that the existing edition-<lang>.json already
+                    contains but that are not covered now (their ids are lost; without this
+                    option such a merge is refused)
   --allow-critic    merge although a CRITIC flag or a CRITIC check finding is open
   -h, --help        this text
 
-Exit codes: 0 merged, 1 refused (missing paragraphs, repeated or unknown sourceId, open CRITIC;
-review.md is still written for the last), 2 usage or schema errors.
+Exit codes: 0 merged, 1 refused (missing paragraphs, repeated or unknown sourceId, a --partial
+merge that would drop merged sections, open CRITIC; review.md is still written for the last),
+2 usage or schema errors.
 `;
 
 const OPTIONS = {
   work: { type: 'string' },
   lang: { type: 'string' },
   partial: { type: 'boolean', default: false },
+  'allow-shrink': { type: 'boolean', default: false },
   'allow-critic': { type: 'boolean', default: false },
   help: { type: 'boolean', short: 'h', default: false },
 } as const;
@@ -145,6 +150,7 @@ function translationMerge(args: string[]): number {
     critics: loadFolder(translationDir, 'critic', CriticReportSchema, 'critic report'),
     checks: loadFolder(translationDir, 'checks', CheckReportSchema, 'check report'),
     partial: values.partial,
+    allowShrink: values['allow-shrink'],
     allowCritic: values['allow-critic'],
   });
 

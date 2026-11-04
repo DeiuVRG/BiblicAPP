@@ -7,9 +7,18 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { UsageError } from '../lib/usage-error';
 import { defined } from '../lib/invariant';
-import { DEFAULT_CHUNK, buildJobs, jobIdFor, parseSectionList, splitIntoParts } from './jobs';
+import {
+  DEFAULT_CHUNK,
+  buildJobs,
+  expandSections,
+  jobIdFor,
+  parseSectionList,
+  parseSectionRanges,
+  splitIntoParts,
+  staleJobFiles,
+} from './jobs';
 import { JobIndexSchema, TranslationJobSchema } from './schemas';
-import { SLUG, makeSource } from './test-support';
+import { EN, SLUG, makeSource } from './test-support';
 
 const words = (n: number): number => n;
 const chunk = { targetWords: 900, maxWords: 1500, minLastWords: 300 };
@@ -67,15 +76,40 @@ describe('splitIntoParts', () => {
 
 describe('parseSectionList', () => {
   it('reads numbers and ranges', () => {
-    expect([...parseSectionList('1,2,5-7')].sort((a, b) => a - b)).toEqual([1, 2, 5, 6, 7]);
-    expect([...parseSectionList(' 3 ')]).toEqual([3]);
-    expect([...parseSectionList('4-4')]).toEqual([4]);
+    expect([...parseSectionList('1,2,5-7', 11)].sort((a, b) => a - b)).toEqual([1, 2, 5, 6, 7]);
+    expect([...parseSectionList(' 3 ', 11)]).toEqual([3]);
+    expect([...parseSectionList('4-4', 11)]).toEqual([4]);
+    expect(parseSectionRanges('1,2,5-7')).toEqual([
+      [1, 1],
+      [2, 2],
+      [5, 7],
+    ]);
   });
 
   it('rejects malformed lists as usage errors', () => {
     for (const bad of ['', '0', 'a', '5-2', '1,,2', '1-', '-3', '1;2']) {
-      expect(() => parseSectionList(bad), bad).toThrow(UsageError);
+      expect(() => parseSectionList(bad, 11), bad).toThrow(UsageError);
     }
+  });
+
+  it('names the chapters beyond the edition without expanding the ranges first', () => {
+    expect(() => parseSectionList('12', 11)).toThrow(
+      /--sections: no chapter 12 \(the edition has 11\)/,
+    );
+    expect(() => parseSectionList('9-14', 11)).toThrow(/no chapter 12-14 \(the edition has 11\)/);
+    expect(() => parseSectionList('3,12,14-15', 11)).toThrow(/no chapter 12, 14-15 /);
+    expect([...parseSectionList('9-11', 11)]).toEqual([9, 10, 11]);
+  });
+
+  it('rejects an enormous range at once, as a usage error', () => {
+    // expanding 1-300000000 first used to end in "RangeError: Set maximum size exceeded"
+    for (const huge of ['1-300000000', '1-5000000', '2,3-99999999999999999999']) {
+      expect(() => parseSectionList(huge, 11), huge).toThrow(UsageError);
+      expect(() => parseSectionList(huge, 11), huge).toThrow(
+        /no chapter .* \(the edition has 11\)/,
+      );
+    }
+    expect(() => expandSections([[1, 4_000_000_000]], 11)).toThrow(UsageError);
   });
 });
 
@@ -84,6 +118,50 @@ describe('jobIdFor', () => {
     expect(jobIdFor('vos-1903-kingdom', 'ro', 0, 0)).toBe('vos-1903-kingdom-ro-01-00');
     expect(jobIdFor('vos-1903-kingdom', 'ro', 10, 12)).toBe('vos-1903-kingdom-ro-11-12');
     expect(jobIdFor('w', 'ro', 99, 0)).toBe('w-ro-100-00');
+  });
+});
+
+describe('staleJobFiles', () => {
+  let dir: string;
+  beforeEach(() => {
+    dir = fs.mkdtempSync(path.join(os.tmpdir(), 'biblioteca-stale-'));
+  });
+  afterEach(() => {
+    fs.rmSync(dir, { recursive: true, force: true });
+  });
+  const touch = (...names: string[]) => {
+    for (const name of names) fs.writeFileSync(path.join(dir, name), '{}');
+  };
+
+  it('lists job files of the given sections that the run does not produce', () => {
+    touch(
+      'w-ro-01-00.json',
+      'w-ro-01-01.json',
+      'w-ro-01-02.json',
+      'w-ro-02-00.json',
+      'w-ro-02-01.json',
+      'w-ro-11-00.json',
+      'index.json',
+      'notes.json',
+      'w-en-01-03.json',
+      'other-ro-01-03.json',
+      'w-ro-01-03.json.bak',
+    );
+    const produced = new Set(['w-ro-01-00.json', 'w-ro-02-00.json']);
+    // chapters 1 and 2 are part of the run (ordinals 0 and 1); chapter 11 is not
+    expect(staleJobFiles(dir, 'w', 'ro', new Set([0, 1]), produced)).toEqual([
+      'w-ro-01-01.json',
+      'w-ro-01-02.json',
+      'w-ro-02-01.json',
+    ]);
+    expect(staleJobFiles(dir, 'w', 'ro', new Set([1]), produced)).toEqual(['w-ro-02-01.json']);
+    expect(staleJobFiles(dir, 'w', 'ro', new Set(), produced)).toEqual([]);
+  });
+
+  it('treats the slug literally and an absent directory as empty', () => {
+    touch('a.b-ro-01-01.json', 'aXb-ro-01-01.json');
+    expect(staleJobFiles(dir, 'a.b', 'ro', new Set([0]), new Set())).toEqual(['a.b-ro-01-01.json']);
+    expect(staleJobFiles(path.join(dir, 'nope'), 'w', 'ro', new Set([0]), new Set())).toEqual([]);
   });
 });
 
@@ -156,21 +234,50 @@ describe('buildJobs', () => {
     expect(ids).toEqual(source.paragraphs.map((p) => p.id));
   });
 
-  it('gives each job the context of its neighbours inside the section', () => {
+  it('gives each job the paragraphs next to it in the document as context', () => {
     const { jobs } = build(longSource());
     const [first, second] = jobs.filter((j) => j.section.id === 'sec-c');
-    expect(first?.context.previousParagraph).toBeNull();
+    // inside a chapter: the neighbouring parts
     expect(first?.context.nextParagraph).toBe(second?.paragraphs[0]?.text);
     expect(second?.context.previousParagraph).toBe(first?.paragraphs[2]?.text);
     expect(first?.context.previousSectionHeading).toBe('II. The Church');
-    const firstSection = jobs[0];
-    expect(firstSection?.context).toMatchObject({
-      previousParagraph: null,
-      nextParagraph: null,
-      previousSectionHeading: null,
-    });
+    const start = jobs[0];
+    expect(start?.context.previousParagraph).toBeNull();
+    expect(start?.context.previousSectionHeading).toBeNull();
     const last = jobs[jobs.length - 1];
     expect(last?.context.nextParagraph).toBeNull();
+  });
+
+  it('lets the context cross the boundary between two chapters', () => {
+    const { jobs } = build(longSource());
+    const [chapterA, chapterB] = jobs;
+    const firstOfC = jobs.find((j) => j.section.id === 'sec-c');
+    // the last paragraph of a chapter is the previous paragraph of the next chapter's first job
+    expect(chapterA?.context.nextParagraph).toBe(EN['src-b1']);
+    expect(chapterB?.context.previousParagraph).toBe(EN['src-a3']);
+    expect(chapterB?.context.nextParagraph).toBe(firstOfC?.paragraphs[0]?.text);
+    expect(firstOfC?.context.previousParagraph).toBe(EN['src-b2']);
+    expect(firstOfC?.context.previousSectionHeading).toBe('II. The Church');
+  });
+
+  it('gives a job the same context whichever sections are selected, and skips empty sections', () => {
+    const source = longSource();
+    const all = build(source).jobs;
+    const only = build(source, { sections: new Set([2]) }).jobs;
+    expect(only).toEqual(all.filter((j) => j.section.id === 'sec-b'));
+    expect(only[0]?.context.previousParagraph).toBe(EN['src-a3']);
+
+    const gap = makeSource();
+    gap.sections = [
+      { id: 'sec-a', ordinal: 0, kind: 'chapter', heading: 'A' },
+      { id: 'sec-gap', ordinal: 1, kind: 'section', heading: 'Part title only' },
+      { id: 'sec-b', ordinal: 2, kind: 'chapter', heading: 'B' },
+    ];
+    const jobsOfGap = build(gap).jobs;
+    expect(jobsOfGap.map((j) => j.section.id)).toEqual(['sec-a', 'sec-b']);
+    // the empty section yields no job and no neighbour, but it is the "previous section"
+    expect(jobsOfGap[1]?.context.previousParagraph).toBe(EN['src-a3']);
+    expect(jobsOfGap[1]?.context.previousSectionHeading).toBe('Part title only');
   });
 
   it('computes the references of every paragraph', () => {

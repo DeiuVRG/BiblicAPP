@@ -85,9 +85,24 @@ export interface Normalised {
   whitespace: boolean;
 }
 
+const NO_BREAK_SPACES: ReadonlySet<string> = new Set([
+  String.fromCharCode(0xa0),
+  String.fromCharCode(0x202f),
+]);
+
 /**
- * NFC, cedilla letters to comma-below letters, white space collapsed and trimmed. A text that is
- * only white space is left alone (it is an EMPTY_TEXT finding, and an empty text is not valid).
+ * White space as a paragraph wants it: none at either end, and every run of white space (and
+ * every line break or tab) one plain space. A single no-break space stays: `Mat. 4:17` or
+ * `1 500` kept together is deliberate typography, not a defect.
+ */
+export function tidyWhitespace(text: string): string {
+  return text.replace(/\s+/g, (run) => (NO_BREAK_SPACES.has(run) ? run : ' ')).trim();
+}
+
+/**
+ * NFC, cedilla letters to comma-below letters, white space tidied (see `tidyWhitespace`). A text
+ * that is only white space is left alone (it is an EMPTY_TEXT finding, and an empty text is not
+ * valid).
  */
 export function normaliseText(text: string): Normalised {
   const composed = text.normalize('NFC');
@@ -96,7 +111,7 @@ export function normaliseText(text: string): Normalised {
     cedilla += 1;
     return CEDILLA_TO_COMMA[letter] ?? letter;
   });
-  const collapsed = collapse(commaBelow);
+  const collapsed = tidyWhitespace(commaBelow);
   const whitespace = collapsed !== '' && collapsed !== commaBelow;
   return {
     text: whitespace ? collapsed : commaBelow,
@@ -202,7 +217,11 @@ function checkGreek(ctx: ParagraphContext): CheckFinding[] {
 }
 
 function checkResidue(ctx: ParagraphContext): CheckFinding[] {
-  const tokens = [...ctx.text.matchAll(/\p{L}+/gu)];
+  // The abbreviation of a book is not prose: the Romanian `Is.` (Isaiah) is not the English `is`.
+  const references = extractTargetReferences(ctx.text);
+  const tokens = [...ctx.text.matchAll(/\p{L}+/gu)].filter(
+    (token) => !references.some((ref) => token.index >= ref.start && token.index < ref.end),
+  );
   // Only whole ASCII words count, so Romanian words with diacritics never match.
   const hits = tokens.filter(
     (token) => /^[A-Za-z]+$/.test(token[0]) && ENGLISH_FUNCTION_WORDS.has(token[0].toLowerCase()),
@@ -348,6 +367,16 @@ function numbersIn(text: string): string[] {
   return text.replace(THOUSANDS_SEPARATOR, '').match(/\d+/g) ?? [];
 }
 
+// Romanian also groups thousands with a plain space (`1 500`), which is ambiguous in prose.
+const SPACE_GROUPING = /(?<=\d) (?=\d{3}(?!\d))/g;
+
+/** Numbers of a translation; a number grouped with plain spaces counts as written and joined. */
+function numbersInTranslation(text: string): Set<string> {
+  const found = new Set(numbersIn(text));
+  for (const joined of numbersIn(text.replace(SPACE_GROUPING, ''))) found.add(joined);
+  return found;
+}
+
 /** Numbers of the source outside scripture references. */
 function numbersOutsideReferences(source: string): string[] {
   let blanked = source;
@@ -359,7 +388,7 @@ function numbersOutsideReferences(source: string): string[] {
 }
 
 function checkNumbers(ctx: ParagraphContext): CheckFinding[] {
-  const present = new Set(numbersIn(ctx.text));
+  const present = numbersInTranslation(ctx.text);
   const missing = numbersOutsideReferences(ctx.source).filter((n) => !present.has(n));
   const first = missing[0];
   if (first === undefined) return [];
@@ -427,15 +456,19 @@ function checkQuotes(ctx: ParagraphContext): CheckFinding[] {
       ),
     );
   }
-  const opening = ctx.text.split('„').length - 1;
-  const closing = ctx.text.split('”').length - 1;
+  const count = (mark: string): number => ctx.text.split(mark).length - 1;
+  const opening = count('„');
+  const englishOpening = count('“');
+  // The ” that closes an English-quoted passage (“…”) is already QUOTES_ENGLISH's business.
+  const closing = Math.max(0, count('”') - englishOpening);
   if (opening !== closing) {
+    const discounted = englishOpening > 0 ? ` (after discounting ${englishOpening} “)` : '';
     findings.push(
       finding(
         ctx,
         'QUOTES_UNBALANCED',
         'MINOR',
-        `${opening} opening „ but ${closing} closing ” quotation marks`,
+        `${opening} opening „ but ${closing} closing ” quotation marks${discounted}`,
       ),
     );
   }

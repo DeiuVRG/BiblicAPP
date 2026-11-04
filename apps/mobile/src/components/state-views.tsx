@@ -7,8 +7,8 @@ export function LoadingView({ message }: { message: string }) {
   const { colors } = useTheme();
   return (
     <View style={styles.center} accessibilityRole="progressbar" accessibilityLabel={message}>
-      <ActivityIndicator color={colors.accent} />
-      <AppText muted>{message}</AppText>
+      <ActivityIndicator color={colors.textMuted} />
+      <AppText variant="caption">{message}</AppText>
     </View>
   );
 }
@@ -16,7 +16,7 @@ export function LoadingView({ message }: { message: string }) {
 export function MessageView({ message }: { message: string }) {
   return (
     <View style={styles.center}>
-      <AppText muted style={styles.message} accessibilityLiveRegion="polite">
+      <AppText variant="lead" style={styles.message} accessibilityLiveRegion="polite">
         {message}
       </AppText>
     </View>

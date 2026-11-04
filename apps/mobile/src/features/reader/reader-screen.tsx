@@ -1,12 +1,13 @@
 import type { Paragraph, Section } from '@biblioteca/shared';
 import { Stack, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/app-text';
-import { Button, MIN_TARGET } from '@/components/button';
+import { Button } from '@/components/button';
+import { Column } from '@/components/column';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
 import { TypographyControls } from '@/components/typography-controls';
@@ -19,6 +20,7 @@ import { loadPosition } from '@/reading/position-store';
 import { useStorage } from '@/storage/key-value-store';
 import { useSettings } from '@/settings/settings-context';
 import { useFontFamilies } from '@/theme/fonts';
+import { useColumnStyle } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
 
 import { READING_MAX_FONT_SCALE, ReaderParagraph } from './reader-paragraph';
@@ -127,6 +129,7 @@ function ChapterView({
 }: ChapterProps) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const column = useColumnStyle('reading');
   const { settings } = useSettings();
   const { colors } = useTheme();
   const fonts = useFontFamilies();
@@ -209,21 +212,11 @@ function ChapterView({
   const percent = toPercent(overall);
   const positionText = neighbours
     ? t.reader.position(neighbours.index + 1, neighbours.total, percent)
-    : `${percent}%`;
+    : t.reader.percent(percent);
 
   const header = section.heading ? (
     <View style={styles.chapterHeading}>
-      <AppText
-        accessibilityRole="header"
-        style={{
-          fontFamily: fonts.readingBold,
-          fontSize: Math.round(settings.fontSize * 1.4),
-          lineHeight: Math.round(settings.fontSize * 1.4 * 1.3),
-          color: colors.text,
-          textAlign: 'left',
-        }}
-        maxFontSizeMultiplier={READING_MAX_FONT_SCALE}
-      >
+      <AppText variant="chapter" maxFontSizeMultiplier={READING_MAX_FONT_SCALE}>
         {section.heading}
       </AppText>
     </View>
@@ -231,34 +224,17 @@ function ChapterView({
 
   return (
     <Screen>
-      <Stack.Screen
-        options={{
-          title: detail.work.titleRo,
-          headerRight: () => (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t.reader.typographyLabel}
-              accessibilityState={{ expanded: panelOpen }}
-              onPress={() => setPanelOpen((open) => !open)}
-              style={styles.typographyButton}
-            >
-              <AppText variant="label" style={{ color: colors.accent }}>
-                {t.reader.typographyButton}
-              </AppText>
-            </Pressable>
-          ),
-        }}
-      />
-      {panelOpen ? (
-        <View
-          style={[
-            styles.panel,
-            { backgroundColor: colors.surface, borderBottomColor: colors.border },
-          ]}
+      <Stack.Screen options={{ title: detail.work.titleRo }} />
+      <Column kind="reading" style={styles.runningHead}>
+        <AppText
+          variant="label"
+          accessibilityRole="progressbar"
+          accessibilityLabel={`${t.reader.progressLabel}: ${positionText}`}
+          accessibilityValue={{ min: 0, max: 100, now: percent }}
         >
-          <TypographyControls />
-        </View>
-      ) : null}
+          {positionText}
+        </AppText>
+      </Column>
       <FlatList
         ref={listRef}
         data={paragraphs}
@@ -282,48 +258,71 @@ function ChapterView({
         onScroll={onScroll}
         scrollEventThrottle={64}
         onScrollToIndexFailed={onScrollToIndexFailed}
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[column, styles.content]}
         style={styles.list}
       />
+      {panelOpen ? (
+        <View
+          style={[styles.sheet, { backgroundColor: colors.surface, borderTopColor: colors.border }]}
+        >
+          <Column kind="reading" style={styles.sheetContent}>
+            <AppText variant="label" accessibilityRole="header">
+              {t.reader.typography}
+            </AppText>
+            <TypographyControls />
+          </Column>
+        </View>
+      ) : null}
       <View
         style={[
           styles.bar,
-          {
-            backgroundColor: colors.background,
-            borderTopColor: colors.border,
-            paddingBottom: Math.max(insets.bottom, 8),
-          },
+          { backgroundColor: colors.background, paddingBottom: Math.max(insets.bottom, 8) },
         ]}
       >
+        {/* Decorative: the running head above the text carries the progress for assistive tech. */}
         <View
-          accessible
-          accessibilityRole="progressbar"
-          accessibilityLabel={`${t.reader.progressLabel}: ${positionText}`}
-          accessibilityValue={{ min: 0, max: 100, now: percent }}
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
           style={[styles.track, { backgroundColor: colors.border }]}
         >
-          <View style={[styles.fill, { backgroundColor: colors.accent, width: `${percent}%` }]} />
+          <View
+            style={[styles.fill, { backgroundColor: colors.textMuted, width: `${percent}%` }]}
+          />
         </View>
-        <View style={styles.navRow}>
+        <Column kind="reading" style={styles.navRow}>
           <Button
-            title={`‹ ${t.reader.previous}`}
+            variant="text"
+            title={`← ${t.reader.previous}`}
             label={t.reader.previousLabel}
             disabled={!neighbours?.previous}
             onPress={() => goTo(neighbours?.previous ?? null)}
+            style={styles.navStart}
           />
-          <AppText variant="caption" muted style={styles.position}>
-            {positionText}
-          </AppText>
+          <Button
+            variant="text"
+            title={t.reader.typographyButton}
+            label={t.reader.typographyLabel}
+            accessibilityState={{ expanded: panelOpen }}
+            onPress={() => setPanelOpen((open) => !open)}
+            textStyle={{ fontFamily: fonts.readingMedium, fontSize: 18 }}
+          />
           {neighbours?.next ? (
             <Button
-              title={`${t.reader.next} ›`}
+              variant="text"
+              title={`${t.reader.next} →`}
               label={t.reader.nextLabel}
               onPress={() => goTo(neighbours.next)}
+              style={styles.navEnd}
             />
           ) : (
-            <Button title={t.reader.toContents} onPress={() => router.replace(workHref(workId))} />
+            <Button
+              variant="text"
+              title={t.reader.toContents}
+              onPress={() => router.replace(workHref(workId))}
+              style={styles.navEnd}
+            />
           )}
-        </View>
+        </Column>
       </View>
     </Screen>
   );
@@ -331,25 +330,22 @@ function ChapterView({
 
 const styles = StyleSheet.create({
   list: { flex: 1 },
-  content: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 32,
-    maxWidth: 720,
-    width: '100%',
-    alignSelf: 'center',
-  },
-  chapterHeading: { marginBottom: 16, marginTop: 4 },
-  panel: { padding: 16, borderBottomWidth: StyleSheet.hairlineWidth },
-  typographyButton: {
-    minHeight: MIN_TARGET,
-    minWidth: MIN_TARGET,
+  content: { paddingTop: 12, paddingBottom: 48 },
+  runningHead: { alignItems: 'flex-end', paddingTop: 8, paddingBottom: 4 },
+  chapterHeading: { marginBottom: 24, marginTop: 8 },
+  sheet: { borderTopWidth: StyleSheet.hairlineWidth },
+  sheetContent: { paddingTop: 16, paddingBottom: 20, gap: 12 },
+  bar: { paddingTop: 0 },
+  track: { height: 2 },
+  fill: { height: 2 },
+  navRow: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 4,
   },
-  bar: { borderTopWidth: StyleSheet.hairlineWidth, paddingTop: 8, paddingHorizontal: 12, gap: 8 },
-  track: { height: 4, borderRadius: 2, overflow: 'hidden' },
-  fill: { height: 4 },
-  navRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
-  position: { flexShrink: 1, textAlign: 'center' },
+  // The text buttons carry 16 px of padding: pull the outer ones back so their text meets the
+  // edges of the reading column.
+  navStart: { marginLeft: -16 },
+  navEnd: { marginRight: -16 },
 });

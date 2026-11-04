@@ -22,7 +22,8 @@ do not decide exegesis.
 Options:
   --job <file>        the job the output answers (required)
   --fix               apply the safe auto-fixes (NFC, cedilla to comma-below, white space)
-                      and write the output file back
+                      and write the output file back as pretty JSON (also when nothing
+                      needed fixing, so that the file is always in the canonical format)
   --glossary <file>   glossary CSV (default: the one named by the job's materials)
   --calques <file>    calques JSON (default: the one named by the job's materials)
   --report <file>     check report (default: <job dir>/../checks/<jobId>.json); always written
@@ -32,7 +33,8 @@ Options:
 Glossary rows apply when their scope is "all" or the work slug and their tradition is "all",
 "undivided" or the tradition of the work (work.author.tradition of <work>/edition-<lang>.json,
 found next to translation-<lang>/; when it is not found only "all" and "undivided" rows apply).
-Patterns are regular expressions (flags iu) without commas; \b is Unicode-aware.
+Patterns are regular expressions (flags iu) without commas; \\b, \\B, \\w and \\W are
+Unicode-aware (a word character is a letter or digit of any script, so \\w matches ă and ț).
 
 Prints a summary and one line per finding: SEVERITY CHECK sourceId: message.
 Exit codes: 0 no CRITIC finding (with --strict also no MAJOR), 1 otherwise, 2 usage or
@@ -128,7 +130,7 @@ function translationCheck(args: string[]): number {
     tradition,
     fix: values.fix,
   });
-  if (values.fix && result.changed) writeJsonFile(outputPath, result.output);
+  if (values.fix) writeJsonFile(outputPath, result.output);
 
   const reportPath = values.report
     ? resolveUserPath(values.report)

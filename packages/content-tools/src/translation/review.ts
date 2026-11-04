@@ -54,10 +54,15 @@ function sectionOfJob(jobId: string): number | null {
   return match?.[1] === undefined ? null : Number.parseInt(match[1], 10) - 1;
 }
 
+/**
+ * Two quotes name the same passage when they are equal (NFC, trimmed). An empty quote names no
+ * passage: an omission has nothing to quote, so two empty quotes must not make a critic finding
+ * look like a flag of the final output about something else.
+ */
 function sameQuote(a: string | undefined, b: string | undefined): boolean {
-  return (
-    a !== undefined && b !== undefined && a.normalize('NFC').trim() === b.normalize('NFC').trim()
-  );
+  if (a === undefined || b === undefined) return false;
+  const left = a.normalize('NFC').trim();
+  return left !== '' && left === b.normalize('NFC').trim();
 }
 
 /**
@@ -202,12 +207,12 @@ export function renderReview(input: ReviewInput, rows: readonly ReviewRow[]): st
   const lines = [
     `# Fișă de revizie: ${input.title}`,
     '',
-    `- Lucrare: ${input.titleOrig} (${input.slug})`,
-    `- Limbi: ${input.sourceLanguage} -> ${input.targetLanguage}`,
-    `- Acoperire: ${input.coverage.paragraphs[0]}/${input.coverage.paragraphs[1]} paragrafe, ` +
-      `${input.coverage.sections[0]}/${input.coverage.sections[1]} secțiuni`,
-    `- Modele: ${modelsLine(input)}`,
-    `- Constatări: ${REVIEW_SEVERITIES.map((s) => `${s} ${counts[s]}`).join(', ')}`,
+    `- Work: ${input.titleOrig} (${input.slug})`,
+    `- Languages: ${input.sourceLanguage} -> ${input.targetLanguage}`,
+    `- Coverage: ${input.coverage.paragraphs[0]}/${input.coverage.paragraphs[1]} paragraphs, ` +
+      `${input.coverage.sections[0]}/${input.coverage.sections[1]} sections`,
+    `- Models: ${modelsLine(input)}`,
+    `- Findings: ${REVIEW_SEVERITIES.map((s) => `${s} ${counts[s]}`).join(', ')}`,
     '',
     '| Severitate | Secțiune | Paragraf (sourceId) | Sursă | Traducere | Problemă | Propunere | Origine |',
     '| --- | --- | --- | --- | --- | --- | --- | --- |',

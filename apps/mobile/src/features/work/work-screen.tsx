@@ -5,6 +5,8 @@ import type { Section } from '@biblioteca/shared';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
+import { useListContentStyle } from '@/components/column';
+import { Hairline } from '@/components/hairline';
 import { LinkRow } from '@/components/list-row';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
@@ -19,17 +21,25 @@ import {
   licenceLabel,
 } from '@/i18n/labels';
 import { readHref } from '@/navigation-hrefs';
+import { splitChapterHeading } from '@/reading/heading';
 import { sectionDepths } from '@/reading/navigation';
 import { loadPosition } from '@/reading/position-store';
 import type { ReadingPosition } from '@/reading/position-store';
 import { useStorage } from '@/storage/key-value-store';
+import { useLayout } from '@/theme/layout';
 
-function MetaLine({ label, value }: { label: string; value: string }) {
+/** One row of the two-column metadata block: a label and its value. */
+function MetaRow({ label, value }: { label: string; value: string }) {
   if (!value) return null;
   return (
-    <AppText variant="caption" muted>
-      {label}: {value}
-    </AppText>
+    <View style={styles.metaRow}>
+      <AppText variant="label" style={styles.metaLabel}>
+        {label}
+      </AppText>
+      <AppText variant="ui" style={styles.metaValue}>
+        {value}
+      </AppText>
+    </View>
   );
 }
 
@@ -42,6 +52,7 @@ function WorkHeader({
   sections: Section[];
   position: ReadingPosition | null;
 }) {
+  const { wide } = useLayout();
   const { work, edition } = detail;
   const lifespan = formatLifespan(work.author.born, work.author.died);
   const author = lifespan ? `${work.author.name} (${lifespan})` : work.author.name;
@@ -52,41 +63,49 @@ function WorkHeader({
 
   return (
     <View style={styles.header}>
-      <AppText variant="title">{work.titleRo}</AppText>
+      <AppText variant="display">{work.titleRo}</AppText>
       {work.titleOrig !== work.titleRo ? (
-        <AppText muted style={styles.italic}>
-          {work.titleOrig}
+        <AppText variant="original">{work.titleOrig}</AppText>
+      ) : null}
+      <AppText variant="caption" style={styles.author}>
+        {author}
+      </AppText>
+
+      <View style={styles.meta}>
+        <MetaRow label={t.work.edition} value={editionKindLabel(edition.kind)} />
+        <MetaRow label={t.work.language} value={languageName(edition.language)} />
+        <MetaRow
+          label={t.work.original}
+          value={[languageName(work.languageOrig), year].filter(Boolean).join(', ')}
+        />
+        <MetaRow label={t.work.licence} value={licenceLabel(edition.licence.status)} />
+      </View>
+      {edition.licence.note ? (
+        <AppText variant="caption" style={styles.licenceNote}>
+          {edition.licence.note}
         </AppText>
       ) : null}
-      <MetaLine label={t.work.author} value={author} />
-      <MetaLine
-        label={t.work.originalLanguage}
-        value={[languageName(work.languageOrig), year].filter(Boolean).join(', ')}
-      />
-      <MetaLine
-        label={t.work.edition}
-        value={`${editionKindLabel(edition.kind)}, ${languageName(edition.language)}`}
-      />
-      <MetaLine
-        label={t.work.licence}
-        value={[licenceLabel(edition.licence.status), edition.licence.note]
-          .filter(Boolean)
-          .join('. ')}
-      />
+
       {target ? (
         <Link href={readHref(work.id, target)} asChild>
-          <Button variant="primary" title={resume ? t.work.continueReading : t.work.startReading} />
+          <Button
+            variant="primary"
+            title={resume ? t.work.continueReading : t.work.startReading}
+            style={wide ? styles.ctaWide : styles.cta}
+          />
         </Link>
       ) : null}
       <AppText variant="heading" style={styles.contentsTitle}>
         {t.work.contents}
       </AppText>
+      <Hairline />
     </View>
   );
 }
 
 export function WorkScreen({ workId }: { workId: string }) {
   const store = useStorage();
+  const contentStyle = useListContentStyle('list');
   const data = useRepositoryQuery(
     async (repository) => {
       const [detail, sections] = await Promise.all([
@@ -131,36 +150,60 @@ export function WorkScreen({ workId }: { workId: string }) {
       </Screen>
     );
   const depths = sectionDepths(sections);
+  const numbered = sections.some((section) => splitChapterHeading(section.heading).numeral);
 
   return (
     <Screen>
-      <Stack.Screen options={{ title: detail.work.titleRo }} />
+      {/* The title page below carries the work's title; the header only says where we are. */}
+      <Stack.Screen options={{ title: detail.work.titleRo, headerTitle: t.work.title }} />
       <FlatList
         data={sections}
         keyExtractor={(section) => section.id}
         ListHeaderComponent={<WorkHeader detail={detail} sections={sections} position={position} />}
+        ListFooterComponent={sections.length > 0 ? <Hairline /> : undefined}
         ListEmptyComponent={<MessageView message={t.work.emptyContents} />}
-        renderItem={({ item }) => (
-          <LinkRow
-            href={readHref(workId, item.id)}
-            accessibilityLabel={t.work.openSection(item.heading)}
-            indent={depths.get(item.id) ?? 0}
-          >
-            <AppText>
-              {item.heading || '—'}
-              {position?.sectionId === item.id ? `  (${t.work.inProgress})` : ''}
-            </AppText>
-          </LinkRow>
-        )}
-        contentContainerStyle={styles.list}
+        ItemSeparatorComponent={Hairline}
+        renderItem={({ item }) => {
+          const { numeral, title } = splitChapterHeading(item.heading);
+          const current = position?.sectionId === item.id;
+          return (
+            <LinkRow
+              href={readHref(workId, item.id)}
+              accessibilityLabel={`${t.work.openSection(item.heading)}${current ? `, ${t.work.inProgress}` : ''}`}
+              indent={depths.get(item.id) ?? 0}
+              current={current}
+            >
+              <View style={styles.tocRow}>
+                {numbered ? (
+                  <View style={styles.numeral}>
+                    <AppText variant="label">{numeral}</AppText>
+                  </View>
+                ) : null}
+                <AppText variant="body" style={styles.tocTitle}>
+                  {title || '—'}
+                </AppText>
+              </View>
+            </LinkRow>
+          );
+        }}
+        contentContainerStyle={contentStyle}
       />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  list: { paddingBottom: 24 },
-  header: { padding: 16, gap: 6 },
-  italic: { fontStyle: 'italic' },
-  contentsTitle: { marginTop: 16 },
+  header: { paddingTop: 32, gap: 8 },
+  author: { marginTop: 4 },
+  meta: { marginTop: 20, gap: 8 },
+  metaRow: { flexDirection: 'row', alignItems: 'baseline', gap: 16 },
+  metaLabel: { width: 96 },
+  metaValue: { flex: 1 },
+  licenceNote: { marginTop: 4 },
+  cta: { alignSelf: 'stretch', marginTop: 24 },
+  ctaWide: { alignSelf: 'flex-start', width: 320, marginTop: 24 },
+  contentsTitle: { marginTop: 32, marginBottom: 8 },
+  tocRow: { flexDirection: 'row', alignItems: 'baseline', gap: 12 },
+  numeral: { width: 44 },
+  tocTitle: { flex: 1 },
 });

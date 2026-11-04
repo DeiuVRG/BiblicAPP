@@ -9,7 +9,7 @@ export const ro = {
   },
   library: {
     title: 'Biblioteca',
-    subtitle: 'Lucrările instalate pe acest dispozitiv',
+    subtitle: 'Cărți vechi, traduse cu grijă.',
     empty: 'Nu există lucrări instalate.',
     loading: 'Se încarcă biblioteca…',
     search: 'Căutare',
@@ -31,6 +31,8 @@ export const ro = {
     author: 'Autor',
     originalTitle: 'Titlu original',
     originalLanguage: 'Limba originală',
+    original: 'Original',
+    language: 'Limbă',
     edition: 'Ediție',
     licence: 'Licență',
     openSection: (heading: string) => `Deschide ${heading}`,
@@ -47,8 +49,10 @@ export const ro = {
     typographyButton: 'Aa',
     typographyLabel: 'Aspectul textului: mărime, spațiere, temă',
     progressLabel: 'Progresul lecturii',
+    // A no-break space keeps "9 %" together on one line.
+    percent: (percent: number) => `${percent}\u00a0%`,
     position: (index: number, total: number, percent: number) =>
-      `${index} din ${total} · ${percent}%`,
+      `${index} din ${total} · ${percent}\u00a0%`,
     endOfWork: 'Ai ajuns la sfârșitul lucrării.',
     toContents: 'La cuprins',
   },

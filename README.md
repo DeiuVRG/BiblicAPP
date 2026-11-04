@@ -2,11 +2,16 @@
 
 Aplicație de bibliotecă creștină (cărți vechi traduse în română + Biblie + asistent AI), livrată pentru iOS, Android și web dintr-un singur cod (Expo). Arhitectura: `docs/arhitectura-app-biblica.md`. Reguli de lucru: `CLAUDE.md`. Specificația M0: `docs/m0-spec.md`. Decizii: `docs/decizii.md`. Securitate: `docs/security.md`.
 
-## Capturi de ecran (exportul web, M0)
+## Capturi de ecran (exportul web)
 
-| Biblioteca                                | Cuprins                              | Cititor                              | Setări                             |
-| ----------------------------------------- | ------------------------------------ | ------------------------------------ | ---------------------------------- |
-| ![](docs/screenshots/01-biblioteca.png)   | ![](docs/screenshots/02-cuprins.png) | ![](docs/screenshots/03-cititor.png) | ![](docs/screenshots/04-setari.png) |
+Tema luminoasă și cea întunecată, una lângă alta, la mărime de telefon (390×844). Variantele de desktop (1280×800) sunt în `docs/screenshots/<ecran>-<temă>-desktop.png`; toate se regenerează cu `node scripts/screenshots-web.mjs` (după `pnpm --filter mobile export:web`).
+
+| Ecran                | Luminos                                                                                                  | Întunecat                                                                                                |
+| -------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Biblioteca           | <img src="docs/screenshots/library-light-phone.png" width="260" alt="Biblioteca, tema luminoasă">         | <img src="docs/screenshots/library-dark-phone.png" width="260" alt="Biblioteca, tema întunecată">         |
+| Lucrarea și cuprinsul | <img src="docs/screenshots/work-light-phone.png" width="260" alt="Pagina lucrării, tema luminoasă">      | <img src="docs/screenshots/work-dark-phone.png" width="260" alt="Pagina lucrării, tema întunecată">      |
+| Cititorul            | <img src="docs/screenshots/reader-light-phone.png" width="260" alt="Cititorul, tema luminoasă">          | <img src="docs/screenshots/reader-dark-phone.png" width="260" alt="Cititorul, tema întunecată">          |
+| Setări               | <img src="docs/screenshots/settings-light-phone.png" width="260" alt="Setările, tema luminoasă">         | <img src="docs/screenshots/settings-dark-phone.png" width="260" alt="Setările, tema întunecată">         |
 
 ## Structură
 
@@ -17,7 +22,7 @@ Aplicație de bibliotecă creștină (cărți vechi traduse în română + Bibli
 | `packages/content-tools` | CLI: `ingest-text`, `build-pack`, `verify-pack`, `keygen`                     |
 | `content/`               | surse și lucrări canonice (cheile private în `content/keys/`, ignorat de git) |
 | `supabase/`              | migrări și teste pgTAP (schiță, neaplicată în M0); vezi `supabase/README.md`  |
-| `scripts/`               | verificări de CI: env public, audit, smoke Playwright, pregătire Pages        |
+| `scripts/`               | verificări de CI: env public, audit, smoke și temă Playwright, pregătire Pages, capturi |
 | `.github/workflows`      | `ci.yml`, `web-pages.yml`, `android-apk.yml`, `supabase-tests.yml` (manual)   |
 
 ## Rulare pe fiecare platformă
@@ -84,9 +89,11 @@ node scripts/audit-gate.mjs         # pnpm audit --prod, nivel moderate (vezi do
 
 pnpm --filter mobile export:web
 node scripts/smoke-web.mjs          # Playwright: biblioteca listează o lucrare, cititorul arată paragrafe
+node scripts/check-web-theme.mjs    # Playwright: antet, fundal și text din aceeași paletă, luminos și întunecat
+node scripts/screenshots-web.mjs    # capturile din docs/screenshots (luminos/întunecat, telefon/desktop)
 ```
 
-Smoke-ul pornește `serve` pe un port liber, deschide exportul în Chromium și iese cu cod diferit de zero la orice eșec (la eșec salvează o captură în `test-results/`). Prima dată pe un calculator nou: `pnpm exec playwright install chromium`. Opțiuni: `--dist <dir>`, `--base-path /biblicapp`, `--port <n>`; `SMOKE_CHROMIUM_PATH` indică un alt executabil Chromium.
+Smoke-ul pornește `serve` pe un port liber, deschide exportul în Chromium și iese cu cod diferit de zero la orice eșec (la eșec salvează o captură în `test-results/`). Prima dată pe un calculator nou: `pnpm exec playwright install chromium`. Opțiuni: `--dist <dir>`, `--base-path /biblicapp`, `--port <n>`; `SMOKE_CHROMIUM_PATH` indică un alt executabil Chromium. `check-web-theme.mjs` și `screenshots-web.mjs` au aceleași opțiuni (`screenshots-web.mjs` mai primește `--out`, `--screens`, `--schemes`, `--sizes`) și folosesc propriul server static cu revenire la `index.html` pentru rute (exportul este o aplicație single-page).
 
 Simularea locală a ceea ce se publică pe GitHub Pages (bază = numele depozitului, aici `/biblicapp`; `404.html`, deep link):
 
@@ -109,7 +116,7 @@ node scripts/smoke-web.mjs --dist /tmp/pages-dist --base-path /biblicapp
 
 Workflow-ul `web-pages.yml` nu poate activa Pages cu `GITHUB_TOKEN`. În depozit: **Settings, Pages, Build and deployment, Source: GitHub Actions**. Alternativ, cu GitHub CLI: `gh api -X POST repos/<owner>/<depozit>/pages -f build_type=workflow`. După primul deploy reușit, site-ul este la `https://<owner>.github.io/<depozit>/`. Depozitele private cer un plan GitHub care permite Pages.
 
-Aplicația este exportată static (`output: static`); GitHub Pages nu are rescrieri, deci `404.html` (generat de `scripts/prepare-pages.mjs`) pornește aplicația pentru linkuri directe precum `/<depozit>/read/<id>/<secțiune>`. Pagina `.nojekyll` este adăugată și ea.
+Aplicația este exportată ca single-page (`web.output: 'single'`: un singur `index.html`, fără pre-randare, deci fără hidratare; vezi ADR-UI din `docs/decizii.md`). GitHub Pages nu are rescrieri, deci `404.html` (o copie a lui `index.html`, generată de `scripts/prepare-pages.mjs`) pornește aplicația pentru linkuri directe precum `/<depozit>/read/<id>/<secțiune>`. Pagina `.nojekyll` este adăugată și ea.
 
 ### APK de test
 

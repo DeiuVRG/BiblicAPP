@@ -1,44 +1,35 @@
 import { Link } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { AppText } from '@/components/app-text';
-import { MIN_TARGET } from '@/components/button';
+import { Button } from '@/components/button';
 import { t } from '@/i18n';
 import { searchHref, settingsHref } from '@/navigation-hrefs';
-import { useTheme } from '@/theme/theme-context';
 
-/** Search and Settings shortcuts for the library header. */
+/** Search and Settings shortcuts for the library header: text links, accent colour. */
 export function HeaderLinks() {
-  const { colors } = useTheme();
   return (
     <View style={styles.row}>
       <Link href={searchHref} asChild>
-        <Pressable
+        <Button
+          variant="text"
           accessibilityRole="link"
-          accessibilityLabel={t.library.search}
+          title={t.library.search}
           style={styles.link}
-        >
-          <AppText variant="label" style={{ color: colors.accent }}>
-            {t.library.search}
-          </AppText>
-        </Pressable>
+        />
       </Link>
       <Link href={settingsHref} asChild>
-        <Pressable
+        <Button
+          variant="text"
           accessibilityRole="link"
-          accessibilityLabel={t.library.settings}
+          title={t.library.settings}
           style={styles.link}
-        >
-          <AppText variant="label" style={{ color: colors.accent }}>
-            {t.library.settings}
-          </AppText>
-        </Pressable>
+        />
       </Link>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', paddingRight: 4 },
-  link: { minHeight: MIN_TARGET, paddingHorizontal: 10, justifyContent: 'center' },
+  row: { flexDirection: 'row', alignItems: 'center' },
+  link: { paddingHorizontal: 10 },
 });

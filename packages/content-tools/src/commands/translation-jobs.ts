@@ -9,7 +9,13 @@ import { resolveUserPath } from '../lib/paths';
 import { UsageError } from '../lib/usage-error';
 import { sha256Hex } from '../signing';
 import { parseJsonText, parseWith, readBytesFile, writeJsonFile } from '../translation/io';
-import { DEFAULT_CHUNK, buildJobs, parseSectionList } from '../translation/jobs';
+import {
+  DEFAULT_CHUNK,
+  buildJobs,
+  expandSections,
+  parseSectionRanges,
+  staleJobFiles,
+} from '../translation/jobs';
 
 const USAGE = `Usage: translation-jobs <edition-source.json> --lang <lang> [options]
 
@@ -31,7 +37,9 @@ Options:
                           that did not parse
   -h, --help              this text
 
-Prints one line per job: jobId, paragraphs, words. Existing job files are overwritten.
+Prints one line per job: jobId, paragraphs, words. Existing job files are overwritten; files of
+an earlier chunking of the same chapters that this run no longer produces are removed (jobs of
+chapters outside --sections are left alone).
 Exit codes: 0 done, 2 usage error.
 `;
 
@@ -86,7 +94,7 @@ function translationJobs(args: string[]): number {
       `--target-words (${chunk.targetWords}) must not exceed --max-words (${chunk.maxWords})`,
     );
   }
-  const wanted = values.sections === undefined ? undefined : parseSectionList(values.sections);
+  const ranges = values.sections === undefined ? undefined : parseSectionRanges(values.sections);
 
   const editionPath = resolveUserPath(editionArg);
   const bytes = readBytesFile(editionPath, 'source edition');
@@ -100,15 +108,7 @@ function translationJobs(args: string[]): number {
   if (edition.edition.language === lang) {
     throw new UsageError(`--lang ${lang} is the language of the source edition`);
   }
-  if (wanted) {
-    const available = edition.sections.length;
-    const beyond = [...wanted].filter((n) => n > available);
-    if (beyond.length > 0) {
-      throw new UsageError(
-        `--sections: no chapter ${beyond.join(', ')} (the edition has ${available})`,
-      );
-    }
-  }
+  const wanted = ranges ? expandSections(ranges, edition.sections.length) : undefined;
 
   const outDir = values.out
     ? resolveUserPath(values.out)
@@ -126,6 +126,19 @@ function translationJobs(args: string[]): number {
   fs.mkdirSync(jobsDir, { recursive: true });
   for (const job of built.jobs) writeJsonFile(path.join(jobsDir, `${job.jobId}.json`), job);
   writeJsonFile(path.join(jobsDir, 'index.json'), built.index);
+  const selected = new Set(
+    edition.sections
+      .filter((section) => !wanted || wanted.has(section.ordinal + 1))
+      .map((section) => section.ordinal),
+  );
+  const stale = staleJobFiles(
+    jobsDir,
+    edition.work.slug,
+    lang,
+    selected,
+    new Set(built.jobs.map((job) => `${job.jobId}.json`)),
+  );
+  for (const name of stale) fs.rmSync(path.join(jobsDir, name));
 
   const out = process.stdout;
   for (const job of built.jobs) {
@@ -139,6 +152,8 @@ function translationJobs(args: string[]): number {
       `reference runs ${built.referenceRuns}\n`,
   );
   out.write(`unparsed reference-like fragments: ${fragments}\n`);
+  for (const name of stale)
+    out.write(`removed stale job file ${name} (not produced by this run)\n`);
   for (const section of built.emptySections) {
     out.write(
       `WARNING: section ${section.ordinal + 1} "${section.heading}" has no paragraphs and produces no job\n`,
