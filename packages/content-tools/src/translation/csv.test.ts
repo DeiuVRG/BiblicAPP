@@ -32,6 +32,8 @@ describe('parseCsv', () => {
 
   it('rejects a missing header and a short line', () => {
     expect(() => parseCsv('# only comments\n', COLUMNS, 'g')).toThrow(/header row is missing/);
-    expect(() => parseCsv('a,b,c\n1,2', COLUMNS, 'g')).toThrow(/g line 2: expected 3 fields, found 2/);
+    expect(() => parseCsv('a,b,c\n1,2', COLUMNS, 'g')).toThrow(
+      /g line 2: expected 3 fields, found 2/,
+    );
   });
 });

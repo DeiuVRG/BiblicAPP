@@ -45,7 +45,9 @@ export const commands: Record<string, Command> = {
 
 export function usage(): string {
   const width = Math.max(...Object.keys(commands).map((name) => name.length));
-  const lines = Object.entries(commands).map(([name, c]) => `  ${name.padEnd(width)}  ${c.summary}`);
+  const lines = Object.entries(commands).map(
+    ([name, c]) => `  ${name.padEnd(width)}  ${c.summary}`,
+  );
   return `Usage: biblioteca-content <command> [options]\n\nCommands:\n${lines.join('\n')}\n`;
 }
 

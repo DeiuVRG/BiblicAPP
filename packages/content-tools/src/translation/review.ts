@@ -7,7 +7,13 @@ export interface LoadedFile<T> {
   data: T;
 }
 
-export const REVIEW_SEVERITIES = ['CRITIC', 'MAJOR', 'SURSA_POSIBIL_ERONATA', 'MINOR', 'INFO'] as const;
+export const REVIEW_SEVERITIES = [
+  'CRITIC',
+  'MAJOR',
+  'SURSA_POSIBIL_ERONATA',
+  'MINOR',
+  'INFO',
+] as const;
 export type ReviewSeverity = (typeof REVIEW_SEVERITIES)[number];
 export type ReviewOrigin = 'critic' | 'draft' | 'revised' | 'check';
 
@@ -49,7 +55,9 @@ function sectionOfJob(jobId: string): number | null {
 }
 
 function sameQuote(a: string | undefined, b: string | undefined): boolean {
-  return a !== undefined && b !== undefined && a.normalize('NFC').trim() === b.normalize('NFC').trim();
+  return (
+    a !== undefined && b !== undefined && a.normalize('NFC').trim() === b.normalize('NFC').trim()
+  );
 }
 
 /**
@@ -59,7 +67,9 @@ function sameQuote(a: string | undefined, b: string | undefined): boolean {
  */
 export function collectRows(input: ReviewInput): ReviewRow[] {
   const rows: ReviewRow[] = [];
-  const positionOf = (sourceId: string): { sectionOrdinal: number; paragraphOrdinal: number } | undefined =>
+  const positionOf = (
+    sourceId: string,
+  ): { sectionOrdinal: number; paragraphOrdinal: number } | undefined =>
     input.emittedParagraphs.get(sourceId);
 
   const flagQuotes = new Map<string, (string | undefined)[]>();
@@ -90,7 +100,9 @@ export function collectRows(input: ReviewInput): ReviewRow[] {
       const position = positionOf(found.sourceId);
       if (!position) continue;
       // The final output wins over a critic finding about the same passage.
-      if ((flagQuotes.get(found.sourceId) ?? []).some((quote) => sameQuote(quote, found.quoteTarget))) {
+      if (
+        (flagQuotes.get(found.sourceId) ?? []).some((quote) => sameQuote(quote, found.quoteTarget))
+      ) {
         continue;
       }
       rows.push({
@@ -114,7 +126,11 @@ export function collectRows(input: ReviewInput): ReviewRow[] {
       if (found.autofixed === true || found.check === 'FLAG_CRITIC') continue;
       const position = found.sourceId === undefined ? undefined : positionOf(found.sourceId);
       if (found.sourceId !== undefined && !position) continue;
-      if (found.sourceId === undefined && jobSection !== null && !input.emittedSections.has(jobSection)) {
+      if (
+        found.sourceId === undefined &&
+        jobSection !== null &&
+        !input.emittedSections.has(jobSection)
+      ) {
         continue;
       }
       rows.push({
@@ -197,7 +213,8 @@ export function renderReview(input: ReviewInput, rows: readonly ReviewRow[]): st
     '| --- | --- | --- | --- | --- | --- | --- | --- |',
   ];
   for (const row of rows) {
-    const section = row.sectionOrdinal === Number.MAX_SAFE_INTEGER ? '-' : String(row.sectionOrdinal + 1);
+    const section =
+      row.sectionOrdinal === Number.MAX_SAFE_INTEGER ? '-' : String(row.sectionOrdinal + 1);
     const paragraph =
       row.sourceId === undefined ? '-' : `${row.paragraphOrdinal + 1} (${row.sourceId})`;
     lines.push(

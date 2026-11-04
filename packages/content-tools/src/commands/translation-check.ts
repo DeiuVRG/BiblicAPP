@@ -29,6 +29,11 @@ Options:
   --strict            MAJOR findings fail as well
   -h, --help          this text
 
+Glossary rows apply when their scope is "all" or the work slug and their tradition is "all",
+"undivided" or the tradition of the work (work.author.tradition of <work>/edition-<lang>.json,
+found next to translation-<lang>/; when it is not found only "all" and "undivided" rows apply).
+Patterns are regular expressions (flags iu) without commas; \b is Unicode-aware.
+
 Prints a summary and one line per finding: SEVERITY CHECK sourceId: message.
 Exit codes: 0 no CRITIC finding (with --strict also no MAJOR), 1 otherwise, 2 usage or
 schema errors (the message names the path of the offending value).
@@ -50,7 +55,12 @@ const TraditionOnly = z.object({ work: z.object({ author: z.object({ tradition: 
 
 /** The tradition of the work, read from the source edition next to `translation-<lang>/`. */
 function readTradition(jobPath: string, job: TranslationJob): string | undefined {
-  const edition = path.join(path.dirname(jobPath), '..', '..', `edition-${job.sourceLanguage}.json`);
+  const edition = path.join(
+    path.dirname(jobPath),
+    '..',
+    '..',
+    `edition-${job.sourceLanguage}.json`,
+  );
   try {
     const parsed = TraditionOnly.safeParse(JSON.parse(fs.readFileSync(edition, 'utf8')) as unknown);
     return parsed.success ? parsed.data.work.author.tradition : undefined;
@@ -73,7 +83,9 @@ function materialPath(option: string | undefined, named: string): string {
 
 function requireFile(file: string, kind: 'glossary' | 'calques'): string {
   if (!fs.existsSync(file)) {
-    throw new UsageError(`${kind} not found: ${file} (named by the job; --${kind} <file> overrides it)`);
+    throw new UsageError(
+      `${kind} not found: ${file} (named by the job; --${kind} <file> overrides it)`,
+    );
   }
   return file;
 }
@@ -99,8 +111,12 @@ function translationCheck(args: string[]): number {
   if (output.jobId !== job.jobId) {
     throw new UsageError(`output ${outputPath} answers job "${output.jobId}", not "${job.jobId}"`);
   }
-  const glossary = loadGlossary(requireFile(materialPath(values.glossary, job.materials.glossary), 'glossary'));
-  const calques = loadCalques(requireFile(materialPath(values.calques, job.materials.calques), 'calques'));
+  const glossary = loadGlossary(
+    requireFile(materialPath(values.glossary, job.materials.glossary), 'glossary'),
+  );
+  const calques = loadCalques(
+    requireFile(materialPath(values.calques, job.materials.calques), 'calques'),
+  );
   const tradition = readTradition(jobPath, job);
 
   const result = checkOutput({
@@ -142,7 +158,9 @@ function printReport(
   );
   for (const found of report.findings) {
     const fixed = found.autofixed === true ? ' [autofixed]' : '';
-    out.write(`${found.severity} ${found.check} ${found.sourceId ?? '-'}: ${found.message}${fixed}\n`);
+    out.write(
+      `${found.severity} ${found.check} ${found.sourceId ?? '-'}: ${found.message}${fixed}\n`,
+    );
   }
   out.write(`report ${reportPath}\n`);
 }

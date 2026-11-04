@@ -40,12 +40,22 @@ describe('TranslationOutputSchema', () => {
         {
           sourceId: 'p1',
           text: 'Text',
-          flags: [{ code: 'CITAT_BIBLIC', severity: 'INFO', quoteSource: 'a', quoteTarget: 'b', note: 'n' }],
+          flags: [
+            {
+              code: 'CITAT_BIBLIC',
+              severity: 'INFO',
+              quoteSource: 'a',
+              quoteTarget: 'b',
+              note: 'n',
+            },
+          ],
           scripture: [{ ref: 'Mat. 4:17', mode: 'quote-author-rendering' }],
         },
       ],
     });
-    expect(parsed.paragraphs[0]?.scripture).toEqual([{ ref: 'Mat. 4:17', mode: 'quote-author-rendering' }]);
+    expect(parsed.paragraphs[0]?.scripture).toEqual([
+      { ref: 'Mat. 4:17', mode: 'quote-author-rendering' },
+    ]);
   });
 
   it('rejects unknown keys, naming their path', () => {
@@ -61,12 +71,17 @@ describe('TranslationOutputSchema', () => {
   it('rejects an empty text and a bad flag, naming the path', () => {
     const empty = TranslationOutputSchema.safeParse({
       ...valid,
-      paragraphs: [{ sourceId: 'p1', text: 'ok' }, { sourceId: 'p2', text: '' }],
+      paragraphs: [
+        { sourceId: 'p1', text: 'ok' },
+        { sourceId: 'p2', text: '' },
+      ],
     });
     expect(messageOf(empty)).toMatch(/^paragraphs\[1\]\.text: /);
     const flag = TranslationOutputSchema.safeParse({
       ...valid,
-      paragraphs: [{ sourceId: 'p1', text: 'x', flags: [{ code: 'NOPE', severity: 'CRITIC', note: '' }] }],
+      paragraphs: [
+        { sourceId: 'p1', text: 'x', flags: [{ code: 'NOPE', severity: 'CRITIC', note: '' }] },
+      ],
     });
     expect(messageOf(flag)).toMatch(/paragraphs\[0\]\.flags\[0\]\.code/);
     expect(TranslationOutputSchema.safeParse({ ...valid, pass: 'critic' }).success).toBe(false);
@@ -77,9 +92,14 @@ describe('the other schemas', () => {
   it('TranslationJobSchema accepts a job produced by buildJobs and rejects a bad id', () => {
     const job = jobOf(0);
     expect(TranslationJobSchema.safeParse(job).success).toBe(true);
-    expect(messageOf(TranslationJobSchema.safeParse({ ...job, jobId: 'Bad Id' }))).toMatch(/^jobId: /);
+    expect(messageOf(TranslationJobSchema.safeParse({ ...job, jobId: 'Bad Id' }))).toMatch(
+      /^jobId: /,
+    );
     expect(messageOf(TranslationJobSchema.safeParse({ ...job, extra: 1 }))).toContain('extra');
-    const noProfile = { ...job, materials: { ...job.materials, profile: 'content/translation/profiles/x.md' } };
+    const noProfile = {
+      ...job,
+      materials: { ...job.materials, profile: 'content/translation/profiles/x.md' },
+    };
     expect(TranslationJobSchema.safeParse(noProfile).success).toBe(true);
   });
 
@@ -105,16 +125,33 @@ describe('the other schemas', () => {
   it('CheckReportSchema and JobIndexSchema are strict', () => {
     const report = checkReport(jobOf(0), []);
     expect(CheckReportSchema.safeParse(report).success).toBe(true);
-    expect(CheckReportSchema.safeParse({ ...report, stats: { ...report.stats, extra: 1 } }).success).toBe(false);
-    expect(JobIndexSchema.safeParse({ workSlug: 'w', sourceEditionId: 'e', targetLanguage: 'ro', sourceSha256: 'x', jobs: [] }).success).toBe(false);
+    expect(
+      CheckReportSchema.safeParse({ ...report, stats: { ...report.stats, extra: 1 } }).success,
+    ).toBe(false);
+    expect(
+      JobIndexSchema.safeParse({
+        workSlug: 'w',
+        sourceEditionId: 'e',
+        targetLanguage: 'ro',
+        sourceSha256: 'x',
+        jobs: [],
+      }).success,
+    ).toBe(false);
   });
 
   it('TranslationEditionMetaSchema: id optional, kind translation, strict nested objects', () => {
     expect(TranslationEditionMetaSchema.safeParse(metaFor()).success).toBe(true);
     expect(TranslationEditionMetaSchema.safeParse(metaFor({ id: 'ed-1' })).success).toBe(true);
     const meta = metaFor();
-    expect(TranslationEditionMetaSchema.safeParse({ edition: { ...meta.edition, kind: 'source' } }).success).toBe(false);
-    expect(TranslationEditionMetaSchema.safeParse({ edition: { ...meta.edition, sourceEditionId: undefined } }).success).toBe(false);
+    expect(
+      TranslationEditionMetaSchema.safeParse({ edition: { ...meta.edition, kind: 'source' } })
+        .success,
+    ).toBe(false);
+    expect(
+      TranslationEditionMetaSchema.safeParse({
+        edition: { ...meta.edition, sourceEditionId: undefined },
+      }).success,
+    ).toBe(false);
     const typo = { edition: { ...meta.edition, licence: { ...meta.edition.licence, notes: 'x' } } };
     expect(messageOf(TranslationEditionMetaSchema.safeParse(typo))).toContain('edition.licence');
     expect(TranslationEditionMetaSchema.safeParse({ ...meta, work: {} }).success).toBe(false);

@@ -63,7 +63,13 @@ const ENGLISH_FUNCTION_WORDS: ReadonlySet<string> = new Set([
   'should', 'also', 'only', 'but', 'upon', 'through', 'between', 'because', 'however',
 ]);
 
-const CEDILLA_TO_COMMA: Record<string, string> = { ş: 'ș', ţ: 'ț', Ş: 'Ș', Ţ: 'Ț' };
+// Cedilla forms (U+015E, U+015F, U+0162, U+0163) to the comma-below forms Romanian uses.
+const CEDILLA_TO_COMMA: Record<string, string> = {
+  '\u015F': '\u0219',
+  '\u0163': '\u021B',
+  '\u015E': '\u0218',
+  '\u0162': '\u021A',
+};
 const GREEK_RUN = /\p{Script=Greek}[\p{Script=Greek}\p{M}]*/gu;
 
 // ---------------------------------------------------------------------------------------------
@@ -86,7 +92,7 @@ export interface Normalised {
 export function normaliseText(text: string): Normalised {
   const composed = text.normalize('NFC');
   let cedilla = 0;
-  const commaBelow = composed.replace(/[şţŞŢ]/g, (letter) => {
+  const commaBelow = composed.replace(/[\u015E\u015F\u0162\u0163]/g, (letter) => {
     cedilla += 1;
     return CEDILLA_TO_COMMA[letter] ?? letter;
   });
@@ -112,11 +118,17 @@ function fixableFindings(
     findings.push({ check, severity: 'MINOR', ...base, message: `${prefix}${message}`, autofixed });
   };
   if (normalised.cedilla > 0) {
-    add('CEDILLA', `${normalised.cedilla} cedilla letter(s) (ş ţ Ş Ţ) replaced by comma-below letters`);
+    add(
+      'CEDILLA',
+      `${normalised.cedilla} cedilla letter(s) (ş ţ Ş Ţ) replaced by comma-below letters`,
+    );
   }
   if (normalised.nfc) add('NFC', 'text was not in Unicode normalisation form NFC');
   if (normalised.whitespace) {
-    add('WHITESPACE', 'leading/trailing white space, repeated white space or line breaks collapsed');
+    add(
+      'WHITESPACE',
+      'leading/trailing white space, repeated white space or line breaks collapsed',
+    );
   }
   return findings;
 }
@@ -157,10 +169,16 @@ function checkSameAsSource(ctx: ParagraphContext): CheckFinding[] {
   const similarity = source === target ? 1 : dice(source.toLowerCase(), target.toLowerCase());
   if (similarity < SAME_AS_SOURCE_DICE) return [];
   return [
-    finding(ctx, 'SAME_AS_SOURCE', 'CRITIC', `translation is ${similarity.toFixed(2)} similar to the source (untranslated)`, {
-      quoteSource: head(source),
-      quoteTarget: head(target),
-    }),
+    finding(
+      ctx,
+      'SAME_AS_SOURCE',
+      'CRITIC',
+      `translation is ${similarity.toFixed(2)} similar to the source (untranslated)`,
+      {
+        quoteSource: head(source),
+        quoteTarget: head(target),
+      },
+    ),
   ];
 }
 
@@ -171,9 +189,15 @@ function checkGreek(ctx: ParagraphContext): CheckFinding[] {
   const first = missing[0];
   if (first === undefined) return [];
   return [
-    finding(ctx, 'GREEK_MISSING', 'CRITIC', `Greek of the source missing from the translation: ${joinList(missing)}`, {
-      quoteSource: first,
-    }),
+    finding(
+      ctx,
+      'GREEK_MISSING',
+      'CRITIC',
+      `Greek of the source missing from the translation: ${joinList(missing)}`,
+      {
+        quoteSource: first,
+      },
+    ),
   ];
 }
 
@@ -210,19 +234,33 @@ function checkReferences(ctx: ParagraphContext): CheckFinding[] {
   const { missing, extra } = compareReferences(sourceItems, canonicalItems(targetRuns));
   const findings: CheckFinding[] = [];
   if (missing.length > 0) {
-    const run = ctx.jobParagraph.references.find((r) => r.canonical.some((c) => missing.includes(c)));
+    const run = ctx.jobParagraph.references.find((r) =>
+      r.canonical.some((c) => missing.includes(c)),
+    );
     findings.push(
-      finding(ctx, 'REF_MISSING', 'MAJOR', `scripture references missing from the translation: ${joinList(missing)}`, {
-        quoteSource: run?.source,
-      }),
+      finding(
+        ctx,
+        'REF_MISSING',
+        'MAJOR',
+        `scripture references missing from the translation: ${joinList(missing)}`,
+        {
+          quoteSource: run?.source,
+        },
+      ),
     );
   }
   if (extra.length > 0) {
     const run = targetRuns.find((r) => r.canonical.some((c) => extra.includes(c)));
     findings.push(
-      finding(ctx, 'REF_EXTRA', 'MAJOR', `scripture references not in the source: ${joinList(extra)}`, {
-        quoteTarget: run?.text,
-      }),
+      finding(
+        ctx,
+        'REF_EXTRA',
+        'MAJOR',
+        `scripture references not in the source: ${joinList(extra)}`,
+        {
+          quoteTarget: run?.text,
+        },
+      ),
     );
   }
   return findings;
@@ -236,7 +274,12 @@ function checkLength(ctx: ParagraphContext): CheckFinding[] {
   if (severity === null) return [];
   const direction = ratio < 1 ? 'shorter' : 'longer';
   return [
-    finding(ctx, 'LENGTH_RATIO', severity, `translation is ${direction} than expected: ${ratio.toFixed(2)} of the source length in characters`),
+    finding(
+      ctx,
+      'LENGTH_RATIO',
+      severity,
+      `translation is ${direction} than expected: ${ratio.toFixed(2)} of the source length in characters`,
+    ),
   ];
 }
 
@@ -247,9 +290,15 @@ function calqueFindings(ctx: ParagraphContext, rules: readonly GlossaryRule[]): 
     if (!match) continue;
     const advice = calque.preferred ? `; prefer: ${calque.preferred}` : '';
     findings.push(
-      finding(ctx, 'CALQUE', calque.level === 'FORBID' ? 'MAJOR' : 'MINOR', `calque ${calque.id}: "${match[0]}"${advice}`, {
-        quoteTarget: match[0],
-      }),
+      finding(
+        ctx,
+        'CALQUE',
+        calque.level === 'FORBID' ? 'MAJOR' : 'MINOR',
+        `calque ${calque.id}: "${match[0]}"${advice}`,
+        {
+          quoteTarget: match[0],
+        },
+      ),
     );
   }
   for (const rule of rules) {
@@ -257,10 +306,16 @@ function calqueFindings(ctx: ParagraphContext, rules: readonly GlossaryRule[]): 
     const match = rule.target.exec(ctx.text);
     if (!match || (rule.source && !rule.source.test(ctx.source))) continue;
     findings.push(
-      finding(ctx, 'CALQUE', rule.force === 'FORBID' ? 'MAJOR' : 'MINOR', `glossary ${rule.termId} (${rule.force}): "${match[0]}"${rule.note ? `; ${rule.note}` : ''}`, {
-        quoteSource: rule.source?.exec(ctx.source)?.[0],
-        quoteTarget: match[0],
-      }),
+      finding(
+        ctx,
+        'CALQUE',
+        rule.force === 'FORBID' ? 'MAJOR' : 'MINOR',
+        `glossary ${rule.termId} (${rule.force}): "${match[0]}"${rule.note ? `; ${rule.note}` : ''}`,
+        {
+          quoteSource: rule.source?.exec(ctx.source)?.[0],
+          quoteTarget: match[0],
+        },
+      ),
     );
   }
   return findings;
@@ -271,9 +326,15 @@ function checkRefFormat(ctx: ParagraphContext): CheckFinding[] {
   const first = fragments[0];
   if (first === undefined) return [];
   return [
-    finding(ctx, 'REF_FORMAT', 'MINOR', `reference not in Romanian notation: ${joinList(fragments)}`, {
-      quoteTarget: first,
-    }),
+    finding(
+      ctx,
+      'REF_FORMAT',
+      'MINOR',
+      `reference not in Romanian notation: ${joinList(fragments)}`,
+      {
+        quoteTarget: first,
+      },
+    ),
   ];
 }
 
@@ -291,7 +352,8 @@ function numbersIn(text: string): string[] {
 function numbersOutsideReferences(source: string): string[] {
   let blanked = source;
   for (const run of parseSourceReferences(source).reverse()) {
-    blanked = blanked.slice(0, run.start) + ' '.repeat(run.end - run.start) + blanked.slice(run.end);
+    blanked =
+      blanked.slice(0, run.start) + ' '.repeat(run.end - run.start) + blanked.slice(run.end);
   }
   return [...new Set(numbersIn(blanked))];
 }
@@ -302,9 +364,15 @@ function checkNumbers(ctx: ParagraphContext): CheckFinding[] {
   const first = missing[0];
   if (first === undefined) return [];
   return [
-    finding(ctx, 'NUMBER_MISSING', 'MINOR', `number(s) of the source missing from the translation: ${joinList(missing)}`, {
-      quoteSource: first,
-    }),
+    finding(
+      ctx,
+      'NUMBER_MISSING',
+      'MINOR',
+      `number(s) of the source missing from the translation: ${joinList(missing)}`,
+      {
+        quoteSource: first,
+      },
+    ),
   ];
 }
 
@@ -315,9 +383,15 @@ function checkGlossary(ctx: ParagraphContext, rules: readonly GlossaryRule[]): C
     const match = rule.source.exec(ctx.source);
     if (!match || rule.target.test(ctx.text)) continue;
     findings.push(
-      finding(ctx, 'GLOSSARY', 'MINOR', `glossary ${rule.termId}: expected a rendering matching /${rule.target.source}/${rule.note ? `; ${rule.note}` : ''}`, {
-        quoteSource: match[0],
-      }),
+      finding(
+        ctx,
+        'GLOSSARY',
+        'MINOR',
+        `glossary ${rule.termId}: expected a rendering matching /${rule.targetPattern}/${rule.note ? `; ${rule.note}` : ''}`,
+        {
+          quoteSource: match[0],
+        },
+      ),
     );
   }
   return findings;
@@ -328,24 +402,41 @@ function checkQuotes(ctx: ParagraphContext): CheckFinding[] {
   const straight = ctx.text.indexOf('"');
   if (straight >= 0) {
     findings.push(
-      finding(ctx, 'QUOTES_STRAIGHT', 'MINOR', 'straight quotation mark " in the translation (Romanian: „ and ”)', {
-        quoteTarget: excerpt(ctx.text, straight),
-      }),
+      finding(
+        ctx,
+        'QUOTES_STRAIGHT',
+        'MINOR',
+        'straight quotation mark " in the translation (Romanian: „ and ”)',
+        {
+          quoteTarget: excerpt(ctx.text, straight),
+        },
+      ),
     );
   }
   const english = ctx.text.indexOf('“');
   if (english >= 0) {
     findings.push(
-      finding(ctx, 'QUOTES_ENGLISH', 'MINOR', 'English opening quotation mark “ (Romanian opens with „)', {
-        quoteTarget: excerpt(ctx.text, english),
-      }),
+      finding(
+        ctx,
+        'QUOTES_ENGLISH',
+        'MINOR',
+        'English opening quotation mark “ (Romanian opens with „)',
+        {
+          quoteTarget: excerpt(ctx.text, english),
+        },
+      ),
     );
   }
   const opening = ctx.text.split('„').length - 1;
   const closing = ctx.text.split('”').length - 1;
   if (opening !== closing) {
     findings.push(
-      finding(ctx, 'QUOTES_UNBALANCED', 'MINOR', `${opening} opening „ but ${closing} closing ” quotation marks`),
+      finding(
+        ctx,
+        'QUOTES_UNBALANCED',
+        'MINOR',
+        `${opening} opening „ but ${closing} closing ” quotation marks`,
+      ),
     );
   }
   return findings;
@@ -360,10 +451,16 @@ function checkProposed(ctx: ParagraphContext, rules: readonly GlossaryRule[]): C
     // A row with a source pattern is matched by the source; a row without one by the target.
     if (rule.source ? !sourceMatch : !targetMatch) continue;
     findings.push(
-      finding(ctx, 'FLAG_PROPOSED', 'INFO', `proposed (not approved) glossary row ${rule.termId} (${rule.force}) matched${rule.note ? `: ${rule.note}` : ''}`, {
-        quoteSource: sourceMatch?.[0],
-        quoteTarget: targetMatch?.[0],
-      }),
+      finding(
+        ctx,
+        'FLAG_PROPOSED',
+        'INFO',
+        `proposed (not approved) glossary row ${rule.termId} (${rule.force}) matched${rule.note ? `: ${rule.note}` : ''}`,
+        {
+          quoteSource: sourceMatch?.[0],
+          quoteTarget: targetMatch?.[0],
+        },
+      ),
     );
   }
   return findings;
@@ -480,7 +577,9 @@ export function checkOutput(input: CheckInput): CheckResult {
     const ctx = { sourceId: paragraph.sourceId };
 
     if (normalised.text.trim() === '') {
-      findings.push(finding(ctx, 'EMPTY_TEXT', 'CRITIC', 'the translation is empty or only white space'));
+      findings.push(
+        finding(ctx, 'EMPTY_TEXT', 'CRITIC', 'the translation is empty or only white space'),
+      );
     } else if (jobParagraph && first) {
       sourceChars += jobParagraph.text.length;
       targetChars += normalised.text.length;

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { defined } from '../lib/invariant';
 import { checkOutput, normaliseText, parseGlossary } from './checks';
 import type { CheckInput, CheckResult } from './checks';
 import { parseCalques } from './glossary';
@@ -88,7 +89,9 @@ describe('parity (CRITIC)', () => {
     const result = check((o) => {
       o.paragraphs.push({ sourceId: 'src-zzz', text: 'Un paragraf în plus.', flags: [] });
     });
-    expect(found(result, 'PARITY_EXTRA')).toMatchObject([{ severity: 'CRITIC', sourceId: 'src-zzz' }]);
+    expect(found(result, 'PARITY_EXTRA')).toMatchObject([
+      { severity: 'CRITIC', sourceId: 'src-zzz' },
+    ]);
     expect(found(check(), 'PARITY_EXTRA')).toEqual([]);
   });
 
@@ -130,9 +133,22 @@ describe('SAME_AS_SOURCE (CRITIC)', () => {
 
   it('accepts a real translation and a source without letters', () => {
     expect(found(check(), 'SAME_AS_SOURCE')).toEqual([]);
-    const ornament = { ...job, paragraphs: [{ ...job.paragraphs[0]!, text: '* * *', references: [] }] };
-    const output = { ...goodOutput(job), paragraphs: [{ sourceId: 'src-a1', text: '* * *', flags: [] }] };
-    const result = checkOutput({ job: ornament, output, file: 'f', glossary: [], calques: [], fix: false });
+    const ornament = {
+      ...job,
+      paragraphs: [{ ...defined(job.paragraphs[0], 'paragraph 0'), text: '* * *', references: [] }],
+    };
+    const output = {
+      ...goodOutput(job),
+      paragraphs: [{ sourceId: 'src-a1', text: '* * *', flags: [] }],
+    };
+    const result = checkOutput({
+      job: ornament,
+      output,
+      file: 'f',
+      glossary: [],
+      calques: [],
+      fix: false,
+    });
     expect(found(result, 'SAME_AS_SOURCE')).toEqual([]);
   });
 });
@@ -150,7 +166,12 @@ describe('GREEK_MISSING (CRITIC)', () => {
   it('compares in NFC, so a decomposed target still contains the word', () => {
     const decomposed = (RO['src-a2'] ?? '').replace('μετανοέω', 'μετανοέω'.normalize('NFD'));
     expect(decomposed).not.toBe(RO['src-a2']);
-    expect(found(check((o) => setText(o, 'src-a2', decomposed)), 'GREEK_MISSING')).toEqual([]);
+    expect(
+      found(
+        check((o) => setText(o, 'src-a2', decomposed)),
+        'GREEK_MISSING',
+      ),
+    ).toEqual([]);
     expect(found(check(), 'GREEK_MISSING')).toEqual([]);
   });
 });
@@ -170,7 +191,12 @@ describe('FLAG_CRITIC (CRITIC)', () => {
       if (first) first.flags = [flag('CRITIC')];
     });
     expect(found(result, 'FLAG_CRITIC')).toMatchObject([
-      { severity: 'CRITIC', sourceId: 'src-a1', quoteSource: 'the kingdom', quoteTarget: 'Împărăția' },
+      {
+        severity: 'CRITIC',
+        sourceId: 'src-a1',
+        quoteSource: 'the kingdom',
+        quoteTarget: 'Împărăția',
+      },
     ]);
     expect(found(result, 'FLAG_CRITIC')[0]?.message).toContain('AMBIGUITATE');
   });
@@ -192,7 +218,12 @@ describe('HEADING_MISSING (MAJOR)', () => {
     expect(found(missing, 'HEADING_MISSING')).toMatchObject([{ severity: 'MAJOR' }]);
     expect(missing.report.ok).toBe(true);
     expect(missing.report.strictOk).toBe(false);
-    expect(found(check((o) => (o.headingRo = '   ')), 'HEADING_MISSING')).toHaveLength(1);
+    expect(
+      found(
+        check((o) => (o.headingRo = '   ')),
+        'HEADING_MISSING',
+      ),
+    ).toHaveLength(1);
     expect(found(check(), 'HEADING_MISSING')).toEqual([]);
   });
 
@@ -200,7 +231,14 @@ describe('HEADING_MISSING (MAJOR)', () => {
     const later = { ...job, part: 1, parts: 2 };
     const output = goodOutput(later);
     delete output.headingRo;
-    const result = checkOutput({ job: later, output, file: 'f', glossary: [], calques: [], fix: false });
+    const result = checkOutput({
+      job: later,
+      output,
+      file: 'f',
+      glossary: [],
+      calques: [],
+      fix: false,
+    });
     expect(found(result, 'HEADING_MISSING')).toEqual([]);
   });
 });
@@ -209,7 +247,8 @@ describe('RESIDUE_EN (MAJOR)', () => {
   const romanian = (n: number) => Array.from({ length: n }, () => 'cuvânt').join(' ');
 
   it('flags 4 or more English function words', () => {
-    const text = 'La început the kingdom and the church of God au venit, iar pocăința este limpede.';
+    const text =
+      'La început the kingdom and the church of God au venit, iar pocăința este limpede.';
     const result = check((o) => setText(o, 'src-a3', text));
     expect(found(result, 'RESIDUE_EN')).toMatchObject([{ severity: 'MAJOR', sourceId: 'src-a3' }]);
     expect(found(result, 'RESIDUE_EN')[0]?.message).toContain('the x2');
@@ -218,20 +257,37 @@ describe('RESIDUE_EN (MAJOR)', () => {
   it('flags a share of 3 % even with fewer than 4 hits', () => {
     const three = `${romanian(97)} the and of`; // 3 of 100 tokens
     const two = `${romanian(98)} the and`; // 2 of 100 tokens
-    expect(found(check((o) => setText(o, 'src-a3', three)), 'RESIDUE_EN')).toHaveLength(1);
-    expect(found(check((o) => setText(o, 'src-a3', two)), 'RESIDUE_EN')).toEqual([]);
+    expect(
+      found(
+        check((o) => setText(o, 'src-a3', three)),
+        'RESIDUE_EN',
+      ),
+    ).toHaveLength(1);
+    expect(
+      found(
+        check((o) => setText(o, 'src-a3', two)),
+        'RESIDUE_EN',
+      ),
+    ).toEqual([]);
   });
 
   it('never counts words with Romanian diacritics or parts of longer words', () => {
     const text = 'Într-o parte ofițerul și îndrumătorul din „ceață” sunt aici, nu cu mulți.';
-    expect(found(check((o) => setText(o, 'src-a3', text)), 'RESIDUE_EN')).toEqual([]);
+    expect(
+      found(
+        check((o) => setText(o, 'src-a3', text)),
+        'RESIDUE_EN',
+      ),
+    ).toEqual([]);
     expect(found(check(), 'RESIDUE_EN')).toEqual([]);
   });
 });
 
 describe('scripture references (MAJOR)', () => {
   it('REF_MISSING: a reference of the source is not in the target', () => {
-    const result = check((o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('; Mc. 1:15', '')));
+    const result = check((o) =>
+      setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('; Mc. 1:15', '')),
+    );
     expect(found(result, 'REF_MISSING')).toMatchObject([
       { severity: 'MAJOR', sourceId: 'src-a1', quoteSource: 'Matt. iv. 17; Mk. i. 15' },
     ]);
@@ -248,18 +304,34 @@ describe('scripture references (MAJOR)', () => {
 
   it('accepts the same references in another order, and repeated ones as a multiset', () => {
     const swapped = (RO['src-a1'] ?? '').replace('Mat. 4:17; Mc. 1:15', 'Mc. 1:15; Mat. 4:17');
-    expect(found(check((o) => setText(o, 'src-a1', swapped)), 'REF_MISSING')).toEqual([]);
+    expect(
+      found(
+        check((o) => setText(o, 'src-a1', swapped)),
+        'REF_MISSING',
+      ),
+    ).toEqual([]);
     const twice = `${RO['src-a1'] ?? ''} Mc. 1:15.`;
-    expect(found(check((o) => setText(o, 'src-a1', twice)), 'REF_EXTRA')).toHaveLength(1);
+    expect(
+      found(
+        check((o) => setText(o, 'src-a1', twice)),
+        'REF_EXTRA',
+      ),
+    ).toHaveLength(1);
   });
 });
 
 describe('LENGTH_RATIO', () => {
   const sourceLength = (EN['src-a3'] ?? '').length;
   const filled = (ratio: number) =>
-    'cuvânt '.repeat(Math.ceil((sourceLength * ratio) / 7) + 1).slice(0, Math.round(sourceLength * ratio)).trim() + '.';
+    'cuvânt '
+      .repeat(Math.ceil((sourceLength * ratio) / 7) + 1)
+      .slice(0, Math.round(sourceLength * ratio))
+      .trim() + '.';
   const severityAt = (ratio: number) =>
-    found(check((o) => setText(o, 'src-a3', filled(ratio))), 'LENGTH_RATIO').map((f) => f.severity);
+    found(
+      check((o) => setText(o, 'src-a3', filled(ratio))),
+      'LENGTH_RATIO',
+    ).map((f) => f.severity);
 
   it('is MAJOR below 0.75 and above 1.6', () => {
     expect(severityAt(0.6)).toEqual(['MAJOR']);
@@ -302,7 +374,10 @@ describe('CALQUE and glossary FORBID/WARN', () => {
       'minte,,\\bminții\\b,all,all,WARN,APROBAT,',
       'altceva,\\bchurch\\b,\\bîmpărăți,all,all,FORBID,APROBAT,',
     );
-    const withRegat = check((o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul')), { glossary: rules });
+    const withRegat = check(
+      (o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul')),
+      { glossary: rules },
+    );
     expect(found(withRegat, 'CALQUE').map((f) => [f.severity, f.sourceId, f.quoteTarget])).toEqual([
       ['MAJOR', 'src-a1', 'Regat'],
       ['MAJOR', 'src-a2', 'pocăință'],
@@ -316,7 +391,11 @@ describe('CALQUE and glossary FORBID/WARN', () => {
 describe('REF_FORMAT (MINOR)', () => {
   it('flags English abbreviations and roman numerals in the target', () => {
     const result = check((o) =>
-      setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Mat. 4:17; Mc. 1:15', 'Matt. iv. 17; Mk. i. 15')),
+      setText(
+        o,
+        'src-a1',
+        (RO['src-a1'] ?? '').replace('Mat. 4:17; Mc. 1:15', 'Matt. iv. 17; Mk. i. 15'),
+      ),
     );
     expect(found(result, 'REF_FORMAT')).toMatchObject([
       { severity: 'MINOR', sourceId: 'src-a1', quoteTarget: 'Matt. iv. 17; Mk. i. 15' },
@@ -328,7 +407,12 @@ describe('REF_FORMAT (MINOR)', () => {
 
   it('flags vs. and English abbreviations with Arabic numerals', () => {
     const text = `${RO['src-a3'] ?? ''} Cf. Jno. 3:16, vs. 5.`;
-    expect(found(check((o) => setText(o, 'src-a3', text)), 'REF_FORMAT')[0]?.message).toContain('Jno. 3:16');
+    expect(
+      found(
+        check((o) => setText(o, 'src-a3', text)),
+        'REF_FORMAT',
+      )[0]?.message,
+    ).toContain('Jno. 3:16');
   });
 });
 
@@ -345,10 +429,20 @@ describe('NUMBER_MISSING (MINOR)', () => {
     // src-a1 and src-a2 have digits only inside references that the target writes differently
     expect(found(check(), 'NUMBER_MISSING')).toEqual([]);
     // thousands separators differ between English (1,903) and Romanian (1.903)
-    const english = { ...job, paragraphs: job.paragraphs.map((p) => ({ ...p, text: p.text.replace('1903', '1,903') })) };
+    const english = {
+      ...job,
+      paragraphs: job.paragraphs.map((p) => ({ ...p, text: p.text.replace('1903', '1,903') })),
+    };
     const output = goodOutput(job);
     setText(output, 'src-a3', (RO['src-a3'] ?? '').replace('1903', '1.903'));
-    const result = checkOutput({ job: english, output, file: 'f', glossary: [], calques: [], fix: false });
+    const result = checkOutput({
+      job: english,
+      output,
+      file: 'f',
+      glossary: [],
+      calques: [],
+      fix: false,
+    });
     expect(found(result, 'NUMBER_MISSING')).toEqual([]);
   });
 });
@@ -357,7 +451,10 @@ describe('GLOSSARY (MINOR)', () => {
   const fix = glossary('kingdom,\\bkingdom\\b,\\bîmpărăți,all,all,FIX,APROBAT,Împărăția');
 
   it('flags a FIX row whose rendering is absent', () => {
-    const result = check((o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul')), { glossary: fix });
+    const result = check(
+      (o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul')),
+      { glossary: fix },
+    );
     expect(found(result, 'GLOSSARY')).toMatchObject([
       { severity: 'MINOR', sourceId: 'src-a1', quoteSource: 'kingdom' },
     ]);
@@ -365,13 +462,16 @@ describe('GLOSSARY (MINOR)', () => {
   });
 
   it('honours scope and tradition', () => {
-    const bad = (o: TranslationOutput) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul'));
+    const bad = (o: TranslationOutput) =>
+      setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul'));
     const rows = [
       glossary('k,\\bkingdom\\b,\\bîmpărăți,orthodox,all,FIX,APROBAT,')[0],
       glossary('k,\\bkingdom\\b,\\bîmpărăți,all,other-work,FIX,APROBAT,')[0],
     ].flatMap((r) => (r ? [r] : []));
     expect(found(check(bad, { glossary: rows, tradition: 'protestant' }), 'GLOSSARY')).toEqual([]);
-    expect(found(check(bad, { glossary: rows, tradition: 'orthodox' }), 'GLOSSARY')).toHaveLength(1);
+    expect(found(check(bad, { glossary: rows, tradition: 'orthodox' }), 'GLOSSARY')).toHaveLength(
+      1,
+    );
     expect(found(check(bad, { glossary: rows }), 'GLOSSARY')).toEqual([]);
     const undivided = glossary('k,\\bkingdom\\b,\\bîmpărăți,undivided,fixture-work,FIX,APROBAT,');
     expect(found(check(bad, { glossary: undivided }), 'GLOSSARY')).toHaveLength(1);
@@ -379,13 +479,17 @@ describe('GLOSSARY (MINOR)', () => {
 
   it('does not check PREFER rows', () => {
     const prefer = glossary('kingdom,\\bkingdom\\b,\\bîmpărăți,all,all,PREFER,APROBAT,');
-    const bad = check((o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul')), { glossary: prefer });
+    const bad = check(
+      (o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('Împărăția', 'Regatul')),
+      { glossary: prefer },
+    );
     expect(found(bad, 'GLOSSARY')).toEqual([]);
   });
 });
 
 describe('quotation marks (MINOR)', () => {
-  const with_ = (extra: string) => check((o) => setText(o, 'src-a3', `${RO['src-a3'] ?? ''} ${extra}`));
+  const with_ = (extra: string) =>
+    check((o) => setText(o, 'src-a3', `${RO['src-a3'] ?? ''} ${extra}`));
 
   it('QUOTES_STRAIGHT: a straight quotation mark', () => {
     expect(found(with_('El a spus "da".'), 'QUOTES_STRAIGHT')).toMatchObject([
@@ -440,7 +544,11 @@ describe('auto-fixes: CEDILLA, NFC, WHITESPACE', () => {
     const n = normaliseText(dirty);
     expect(n).toMatchObject({ nfc: true, cedilla: 5, whitespace: true });
     expect(n.text).toBe(`${RO['src-a3'] ?? ''} Cuvântul ș ț Ș Ț și ă`);
-    expect(normaliseText(RO['src-a3'] ?? '')).toMatchObject({ nfc: false, cedilla: 0, whitespace: false });
+    expect(normaliseText(RO['src-a3'] ?? '')).toMatchObject({
+      nfc: false,
+      cedilla: 0,
+      whitespace: false,
+    });
   });
 
   it('reports the defects without fixing them when fix is off', () => {
@@ -463,7 +571,14 @@ describe('auto-fixes: CEDILLA, NFC, WHITESPACE', () => {
     expect(textOf(result.output, 'src-a3')).toBe(normaliseText(dirty).text);
     expect(result.changed).toBe(true);
     // a second run over the fixed output finds nothing to fix
-    const again = checkOutput({ job, output: result.output, file: 'f', glossary: [], calques: [], fix: true });
+    const again = checkOutput({
+      job,
+      output: result.output,
+      file: 'f',
+      glossary: [],
+      calques: [],
+      fix: true,
+    });
     expect(again.changed).toBe(false);
     expect(found(again, 'CEDILLA')).toEqual([]);
     expect(found(again, 'NFC')).toEqual([]);
@@ -499,13 +614,19 @@ describe('severity bookkeeping', () => {
       o.paragraphs.splice(1, 1); // CRITIC
     });
     const severities = result.report.findings.map((f) => f.severity);
-    expect(severities).toEqual([...severities].sort((a, b) => 'CRITIC MAJOR MINOR INFO'.indexOf(a) - 'CRITIC MAJOR MINOR INFO'.indexOf(b)));
+    expect(severities).toEqual(
+      [...severities].sort(
+        (a, b) => 'CRITIC MAJOR MINOR INFO'.indexOf(a) - 'CRITIC MAJOR MINOR INFO'.indexOf(b),
+      ),
+    );
     expect(result.report.ok).toBe(false);
 
     const minorOnly = check((o) => setText(o, 'src-a3', `${RO['src-a3'] ?? ''} "x"`));
     expect(minorOnly.report.ok).toBe(true);
     expect(minorOnly.report.strictOk).toBe(true);
-    const majorOnly = check((o) => setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('; Mc. 1:15', '')));
+    const majorOnly = check((o) =>
+      setText(o, 'src-a1', (RO['src-a1'] ?? '').replace('; Mc. 1:15', '')),
+    );
     expect(majorOnly.report.ok).toBe(true);
     expect(majorOnly.report.strictOk).toBe(false);
   });

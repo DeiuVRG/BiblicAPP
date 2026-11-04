@@ -154,7 +154,9 @@ const COMMA = sticky(String.raw`\s*,\s*`);
 const GAP_NUMBER = sticky(String.raw`\s+(\d{1,3})(?![A-Za-z0-9])`);
 const AFTER_REFERENCE = sticky(String.raw`\s*(?:[.,;:)\]”’"]|$)`);
 const SOURCE_FOLLOWING = sticky(String.raw`\s*ff?(?![A-Za-z0-9])\.?`);
-const TARGET_FOLLOWING = sticky(String.raw`\s*(?:[șş]\.\s*urm\.?|[șş]i\s+urm\.?)`);
+const TARGET_FOLLOWING = sticky(
+  String.raw`\s*(?:[\u0219\u015F]\.\s*urm\.?|[\u0219\u015F]i\s+urm\.?)`,
+);
 
 interface VerseList {
   verses: VerseItem[];
@@ -244,10 +246,10 @@ const SOURCE_JOINERS: readonly [RegExp, JoinerKind][] = [
 const TARGET_JOINERS: readonly [RegExp, JoinerKind][] = [
   [sticky(String.raw`\s*;\s*`), 'semicolon'],
   [sticky(String.raw`\s*,\s*cu\s+`), 'comma-with'],
-  [sticky(String.raw`\s*,\s*[șş]i\s+`), 'comma-and'],
+  [sticky(String.raw`\s*,\s*[\u0219\u015F]i\s+`), 'comma-and'],
   [sticky(String.raw`\s*,\s*`), 'comma'],
   [sticky(String.raw`\s+cu\s+`), 'with'],
-  [sticky(String.raw`\s+[șş]i\s+`), 'and'],
+  [sticky(String.raw`\s+[\u0219\u015F]i\s+`), 'and'],
 ];
 
 function matchJoiner(
@@ -295,7 +297,9 @@ function parseEnglishBook(text: string, pos: number): BookSegment | null {
 
   if (book.singleChapter) {
     const list = parseVerseList(text, afterBook, SOURCE_FOLLOWING);
-    return list ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end } : null;
+    return list
+      ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end }
+      : null;
   }
 
   const roman = matchAt(ROMAN, text, afterBook);
@@ -338,7 +342,10 @@ function parseEnglishChapter(text: string, pos: number, startsRun: boolean): Cha
   if (!roman || token === undefined) return null;
   const chapter = parseRoman(token);
   if (chapter === null) return null;
-  if (startsRun && (token !== token.toLowerCase() || (token.length < 2 && !'ivx'.includes(token)))) {
+  if (
+    startsRun &&
+    (token !== token.toLowerCase() || (token.length < 2 && !'ivx'.includes(token)))
+  ) {
     return null;
   }
   const dot = matchAt(CHAPTER_DOT, text, pos + roman[0].length);
@@ -386,14 +393,18 @@ function parseRomanianBook(text: string, pos: number): BookSegment | null {
     if (colon && Number.parseInt(digits, 10) !== 1) return null;
     const versesAt = colon ? numberEnd + colon[0].length : numberStart;
     const list = parseVerseList(text, skipSpaces(text, versesAt), TARGET_FOLLOWING);
-    return list ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end } : null;
+    return list
+      ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end }
+      : null;
   }
 
   const chapter = Number.parseInt(digits, 10);
   if (!validChapter(chapter)) return null;
   if (colon) {
     const list = parseVerseList(text, numberEnd + colon[0].length, TARGET_FOLLOWING);
-    return list ? { lead: 'book', book, chapter, verses: list.verses, start: pos, end: list.end } : null;
+    return list
+      ? { lead: 'book', book, chapter, verses: list.verses, start: pos, end: list.end }
+      : null;
   }
   // A chapter that is only named is accepted in exactly the notation of the table.
   if (hasPeriod !== book.ro.endsWith('.')) return null;
@@ -405,10 +416,20 @@ function parseRomanianVerse(text: string, pos: number): VerseSegment | null {
   if (!marker) return null;
   const list = parseVerseList(text, pos + marker[0].length, TARGET_FOLLOWING);
   if (!list) return null;
-  return { lead: 'verse', plural: marker[1] === 'vv', verses: list.verses, start: pos, end: list.end };
+  return {
+    lead: 'verse',
+    plural: marker[1] === 'vv',
+    verses: list.verses,
+    start: pos,
+    end: list.end,
+  };
 }
 
-function parseRomanianChapter(text: string, pos: number, startsRun: boolean): ChapterSegment | null {
+function parseRomanianChapter(
+  text: string,
+  pos: number,
+  startsRun: boolean,
+): ChapterSegment | null {
   // A run cannot start in the middle of `12:30:15`, `3.5:1` or a range.
   if (startsRun && /[:.,/\-\u2013]/.test(text[pos - 1] ?? '')) return null;
   const match = matchAt(RO_CHAPTER_COLON, text, pos);
@@ -463,7 +484,11 @@ function parseRunAt(text: string, pos: number, grammar: Grammar): ParsedRun | nu
   return { segments, end };
 }
 
-function nextState(segment: Segment, current: Resolved | null, startsRun: boolean): Resolved | null {
+function nextState(
+  segment: Segment,
+  current: Resolved | null,
+  startsRun: boolean,
+): Resolved | null {
   switch (segment.lead) {
     case 'book':
       return { book: segment.book, chapter: segment.chapter };
@@ -541,7 +566,8 @@ function renderSegment(segment: Segment): string {
     case 'chapter':
       return `${segment.chapter}:${verses}`;
     case 'verse': {
-      const several = segment.plural || segment.verses.length > 1 || segment.verses.some((v) => v.to);
+      const several =
+        segment.plural || segment.verses.length > 1 || segment.verses.some((v) => v.to);
       return `${several ? 'vv.' : 'v.'} ${verses}`;
     }
   }

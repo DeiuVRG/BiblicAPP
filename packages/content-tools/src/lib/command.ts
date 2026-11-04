@@ -4,7 +4,10 @@ import type { ParseArgsOptionsConfig } from 'node:util';
 import { UsageError } from './usage-error';
 
 /** `parseArgs` that reports unknown options and malformed values as a `UsageError`. */
-export function parseCommandArgs<const O extends ParseArgsOptionsConfig>(args: string[], options: O) {
+export function parseCommandArgs<const O extends ParseArgsOptionsConfig>(
+  args: string[],
+  options: O,
+) {
   try {
     return parseArgs({ args, allowPositionals: true, options });
   } catch (error) {
@@ -20,9 +23,11 @@ export function parseIntegerOption(
   minimum: number,
 ): number {
   if (value === undefined) return fallback;
-  if (!/^\d+$/.test(value)) throw new UsageError(`--${name} expects a whole number, got "${value}"`);
+  if (!/^\d+$/.test(value))
+    throw new UsageError(`--${name} expects a whole number, got "${value}"`);
   const parsed = Number.parseInt(value, 10);
-  if (parsed < minimum) throw new UsageError(`--${name} must be at least ${minimum}, got ${parsed}`);
+  if (parsed < minimum)
+    throw new UsageError(`--${name} must be at least ${minimum}, got ${parsed}`);
   return parsed;
 }
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { defined } from '../lib/invariant';
 import {
   canonicalItems,
   compareReferences,
@@ -17,18 +18,10 @@ const SPEC_EXAMPLES: [string, string, string[]][] = [
     'Mat. 4:17; Mc. 1:15; Lc. 4:43',
     ['Matt 4:17', 'Mark 1:15', 'Luke 4:43'],
   ],
-  [
-    'Jno. iii. 3, 5; xviii. 36',
-    'In. 3:3, 5; 18:36',
-    ['John 3:3', 'John 3:5', 'John 18:36'],
-  ],
+  ['Jno. iii. 3, 5; xviii. 36', 'In. 3:3, 5; 18:36', ['John 3:3', 'John 3:5', 'John 18:36']],
   ['Exodus xix. 4-6', 'Ex. 19:4–6', ['Exod 19:4-6']],
   ['1 Cor. xv. 23-28', '1 Cor. 15:23–28', ['1Cor 15:23-28']],
-  [
-    'Matt. xiii. 24-30, 47-50',
-    'Mat. 13:24–30, 47–50',
-    ['Matt 13:24-30', 'Matt 13:47-50'],
-  ],
+  ['Matt. xiii. 24-30, 47-50', 'Mat. 13:24–30, 47–50', ['Matt 13:24-30', 'Matt 13:47-50']],
   [
     'Lk. i. 17,35; xxiv. 19,49',
     'Lc. 1:17, 35; 24:19, 49',
@@ -64,7 +57,7 @@ describe('parseSourceReferences: grammar details', () => {
   const one = (text: string) => {
     const runs = parseSourceReferences(text);
     expect(runs).toHaveLength(1);
-    return runs[0]!;
+    return defined(runs[0], 'the run');
   };
 
   it('accepts a missing period after the book, full names and a number prefix', () => {
@@ -97,13 +90,7 @@ describe('parseSourceReferences: grammar details', () => {
 
   it('lets a bare chapter inherit the book across books of one run', () => {
     const run = one('Is. xxiv. 21; xliii. 15; Mic. ii. 12; iv. 6; Obad. 21');
-    expect(run.canonical).toEqual([
-      'Isa 24:21',
-      'Isa 43:15',
-      'Mic 2:12',
-      'Mic 4:6',
-      'Obad 21',
-    ]);
+    expect(run.canonical).toEqual(['Isa 24:21', 'Isa 43:15', 'Mic 2:12', 'Mic 4:6', 'Obad 21']);
   });
 
   it('continues with vs. / ver. after a connective', () => {
@@ -131,8 +118,15 @@ describe('parseSourceReferences: grammar details', () => {
   });
 
   it('parses a chapter named without verses', () => {
-    const runs = parseSourceReferences('Matt. xiii, Mk. iv. Lk. viii. And 1 Cor. xv, where he says');
-    expect(runs.map((r) => r.canonical)).toEqual([['Matt 13'], ['Mark 4'], ['Luke 8'], ['1Cor 15']]);
+    const runs = parseSourceReferences(
+      'Matt. xiii, Mk. iv. Lk. viii. And 1 Cor. xv, where he says',
+    );
+    expect(runs.map((r) => r.canonical)).toEqual([
+      ['Matt 13'],
+      ['Mark 4'],
+      ['Luke 8'],
+      ['1Cor 15'],
+    ]);
     expect(runs.map((r) => r.target)).toEqual(['Mat. 13', 'Mc. 4', 'Lc. 8', '1 Cor. 15']);
   });
 
@@ -144,7 +138,9 @@ describe('parseSourceReferences: grammar details', () => {
   });
 
   it('lets vs. inherit the last reference of the paragraph, or stay unresolved', () => {
-    const inherited = parseSourceReferences('In 1 Cor. xv, he says “all in all,” vs. 28, cf. Rev. xi. 15.');
+    const inherited = parseSourceReferences(
+      'In 1 Cor. xv, he says “all in all,” vs. 28, cf. Rev. xi. 15.',
+    );
     expect(inherited.map((r) => r.canonical)).toEqual([['1Cor 15'], ['1Cor 15:28'], ['Rev 11:15']]);
     const alone = parseSourceReferences('as it is loosed in heaven,” vs. 19. It would not be');
     expect(alone.map((r) => r.canonical)).toEqual([['vs 19']]);
@@ -348,19 +344,25 @@ describe('detectNonRomanianNotation', () => {
 describe('findUnparsedReferenceFragments', () => {
   it('is empty when every reference-like fragment parsed', () => {
     expect(
-      findUnparsedReferenceFragments('See Matt. iv. 17; Mk. i. 15, and xviii. 36, vs. 4, Matt. xiii.'),
+      findUnparsedReferenceFragments(
+        'See Matt. iv. 17; Mk. i. 15, and xviii. 36, vs. 4, Matt. xiii.',
+      ),
     ).toEqual([]);
   });
 
   it('reports malformed references and numbers left after a run', () => {
     const text = 'Compare Matt. xi. 1903 and Lk. vi. 32 7 men or Rom. 5 and iv. x.';
     const found = findUnparsedReferenceFragments(text);
-    expect(found.map((f) => f.text.slice(0, 14))).toEqual(['Matt. xi. 1903', '7 men or Rom. ', 'Rom. 5 and iv.']);
+    expect(found.map((f) => f.text.slice(0, 14))).toEqual([
+      'Matt. xi. 1903',
+      '7 men or Rom. ',
+      'Rom. 5 and iv.',
+    ]);
   });
 
   it('reports a verse marker without a reference', () => {
-    expect(findUnparsedReferenceFragments('the verses vv. 3 and so on').map((f) => f.index)).toEqual([
-      11,
-    ]);
+    expect(
+      findUnparsedReferenceFragments('the verses vv. 3 and so on').map((f) => f.index),
+    ).toEqual([11]);
   });
 });

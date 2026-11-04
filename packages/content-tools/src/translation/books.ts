@@ -91,8 +91,13 @@ const SPECS: readonly BookSpec[] = [
   { code: 'Rev', ro: 'Apoc.', names: ['Rev', 'Revelation'] },
 ];
 
-/** Canonical book codes in canonical order (66 books). */
-export const BOOK_CODES: readonly string[] = SPECS.map((spec) => spec.code);
+const ENTRIES = SPECS.map((spec): { spec: BookSpec; info: BookInfo } => ({
+  spec,
+  info: { code: spec.code, ro: spec.ro, singleChapter: spec.singleChapter === true },
+}));
+
+/** The 66 books in canonical order. */
+export const BOOKS: readonly BookInfo[] = ENTRIES.map((entry) => entry.info);
 
 const NUMBERED_NAME = /^([123]) (.+)$/;
 
@@ -111,19 +116,22 @@ const ROMANIAN = new Map<string, BookInfo>();
 const englishBases = new Set<string>();
 const romanianBases = new Set<string>();
 
-for (const spec of SPECS) {
-  const info: BookInfo = {
-    code: spec.code,
-    ro: spec.ro,
-    singleChapter: spec.singleChapter === true,
-  };
+function register(table: Map<string, BookInfo>, key: string, info: BookInfo): void {
+  const existing = table.get(key);
+  if (existing && existing !== info) {
+    throw new Error(`book table: "${key}" names both ${existing.code} and ${info.code}`);
+  }
+  table.set(key, info);
+}
+
+for (const { spec, info } of ENTRIES) {
   for (const name of spec.names) {
     const { number, base } = splitNumber(name);
-    ENGLISH.set(lookupKey(number, base), info);
+    register(ENGLISH, lookupKey(number, base), info);
     englishBases.add(base);
   }
   const ro = splitNumber(spec.ro.replace(/\.$/, ''));
-  ROMANIAN.set(lookupKey(ro.number, ro.base), info);
+  register(ROMANIAN, lookupKey(ro.number, ro.base), info);
   romanianBases.add(ro.base);
 }
 
@@ -139,7 +147,7 @@ export const ENGLISH_BOOK_PATTERN = alternation(englishBases, (name) => name.rep
 
 /** The same for the Romanian abbreviations; cedilla spellings are accepted for Ț/ț. */
 export const ROMANIAN_BOOK_PATTERN = alternation(romanianBases, (name) =>
-  name.replace(/Ț/g, '[ȚŢ]').replace(/ț/g, '[țţ]'),
+  name.replace(/\u021A/g, '[\u021A\u0162]').replace(/\u021B/g, '[\u021B\u0163]'),
 );
 
 export function lookupEnglishBook(number: string | undefined, name: string): BookInfo | undefined {
@@ -147,7 +155,9 @@ export function lookupEnglishBook(number: string | undefined, name: string): Boo
 }
 
 export function lookupRomanianBook(number: string | undefined, name: string): BookInfo | undefined {
-  return ROMANIAN.get(lookupKey(number ?? '', name.replace(/Ţ/g, 'Ț').replace(/ţ/g, 'ț')));
+  return ROMANIAN.get(
+    lookupKey(number ?? '', name.replace(/\u0162/g, '\u021A').replace(/\u0163/g, '\u021B')),
+  );
 }
 
 /** Names compared to decide whether an English-looking token is also valid Romanian. */

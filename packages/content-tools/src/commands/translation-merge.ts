@@ -65,7 +65,9 @@ function loadFolder<T extends { jobId: string }>(
   return listJsonFiles(dir).map((name) => {
     const data = readJsonFile(path.join(dir, name), schema, label);
     if (name !== `${data.jobId}.json`) {
-      throw new UsageError(`${label} ${path.join(dir, name)}: jobId "${data.jobId}" does not match the file name`);
+      throw new UsageError(
+        `${label} ${path.join(dir, name)}: jobId "${data.jobId}" does not match the file name`,
+      );
     }
     return { file: `${folder}/${name}`, data };
   });
@@ -79,7 +81,9 @@ function findSourceEdition(workDir: string, editionId: string, targetLang: strin
     .sort();
   for (const name of candidates) {
     try {
-      const parsed = PackSchema.safeParse(JSON.parse(fs.readFileSync(path.join(workDir, name), 'utf8')) as unknown);
+      const parsed = PackSchema.safeParse(
+        JSON.parse(fs.readFileSync(path.join(workDir, name), 'utf8')) as unknown,
+      );
       if (parsed.success && parsed.data.edition.id === editionId) return parsed.data;
     } catch {
       // Not a readable edition: it cannot be the one we look for.
@@ -123,7 +127,9 @@ function translationMerge(args: string[]): number {
   const metaPath = path.join(translationDir, 'edition.json');
   const meta = readJsonFile(metaPath, TranslationEditionMetaSchema, 'translation metadata');
   if (meta.edition.language !== lang) {
-    throw new UsageError(`${metaPath}: edition.language is "${meta.edition.language}", expected "${lang}"`);
+    throw new UsageError(
+      `${metaPath}: edition.language is "${meta.edition.language}", expected "${lang}"`,
+    );
   }
   const source = findSourceEdition(workDir, meta.edition.sourceEditionId, lang);
   const editionPath = path.join(workDir, `edition-${lang}.json`);
@@ -152,18 +158,24 @@ function translationMerge(args: string[]): number {
     for (const problem of result.problems) process.stderr.write(`  ${problem}\n`);
     if (result.review !== undefined) {
       writeTextFile(reviewPath, result.review);
-      process.stderr.write(`  the review sheet lists them: ${reviewPath} (--allow-critic merges anyway)\n`);
+      process.stderr.write(
+        `  the review sheet lists them: ${reviewPath} (--allow-critic merges anyway)\n`,
+      );
     }
     return 1;
   }
 
   if (result.editionIdSource !== 'meta') {
     storeEditionId(metaPath, meta, result.editionId);
-    out.write(`Stored the edition id of the translation in ${metaPath} (${result.editionIdSource})\n`);
+    out.write(
+      `Stored the edition id of the translation in ${metaPath} (${result.editionIdSource})\n`,
+    );
   }
   writeJsonFile(editionPath, result.pack);
   writeTextFile(reviewPath, result.review ?? '');
-  out.write(`coverage ${paragraphs[0]}/${paragraphs[1]} paragraphs, ${sections[0]}/${sections[1]} sections\n`);
+  out.write(
+    `coverage ${paragraphs[0]}/${paragraphs[1]} paragraphs, ${sections[0]}/${sections[1]} sections\n`,
+  );
   out.write(`findings ${REVIEW_SEVERITIES.map((s) => `${s} ${result.counts[s]}`).join(', ')}\n`);
   out.write(`wrote ${editionPath}\n`);
   out.write(`wrote ${reviewPath}\n`);

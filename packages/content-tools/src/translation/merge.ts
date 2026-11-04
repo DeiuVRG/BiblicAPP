@@ -13,6 +13,7 @@ import type {
   TranslationEditionMeta,
   TranslationOutput,
 } from './schemas';
+import { joinList } from './text-utils';
 
 export interface MergeInput {
   /** The source edition the translation is aligned to. */
@@ -66,7 +67,9 @@ function indexRenderings(
   for (const { file, data: output } of sortedFinals(finals)) {
     for (const paragraph of output.paragraphs) {
       if (!known.has(paragraph.sourceId)) {
-        problems.push(`${file}: sourceId ${paragraph.sourceId} is not a paragraph of the source edition`);
+        problems.push(
+          `${file}: sourceId ${paragraph.sourceId} is not a paragraph of the source edition`,
+        );
         continue;
       }
       const earlier = renderings.get(paragraph.sourceId);
@@ -175,14 +178,16 @@ export function mergeTranslation(input: MergeInput): MergeResult {
   };
 
   if (!input.partial && missing.length > 0) problems.push(...missing);
-  if (input.partial && emitted.length === 0) problems.push('no section is fully covered, nothing to merge');
+  if (input.partial && emitted.length === 0)
+    problems.push('no section is fully covered, nothing to merge');
   if (problems.length > 0) return { ...base, problems, coverage };
 
   // Ids: reused by sourceId from the previous edition, new units get new ids.
   const sectionIds = reuseMap(previous?.sections);
   const paragraphIds = reuseMap(previous?.paragraphs);
   const newSectionId = new Map<string, string>();
-  for (const section of emitted) newSectionId.set(section.id, sectionIds.get(section.id) ?? stableId());
+  for (const section of emitted)
+    newSectionId.set(section.id, sectionIds.get(section.id) ?? stableId());
   const mergedSections: Section[] = emitted.map((section) => {
     const id = defined(newSectionId.get(section.id), 'section id');
     const firstParagraph = (bySection.get(section.id) ?? [])[0];
@@ -222,11 +227,15 @@ export function mergeTranslation(input: MergeInput): MergeResult {
     });
   }
 
-  const notes = input.partial && emitted.length < sections.length
-    ? [meta.edition.provenance.notes, `Partial translation: ${emitted.length} of ${sections.length} sections.`]
-        .filter((part) => part !== '')
-        .join(' ')
-    : meta.edition.provenance.notes;
+  const notes =
+    input.partial && emitted.length < sections.length
+      ? [
+          meta.edition.provenance.notes,
+          `Partial translation: ${emitted.length} of ${sections.length} sections.`,
+        ]
+          .filter((part) => part !== '')
+          .join(' ')
+      : meta.edition.provenance.notes;
   const parsed = PackSchema.safeParse({
     work: source.work,
     edition: {
@@ -252,6 +261,17 @@ export function mergeTranslation(input: MergeInput): MergeResult {
     if (sectionOrdinal !== undefined && newSectionId.has(paragraph.sectionId)) {
       emittedParagraphs.set(paragraph.id, { sectionOrdinal, paragraphOrdinal: paragraph.ordinal });
     }
+  }
+  // Without a check report of the final text, nothing but the flags guards against CRITIC defects.
+  const checked = new Set(input.checks.map((check) => check.data.file));
+  const unchecked = sortedFinals(input.finals)
+    .map((final) => final.file)
+    .filter((file) => !checked.has(file));
+  if (unchecked.length > 0) {
+    warnings.push(
+      `no check report for ${unchecked.length} final output(s), run translation-check on them: ` +
+        joinList(unchecked, 4),
+    );
   }
   const reviewInput = {
     title: source.work.titleRo,

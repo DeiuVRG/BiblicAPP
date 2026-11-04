@@ -22,7 +22,10 @@ const edition = PackSchema.parse(
 );
 
 describe('references in the committed Vos edition (docs/traducere-pipeline.md, section 8)', () => {
-  const runs = edition.paragraphs.map((p) => ({ text: p.text, runs: parseSourceReferences(p.text) }));
+  const runs = edition.paragraphs.map((p) => ({
+    text: p.text,
+    runs: parseSourceReferences(p.text),
+  }));
 
   it('converts every reference-like fragment: none is left unparsed', () => {
     const unparsed = runs.flatMap(({ text, runs: found }) =>
@@ -43,8 +46,13 @@ describe('references in the committed Vos edition (docs/traducere-pipeline.md, s
 
   it('renders every paragraph in Romanian and reads the same references back', () => {
     for (const { text, runs: found } of runs) {
-      const rendered = [...found].reverse().reduce((t, r) => t.slice(0, r.start) + r.target + t.slice(r.end), text);
-      const diff = compareReferences(canonicalItems(found), canonicalItems(extractTargetReferences(rendered)));
+      const rendered = [...found]
+        .reverse()
+        .reduce((t, r) => t.slice(0, r.start) + r.target + t.slice(r.end), text);
+      const diff = compareReferences(
+        canonicalItems(found),
+        canonicalItems(extractTargetReferences(rendered)),
+      );
       expect(diff, text.slice(0, 60)).toEqual({ missing: [], extra: [] });
     }
   });
@@ -60,7 +68,9 @@ describe('references in the committed Vos edition (docs/traducere-pipeline.md, s
     expect(built.jobs.flatMap((j) => j.paragraphs)).toHaveLength(131);
     expect(new Set(built.jobs.flatMap((j) => j.paragraphs.map((p) => p.id))).size).toBe(131);
     expect(built.unparsed).toEqual([]);
-    expect(built.jobs.every((j) => j.wordCount <= DEFAULT_CHUNK.maxWords + DEFAULT_CHUNK.minLastWords)).toBe(true);
+    expect(
+      built.jobs.every((j) => j.wordCount <= DEFAULT_CHUNK.maxWords + DEFAULT_CHUNK.minLastWords),
+    ).toBe(true);
     expect(built.jobs.map((j) => j.jobId)[0]).toBe('vos-1903-kingdom-ro-01-00');
   });
 });

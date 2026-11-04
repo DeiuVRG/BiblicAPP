@@ -6,6 +6,7 @@ import type { Pack } from '@biblioteca/shared';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { UsageError } from '../lib/usage-error';
+import { defined } from '../lib/invariant';
 import { DEFAULT_CHUNK, buildJobs, jobIdFor, parseSectionList, splitIntoParts } from './jobs';
 import { JobIndexSchema, TranslationJobSchema } from './schemas';
 import { SLUG, makeSource } from './test-support';
@@ -37,7 +38,11 @@ describe('splitIntoParts', () => {
   });
 
   it('gives a paragraph longer than the maximum a part of its own', () => {
-    expect(splitIntoParts([300, 2000, 300, 800], words, chunk)).toEqual([[300], [2000], [300, 800]]);
+    expect(splitIntoParts([300, 2000, 300, 800], words, chunk)).toEqual([
+      [300],
+      [2000],
+      [300, 800],
+    ]);
   });
 
   it('merges a short last part into the previous one when the sum fits', () => {
@@ -95,7 +100,10 @@ function longSource(): Pack {
   }));
   return {
     ...source,
-    sections: [...source.sections, { id: 'sec-c', ordinal: 2, kind: 'chapter', heading: 'III. Long' }],
+    sections: [
+      ...source.sections,
+      { id: 'sec-c', ordinal: 2, kind: 'chapter', heading: 'III. Long' },
+    ],
     paragraphs: [...source.paragraphs, ...extra],
   };
 }
@@ -131,7 +139,12 @@ describe('buildJobs', () => {
     ]);
     for (const job of jobs) expect(TranslationJobSchema.safeParse(job).success).toBe(true);
     const third = jobs.filter((j) => j.section.id === 'sec-c');
-    expect(third.map((j) => [j.part, j.parts])).toEqual([[0, 4], [1, 4], [2, 4], [3, 4]]);
+    expect(third.map((j) => [j.part, j.parts])).toEqual([
+      [0, 4],
+      [1, 4],
+      [2, 4],
+      [3, 4],
+    ]);
     // 12 paragraphs of 300 words (the 4th is short): parts close at >= 900 words
     expect(third.map((j) => j.paragraphs.length)).toEqual([3, 4, 3, 2]);
   });
@@ -151,7 +164,11 @@ describe('buildJobs', () => {
     expect(second?.context.previousParagraph).toBe(first?.paragraphs[2]?.text);
     expect(first?.context.previousSectionHeading).toBe('II. The Church');
     const firstSection = jobs[0];
-    expect(firstSection?.context).toMatchObject({ previousParagraph: null, nextParagraph: null, previousSectionHeading: null });
+    expect(firstSection?.context).toMatchObject({
+      previousParagraph: null,
+      nextParagraph: null,
+      previousSectionHeading: null,
+    });
     const last = jobs[jobs.length - 1];
     expect(last?.context.nextParagraph).toBeNull();
   });
@@ -160,7 +177,11 @@ describe('buildJobs', () => {
     const { jobs, referenceRuns, unparsed } = build(longSource());
     const withRefs = jobs.flatMap((j) => j.paragraphs).find((p) => p.id === 'long-3');
     expect(withRefs?.references).toEqual([
-      { source: 'Matt. v. 3; Obad. 21', target: 'Mat. 5:3; Obad. 21', canonical: ['Matt 5:3', 'Obad 21'] },
+      {
+        source: 'Matt. v. 3; Obad. 21',
+        target: 'Mat. 5:3; Obad. 21',
+        canonical: ['Matt 5:3', 'Obad 21'],
+      },
     ]);
     expect(referenceRuns).toBe(1 + 1 + 1 + 1); // a1, a2 (one run each), b1, long-3
     expect(unparsed).toEqual([]);
@@ -170,7 +191,10 @@ describe('buildJobs', () => {
 
   it('reports reference-like fragments that did not parse', () => {
     const source = makeSource();
-    source.paragraphs[2] = { ...(source.paragraphs[2] as Pack['paragraphs'][number]), text: 'As in Matt. xi. 1903 it is clear.' };
+    source.paragraphs[2] = {
+      ...defined(source.paragraphs[2], 'paragraph 2'),
+      text: 'As in Matt. xi. 1903 it is clear.',
+    };
     const { unparsed } = build(source);
     expect(unparsed.map((u) => [u.sourceId, u.fragments.length])).toEqual([['src-a3', 1]]);
   });
@@ -189,7 +213,9 @@ describe('buildJobs', () => {
     );
     fs.mkdirSync(path.join(repoRoot, 'content/translation/profiles'), { recursive: true });
     fs.writeFileSync(path.join(repoRoot, `content/translation/profiles/${SLUG}.md`), '# profile\n');
-    expect(build(makeSource()).jobs[0]?.materials.profile).toBe(`content/translation/profiles/${SLUG}.md`);
+    expect(build(makeSource()).jobs[0]?.materials.profile).toBe(
+      `content/translation/profiles/${SLUG}.md`,
+    );
   });
 
   it('respects the section selection (1-based chapter numbers)', () => {

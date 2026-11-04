@@ -40,10 +40,8 @@ export const RO: Record<string, string> = {
   'src-a3':
     'În 1903 mulți scriitori s-au îndoit de aceasta, dar vechea părere, pe care o susțin ' +
     'Evangheliile, este limpede.',
-  'src-b1':
-    'Biserica este comuniunea celor care intră în Împărăție, cf. Mat. 16:18 și 18:17.',
-  'src-b2':
-    'Cel născut de sus vede Împărăția, după cum arată cuvintele lui Isus către Nicodim.',
+  'src-b1': 'Biserica este comuniunea celor care intră în Împărăție, cf. Mat. 16:18 și 18:17.',
+  'src-b2': 'Cel născut de sus vede Împărăția, după cum arată cuvintele lui Isus către Nicodim.',
 };
 
 export const HEADING_RO: Record<string, string> = {
@@ -83,7 +81,10 @@ export function makeSource(): Pack {
   };
 }
 
-export function makeJobs(source: Pack = makeSource(), repoRoot = '/nonexistent-repo'): TranslationJob[] {
+export function makeJobs(
+  source: Pack = makeSource(),
+  repoRoot = '/nonexistent-repo',
+): TranslationJob[] {
   return buildJobs({
     edition: source,
     targetLanguage: 'ro',
@@ -100,7 +101,10 @@ export function jobOf(ordinal: number): TranslationJob {
 }
 
 /** A complete, clean rendering of a job. */
-export function goodOutput(job: TranslationJob, pass: 'draft' | 'revised' = 'revised'): TranslationOutput {
+export function goodOutput(
+  job: TranslationJob,
+  pass: 'draft' | 'revised' = 'revised',
+): TranslationOutput {
   const heading = HEADING_RO[job.section.id];
   return {
     jobId: job.jobId,
@@ -141,7 +145,11 @@ export function criticReport(
   };
 }
 
-export function checkReport(job: TranslationJob, findings: CheckReport['findings'], file?: string): CheckReport {
+export function checkReport(
+  job: TranslationJob,
+  findings: CheckReport['findings'],
+  file?: string,
+): CheckReport {
   return {
     jobId: job.jobId,
     file: file ?? `final/${job.jobId}.json`,

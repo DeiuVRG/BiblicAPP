@@ -30,6 +30,9 @@ export interface GlossaryRule {
   source: RegExp | null;
   /** Matched against the translation. */
   target: RegExp;
+  /** The patterns as written in the file, for messages. */
+  sourcePattern: string;
+  targetPattern: string;
   tradition: string;
   scope: string;
   force: GlossaryForce;
@@ -117,8 +120,12 @@ export function parseGlossary(text: string, label: string): GlossaryRule[] {
     return {
       termId,
       source:
-        sourcePattern === '' ? null : compilePattern(sourcePattern, `${where} (${termId}) source_pattern`),
+        sourcePattern === ''
+          ? null
+          : compilePattern(sourcePattern, `${where} (${termId}) source_pattern`),
       target: compilePattern(field('target_pattern'), `${where} (${termId}) target_pattern`),
+      sourcePattern,
+      targetPattern: field('target_pattern'),
       tradition: oneOf(field('tradition'), TRADITIONS, 'tradition', where),
       scope: field('scope') === '' ? 'all' : field('scope'),
       force,

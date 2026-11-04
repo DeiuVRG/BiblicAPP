@@ -76,7 +76,10 @@ export function splitIntoParts<T>(
   if (last && previous) {
     const lastWords = last.reduce((sum, item) => sum + wordsOf(item), 0);
     const previousWords = previous.reduce((sum, item) => sum + wordsOf(item), 0);
-    if (lastWords < options.minLastWords && previousWords + lastWords <= options.maxWords + options.minLastWords) {
+    if (
+      lastWords < options.minLastWords &&
+      previousWords + lastWords <= options.maxWords + options.minLastWords
+    ) {
       previous.push(...last);
       parts.pop();
     }

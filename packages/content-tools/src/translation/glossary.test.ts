@@ -59,7 +59,9 @@ describe('parseGlossary', () => {
     expect(() => parseGlossary(row('MUST', 'APROBAT', 'all'), 'g')).toThrow(/force must be one of/);
     expect(() => parseGlossary(row('FIX', 'DONE', 'all'), 'g')).toThrow(/status must be one of/);
     expect(() => parseGlossary(row('FIX', 'APROBAT', 'baptist'), 'g')).toThrow(/tradition must be/);
-    expect(() => parseGlossary(row('FIX', 'APROBAT', 'all', ''), 'g')).toThrow(/target_pattern is empty/);
+    expect(() => parseGlossary(row('FIX', 'APROBAT', 'all', ''), 'g')).toThrow(
+      /target_pattern is empty/,
+    );
   });
 });
 
@@ -102,14 +104,16 @@ describe('parseCalques', () => {
 
   it('turns a bad regex, bad JSON and unknown fields into usage errors', () => {
     const entry = { id: 'a', pattern: '(', level: 'WARN', preferred: '' };
-    expect(() => parseCalques(JSON.stringify([entry]), 'calques')).toThrow(/\(a\) pattern: invalid regular expression/);
+    expect(() => parseCalques(JSON.stringify([entry]), 'calques')).toThrow(
+      /\(a\) pattern: invalid regular expression/,
+    );
     expect(() => parseCalques('[', 'calques')).toThrow(/invalid JSON/);
-    expect(() => parseCalques(JSON.stringify([{ ...entry, pattern: 'x', extra: 1 }]), 'calques')).toThrow(
-      /\[0\]/,
-    );
-    expect(() => parseCalques(JSON.stringify([{ ...entry, pattern: 'x', level: 'MUST' }]), 'calques')).toThrow(
-      /\[0\]\.level/,
-    );
+    expect(() =>
+      parseCalques(JSON.stringify([{ ...entry, pattern: 'x', extra: 1 }]), 'calques'),
+    ).toThrow(/\[0\]/);
+    expect(() =>
+      parseCalques(JSON.stringify([{ ...entry, pattern: 'x', level: 'MUST' }]), 'calques'),
+    ).toThrow(/\[0\]\.level/);
   });
 });
 

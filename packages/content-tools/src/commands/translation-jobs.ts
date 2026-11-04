@@ -67,12 +67,24 @@ function translationJobs(args: string[]): number {
     throw new UsageError(`--lang "${lang}" is not a language code (expected e.g. ro)`);
   }
   const chunk = {
-    targetWords: parseIntegerOption('target-words', values['target-words'], DEFAULT_CHUNK.targetWords, 1),
+    targetWords: parseIntegerOption(
+      'target-words',
+      values['target-words'],
+      DEFAULT_CHUNK.targetWords,
+      1,
+    ),
     maxWords: parseIntegerOption('max-words', values['max-words'], DEFAULT_CHUNK.maxWords, 1),
-    minLastWords: parseIntegerOption('min-last-words', values['min-last-words'], DEFAULT_CHUNK.minLastWords, 0),
+    minLastWords: parseIntegerOption(
+      'min-last-words',
+      values['min-last-words'],
+      DEFAULT_CHUNK.minLastWords,
+      0,
+    ),
   };
   if (chunk.targetWords > chunk.maxWords) {
-    throw new UsageError(`--target-words (${chunk.targetWords}) must not exceed --max-words (${chunk.maxWords})`);
+    throw new UsageError(
+      `--target-words (${chunk.targetWords}) must not exceed --max-words (${chunk.maxWords})`,
+    );
   }
   const wanted = values.sections === undefined ? undefined : parseSectionList(values.sections);
 
@@ -81,7 +93,9 @@ function translationJobs(args: string[]): number {
   const where = `source edition ${editionPath}`;
   const edition = parseWith(PackSchema, parseJsonText(bytes.toString('utf8'), where), where);
   if (edition.edition.kind !== 'source') {
-    throw new UsageError(`${editionPath} is a ${edition.edition.kind} edition; expected a source edition`);
+    throw new UsageError(
+      `${editionPath} is a ${edition.edition.kind} edition; expected a source edition`,
+    );
   }
   if (edition.edition.language === lang) {
     throw new UsageError(`--lang ${lang} is the language of the source edition`);
@@ -90,7 +104,9 @@ function translationJobs(args: string[]): number {
     const available = edition.sections.length;
     const beyond = [...wanted].filter((n) => n > available);
     if (beyond.length > 0) {
-      throw new UsageError(`--sections: no chapter ${beyond.join(', ')} (the edition has ${available})`);
+      throw new UsageError(
+        `--sections: no chapter ${beyond.join(', ')} (the edition has ${available})`,
+      );
     }
   }
 
@@ -124,7 +140,9 @@ function translationJobs(args: string[]): number {
   );
   out.write(`unparsed reference-like fragments: ${fragments}\n`);
   for (const section of built.emptySections) {
-    out.write(`WARNING: section ${section.ordinal + 1} "${section.heading}" has no paragraphs and produces no job\n`);
+    out.write(
+      `WARNING: section ${section.ordinal + 1} "${section.heading}" has no paragraphs and produces no job\n`,
+    );
   }
   if (values.verbose) writeVerbose(built);
   out.write(`wrote ${jobsDir}\n`);

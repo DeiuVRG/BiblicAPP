@@ -2,6 +2,7 @@ import { PackSchema, isUlid } from '@biblioteca/shared';
 import type { Pack } from '@biblioteca/shared';
 import { describe, expect, it } from 'vitest';
 
+import { defined } from '../lib/invariant';
 import { mergeTranslation } from './merge';
 import type { MergeInput, MergeResult } from './merge';
 import type { LoadedFile } from './review';
@@ -26,15 +27,26 @@ function finalsFor(source: Pack, edit: (output: TranslationOutput) => void = () 
   });
 }
 
+/** A clean check report for every final output, as translation-check leaves them. */
+function cleanChecks(finals: readonly LoadedFile<TranslationOutput>[], source: Pack) {
+  return makeJobs(source).flatMap((job) => {
+    const file = `final/${job.jobId}.json`;
+    return finals.some((f) => f.file === file)
+      ? [{ file: `checks/${job.jobId}.json`, data: checkReport(job, []) }]
+      : [];
+  });
+}
+
 function merge(overrides: Partial<MergeInput> = {}): MergeResult {
   const source = overrides.source ?? makeSource();
+  const finals = overrides.finals ?? finalsFor(source);
   return mergeTranslation({
     source,
     meta: metaFor(),
     previous: undefined,
-    finals: finalsFor(source),
+    finals,
     critics: [],
-    checks: [],
+    checks: cleanChecks(finals, source),
     partial: false,
     allowCritic: false,
     ...overrides,
@@ -92,12 +104,7 @@ describe('mergeTranslation: a complete translation', () => {
       [1, 'chapter', HEADING_RO['sec-b'], 'sec-b'],
     ]);
     expect(pack.paragraphs.map((p) => [p.ordinal, p.kind, p.sourceId, p.text])).toEqual(
-      Object.keys(EN).map((id, index) => [
-        index < 3 ? index : index - 3,
-        'p',
-        id,
-        RO[id],
-      ]),
+      Object.keys(EN).map((id, index) => [index < 3 ? index : index - 3, 'p', id, RO[id]]),
     );
     const ids = [...pack.sections.map((s) => s.id), ...pack.paragraphs.map((p) => p.id)];
     expect(ids.every(isUlid)).toBe(true);
@@ -170,7 +177,13 @@ describe('mergeTranslation: ids', () => {
     // src-a2 disappears from the source (and from the outputs); a new paragraph appears
     const source = makeSource();
     source.paragraphs = source.paragraphs.filter((p) => p.id !== 'src-a2');
-    source.paragraphs.push({ id: 'src-b3', sectionId: 'sec-b', ordinal: 2, kind: 'p', text: EN['src-b2'] ?? '' });
+    source.paragraphs.push({
+      id: 'src-b3',
+      sectionId: 'sec-b',
+      ordinal: 2,
+      kind: 'p',
+      text: EN['src-b2'] ?? '',
+    });
     const finals = finalsFor(source, (output) => {
       output.paragraphs = output.paragraphs.filter((p) => p.sourceId !== 'src-a2');
       const added = output.paragraphs.find((p) => p.sourceId === 'src-b3');
@@ -197,7 +210,9 @@ describe('mergeTranslation: coverage', () => {
     expect(result.pack).toBeUndefined();
     expect(result.review).toBeUndefined();
     expect(result.problems).toHaveLength(1);
-    expect(result.problems[0]).toMatch(/section 1 "I\. The Kingdom Announced": 1 of 3 paragraphs.*2 \(src-a2\)/);
+    expect(result.problems[0]).toMatch(
+      /section 1 "I\. The Kingdom Announced": 1 of 3 paragraphs.*2 \(src-a2\)/,
+    );
     expect(result.coverage).toEqual({ paragraphs: [2, 5], sections: [1, 2] });
   });
 
@@ -240,10 +255,15 @@ describe('mergeTranslation: coverage', () => {
     unknown[0]?.data.paragraphs.push({ sourceId: 'src-nope', text: 'x', flags: [] });
     const result = merge({ finals: unknown, partial: true });
     expect(result.pack).toBeUndefined();
-    expect(result.problems.join('\n')).toContain('src-nope is not a paragraph of the source edition');
+    expect(result.problems.join('\n')).toContain(
+      'src-nope is not a paragraph of the source edition',
+    );
 
     const repeated = finalsFor(makeSource());
-    repeated.push({ file: 'final/copy.json', data: structuredClone(repeated[0]?.data as TranslationOutput) });
+    repeated.push({
+      file: 'final/copy.json',
+      data: structuredClone(defined(repeated[0], 'first output').data),
+    });
     const dup = merge({ finals: repeated });
     expect(dup.pack).toBeUndefined();
     expect(dup.problems.join('\n')).toMatch(
@@ -272,6 +292,21 @@ describe('mergeTranslation: headings', () => {
     expect(result.warnings[0]).toContain('using the source heading');
   });
 
+  it('warns once about final outputs that no check report covers', () => {
+    const unchecked = merge({ checks: [] });
+    expect(unchecked.pack).toBeDefined();
+    expect(unchecked.warnings).toEqual([
+      'no check report for 2 final output(s), run translation-check on them: ' +
+        'final/fixture-work-ro-01-00.json, final/fixture-work-ro-02-00.json',
+    ]);
+    const draftOnly = makeJobs(makeSource()).map((job) => ({
+      file: `checks/${job.jobId}.json`,
+      data: checkReport(job, [], `drafts/${job.jobId}.json`),
+    }));
+    expect(merge({ checks: draftOnly }).warnings).toHaveLength(1);
+    expect(merge().warnings).toEqual([]);
+  });
+
   it('takes headingRo from the output that holds the first paragraph, not from a later part', () => {
     const source = makeSource();
     const first = finalsFor(source)[0];
@@ -280,19 +315,24 @@ describe('mergeTranslation: headings', () => {
     partOne.jobId = 'fixture-work-ro-01-01';
     partOne.headingRo = 'Titlu greșit din partea 1';
     partOne.paragraphs = [];
-    const result = merge({ finals: [...finalsFor(source), { file: 'final/fixture-work-ro-01-01.json', data: partOne }] });
+    const result = merge({
+      finals: [...finalsFor(source), { file: 'final/fixture-work-ro-01-01.json', data: partOne }],
+    });
     expect(packOf(result).sections[0]?.heading).toBe(HEADING_RO['sec-a']);
   });
 });
 
 describe('mergeTranslation: CRITIC findings', () => {
-  const critical = (source: Pack) => finalsFor(source, (output) => withFlag('src-a2', flag('CRITIC', 'pocăință'))(output));
+  const critical = (source: Pack) =>
+    finalsFor(source, (output) => withFlag('src-a2', flag('CRITIC', 'pocăință'))(output));
 
   it('refuses an output with a CRITIC flag, but still produces the review sheet', () => {
     const result = merge({ finals: critical(makeSource()) });
     expect(result.pack).toBeUndefined();
     expect(result.problems).toHaveLength(1);
-    expect(result.problems[0]).toMatch(/open CRITIC finding \(revised\) section 1, src-a2: \[CITAT_BIBLIC\]/);
+    expect(result.problems[0]).toMatch(
+      /open CRITIC finding \(revised\) section 1, src-a2: \[CITAT_BIBLIC\]/,
+    );
     expect(result.review).toContain('| CRITIC | 1 | 2 (src-a2) |');
     expect(result.counts.CRITIC).toBe(1);
   });
@@ -314,17 +354,29 @@ describe('mergeTranslation: CRITIC findings', () => {
     const result = merge({ checks: [{ file: `checks/${job.jobId}.json`, data: report }] });
     expect(result.pack).toBeUndefined();
     expect(result.problems[0]).toContain('open CRITIC finding (check)');
-    expect(merge({ checks: [{ file: `checks/${job.jobId}.json`, data: report }], allowCritic: true }).pack).toBeDefined();
+    expect(
+      merge({ checks: [{ file: `checks/${job.jobId}.json`, data: report }], allowCritic: true })
+        .pack,
+    ).toBeDefined();
   });
 
   it('ignores a check report about a draft, and the FLAG_CRITIC echo of a flag', () => {
     const [job] = makeJobs(makeSource());
     if (!job) throw new Error('fixture');
-    const critic = { check: 'SAME_AS_SOURCE', severity: 'CRITIC' as const, sourceId: 'src-a3', message: 'x' };
+    const critic = {
+      check: 'SAME_AS_SOURCE',
+      severity: 'CRITIC' as const,
+      sourceId: 'src-a3',
+      message: 'x',
+    };
     const draft = checkReport(job, [critic], `drafts/${job.jobId}.json`);
-    expect(merge({ checks: [{ file: `checks/${job.jobId}.json`, data: draft }] }).pack).toBeDefined();
+    expect(
+      merge({ checks: [{ file: `checks/${job.jobId}.json`, data: draft }] }).pack,
+    ).toBeDefined();
     const echo = checkReport(job, [{ ...critic, check: 'FLAG_CRITIC' }]);
-    expect(merge({ checks: [{ file: `checks/${job.jobId}.json`, data: echo }] }).pack).toBeDefined();
+    expect(
+      merge({ checks: [{ file: `checks/${job.jobId}.json`, data: echo }] }).pack,
+    ).toBeDefined();
   });
 
   it('does not let a CRITIC finding of a section that is left out block a partial merge', () => {
@@ -337,7 +389,11 @@ describe('mergeTranslation: CRITIC findings', () => {
       { check: 'HEADING_MISSING', severity: 'CRITIC', message: 'job level' },
       { check: 'EMPTY_TEXT', severity: 'CRITIC', sourceId: 'src-b1', message: 'empty' },
     ]);
-    const result = merge({ finals, partial: true, checks: [{ file: `checks/${secondJob.jobId}.json`, data: report }] });
+    const result = merge({
+      finals,
+      partial: true,
+      checks: [{ file: `checks/${secondJob.jobId}.json`, data: report }],
+    });
     expect(result.pack).toBeDefined();
     expect(result.counts.CRITIC).toBe(0);
   });
@@ -359,7 +415,9 @@ describe('mergeTranslation: CRITIC findings', () => {
     const result = merge({ critics: [{ file: `critic/${job.jobId}.json`, data: report }] });
     expect(result.pack).toBeDefined();
     expect(result.counts.CRITIC).toBe(1);
-    expect(result.review).toContain('| CRITIC | 1 | 1 (src-a1) | was at hand | este aproape | [negatie] the negation is lost | keep it | critic |');
+    expect(result.review).toContain(
+      '| CRITIC | 1 | 1 (src-a1) | was at hand | este aproape | [negatie] the negation is lost | keep it | critic |',
+    );
   });
 });
 
@@ -373,7 +431,10 @@ describe('review sheet', () => {
   const rowsOf = (review: string | undefined): string[][] =>
     (review ?? '')
       .split('\n')
-      .filter((line) => line.startsWith('| ') && !line.startsWith('| Severitate') && !line.startsWith('| ---'))
+      .filter(
+        (line) =>
+          line.startsWith('| ') && !line.startsWith('| Severitate') && !line.startsWith('| ---'),
+      )
       .map((line) => line.slice(2, -2).split(' | '));
 
   it('has the header, the columns and no rows when nothing is open', () => {
@@ -433,7 +494,13 @@ describe('review sheet', () => {
         file: `checks/${jobB.jobId}.json`,
         data: checkReport(jobB, [
           { check: 'LENGTH_RATIO', severity: 'MAJOR', sourceId: 'src-b1', message: 'too short' },
-          { check: 'CEDILLA', severity: 'MINOR', sourceId: 'src-b2', message: 'fixed', autofixed: true },
+          {
+            check: 'CEDILLA',
+            severity: 'MINOR',
+            sourceId: 'src-b2',
+            message: 'fixed',
+            autofixed: true,
+          },
           { check: 'FLAG_CRITIC', severity: 'CRITIC', sourceId: 'src-b2', message: 'echo' },
           { check: 'FLAG_PROPOSED', severity: 'INFO', sourceId: 'src-a1', message: 'proposed row' },
         ]),
@@ -460,15 +527,25 @@ describe('review sheet', () => {
     expect(result.review).toContain(
       '- Modele: draft: -; critic: claude-opus-5-5; revised: claude-sonnet-5-5',
     );
-    expect(result.review).toContain('- Constatări: CRITIC 1, MAJOR 3, SURSA_POSIBIL_ERONATA 1, MINOR 2, INFO 2');
-    expect(result.counts).toEqual({ CRITIC: 1, MAJOR: 3, SURSA_POSIBIL_ERONATA: 1, MINOR: 2, INFO: 2 });
+    expect(result.review).toContain(
+      '- Constatări: CRITIC 1, MAJOR 3, SURSA_POSIBIL_ERONATA 1, MINOR 2, INFO 2',
+    );
+    expect(result.counts).toEqual({
+      CRITIC: 1,
+      MAJOR: 3,
+      SURSA_POSIBIL_ERONATA: 1,
+      MINOR: 2,
+      INFO: 2,
+    });
   });
 
   it('lists a critic finding once when the final output has a flag on the same passage', () => {
     const source = makeSource();
     const [job] = makeJobs(source);
     if (!job) throw new Error('fixture');
-    const finals = finalsFor(source, (output) => sourceFlag(output, 'src-a2', [flag('MAJOR', 'pocăință')]));
+    const finals = finalsFor(source, (output) =>
+      sourceFlag(output, 'src-a2', [flag('MAJOR', 'pocăință')]),
+    );
     const critic = criticReport(job, [
       {
         sourceId: 'src-a2',
@@ -489,7 +566,9 @@ describe('review sheet', () => {
         proposal: 'y',
       },
     ]);
-    const rows = rowsOf(merge({ finals, critics: [{ file: `critic/${job.jobId}.json`, data: critic }] }).review);
+    const rows = rowsOf(
+      merge({ finals, critics: [{ file: `critic/${job.jobId}.json`, data: critic }] }).review,
+    );
     expect(rows.map((r) => [r[0], r[7]])).toEqual([
       ['MAJOR', 'revised'],
       ['MINOR', 'critic'],
@@ -500,11 +579,19 @@ describe('review sheet', () => {
     const source = makeSource();
     const finals = finalsFor(source, (output) =>
       sourceFlag(output, 'src-a1', [
-        { code: 'ALTA', severity: 'MINOR', quoteSource: 'a | b', quoteTarget: 'c\nd', note: 'x | y' },
+        {
+          code: 'ALTA',
+          severity: 'MINOR',
+          quoteSource: 'a | b',
+          quoteTarget: 'c\nd',
+          note: 'x | y',
+        },
       ]),
     );
     const review = merge({ finals }).review ?? '';
-    expect(review).toContain('| MINOR | 1 | 1 (src-a1) | a \\| b | c d | [ALTA] x \\| y |  | revised |');
+    expect(review).toContain(
+      '| MINOR | 1 | 1 (src-a1) | a \\| b | c d | [ALTA] x \\| y |  | revised |',
+    );
   });
 
   it('is deterministic', () => {
