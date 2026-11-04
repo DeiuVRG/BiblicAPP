@@ -26,15 +26,15 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
@@ -84,7 +84,7 @@ jobs:
 
       - name: Upload smoke diagnostics
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: smoke-diagnostics
           path: test-results/
@@ -96,17 +96,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
 
       # No `cache: pnpm` here: this job never installs, so the pnpm store does not exist and the
       # cache post-step would fail the job.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
           fetch-depth: 0 # scan the whole history, not just the tip
