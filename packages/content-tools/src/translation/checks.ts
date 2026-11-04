@@ -277,17 +277,27 @@ function checkRefFormat(ctx: ParagraphContext): CheckFinding[] {
   ];
 }
 
-/** Digits of the source outside scripture references. */
+// `1,500` (English) and `1.500` (Romanian) are the same number: join thousands groups.
+const THOUSANDS_SEPARATOR = new RegExp(
+  `(?<=\\d)[.,${String.fromCharCode(0xa0)}${String.fromCharCode(0x202f)}](?=\\d{3}(?!\\d))`,
+  'g',
+);
+
+function numbersIn(text: string): string[] {
+  return text.replace(THOUSANDS_SEPARATOR, '').match(/\d+/g) ?? [];
+}
+
+/** Numbers of the source outside scripture references. */
 function numbersOutsideReferences(source: string): string[] {
   let blanked = source;
   for (const run of parseSourceReferences(source).reverse()) {
     blanked = blanked.slice(0, run.start) + ' '.repeat(run.end - run.start) + blanked.slice(run.end);
   }
-  return [...new Set(blanked.match(/\d+/g) ?? [])];
+  return [...new Set(numbersIn(blanked))];
 }
 
 function checkNumbers(ctx: ParagraphContext): CheckFinding[] {
-  const present = new Set(ctx.text.match(/\d+/g) ?? []);
+  const present = new Set(numbersIn(ctx.text));
   const missing = numbersOutsideReferences(ctx.source).filter((n) => !present.has(n));
   const first = missing[0];
   if (first === undefined) return [];
