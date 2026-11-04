@@ -1,0 +1,44 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-04",
+  "file": "drafts/vos-1903-kingdom-ro-09-04.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQX44EFNEHQ9JP2NKV1TVA",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parables",
+      "quoteTarget": "pildele"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQX44EFNEHQ9JP2NKV1TVA",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parables"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parables",
+      "quoteTarget": "pilde"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parables"
+    }
+  ],
+  "stats": {
+    "paragraphs": 2,
+    "sourceWords": 485,
+    "targetWords": 464,
+    "lengthRatio": 1.017
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-02",
+  "file": "drafts/vos-1903-kingdom-ro-10-02.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWR",
+      "message": "proposed (not approved) glossary row vos-viz (PREFER) matched",
+      "quoteSource": "viz.",
+      "quoteTarget": "adică"
+    }
+  ],
+  "stats": {
+    "paragraphs": 3,
+    "sourceWords": 1122,
+    "targetWords": 1118,
+    "lengthRatio": 1.048
+  }
+}

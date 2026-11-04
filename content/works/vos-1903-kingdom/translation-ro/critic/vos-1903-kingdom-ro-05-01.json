@@ -1,0 +1,45 @@
+{
+  "jobId": "vos-1903-kingdom-ro-05-01",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV9",
+      "severity": "MAJOR",
+      "category": "gramatica",
+      "quoteSource": "Regeneration introduces into it.",
+      "quoteTarget": "Regenerarea introduce în ea.",
+      "problem": "Sursa este eliptică, dar elipsa este a lui Vos: „introduces into” stă fără obiect și în cap. VIII („what introduces into it is not a process of instruction, but a birth from above, or a re-birth”, lotul 08-01), unde subînțelesul este persoana care intră; și aici regenerarea este calea de intrare în viața prezentă, adică în Împărăția imanentă (raw.txt, rândurile 1836–1837, confirmă că nu este un defect de ingest). În română „a introduce” este tranzitiv, iar „Regenerarea introduce în ea.” rămâne fără obiect direct: propoziția este incompletă (regim verbal), iar rolul pacientului (cine sau ce este introdus în ce) nu se mai poate reconstitui. Ciorna a admis singură două lecturi; a doua („regenerarea introduce ceva în viață”) este exclusă de uzul lui Vos din cap. VIII. Este fraza care încheie argumentul paragrafului (viața de acum este supranaturală în origine, pentru că se intră în ea printr-o naștere de sus), deci un cititor care nu o poate descifra pierde exact concluzia. Ciorna a semnalat locul (AMBIGUITATE, MINOR), dar a lăsat în text varianta defectuoasă. Elipsa se poate păstra, fără obiect explicit, printr-o construcție gramaticală, așa cum a rezolvat ciorna 08-01 aceeași formulă („ceea ce dă intrare în această cunoaștere”).",
+      "proposal": "Regenerarea dă intrare în ea. (Alternativă cu obiect explicit: „Regenerarea îl introduce pe om în ea.”)"
+    },
+    {
+      "sourceId": "01M6JQZW8SCYVBQDQME719YT88",
+      "severity": "MINOR",
+      "category": "modalitate",
+      "quoteSource": "remains to all intents a supernatural kingdom",
+      "quoteTarget": "rămâne, în esență, o Împărăție supranaturală",
+      "problem": "„To all intents” (= „to all intents and purposes”) este o precizare de grad orientată spre efect: „practic, în toate privințele care contează”. „În esență” o transformă într-o afirmație despre natura lucrului și sugerează o distincție între esență și manifestare (supranatural „în fond”, nu neapărat și în rest) pe care Vos nu o face: pentru el, forma interioară a Împărăției nu pierde nimic din caracterul supranatural (vezi și „has lost nothing of the supernaturalistic associations”, par. 3 al lotului). Sensul general se păstrează, de aceea MINOR. Ciorna a semnalat locul (ALTA, MINOR) și a propus aceleași alternative; confirm că „în esență” nu este cel mai apropiat echivalent.",
+      "proposal": "rămâne, practic, o Împărăție supranaturală (sau „rămâne, în toate privințele, o Împărăție supranaturală”)"
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVC",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "In our Lord’s Prayer",
+      "quoteTarget": "În Rugăciunea Domnului nostru",
+      "problem": "„Our Lord’s Prayer” este numele obișnuit al rugăciunii, cu un posesiv pios, nu o referire la altă rugăciune a Domnului. În restul lucrării numele fix este redat constant „Rugăciunea Domnului” (lotul 03-01, 07-00, 08-00) sau „Rugăciunii Domnului” (06-01, 08-00); „Rugăciunea Domnului nostru” este singura variantă diferită și poate fi citită ca „rugăciunea rostită de Domnul” în general. Sensul se vede din citatele care urmează, deci nu este o eroare de fidelitate, ci o inconsecvență a unui nume fix între loturi.",
+      "proposal": "În Rugăciunea Domnului (forma fixă din celelalte loturi; „our” este posesivul pios al numelui englezesc)"
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVC",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "forgiveness of sin",
+      "quoteTarget": "iertarea păcatului",
+      "problem": "Singularul generic al englezei este urmat mecanic. Sintagma fixă din limba teologică și bisericească românească este „iertarea păcatelor” (folosită și în lotul 08-00 pentru „forgiveness of sins”); „iertarea păcatului” sugerează un păcat anume sau „păcatul” ca principiu și sună a calc. Sensul generic rămâne inteligibil, deci MINOR. Ciorna a semnalat locul (ALTA, INFO) și a propus aceeași alternativă; o confirm.",
+      "proposal": "iertarea păcatelor"
+    }
+  ],
+  "verdict": "revise",
+  "summary": "O constatare MAJOR (elipsa „Regeneration introduces into it.”, păstrată în română fără obiect direct: regim verbal și rol al pacientului pierdut) și trei MINOR („în esență” pentru „to all intents”, „Rugăciunea Domnului nostru” față de forma fixă din celelalte loturi, „iertarea păcatului” ca urmare mecanică a singularului englez); verdictul este revise numai din cauza celei dintâi. În rest, cele 40 de propoziții ale sursei (5 + 8 + 7 + 10 + 10) au corespondent una la una în română, verificate în ambele sensuri, iar numărul propozițiilor românești este același în fiecare paragraf. Negațiile și restricțiile („do not always sufficiently emphasize”, „not the naturalness … but only its gradualness”, „must not identify”, „does not lie in that … whereas”, „would not be in harmony”, „does not spontaneously result”, „can never of itself”, „no force … can produce”, „nowhere says”, „by no means coextensive”, „not as the product … but as the work of God”, „has lost nothing”), concesivele și contrastele („notwithstanding”, „while on the one hand … also … on the other hand”, „supernatural though this be”, „While it is true … but”, „and yet”) și modalitatea („We believe”, „it must be maintained”, „could not have cherished … had they not been”, „would be difficult to overestimate”, „Surely … must take place”, „appears to be”) sunt păstrate. Rolurile coincid: Isus lucrează în Duh, Dumnezeu dă creșterea, forțele deja prezente produc primul stadiu iar forțe miraculoase noi îl săvârșesc pe al doilea, aceeași putere atotputernică aduce și desăvârșirea, omul pune secera, nicio forță din sfera spirituală nu poate produce schimbările cosmice, Domnul nostru numește criza finală palingenesis, oamenii nu fac Împărăția. Numeralele și ordinalele („două stadii”, „două aspecte”, „în două privințe”, „în primul rând” / „în al doilea rând”, „a patra Evanghelie”, „ambelor stadii”, „ambele sunt cereri”) sunt identice. Cele două trimiteri din text (Mc. 4:26–29; Mat. 19:28) coincid cu references[].target. Textul-sursă al job-ului coincide cu content/sources/vos-1903-kingdom/raw.txt (rândurile 1788–1952), cu excepția corecturilor de OCR ale ingest-ului („orIgm”, „orgamzmg”, „intellVene”, „J eSllS” ș.a.) și a antetelor de pagină; elipsa din par. 2 se află și în raw.txt, deci este a autorului și nu justifică SURSA_POSIBIL_ERONATA. Cele opt aluzii din scripture (1 Cor. 3:6–7; Mat. 13:24–30; 13:47–50; Mc. 4:29; Mat. 13:43; Lc. 13:28; Mat. 5:8; 5:6), pentru care sursa nu dă trimitere, apar numai în scripture și în flag-uri, nu în text; se potrivesc cu formulările englezești cunoscute (în special „putteth forth the sickle … the fruit is ripe” din Mc. 4:29 RV), dar nu am putut verifica pe un text biblic (depozitul nu are o ediție), deci rămân de confirmat, așa cum au semnalat flag-urile ciornei. Citatul din Rugăciunea Domnului este tradus ca text al autorului, cu ghilimele românești, în aceeași redare ca în 03-01 și 07-00. Glosarul și profilul sunt respectate (Împărăția cu majusculă, Împărăția imanentă / finală / viitoare, pilde și nu parabole, Isus, Domnul nostru, Duhul, a patra Evanghelie, Vechiul Testament, Biserica, dreptate, escatologie, regenerarea); niciun calc din listă, NFC, diacritice cu virgulă; translation-check --strict pe ciornă iese cu 0 (doar 8 INFO FLAG_PROPOSED). Alegerile semnalate de ciornă sunt acceptabile și nu schimbă sensul: „supranaturalism” / „supranaturalist” (TERMEN_NOU), „de un realism grosolan” pentru „gross realistic” (falsul prieten „realist” este evitat), „sub pretextul” pentru „under the pretense of”, „nutri” pentru „cherished”, „După ce se scade tot ce este de scăzut” pentru „After all deductions are made” (registru ușor colocvial, dar limpede; alternativă: „Făcând toate rezervele cuvenite”), „viața prezentă” (literal; sursa are aceeași ambiguitate, pe care contextul o limpezește), „asocierile supranaturaliste”, „desăvârșirea” pentru „consummation”, „să se conceapă lucrurile astfel” pentru „so to conceive of it” (antecedent vag în sursă, lăsat neutru), „pune secera la lucru”, „și-a reprezentat” pentru „realized” (obiectul împărțit cu „describes” este rezolvat corect), „cei fericiți”, „viziunea beatifică”, „palingenesis” păstrat ca în sursă, „aceeași întindere” pentru „coextensive”, „Această definiție” pentru „This” (antecedentul este corect). Notă pentru orchestrator: „iubire” este redarea din toate celelalte loturi care au termenul (03-01, 07-01, 08-01, 10-xx); doar 01-01 are „dragostea” (deja final), deci armonizarea privește 01-01, nu acest lot."
+}

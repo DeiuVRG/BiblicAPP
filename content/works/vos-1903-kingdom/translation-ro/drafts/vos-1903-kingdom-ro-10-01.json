@@ -1,0 +1,317 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-01",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQSCXY8XY1PEYDSYW0AHY9",
+      "text": "Isus afirmă necesitatea pocăinței pentru toți oamenii, Mc. 6:12; Lc. 13:3, 5; 24:47. Pe cale indirectă, nevoia universală de pocăință reiese din afirmațiile sale despre universalitatea și caracterul atotpătrunzător al păcatului. Chiar și ucenicilor li se poate spune, fără nicio nuanțare: „Dacă voi, deci, fiind răi etc.”, Mat. 7:11. Nimeni nu este bun, în afară de unul, adică Dumnezeu, Mc. 10:18. Este adevărat că Isus face o distincție între „drepți” și „păcătoși”, Mat. 9:13; Mc. 2:17. Dar contextul arată că această distincție se face din perspectiva judecății pe care oamenii o pronunță asupra lor înșiși, nu din punctul de vedere obiectiv al propriei cunoașteri a lui Isus despre ei. Aceste declarații au fost făcute ca răspuns la acuzația fariseilor că Isus mânca împreună cu vameși și păcătoși. Mântuitorul vrea să spună că, dacă aprecierea lor comparativă despre ei înșiși și despre acești oameni degradați este corectă, cu atât mai mare este necesitatea ca el să se însoțească cu aceștia din urmă pentru a-i mântui. Poate că trimiterea la cei nouăzeci și nouă de drepți, care nu au nevoie de pocăință, din Lc. 15:7, 10, trebuie explicată după același principiu.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "If ye then, being evil, etc.",
+          "quoteTarget": "Dacă voi, deci, fiind răi etc.",
+          "note": "Citat parțial din Mat. 7:11, cu «etc.» al autorului (versetul nu se completează). Tradus din engleza lui Vos, nu după o ediție românească a Bibliei; marcat în scripture cu quote-author-rendering. «then» este redat «deci» (valoare de inferență), «being evil» prin gerunziul «fiind răi»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "None is good save one, even God",
+          "quoteTarget": "Nimeni nu este bun, în afară de unul, adică Dumnezeu",
+          "note": "Mc. 10:18, citat de autor fără ghilimele, în sintaxa propoziției. Tradus din engleza lui Vos («even God» = «adică Dumnezeu»), marcat quote-author-rendering."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "without qualification",
+          "quoteTarget": "fără nicio nuanțare",
+          "note": "Sensul este «fără a limita sau a atenua afirmația»: ucenicilor li se spune «răi» fără nicio restricție. «fără nicio nuanțare» urmează uzul academic românesc («fără nuanțări»). Alternative pentru revizor: «fără nicio atenuare», «fără nicio restricție»; «fără nicio rezervă» a fost evitat pentru că poate fi citit «fără reticențe»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "righteous persons",
+          "quoteTarget": "cei nouăzeci și nouă de drepți",
+          "note": "«righteous» (de 3 ori în paragraf, inclusiv în perechea «righteous» / «sinners») este redat «drept/drepți», în acord cu «righteousness» = «dreptate» (rând PROPUS în glosar) și cu loturile 05-01, 07-02, 08-00. Alternativa din tradiția Cornilescu: «neprihăniți». De adăugat în glosar după aprobare. «persons» nu este redat separat («drepți» = oameni drepți)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the universality and pervasiveness of sin",
+          "quoteTarget": "universalitatea și caracterul atotpătrunzător al păcatului",
+          "note": "«pervasiveness» (faptul că păcatul pătrunde peste tot) este redat «caracterul atotpătrunzător»; nu s-a adăugat nimic despre «întreaga ființă a omului». Alternativă pentru revizor: «răspândirea lui generală»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "if their comparative estimate concerning themselves and these degraded people be correct",
+          "quoteTarget": "dacă aprecierea lor comparativă despre ei înșiși și despre acești oameni degradați este corectă",
+          "note": "Modalitate: condiționalul deschis cu conjunctiv («be correct») este redat cu indicativul («este corectă»), nu cu «ar fi corectă», ca să nu devină contrafactual: Isus presupune aprecierea fariseilor fără a o confirma sau a o infirma. «degraded» → «degradați» (alternativă: «decăzuți»)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "his associating with the latter",
+          "quoteTarget": "să se însoțească cu aceștia din urmă",
+          "note": "«associating with» (a ține tovărășie cu) este redat «a se însoți cu»; «a se asocia» ar sugera o asociere/un parteneriat. «the latter» = vameșii și păcătoșii, nu fariseii. Alternativă: «să stea în tovărășia lor»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 6:12; Lc. 13:3, 5; 24:47",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 7:11",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mc. 10:18",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 9:13; Mc. 2:17",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:7, 10",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCXY8XY1PEYDSYW0AHYC",
+      "text": "Legătura dintre credință și harul și puterea mântuitoare ale lui Dumnezeu în Împărăție este la fel de strânsă și de vitală ca cea tocmai urmărită între pocăință și dreptate. Este un fapt izbitor că, în Evangheliile sinoptice, aproape întreaga învățătură a Domnului nostru despre credință se leagă de săvârșirea de miracole. Aceasta implică faptul că miracolele erau, în cel mai înalt grad, potrivite pentru a scoate la iveală esența interioară a credinței și pentru a dezvălui adevăratul motiv pentru care ea este necesară. Ele întruchipează acel aspect al Împărăției al cărui corespondent subiectiv este credința. Or, miracolele au, aproape fără excepție, două trăsături comune. În primul rând, ele sunt evenimente în care rezultatul depinde absolut și exclusiv de exercitarea puterii divine supranaturale și în care niciun efort omenesc nu ar putea contribui cu nimic la înfăptuirea rezultatului. Iar în al doilea rând, miracolele sunt, așa cum am văzut, miracole de vindecare, în care iubirea plină de har a lui Dumnezeu se oferă omului pentru mântuirea lui. Credința este atitudinea spirituală cerută de acest dublu element din lucrarea mântuitoare a lui Dumnezeu. Ea este recunoașterea puterii divine și a harului divin, nu, desigur, într-un chip pur intelectual, ci într-un chip practic, astfel încât să nu implice doar convingerea minții, ci să aducă cu sine și mișcarea voinței și a afecțiunilor. Felul în care credința se raportează la puterea mântuitoare a lui Dumnezeu este ilustrat cel mai limpede în relatarea din Mc. 9:17–24. Când ucenicii nu au putut vindeca copilul cu duhul mut, Isus a exclamat: „O, generație necredincioasă.” După ce descrie gravitatea cazului, tatăl spune: „Dar dacă poți face ceva, ai milă de noi și ajută-ne.” La aceasta, Isus răspunde: „Dacă poți! Toate sunt cu putință celui ce crede.” Aceasta atribuie credinței ceva ce se poate afirma numai despre Dumnezeu, adică atotputernicia absolută. Domnul nostru subliniază acest principiu și în alte locuri, Mat. 21:21, 22; Mc. 11:22, 23; Lc. 17:6. Explicația stă în aceea că credința nu este nimic altceva decât actul prin care omul apucă și își însușește puterea nesfârșită a lui Dumnezeu. Dacă credința ar fi o străduință omenească, ceva care lucrează prin propria sa putere inerentă, atunci ar fi într-adevăr rezonabil să se spună despre cel care o exercită: „Dacă poți”. Pe de altă parte, dacă sensul cel mai lăuntric al credinței constă tocmai în faptul că omul, renunțând cu totul la propria putere, se lasă în seama puterii lui Dumnezeu, atunci este limpede că orice altă grijă cu privire la ce este posibil sau imposibil, orice „Dacă poți”, este deplasată. De aici rezultă și faptul că credința nu este o chestiune cantitativă, așa cum ar trebui să fie dacă ar fi un principiu al străduinței omenești; credința, asemenea unui grăunte de muștar, va înfăptui cele mai mari rezultate imaginabile, pentru că, oricât de mică ar fi, ea, cu condiția să fie o credință autentică, îl pune totuși pe om în legătură cu rezervorul inepuizabil al atotputerniciei divine, Lc. 17:6.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the saving grace and power of God in the kingdom",
+          "quoteTarget": "harul și puterea mântuitoare ale lui Dumnezeu în Împărăție",
+          "note": "Ambiguitate păstrată: «saving» poate determina atât «grace», cât și «power». Redarea păstrează aceeași ambiguitate, în acord cu lectura din frazele următoare («the saving power of God», «the saving work of God») și cu «harului și … puterii mântuitoare divine» din 10-00."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "eminently adapted",
+          "quoteTarget": "în cel mai înalt grad, potrivite",
+          "note": "Forța evaluativă: «eminently» → «în cel mai înalt grad», ca «eminently true» în 09-04. Alternative: «în chip eminent», «deosebit de»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Now the miracles",
+          "quoteTarget": "Or, miracolele",
+          "note": "«Now» este conectorul logic al premisei minore a argumentului; redat cu «Or,» (conjuncția silogistică), nu cu «Acum»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "they are transactions where",
+          "quoteTarget": "ele sunt evenimente în care",
+          "note": "«transactions» (întâmplări în care se petrece ceva între Dumnezeu și om) este redat «evenimente»; «tranzacții» ar fi un fals prieten (sens comercial). Alternative: «acte», «intervenții»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "towards its accomplishment",
+          "quoteTarget": "la înfăptuirea rezultatului",
+          "note": "«its» poate reveni la «the result» sau la «the transaction»; în română «lui» ar fi putut fi citit ca referindu-se la «efort» (masculin singular), de aceea referentul este repetat explicit («rezultatului»). Sensul rămâne același."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the movement of the will and the affections",
+          "quoteTarget": "mișcarea voinței și a afecțiunilor",
+          "note": "«affections» (termen tehnic din psihologia reformată: mișcările inimii, sentimentele) este redat «afecțiunile», ca în 10-00 (unde a fost propus pentru glosar); în română «afecțiune» are și sens medical, alternativă «simțămintele». Paralelismul frânt al sursei («not only conviction … but to carry with it also …») a fost regularizat: «să nu implice doar …, ci să aducă cu sine și …», fără pierdere de sens."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "O unbelieving generation",
+          "quoteTarget": "O, generație necredincioasă",
+          "note": "Din Mc. 9:17–24 (v. 19, dedus din context, neverificat pe textul biblic). Tradus din engleza lui Vos: «generation» → «generație» (nu «neam»), «unbelieving» → «necredincioasă»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "But if thou canst do anything, have compassion on us and help us.",
+          "quoteTarget": "Dar dacă poți face ceva, ai milă de noi și ajută-ne.",
+          "note": "Din Mc. 9:17–24 (v. 22, dedus din context, neverificat pe textul biblic). Tradus din engleza lui Vos; «thou canst» → «poți» (adresare către Isus), «have compassion on us» → «ai milă de noi»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "If thou canst! all things are possible to him that believeth.",
+          "quoteTarget": "Dacă poți! Toate sunt cu putință celui ce crede.",
+          "note": "Din Mc. 9:17–24 (v. 23, dedus din context, neverificat pe textul biblic). Tradus din engleza lui Vos. Majuscula de după «!» aparține traducerii (în sursă «all things» începe cu literă mică). Reluările «If thou canst» de mai jos sunt redate la fel: «Dacă poți»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "casts himself upon the strength of God",
+          "quoteTarget": "se lasă în seama puterii lui Dumnezeu",
+          "note": "Idiom: «casts himself upon» = se încredințează fără rezerve, se lasă cu totul în seama cuiva. Alternativă pentru revizor: «se aruncă în brațele puterii lui Dumnezeu». «strength» și «power» sunt redate amândouă «putere», ca să se păstreze opoziția «propria putere» / «puterea lui Dumnezeu»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "faith like a grain of mustard seed",
+          "quoteTarget": "credința, asemenea unui grăunte de muștar",
+          "note": "Aluzie la Lc. 17:6 (trimitere dată în job); parafrază a autorului, tradusă ca text al lui Vos, marcată allusion."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 9:17–24",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 21:21, 22; Mc. 11:22, 23; Lc. 17:6",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 17:6",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWP",
+      "text": "Acest raționament, însă, nu se aplică numai miracolelor. Miracolele ilustrează lucrarea mântuitoare a lui Dumnezeu în general. Orice mântuire ține, omenește vorbind, de natura imposibilului și poate fi înfăptuită numai de Dumnezeu. Isus răspunde la întrebarea ucenicilor, „Atunci cine poate fi mântuit?”, printr-un apel la puterea atotputernică a lui Dumnezeu: „Pentru oameni aceasta este cu neputință, dar pentru Dumnezeu toate sunt cu putință”, Mat. 19:25, 26. Orice credință mântuitoare autentică este tot atât de profund conștientă de dependența ei totală de Dumnezeu pentru izbăvirea de păcat pe cât erau convinși cei care au primit vindecările miraculoase ale Domnului nostru că numai Dumnezeu le putea vindeca trupurile de boală.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "partakes, humanly speaking, of the nature of the impossible",
+          "quoteTarget": "ține, omenește vorbind, de natura imposibilului",
+          "note": "«partakes … of the nature of» = are ceva din caracterul imposibilului; redat «ține de natura». «can be accomplished by God alone» este coordonat cu «și» (în sursă, asindetic)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Who then can be saved?",
+          "quoteTarget": "Atunci cine poate fi mântuit?",
+          "note": "Mat. 19:25 (întrebarea ucenicilor), tradusă din engleza lui Vos; «then» → «Atunci» (inferență), «saved» → «mântuit»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "With men this is impossible, but with God all things are possible",
+          "quoteTarget": "Pentru oameni aceasta este cu neputință, dar pentru Dumnezeu toate sunt cu putință",
+          "note": "Mat. 19:26, tradus din engleza lui Vos. «With men … with God» este redat «Pentru oameni … pentru Dumnezeu» (nu «La oameni … la Dumnezeu»), ca să nu se reproducă din memorie formularea unei ediții românești."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "deliverance from sin",
+          "quoteTarget": "izbăvirea de păcat",
+          "note": "«deliverance» → «izbăvire», distinct de «salvation» → «mântuire» (două cuvinte în sursă); la fel «saving faith» → «credință mântuitoare»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 19:25",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 19:26",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWQ",
+      "text": "Dar credința este mai mult decât o convingere cu privire la caracterul necesar și suficient al puterii divine. Ea implică și recunoașterea faptului că Dumnezeu este dispus și gata să mântuiască; este o însușire practică a harului divin. Astfel, în ea intră un element de încredere. Isus nu a încurajat niciodată exercitarea credinței ca simplă convingere exterioară în puterea supranaturală. El a refuzat constant să săvârșească un semn din cer, pe care oamenii ar fi putut să-l vadă fără o asemenea încredere în Dumnezeu sau în el însuși. Acolo unde exista o piedică prealabilă în calea exercitării acestei încrederi, nu voia să săvârșească nici măcar miracole de vindecare. Cel care crede cu adevărat are conștiința vie a faptului că Dumnezeu este iubitor, milostiv, iertător, bucuros să-i primească pe păcătoși. Credința transferă asupra lui Dumnezeu ceea ce părinții omenești simt în ei înșiși față de propriii lor copii, dorința de a ajuta și de a asigura cele necesare, Mat. 7:7–11. A nu avea încredere ar însemna a-i atribui lui Dumnezeu dispoziția rea a oamenilor păcătoși unii față de alții. Această încredere a credinței nu se limitează la momentele critice ale vieții, ci trebuie să fie dispoziția interioară statornică, caracteristică ucenicului, față de orice grijă. A se încrede în Dumnezeu pentru hrană și îmbrăcăminte este cu adevărat semnul ucenicului în Împărăție, în aceeași măsură în care este și a depinde de el pentru mântuirea veșnică, Mat. 6:30. Credința celor asupra cărora au fost săvârșite vindecările minunate poate să se fi manifestat la început ca un act momentan, dar Isus a atras adesea atenția unor asemenea oameni asupra a ceea ce făcuse credința pentru ei, sugerând astfel că această credință putea fi făcută roditoare și în ocazii viitoare. De la ucenici, el a cerut explicit credința ca dispoziție statornică de încredere. Când, în furtună, au venit la el spunând: „Mântuiește-ne, Doamne, pierim”, el i-a mustrat pentru că nu aveau încredere în prezența lui alături de ei ca izvor de siguranță absolută.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "a mere external belief in supernatural power",
+          "quoteTarget": "simplă convingere exterioară în puterea supranaturală",
+          "note": "Vos distinge «faith» (credință ca încredere) de «belief» (asentiment exterior). «belief» este redat «convingere», nu «credință», ca distincția să se vadă în română; același cuvânt redă și «conviction» din prima propoziție a paragrafului. De revizuit/unificat pentru glosar."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "without such trust in God or himself",
+          "quoteTarget": "fără o asemenea încredere în Dumnezeu sau în el însuși",
+          "note": "«himself» = Isus (subiectul propoziției principale), nu Dumnezeu. Construcția a fost răsturnată («El a refuzat … să săvârșească un semn …») ca «el însuși» să se refere clar la Isus; în sursă obiectul stă în față («The performance of a sign … he persistently refused»). Sensul nu se schimbă."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "hindrance to the. exercise of this trust",
+          "quoteTarget": "în calea exercitării acestei încrederi",
+          "note": "Punct rătăcit în sursă («to the. exercise»), probabil artefact OCR; nu afectează sensul și nu a fost reprodus în română."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "he would not even perform any healing miracles",
+          "quoteTarget": "nu voia să săvârșească nici măcar miracole de vindecare",
+          "note": "«would not» (refuz repetat, voliționa) este redat prin imperfectul «nu voia», care păstrează și caracterul iterativ. Autorul nu dă trimitere biblică pentru această afirmație (posibil episodul de la Nazaret, Mat. 13:58 / Mc. 6:5, 6, dar nu s-a verificat și nu s-a adăugat în scripture)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "vividly realizes that God is loving",
+          "quoteTarget": "are conștiința vie a faptului că Dumnezeu este iubitor",
+          "note": "«realizes» nu este redat «realizează că» (calc din lista de calcuri); «vividly» → «vie». Alternativă: «își dă seama limpede că»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the evil disposition of sinful men",
+          "quoteTarget": "dispoziția rea a oamenilor păcătoși",
+          "note": "«disposition» (de 3 ori în paragraf: «evil disposition», «inner disposition», «disposition of trust») este redat consecvent «dispoziție»; în română înseamnă și «stare de spirit», de aceea apare mereu cu un determinant («rea», «interioară», «de încredere»). Alternative: «înclinație», «fire». De adăugat în glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the desire to help and supply",
+          "quoteTarget": "dorința de a ajuta și de a asigura cele necesare",
+          "note": "«supply» este folosit absolut în sursă (obiect subînțeles: ce le trebuie copiilor, cf. contextul din Mat. 7:9–11); în română verbul cere un obiect, așa că s-a explicitat minimal «cele necesare»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "a sign from heaven",
+          "quoteTarget": "un semn din cer",
+          "note": "Aluzie la refuzul lui Isus de a da un semn din cer (cf. Mat. 16:1–4; Mc. 8:11, 12). Trimiteri deduse din context, neverificate pe textul biblic; apar doar în scripture (aluzii), nu în text."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Save Lord, we perish",
+          "quoteTarget": "Mântuiește-ne, Doamne, pierim",
+          "note": "Citat din relatarea furtunii (formularea corespunde Mat. 8:25 în versiunea engleză revizuită; paralele Mc. 4:35–41, Lc. 8:22–25). Trimiterea este dedusă din context, neverificată pe textul biblic; apare doar în scripture, nu în text. Tradus din engleza lui Vos; «Save» → «Mântuiește-ne» (aceeași familie ca «salvation» → «mântuire»; «-ne» este cerut de gramatica românească)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:1–4",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mc. 8:11, 12",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 7:7–11",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:30",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 8:25",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 1 (a doua) din 3 a cap. X (4 paragrafe, 1124 cuvinte-sursă); fără headingRo (part nu este 0). Redări ținute consecvent cu loturile anterioare, în special cu 10-00: repentance = pocăință; faith = credință; righteousness = dreptate; saving grace and power = harul și puterea mântuitoare (cf. 02-01, 10-00); miracles = miracole (cf. 06-02); affections = afecțiunile (10-00); eminently = în cel mai înalt grad (09-04); the Saviour = Mântuitorul; our Lord = Domnul nostru; viz. = adică; Synoptical Gospels = Evangheliile sinoptice; salvation = mântuire, deliverance = izbăvire. Termeni noi propuși pentru glosar (flag-uri TERMEN_NOU / ALTA): righteous = drept/drepți; disposition = dispoziție; belief = convingere (de distins de faith = credință). Trimiterile din text sunt exact cele din job. Citatele biblice ale lui Vos (Mat. 7:11, Mc. 10:18, trei citate din Mc. 9:17–24, Mat. 19:25, 26, citatul din furtună) sunt traduse din engleza lui Vos, nu după o ediție românească a Bibliei. Trimiterile deduse din context (versetele 19, 22, 23 din Mc. 9; Mat. 8:25; Mat. 16:1–4; Mc. 8:11, 12) apar numai în scripture și în flag-uri, nu în text, și sunt neverificate pe textul biblic. Puncte pentru revizor: «fără nicio nuanțare» (without qualification), «să se însoțească cu» (associating with), «se lasă în seama» (casts himself upon), «convingere» pentru belief; anomalie de sursă: punctul rătăcit din «to the. exercise» (par. 4). Textul nu este certificat ca publicabil."
+}

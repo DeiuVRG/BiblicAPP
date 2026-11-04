@@ -1,0 +1,216 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-03",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQZW94452351N2NYMHPWDA",
+      "text": "Din cele spuse reiese că orice părere care ar ține Împărăția și Biserica separate, ca două sfere cu totul distincte, nu este în armonie cu orientarea generală a învățăturii Domnului nostru. Biserica este o formă pe care o îmbracă Împărăția ca urmare a noului stadiu în care intră calitatea de Mesia a lui Isus odată cu moartea și învierea sa. Cât privește întinderea cercului de membri, Isus ne îndrumă limpede să identificăm Biserica invizibilă cu Împărăția. Este cu neputință să fii în una fără să fii în cealaltă. Avem declarația explicită a Domnului nostru din In. 3:3, 5, în sensul că nimic mai puțin decât nașterea din nou nu-l poate pune pe om în măsură să vadă Împărăția sau să intre în ea. Împărăția, așadar, întocmai ca Biserica invizibilă, este alcătuită cu adevărat din cei regenerați; numai cei regenerați îi trăiesc în ei înșiși puterea, îi cultivă dreptatea și se bucură de binecuvântările ei. Desigur, este pe deplin posibil, recunoscând totodată această identitate de întindere, să se facă distincții cu privire la punctul de vedere din care cei regenerați sunt numiți Împărăția și Biserica. S-au făcut diverse încercări în această direcție. Se poate spune că Împărăția îi desemnează pe credincioși în raportul lor cu Dumnezeu ca stăpânitor, iar Biserica îi desemnează în separarea lor de lume și în unirea lor organică unii cu alții. Sau că Biserica îi desemnează pe credincioși în atitudinea lor de închinare față de Dumnezeu, iar Împărăția îi desemnează în activitățile lor etice unii față de alții. Sau, iarăși, că Biserica desemnează poporul lui Dumnezeu din punctul de vedere al chemării sale de a fi instrumentul lui Dumnezeu în pregătirea căii pentru ordinea ideală a lucrurilor și în introducerea acesteia, iar Împărăția desemnează același popor al lui Dumnezeu în măsura în care acesta posedă, în mijlocul său, ordinea ideală realizată în principiu. Aceste distincții și altele asemănătoare au utilitatea lor doctrinară și nu ridică obiecții, atâta timp cât nu estompează faptul că Împărăția, ca și Biserica, este delimitată de linia regenerării și că Biserica invizibilă însăși, în ceea ce îi determină esența lăuntrică, raportul ei cu Dumnezeu și cu Hristos, este o adevărată împărăție, întrucât este alcătuită din cei peste care Mesia domnește ca reprezentant al lui Dumnezeu.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MAJOR",
+          "quoteSource": "the invisible church itself is that which determines its inner essence, its relation to God and Christ, a true kingdom",
+          "quoteTarget": "Biserica invizibilă însăși, în ceea ce îi determină esența lăuntrică, raportul ei cu Dumnezeu și cu Hristos, este o adevărată împărăție",
+          "note": "Sintaxa englezească din ediția-sursă este defectuoasă: «is that which determines … a true kingdom» nu se descompune curat. Lectura aleasă (A) citește «is, in that which determines its inner essence, its relation to God and Christ, a true kingdom»: Biserica invizibilă, în ceea ce îi constituie esența lăuntrică (raportul ei cu Dumnezeu și cu Hristos), este o adevărată împărăție, pentru că este alcătuită din cei peste care Mesia domnește ca reprezentant al lui Dumnezeu. Prepoziția «în» («în ceea ce») este suplinită de mine și nu există în sursă; apoziția «raportul ei cu Dumnezeu și cu Hristos» este păstrată fără «adică», ca în sursă (poate fi citită și ca al doilea complement al lui «determină»). Lectura alternativă (B), mai puțin plauzibilă: Biserica invizibilă este ceea ce determină esența lăuntrică a Împărăției și raportul ei cu Dumnezeu și cu Hristos, fiind ea însăși o adevărată împărăție. Ambele lecturi duc la aceeași concluzie (Biserica invizibilă este o adevărată împărăție, fiindcă e alcătuită din cei domniți de Mesia), dar nu la aceeași relație între cei doi termeni. Posibilă eroare a sursei (prepoziție sau punctuație pierdute): de confruntat cu scanarea ediției din 1903. Nu corectat în tăcere."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the invisible church",
+          "quoteTarget": "Biserica invizibilă",
+          "note": "«Invisible church» / «visible church» sunt redate «Biserica invizibilă» / «Biserica vizibilă», în linie cu «invizibil» / «vizibil» din capitolele IV–V (04-03: «una invizibilă acum, alta vizibilă la sfârșit»; 05-00: «Împărăției invizibile»; 05-01: «forma spirituală, invizibilă»). Termenul revine foarte des în capitolul IX. Alternativă pentru revizor: «Biserica nevăzută» / «Biserica văzută». Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the regenerate",
+          "quoteTarget": "cei regenerați",
+          "note": "«The regenerate» (adjectiv substantivat) este redat «cei regenerați»; revine în tot paragraful și în capitol. Termeni înrudiți: «regeneration» = «regenerarea» (profil: regenerare / nașterea din nou, PREFER), «the new birth» = «nașterea din nou», «the line of regeneration» = «linia regenerării», «the regenerated life» = «viața regenerată». Fără rând în glosar pentru forma substantivată; propus după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "believers",
+          "quoteTarget": "credincioși",
+          "note": "«Believers» este redat «credincioșii» (singular «credinciosul», ca în 07-02 și 08-01), repetat de cinci ori în paragraf. Autorul îl ține distinct de «the regenerate» (cei regenerați) și de «the people of God» (poporul lui Dumnezeu): distincția este păstrată. Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "extent of membership",
+          "quoteTarget": "întinderea cercului de membri",
+          "note": "«Extent of membership» (și, mai jos, «this identity of extent» = «această identitate de întindere») este redat prin «întindere», cu «cercul de membri» ca suport pentru «membership». Formularea este abstractă și nu sunt sigur că sună natural. Alternative pentru revizor: «cuprinderea membrilor» sau «sfera membrilor» (aceasta din urmă ar încurca însă cu «sphere» din prima propoziție a paragrafului, redat «sferă»)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "nothing less than the new birth can enable man to see the kingdom or enter into it",
+          "quoteTarget": "nimic mai puțin decât nașterea din nou nu-l poate pune pe om în măsură să vadă Împărăția sau să intre în ea",
+          "note": "Parafrază a autorului după In. 3:3, 5 (trimiterea este dată în sursă: «Jno. iii. 3, 5»); din memorie, neverificat, «a vedea» corespunde lui 3:3, iar «a intra» lui 3:5. Tradusă ca text al autorului, nu reprodusă după o ediție românească a Bibliei. Marcată `reference` în scripture (nu este citat literal, deci nu `quote-author-rendering`). «Nothing less than» = «nimic mai puțin decât» (păstrează gradul: numai nașterea din nou, nu o schimbare mai mică)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "In. 3:3",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 3:5",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQZW94452351N2NYMHPWDB",
+      "text": "Dar cum stau lucrurile în privința raportului Bisericii vizibile cu Împărăția? Și aici trebuie să insistăm, mai întâi de toate, asupra faptului că Domnul nostru a privit Biserica vizibilă ca pe o adevărată întruchipare a Împărăției sale. Tocmai pentru că Biserica invizibilă înfăptuiește domnia lui Dumnezeu, Biserica vizibilă trebuie să aibă și ea parte de acest caracter. Am văzut că puterea legării și dezlegării dată Bisericii este descrisă sub imaginea cheilor Împărăției cerurilor. Domnul nostru, conferind această putere, acționează în calitate de Rege peste Biserica vizibilă. În Mat. 13:41, Împărăția Fiului Omului, din care îngerii, în ziua de apoi, vor îndepărta tot ce pricinuiește poticnire și pe cei care săvârșesc nelegiuirea, nu este nimic altceva decât Biserica vizibilă. Biserica vizibilă este constituită prin înscăunarea lui Hristos ca Rege al slavei. Din plinătatea autorității sale regale, el a dat, imediat înainte de a se înălța, marea însărcinare de a predica Evanghelia și de a face ucenici din neamuri, și a instituit sacramentul botezului. Trebuie să spunem, așadar, că forțele Împărăției care lucrează și viața Împărăției care există în sfera invizibilă își găsesc expresia în organismul Împărăției din Biserica vizibilă. Un principiu important al guvernării bisericești este acela că Hristos este Rege în această Biserică și că toată autoritatea exercitată în cadrul oricărei organizații bisericești derivă din el, principiu pe care cei care se străduiesc să facă o distincție între Împărăția lui Dumnezeu și Biserica vizibilă nu îl țin întotdeauna suficient în vedere.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "all things that cause stumbling and them that do iniquity",
+          "quoteTarget": "tot ce pricinuiește poticnire și pe cei care săvârșesc nelegiuirea",
+          "note": "Formulare a lui Vos din Mat. 13:41 (trimiterea este dată în sursă: «Matt. xiii. 41»), preluată în fraza autorului și adaptată («the angels in the last day will remove»). Tradusă din engleza autorului, nu după o ediție românească a Bibliei; marcată `quote-author-rendering` în scripture, spre înlocuire ulterioară cu o ediție licențiată. «Iniquity» = «nelegiuire»; «all things that cause stumbling» = «tot ce pricinuiește poticnire» (formulă aleasă din engleza autorului, nu din memorie după un text biblic românesc); «in the last day» = «în ziua de apoi», ca în 07-02."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the great commission to preach the gospel and disciple the nations and instituted the sacrament of baptism",
+          "quoteTarget": "marea însărcinare de a predica Evanghelia și de a face ucenici din neamuri, și a instituit sacramentul botezului",
+          "note": "Aluzie la Mat. 28:18–20 (autoritatea regală, vestirea Evangheliei, ucenicizarea neamurilor, botezul). Sursa nu dă trimitere în acest paragraf; identificarea este dedusă din context și din memorie, neverificată. Marcată `allusion` în scripture, nu adăugată în text (ar fi REF_EXTRA). Redări: «the great commission» = «marea însărcinare» (cu minusculă, ca în sursă; nu «marea trimitere», fiindcă «trimitere» înseamnă și «referință»; alternativă pentru revizor: «Marea Trimitere»); «disciple the nations» = «a face ucenici din neamuri» (fără «toate», pe care sursa nu îl are); «sacrament» păstrat (terminologia reformată a autorului; alternativă în mediile neoprotestante: «rânduială»). «Sacrament» propus pentru glosar."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the power of binding and loosing given to the church is described under the figure of the keys of the kingdom of heaven",
+          "quoteTarget": "puterea legării și dezlegării dată Bisericii este descrisă sub imaginea cheilor Împărăției cerurilor",
+          "note": "Reluare a lui Mat. 16:19 («keys of the kingdom of heaven») și a lui Mat. 18:18 (legarea și dezlegarea date Bisericii), pasaje discutate în partea 09-01 a capitolului; sursa nu dă trimitere aici. Marcate `allusion` în scripture, nu adăugate în text (ar fi REF_EXTRA); identificarea este dedusă din context, neverificată. «Binding and loosing» = «legarea și dezlegarea» și «figure» = «imagine», ca în 09-01."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the kingdom-forces which are at work, the kingdom-life which exists in the invisible sphere",
+          "quoteTarget": "forțele Împărăției care lucrează și viața Împărăției care există în sfera invizibilă",
+          "note": "Compusele cu «kingdom-»: kingdom-forces = forțele Împărăției, kingdom-life = viața Împărăției, kingdom-organism = organismul Împărăției (ca «kingdom-idea» = «ideea Împărăției» și «kingdom-teaching» = «învățătura despre Împărăție» în capitolele anterioare). Asindetul din sursă (două substantive despărțite prin virgulă, cu verbul la plural) este redat cu «și», fără schimbare de sens. Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "the kingdom-organism of the visible church",
+          "quoteTarget": "organismul Împărăției din Biserica vizibilă",
+          "note": "Genitivul «of the visible church» poate fi posesiv (organismul de tip Împărăție pe care îl are Biserica vizibilă) sau apozitiv (organismul Împărăției, anume Biserica vizibilă). Contextul (propoziția a doua a paragrafului: «a veritable embodiment of his kingdom») sprijină mai degrabă a doua lectură, dar sursa nu o impune. Prepoziția «din» păstrează deschise ambele lecturi. Alternative: «în Biserica vizibilă, ca organism al Împărăției» (apozitivă) sau «în organismul de Împărăție al Bisericii vizibile» (posesivă)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "any church-body",
+          "quoteTarget": "oricărei organizații bisericești",
+          "note": "«Church-body» (organizație ecleziastică, confesiune sau comunitate organizată) este redat «organizație bisericească». Din aceeași frază: «church government» = «guvernarea bisericească» (cf. «church discipline» din paragraful următor al sursei). Fără rând în glosar; propus după aprobare. Alternative: «corp bisericesc», «comunitate bisericească». Fraza-sursă cu subiect propozițional («That Christ is King … and all authority … derives from him is an important principle …») a fost reordonată în română («Un principiu important … este acela că … , principiu pe care …»), cu același sens."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "veritable embodiment of his kingdom",
+          "quoteTarget": "adevărată întruchipare a Împărăției sale",
+          "note": "«Embodiment» este redat «întruchipare», nu «întrupare» (care în română trimite la Întruparea lui Hristos). Termenul revine în 09-02 («outward embodiment») și mai jos în acest lot («embody themselves» = «se întruchipează»). «Veritable» = «adevărată». Fără rând în glosar; propus după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 13:41",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 16:19",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 18:18",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 28:18–20",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWD",
+      "text": "Din aceasta, însă, nu rezultă neapărat că Biserica vizibilă este singura expresie exterioară a Împărăției invizibile. Fără îndoială, domnia lui Dumnezeu, ca supremația sa recunoscută și aplicată, este menită să pătrundă și să stăpânească întreaga viață omenească în toate formele ei de existență. Aceasta o învață limpede pilda aluatului. Aceste diverse forme ale vieții omenești își au, fiecare, sfera proprie, în care lucrează și se întruchipează. Există o sferă a științei, o sferă a artei, o sferă a familiei și a statului, o sferă a comerțului și a industriei. Ori de câte ori una dintre aceste sfere ajunge sub influența stăpânitoare a principiului supremației și slavei divine, și aceasta se dezvăluie în exterior, acolo putem spune cu adevărat că Împărăția lui Dumnezeu a devenit manifestă. Or, în învățătura sa, Domnul nostru face rareori trimitere explicită la aceste lucruri. El s-a mulțumit să stabilească marile principii religioase și morale care ar trebui să cârmuiască viața omului în fiecare sferă. Nu era sarcina lui să arate aplicarea lor detaliată. Dar putem afirma cu încredere două lucruri. Pe de o parte, doctrina sa despre Împărăție se întemeia pe o convingere atât de profundă și de largă în privința supremației absolute a lui Dumnezeu în toate, încât nu putea să nu privească orice domeniu normal și legitim al vieții omenești ca fiind menit să facă parte din Împărăția lui Dumnezeu. Pe de altă parte, nu era intenția sa ca acest rezultat să fie atins prin supunerea vieții omenești, în toate sferele ei, față de Biserica vizibilă. Este adevărat că sub Vechiul Legământ existase ceva de acest fel. În teocrație, Biserica dominase viața poporului lui Dumnezeu în toată întinderea ei. Statul și Biserica erau în ea cel mai strâns unite. Isus a dat de înțeles, în mai multe rânduri, că, sub acest aspect cel puțin, condițiile Vechiului Legământ nu urmau să fie perpetuate, cf. Mat. 22:21; In. 18:36; 19:11. Iar ceea ce este adevărat despre raportul dintre Biserică și stat se poate aplica și la raportul dintre Biserica vizibilă și celelalte ramuri diverse în care se împarte viața organică a omenirii. Este întru totul în acord cu spiritul învățăturii lui Isus ca acestea să fie subsumate Împărăției lui Dumnezeu și așezate pe același plan cu Biserica vizibilă, drept manifestări adevărate ale acestei Împărății, în măsura în care suveranitatea și slava divină au devenit în ele principiul stăpânitor. Dar trebuie să ne amintim întotdeauna că acest din urmă lucru nu se poate întâmpla decât atunci când toate acestea, nu mai puțin decât Biserica vizibilă, se află în contact viu cu forțele regenerării, introduse în lume, în chip supranatural, de Duhul lui Dumnezeu. Deși este cuvenit să se facă o separare între Biserica vizibilă și lucruri precum statul creștin, arta creștină, știința creștină etc., aceste lucruri, dacă aparțin cu adevărat Împărăției lui Dumnezeu, cresc din viața regenerată a Bisericii invizibile.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MINOR",
+          "quoteSource": "his doctrine! of the kingdom",
+          "quoteTarget": "doctrina sa despre Împărăție",
+          "note": "În ediția-sursă apare «doctrine!», cu un semn de exclamare rătăcit după «doctrine» (fraza nu are ton exclamativ; probabil artefact OCR sau de tipar pentru «doctrine»). Tradus «doctrina sa despre Împărăție», fără semn de exclamare. De corectat probabil și în ediția engleză («his doctrine of the kingdom»), care se afișează cititorului alături de traducere; decizia aparține revizorului uman."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the parable of the leaven",
+          "quoteTarget": "pilda aluatului",
+          "note": "Trimitere la pilda aluatului: Mat. 13:33 (paralel Lc. 13:20–21). Sursa nu dă trimitere în acest paragraf; identificarea este dedusă din context și din memorie, neverificată. Marcată `allusion` în scripture, nu adăugată în text (ar fi REF_EXTRA). «Parable» = «pildă» (glosar), «leaven» = «aluat», ca în 04-03."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "controlling influence",
+          "quoteTarget": "influența stăpânitoare",
+          "note": "«To control» / «controlling» sunt redate «a stăpâni» / «stăpânitor» («controlling influence» = «influența stăpânitoare», «controlling principle» = «principiul stăpânitor»), în distincție față de «to govern» = «a cârmui» și «rule» = «a domni»; «a controla» ar fi sugerat verificare, nu stăpânire. Alternative pentru revizor: «dominant», «conducător». Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the principle of the divine supremacy and glory",
+          "quoteTarget": "principiului supremației și slavei divine",
+          "note": "Autorul folosește în paragraf «supremacy» (de trei ori) și «sovereignty» (o dată: «the divine sovereignty and glory»). Distincția este păstrată: «supremacy» = «supremație» (glosar vos-supremacy, FIX: nu «suveranitate»), «sovereignty» = «suveranitate» (profil). «Kingship of God» = «domnia lui Dumnezeu» (glosar vos-kingship, FIX)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "co-ordinate them with the visible church",
+          "quoteTarget": "așezate pe același plan cu Biserica vizibilă",
+          "note": "«Co-ordinate» este înțeles în sensul de «a așeza pe același rang» (în opoziție cu «subsume» = «a subsuma»), nu «a coordona», care în română înseamnă și «a organiza, a dirija». Alternativă: «a pune alături de». Construcția infinitivală impersonală din sursă («to subsume … and to co-ordinate») este redată prin «ca acestea să fie subsumate … și așezate …», fără subiectul «noi» adăugat; «as true manifestations» = «drept manifestări adevărate»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "the latter can only happen",
+          "quoteTarget": "acest din urmă lucru nu se poate întâmpla",
+          "note": "«The latter» nu are antecedent nominal. În fraza precedentă ultimul element este că «the divine sovereignty and glory have become in them the controlling principle»; acesta este înțeles ca antecedent («happen» cere un eveniment), nu «subsumarea» sau «așezarea alături de Biserică». Redat «acest din urmă lucru», fără a numi antecedentul."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "In the theocracy the church had dominated",
+          "quoteTarget": "În teocrație, Biserica dominase",
+          "note": "«The church» din teocrația Vechiului Testament (și «church and state» din propozițiile vecine) este scris «Biserica», cu majusculă (instituția, rules §7), în linie cu «Bisericii Vechiului Testament» din 09-01; spre deosebire de «the present Jewish church» din 09-00, redat «biserica iudaică» cu minusculă (alt obiect). «Old Covenant» (cu majuscule în sursă, de două ori) = «Vechiul Legământ», ca «Vechiul Testament»; în 04-02 sursa avea «old covenant» cu minusculă (redat «vechiul legământ»). Revizorul poate uniformiza."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 22:21",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 18:36",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 19:11",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:33",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 13:20–21",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 3 (a patra) din 5 a cap. IX (3 paragrafe, 1146 cuvinte-sursă); fără headingRo (part nu este 0). Redări ținute consecvent cu capitolele anterioare: church = Biserica (majusculă); invisible / visible = invizibil / vizibil (04-03, 05-00, 05-01); King (Hristos, Dumnezeu) = Rege (02-00 ș.a.); kingship = domnia; supremacy = supremația și sovereignty = suveranitatea (distincție păstrată); rule (verb) = a domni, ruler = stăpânitor; view = părere; stage = stadiu; Messiahship = calitatea de Mesia (09-00); figure = imagine și binding and loosing = legarea și dezlegarea (09-01); parable = pildă, leaven = aluat (04-03); in the last day = în ziua de apoi (07-02); Old Covenant = Vechiul Legământ; believer = credinciosul (07-02, 08-01); regeneration = regenerarea. Termeni noi propuși pentru glosar (flag-uri TERMEN_NOU): invisible / visible church; the regenerate; believers; kingdom-forces / -life / -organism; church-body; embodiment; sacrament; controlling (stăpânitor). Trimiterile din text sunt exact cele din job (In. 3:3, 5; Mat. 13:41; Mat. 22:21; In. 18:36; 19:11). Cele deduse din context (Mat. 16:19, Mat. 18:18, Mat. 28:18–20, Mat. 13:33, Lc. 13:20–21) apar numai în scripture și în flag-uri, nu în text, și sunt neverificate. Puncte de sursă pentru om: (1) par. 1, ultima propoziție: sintaxă defectă în ediția engleză («is that which determines … a true kingdom»), tradusă după lectura A (flag MAJOR AMBIGUITATE); (2) par. 3: «doctrine!» cu semn de exclamare rătăcit (probabil OCR; de corectat și în ediția engleză). Citatul din Mat. 13:41 este tradus din engleza lui Vos, nu după o ediție românească a Bibliei. Textul nu este certificat ca publicabil."
+}

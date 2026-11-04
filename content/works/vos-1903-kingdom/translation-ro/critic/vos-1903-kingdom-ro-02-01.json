@@ -1,0 +1,36 @@
+{
+  "jobId": "vos-1903-kingdom-ro-02-01",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M17",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "this restricted usage followed by our Lord",
+      "quoteTarget": "această întrebuințare restrânsă, pe care a urmat-o Domnul nostru",
+      "problem": "„usage” (felul în care este folosit termenul „kingdom”) este redat aici „întrebuințare”, dar „uz” în rest în capitol: în partea 0 („the opposite usage prevailing in the Old Testament” → „uzului opus, predominant în Vechiul Testament”) și în paragraful următor din acest lot („the prevailing usage of his time” → „uzul dominant al vremii sale”; „our Lord’s usage” → „uzul Domnului nostru”). Aceeași noțiune apare sub două redări în același capitol, iar „întrebuințare” este singura abatere. Sensul nu se pierde, dar consecvența terminologică (reguli §1, punctul 3) cere un singur termen.",
+      "proposal": "acest uz restrâns, pe care l-a urmat Domnul nostru"
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M17",
+      "severity": "MINOR",
+      "category": "alta",
+      "quoteSource": "a typical kingdom of God",
+      "quoteTarget": "ca împărăție tipologică a lui Dumnezeu",
+      "problem": "Majusculă inconsecventă pentru același referent (teocrația veterotestamentară văzută ca împărăție a lui Dumnezeu): în partea 0 a capitolului „a real kingdom of God” este redat „o Împărăție reală a lui Dumnezeu” (majusculă), în același paragraf „the kingdom that is” devine „Împărăția existentă” (majusculă), dar „a typical kingdom of God” devine „împărăție tipologică a lui Dumnezeu” (minusculă). Glosarul (kingdom-of-god, FIX, APROBAT) notează „Capitalised in Romanian”; excepția pentru „împărăție tipologică” apare doar în notele ciornei, nu în reguli, iar cele două sintagme paralele stau în loturi vecine ale aceluiași capitol.",
+      "proposal": "noțiunea de teocrație ca Împărăție tipologică a lui Dumnezeu"
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M19",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "the Old Testament legal organization",
+      "quoteTarget": "organizarea legală din Vechiul Testament",
+      "problem": "„legal” are aici sensul „întemeiat pe Lege” (orânduirea teocratică bazată pe Legea mozaică, „the reign of law in which the Jews found their ideal”), nu „conform legii, permis de lege”. În română „legală” are mai ales al doilea sens (fals prieten), așa că cititorul poate înțelege „organizarea legitimă din Vechiul Testament”, ceea ce mută accentul de la caracterul de Lege al orânduirii la legitimitatea ei. Ciorna a semnalat deja ambiguitatea (AMBIGUITATE, MINOR), dar a lăsat formularea în text; o confirm și cer rezolvarea în text.",
+      "proposal": "organizarea întemeiată pe Lege din Vechiul Testament"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Fără omisiuni, adaosuri, negații, modalități sau roluri alterate: cele 37 de propoziții ale sursei (11 + 18 + 3 + 5) au corespondent una la una în română. Numele, cifrele și referințele (seria din primul paragraf și cele patru trimiteri din al doilea) coincid cu job-ul; glosarul și profilul sunt respectate, niciun calc din listă. Trei observații minore: „usage” redat în două feluri în capitol, majusculă inconsecventă la „kingdom of God” tipologic și falsul prieten „legală”. Anomalia tipografică „It” din al doilea paragraf este corect semnalată de ciornă (DE_VERIFICAT, INFO) și nu afectează sensul."
+}

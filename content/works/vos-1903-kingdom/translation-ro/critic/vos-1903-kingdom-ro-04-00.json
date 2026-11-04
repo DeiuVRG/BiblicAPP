@@ -1,0 +1,18 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTN",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "in our Lord’s estimation of values",
+      "quoteTarget": "în aprecierea valorilor de către Domnul nostru",
+      "problem": "„estimation of values” (evaluarea pe care o face Domnul nostru, adică locul pe care îl dă fiecărei valori în ierarhia sa) este redat prin nominalizarea cu agent „aprecierea valorilor de către Domnul nostru”. Sensul se păstrează, dar „aprecierea valorilor” nu este o colocație românească stabilită (poate fi citită și ca simplă prețuire a valorilor, fără ideea de clasament), iar „de către” după un substantiv de acțiune îngreunează fraza. Ciorna a semnalat deja formularea ca nesigură (ALTA, MINOR); o confirm, iar câștigul propunerii este de naturalețe, nu de sens: româna are expresia consacrată „scara de valori”, care redă exact ideea de loc în ierarhie.",
+      "proposal": "locul cel mai înalt în scara de valori a Domnului nostru"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Fără omisiuni, adaosuri, negații, modalități sau roluri alterate: cele 30 de propoziții ale sursei (6 + 8 + 4 + 12) au corespondent una la una în română, verificate în ambele sensuri. Condiționalele („If he expected … then there is no escape”, „if we may believe … then”, „If, on the other hand … then”), cauzalele („consequently”, „therefore”, „in that it prevented him”), interogația din primul paragraf și negațiile („did not for a moment think”, „No man could do anything”) sunt păstrate; gradele de certitudine („quite generally”, „largely”, „may be said”, „at least”) și modalitatea („might be conceived”, „was supposed to”, „we must”) sunt redate fidel, iar rolurile sunt corecte („God’s work, not his”, „associated by Jesus”, „the former affirms … the latter denies” = cea dintâi … cea din urmă, „the outcome has proved him mistaken”). Job-ul nu conține referințe biblice (references: []) și textul nu citează versete, deci scripture gol este corect; numele (Isus, Hristos, Israel) coincid. Glosarul și profilul sunt respectate (Împărăția cu majusculă, Domnul nostru, Isus, Biserica, Vechiul Testament, Evanghelia, dreptate), niciun calc din listă, NFC, diacritice cu virgulă, linia de pauză folosită corect. Alegerile semnalate de ciornă (criză, desăvârșire, părere, „nu în parte”, noțiune, scop ulterior, exaltate, doctrina despre Împărăție) sunt acceptabile și coerente cu loturile vecine 04-01 … 04-04 și cu cap. I–III; „not for a part” este eliptic, iar „nu în parte” păstrează opoziția cu „întregul ei conținut”. Cele două defecte tipografice ale sursei („in.dispute”, „generation-then”) sunt corect semnalate de ciornă (SURSA_POSIBIL_ERONATA, INFO) și nu afectează sensul. O singură observație minoră: „estimation of values”, redat „aprecierea valorilor de către Domnul nostru”, este mai natural „scara de valori a Domnului nostru”."
+}

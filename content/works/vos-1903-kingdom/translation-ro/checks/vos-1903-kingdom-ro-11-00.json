@@ -1,0 +1,22 @@
+{
+  "jobId": "vos-1903-kingdom-ro-11-00",
+  "file": "drafts/vos-1903-kingdom-ro-11-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCXZEAE1PF5EZXVR3YV8",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    }
+  ],
+  "stats": {
+    "paragraphs": 8,
+    "sourceWords": 468,
+    "targetWords": 436,
+    "lengthRatio": 1.051
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "jobId": "vos-1903-kingdom-ro-03-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1F",
+      "severity": "MINOR",
+      "category": "modalitate",
+      "quoteSource": "we need not imply that in each individual case",
+      "quoteTarget": "nu trebuie să dăm de înțeles că în fiecare caz în parte",
+      "problem": "„Need not imply” exprimă lipsa necesității (poziția susținută nu obligă la această implicație), nu o interdicție. În română, „nu trebuie să” se citește de obicei ca interdicție („nu avem voie să”, „nu se cuvine să”), deci modalitatea trece de la „nu este necesar” la „nu se cuvine”. Efectul asupra argumentului este mic, fiindcă propoziția următoare („Tot ce vrem să afirmăm …”) restrânge oricum afirmația, dar este singura abatere de categorie modală din lot; celelalte modalități (may, might, ought, can scarcely, perhaps, undoubtedly) sunt păstrate.",
+      "proposal": "nu este nevoie să dăm de înțeles că în fiecare caz în parte (variantă: „nu suntem obligați să sugerăm că în fiecare caz în parte”)"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Cele 36 de propoziții ale sursei (8 + 9 + 7 + 4 + 8) au corespondent una la una în română, în ambele direcții: nicio omisiune sau adaos de sens (în plus față de sursă apar doar legături gramaticale sau de apoziție: „anume”, „cineva”, „celeilalte expresii”). Negațiile, cauzalele, concesivele, cuantificatorii și gradele de certitudine („fără îndoială”, „cu toată probabilitatea”, „poate majoritatea”, „aproape exclusiv”, „cu greu”) sunt păstrate, iar rolurile sunt corecte, inclusiv în „why he should have substituted” (Matei ar fi pus „Împărăția cerurilor” în locul celeilalte expresii, nu invers). Numele, cifrele și referințele coincid cu job-ul („6:33; 12:28; 13:43; 21:31, 43; 26:29”, „cap. 12:28”, „cap. 21”, „peste treizeci de ori”, „celelalte două cazuri”), iar citatele („Împărăția va fi a Domnului”, „Fiul Omului va veni în Împărăția sa”, „Duhul lui Dumnezeu”) sunt complete. Glosarul, profilul și precedentul din capitolele I–II sunt respectate (Împărăția, domnie, stăpânire, supremație, suveranitate, Iehova, uz, noțiune, iudeii/iudaic, Evanghelii sinoptice), iar în text nu apare niciun calc din listă. Alegerile semnalate de traducător sunt coerente și acceptabile: „reign”/„kingdom” redate „domnie”/„împărăție” în discuția despre redare, „kingdom” lăsat în engleză doar acolo unde afirmația privește cuvântul englezesc, completarea elipsei „the kingdom of my” / „their Father”, „calitate de rege” în perechea reign/kingship (în limitele profilului), „tărâm”, „cititori dintre neamuri”. Singura observație este un MINOR de modalitate în ultimul paragraf („we need not imply” redat „nu trebuie să dăm de înțeles”). Nu am găsit anomalii de sursă evidente (SURSA_POSIBIL_ERONATA); versetele nu au fost verificate pe un text biblic, iar trimiterile deduse de traducător în «scripture» (Obad. 21, care coincide cu trimiterea lui Vos din cap. II, și Mat. 16:28) rămân de confirmat de revizor, așa cum ciorna însăși declară."
+}

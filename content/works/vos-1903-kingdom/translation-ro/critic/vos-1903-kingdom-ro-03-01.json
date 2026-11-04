@@ -1,0 +1,8 @@
+{
+  "jobId": "vos-1903-kingdom-ro-03-01",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [],
+  "verdict": "ok",
+  "summary": "Fără omisiuni, adaosuri, negații, modalități sau roluri alterate: cele 24 de propoziții ale sursei (10 + 3 + 11) au corespondent una la una în română, verificate în ambele sensuri. Condiționalele, concesivele, interogațiile și litota „We shall not go far amiss” sunt păstrate, iar modalitatea („must also have been intended”, „may well have been associated”, „hardly likely”) este redată fidel. Numele, cifrele și cele patru serii de trimiteri biblice din text (una în primul paragraf, trei în al treilea) coincid întocmai cu references[].target; „Dumnezeul cerului” și citatul din Rugăciunea Domnului sunt traduse ca text al autorului, iar referințele Dan. 2:44 și Mat. 6:10 apar numai în scripture și în flag-uri, marcate de ciornă ca neverificate. Glosarul și profilul sunt respectate, niciun calc din listă, ghilimelele, NFC și diacriticele sunt corecte. Alegerile deja semnalate de ciornă (condescending, qualification, exponential of, spoke of God as heaven) sunt acceptabile și nu schimbă sensul; afirmația autorului „Matthew alone” este redată fidel și corect semnalată (DE_VERIFICAT, INFO), fără corecție în text."
+}

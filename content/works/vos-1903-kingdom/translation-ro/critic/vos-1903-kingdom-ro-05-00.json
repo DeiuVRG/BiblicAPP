@@ -1,0 +1,36 @@
+{
+  "jobId": "vos-1903-kingdom-ro-05-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV5",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "to which both may easily become subject",
+      "quoteTarget": "la care ambele pot ajunge cu ușurință să fie expuse",
+      "problem": "Calc sintactic după „may easily become subject”: lanțul „pot ajunge … să fie expuse”, cu prepoziția relativului („la care”) despărțită de „expuse” prin cinci cuvinte, face fraza greoaie și lasă să se vadă engleza. Sensul este păstrat (ambele noțiuni sunt ușor expuse la neînțelegeri), deci nu este o eroare de fidelitate.",
+      "proposal": "la care ambele sunt ușor expuse"
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV6",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "From all political bearings our Lord’s teaching on the kingdom was wholly dissociated",
+      "quoteTarget": "De orice implicație politică era cu totul desprinsă învățătura Domnului nostru despre Împărăție",
+      "problem": "„Bearings” (aici: legături, raporturi, aspecte, ceea ce leagă o învățătură de un domeniu) este redat prin „implicație”, adică o consecință care decurge din învățătură. Sensul alunecă de la „legătură cu politica” spre „consecință politică”, iar colocația „desprinsă de implicații” este forțată (se spune „lipsită de implicații”, nu „desprinsă de implicații”). Ciorna a semnalat deja îndoiala (ALTA, MINOR); confirm că redarea merită schimbată, fără ca ideea generală (învățătura despre Împărăție nu este politică) să se piardă.",
+      "proposal": "De orice legătură cu politicul era cu totul desprinsă învățătura Domnului nostru despre Împărăție"
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV8",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "punctuatie",
+      "quoteSource": "life. -These figures",
+      "quoteTarget": "viață. Aceste imagini",
+      "problem": "Cratima rătăcită dinaintea lui „These” se află și în stratul text brut al PDF-ului (content/sources/vos-1903-kingdom/raw.txt, rândul 1775, și raw-layout.txt, rândul 1799), deci nu este o greșeală de curățare a ingest-ului. Textul din jur este continuu (între „life.” și „These figures” nu lipsește nicio propoziție), așa că este un semn tipografic sau un reziduu de OCR (posibil o linie de pauză după punct). Traducerea o omite corect, fără nicio schimbare de sens, iar ciorna a semnalat deja locul (SURSA_POSIBIL_ERONATA, INFO); defectul rămâne în ediția engleză, pe care cititorul o vede în aplicație.",
+      "proposal": "Fără modificare de text în română. În ediția engleză (content/works/vos-1903-kingdom/edition-en.json), „life. -These” devine „life. These”, iar apoi se reface pachetul."
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Fără constatări CRITIC sau MAJOR. Cele 35 de propoziții ale sursei (4 + 7 + 7 + 5 + 12) au corespondent una la una în română, verificate în ambele sensuri; numărul propozițiilor românești este același în fiecare paragraf, iar titlul capitolului urmează profilul („Împărăția prezentă și Împărăția viitoare”). Negațiile („had no other than”, „not only … but also”, „not having entirely outgrown”, „little more than the name”, „There is no trace”, „by no means imply”, „nor do they exclude”, „could no longer doubt”, „We may not dissolve”, „does not prove … nor does it prove”), condiționala „This would involve”, concesivele („Though possibly … yet”, „True he speaks … But”, „It is true … But even so”), exclamația finală din par. 2 și modalitatea („may now proceed”, „may easily become”, „possibly … may have to”, „distinctly anticipated”, „certainly”, „truly analogous”, „All we can legitimately infer”) sunt păstrate. Rolurile sunt corecte: pasivul „It has … been asserted by a recent writer” devine activ cu același agent, iar „to his teaching on the fatherhood of God rather than to it is due the enrichment” păstrează direcția atribuirii (îmbogățirea se datorează învățăturii despre paternitate, nu noțiunii despre Împărăție). Cele cinci serii de trimiteri din text (Mc. 12:13; In. 18:36 / Mat. 8:11; 21:43; 28:19; Mc. 13:10; 14:9; Lc. 4:26, 27 / Lc. 22:30 / Enoh 15:11 / Mc. 12:25) coincid cu references[].target, iar numele și numeralele sunt identice. Citatul din Enoh și caracterizarea „universalism intensiv” sunt redate integral, ca text al autorului, cu ghilimele românești; trimiterea „Enoh 15:11” coincide cu raw.txt („Enoch xv. 11”), dar nu am putut-o verifica pe un text al lui Enoh (nu există în depozit), deci flag-ul DE_VERIFICAT al ciornei rămâne necesar. Identificările Mat. 10:6 și Mat. 15:24 din scripture (allusion) și din flag se potrivesc cu textul biblic cunoscut (în depozit nu există o ediție biblică pentru verificare pe text) și nu apar în textul tradus. Textul-sursă al job-ului coincide cu raw.txt, cu excepția corecturilor de OCR ale ingest-ului („J estIs’” → „Jesus’”, „d.” → „cf.” ș.a.); singura anomalie rămasă este cratima din „life. -These”. Glosarul și profilul sunt respectate (Împărăția cu majusculă, „împărății politice” cu literă mică pentru împărăția hiliastică, Isus, Domnul nostru, escatologic, supremație, neamurile, Evanghelia, Vechiul Testament, veacul viitor, „noțiune” consecvent cu celelalte loturi); niciun calc din listă, NFC, diacritice cu virgulă, ghilimele „…”; translation-check --strict pe ciornă iese cu 0 (doar trei INFO FLAG_PROPOSED). Alegerile semnalate de ciornă sunt acceptabile și nu schimbă sensul: „noțiuni greșite” pentru „misconceptions”, „curente” pentru „current” (în română „curent” înseamnă și „răspândit”, iar contextul exclude lectura „de azi”), „hiliastice” (ortografie de confirmat în DOOM), „ca urmare” pentru „in result of it” (aceeași ambiguitate ca în sursă), „respingerea multora din Israel” (genitiv obiectiv, lectura probabilă), „colaboratorii” pentru „helpers”, „iluzie” pentru „delusion”, „acestei noțiuni” pentru „it”, „senzual” pentru „sensualistic”, „plăceri” pentru „enjoyments”, „a sta întins la masă” pentru „reclining at table”, „sens” în „acest sens nu lipsește”, „imagini” pentru „figures”, infinitivele între ghilimele din par. 4 și redarea într-o singură construcție a rezervei duble „possibly … may have to”. Trei constatări, niciuna cu efect asupra sensului: două MINOR (un calc sintactic în primul paragraf și „implicație” pentru „bearings”) și una SURSA_POSIBIL_ERONATA (cratima din ediția engleză); verdictul este ok."
+}

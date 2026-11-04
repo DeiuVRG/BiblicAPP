@@ -1,0 +1,160 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-04",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQX44EFNEHQ9JP2NKV1TVA",
+      "text": "După cum s-a spus deja, acesta este un subiect în privința căruia învățătura Domnului nostru nu aduce nicio dezvăluire explicită și care nu poate fi tratat decât pe calea inferenței. S-a crezut uneori că pildele despre grâu și neghină și despre năvod conțin o declarație explicită cu privire la Împărăție ca sferă mai largă decât Biserica. Aceasta se presupune pentru că aceste pilde implică faptul că, în Împărăție, cei buni și cei răi urmează să fie lăsați să se amestece laolaltă, ceea ce nu poate fi regula în Biserică, după cum arată limpede obligația de a exercita disciplina bisericească. Interpretate istoric, însă, aceste pilde nu justifică o asemenea inferență. Doctrina curentă despre Împărăție, împărtășită până în acel moment de ucenici, presupunea că chiar primul act al lui Dumnezeu la venirea Împărăției avea să constea într-o despărțire absolută și veșnică între cei buni și cei răi. Această presupunere era firească atâta vreme cât nu se făcuse nicio distincție între cele două stadii ale istoriei Împărăției. Când Isus a introdus această distincție, a devenit necesar să se sublinieze că nu tot ceea ce era adevărat despre apariția finală a Împărăției putea fi, prin urmare, afirmat și despre modul prezent, invizibil, al venirii ei. Ca avertisment în acest sens trebuie interpretate aceste două pilde.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "by way of inference",
+          "quoteTarget": "pe calea inferenței",
+          "note": "«inference» este redat «inferență» (la fel «such an inference» → «o asemenea inferență»), ca în 04-02, unde construcția cu «warranted» este aceeași. Termenul revine de 7 ori în lucrare și în celelalte loturi apare cu redări diferite («concluzie greșită» în 01-00, «deducție directă» în 08-00); de unificat după aprobare, iar glosarul poate primi un rând."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the parables of the wheat and the tares and of the fish-net",
+          "quoteTarget": "pildele despre grâu și neghină și despre năvod",
+          "note": "Trimitere la pildele din Mat. 13:24–30 (grâul și neghina, cu tâlcuirea din 13:36–43) și Mat. 13:47–50 (năvodul). Jobul nu dă referințe pentru acest paragraf: trimiterile sunt deduse din context, neverificate pe textul biblic, și apar doar în `scripture` (aluzii), nu în text. Redarea urmează 05-01."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "are to be allowed to intermingle",
+          "quoteTarget": "urmează să fie lăsați să se amestece laolaltă",
+          "note": "Modalitate: «are to be allowed» redat «urmează să fie lăsați», care păstrează sensul de rânduială («să li se îngăduie»), nu un simplu viitor. «intermingle» → «a se amesteca laolaltă», ca în 04-03 și 09-01."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "predicated of",
+          "quoteTarget": "afirmat și despre",
+          "note": "«predicated of» (termen de logică: a atribui o însușire unui subiect) este redat «afirmat despre». «a predica» ar fi un fals prieten (în română înseamnă a vesti). Alternativă pentru revizor: «atribuit»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 13:24–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:47–50",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "text": "Domnul nostru dorește să arate limpede că, deși Împărăția vine acum cu adevărat, o despărțire completă între cei răi și cei buni nu poate fi înfăptuită decât la sfârșitul lumii. În veacul de acum, Împărăția trebuie să aibă parte de limitările și imperfecțiunile la care o expune un mediu păcătos. Despre Biserică, ca Împărăție organizată în exterior, acest lucru este adevărat în cel mai înalt grad. Ea există pe câmpul lumii. Niciodată, până chiar în ultima clipă, ea nu va fi pe deplin curățită de toate elementele rele. Acest adevăr, însă, nu aduce în niciun fel atingere posibilității disciplinei bisericești și nici nu scutește de datoria de a o exercita. Procedura la care se referă Domnul nostru în Mat. 18:17 nu este menită să înfăptuiască o despărțire absolută între cei buni și cei răi și să facă astfel Biserica ideal de curată, așa cum va fi ea în starea finală a Împărăției. Scopul ei imediat este autoconservarea Bisericii în acea stare de sfințenie care se cuvine mărturisirii ei și care ar fi distrusă prin practicarea comuniunii religioase cu cei care rămân nepocăiți în fața păcatului vădit. Scopul ei ulterior este vindecător, constând în mântuirea păcătosului lăsat astfel în voia sa. Ambele scopuri pot fi urmărite fără a uita sau a tăgădui lecția predată de pilde, anume că nu le este dat oamenilor să judece inima și că numai Dumnezeu, în ziua judecății, va îndepărta fără greș din Biserică toate elementele care, deși îi simulează înfățișarea exterioară, nu îi aparțin în realitatea spirituală interioară.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "eminently true",
+          "quoteTarget": "adevărat în cel mai înalt grad",
+          "note": "Forța evaluativă: «eminently» este redat «în cel mai înalt grad», nu «foarte» sau «mai ales». Alternativă pentru revizor: «în chip eminent»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the externally organized kingdom",
+          "quoteTarget": "Împărăție organizată în exterior",
+          "note": "Formula lui Vos pentru Biserica ca Împărăție care a primit o organizare exterioară. «externally» este redat «în exterior», în paralel cu «nu doar în exterior, ci și în interior» și «organizare exterioară» din 09-02 (cf. «forma bisericească a Împărăției»). Propus pentru glosar după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the field of the world",
+          "quoteTarget": "câmpul lumii",
+          "note": "Aluzie la imaginea din pilda grâului și a neghinei, în care câmpul înseamnă lumea (Mat. 13:38). Trimitere dedusă din context și neverificată pe textul biblic; apare doar în `scripture` (aluzie), nu în text. Tradusă ca text al autorului, fără reproducere din memorie a unei ediții românești."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "At no time until the very last",
+          "quoteTarget": "Niciodată, până chiar în ultima clipă",
+          "note": "Originalul are o elipsă («the very last» fără substantiv). Completată cu «clipă» (ultimul moment), în ton cu «at no time». Sensul nu se schimbă: nicio curățire completă înainte de ultima clipă."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the duty of church discipline",
+          "quoteTarget": "datoria de a o exercita",
+          "note": "Verbul «a exercita» este subînțeles în original; este luat din «the obligation to exercise church discipline» (paragraful anterior din lot). «o» reia «disciplina bisericească»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "The process",
+          "quoteTarget": "Procedura",
+          "note": "«process» (cel din Mat. 18:17) este redat «procedură», ca în 09-01 («procedura disciplinei bisericești»); «proces» ar fi ambiguu (și «proces judiciar»)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Its proximate end",
+          "quoteTarget": "Scopul ei imediat",
+          "note": "Perechea «proximate end» / «ulterior end» este redată «scop imediat» / «scop ulterior», ca în 01-00 («scopul imediat al lucrării sale mântuitoare») și 04-00 («un scop ulterior»). «imediat» pentru «proximate» (ținta cea mai apropiată în lanțul scopurilor), nu «apropiat»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "her profession",
+          "quoteTarget": "mărturisirii ei",
+          "note": "«profession» înseamnă aici mărturisirea publică a credinței (ceea ce Biserica declară că este). Redat «mărturisirii ei», fără «de credință», ca să nu adaug cuvinte; există riscul ca «mărturisire» să fie citit ca mărturisirea păcatelor. Alternative pentru revizor: «mărturisirii ei de credință», «declarației ei de credință»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "remedial",
+          "quoteTarget": "vindecător",
+          "note": "«remedial» (disciplina ca remediu pentru păcătos, nu ca pedeapsă) este redat «vindecător», care păstrează metafora medicală, dar sună puțin nefiresc cu «scop». Alternative pentru revizor: «de îndreptare», «reparator»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "thus left to himself",
+          "quoteTarget": "lăsat astfel în voia sa",
+          "note": "Idiom: «left to himself» = lăsat singur, fără sprijinul și supravegherea comunității (exclus din comuniune). «în voia sa» redă «to his own devices»; alternativă: «lăsat astfel singur cu sine însuși»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "infallibly",
+          "quoteTarget": "fără greș",
+          "note": "«infallibly» redat «fără greș» (fără posibilitate de eroare, în contrast cu oamenii cărora nu le este dat să judece inima). Alternativă pentru revizor: «în chip infailibil»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the lesson taught in the parables",
+          "quoteTarget": "lecția predată de pilde",
+          "note": "Aluzie la pildele grâului și neghinei (Mat. 13:24–30) și a năvodului (Mat. 13:47–50), discutate în paragraful anterior din lot. Trimiteri deduse din context, neverificate; doar în `scripture`."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 18:17",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:38",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:24–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:47–50",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 4 (a cincea, ultima) din 5 a cap. IX (2 paragrafe, 485 cuvinte-sursă); fără headingRo (part nu este 0). Redări ținute consecvent cu loturile anterioare: church = Biserica (majusculă); church discipline = disciplina bisericească (09-01, 09-02); parables of the wheat and the tares and of the fish-net = pildele despre grâu și neghină și despre năvod (05-01); the good and the evil = cei buni și cei răi (04-03, 09-01); intermingle = a se amesteca laolaltă (04-03); stage = stadiu (09-02, 09-03); current = curent (03-00, 05-00, 09-01); partake of the imperfections = a avea parte de imperfecțiuni (04-04); the present age = veacul de acum (profil); proximate / ulterior end = scop imediat (01-00) / scop ulterior (04-00); unrepentant = nepocăiți (repentance = pocăință); final appearance / state of the kingdom = apariția / starea finală a Împărăției (cf. Împărăția finală, 09-02). Termeni propuși pentru glosar (flag-uri TERMEN_NOU): inference = inferență (de unificat: 01-00 «concluzie», 08-00 «deducție»); externally organized kingdom = Împărăție organizată în exterior; proximate / ulterior end. Referința din text este exact cea din job (Mat. 18:17). Trimiterile deduse din context (Mat. 13:24–30, 13:47–50, 13:38) apar numai în scripture și în flag-uri, nu în text, și sunt neverificate pe textul biblic. Fără citate biblice directe. Puncte pentru revizor: «her profession» → «mărturisirii ei» și «remedial» → «vindecător» (flag-uri MINOR). Textul nu este certificat ca publicabil."
+}

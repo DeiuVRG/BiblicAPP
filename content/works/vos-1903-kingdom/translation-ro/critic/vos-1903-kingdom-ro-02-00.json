@@ -1,0 +1,18 @@
+{
+  "jobId": "vos-1903-kingdom-ro-02-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M14",
+      "severity": "MINOR",
+      "category": "gramatica",
+      "quoteSource": "to make its whole historic movement converge upon and terminate in himself",
+      "quoteTarget": "ca întreaga mișcare istorică a Vechiului Testament să convergă spre el și să se încheie în el",
+      "problem": "În original, reflexivul „himself” trimite fără echivoc la Isus. În română, cele două pronume „el” au ca antecedent cel mai apropiat substantiv masculin, „Vechiul Testament”, din chiar sintagma care le precedă („mișcarea istorică a Vechiului Testament”), în timp ce Isus este departe, în propoziția principală. Prima lectură poate lega pronumele de Vechiul Testament, iar abia sensul (o mișcare nu poate converge spre propriul text) o corectează. Nu se schimbă sensul, dar referentul pronominal este neclar într-o frază deja grea.",
+      "proposal": "să convergă spre persoana sa și să se încheie în ea (variantă mai apropiată de „himself”: „spre el însuși și să se încheie în el însuși”)"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Cele 38 de propoziții din cele 4 paragrafe (11 + 12 + 9 + 6) sunt aliniate 1:1 în ambele direcții: nicio omisiune sau adaos de sens; negațiile, modalitatea („probabil” de două ori, „ar putea părea”, „fără îndoială”, „desigur”, „cel puțin”) și rolurile (agent, pacient, instrument) sunt păstrate. Numele, cifrele și cele 6 referințe (Ex. 19:4–6; Lc. 16:16; Mat. 11:13; Mat. 8:12; Mat. 21:43; Mat. 5:35) coincid cu job-ul, iar citatele („fiii Împărăției”, „cetatea Marelui Rege”, redarea după Mat. 21:43) urmează sursa. Glosarul și profilul sunt respectate (domnie pentru kingship, stăpânire pentru rule, Împărăția, Vechiul Testament, legământ), iar în text nu apare niciun calc din listă. Cele două MINOR GLOSSARY (kingdom-of-god) din translation-check sunt false pozitive ale tiparului: sursa are articolul nehotărât („a kingdom of God”, „a real kingdom of God”), deci „o Împărăție (reală) a lui Dumnezeu” este redarea corectă. Alegerile semnalate de traducător (Iehova, Rege, orânduire, iudeii, înfăptuire, „conștiința sa oficială”) sunt coerente și acceptabile; „Rege” față de „Împărat” (tradiția Cornilescu) rămâne o decizie a proprietarului, fără efect asupra fidelității. Singura observație este un MINOR de referent pronominal în primul paragraf. Nicio anomalie de sursă (SURSA_POSIBIL_ERONATA)."
+}

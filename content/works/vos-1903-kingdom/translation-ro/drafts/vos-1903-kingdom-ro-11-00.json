@@ -1,0 +1,110 @@
+{
+  "jobId": "vos-1903-kingdom-ro-11-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "XI. Recapitulare",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWW",
+      "text": "Ajunși la sfârșitul discuției noastre, putem încerca acum să formulăm pe scurt principiile importante întruchipate în învățătura Domnului nostru despre Împărăția lui Dumnezeu și Biserică. Ele sunt următoarele:",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWX",
+      "text": "În primul rând, noțiunea de Împărăție implică unitatea istorică dintre lucrarea lui Isus și lucrarea lui Dumnezeu din Vechiul Testament. Acestea două alcătuiesc un singur ansamblu de revelație și răscumpărare supranaturale.",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWY",
+      "text": "În al doilea rând, doctrina despre Împărăție reprezintă principiul potrivit căruia religia creștină nu este o simplă chestiune de idei sau experiențe subiective, ci este legată de un mare sistem de fapte și tranzacții obiective, supranaturale. Împărăția înseamnă înnoirea lumii prin introducerea unor forțe supranaturale.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "facts and transactions",
+          "quoteTarget": "fapte și tranzacții",
+          "note": "«transactions» (acte ale lui Dumnezeu în raport cu oamenii, nu operațiuni comerciale) este redat «tranzacții», calc apropiat; în română cuvântul evocă mai ales sensul comercial. Alternative pentru revizor: «fapte și evenimente» (cum a fost redat «transactions» în 10-01, dar acolo cu sensul de evenimente) sau «fapte și acte»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWZ",
+      "text": "În al treilea rând, ideea Împărăției este expresia cea mai limpede a principiului conform căruia, atât în sfera realității obiective, cât și în sfera conștiinței umane, totul se află în slujba slavei lui Dumnezeu. În această privință, Împărăția este cea mai profund religioasă dintre toate noțiunile biblice.",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YX0",
+      "text": "În al patrulea rând, mesajul Împărăției conferă creștinismului, așa cum îl proclamă Isus, caracterul declarat al unei religii a mântuirii, și anume a unei mântuiri nu în principal prin propriile eforturi ale omului, ci prin puterea și harul lui Dumnezeu. Împărăția reprezintă elementul specific evanghelic din învățătura Domnului nostru. Același principiu își găsește expresia subiectivă în învățătura lui despre credință.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the professed character of a religion of salvation",
+          "quoteTarget": "caracterul declarat al unei religii a mântuirii",
+          "note": "«professed» (declarat deschis, afirmat public) este redat «declarat»; alternativă: «mărturisit» (cf. «profession» → «mărturisire» în 09-04). Elipsa «and of salvation not primarily by …» este păstrată fără verb («a unei mântuiri nu în principal prin …»), ca să nu se schimbe relația instrumentală «by»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQSCXZEAE1PF5EZXVR3YV8",
+      "text": "În al cincilea rând, doctrina lui Isus despre Împărăție, care este atât interioară, cât și exterioară și care vine mai întâi în inima omului și apoi în lumea exterioară, susține primatul spiritualului și eticului asupra fizicului. Lumea nevăzută a vieții religioase interioare, dreptatea dispoziției, filiația față de Dumnezeu sunt ridicate în ea la rang suprem, ca esență a Împărăției, ca realități ultime cărora li se subordonează orice altceva. Caracterul etic inerent al Împărăției își găsește expresia subiectivă în cerința de pocăință.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "as both inward and outward, coming first in the heart of man and afterwards in the external world",
+          "quoteTarget": "care este atât interioară, cât și exterioară și care vine mai întâi în inima omului și apoi în lumea exterioară",
+          "note": "Participiul «coming» are ca subiect Împărăția, nu doctrina. Construcția cu «as … coming» este redată prin două relative atașate lui «Împărăție», ca să nu se înțeleagă că doctrina «vine». «as» (felul în care doctrina înfățișează Împărăția) devine «care este»; sensul nu se schimbă."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the righteousness of the disposition",
+          "quoteTarget": "dreptatea dispoziției",
+          "note": "«disposition» (atitudinea lăuntrică a inimii, spre deosebire de fapta exterioară) este redat «dispoziție», ca în 10-01 («dispoziția interioară»). În română cuvântul poate evoca și «stare de spirit»; de adăugat în glosar după aprobare, cu precizarea sensului."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the sonship of God",
+          "quoteTarget": "filiația față de Dumnezeu",
+          "note": "Genitivul «of God» este ambiguu (filiația omului față de Dumnezeu sau filiația Fiului). Contextul (viața religioasă interioară, dreptatea dispoziției) indică filiația credincioșilor; redat ca în 08-01 («sonship to God» → «filiația față de Dumnezeu»), cu «filiație» ca termen al capitolului VIII."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "are in it made supreme",
+          "quoteTarget": "sunt ridicate în ea la rang suprem",
+          "note": "«it» poate trimite la doctrina lui Isus sau la Împărăție. Lectura mai probabilă este doctrina («în ea» = în doctrina lui Isus), dar româna păstrează aceeași ambiguitate prin «în ea» (ambele substantive sunt feminine). Sensul argumentului nu depinde de alegere."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YX1",
+      "text": "În al șaselea rând, forma pe care o îmbracă Împărăția în Biserică arată că ea este inseparabil legată de persoana și lucrarea lui Isus însuși. Religia Împărăției este o religie în care nu există doar un loc pentru Mântuitorul, ci în care locul central este rezervat Mântuitorului. Forma bisericească a Împărăției poartă pe bună dreptate numele de creștinism, pentru că în ea de Hristos depinde totul.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "there is not only a place but in which the central place is for the Saviour",
+          "quoteTarget": "nu există doar un loc pentru Mântuitorul, ci în care locul central este rezervat Mântuitorului",
+          "note": "În sursă «a place» nu are complement; «for the Saviour» este subînțeles din a doua parte a frazei și a fost explicitat în română («un loc pentru Mântuitorul»). Nu se adaugă nicio idee nouă."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YX2",
+      "text": "În sfârșit, gândul Împărăției lui Dumnezeu implică supunerea întregii întinderi a vieții omenești, în toate formele și sferele ei, față de scopurile religiei. Împărăția ne amintește de caracterul absolut, de caracterul atotpătrunzător, de stăpânirea nelimitată care, de drept, aparțin oricărei religii adevărate. Ea proclamă că religia, și numai religia, poate acționa ca factor suprem unificator și centralizator în viața omului, ca ceea ce leagă totul laolaltă și desăvârșește totul, conducându-l la țelul său final în slujba lui Dumnezeu.",
+      "flags": [],
+      "scripture": []
+    }
+  ],
+  "notes": "Ciornă, lotul 11-00 (cap. XI, singura parte, 8 paragrafe, 468 cuvinte-sursă). Nu există trimiteri biblice și nici citate biblice în acest capitol, deci `scripture` este gol peste tot. Redări ținute consecvent cu loturile anterioare: kingdom-conception = noțiunea de Împărăție, kingdom-idea = ideea Împărăției (cf. 01-00, 01-01), doctrine of the kingdom = doctrina despre Împărăție (cf. 09-01), Finally = În sfârșit (cf. 01-01, 02-01, 04-00), demand for repentance = cerința de pocăință (cf. 10-00), sonship = filiație (cf. 08-00, 08-01), disposition = dispoziție și pervasiveness = caracterul atotpătrunzător (cf. 10-01), redemption = răscumpărare, renewal = înnoire, inward/outward = interior/exterior, the church = Biserica. Alegeri de revizuit: «tranzacții» (par. 3), «declarat» (par. 5), relativele din prima frază a par. 6, «filiația față de Dumnezeu» și «în ea» (par. 6). Textul nu este certificat ca publicabil."
+}

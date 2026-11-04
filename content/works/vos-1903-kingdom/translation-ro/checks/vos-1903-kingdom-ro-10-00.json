@@ -1,0 +1,76 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-00",
+  "file": "drafts/vos-1903-kingdom-ro-10-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCXY8XY1PEYDSYW0AHY5",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWG",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parable",
+      "quoteTarget": "pildei"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWG",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parable"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWG",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWH",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWJ",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parable",
+      "quoteTarget": "pilda"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWJ",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parable"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWN",
+      "message": "proposed (not approved) glossary row vos-supremacy (FIX) matched: Title of chapter VI; not „suveranitate”.",
+      "quoteSource": "supremacy",
+      "quoteTarget": "supremația"
+    }
+  ],
+  "stats": {
+    "paragraphs": 6,
+    "sourceWords": 1232,
+    "targetWords": 1193,
+    "lengthRatio": 1.04
+  }
+}

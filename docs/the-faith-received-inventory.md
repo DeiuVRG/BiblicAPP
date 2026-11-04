@@ -325,7 +325,7 @@ work in the DOM, fed from JSON. Geometry at 1366x900: site masthead 77 px, secti
 
 | ID | Feature | Where | What it does | Data | Gate | AI | Priority for us |
 |---|---|---|---|---|---|---|---|
-| RD-01 | Reader shell | `/read/?w=` | Fixed bars, 300 px outline column, one scroller; 3 px progress bar fixed to the bottom; skip link "Skip to the text" | work JSON | open | No | MUST P1 |
+| RD-01 | Reader shell | `/read/?w=` | Fixed bars, 300 px outline column, one scroller holding the whole work (continuous flow); 3 px progress bar fixed to the bottom; skip link "Skip to the text" | work JSON | open | No | MUST P1 (one chapter per screen, as in our app today; continuous flow SHOULD P2) |
 | RD-02 | Toolbar | reader | Contents toggle, title block, prev/next, section counter, Transparency, find, `Aa`, `Tools`; everything else folded into Tools | - | open | No | MUST P1 |
 | RD-03 | Title block | toolbar | Title (20 px), author link, dates or volume, language of the text | work meta | open | No | MUST P1 (adds the language label) |
 | RD-04 | Volume navigator | toolbar row 3, Migne works | Previous/next volume links, dropdown of the works in a volume, "Previous in PL 35" bars inside the text | collections | open | No | SKIP: Migne-specific; the pattern LATER P3 for multi-volume sets |
@@ -346,7 +346,7 @@ work in the DOM, fed from JSON. Geometry at 1366x900: site masthead 77 px, secti
 | RD-19 | Library tab | outline | Author tree with filter; selecting a work loads it | catalogue | open | No | SHOULD P2 |
 | RD-20 | Phone contents drawer | phone | Full-width drawer from the thumb bar with "Authors" and "Scripture" chips, 56 px rows | - | open | No | MUST P1 |
 | RD-21 | Chapter cards in tiers | text | Card (border, 3 px radius, title 1.42 em / 600), label-only card with eyebrow, continuation, tier 2 (top rule), tier 3; "§" anchor; long titles shrink | headings | open | No | MUST P1 |
-| RD-22 | Fold cards, Collapse all / Expand all | text, Tools | A fold toggle per card; folds every section | - | open | No | MUST P1 |
+| RD-22 | Fold cards, Collapse all / Expand all | text, Tools | A fold toggle per card; folds every section | - | open | No | SHOULD P2: meaningful once several chapters share one scroll (continuous flow); P1 cards are not collapsible |
 | RD-23 | Reading text | text | Source Serif 21 px / 1.55 (16 px / 24.8 on phone), measure 37 em, paragraph spacing 0.58 em, chapter line in italic | paragraphs | open | No | MUST P1 |
 | RD-24 | Flow vs Pages | Tools | Continuous reading or page-break marker bars | page breaks | open | No | SKIP: we have sections, not printed pages; LATER with scans |
 | RD-25 | Margin markers and citation copy | text | Page/column pill in the margin; click copies "Author, Title, volume, section. - URL" | - | open | No | MUST P1 (paragraph marker; copy citation) |
@@ -467,7 +467,6 @@ many views. In the reference it is behind the blocking overlay; the Verse Desk i
 | SR-04 | Library search from Browse | `/curated/` | Hero search box posting to the search page | - | open | No | MUST P1 (searches by name locally) |
 | SR-05 | Author-scoped search | author room | Word-index counts per word form, recorded statements, indexed passages, works; "Ask" button | word index | open | Rule | LATER P3 |
 | SR-06 | Search by Scripture reference | Search | Matches the verse or range | verse index | srv | No | SHOULD P2 (the gateway already boosts references) |
-| SR-07 | Find in text | reader | See RD-40 | - | open | No | MUST P1 |
 
 ### 3.10 Ask: the AI question-and-answer workspace (AK)
 
@@ -558,7 +557,6 @@ vendored from the corpus owner's own site and configured by a client config obje
 | AB-03 | Guided-tour engine | `?tour=` | Dims the page, spotlight box, card (step n of m, Members pill, example box, Skip, Back, Next), arrow keys, waits up to 20 s for targets; gates lifted | tour definitions | open | No | SHOULD P3 |
 | AB-04 | How to use | `/how-to-use/` | Tabs Laity, Pastors, Academics; 34 task cards with a screenshot, a note ("Needs a free account", "AI-assisted") and a Try it link | screenshots | open | No | SHOULD P2: ours, with real screenshots of our app |
 | AB-05 | Contributor cards and origin essays | About tabs | Photos, bios, essays by the project's authors | - | open | No | SKIP (their people); we write our own About |
-| AB-06 | Feedback and changelog entry points | About | See SH-11, TR-10 | - | open | No | per those rows |
 
 ### 3.14 Accounts and access (AC)
 
@@ -590,7 +588,651 @@ the web (`docs/arhitectura-app-biblica.md`, section 8); everything here is LATER
 | PR-09 | Free vs Member comparison copy | landing | Free: read everything; Member: research tools after the beta, print journal | copy | open | No | LATER P4 |
 | PR-10 | Checkout flows | Stripe, Portal | Stripe Checkout and Portal for the recurring plan | payments | open | No | SKIP: RevenueCat and Paddle |
 
-**Counts by priority** (generated from the tables above; SHOULD includes the "P1 and P2" split rows under their
-dominant priority):
+**Counts by priority** (generated from the tables above by counting rows; a row that names two priorities, for example "P1 local, P2 synced", counts under the first one named; "SHOULD" covers Phases 2 and 3):
 
-COUNTS_PLACEHOLDER
+| Area | Features | MUST (P1) | SHOULD (P2-P3) | LATER | SKIP |
+|---|---|---|---|---|---|
+| SH: Shell and chrome | 22 | 8 | 3 | 5 | 6 |
+| LP: Landing | 13 | 8 | 2 | 2 | 1 |
+| LB: Library, authors, traditions, reference works | 20 | 9 | 5 | 4 | 2 |
+| WK: Work hub | 15 | 5 | 4 | 5 | 1 |
+| RD: Reader | 56 | 34 | 9 | 7 | 6 |
+| TR: Transparency and trust | 12 | 8 | 3 | 1 | 0 |
+| SC: Scripture and Verse Desk | 32 | 1 | 20 | 9 | 2 |
+| TP: Topics and doctrines | 13 | 0 | 8 | 5 | 0 |
+| SR: Search | 6 | 2 | 3 | 1 | 0 |
+| AK: Ask | 31 | 19 | 8 | 3 | 1 |
+| RS: Other research tools | 28 | 2 | 10 | 15 | 1 |
+| LX: Lexicon | 2 | 0 | 0 | 2 | 0 |
+| AB: About, help, tours | 5 | 1 | 3 | 0 | 1 |
+| AC: Accounts and access | 7 | 0 | 4 | 1 | 2 |
+| PR: Pricing and membership | 10 | 0 | 0 | 9 | 1 |
+| **Total** | **272** | **97** | **82** | **69** | **24** |
+
+---
+
+## 4. Page anatomies
+
+Measurements are at 1366x900 (D) and 390x844 (P) unless stated. "Band" means a full-width section with a centred
+container of 1,124 px (side gutters 20 px on P). Colour names refer to the tokens in section 5.
+
+### 4.1 Landing (`/the-faith-received/`)
+
+**Purpose.** Marketing and entry page for signed-out visitors: say what the library is, show named works before
+any count, show the shelves, list every feature, explain free versus member, capture a free account, sell
+membership. One scrolling page, 10,002 px tall (D) and 18,753 px (P); no local state; everything dynamic is the
+live counts and the plan toggle.
+
+| # | Band | Height D / P | Background | Content |
+|---|---|---|---|---|
+| 1 | Hero | 698 / 710 | dusk photograph of a spired town under a dark gradient (`#2d2927b8` to `#2d2927f0`) | kicker (pulsing pilcrow, "THE FAITH RECEIVED", BETA pill); H1 52/56 px (P 28.9/32.3) in IM Fell, two lines, line two highlighted by a 78 % terracotta bar sweeping in over 0.55 s after 0.25 s; sub 17/27.2 px, white 84 %, 527 px wide; two buttons (solid orange, ghost) and two underlined links |
+| 2 | "Where to start" | 316 / 710 | page | four doors, H3 28 px, paragraph 15 px muted, "NAME arrow" link 12 px caps; 4 columns above 1000 px, 2 from 641, 1 below with hairlines |
+| 3 | Free / Member + account form | 523 / 1196 | page | two-column table with top and bottom hairlines; sign-up form grid 500 + 600 px; beta note |
+| 4 | Devotional split | 788 / 939 | cream | framed painting (3 px dark border) and kicker, H2 38 px, paragraph, outline button |
+| 5 | Stats and "Who it is for" | 687 / 1061 | dark painting under a 78-86 % scrim | four stats (numeral 46 px, caption 11 px caps; P 2x2); H2 40 px; three columns (H3 24 px) |
+| 6 | "In the collection" | 1050 / 1779 | page, top hairline | grid of twelve cards (270 px cells, 14 px gap; 2 columns at 1100, 1 at 600); card: white, 1 px border, 3 px radius, date line 11 px caps orange, era line, title 19/700, description 14 px (hidden on P), READ arrow; hover: border terracotta, arrow +3 px |
+| 7 | "Study" | 594 / 1544 | dark `#2d2927` | two cream-framed facsimile plates; kicker, H2, text, outline button |
+| 8 | "The shelves" | 1207 / 4495 | page | eleven cards, 5 per row (cell 210, gap 24/18; P one column): plate 210x110, italic caption, name 17 px, count 12.5 px, description 13 px, who-line 12 px; dark pill "Browse Full Library" |
+| 9 | "Explore the library" | 623 / 1266 | page | 17 bordered rows, three columns; bold label 15/600 and a muted clause |
+| 10-12 | Membership | 238 + 1515 + 306 | page | header and toggle; two plan cards; "Other memberships" in four numbered columns; "Rather give once?" |
+| 13 | Beta band | 348 / 340 | cream | kicker, sentence, `Give Feedback` |
+| 14 | Transparency band | 482 / 449 | page, top hairline | H2 38 px, short paragraph, terracotta button; narrow container (664 px) |
+| 15 | Footer | 426 / 1053 | page | columns of links |
+
+Interactions: hero sweep and pulse (reduced-motion safe); counts replaced after the catalogues load; plan toggle;
+whole membership card clickable (ignored while text is selected or with modifier keys); every gated link opens the
+gate modal; header "Support" and the hero button scroll to the membership block. Phone: the rail becomes a
+scroller, hero text 28.9 px, buttons stacked, all grids one column except the stats (2x2), collection cards lose
+description and arrow (119 px tall), shelf cards show a 350x180 plate above the text.
+
+### 4.2 Library and shelves
+
+**Browse (`/curated/`).** Hero 379 px (H1 46 px IM Fell, a 660 px search form joined to a `SEARCH` button, five
+buttons that wrap at 780 px). Below, five collapsible bands (`details`, all open, chevron at the far right of the
+header; header = small-caps label plus H2 38 px): creeds and confessions (cream, 15 rows, 28 px titles), start here
+(page, 10 rows in two columns), authors (dark, 30 rows, link "Explore all authors"), the fathers (cream, 18 rows),
+guide teasers (13, in terracotta links), shelf samples (grey `#f2f2f2`, nine blocks with five featured works each).
+Row anatomy: title 17 px (28 px in the big bands), italic original-language title 13-15 px muted, meta 11 px caps
+(`GROUP, DATE`), hairline between rows. The lists are hand-written in the template; samples and counts come from the
+catalogues (English title, original title, author).
+
+**Full Library (`/all-works/?collection=all`).** Hero 395 px. A "Browse the shelves" fold (62 px row, `#fbf8f3`,
+border; opens to a three-column grid of shelf cards: name 18 px, count in orange, italic who-line, a guide button and
+a "Study this shelf" disclosure). View tabs `By author | By century` (18 px; the label becomes `By volume` or `By tome`
+on Migne shelves). Filter panel (card `#fbf8f3`, 1,124 px): search input (180 ms debounce), a count line in 11 px caps
+that always states what the list is ("N works in the whole library", "N works matching X in ..."), selects with caps
+labels (collection, century with counts, tradition with counts, conditional denomination), a "has page scans"
+checkbox, "N works have no date". A-Z bar with counts (two rows on D, one scrolling strip on P). The list: 100 authors
+per page in two columns, each an accordion (chevron, name 13/600 caps terracotta, "N works" right-aligned); opened:
+"ABOUT NAME" link, then rows (title 16 px, original title 13 px italic, citation 12 px muted "PL 139, cols. 419-462").
+Pager `PREVIOUS | numbers | NEXT`; a page break only falls between authors. By-century view: twenty tiles (about
+73x55 px) with counts. The whole state is in the URL (see 2.2). Phone: filters stack one per row, the A-Z bar scrolls,
+one column.
+
+**Shelf pages.** Same template with its own hero and counts: confessions (tabs By tradition / By century, groups
+ordered The Whole Church, Eastern Orthodox, Roman Catholic, Waldensian, Bohemian Brethren, Protestant, Lutheran,
+Reformed, Anglican, Presbyterian, Congregational, Baptist, Arminian), the three Migne pages with a "Study this shelf"
+panel (Ask this shelf plus four cards: Scripture, Authors, Topics, Connections), Early English Books.
+
+**Traditions (`/tradition/`).** Hero 390 px; a hairline list of 15 link rows (78 px): name 21 px (18 px for the ten
+indented children of Protestant), one-line description, and a caps meta line "FROM <year>, N DOCUMENTS, N AUTHORS".
+Detail: H1, dek, "Guide to the shelf" button, five open `details` (Overview in two columns, Related traditions chips,
+Creeds, confessions and catechisms by year with a type tag, Authors in order of birth with works counts, and a nested
+"all N authors" disclosure).
+
+### 4.3 Authors and the author room
+
+**Index (`/authors/`).** Hero 358 px. A filter card in three columns: Find an author, Period (nine periods from Early
+patristic to Later authors and Undated), Order (library selection, A-Z, most works, most Scripture citations). Result
+line ("1,879 authors across 9 shelves") with underlined "Expand all" and "Reset filters". Nine shelf cards (92 px, white,
+border; "501 authors, 2,915 works", italic preview of the first four names) as accordions whose rows show name,
+"birth year, tradition tags" and "N works". A search also lists "authors with works but no research room". A
+Methodology disclosure closes the page. Phone: the three filters collapse behind "Filter and sort".
+
+**Room.** Under the same hero: round portrait (186 px, cream ring), eyebrow, H1 52 px, one line of dates and office,
+two outline buttons (citation map, compare). Tabs ABOUT, LIBRARY, THE ROOM, ESSAYS; blocks: four numbered
+start-reading picks with chips, biography, an era scale (five periods), a quick-facts card (works, pages, Scripture
+citations, tradition, shelf), "cites most" and "cited by" (eight authors each with counts), related authors; then the
+tab bar `Works | Positions | Scripture | Topics | Reception | Connections | Search` (counts on some). The Works panel
+has a title search, a "kind of work" select (commentaries, letters, sermons and homilies, treatises, polemical,
+devotional and practical, editorial apparatus, catechisms and confessions, collected editions, history and lives) and
+rows with `Read work`, `Explore work` (opens the work hub), `Save work`. The page is 18,307 px tall on D. Every author
+has a page, with or without a room.
+
+### 4.4 Work hub (`/author/?sh=<shelf>#w/<slug>`) `[live-wh]`
+
+**Purpose.** One page per work that explains it and opens it: what it is, where to start, how it is built, what it
+cites and who cited it. It reuses the Authors hero (H1 "Authors", 358 px on D) and the section bar; the page title is
+"Authors". Open to everyone. Observed on a Migne work (Augustine, Ten Tractates on the First Epistle of John); a
+curated English work answered "Not found." at the same address because no enrichment file exists for it.
+
+| Zone | Content (D) |
+|---|---|
+| Breadcrumb | the author's name, 15 px muted, above the card |
+| Card | white-cream card, 1 px border; title 32.8/52.5 px, weight 400, in the system serif stack (`ui-serif`, New York, Iowan Old Style, Palatino, Georgia: the display-font variable is not applied on this template, as on the Authors page); author link in terracotta, then the citation ("PL 35, cols. 1978-2062") and a bordered small-caps kind chip (11.8 px/600, tracking 1.4 px, muted); two stat tiles (220x76 px: number 24 px, caption 11 px caps): PAGES (43) and SCRIPTURE CITATIONS (361); link "Open in the reader" (14 px, terracotta, 44 px high) |
+| Tab strip | sticky under the section bar, 47 px high on a page-coloured ground with a hairline; tab buttons 46 px high, Source Serif 14 px, active 600 ink with a 2 px accent underline, inactive 400 muted; counts in the label: Overview, The argument 7, Sections 10, Index 775, Quotations 4, Later readers 924, Scripture, Topics, Positions, Sources cited, Names. On P it stays one scrolling row |
+| Overview | H2 26 px/500 (system serif); two columns from 960 px (1.15fr / 1fr, gap 56): left a machine-written blurb (Source Serif 17/27.2, 595 px wide, max 70 ch) and kind tags; right "Where to start" (H3 15 px/600): five numbered circles (1.7 rem), each a terracotta underlined page button (17 px) and one sentence of why; then a Methodology disclosure |
+| The argument | a short summary, then numbered theses as expandable rows (16/600) with page spans, "how it is argued", objections and answers (dashed rules) |
+| Sections | each section title (first words of the heading) with a one- or two-sentence summary |
+| Index | "Index of the whole <corpus>" with five part buttons and counts (Subjects 207, Persons 1, Scripture 372, Terms 77, Questions 118), a "Find a subject" field and a two-column list of entries with page buttons (a page opens a page window) |
+| Quotations | source-language quotes (italic, 3 px left rule) each with its page |
+| Later readers | "pages of this work cited N times by M later works", a find field, rows "p. 2044, 128 later citations" that open to the citers |
+| Scripture | counts "300 quotations, 36 citations, 25 allusions" and a per-book list ("I John 97 citations") |
+| Topics | pages per topic (Sanctification 31 pages, Grace 29, ...) |
+| Positions | three doors: read the author's positions; follow sources cited; explore later citations |
+| Sources cited / Names | resolved citations with authors; a citation index and names in the text, counted separately |
+| Resources band | "FROM MERE ORTHODOXY: Resources on this work" essay cards (skip) |
+
+The page is 15,188 px tall on D for this work, mostly lists. P: card and tiles in one column, tab strip scrolls.
+
+### 4.5 Reader (`/read/?w=<slug>`)
+
+Desktop sketch (not to scale):
+
+```
++-----------------------------------------------------------------------------+ y 0
+| masthead (publisher)  logo | site nav ........ search  Sign in  [Become a Member]   77 px
++-----------------------------------------------------------------------------+
+| section bar  THE FAITH RECEIVED | HOME   Search  Read>  Scripture  Topics ...      48 px
++-----------------------------------------------------------------------------+
+| [menu] Title                      [<][>][ 3 / 114 ] [Transparency] [find] [Aa|Tools>]   67 px
+|        Author  dates                                                              (97 with volume row)
++-----------+-----------------------------------------------------------------+
+| [HIDE CONTENTS][EXPAND CONTENTS]   |  scroller: main#reading (max 960 wide)   |
+| [Outline|Index|Library]            |    [ chapter card                    v ] |
+| [Search contents]                  |    Chapter I                             |
+| [Show current]                     |    paragraphs, 37 em measure             |
+| 114 CONTENTS ENTRIES               |                                          |
+| | current entry (bar)              |    (find bar sticks to the top here)     |
++-----------+-----------------------------------------------------------------+
+                                       progress bar 3 px (fixed bottom)
+```
+
+Phone: masthead 61, bar 43, toolbar 53 (title and author only), text 16/24.8 with 12 px side padding, thumb bar 61 px
+fixed at the bottom with four cells (Contents, Search, Text, Tools).
+
+Layers, in the order Esc closes them: find bar, `Aa` panel, Tools drawer, Transparency dialog, Scripture / footnote /
+margin previews, Expand-contents overlay, gate modal, Report form, keyboard help, Research panel; with nothing open
+Esc hides the contents panel. Popovers: `Aa` panel 340 px wide below the button; Transparency dialog 560 px centred
+below the toolbar (phone 358 px at x=16); selection bar 595x50 under the selection; Scripture preview 460 px; footnote
+preview 470 px; at 700 px and below previews become bottom sheets (70 % of the viewport height, 12 px top radius).
+Scroll behaviour: scrolling down slides the masthead away on desktop (the bar stays pinned, the toolbar rides up to
+y=48); on phone everything but the progress bar leaves and returns on a scroll up.
+
+Bilingual reading (Both): one row per aligned paragraph, source left and English right with a hairline divider; grid
+columns 0.44fr and 0.56fr (English runs about 15 % longer than Latin), measure grows to 1,440 px, heading cards in each
+lane; a drag handle changes the split (0.25-0.75, double-click resets). On phone the lanes stack, each block with a
+muted lane label. There is exactly one English text per work: no second translation lane.
+
+### 4.6 Scripture reader and Verse Desk
+
+**Scripture reader (`/scripture/?ref=romans.8.7`).** Zones top to bottom: masthead and bar; hero 372 px (310 on P);
+control bar 157 px (214 on P), not sticky: division tabs (Old Testament, New Testament, Apocrypha; 16 px, active
+underlined in `#9c4d37`), Book select, Chapter select, Translation select (ESV, CSB, KJV, NASB), a "Commentaries (N)"
+toggle, two 44 px circular previous/next buttons; a view bar (layout radio group of five icons and a dark-mode button);
+the layout grid (max 1,380 px; two columns of 635 px with a 40 px gap at 50/50). Left: a card (`#fffdfa`, padding
+34/44/40) with a chapter header (book name eyebrow 11 px caps orange over "Chapter 8" 42 px/600), a hint line and the
+text at 19/35.15 px; every verse is a button, verse numbers superscript 11 px. The active verse has a 18 % orange wash
+and a 2 px orange underline. Right: the commentary pane (ground `#fbf8f3`, padding 18/20/24) with a sticky tab row
+(Commentary, Citations, Reception, Hymns, a Verse Desk button), an eyebrow ("Commentary on this verse"), the reference
+as an H2 26 px, and a view: the creeds block (count, "Show all N", rows with the document title, article reference, the
+words quoted), the current commentary line with "Change", key-commentator pills (two rows), a language switch, a
+"where" line, the commentary's own page text, and a footer with the checkbox "Follow the text" and previous/next page.
+Citations view: headline count, tradition/author/century selects, text box, "Clear filters", five most-cited sources with
+Preview. A chapter overview shows when no verse is open. Below 900 px there are no columns: the pane opens inline after
+the verse's paragraph as accordion rows (reception history, readings, points in dispute, commentaries on the verse and
+the book, cited elsewhere, citations of this verse, read with, similar passages). Attribution line at the foot. Dark
+palette: page `#222320`, card `#2B2C29`, panel `#272824`, ink `#E9E9E5`, muted `#B0B0A8`, rule `#454740`, accent `#D79380`.
+
+**Verse Desk (`/scripture/desk/?ref=romans.3.28`).** One long page (13,756 px D, 22,657 P), module order is DOM order:
+desk head (reference in IM Fell 44 px, verse 30/41.4 px, previous / back / next links, century ruler with 18 bars and
+the library's usual share marked), four stat tiles (works citing it, commentaries, confession proofs, readings), a lede
+composed from counts only, "on this page" anchors, in four translations (four cards), essays (skip), key voices (six
+portraits), how the church read it (five age cards, readings ranked by pages), points in dispute (questions with
+positions, no names), who confesses it (three columns by tradition), commentary ladder (seven age cards), chapter heat
+(one bar per verse, each a link), share, commentaries with Preview, citations (two bar charts, filters, kind chips,
+author cards, "load 250 more"), similar passages, ask. Every figure module has a Methodology note.
+
+### 4.7 Topics
+
+**Index.** Head card (112 px) with "Find a topic" and a 420 px search field; three CSS columns (cards 408 px) of ten part
+cards, each an H2 with a Roman numeral in `#9c4d37` and topic links 17 px in 46 px rows, narrower topics indented 20 px.
+**Topic page (the topic desk).** Head card (path, H2 48 px, one sentence, "within this topic" links); four anchored
+tiles (confession articles 95, works 418, authors 1,198, verses cited 8,676); jump nav (traditions, classic works, about,
+key verses, people, reading path, related, full record); "Through time" (five tabs: History, Scripture, A course of
+reading, Traditions compared, Concept guides; the History panel is an overview plus a nine-colour shelf legend plus five
+tinted age cards holding century rows of stacked bars scaled by the square root of the count); essays (skip); tradition
+cards (3 px terracotta top border, verbatim excerpts with citation line, key works); classic treatments by shelf; nine key
+verse cards; twelve people; reading path (two numbered cards); related topic chips; the two tabbed blocks (Read, Compare,
+Trace, Scripture) for creeds and for works. Page 17,543 px D, 36,666 P. Phone: tiles 2x2, tabs wrap, century rows keep
+label, bar, count, chevron.
+
+### 4.8 Search
+
+Signed out, Search and the other server-gated tools show a hero, an in-page panel "Free account required" (H2 19 px,
+sentence, outline button, "Sign in" link) and, after a second, the arrival modal. Signed in (from the tour only): a
+mode strip (Works, Passages, Scripture, Ask), the search box, a Shelf select, "Filters and order" (author, work,
+collection, group), results naming work and author, a Compact density button, and for Passages a switch Exact words /
+By idea. Power Search (one product image): a white query box with a dark `Search` button, a SCOPE row ("The whole
+library"), a FILTER row ("All 47 works"), the count line "47 works, showing 1 to 25", results grouped by work with a
+terracotta shelf label, title, byline and a "Passages in this work" expander.
+
+### 4.9 Research hub and the Ask workspace
+
+**Research hub (`/research/`).** Hero 218 px (compact), a "Free account required" panel, then "RESEARCH TOOLS" in five
+groups in three CSS columns (353 px each at D; two columns up to 1023 px; one up to 640): Search and ask (Ask, Power
+Search); Read with the commentators (Commentary Decks, Disputed Questions, Page Scans); Look things up (Lexicon, Set
+Indexes); Compare and connect (Compare, Connections); Keep your work (Bookmarks, Notebook, Desk). Each row: name 15/600, a
+one-line promise 14 px muted, a hollow `Open` button (44 px, 1 px border, fills on hover). Signed in it becomes the
+Research desk: a label over a tab strip of seven tabs.
+
+**Ask workspace (`/ask/`).** Reconstructed from the site's own script and stylesheet (the signed-in product is not visible to
+anonymous visitors; one cropped answer is public).
+
+| Zone | Geometry and content |
+|---|---|
+| Frame | fixed layer above everything (z 60), `role=dialog` when overlaid, `main` when standalone, `complementary` when docked; every other child of `body` is inert while modal |
+| Sidebar | 272 px, cream, own scroll: brand link, "New conversation", "Search conversations", CONVERSATIONS label with an ARCHIVED toggle, list (title 15 px; second line: Researching, Needs attention, Ready or the date; current row has a 2 px terracotta left border; folders as `details`), foot links (Collections, Open Desk), completion notifications, the note that conversations are saved in this browser. Off-canvas drawer below 900 px |
+| Header | history toggle, title (16/600, one line) over a context line, a state pill (34 px, pulsing dot, then a check), icon buttons (search, theme, "..." menu, Library link, close) |
+| Chat column | measure 760 px centred; feed padding 36 px |
+| Welcome | H1 "Ask the Library" (30-40 px, 600), one line of help, a 2-column grid of four cards (label 11 px caps over a 15 px prompt; hover border terracotta) |
+| Turn | question bubble (right-aligned, max 88 %, radius 14/14/4, 17 px); mode line; progress (three pulsing dots, stage text, elapsed timer, the last six completed stages, "Found so far: N works, M passages" with up to eight chips); "Answer" label; an outline card repeating the question (20 px/600) with "Top" and one 13 px jump link per `###` section; answer body 18/1.75 in Source Serif, `###` headings 26 px/600; extras; receipts; "All sources" disclosure; actions (Read sources, Share, Copy answer, Save to notebook, Insert in Desk, Research in Deep, Retry) |
+| Citation chip | `padding 0 5px`, 0.78 em, cream fill, 1 px border, 2 px radius, label "p. 384" or "PL 32:659"; the model writes `[slug/p384]` and the client resolves it against the returned sources; hover (220 ms) or focus opens a 460 px card with the paragraph and, beneath it, the Latin of the same paragraph |
+| Source pane | the real reader in an iframe beside the chat (default 53 %, range 28-76 %, 9 px handle, keyboard resize), "Back to conversation", "Open reader"; phone: full-screen layer with tabs Conversation / Read source |
+| Composer | box (max 760 px, radius 14, focus border ink plus soft shadow); label "Your question"; textarea "Ask anything"; tools row: mode toggle (Ask, Deep research), scope toggle (Whole library, a selection's name, "N selections"), send (44 px circle that becomes a stop square); foot line: save state, usage meter, "Enter to send, Shift+Enter for a new line"; a floating "Latest answer" button after 110 px of scroll |
+| Scope popover | "Search within": the nine shelves (two-column checkboxes), English groups, chips of picked authors and works, "Add works or authors" with 150 ms search, "Use the work I am reading", "Include my notebook in Ask and Deep research" |
+| Command palette | Ctrl/Cmd+K dialog: new conversation, search within, research mode, browse conversations, open library, plus every conversation |
+
+States and messages: stage texts are humanised tool names ("Searching by meaning", "Reading source pages", "Finding
+commentaries", "Tracing reception"); errors keep the partial text ("Any partial answer is saved"); a 5.5-minute client
+timeout suggests narrowing the question or Deep research; 429 says the library is busy; an expired session says to sign
+in; deep jobs have the states running, paused, complete, stopped, needs attention. Type: Source Serif 17-18 px, labels
+11 px caps tracking 0.22 em, radii composer 14, bubble 14/14/4, pill 20, outline card 3, chips 2. Dark: page `#201d1b`,
+cream `#2a2624`, ink `#ece7e1`, accent text `#e8a184`. Most controls are 44 px high.
+
+### 4.10 Notebook, Bookmarks, Compare, Connections, Desk (signed-in tools)
+
+Reconstructed from the site's CSS and the public product screenshots; none was operated.
+
+- **Notebook.** Head: H2, count line "3 PASSAGES", filter field "Filter your notes", group buttons Recent / By work; a collection
+  bar (cream panel, "New collection", a collection select); entry cards (cite line in 11 px caps, work and saved date in
+  italic 22 px, the passage as an italic quote with a sage left rule, a "Your note" textarea, actions Open in the reader,
+  Copy citation, Remove with a two-step confirm).
+- **Bookmarks.** Head with "9 WORKS SAVED" and sort buttons Recent / Author / Collection; white row cards (title 20 px,
+  date label, shelf label in caps, Remove); a places list under a row, the place where you stopped in italic.
+- **Compare.** Author bar (chips with name, "c. 354, Latin Fathers" and a remove cross, an "Add an author" field), an empty
+  state with six suggested pairs, a topic picker with stance bars and a four-colour legend (asserts green `#3F6B4E`, denies
+  red `#A8462B`, reports grey `#8a7f72`, qualifies), a filter fold (View, Works, Stance, Phrase, Export to Desk, Save
+  view), then columns (grid, gap 20 px) one per author: head, "26 loaded, of 6,951 in the index", a Methodology note,
+  statements grouped by work (quote block with a 2 px rule, provenance line, "INDEX NOTE" gloss, Preview, Save). Phone:
+  swipe between authors.
+- **Connections.** Find an author, an author index with reader counts, a filter fold, the network (`#graph-frame`) with
+  Timeline / Rings / Tradition layouts, zoom and Fit map, a period colour key, an author panel (title, "contested 16 %", "View
+  this author's map", "Cited by 489 authors", rows with counts that expand to evidence), "Places to start", Paths, Topics and
+  Scripture views, phone list/map switch.
+- **Desk.** A workspace bar (Write / Research segmented control, Paper select, Notebook select, "New notebook"), the
+  editor with title, word count and save state, a papers list, a four-tab rail of kept material, a source-preview split
+  (two columns from 941 px).
+
+### 4.11 Account and pricing
+
+Account: a passwordless form (First name, Last name, E-mail; underline-style inputs 44 px, grid 176 / 176 / 211 px) with a
+dark pill "Create free account" and states ("Creating account...", validation lines, "Check your inbox / Almost
+there"). In the gate modal the inputs are boxed (white, 6 px radius, 53 px high) and the submit is a text button. The
+sign-in portal is a 480 px modal (full sheet on phone). Pricing: a billing toggle pill (352x58 px, Annual selected dark with a
+"Save 17 %" badge), two plan cards without boxes separated by a hairline (444 px each, price 62 px/700, italic IM Fell
+plan names, check-mark benefit lists), "Other memberships" in four numbered columns (I-IV in italic 28 px terracotta),
+"Rather give once?", and separate pages for gifts, group seats (live total), organisations (e-mail domains) and students
+(school-e-mail confirmation).
+
+### 4.12 About, Tutorial, How to use, Transparency
+
+- **About (`/manifesto/`).** Hero 293 px; a 664 px column with six tabs in a 3x2 grid (cells 221x64; active filled
+  terracotta); each panel opens with a header card (3 px terracotta left border, date, H2 30 px, byline, role) and prose.
+  The Changelog panel: counters, a segmented control Open reports / Closed reports, a sort select, rows with date, text,
+  a STAFF / REPORTED / FEATURE badge and thumbs counts.
+- **Tutorial (`/tutorial/`).** Six numbered cards (664 px, outline circle, title 22 px, blurb, "N STEPS", `Start`), then a
+  static explainer of the shelves. The tour card is 360 px (docked at the bottom on phone), eyebrow "STEP n OF m", optional
+  MEMBERS pill, title 18 px, body 17 px, an optional dashed "EXAMPLE" box, Skip tour, Back, Next.
+- **How to use (`/how-to-use/`).** Hero 192 px; tabs Laity / Pastors / Academics (48 px, underline); each panel is a 2-column
+  grid of cards (small-caps feature label, H3 task, one or two sentences, notes such as "Needs a free account" and
+  "AI-assisted: answers cite the library's pages", a 546x341 screenshot, a `Try it` link).
+- **Transparency (`/transparency/`).** A 664 px column: opening statement, eight commitments (each H2 plus a paragraph), a
+  `Report an issue` button, and a closed disclosure listing every machine-translated work alphabetically (title, author,
+  year, shelf label) with `Show 50 more`.
+
+### 4.13 Resources, Dictionary, Glossary (open reference surfaces)
+
+- **Resources.** Tab list ARTICLES / PODCASTS, a 560 px search field with Clear, kind filters and sort as quiet text buttons,
+  a status line ("494 articles"), a grid of cards (4 / 3 / 2 / 1 columns at 1000 / 800 / 520), each card one link in a new tab (3:2
+  image, title 17/600, byline, a "why" line, kind labels); grouped by kind when no query is set; whole state in the URL.
+- **Dictionary.** Full-bleed app: a cream header (title, search, counter, A-Z buttons), a 300 px headword list (English title
+  with the French title in italic beneath and a size in thousands of characters; "Load more"), and a reading card with
+  `Both | English | Francais`, text size, previous/next; Both is two aligned columns. Phone: the article opens as its own
+  screen.
+- **Glossary.** Hero with a pill search, 27 square letter buttons, results "392 TERMS" with definitions attributed to an
+  author and page, `Show 50 more`.
+
+---
+
+## 5. Design language
+
+The look is a warm-paper editorial system: serif everywhere, small-caps labels with generous tracking, hairlines
+instead of boxes, terracotta as the single accent, almost no icons. Two token families exist: the Ghost theme
+(`screen.min.css`) for the landing and library pages, and the shared "PRDL" system (`prdl-system.css`) for the reader
+and sister corpora; on every non-reader page a small stylesheet re-maps the PRDL names to the theme values, so both
+agree. The reader then overrides several values and a skin stylesheet restores the brand.
+
+### 5.1 Colour
+
+| Role | Value | Names (theme / PRDL) | Used for |
+|---|---|---|---|
+| Page ground | `#f6f3f2` | `--color-page` / `--bg` | page, rail, modals, text area |
+| Ink | `#2d2927` | `--color-dark` / `--fg` | body text, dark bands, filled buttons |
+| Muted | `#6b6660` (theme), `#6f6a64` (PRDL) | `--color-muted` / `--muted` | meta, counts, rail links |
+| Hairline | `#d9c6a7` | `--color-card-border` / `--border` | every rule, card and input border |
+| Card | `#fffdfa` | `--card` | cards, inputs, popovers, buttons |
+| Cream | `#f5efe1` | `--color-cream` | reader toolbar, outline panel, beta band, Ask sidebar |
+| Warm | `#f1e0c9` | `--color-background` / `--bg-warm` | PRDL warm panels (the site masthead is `#f1e8d5`) |
+| Panel | `#fbf8f3` | none | filter panels, desk heads, side rails |
+| Accent | `#c1593c` | `--color-secondary` / `--accent` | fills, active tab, links in the theme |
+| Accent, deeper | `#a8462b` (PRDL), `#9c4126` (alert text), `#9c4d37` (Scripture labels), `#ab5239` (reader hover and eyebrows) | `--accent2` | hover of dark pills, errors, small labels |
+| Orange | `#ee7d51` | `--color-primary` | accents on dark bands, hero primary button, nav hover |
+| Kicker | `#b45f3d` | `--color-primary-text` | small-caps kickers on light ground, MEMBERS pill |
+| Highlight | `#fbe9c8` (PRDL), `#f5efe1` (reader) | `--hl` | marked text, current entry |
+| Masthead (PRDL) | `#2A231D`, ink `#EFE7DA` | `--masthead` | family strip and dark bands |
+| Shadow | `0 1px 2px rgba(45,41,39,.04), 0 6px 20px rgba(45,41,39,.06)` | `--shadow-card` | cards on hover |
+
+Reader themes (toggle cycles Light, Sepia, Dark; with no stored choice the reader follows the OS):
+
+| Theme | bg | fg | muted | border | card | sidebar | highlight | line height |
+|---|---|---|---|---|---|---|---|---|
+| Light | `#f6f3f2` | `#2d2927` | `#6b6660` | `#d9c6a7` | `#fffdfa` | `#f5efe1` | `#f5efe1` | 1.55 |
+| Sepia | `#EEE7D9` | `#302C24` | `#6D6557` | `#D8D0C1` | `#FAF6EC` | `#EEE7D9` | `#E7DFCF` | 1.55 |
+| Dark | `#222320` | `#E9E9E5` | `#B0B0A8` | `#454740` | `#2B2C29` | `#242521` | `#373932` | 1.68 |
+
+The masthead and the section bar stay light in every reader theme (the theme belongs to the reading surface). The
+PRDL dark set (warm: bg `#211E1A`, card `#2B2722`, ink `#E9E4DB`, accent `#E1855F`, masthead `#15120E`) is declared but the
+reader uses the neutral set above; in dark the active tab and current-entry marker are a lifted terracotta `#D79380`
+with dark text. User highlights (`mark`): amber `#F0E9D9`/fallback `#fbe9c8`, sage `#e7efe0`, slate `#e5ecf3`, rose
+`#f3e0e4`, lilac `#e9e1f2` (dark: `#4d3b1c`, `#2c3a2a`, `#26313f`, `#46282f`, `#372848`; swatch rings `#e8b04b`,
+`#8fae6f`, `#7d97bd`, `#d4879a`, `#9a86c4`). Find hits invert the ink (`#2D2927` background, `#FFFDFA` text) with a 2 px
+ring on the current hit. Shelf identity colours (library data views): Latin `#A8462B`, Greek `#3E5F8A`, Eastern `#7A6025`,
+English `#3F6B4E`, Medieval `#5B4E7A`, Catholic `#8E2F39`, Reformed `#4A6178`, Lutheran `#2F6F62`, Humanism `#6E5A3A`.
+
+**Contrast audit of the reference** (computed by us with the WCAG 2.x formula; the reference's own CSS claims 4.6-5:1
+for its muted tier):
+
+| Pair | Ratio | Verdict |
+|---|---|---|
+| `#2d2927` on `#f6f3f2` | 13.05 | pass |
+| `#6f6a64` on `#f6f3f2` / on `#fffdfa` / on `#f5efe1` | 4.85 / 5.27 / 4.67 | pass |
+| `#6f6a64` on `#f1e0c9` (muted on warm) | 4.14 | fail |
+| `#c1593c` as text on `#f6f3f2` | 3.99 | fail (large text only) |
+| white on `#c1593c` (13 px/600 button labels) | 4.41 | fail by a hair |
+| `#b45f3d` on `#f6f3f2` (kickers, BETA label) | 4.09 | fail |
+| `#ee7d51` on `#f6f3f2` (card date lines) | 2.47 | fail |
+| white on `#ee7d51` (hero primary button) | 2.73 | fail |
+| `#a8462b` on `#f6f3f2` / `#9c4d37` on `#f6f3f2` | 5.32 / 5.39 | pass |
+| `#EFE7DA` on `#2A231D` | 12.61 | pass |
+| `#d9c6a7` on `#fffdfa` (input border, needs 3:1 for a UI component) | 1.64 | fail |
+
+Consequence for us: the terracotta `#c1593c` may be used for fills and graphics but not as small text or under white
+labels; `#a8462b` carries text and white labels (5.87:1 with white). See `docs/ui-spec-v2.md`, section 2.
+
+### 5.2 Fonts
+
+| Face | Role | Weights | Notes |
+|---|---|---|---|
+| IM Fell Great Primer | display: hero H1, desk reference titles, gate-modal titles (italic), plan names, numerals | 400, 400 italic | Google Fonts; the CSS rule is "no display face on working surfaces" |
+| Source Serif Pro (now published as Source Serif 4) | body and UI everywhere, including small caps, buttons and inputs | 400, 600, 700, italics 400 and 600 | the reader reading text, the library, Scripture, Ask |
+| EB Garamond | the reader's own chrome: title 20 px, toolbar buttons 13 px, panel titles | 400, 500, 600, italics | reader only; the Scripture desk section titles name it but it is not loaded (Georgia shows) |
+| Source Sans 3 and Atkinson Hyperlegible | optional reading faces "Sans" and "Legible" in `Aa` | | widen the measure (777 to 851 px at 21 px) |
+| Old Standard TT | fallback of sister sites | | not seen in use |
+
+Greek and Latin source text renders in the same serif stack (the system's Greek-capable serif). The Authors page H1 and
+group names, and the work hub (card title 32.8 px, section H2 26 px, small H3), compute to `ui-serif` (the font variables are not
+applied on those templates, measured): a visible inconsistency.
+
+### 5.3 Type scale
+
+| Where | Font and size | Notes |
+|---|---|---|
+| Theme tokens | `--tfr-display-l` clamp(32px, 4vw, 52px); `-m` clamp(26px, 3vw, 38px); `-s` clamp(22px, 2.4vw, 28px); `--tfr-body` 17px/27.2; `--tfr-meta` 14px; `--tfr-micro` 11px | landing and library |
+| Hero H1 | IM Fell 400, 52/56 (P 28.9/32.3, clamp(22px, 7.4vw, 32px)), max 22 ch; inner pages 52/54 | white |
+| Section H2 | 38-40 px (landing); 29 px Georgia fallback (desk); 32/600 (desk modules) | |
+| Card title | 19/700 (collection); 17 (rows); 28 (door H3, big band rows) | |
+| Body | 17/27.2 (page); 15 (door text); 14 (meta, card description); 13 (captions) | |
+| Reader title | EB Garamond 20/400; meta 12 | one line, ellipsis |
+| Reader text | Source Serif 21/32.55 (1.55); P 16/24.8; measure 37 em; paragraph spacing 0.58 em | parallel works: English 21.84/38 with first-line indent 1.45 em |
+| Chapter card title | 29.38/600 (1.42 em); label-only eyebrow 11.5/600 caps tracking 0.22 em; "Chapter I" line 21/600 italic | |
+| Outline entry | 14/1.4; current 600; count line 10.5 caps tracking 0.14 em | |
+| Scripture verse text | 19/35.15 (P 18/32.4); chapter heading 42/600 | |
+| Ask | question 17; answer 18/1.75; `###` 26/600 (P 23); outline-card question 20/600; chips 0.78 em | |
+
+### 5.4 Small-caps label recipes (all uppercase, Source Serif)
+
+| Where | Size / weight / tracking | Colour |
+|---|---|---|
+| Ghost top nav | 11 / 600 / 1.98 px | `#2d2927`, hover `#ee7d51` |
+| Section bar items | 13 / 400 / 1.3 px (brand 600) | `#6b6660`; hover and active `#c1593c` |
+| Rail drawer items | 12 / 400 / 0.72 px (P 13 / 0.78) | `#2d2927` |
+| Section kicker | 11 / 400 / 3.3 px | `#b45f3d` (on dark `#ee7d51`) |
+| Hero eyebrow | 12 / 400 / 3.6 px | white 77 % |
+| Card date line; card link | 11 / 600 / 2.42 px; 12 / 600 / 2.64 px | `#ee7d51`; `#c1593c` |
+| CTA buttons | 13 / 600 / 1.82 px | white on `#ee7d51` or `#c1593c`; outline `#2d2927` |
+| Control labels, filter labels | 10-11 / 600 / 2.2-2.42 px | `#9c4d37` or `#6b6660` |
+| Reader left-panel buttons | 10.5 / 400 / 0.84 px | ink |
+| Aa row labels | 11 / 600 / 1.76 px | `#6b6660` |
+| MEMBERS pill | 10 / 400 / 2.2 px, 1 px border, 3x8 padding | `#b45f3d` |
+
+### 5.5 Spacing, layout and sticky offsets
+
+- Containers: 1,124 px (landing and library); 1,180 px with 28 px gutters (tool pages); 664 px narrow column (About,
+  Transparency); reading column `min(46rem, 88%)`, from 1200 px `min(60rem, 92%)`; Scripture grid up to 1,380 px; Ask chat 760 px.
+- Band padding 88/0 (P 56/0); hero padding 128/0/120 (landing), 92/0/84 (tool pages), 56/0/40 (Browse); hero heights 192-480 px
+  by page (the landing hero is 698 px).
+- Bars: masthead 77/61, rail 48/43 (sticky at 76.77), reader toolbar 67/53, thumb bar 61, survey strip 8 px.
+- Rows: 44 px minimum touch targets on tool pages and phone; outline rows 56-59 px on phone; rail drawer rows 42 px (D) and 48 px (P).
+- Grids: doors 4/2/1; collection cards 4/2/1; shelves 5 per row on D; research hub 3/2/1 columns; resources cards 4/3/2/1.
+
+### 5.6 Radii, borders, elevation
+
+Radii: 3 px (working surfaces: cards, buttons, inputs of the library), 6 px (inputs of tools, dark buttons), 8 px (tool bars, popovers,
+images), 12-14 px (dialogs, composer), 2 px (citation chips), 999 px (pills, circular arrows). PRDL: 5, 9, 12, 999. Borders are
+1 px `#d9c6a7`; focus ring 2 px (accent or ink) offset 2 px. Shadows are warm brown, never black; most surfaces have none
+(the toolbar has `0 10px 22px -20px rgba(42,28,14,.35)`, popovers `0 10px 28px rgba(0,0,0,.12)`, dialogs `0 24px 60px rgba(0,0,0,.25)`).
+
+### 5.7 Motion
+
+Durations .14 s (press `scale(.96)`), .2 s, .3 s; easings `cubic-bezier(.22,1,.36,1)`, `.32,.72,0,1` (drawers, panels),
+`.23,1,.32,1` (entrances), `.34,1.56,.64,1` (micro arrivals only). Specific: rail drawer width 300-320 ms; sidebar slide
+.26 s; `Aa` popover .16 s; hero sweep 0.55 s once; kicker pulse 2.4 s; loading text shimmer 2.4 s; reveal-on-scroll 13 px
+rise over .55 s; Ask dots pulse 1.4 s. Everything is switched off under `prefers-reduced-motion`.
+
+### 5.8 Components and states
+
+| Component | Anatomy | States and notes |
+|---|---|---|
+| Outline button | 1 px ink or terracotta border, 3 px radius, caps 12-13 px/600, 44 px high | hover fills left to right with `#c1593c` over .28 s; pressed `scale(.96)` |
+| Filled button | terracotta or ink fill, white text | hover darkens to about `#a64d34`; ink variant hovers to `#9c4126` |
+| Pill button | 999 px radius, 12/600 caps, 44 px | "Create free account" |
+| Text link | underlined, terracotta; "NAME arrow" caps links | arrow moves 3 px on hover |
+| Segmented control | 1 px border, selected segment filled | roving focus, arrow keys, Home/End |
+| Tabs | 13/600 caps with 2-3 px underline in `#9c4d37`, or 14 px with accent underline (work hub), 44 px | manual activation (arrows move focus, Enter or Space activates) |
+| Disclosure | closed `details`, 36 px summary with a rotating caret | "Methodology"; opens for print |
+| Card | white, 1 px border, 3 px radius, padding 18/20/16 | hover: border terracotta |
+| Chip | 1 px border, 3 px radius or 999 px, 13-14 px | selected: ink fill |
+| Dialog | centred panel 480-560 px, `#f6f3f2`, 1 px border, 4-14 px radius, close cross, focus trap, Esc | scrim `rgba(45,41,39,.72)` (gates) or `.45` (transparency) |
+| Popover and sheet | 460-470 px card; bottom sheet at 700 px (70 % height, 12 px top radius) | Esc closes; scroll closes; opening another closes it |
+| Toast | `role=status` line | "Link to this page copied." |
+| Citation chip | cream fill, 1 px border, 2 px radius, 0.78 em, terracotta text | hover reverses colours |
+| Status pill | bordered small caps (NEEDS REVIEW, REVIEWED, MEMBERS, BETA) | |
+| Inputs | white, 1 px `#d9c6a7`, 6 px radius, 16-17 px; underline style on account forms; `type=search` with Clear | focus ring terracotta or ink; 16 px on phones so iOS does not zoom |
+| States | loading: shimmering text; empty: modules render nothing, lists say what is missing; error: `role=alert`, 2 px left rule | `aria-live=polite` regions for counts and finds |
+
+### 5.9 Responsive rules
+
+| Width | What changes |
+|---|---|
+| 640 and below | phone: rail scroller, drawers drop as panels, stacked grids, landing card descriptions hidden |
+| 700 and below | scripture, footnote and margin-note previews become bottom sheets |
+| 880 and below | reader phone shell (thumb bar, full-width contents, toolbar reduced to the title); also true at 768 px wide |
+| 900 | Scripture layout buttons from here up; Ask sidebar becomes a drawer below; resource and card grids step |
+| 941 | Desk source split and the Flow switch appear |
+| 1100 | outline panel in flow (300 px) and not an overlay (220 px between 881 and 1099); docked Ask; scan resizer |
+| 1200 | reading column cap grows |
+| 1439 | toolbar "Report" gains " a problem" |
+| Pointer queries | `(pointer: coarse)` 44 px targets, tap highlight on references; `(hover: none)` hides the paragraph rail |
+
+### 5.10 Imagery and iconography
+
+Hero and band backgrounds are public-domain landscape and town paintings under dark gradients; shelf cards use title-page
+scans or catalogue plates; portraits are engravings or icons (initials when none). The UI uses typographic glyphs and a handful
+of small SVG icons (magnifier, link, copy, bookmark, flag, moon). No decorative illustration.
+
+### 5.11 Accessibility observed
+
+Good: skip link, visible focus rings, `aria-expanded`/`aria-controls`/`aria-current` kept in sync, manual-activation tabs,
+live regions for counts and toasts, bottom sheets with focus handling, reduced-motion support, 44 px targets, `inert`
+background while a modal is open. Weak: several small-caps colours below 4.5:1 (5.1), UI borders below 3:1, the blocking
+overlay swallows Esc and has no close control, the overflowing Tools drawer clips "Research" on works with many buttons,
+the Scripture and Topics tours light nothing on some steps.
+
+---
+
+## 6. Content model implied by the platform
+
+### 6.1 Entities
+
+Everything is static JSON joined in the browser. The table gives the reference's entities, their main fields, and where
+our model stands today (`packages/shared/src/schemas.ts`: `Work`, `Author`, `Edition`, `Licence`, `Provenance`,
+`Section`, `Paragraph`; packs signed with Ed25519). "Gap" means an additive schema or catalogue change.
+
+| Entity | Reference fields and files | Our model today | Gap for the target |
+|---|---|---|---|
+| Work | `slug` (corpus-prefixed `pld-`, `pg-`, `po-`, `eebo-`, or free), `title` (English), `title_en`, `title_la`, `title_orig`, `author` and name forms (`author_en`, `author_la`, `author_gr`), `tradition` (shelf), `party`, `volume`, `kind`, Migne `cols`, `n_pages`, `has_pages`, `has_tei`, `en_only`, `la_chars`/`en_chars`, `dup_of`, `group`; `works-index.json` (19,445 rows) | `Work`: `id`, `slug`, `titleRo`, `titleEn?`, `titleOrig`, `author`, `languageOrig`, `year` | shelves (many-to-many), century (derived), kind of work, tradition/denomination, blurb and "where to start", cover plate, work counts |
+| Author | `authors/people.json`, portraits, `enrich/authors/<slug>.json`: profile, `positions[]`, `sources[]` (cites most), `scripture[]`, `quotes[]`, `start[]`, `controversies[]`; neighbours graph; period and tradition tags | `Author`: `name`, `born`, `died`, `tradition` | slug, names per language (`nameRo`, `nameEn`, original), short bio per language, portrait (public-domain image), tradition list |
+| Edition and translation | One English text per work; `volume`; edition groups (facsimile and born-digital witnesses); `en_only` for English originals; status record per work: `reports{open,done}`, `review`, `reviewedAt`, `reviewer`, `revisions[{at,summary}]` | `Edition`: `language`, `kind` (source or translation), `sourceEditionId`, `licence`, `provenance` (free text) | structured provenance: kind (AI, human, native, source), model, date, source edition description, review state, reviewer role, checks, corrections list; partial flag (exists as derived) |
+| Original text and scans | Source lane (Latin, Greek, Latin beside Greek); page scans `p/<n>.webp`, Migne scans; `scanned-works.json` (4,642 slugs); TEI sidecars | source editions can be installed as editions (`kind: source`) | page anchors per paragraph (printed page or column), page images, scan viewer data |
+| Section and paragraph | `pages[{n, la, en, title, loc}]`, `structure[{title, page, depth}]`; block ids `b<page>-<n>`; heading tiers | `Section` (tree through `parentId`), `Paragraph` (`p`, `heading`, `quote`, `note`), `sourceId` alignment; ULID ids | label on sections (article or question number), inline footnote markers, per-paragraph Scripture references |
+| Shelf and collection | nine shelves and creeds; volume sets (PL 35 holds 21 works); `workgroups.json`; shelf keys `pl gf po md rc rf lu ed hl` | none | `shelves.json` (slug, labels RO and EN, description, who-line, sort), `work.shelves[]` |
+| Century and period | century derived from author dates with overrides; ages for rulers (early church to 1054, medieval 1054-1517, Reformation 1517-1648, post-Reformation 1648-1800, modern) | `year`, `born`, `died` | a derived `century` per work and the age table; undated bucket |
+| Tradition and denomination | `traditions.json` (17 records: overview, documents, authors, related), `denominations.json`, `schools.json` | `Author.tradition` (free string) | controlled vocabulary with RO and EN labels; Orthodox branch for our market |
+| Creed, confession, catechism | `confessions-index.json`: `{slug, num, title, tradition, year, period, n_pages, type, preview, region}` (680 documents); structured as sections and articles; three-level outline (parts, Lord's Days, questions); proof-text index (321 documents, 7,391 verses, 522 chapters, 20,288 citations) | a creed would be a work with sections | article labels, proof-text references per article, `type` (creed, confession, catechism, council) |
+| Scripture reference and citation | parser output `data-scripture-ref` (book, chapter, verses); per-verse citation rows `{author, era, shelf, work, title, how (quotation, explicit, allusion, exegesis), gist, page, link}`; kind totals per book; chapter counts; ASV numbering | RO and EN reference grammars exist in the translation pipeline (`references.ts`) | a runtime parser in `packages/shared`, a citation index built at pack-build time, a versification map |
+| Bible text | third-party API for four English translations; Douay-Rheims for the deuterocanon; chapter JSON `{verses[{v, t}]}` | none | licensed or public-domain texts per language, licence record per translation (`bible_translations` in the architecture) |
+| Commentary and commentator | commentary map (chapter to page), rank file (key commentators per book, no citation counts), overlays; `commentaries.json` | none | commentary editions mapped to verses; key-commentator list |
+| Topic and locus | `loci.json` (10 parts, 45 loci, aliases, find keywords), `treatments.json`, `topic-desk.json`, mined `topic2-all` (198 topics with authors, positions, stance, move) | none | our taxonomy (RO and EN labels, aliases), paragraph-level topic tags |
+| Lexicon and glossary entry | term, Latin and Greek forms, senses with defining works, number of works; glossary `term -> [{definition, author, work, page}]` | `content/translation/glossary-ro.csv` is a translation glossary, not a reader lexicon | reader lexicon (later) |
+| Dictionary article | `{t, te, fr[], en[], q}`: paired paragraph arrays and a quality flag; `seealso` | the same idea as our aligned editions | a reference-work type if we add one |
+| Index of a work | five parts: subjects, persons, Scripture, terms, questions; printed indexes; `src: "mine"` | none | deterministic Scripture part first; rest generated and labelled |
+| Cross-citation and reception | resolved citations between works, aggregated per author pair with verbs (refutes, reports, approves, quotes); reception shards; word index; embeddings | none | citation graph over our editions, resolved to the source paragraph |
+| Enrichment (machine-written) | `enrich/works/<slug>.json`: blurb, genre, tags, begin, theses, questions, start points, quotes, argument map, `model`, `note`; page summaries, positions with stance | none | per-work guide, labelled with model and date |
+| Report and changelog | `/tfr-issue` (names, work, issue type, comment, passage), `/tfr-changes` (id, corpus, work, date, summary, source STAFF, REPORTED or FEATURE, thumbs), `/tfr-most-read` | none | reports table and public changelog (P2) |
+| Essay and podcast | `mo-articles.json` (title, url, date, author, kinds, excerpt, keywords, "why", authors served, id maps for verse, topic, work, author, doc) | none | not needed |
+| Account and entitlement | Ghost member status `free`, `paid`, `comped`; tiers; labels `source:feature-gate:<key>` | none (no accounts yet) | Supabase Auth, `entitlements` (architecture section 8) |
+| User state | see 6.3 | settings store, reading positions per edition | bookmarks, highlights, notes, conversations, sync |
+
+### 6.2 Derived data layers and what they feed
+
+| Layer | Produced by | Feeds |
+|---|---|---|
+| Per-verse citation index | parser over every paragraph, then classification (quotation, explicit citation, allusion, exegesis) and a machine gist | Scripture panel, Verse Desk, topic key verses, creed proof-texts, reception, work hub Scripture tab |
+| Mined positions (author, topic, work, page, stance, move, evidence span) | model extraction over every page | Compare, Every doctrine, topic traditions, author-room Positions, Ask retrieval |
+| Resolved citations between works | resolver plus classifier | Connections, Later readers, Reception, cross-work links in the reader |
+| Five-part index per work | extraction (`src: mine`) | Index tab, Ask starter questions, search chips |
+| Page summaries, questions asked, terms defined | model | Research panel, work analysis |
+| Work guide (blurb, theses, argument map, start points) | model, checked against the library | work hub, About-this-work |
+| Word index with counts per form | indexing | author-room search, exact-word search |
+| Embeddings | embedding model | Power Search, By idea, Related passages, Ask retrieval |
+| Per-answer verification | server: support check and exact-quote check | Ask check line |
+
+### 6.3 Client state (all the keys a rebuild must model per user)
+
+Local storage: `fr_lastread`, `fr_theme`, `fr_font`, `fr_lh`, `fr_rdsz_m`, `fr_lasz`, `fr_ensz`, `fr_imz`, `fr_lanes2`, `fr_flow`,
+`fr_appx`, `fr_para_split`, `fr_split`, `fr_read_chrome`, `fr_hl_ranges`, `fr_coach_v1`, `fr_collections_v1`, `fr_pincol`,
+`fr_pins`, `fr_notebook`, `fr_docs` (Desk papers), `fr_compare_views_v1`, `fr_chats` (mirror of the last 40 conversations),
+`fr_ask_notify`, `fr_source_w`, `fr_sd_layout`, `fr_sd_theme`, `fr_cp_follow`, `fr_cp_lang`, `mo-scripture-dev:translation`,
+`mo-tfr-uses:v1`, `tfr_tours_done`, survey keys, `mo_tfr_beta_claimed_v1`. Session storage: `fr_cp_off`, `fr_contents_v1:<work>`,
+`fr_desk_insert_v1`. IndexedDB `fr-conversations` v1 (conversations, meta). Server side: bookmarks (per member, shared with the
+publisher's essay bookmarks), Deep research jobs, shared answers.
+
+### 6.4 Analytics events
+
+`work_open`, `work_depth`, `feature_use{feature: scripture, topics, modernize, notebook, today, browse, search}` to an events
+endpoint; Plausible page events; PostHog for identified users; one `tfr_used` event per Central-time day per member.
+
+---
+
+## 7. What the platform does not do and we need
+
+| Need | Reference state | Evidence | Our answer |
+|---|---|---|---|
+| Romanian | No Romanian text and no Romanian interface; languages are English plus the source languages (Latin, Greek, French); Orthodox content is thin (one Eastern Orthodox document, 157 authors under that tradition) | rail, shelves, traditions | Romanian is a first-class reading and interface language; vocabulary follows the author's tradition (`docs/arhitectura-app-biblica.md`, principle 5) |
+| Bilingual interface | English only; no language switch anywhere | all pages | `uiLanguage` and `readingLanguage` are separate settings (ADR-013, `docs/multi-edition-spec.md`) |
+| Two translations aligned to one source | One English text per work; the source lane is one language or a Greek and Latin pair; no second translation lane | reader 9.5 | up to three editions per work, every translation aligned paragraph to paragraph by `sourceId`; two translations made from the original, never from each other (ADR-013) |
+| Translation transparency at paragraph level | per work only: kind, source language, review state, counts; model, date and reviewer are not disclosed | Transparency dialog | model, date, reviewer role and checks per edition; paragraph flags in the review sheet |
+| Human review at scale | about 15,000 machine translations; every inspected one says "needs review" | Transparency dialog | publication policy decided by the owner (OQ-4): beta shows an explicit status; store release only for reviewed editions |
+| Offline | none documented: pages fetch JSON at read time (a Genesis 1 view downloads about 9 MB of decoded citation JSON plus other layers) | Scripture data table | signed packs downloaded per edition, read from device storage (ADR-001, ADR-011) |
+| Mobile apps | responsive web only; no native apps, no push | whole site | Expo app for iOS, Android and web from one code base |
+| Dark mode everywhere | dark only in the reader, the Scripture working surface and Ask; the rest is forced light by a script | landing capture with the OS in dark mode | three themes on every screen |
+| Accessible contrast | several text and control pairs fail WCAG AA (5.1) | audit | every text pair at least 4.5:1, control outlines at least 3:1 |
+| Server-side conversations | Ask keeps conversations in the browser; the server stores only Deep research jobs and shared answers | Ask storage notes | decide in P2: local first plus Supabase sync |
+| Per-user money budgets | a per-member monthly count plus a global daily spend budget that blocks everyone | Ask limits | budgets in money per user (architecture section 6) |
+| Self-hosted Scripture | a third-party API; one translation (NIV) disappeared on 7 October 2026 | Scripture data | texts hosted by us with a licence record per translation |
+| Romanian Scripture numbering | verses numbered as the ASV; only Psalm superscriptions are mentioned | Scripture data | explicit `versification_maps` from day one |
+| Data export | Markdown of notebook and pages; no full-account export | reader panel | DSAR export in P4 |
+| Search that understands Romanian | n/a | | Romanian-aware analysis (diacritic folding, stemming; glossary bridge in the gateway today) |
+
+---
+
+## 8. Quirks and drift in the reference (do not copy)
+
+- Counts disagree by surface: 19,921 / 19,763 / 17,903 / 19,445 works; Latin Fathers 7,720 versus 8,989; copy says "ten shelves"
+  and "thirty thousand works" while the data has eleven and about twenty thousand. Derive every count from one catalogue.
+- Gating copy contradicts itself: tour cards say "Available to members" and show a MEMBERS pill while the dialogs say "free
+  during the beta"; the landing lists tradition guides as free while the Guides page is behind the overlay; the Scripture
+  free-trial counter described in code and the changelog is a hard gate in practice.
+- The Authors H1 and group names, and the whole work hub (card title, section headings), fall back to a system serif; the Scripture
+  desk names a font that is not loaded.
+- The Scripture tour lights nothing on desktop for six steps; the Topics tour still points at a sidebar that no longer exists.
+- Near-duplicate topics in Every doctrine (Election / Predestination / Election and Predestination) because it lists a raw mined layer.
+- The Tools drawer overflows and clips "Research" on works with many buttons; the survey strip overlaps the page foot.
+- `?sh=pl` shelf filters on Scripture and Topics links are ignored; the Doctrines copy says thirteen curated pages while Topics
+  lists 45 loci; `/pins/` is titled "Bookmarks" but is the notebook manager.
+- A dark preference is honoured by the reader script even though its own stylesheet comment says the OS must not choose dark.
+- Test hooks (`?gate=force`) ship in production.
+
+---
+
+## 9. What could not be verified
+
+- Everything behind an account: the signed-in Ask, Compare, Connections, Notebook, Bookmarks, Desk, Lexicon, Commentary Decks,
+  Disputed Questions, Set Indexes, Page Scans, Power Search and Search page (reconstructed from public copy, tours, product images
+  and client code; sizes read off 1200-px images are estimates). The Ask engine, models, prompts, quotas and budgets are unknown.
+- The Scripture and Topics pages were seen only behind the overlay (DOM, tours, how-to images). The Guides, the Research panel and
+  the Scan pane were never operated.
+- Real devices: touch gestures, iOS safe areas, landscape and widths from 400 to 760 px; only Chromium emulation at 390x844,
+  768x1024, 1024x768 and 1366x900. Print, high contrast and reduced-motion variants were not rendered.
+- Hover and active states other than those measured; keyboard order of tab bars; behaviour of `Both` for other languages.
+- Work hubs were read for one Migne work (four tabs by text, eleven tab labels); other works and the phone layout of the hub were
+  captured only at the first screen.
+- Counts are a snapshot of 4 November 2026 (the works index was generated on 27 September 2026) and drift daily.
+- Licensing and provenance of the Bible texts, portraits and the machine-translated English were not examined.
+
+---
+
+## 10. Evidence index
+
+All paths are local and gitignored; none is committed. `test-results/tfr/` is under `/home/user/biblicapp/`.
+
+| Path | Holds |
+|---|---|
+| `test-results/tfr/css/` | `prdl-system.css` and the other stylesheets read (reader engine, skins, work hub, research panel, footnotes, margins) |
+| `test-results/tfr/hl/` | landing, library, authors, traditions, guides, dictionary, glossary, about, pricing: 247 screenshots (D and P), extracted DOM and style JSON, page texts |
+| `test-results/tfr/reader-shots/`, `reader-data/`, `reader-scripts/` | the reader on seven works, every panel and state, in-between widths, probe scripts |
+| `test-results/tfr/st/` | Scripture, Verse Desk, Topics, Doctrines, Lexicon, Search, Commentary Decks, Resources (screenshots, tours, how-to images) |
+| `test-results/tfr/ra/` | Research hub, gated shells, author room, tours, 20 public product images of the signed-in tools (`ra/howto/`) |
+| `test-results/tfr/wh/` | the work hub capture of this document (`info.json`, `tabs.json`, screenshots) |
+| session scratchpad `tfr/*.md` | the four crawl reports this inventory consolidates |

@@ -1,0 +1,346 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "X. Intrarea în Împărăție: pocăința și credința",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQSCXY8XY1PEYDSYW0AHY5",
+      "text": "De la început, anunțul Domnului nostru despre apropierea Împărăției a fost legat de cerința de pocăință și de credință, Mat. 4:17; Mc. 1:15. Faptul acesta nu a fost întâmplător, ci o urmare inevitabilă a naturii Împărăției. Pocăința și credința nu sunt altceva decât cele două aspecte principale ale Împărăției – dreptatea și harul mântuitor al lui Dumnezeu – transpuse în termenii experienței umane subiective. Pentru că Împărăția este, prin însăși esența ei, o împărăție a dreptății, este, de aceea, cu neputință ca cineva să fie cu adevărat în ea fără să se fi pocăit mai înainte. Pentru că Împărăția constă, în mod intrinsec, în exercitarea harului și a puterii mântuitoare divine, ea cere, de aceea, de la oricine urmează să aibă parte de binefacerile ei acea atitudine de receptivitate și de răspuns față de aceste atribute divine, care se numește credință.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "share its benefits",
+          "quoteTarget": "aibă parte de binefacerile ei",
+          "note": "«Benefits» (ale Împărăției) este redat «binefaceri»; termenul revine în paragraful următor al lotului («the benefits of the kingdom», «these benefits»). Alternative pentru revizor: «foloase», «beneficii» (aceasta din urmă sună administrativ în română). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "that responsive and receptive attitude towards these divine attributes",
+          "quoteTarget": "acea atitudine de receptivitate și de răspuns față de aceste atribute divine",
+          "note": "«Responsive and receptive» este redat «de receptivitate și de răspuns», în ordinea sursei. Formularea cu substantive este mai abstractă decât engleza și nu sunt sigur că sună pe deplin natural. Alternative: «acea atitudine receptivă și care răspunde»; «acea atitudine de deschidere și de răspuns» (aceasta din urmă deplasează sensul de la «receptiv» la «deschis»). «These divine attributes» reia «the divine saving grace and power» din propoziția precedentă."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 4:17",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 1:15",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWG",
+      "text": "Raportul pocăinței cu Împărăția este definit în chip izbitor în versiunea lui Matei a pildei ospățului de nuntă, 22:1–14. Comparând-o cu forma în care Domnul nostru a rostit aceeași pildă cu o ocazie anterioară, potrivit Lc. 14:16–24, găsim, printre alte schimbări, amănuntul semnificativ adăugat al omului fără haină de nuntă. Din natura invitației reiese limpede că ceea ce reprezintă această haină de nuntă nu trebuie privit ca ceva care i-ar da purtătorului, în vreun fel, dreptul la un loc la ospăț. Cei care vin sunt luați de pe drumurile mari și de lângă garduri, din străzile și ulițele orașului, și siliți să intre. Ei sunt primiți, așadar, fără vreun merit din partea lor, pe principiul harului gratuit. Cu toate acestea, odată înăuntru, este indispensabil să poarte haina potrivită ocaziei. Astfel, pocăința și dreptatea, deși nu câștigă în vreun sens meritoriu binefacerile Împărăției, sunt totuși însoțitoare indispensabile ale singurei stări în care pot fi primite aceste binefaceri.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "xxii. 1-14",
+          "quoteTarget": "22:1–14",
+          "note": "Trimiterea apare în sursă fără numele cărții, doar cu capitolul și versetele; din formula «Matthew’s version of the parable of the marriage feast» este vorba de Mat. 22:1–14, cum este înregistrat în `scripture` (identificare dedusă din context, neverificată față de un text biblic). În text trimiterea este păstrată în forma din job (22:1–14), pentru paritatea trimiterilor; revizorul poate decide dacă se adaugă «Mat.» în ediția finală."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "taken from the highways and hedges, from the streets and lanes of the city and compelled to enter",
+          "quoteTarget": "luați de pe drumurile mari și de lângă garduri, din străzile și ulițele orașului, și siliți să intre",
+          "note": "Descriere compusă de Vos; formulările («highways and hedges», «streets and lanes of the city», «compelled to enter») sunt cele din Lc. 14:21–23 în engleza clasică, nu din Mat. 22. Sursa nu dă trimitere aici; identificarea este din context și din memorie, neverificată. Marcată `allusion` în scripture, nu adăugată în text (ar fi REF_EXTRA). Tradusă din engleza autorului, nu după o ediție românească a Bibliei: «highways» = «drumurile mari», «lanes» = «ulițe», «city» = «oraș»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "free grace",
+          "quoteTarget": "harului gratuit",
+          "note": "«Free grace» (harul acordat fără merit din partea omului, cum arată fraza) este redat «harul gratuit». Alternative: «harul nemeritat», «harul liber». Fără rând în glosar; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 22:1–14",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 14:16–24",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 14:21–23",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWH",
+      "text": "Ideea Domnului nostru despre pocăință este tot atât de profundă și de cuprinzătoare ca noțiunea sa despre dreptate. Dintre cele trei cuvinte folosite în Evangheliile grecești pentru a descrie acest proces, unul subliniază elementul emoțional al regretului, al întristării pentru cursul rău al vieții trecute, μεταμέλομαι, Mat. 21:29–32; al doilea exprimă inversarea întregii atitudini mintale, μετανοέω, Mat. 12:41, Lc. 11:32; 15:7, 10; al treilea desemnează o schimbare a direcției vieții, un țel fiind înlocuit cu altul, ἐπιστρέφομαι, Mat. 13:15 (și paralelele); Lc. 17:4; 22:32. Pocăința nu se limitează la o singură facultate a minții: ea angajează întregul om – intelectul, voința și afecțiunile. Nici nu se mărginește la sfera morală a vieții în sens mai restrâns: ea cuprinde atât întreaga relație religioasă a omului cu Dumnezeu, cât și relația sa morală. În noțiunea lui Isus, pocăința este suficient de largă încât să includă credința, Mat. 11:20, 21. Aici, ca și în alte locuri, ceea ce ne izbește cel mai mult este caracterul centrat pe Dumnezeu al învățăturii Domnului nostru pe această temă. Starea din care trebuie să pornească o pocăință este condamnată pentru că este radical greșită în raport cu Dumnezeu. Păcatul fiului risipitor are ca trăsătură centrală părăsirea casei Tatălui. Păcătoșii sunt ca niște oi rătăcitoare, ca niște monede pierdute, imagini care implică o desprindere a conștiinței spirituale de centrul ei în Dumnezeu.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "intellect, will and affections",
+          "quoteTarget": "intelectul, voința și afecțiunile",
+          "note": "«Affections» (în psihologia facultăților sufletului: partea afectivă, sentimentele) este redat «afecțiunile». În română cuvântul la plural poate fi citit și medical («afecțiuni» = boli), dar alăturarea cu «intelect» și «voință» orientează spre sensul psihologic. Alternativă: «sentimentele». Singularul «affection» din ultimul paragraf al lotului este redat «afecțiune». Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "like wandering sheep, like lost coins",
+          "quoteTarget": "ca niște oi rătăcitoare, ca niște monede pierdute",
+          "note": "Aluzie la pildele oii pierdute și a drahmei pierdute (Lc. 15:3–10; concluziile din 15:7 și 15:10 sunt date de autor în același paragraf). Sursa nu dă trimitere la imaginile în sine; identificarea este din context și din memorie, neverificată. Marcată `allusion` în scripture, nu adăugată în text (ar fi REF_EXTRA). «Coins» = «monede»; «wandering» = «rătăcitoare»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The sin of the prodigal has for its central feature the abandonment of the Father’s house",
+          "quoteTarget": "Păcatul fiului risipitor are ca trăsătură centrală părăsirea casei Tatălui",
+          "note": "Aluzie la pilda fiului risipitor (Lc. 15:11–32); sursa nu dă trimitere biblică aici, identificarea este din context și din memorie, neverificată. Marcată `allusion` în scripture, nu adăugată în text (ar fi REF_EXTRA). «The prodigal» = «fiul risipitor», ca în 08-01; «the Father’s house» cu majusculă («Tatăl» = Dumnezeu, ca în sursă), în contrast cu «tatăl omenesc» din paragraful al cincilea al lotului."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 21:29–32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 12:41",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 11:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:7",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:10",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:15",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 17:4",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 22:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 11:20",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 11:21",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:3–10",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 15:11–32",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCXY8XY1PEYDSYW0AHY7",
+      "text": "Cel mai puternic mod de a exprima aceasta este acela de a numi starea omului fără pocăință o stare de moarte, Mat. 8:22; Lc. 15:24, 32. Iar Isus nu privește această stare ca pe o stare fără Dumnezeu în sensul pur negativ al cuvântului. Acolo unde lipsește iubirea de Dumnezeu, pătrunde o iubire idolatră de lume și de sine, iar rezultatul este o atitudine pozitiv ofensatoare și ostilă față de Dumnezeu. Este foarte semnificativ că Isus, vorbind despre cei doi stăpâni, nu spune că a-l iubi pe unul înseamnă a-l neglija pe celălalt, sau că a se alipi de unul înseamnă a renunța la celălalt, ci folosește termeni pozitivi în ambele propoziții: „Ori îl va urî pe unul și îl va iubi pe celălalt, ori se va alipi de unul și îl va disprețui pe celălalt”, Mat. 6:24. Omul este legat în mod atât de necesar de Dumnezeu în conștiința sa cea mai lăuntrică, încât indiferența absolută sau neutralitatea sunt excluse.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Either he will hate the one and love the other, or else he will hold to the one and despise the other",
+          "quoteTarget": "Ori îl va urî pe unul și îl va iubi pe celălalt, ori se va alipi de unul și îl va disprețui pe celălalt",
+          "note": "Citat din Mat. 6:24 în engleza lui Vos (trimiterea este dată în sursă). Tradus din engleza autorului, nu reprodus din memorie după o ediție românească a Bibliei; marcat `quote-author-rendering`, spre înlocuire ulterioară cu o ediție licențiată. «Hold to» = «a se alipi de» (alternativă: «a se ține de»); același verb este folosit în comentariul lui Vos din aceeași frază («a se alipi de unul»), pentru ca legătura dintre comentariu și citat să rămână vizibilă."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "a positively offensive and hostile attitude",
+          "quoteTarget": "o atitudine pozitiv ofensatoare și ostilă",
+          "note": "«Positively» se opune lui «purely negative» din propoziția precedentă (lipsa pură vs. o atitudine activă) și se leagă de «positive terms» din fraza următoare; redat «pozitiv», pentru a păstra legătura. În română «pozitiv» ca adverb poate fi citit și ca intensificator («categoric»); ambele lecturi se potrivesc contextului. Alternative: «în chip activ ofensatoare», «efectiv ofensatoare». «Offensive» = «ofensatoare», în familia lui «ofensă» din paragraful următor al lotului."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 8:22",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:24",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:24",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWJ",
+      "text": "În criza pocăinței, conștiința care se pocăiește este concentrată asupra ofensei aduse lui Dumnezeu și a nevoii de Dumnezeu. Întristarea pocăinței adevărate este una care se naște din convingerea de păcat. Este, de asemenea, o întristare după Dumnezeu, de felul celei care provine dintr-un sentiment al sărăciei spirituale extreme. Ambele principii sunt bine puse în lumină în pilda fiului risipitor, cuvântarea în care Isus a descris atât de minunat procesul psihologic al pocăinței. Fiul risipitor „își vine în fire”. Mai înainte fusese în afara lui însuși, nu se cunoscuse și nu se simțise pe sine în adevărul simplu al raportului său fundamental cu Dumnezeu. Își dă seama că piere de foame, în timp ce în casa Tatălui său este pâine îndeajuns și cu prisos. În mărturisirea lui, ofensa adusă lui Dumnezeu este pusă, în chip semnificativ, înaintea celei aduse tatălui omenesc.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "comes to himself",
+          "quoteTarget": "își vine în fire",
+          "note": "Citat scurt din Lc. 15:17; sursa nu dă trimitere, identificarea este din context și din memorie, neverificată; marcat în scripture, nu adăugat în text (ar fi REF_EXTRA). «Comes to himself» este redat prin idiomul românesc «a-și veni în fire», ca în 08-01. Propozițiile următoare («perishes with hunger», «bread enough and to spare») reiau formulările englezești ale aceluiași verset, în parafrază a autorului; sunt traduse din engleza lui Vos, nu după o ediție românească a Bibliei. Perechea «comes to himself» / «out of himself» este păstrată prin «își vine în fire» / «în afara lui însuși» («ieșit din fire» ar fi sugerat mânia)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "In his confession the offense against God is significantly placed before that against the human father",
+          "quoteTarget": "În mărturisirea lui, ofensa adusă lui Dumnezeu este pusă, în chip semnificativ, înaintea celei aduse tatălui omenesc",
+          "note": "Aluzie la mărturisirea fiului risipitor din Lc. 15:18 (repetată în 15:21): păcat «împotriva cerului» și «înaintea» tatălui. Sursa nu dă trimitere; identificarea este din context și din memorie, neverificată. Marcată `allusion` în scripture, împreună cu pilda în întregime (Lc. 15:11–32); nu este reprodus textul biblic, ci doar comentariul autorului asupra ordinii celor două ofense."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "a sorrow after God",
+          "quoteTarget": "o întristare după Dumnezeu",
+          "note": "Expresia englezească admite două lecturi: (a) o întristare care tânjește după Dumnezeu, susținută de «the need of God» din prima frază și de «a sense of spiritual destitution» din aceeași frază; (b) o «întristare după voia lui Dumnezeu», cf. 2 Cor. 7:10 (ecou posibil, neindicat de autor; din memorie, neverificat). Contextul favorizează (a), dar redarea literală «după Dumnezeu» păstrează ambiguitatea englezei fără a o rezolva. Nu am ales o formulare care ar fi tranșat între lecturi."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "conviction of sin",
+          "quoteTarget": "convingerea de păcat",
+          "note": "«Conviction of sin» (termen consacrat al teologiei reformate și evanghelice: lucrarea prin care omul devine conștient de păcatul său) este redat «convingerea de păcat»; nu «condamnarea» (confuzie cu «conviction» penal). Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the offense against God",
+          "quoteTarget": "ofensa adusă lui Dumnezeu",
+          "note": "«Offense against God» (păcatul înțeles ca jignire adusă lui Dumnezeu) este redat «ofensa adusă lui Dumnezeu»; același termen în ultima frază («that against the human father» = «celei aduse tatălui omenesc»). Alternative: «jignirea adusă lui Dumnezeu», «greșeala împotriva lui Dumnezeu». Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the discourse in which Jesus has so marvelously described the psychological process of repentance",
+          "quoteTarget": "cuvântarea în care Isus a descris atât de minunat procesul psihologic al pocăinței",
+          "note": "«Discourse», în aposiție cu «the parable», este redat «cuvântare», ca în cap. I («discourses» = «cuvântări»). Pentru o pildă ar suna firesc și «povestirea» sau «relatarea»; s-a păstrat termenul autorului. Alternativă pentru revizor: «povestirea în care Isus a descris ...»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 15:17",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Lc. 15:18",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 15:11–32",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWN",
+      "text": "De asemenea, în viața nouă care urmează pocăinței, supremația absolută a lui Dumnezeu este principiul stăpânitor. Cel care se pocăiește se întoarce de la slujirea mamonei și a sinelui la slujirea lui Dumnezeu. Domnul nostru insistă cu tărie asupra acestei predări absolute și neîmpărțite a sufletului către Dumnezeu, ca țel al oricărei pocăințe adevărate. Pentru că acesta, și nimic mai puțin, este țelul, el stăruie asupra necesității unei repetări constante a procesului. Chiar și celor care îl urmau le-a spus, într-un stadiu relativ târziu al slujirii sale: „Dacă nu vă întoarceți și nu deveniți ca niște copii mici, nu veți intra nicidecum în Împărăția cerurilor”, Mat. 18:3. Prin această necesitate trebuie să explicăm și felul intransigent în care Isus cere ucenicilor săi renunțarea la toate legăturile și bunurile pământești care i-ar disputa lui Dumnezeu stăpânirea supremă asupra vieții lor, Mat. 10:39; 16:25; Lc. 14:25–35. Afirmațiile de acest fel nu trebuie înțelese în sensul că părăsirea exterioară a acestor lucruri ar fi suficientă sau chiar cerută. Ideea este că atașamentul lăuntric al sufletului față de ele, ca față de binele suprem, trebuie distrus în principiu, pentru ca Dumnezeu să poată lua locul revendicat de ele până acum. În interiorul Împărăției, ele au dreptul la afecțiune din partea ucenicului numai în măsura în care pot fi subordonate și puse în slujba iubirii de Dumnezeu. Cerința de sacrificiu presupune întotdeauna că ceea ce urmează să fie lepădat constituie un obstacol în calea acelui devotament absolut pe care îl cere Împărăția lui Dumnezeu, Mc. 9:43. Isus arată în chip izbitor că nu posesiunea exterioară, ci încurcarea interioară a inimii cu bunurile temporale este condamnată, prin cerința de a-și „urî” tatăl și mama și soția și copiii și frații și surorile, ba chiar și propria viață. Hotărârea energică a voinței de a se lipsi chiar și de plăcerile afecțiunii naturale, acolo unde acestea intră în conflict cu datoria supremă a Împărăției, este astfel descrisă, iar cuvântul „a urî” este ales intenționat pentru a exprima că, în asemenea cazuri, numai o schimbare interioară a minții, nu un simplu act exterior, îl poate face pe om apt pentru Împărăția lui Dumnezeu. Mat. 10:37 ne oferă interpretarea pe care Isus însuși o dă unor asemenea cuvinte aparent aspre.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Except ye turn and become as little children, ye shall in no wise enter into the kingdom of heaven",
+          "quoteTarget": "Dacă nu vă întoarceți și nu deveniți ca niște copii mici, nu veți intra nicidecum în Împărăția cerurilor",
+          "note": "Citat din Mat. 18:3 în engleza lui Vos (trimiterea este dată în sursă; formă apropiată de RV). Tradus din engleza autorului, nu reprodus din memorie după o ediție românească a Bibliei; marcat `quote-author-rendering`, spre înlocuire ulterioară cu o ediție licențiată. «Ye» = persoana a II-a plural; «in no wise» = «nicidecum»; «little children» = «copii mici»; «turn» = «a se întoarce» (nu «a se converti»)."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MINOR",
+          "quoteSource": "requires of -his disciples",
+          "quoteTarget": "cere ucenicilor săi",
+          "note": "În sursă apare «-his» cu o cratimă rătăcită înaintea lui «his» (probabil artefact OCR sau de tipar). Tradus «ucenicilor săi», fără cratimă. De corectat probabil și în ediția engleză («of his disciples»), care se afișează cititorului alături de traducere; decizia aparține revizorului uman."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the service of mammon and self",
+          "quoteTarget": "slujirea mamonei și a sinelui",
+          "note": "Aluzie probabilă la Mat. 6:24 (cf. Lc. 16:13), unde «mammon» este stăpânul rival al lui Dumnezeu; Mat. 6:24 este citat cu trimitere în paragraful al patrulea al lotului. Sursa nu dă trimitere aici; identificarea este din context și din memorie, neverificată. Marcată `allusion` în scripture, nu adăugată în text (ar fi REF_EXTRA). «Mammon» = «mamona», cu minusculă (substantiv comun, ca în sursă); «self» = «sinele»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "“to hate” one’s father and mother and wife and children and brethren and sisters, yea and one’s own life also",
+          "quoteTarget": "a-și „urî” tatăl și mama și soția și copiii și frații și surorile, ba chiar și propria viață",
+          "note": "Citare adaptată din Lc. 14:26 în engleza clasică («his» devine «one’s»); trimiterea Lc. 14:25–35, dată în sursă într-o frază precedentă a paragrafului, o cuprinde, dar versetul exact este identificat din memorie, neverificat. Marcată `allusion` în scripture (nu este citat literal, deci nu `quote-author-rendering`). Enumerarea cu «și … și» din sursă este păstrată, fără grupări adăugate. Pronumele nehotărât «one’s» este redat prin dativul posesiv din «a-și urî», care îl leagă de subiectul implicit al infinitivului."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "absolute, undivided surrender of the soul to God",
+          "quoteTarget": "predări absolute și neîmpărțite a sufletului către Dumnezeu",
+          "note": "«Surrender» este redat «predare» (alternative: «dăruire», «încredințare»); «către Dumnezeu» (nu dativul «lui Dumnezeu») evită lectura «sufletul lui Dumnezeu». Redări înrudite din paragraf: «devotion» = «devotament»; «sacrifice» = «sacrificiu» (nu «jertfă», cu rezonanță cultică și ispășitoare). Fără rând în glosar; propuse după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "internal entanglement of the heart with temporal goods",
+          "quoteTarget": "încurcarea interioară a inimii cu bunurile temporale",
+          "note": "«Entanglement» este redat «încurcare» (a se încurca cu/în); alternative: «înlănțuire», «implicare». «Temporal goods» = «bunuri temporale» (nu «pământești», folosit în aceeași frază pentru «earthly bonds and possessions»): distincția lui Vos este păstrată. «Inward attachment» este redat «atașament lăuntric», iar «internal» prin «interior»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "dispute God his supreme sway over their life",
+          "quoteTarget": "i-ar disputa lui Dumnezeu stăpânirea supremă asupra vieții lor",
+          "note": "«To dispute someone something» înseamnă aici fie a-i contesta lui Dumnezeu stăpânirea, fie a-o disputa cu el; «a-i disputa» păstrează ambele lecturi, care duc la același sens. Alternativă: «i-ar contesta». «Sway» = «stăpânire» (ca «royal sway» în 08-01)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 18:3",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 10:39",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 16:25",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 14:25–35",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 9:43",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 10:37",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 14:26",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 6:24",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 0 (prima) din 3 a cap. X (6 paragrafe, 1232 cuvinte-sursă). Titlul: «X. The Entrance into the Kingdom: Repentance and Faith» = „X. Intrarea în Împărăție: pocăința și credința”. Redări ținute consecvent cu capitolele anterioare: repentance = pocăință (verbul «a se pocăi»); faith = credință; righteousness = dreptate; saving grace = harul mântuitor (ca în 02-01); supremacy = supremație; controlling = stăpânitor (ca în 09-03); sway = stăpânire; conception = noțiune, iar idea = idee (ca în cap. I și 09-00); God-centered = centrat pe Dumnezeu; the prodigal = fiul risipitor, «comes to himself» = «își vine în fire» (ca în 08-01); parable = pildă; marriage feast = ospăț de nuntă (ca în cap. IX); ministry = slujire; stage = stadiu; discourse = cuvântare; our Lord = Domnul nostru. Termeni noi propuși pentru glosar (flag-uri TERMEN_NOU): benefits = binefaceri; free grace = harul gratuit; affections = afecțiunile; conviction of sin = convingerea de păcat; offense against God = ofensa adusă lui Dumnezeu; surrender / devotion / sacrifice = predare / devotament / sacrificiu. Trimiterile din text sunt exact cele din job; «22:1–14» (par. 2) rămâne fără carte, ca în job (din «Matthew’s version» rezultă Mat. 22:1–14, înregistrat în scripture). Cele trei cuvinte grecești (par. 3) sunt copiate exact din sursă. Trimiterile deduse din context (Lc. 14:21–23, Lc. 15:3–10, Lc. 15:11–32, Lc. 15:17–18, Lc. 14:26, Mat. 6:24 în par. 6) apar numai în scripture și în flag-uri, nu în text, și sunt neverificate. Citatele din Mat. 6:24 și Mat. 18:3 sunt traduse din engleza lui Vos, nu după o ediție românească a Bibliei. Punct de sursă pentru om: cratima rătăcită din «of -his disciples» (par. 6, flag SURSA_POSIBIL_ERONATA). Nicio altă anomalie de sursă găsită. Textul nu este certificat ca publicabil."
+}
