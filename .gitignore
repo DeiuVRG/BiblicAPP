@@ -1,0 +1,11 @@
+node_modules/
+.expo/
+dist/
+build/
+.env
+.env.*
+!.env.example
+ios/
+android/
+.claude/settings.local.json
+.DS_Store
