@@ -9,7 +9,7 @@ Specificația: `docs/traducere-pipeline.md`. Decizii: `docs/decizii.md` (ADR-012
 | `profiles/<slug>.md` | profilul lucrării: tradiție, registru, nume, termeni-cheie, capcane | agenții |
 | `glossary-ro.csv` | glosar citibil de mașină (regex sursă/țintă, forță, status) | agenții și `translation-check` |
 | `calques-ro.json` | calcuri și false friends (regex pe traducere) | agenții și `translation-check` |
-| `prompts/{draft,critic,revise}.md` | șabloane de prompt cu `{{PLACEHOLDERS}}` | orchestratorul |
+| `prompts/<lang>/{draft,critic,revise}.md` | șabloane de prompt cu `{{PLACEHOLDERS}}`, pe limbă-țintă | orchestratorul |
 
 Fluxul pentru o lucrare (`<slug>`, limba țintă `ro`):
 

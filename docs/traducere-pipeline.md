@@ -29,6 +29,26 @@ Principles (from the skill review, kept deliberately small):
 6. **Nothing is published without human review.** The merged edition is `draft` until a reviewer
    signs it off; the review sheet lists every open finding ordered by risk.
 
+### 1.1 Target languages
+
+Product rule (owner, 4 November 2026): every work is read in Romanian **and** in English. For an
+English original (Vos 1903) the English edition is the source itself and only `ro` is produced.
+For Latin, Greek, German, French, Spanish, Italian and Dutch originals the pipeline produces two
+translations, `en` and `ro`, **each from the original** (never one from the other), both aligned
+to the source paragraphs. A public-domain English translation, when one exists (NPNF, Loeb-era
+editions before 1930), is given to the critic as a reference and is never copied.
+
+Consequences for this specification: every material file is per target language
+(`rules-<lang>.md`, `glossary-<lang>.csv`, `calques-<lang>.json`, `prompts/<lang>/…`); the
+checks that depend on the target language (`CEDILLA`, `QUOTES_ENGLISH`, `QUOTES_UNBALANCED`,
+`REF_FORMAT`, the Romanian book abbreviations) apply to `ro`, and `en` gets its equivalents
+(straight-quote and curly-quote consistency, standard English abbreviations `Matt. 4:17`); the
+`RESIDUE_*` check uses a function-word list of the **source** language (English for `en`
+sources, Latin `et in ad non quod est sed enim autem cum ut qui quae`, German `und der die das
+nicht ist dass auch wird sich`); the reference parser gets a Latin-notation grammar
+(`Matth. IV, 17`, `Ioh. 3, 5`) before the first Latin work. **v3-lite implements the `ro`
+target with English sources**; the generalisation is the first task before Augustine.
+
 ## 2. Data model
 
 ### 2.1 Schema additions (done, `packages/shared/src/schemas.ts`)
@@ -49,7 +69,7 @@ content/translation/                      shared materials, read by the agents (
   glossary-ro.csv                         machine-readable glossary (see 2.4)
   calques-ro.json                         regexes for calques and false friends (see 2.4)
   profiles/<slug>.md                      per-work profile (tradition, register, names, exemplars)
-  prompts/{draft,critic,revise}.md        prompt templates with {{PLACEHOLDERS}}
+  prompts/<lang>/{draft,critic,revise}.md prompt templates with {{PLACEHOLDERS}}, per target language
 content/works/<slug>/
   edition-<src>.json                      canonical source edition (exists)
   edition-<lang>.json                     canonical translated edition (output of translation-merge)

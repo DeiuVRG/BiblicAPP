@@ -14,9 +14,22 @@ Romanian edition is meaningless in the English one.
 
 ## Target behaviour
 
-- The library shows **one row per work**. The row shows the Romanian title, the author line and
-  the available editions as short labels ("Română · traducere", "Engleză · original"). The primary
-  edition of a work is the Romanian translation when one is installed, otherwise the source.
+- Product rule (owner, 4 November 2026): every work is offered for reading in **Romanian and in
+  English**, whatever the original language. A work therefore has up to three editions installed:
+  `ro` (translation), `en` (source or translation) and, optionally, the original (`la`, `grc`,
+  `de`, …) for readers who want it.
+- The user chooses a **reading language** in Settings (`readingLanguage: 'ro' | 'en'`, default
+  from the device locale: `ro` when the device is Romanian, else `en`). The primary edition of a
+  work is the installed edition in the reading language; fallback order `ro → en → source`.
+- The **interface language** follows the same rule: `uiLanguage: 'system' | 'ro' | 'en'`, with an
+  `en.ts` string table next to `ro.ts` and `t` resolved from the current UI language (the string
+  table type `Strings` is shared; a missing key is a type error). Titles of works keep both
+  `titleRo` and `titleOrig`; the library shows the title in the reading language when it has one
+  (`titleRo` for `ro`, `titleOrig` when the original is English, otherwise the `en` edition's
+  heading from its pack — see "Edition titles" below).
+- The library shows **one row per work**. The row shows the title in the reading language, the
+  author line and the available editions as short labels ("Română · traducere", "English ·
+  original", "Latină · original"). The primary edition is the one in the reading language.
 - The work page shows the editions as a segmented control (hidden when there is only one), the
   metadata of the selected edition (kind, language, licence note) and the table of contents of the
   selected edition. "Începe lectura" / "Continuă lectura" open the selected edition; the continue
@@ -59,6 +72,14 @@ verification error (`duplicate-edition`, the second one is rejected and reported
 signature, with its packId). Section and paragraph ids must be unique across all installed packs;
 a collision rejects the later pack (`duplicate-id`).
 
+## Edition titles
+
+`Work` has `titleRo` and `titleOrig` only. An English translation of a Latin work needs an English
+title: add an optional `titleEn` to `WorkSchema` (additive; source packs are unchanged when the
+field is absent) and have `translation-merge` fill it from the translated edition's metadata
+(`translation-<lang>/edition.json` → `workTitle`). The library picks `titleRo` / `titleEn` /
+`titleOrig` by reading language, falling back to `titleRo`.
+
 ## Routes and state
 
 - `work/[id]` stays keyed by work id; the selected edition is a `?edition=<editionId>` search param
@@ -67,8 +88,9 @@ a collision rejects the later pack (`duplicate-id`).
   `locateSection`. If `section` does not belong to `id`, show the not-found state.
 - Reading position (`src/reading/position-store.ts`): key by edition id; keep reading the old
   work-keyed entry once as a fallback for the source edition (migration without data loss).
-- i18n (`src/i18n/ro.ts`): labels for "traducere"/"original" (reuse `editionKind`), the segmented
-  control accessibility labels, and the search language label.
+- i18n (`src/i18n/ro.ts`, new `src/i18n/en.ts`): labels for "traducere"/"original" (reuse
+  `editionKind`), the segmented control accessibility labels, the search language label, the
+  reading-language and interface-language settings. Every string exists in both tables.
 
 ## Tests
 

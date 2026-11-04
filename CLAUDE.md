@@ -13,6 +13,10 @@
 2. Partea de AI se face spre final (gateway-ul și modurile „Întreabă" vin după ce cititorul și conținutul funcționează).
 3. Partea legală și de conformitate se tratează după ce aplicația este gata. Deciziile tehnice care o fac ieftină mai târziu (schema `content` neexpusă, ecranele de consimțământ, ștergerea contului, tabelul de licențe) se construiesc totuși de la început, pentru că retrofit-ul costă mai mult.
 
+## Reguli de produs (fixate de proprietar)
+
+- Fiecare lucrare din bibliotecă se oferă la citire în **română și în engleză**, indiferent de limba originalului (4 noiembrie 2026). Pentru originalele englezești, ediția engleză este textul-sursă; pentru originalele latine, grecești, germane etc. se produc două traduceri din original (nu una din cealaltă), ambele aliniate paragraf cu paragraf la ediția-sursă. Traducerile englezești din domeniul public (de ex. NPNF pentru Augustin) se folosesc doar ca referință pentru critic, nu se copiază. Interfața aplicației urmează aceeași regulă: română și engleză, cu limba de lectură și limba interfeței alese de utilizator.
+
 ## Arhitectura de referință
 
 - Documentul de referință este `docs/arhitectura-app-biblica.md` (v2, 4 noiembrie 2026). Deciziile de acolo sunt implicite; orice abatere se notează în `docs/decizii.md` cu motiv.
