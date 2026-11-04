@@ -297,6 +297,40 @@ describe('a chapter named after "Chap."', () => {
     expect(run).toMatchObject({ source: 'xii. 28', target: '12:28', canonical: ['12:28'] });
   });
 
+  it('is not the antecedent of a later "vs." and never takes a canonical item from before', () => {
+    const text = 'Rom. v. 12. In Chap. x the person appears. See vs. 21.';
+    const runs = parseSourceReferences(text);
+    expect(runs.map((r) => [r.source, r.canonical])).toEqual([
+      ['Rom. v. 12', ['Rom 5:12']],
+      ['x', []],
+      ['vs. 21', ['Rom 5:21']],
+    ]);
+    // the Romanian text has no notation for the named chapter, so it cannot be an antecedent there
+    const rendered = [...runs]
+      .reverse()
+      .reduce((t, r) => t.slice(0, r.start) + r.target + t.slice(r.end), text);
+    expect(canonicalItems(extractTargetReferences(rendered))).toEqual(['Rom 5:12', 'Rom 5:21']);
+    const alone = parseSourceReferences('In Chap. x the person appears. See vs. 21.');
+    expect(alone.map((r) => r.canonical)).toEqual([[], ['vs 21']]);
+  });
+
+  it('leaves ranges and lists of chapters to the safety net instead of converting half of them', () => {
+    for (const text of [
+      'the later part, Chaps. vi-xi, apparently',
+      'both Chaps. xiii and xvii of the book',
+      'except in chapters iii.-viii., where I follow',
+      'Chaps. xii, xiii and xiv are late',
+    ]) {
+      expect(parseSourceReferences(text), text).toEqual([]);
+      expect(findUnparsedReferenceFragments(text), text).toHaveLength(1);
+    }
+    // one chapter at a time is converted, also in the plural and in a sentence
+    expect(parseSourceReferences('see Chaps. xiii, where the beast')[0]).toMatchObject({
+      source: 'xiii',
+      target: '13',
+    });
+  });
+
   it('needs the word, a lower-case numeral and a well-formed numeral', () => {
     expect(parseSourceReferences('the xxi in the list')).toEqual([]);
     expect(parseSourceReferences('see Chapter XXI of this book')).toEqual([]);

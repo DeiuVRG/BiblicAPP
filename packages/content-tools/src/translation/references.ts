@@ -55,7 +55,10 @@ export interface BookSegment extends SegmentBase {
   chapter: number | null;
 }
 
-/** `xviii. 36`: a chapter that inherits the book of the previous segment of the run. */
+/**
+ * `xviii. 36`: a chapter that inherits the book of the previous segment of the run. After the word
+ * `Chap.` a chapter may stand without verses (`in Chap. xxi`); it has no canonical item.
+ */
 export interface ChapterSegment extends SegmentBase {
   lead: 'chapter';
   chapter: number;
@@ -291,6 +294,11 @@ const EN_BOOK = sticky(
 const EN_VERSE_MARKER = sticky(String.raw`(?<![A-Za-z0-9])(?:vss?|vers?)\.\s*(?=\d)`, 'i');
 /** Matches (empty) right after `Chap. `: the word that makes a lone numeral a chapter. */
 const CHAPTER_LABEL_BEFORE = sticky(String.raw`(?<=(?<![A-Za-z])[Cc]hap(?:ter)?s?\.?\s+)`);
+/** `Chaps. vi-xi`, `Chaps. xiii and xvii`: a second numeral follows, which is not converted. */
+const MORE_CHAPTERS = new RegExp(
+  String.raw`\.?\s*(?:[-${String.fromCharCode(0x2010)}-${String.fromCharCode(0x2015)}]|,|&|and\b)\s*[ivxlc]{1,8}(?![A-Za-z0-9])`,
+  'y',
+);
 const ROMAN = sticky(String.raw`([ivxlcIVXLC]{1,8})(?![A-Za-z0-9])`);
 const CHAPTER_DOT = sticky(String.raw`\s*\.\s*`);
 const DIGIT = sticky(String.raw`\d`);
@@ -398,7 +406,11 @@ function parseEnglishChapter(
   if (list) return { lead: 'chapter', chapter, verses: list.verses, start: pos, end: list.end };
   // Digits after the period that are not a verse list: malformed, do not guess.
   if (dot && matchAt(DIGIT, text, versesAt)) return null;
-  if (startsRun && matchAt(CHAPTER_LABEL_BEFORE, text, pos)) {
+  if (
+    startsRun &&
+    matchAt(CHAPTER_LABEL_BEFORE, text, pos) &&
+    !matchAt(MORE_CHAPTERS, text, afterNumeral)
+  ) {
     return { lead: 'chapter', chapter, verses: [], start: pos, end: afterNumeral };
   }
   return null;
@@ -560,6 +572,9 @@ function nextState(
     case 'book':
       return { book: segment.book, chapter: segment.chapter };
     case 'chapter':
+      // A chapter named after `Chap.` has neither verses nor a book, and the Romanian text has no
+      // notation to carry it: a `vs.` after it still belongs to the reference before it.
+      if (segment.verses.length === 0) return current;
       return { book: startsRun ? null : (current?.book ?? null), chapter: segment.chapter };
     case 'verse':
       return current;
@@ -582,7 +597,8 @@ function segmentItems(segment: Segment, state: Resolved | null): string[] {
   if (segment.verses.length > 0) {
     return segment.verses.map((verse) => canonicalItem(state, verseText(verse)));
   }
-  // A named chapter: `Matt 13`.
+  // A named chapter: `Matt 13`. (A chapter named after `Chap.` has no book to name.)
+  if (segment.lead !== 'book') return [];
   return state?.book && state.chapter !== null ? [`${state.book.code} ${state.chapter}`] : [];
 }
 

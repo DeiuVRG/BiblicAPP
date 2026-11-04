@@ -387,3 +387,30 @@ back-translation and embedding similarity as triage signals, the admin review ap
 approval workflow per tradition, Latin/Greek/German calque lists, orthographic modernisation of
 old Romanian editions, multiple editions per work in the app (the reader currently keys works by
 `work.id`; bundling a second edition of the same work needs an edition switcher).
+
+## 10. Implementation notes (v3-lite as built, 4 November 2026)
+
+Deltas from the sections above, accepted after review:
+
+- Reference grammar extended to reach zero unparsed fragments on Vos: bookless chapter at the start
+  of a run (`xviii. 36` → `18:36`), `Book chapter` without verses (`Matt. xiii` → `Mat. 13`),
+  standalone `vs.` inheriting book and chapter from the last reference of the paragraph, `and`
+  continuations (`Matt. xvi. 18 and xviii. 17` → `Mat. 16:18 și 18:17`), two verse numbers
+  separated by white space read as a range (OCR-lost dash), `f.`/`ff.` → `ș.urm.`, `vss.`/`ver.`
+  /`vers.` accepted, optional verse letter `a`–`d`, strict roman numerals. Lists of the form
+  `17, 18 and 19` are reported as unparsed, not guessed. `Chap. xxi` parses with no canonical item.
+- `translation-jobs`: `context.previousParagraph`/`nextParagraph` cross chapter boundaries; stale
+  job files of the regenerated chapters are removed; `--sections` ranges are validated before
+  expansion.
+- `translation-check`: `--fix` always rewrites the output as pretty JSON; `QUOTES_UNBALANCED`
+  discounts `“` from the closing count; a lone no-break space is typography, not a `WHITESPACE`
+  defect; `RESIDUE_EN` ignores tokens inside Romanian references (`Is.` is Isaiah); `\b`, `\B`,
+  `\w`, `\W` in glossary and calque patterns are Unicode-aware (JavaScript's are ASCII-only);
+  patterns must not contain commas; glossary rows are filtered by the work's tradition read from
+  the source edition next to the translation directory; WARN glossary rows give `CALQUE` MINOR,
+  FORBID give MAJOR; PROPUS rows that match are listed as `FLAG_PROPOSED`.
+- `translation-merge`: `--partial` refuses to drop a section that the existing translated edition
+  already contains unless `--allow-shrink` (ids would be lost); the review sheet header uses the
+  English labels of section 3.3; critic findings with empty quotes are never deduplicated away.
+- Counts on Vos: 31 jobs, 131 paragraphs, 29,658 words, 153 reference runs / 275 canonical items,
+  0 unparsed fragments; 300 tests in `content-tools`, 17 in `shared`.
