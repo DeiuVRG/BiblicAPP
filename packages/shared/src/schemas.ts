@@ -76,6 +76,8 @@ export const EditionSchema = z.object({
   kind: z.enum(['source', 'translation']),
   licence: LicenceSchema,
   provenance: ProvenanceSchema,
+  /** Translations only: the edition whose paragraphs this edition is aligned to (1:1). */
+  sourceEditionId: IdSchema.optional(),
 });
 export type Edition = z.infer<typeof EditionSchema>;
 
@@ -85,6 +87,8 @@ export const SectionSchema = z.object({
   kind: z.enum(['chapter', 'section']),
   heading: z.string(),
   parentId: IdSchema.optional(),
+  /** Translations only: the section of the source edition this section renders. */
+  sourceId: IdSchema.optional(),
 });
 export type Section = z.infer<typeof SectionSchema>;
 
@@ -94,6 +98,11 @@ export const ParagraphSchema = z.object({
   ordinal: z.number().int().min(0),
   kind: z.enum(['p', 'heading', 'quote', 'note']),
   text: z.string(),
+  /**
+   * Translations only: the paragraph of the source edition this paragraph renders. Translations
+   * are aligned one paragraph to one paragraph; ids are never shared between editions.
+   */
+  sourceId: IdSchema.optional(),
 });
 export type Paragraph = z.infer<typeof ParagraphSchema>;
 
@@ -126,8 +135,26 @@ export const PackSchema = z
         });
       }
     });
+    if (pack.edition.kind === 'translation' && pack.edition.sourceEditionId === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['edition', 'sourceEditionId'],
+        message: 'a translation must name its source edition',
+      });
+    }
     const paragraphIds = new Set<string>();
+    const sourceIds = new Set<string>();
     pack.paragraphs.forEach((paragraph, index) => {
+      if (paragraph.sourceId !== undefined) {
+        if (sourceIds.has(paragraph.sourceId)) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['paragraphs', index, 'sourceId'],
+            message: `source paragraph ${paragraph.sourceId} is rendered twice`,
+          });
+        }
+        sourceIds.add(paragraph.sourceId);
+      }
       if (paragraphIds.has(paragraph.id)) {
         ctx.addIssue({
           code: 'custom',

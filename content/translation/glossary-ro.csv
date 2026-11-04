@@ -1,0 +1,34 @@
+term_id,source_pattern,target_pattern,tradition,scope,force,status,note
+# Generic rows (all works). Patterns are JavaScript regular expressions, flags iu. The target pattern is matched against the translation of the same paragraph.
+kingdom-of-god,\bkingdom of (?:God|heaven)\b,Împărăți[ae]i? (?:lui Dumnezeu|cerurilor),all,all,FIX,APROBAT,Capitalised in Romanian; „cerurilor” plural (Cornilescu).
+parable,\bparables?\b,\bpild[aăe]\w*,protestant,all,FIX,PROPUS,„pildă” rather than „parabolă”; same choice as the Bailey project.
+parable-forbid,\bparables?\b,\bparabol[aăe]\w*,protestant,all,FORBID,PROPUS,Do not render parable as „parabolă” in protestant works.
+jesus-protestant,\bJesus\b,\bIsus\b,protestant,all,FIX,APROBAT,Protestant spelling; orthodox works use „Iisus”.
+jesus-orthodox,\bJesus\b,\bIisus\b,orthodox,all,FIX,PROPUS,Orthodox spelling.
+christ,\bChrist\b,\bHristos\b,protestant,all,FIX,APROBAT,„Hristos” (not „Cristos”) in protestant and orthodox works.
+holy-spirit,\bHoly (?:Spirit|Ghost)\b,\bDuhul Sfânt\b,protestant,all,FIX,APROBAT,Not „Spiritul Sfânt” (catholic usage).
+holy-spirit-forbid,\bHoly (?:Spirit|Ghost)\b,\bSpiritul Sfânt\b,protestant,all,FORBID,APROBAT,Catholic usage; not in protestant works.
+saviour,\bSaviou?r\b,\bMântuitor\w*,all,all,FIX,APROBAT,
+repentance,\brepentance\b,\bpocăinț\w*,all,all,FIX,APROBAT,
+faith,\bfaith\b,\bcredinț\w*,all,all,FIX,APROBAT,
+church,\b(?:the )?[Cc]hurch\b,\b[Bb]iseric\w*,all,all,FIX,APROBAT,
+covenant,\bcovenant\b,\blegământ\w*,all,all,FIX,APROBAT,
+gentiles,\bGentiles\b,\b[Nn]eamuri\w*,protestant,all,FIX,PROPUS,Not „păgânii” unless the source has heathen.
+disciples,\bdisciples\b,\bucenic\w*,all,all,FIX,APROBAT,
+scribes,\bscribes\b,\bcărturar\w*,all,all,FIX,APROBAT,
+sermon-on-the-mount,\bSermon on the Mount\b,\bPredica de pe Munte\b,all,all,FIX,APROBAT,
+old-testament,\bOld Testament\b,\bVechiul\w* Testament\b,all,all,FIX,APROBAT,
+new-testament,\bNew Testament\b,\bNoul\w* Testament\b,all,all,FIX,APROBAT,
+son-of-man,\bSon of [Mm]an\b,\bFiul\w* Omului\b,all,all,FIX,APROBAT,
+eschatological,\beschatolog\w*,\bescatolog\w*,all,all,FIX,APROBAT,DOOM spelling „escatologic”; not „eshatologic”.
+eschatological-forbid,\beschatolog\w*,\beshatolog\w*,all,all,FORBID,APROBAT,Wrong spelling.
+beatitudes,\b[Bb]eatitudes\b,\bFericiri\w*,all,all,FIX,APROBAT,
+# Vos 1903 rows (scope = work slug).
+vos-kingship,\bkingship\b,\bdomni\w*,protestant,vos-1903-kingdom,FIX,PROPUS,Vos distinguishes kingship (domnie) from kingdom (Împărăție).
+vos-righteousness,\brighteousness\b,\bdreptat\w*,protestant,vos-1903-kingdom,FIX,PROPUS,Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.
+vos-supremacy,\bsupremacy\b,\bsuprema\w*,protestant,vos-1903-kingdom,FIX,PROPUS,Title of chapter VI; not „suveranitate”.
+vos-synoptists,\bSynoptists\b,\bsinoptici\w*,protestant,vos-1903-kingdom,FIX,PROPUS,The evangelists; not „sinopticele”.
+vos-saving-power,\bsaving power\b,\bputer\w* mântuitoar\w*,protestant,vos-1903-kingdom,FIX,PROPUS,
+vos-blessedness,\bblessedness\b,\bfericir\w*,protestant,vos-1903-kingdom,FIX,PROPUS,
+vos-fourth-gospel,\bFourth Gospel\b,\ba patra Evanghelie\b,all,vos-1903-kingdom,FIX,PROPUS,
+vos-viz,\bviz\.,\badică\b,all,vos-1903-kingdom,PREFER,PROPUS,
