@@ -17,7 +17,10 @@ import {
 /** Font size, line height and theme controls; used in Settings and in the reader. */
 export function TypographyControls() {
   const { settings, update } = useSettings();
-  const themeOptions = THEME_PREFERENCES.map((value) => ({ value, label: t.settings.themes[value] }));
+  const themeOptions = THEME_PREFERENCES.map((value) => ({
+    value,
+    label: t.settings.themes[value],
+  }));
 
   return (
     <View style={styles.group}>
@@ -28,8 +31,12 @@ export function TypographyControls() {
         increaseLabel={t.settings.increaseFontSize}
         canDecrease={settings.fontSize > FONT_SIZE_MIN}
         canIncrease={settings.fontSize < FONT_SIZE_MAX}
-        onDecrease={() => update({ fontSize: clamp(settings.fontSize - 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })}
-        onIncrease={() => update({ fontSize: clamp(settings.fontSize + 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })}
+        onDecrease={() =>
+          update({ fontSize: clamp(settings.fontSize - 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })
+        }
+        onIncrease={() =>
+          update({ fontSize: clamp(settings.fontSize + 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })
+        }
       />
       <Stepper
         label={t.settings.lineHeight}
@@ -38,8 +45,12 @@ export function TypographyControls() {
         increaseLabel={t.settings.increaseLineHeight}
         canDecrease={settings.lineHeight > LINE_HEIGHT_MIN + 1e-9}
         canIncrease={settings.lineHeight < LINE_HEIGHT_MAX - 1e-9}
-        onDecrease={() => update({ lineHeight: roundLineHeight(settings.lineHeight - LINE_HEIGHT_STEP) })}
-        onIncrease={() => update({ lineHeight: roundLineHeight(settings.lineHeight + LINE_HEIGHT_STEP) })}
+        onDecrease={() =>
+          update({ lineHeight: roundLineHeight(settings.lineHeight - LINE_HEIGHT_STEP) })
+        }
+        onIncrease={() =>
+          update({ lineHeight: roundLineHeight(settings.lineHeight + LINE_HEIGHT_STEP) })
+        }
       />
       <SegmentedControl
         label={t.settings.theme}

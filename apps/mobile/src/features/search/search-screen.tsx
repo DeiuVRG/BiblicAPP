@@ -63,7 +63,12 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
           maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
           style={[
             styles.input,
-            { color: colors.text, backgroundColor: colors.surface, borderColor: colors.border, fontFamily: fonts.ui },
+            {
+              color: colors.text,
+              backgroundColor: colors.surface,
+              borderColor: colors.border,
+              fontFamily: fonts.ui,
+            },
           ]}
         />
         {text.length > 0 ? (
@@ -90,7 +95,12 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={
             results.data.hits.length > 0 ? (
-              <AppText variant="caption" muted style={styles.count} accessibilityLiveRegion="polite">
+              <AppText
+                variant="caption"
+                muted
+                style={styles.count}
+                accessibilityLiveRegion="polite"
+              >
                 {results.data.hits.length >= RESULT_CAP
                   ? t.search.resultsCapped(results.data.hits.length)
                   : t.search.results(results.data.hits.length)}
@@ -99,7 +109,11 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
           }
           ListEmptyComponent={<MessageView message={t.search.noResults} />}
           renderItem={({ item }) => (
-            <ResultRow hit={item} query={query} workTitle={results.data?.titles.get(item.workId) ?? ''} />
+            <ResultRow
+              hit={item}
+              query={query}
+              workTitle={results.data?.titles.get(item.workId) ?? ''}
+            />
           )}
           contentContainerStyle={styles.list}
         />
@@ -108,7 +122,15 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
   );
 }
 
-function ResultRow({ hit, query, workTitle }: { hit: SearchHit; query: string; workTitle: string }) {
+function ResultRow({
+  hit,
+  query,
+  workTitle,
+}: {
+  hit: SearchHit;
+  query: string;
+  workTitle: string;
+}) {
   const { colors } = useTheme();
   const fonts = useFontFamilies();
   const place = [workTitle, hit.sectionHeading].filter(Boolean).join(' · ');
@@ -123,7 +145,13 @@ function ResultRow({ hit, query, workTitle }: { hit: SearchHit; query: string; w
       <HighlightedText
         text={hit.snippet}
         query={query}
-        style={{ color: colors.text, fontFamily: fonts.reading, fontSize: 16, lineHeight: 24, textAlign: 'left' }}
+        style={{
+          color: colors.text,
+          fontFamily: fonts.reading,
+          fontSize: 16,
+          lineHeight: 24,
+          textAlign: 'left',
+        }}
       />
     </LinkRow>
   );
@@ -139,7 +167,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 16,
   },
-  clear: { minHeight: MIN_TARGET, minWidth: MIN_TARGET, alignItems: 'center', justifyContent: 'center' },
+  clear: {
+    minHeight: MIN_TARGET,
+    minWidth: MIN_TARGET,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   list: { flexGrow: 1, paddingBottom: 24 },
   count: { paddingHorizontal: 16, paddingBottom: 8 },
 });

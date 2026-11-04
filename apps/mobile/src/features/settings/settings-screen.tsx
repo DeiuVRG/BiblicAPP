@@ -63,7 +63,9 @@ function ContentInfo() {
   return (
     <>
       <AppText>{t.settings.packs(verified, rejected)}</AppText>
-      {works.status === 'ready' && works.data.length === 0 ? <AppText muted>{t.settings.noWorks}</AppText> : null}
+      {works.status === 'ready' && works.data.length === 0 ? (
+        <AppText muted>{t.settings.noWorks}</AppText>
+      ) : null}
       {works.status === 'ready'
         ? works.data.map((work) => (
             <AppText key={work.editionId} variant="caption" muted>
@@ -104,7 +106,14 @@ export function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
-  content: { padding: 16, paddingBottom: 40, gap: 8, maxWidth: 720, width: '100%', alignSelf: 'center' },
+  content: {
+    padding: 16,
+    paddingBottom: 40,
+    gap: 8,
+    maxWidth: 720,
+    width: '100%',
+    alignSelf: 'center',
+  },
   section: { gap: 12, paddingTop: 16, paddingBottom: 8, borderTopWidth: StyleSheet.hairlineWidth },
   preview: { padding: 12, borderRadius: 10, borderWidth: StyleSheet.hairlineWidth, gap: 6 },
 });

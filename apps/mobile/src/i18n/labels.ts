@@ -33,12 +33,16 @@ export function formatYear(year: number | null | undefined): string {
 }
 
 /** "1862–1949", "n. 1862", "m. 1949" or an empty string. */
-export function formatLifespan(born: number | null | undefined, died: number | null | undefined): string {
+export function formatLifespan(
+  born: number | null | undefined,
+  died: number | null | undefined,
+): string {
   if (born != null && died != null) return `${formatYear(born)}–${formatYear(died)}`;
   if (born != null) return `n. ${formatYear(born)}`;
   if (died != null) return `m. ${formatYear(died)}`;
   return '';
 }
 
-export const licenceLabel = (status: keyof typeof t.licenceStatus): string => t.licenceStatus[status];
+export const licenceLabel = (status: keyof typeof t.licenceStatus): string =>
+  t.licenceStatus[status];
 export const editionKindLabel = (kind: keyof typeof t.editionKind): string => t.editionKind[kind];

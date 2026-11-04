@@ -1,0 +1,148 @@
+{
+  "firstChapterMarker": "^\\s*CHAPTER\\s+I\\s*$",
+  "chapterMarker": "^\\s*CHAPTER\\s+([IVXLCDM]+)\\.?\\s*$",
+  "endMarker": "^\\s*THE END\\.?\\s*$",
+  "headingTemplate": "{number}. {heading}",
+  "headers": {
+    "zoneLines": 2,
+    "minRepeats": 4,
+    "similarity": 0.65
+  },
+  "footers": {
+    "zoneLines": 2,
+    "maxChars": 6
+  },
+  "paragraphs": {
+    "mode": "layout",
+    "indentMin": 2,
+    "indentMax": 9
+  },
+  "chapters": [
+    {
+      "number": "I",
+      "heading": "Introductory"
+    },
+    {
+      "number": "II",
+      "heading": "The Kingdom and the Old Testament"
+    },
+    {
+      "number": "III",
+      "heading": "Kingdom and Kingship. The Kingdom of God and the Kingdom of Heaven"
+    },
+    {
+      "number": "IV",
+      "heading": "The Present and the Future Kingdom"
+    },
+    {
+      "number": "V",
+      "heading": "Current Misconceptions regarding the Present and Future Kingdom"
+    },
+    {
+      "number": "VI",
+      "heading": "The Essence of the Kingdom: The Kingdom as the Supremacy of God in the Sphere of Saving Power"
+    },
+    {
+      "number": "VII",
+      "heading": "The Essence of the Kingdom Continued: The Kingdom in the Sphere of Righteousness"
+    },
+    {
+      "number": "VIII",
+      "heading": "The Essence of the Kingdom Continued: The Kingdom as a State of Blessedness"
+    },
+    {
+      "number": "IX",
+      "heading": "The Kingdom and the Church"
+    },
+    {
+      "number": "X",
+      "heading": "The Entrance into the Kingdom: Repentance and Faith"
+    },
+    {
+      "number": "XI",
+      "heading": "Recapitulation"
+    }
+  ],
+  "pageFixes": [
+    {
+      "page": 8,
+      "find": "I   N the body of our Lord's teaching\n    as recorded in the Gospels the ref-\n    erences to the kingdom of God oc-\n",
+      "replace": "IN the body of our Lord's teaching\nas recorded in the Gospels the ref-\nerences to the kingdom of God oc-\n",
+      "note": "Chapter I drop cap"
+    },
+    {
+      "page": 18,
+      "find": " ~ HE first thing to be noticed in\n 1    Jesus' utterances on our theme is\n      that they clearly presuppose a con-\n",
+      "replace": "THE first thing to be noticed in\nJesus' utterances on our theme is\nthat they clearly presuppose a con-\n",
+      "note": "Chapter II drop cap (OCR read T as ~)"
+    },
+    {
+      "page": 32,
+      "find": " cr'HE Greek word Basileta used in\n1      the Gospels for \"kingdom\" and\n       the corresponding Hebrew and\n",
+      "replace": "THE Greek word Basileta used in\nthe Gospels for \"kingdom\" and\nthe corresponding Hebrew and\n",
+      "note": "Chapter III drop cap"
+    },
+    {
+      "page": 45,
+      "find": " TJ 7 E have already seen that our\nrr        Lord makes a sharp distinction\n          between the Old Testament or-\n",
+      "replace": "WE have already seen that our\nLord makes a sharp distinction\nbetween the Old Testament or-\n",
+      "note": "Chapter IV drop cap (OCR read W as TJ 7)"
+    },
+    {
+      "page": 73,
+      "find": "H        A VING found that both the im-\n         manent and the eschatological\n         conceptions of the coming of the\n",
+      "replace": "HAVING found that both the im-\nmanent and the eschatological\nconceptions of the coming of the\n",
+      "note": "Chapter V drop cap"
+    },
+    {
+      "page": 87,
+      "find": "I   T has been shown in the foregoing\n     how our Lord designates the new\n     order of things he came to introduce\n « the kingdom of God,\" and that not\n",
+      "replace": "IT has been shown in the foregoing\nhow our Lord designates the new\norder of things he came to introduce\n\"the kingdom of God,\" and that not\n",
+      "note": "Chapter VI drop cap and guillemet"
+    },
+    {
+      "page": 87,
+      "find": "The ques-\n\"tion must",
+      "replace": "The ques-\ntion must",
+      "note": "stray quote mark inside a hyphenated word"
+    },
+    {
+      "page": 110,
+      "find": "I   N regard to the relation between the\n     kingdom and righteousness three\n     lines of thought can be distinguished\n",
+      "replace": "IN regard to the relation between the\nkingdom and righteousness three\nlines of thought can be distinguished\n",
+      "note": "Chapter VII drop cap"
+    },
+    {
+      "page": 132,
+      "find": "TJ 7 E have already seen, that not\nrr   the thought of man's welfare,\n     but that of the glory of God was\n",
+      "replace": "WE have already seen, that not\nthe thought of man's welfare,\nbut that of the glory of God was\n",
+      "note": "Chapter VIII drop cap"
+    },
+    {
+      "page": 147,
+      "find": " ~ HE conception of the kingdom is\n1      common to all periods of our\n       Lord's teaching, that of the\n",
+      "replace": "THE conception of the kingdom is\ncommon to all periods of our\nLord's teaching, that of the\n",
+      "note": "Chapter IX drop cap"
+    },
+    {
+      "page": 176,
+      "find": "F      ROM the beginning our Lord'~\n       announcement of the nearness of\n       the kingdom was linked with the\n",
+      "replace": "FROM the beginning our Lord's\nannouncement of the nearness of\nthe kingdom was linked with the\n",
+      "note": "Chapter X drop cap"
+    },
+    {
+      "page": 198,
+      "find": "H       AVING   reached the end of our\n        discussion we may now endeavor\n        briefly to formulate the impor-\n",
+      "replace": "HAVING reached the end of our\ndiscussion we may now endeavor\nbriefly to formulate the impor-\n",
+      "note": "Chapter XI drop cap"
+    },
+    {
+      "page": 26,
+      "find": "God cannot have been unfamiliar to him-:-",
+      "replace": "God cannot have been unfamiliar to him.",
+      "note": "OCR garbage in place of the full stop"
+    }
+  ],
+  "replacements": [],
+  "wordFixes": {}
+}

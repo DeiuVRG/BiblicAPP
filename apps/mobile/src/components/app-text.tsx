@@ -38,8 +38,15 @@ export function AppText({ variant = 'body', muted = false, style, ...rest }: Pro
     <Text
       maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
       {...rest}
-      style={[variantStyle(variant, fonts), { color: muted ? colors.textMuted : colors.text }, styles.left, style]}
-      accessibilityRole={variant === 'title' || variant === 'heading' ? 'header' : rest.accessibilityRole}
+      style={[
+        variantStyle(variant, fonts),
+        { color: muted ? colors.textMuted : colors.text },
+        styles.left,
+        style,
+      ]}
+      accessibilityRole={
+        variant === 'title' || variant === 'heading' ? 'header' : rest.accessibilityRole
+      }
     />
   );
 }

@@ -1,6 +1,13 @@
 import type { ThemePreference } from '@/theme/palettes';
 
-import { DEFAULT_SETTINGS, FONT_SIZE_MAX, FONT_SIZE_MIN, LINE_HEIGHT_MAX, LINE_HEIGHT_MIN, THEME_PREFERENCES } from './types';
+import {
+  DEFAULT_SETTINGS,
+  FONT_SIZE_MAX,
+  FONT_SIZE_MIN,
+  LINE_HEIGHT_MAX,
+  LINE_HEIGHT_MIN,
+  THEME_PREFERENCES,
+} from './types';
 import type { ReaderSettings } from './types';
 
 export function clamp(value: number, min: number, max: number): number {

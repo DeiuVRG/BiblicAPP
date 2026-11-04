@@ -11,7 +11,13 @@ import { LoadingView, MessageView } from '@/components/state-views';
 import type { WorkDetail } from '@/content/types';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
 import { t } from '@/i18n';
-import { editionKindLabel, formatLifespan, formatYear, languageName, licenceLabel } from '@/i18n/labels';
+import {
+  editionKindLabel,
+  formatLifespan,
+  formatYear,
+  languageName,
+  licenceLabel,
+} from '@/i18n/labels';
 import { readHref } from '@/navigation-hrefs';
 import { sectionDepths } from '@/reading/navigation';
 import { loadPosition } from '@/reading/position-store';
@@ -39,7 +45,8 @@ function WorkHeader({
   const { work, edition } = detail;
   const lifespan = formatLifespan(work.author.born, work.author.died);
   const author = lifespan ? `${work.author.name} (${lifespan})` : work.author.name;
-  const resume = position && sections.some((section) => section.id === position.sectionId) ? position : null;
+  const resume =
+    position && sections.some((section) => section.id === position.sectionId) ? position : null;
   const target = resume?.sectionId ?? sections[0]?.id;
   const year = formatYear(work.year);
 
@@ -62,7 +69,9 @@ function WorkHeader({
       />
       <MetaLine
         label={t.work.licence}
-        value={[licenceLabel(edition.licence.status), edition.licence.note].filter(Boolean).join('. ')}
+        value={[licenceLabel(edition.licence.status), edition.licence.note]
+          .filter(Boolean)
+          .join('. ')}
       />
       {target ? (
         <Link href={readHref(work.id, target)} asChild>
@@ -80,7 +89,10 @@ export function WorkScreen({ workId }: { workId: string }) {
   const store = useStorage();
   const data = useRepositoryQuery(
     async (repository) => {
-      const [detail, sections] = await Promise.all([repository.getWork(workId), repository.getSections(workId)]);
+      const [detail, sections] = await Promise.all([
+        repository.getWork(workId),
+        repository.getSections(workId),
+      ]);
       return { detail, sections };
     },
     [workId],
@@ -96,10 +108,25 @@ export function WorkScreen({ workId }: { workId: string }) {
     };
   }, [store, workId]);
 
-  if (data.status === 'loading') return <Screen><LoadingView message={t.common.loading} /></Screen>;
-  if (data.status === 'error') return <Screen><MessageView message={t.common.error} /></Screen>;
+  if (data.status === 'loading')
+    return (
+      <Screen>
+        <LoadingView message={t.common.loading} />
+      </Screen>
+    );
+  if (data.status === 'error')
+    return (
+      <Screen>
+        <MessageView message={t.common.error} />
+      </Screen>
+    );
   const { detail, sections } = data.data;
-  if (!detail) return <Screen><MessageView message={t.work.notFound} /></Screen>;
+  if (!detail)
+    return (
+      <Screen>
+        <MessageView message={t.work.notFound} />
+      </Screen>
+    );
   const depths = sectionDepths(sections);
 
   return (

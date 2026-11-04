@@ -35,7 +35,7 @@ interface Props {
 
 interface ViewToken {
   item: unknown;
-  index: number | null;
+  index?: number | null;
 }
 
 interface Loaded {
@@ -112,7 +112,9 @@ interface ChapterProps {
   query: string | undefined;
 }
 
-const MAX_SCROLL_RETRIES = 6;
+const MAX_SCROLL_RETRIES = 12;
+/** Upper bound of paragraphs rendered up front so that a saved position can be measured. */
+const MAX_EAGER_PARAGRAPHS = 400;
 
 function ChapterView({
   detail,
@@ -133,13 +135,15 @@ function ChapterView({
 
   const listRef = useRef<FlatList<Paragraph>>(null);
   const retries = useRef(0);
-  const firstVisible = useRef(0);
   const [fraction, setFraction] = useState(0);
   const [panelOpen, setPanelOpen] = useState(false);
   const writer = useReadingPositionWriter(workId, section.id);
 
   const targetIndex = useMemo(
-    () => (initialParagraphId ? paragraphs.findIndex((paragraph) => paragraph.id === initialParagraphId) : -1),
+    () =>
+      initialParagraphId
+        ? paragraphs.findIndex((paragraph) => paragraph.id === initialParagraphId)
+        : -1,
     [initialParagraphId, paragraphs],
   );
 
@@ -151,8 +155,8 @@ function ChapterView({
     }
     const jump = setTimeout(() => {
       listRef.current?.scrollToIndex({ index: targetIndex, animated: false, viewPosition: 0 });
-    }, 0);
-    const enable = setTimeout(writer.enable, 700);
+    }, 100);
+    const enable = setTimeout(writer.enable, 1200);
     return () => {
       clearTimeout(jump);
       clearTimeout(enable);
@@ -164,24 +168,32 @@ function ChapterView({
       retries.current += 1;
       if (retries.current > MAX_SCROLL_RETRIES) return;
       // Items before the target are not measured yet: jump close, then retry once they render.
-      listRef.current?.scrollToOffset({ offset: info.averageItemLength * info.index, animated: false });
+      listRef.current?.scrollToOffset({
+        offset: info.averageItemLength * info.index,
+        animated: false,
+      });
       setTimeout(() => {
         listRef.current?.scrollToIndex({ index: info.index, animated: false, viewPosition: 0 });
-      }, 80);
+      }, 100);
     },
     [],
   );
 
   // FlatList requires a stable callback, so it only touches refs and the stable `writer.track`.
-  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
-    const indexes = viewableItems.map((token) => token.index).filter((index): index is number => index != null);
-    if (indexes.length === 0) return;
-    const first = Math.min(...indexes);
-    firstVisible.current = first;
-    const item = viewableItems.find((token) => token.index === first)?.item as Paragraph | undefined;
-    if (item) writer.track(item.id);
-  });
-  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 10 });
+  const [onViewableItemsChanged] = useState(
+    () =>
+      ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+        const indexes = viewableItems
+          .map((token) => token.index)
+          .filter((index): index is number => index != null);
+        if (indexes.length === 0) return;
+        const first = Math.min(...indexes);
+        const item = viewableItems.find((token) => token.index === first)?.item as
+          Paragraph | undefined;
+        if (item) writer.track(item.id);
+      },
+  );
+  const [viewabilityConfig] = useState(() => ({ itemVisiblePercentThreshold: 10 }));
 
   const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
@@ -195,7 +207,9 @@ function ChapterView({
 
   const overall = neighbours ? (neighbours.index + fraction) / neighbours.total : fraction;
   const percent = toPercent(overall);
-  const positionText = neighbours ? t.reader.position(neighbours.index + 1, neighbours.total, percent) : `${percent}%`;
+  const positionText = neighbours
+    ? t.reader.position(neighbours.index + 1, neighbours.total, percent)
+    : `${percent}%`;
 
   const header = section.heading ? (
     <View style={styles.chapterHeading}>
@@ -236,7 +250,12 @@ function ChapterView({
         }}
       />
       {panelOpen ? (
-        <View style={[styles.panel, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>
+        <View
+          style={[
+            styles.panel,
+            { backgroundColor: colors.surface, borderBottomColor: colors.border },
+          ]}
+        >
           <TypographyControls />
         </View>
       ) : null}
@@ -256,10 +275,10 @@ function ChapterView({
         )}
         ListHeaderComponent={header}
         ListEmptyComponent={<AppText muted>{t.reader.emptySection}</AppText>}
-        initialNumToRender={Math.min(40, Math.max(12, targetIndex + 6))}
+        initialNumToRender={targetIndex > 0 ? Math.min(targetIndex + 8, MAX_EAGER_PARAGRAPHS) : 12}
         windowSize={11}
-        onViewableItemsChanged={onViewableItemsChanged.current}
-        viewabilityConfig={viewabilityConfig.current}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
         onScroll={onScroll}
         scrollEventThrottle={64}
         onScrollToIndexFailed={onScrollToIndexFailed}
@@ -269,10 +288,15 @@ function ChapterView({
       <View
         style={[
           styles.bar,
-          { backgroundColor: colors.background, borderTopColor: colors.border, paddingBottom: Math.max(insets.bottom, 8) },
+          {
+            backgroundColor: colors.background,
+            borderTopColor: colors.border,
+            paddingBottom: Math.max(insets.bottom, 8),
+          },
         ]}
       >
         <View
+          accessible
           accessibilityRole="progressbar"
           accessibilityLabel={`${t.reader.progressLabel}: ${positionText}`}
           accessibilityValue={{ min: 0, max: 100, now: percent }}
@@ -291,12 +315,13 @@ function ChapterView({
             {positionText}
           </AppText>
           {neighbours?.next ? (
-            <Button title={`${t.reader.next} ›`} label={t.reader.nextLabel} onPress={() => goTo(neighbours.next)} />
-          ) : (
             <Button
-              title={t.reader.toContents}
-              onPress={() => router.replace(workHref(workId))}
+              title={`${t.reader.next} ›`}
+              label={t.reader.nextLabel}
+              onPress={() => goTo(neighbours.next)}
             />
+          ) : (
+            <Button title={t.reader.toContents} onPress={() => router.replace(workHref(workId))} />
           )}
         </View>
       </View>
@@ -306,10 +331,22 @@ function ChapterView({
 
 const styles = StyleSheet.create({
   list: { flex: 1 },
-  content: { paddingHorizontal: 20, paddingTop: 12, paddingBottom: 32, maxWidth: 720, width: '100%', alignSelf: 'center' },
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 32,
+    maxWidth: 720,
+    width: '100%',
+    alignSelf: 'center',
+  },
   chapterHeading: { marginBottom: 16, marginTop: 4 },
   panel: { padding: 16, borderBottomWidth: StyleSheet.hairlineWidth },
-  typographyButton: { minHeight: MIN_TARGET, minWidth: MIN_TARGET, alignItems: 'center', justifyContent: 'center' },
+  typographyButton: {
+    minHeight: MIN_TARGET,
+    minWidth: MIN_TARGET,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bar: { borderTopWidth: StyleSheet.hairlineWidth, paddingTop: 8, paddingHorizontal: 12, gap: 8 },
   track: { height: 4, borderRadius: 2, overflow: 'hidden' },
   fill: { height: 4 },

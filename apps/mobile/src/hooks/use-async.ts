@@ -2,23 +2,32 @@ import { useEffect, useState } from 'react';
 import type { DependencyList } from 'react';
 
 export type AsyncState<T> =
-  | { status: 'loading' }
-  | { status: 'error' }
-  | { status: 'ready'; data: T };
+  { status: 'loading' } | { status: 'error' } | { status: 'ready'; data: T };
 
-/** Runs an async loader whenever `deps` change; ignores results of superseded runs. */
+interface Entry<T> {
+  deps: DependencyList;
+  state: AsyncState<T>;
+}
+
+function sameDeps(a: DependencyList, b: DependencyList): boolean {
+  return a.length === b.length && a.every((value, index) => Object.is(value, b[index]));
+}
+
+/**
+ * Runs an async loader whenever `deps` change. Results of superseded runs are ignored, and a
+ * result computed for older deps is never reported as current (it reads as 'loading').
+ */
 export function useAsync<T>(load: () => Promise<T>, deps: DependencyList): AsyncState<T> {
-  const [state, setState] = useState<AsyncState<T>>({ status: 'loading' });
+  const [entry, setEntry] = useState<Entry<T> | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    setState({ status: 'loading' });
     load().then(
       (data) => {
-        if (!cancelled) setState({ status: 'ready', data });
+        if (!cancelled) setEntry({ deps, state: { status: 'ready', data } });
       },
       () => {
-        if (!cancelled) setState({ status: 'error' });
+        if (!cancelled) setEntry({ deps, state: { status: 'error' } });
       },
     );
     return () => {
@@ -27,5 +36,5 @@ export function useAsync<T>(load: () => Promise<T>, deps: DependencyList): Async
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  return state;
+  return entry && sameDeps(entry.deps, deps) ? entry.state : { status: 'loading' };
 }

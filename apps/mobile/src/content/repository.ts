@@ -1,5 +1,7 @@
 import type { Pack, PackManifest, Paragraph, Section } from '@biblioteca/shared';
 
+import { foldText } from '@/search/fold';
+
 import { bundledPacks } from './bundled-packs';
 import type { BundledPack } from './bundled-packs';
 import { trustedKeys as defaultTrustedKeys } from './trusted-keys';
@@ -40,11 +42,22 @@ export interface LoadOptions {
 
 const MAX_SEARCH_HITS = 50;
 
-function normalise(text: string): string {
-  return text
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .toLowerCase();
+const SNIPPET_BEFORE = 50;
+const SNIPPET_LENGTH = 160;
+
+/** Short excerpt around a match, snapped to word boundaries and marked with ellipses. */
+function makeSnippet(text: string, matchIndex: number): string {
+  let start = Math.max(0, matchIndex - SNIPPET_BEFORE);
+  let end = Math.min(text.length, start + SNIPPET_LENGTH);
+  if (start > 0) {
+    const space = text.indexOf(' ', start);
+    if (space >= 0 && space < matchIndex) start = space + 1;
+  }
+  if (end < text.length) {
+    const space = text.lastIndexOf(' ', end);
+    if (space > matchIndex) end = space;
+  }
+  return `${start > 0 ? '…' : ''}${text.slice(start, end).trim()}${end < text.length ? '…' : ''}`;
 }
 
 function byOrdinal<T extends { ordinal: number }>(items: readonly T[]): T[] {
@@ -57,9 +70,13 @@ export interface VerifiedPack {
 }
 
 /** In-memory repository over already verified packs. */
-export function createInMemoryRepository(verifiedPacks: readonly VerifiedPack[]): ContentRepository {
+export function createInMemoryRepository(
+  verifiedPacks: readonly VerifiedPack[],
+): ContentRepository {
   const packs = verifiedPacks.map((entry) => entry.pack);
-  const packIds = new Map(verifiedPacks.map((entry) => [entry.pack.work.id, entry.manifest.packId]));
+  const packIds = new Map(
+    verifiedPacks.map((entry) => [entry.pack.work.id, entry.manifest.packId]),
+  );
   const byWork = new Map<string, Pack>();
   const sectionToPack = new Map<string, Pack>();
   const paragraphsBySection = new Map<string, Paragraph[]>();
@@ -109,23 +126,21 @@ export function createInMemoryRepository(verifiedPacks: readonly VerifiedPack[])
     },
 
     async search(query) {
-      const needle = normalise(query.trim());
+      const needle = foldText(query.trim());
       if (needle.length < 2) return [];
       const hits: SearchHit[] = [];
       for (const pack of packs) {
         const headings = new Map(pack.sections.map((s) => [s.id, s.heading]));
         for (const paragraph of pack.paragraphs) {
-          const haystack = normalise(paragraph.text);
+          const haystack = foldText(paragraph.text);
           const index = haystack.indexOf(needle);
           if (index < 0) continue;
-          // normalise() can change string length only for exotic characters; clamp defensively.
-          const start = Math.max(0, index - 40);
           hits.push({
             workId: pack.work.id,
             sectionId: paragraph.sectionId,
             paragraphId: paragraph.id,
             sectionHeading: headings.get(paragraph.sectionId) ?? '',
-            snippet: paragraph.text.slice(start, start + 140),
+            snippet: makeSnippet(paragraph.text, index),
           });
           if (hits.length >= MAX_SEARCH_HITS) return hits;
         }
@@ -150,8 +165,7 @@ export async function loadBundledRepository(options: LoadOptions = {}): Promise<
     if (result.ok) {
       verified.push({ manifest: result.manifest, pack: result.pack });
     } else {
-      const packId =
-        (bundled.manifest as { packId?: string } | null | undefined)?.packId ?? null;
+      const packId = (bundled.manifest as { packId?: string } | null | undefined)?.packId ?? null;
       rejected.push({ packId, reason: result.reason, detail: result.detail });
     }
   }

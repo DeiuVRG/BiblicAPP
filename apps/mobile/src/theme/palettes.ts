@@ -62,7 +62,10 @@ export const palettes: Record<ThemeName, Palette> = {
   },
 };
 
-export function resolveTheme(preference: ThemePreference, system: 'light' | 'dark' | null | undefined): ThemeName {
+export function resolveTheme(
+  preference: ThemePreference,
+  system: 'light' | 'dark' | null | undefined,
+): ThemeName {
   if (preference === 'system') return system === 'dark' ? 'dark' : 'light';
   return preference;
 }

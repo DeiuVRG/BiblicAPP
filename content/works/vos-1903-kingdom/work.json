@@ -1,0 +1,30 @@
+{
+  "work": {
+    "id": "01M6JQPCFFCK900E1P6353MWVK",
+    "slug": "vos-1903-kingdom",
+    "titleRo": "Învățătura lui Isus despre Împărăția lui Dumnezeu și Biserică",
+    "titleOrig": "The Teaching of Jesus Concerning the Kingdom of God and the Church",
+    "author": {
+      "name": "Geerhardus Vos",
+      "born": 1862,
+      "died": 1949,
+      "tradition": "protestant"
+    },
+    "languageOrig": "en",
+    "year": 1903
+  },
+  "edition": {
+    "id": "01M6JQPCFGW7EM3S59E2BAASGZ",
+    "language": "en",
+    "kind": "source",
+    "licence": {
+      "status": "public-domain",
+      "note": "Original text first published in 1903; the author died in 1949, before the project's public-domain cut-off year (1956). The text is the 1903 edition itself; no later editorial material is included."
+    },
+    "provenance": {
+      "source": "The Teaching of Jesus Concerning the Kingdom of God and the Church, Geerhardus Vos, American Tract Society, New York, 1903 (series The Teachings of Jesus, ed. John H. Kerr). Scan probably from the Internet Archive (see content/INVENTORY.md, P1-07).",
+      "extractedBy": "OCR text layer of the scan, extracted with pdftotext -layout (poppler 24.02, file content/sources/vos-1903-kingdom/raw-layout.txt); cleaned by packages/content-tools ingest-text with content/works/vos-1903-kingdom/ingest.config.json.",
+      "notes": "Front matter, the table of contents and the printed indices (subjects, texts) are not part of the pack: the indices refer to the page numbers of the printed book. Running heads, page numbers and signature marks were removed; line-end hyphenation was resolved from the text's own usage. OCR errors that survived the cleaning are listed in docs/ocr-notes-vos-1903.md."
+    }
+  }
+}

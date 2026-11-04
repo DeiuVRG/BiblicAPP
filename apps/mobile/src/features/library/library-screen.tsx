@@ -60,9 +60,7 @@ export function LibraryScreen() {
             <View style={styles.header}>
               <AppText muted>{t.library.subtitle}</AppText>
               {rejectedCount > 0 ? (
-                <AppText accessibilityRole="alert">
-                  {t.library.unverified(rejectedCount)}
-                </AppText>
+                <AppText accessibilityRole="alert">{t.library.unverified(rejectedCount)}</AppText>
               ) : null}
             </View>
           }

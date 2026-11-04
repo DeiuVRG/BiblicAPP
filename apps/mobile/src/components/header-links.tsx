@@ -13,14 +13,22 @@ export function HeaderLinks() {
   return (
     <View style={styles.row}>
       <Link href={searchHref} asChild>
-        <Pressable accessibilityRole="link" accessibilityLabel={t.library.search} style={styles.link}>
+        <Pressable
+          accessibilityRole="link"
+          accessibilityLabel={t.library.search}
+          style={styles.link}
+        >
           <AppText variant="label" style={{ color: colors.accent }}>
             {t.library.search}
           </AppText>
         </Pressable>
       </Link>
       <Link href={settingsHref} asChild>
-        <Pressable accessibilityRole="link" accessibilityLabel={t.library.settings} style={styles.link}>
+        <Pressable
+          accessibilityRole="link"
+          accessibilityLabel={t.library.settings}
+          style={styles.link}
+        >
           <AppText variant="label" style={{ color: colors.accent }}>
             {t.library.settings}
           </AppText>
@@ -31,6 +39,6 @@ export function HeaderLinks() {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center' },
+  row: { flexDirection: 'row', alignItems: 'center', paddingRight: 4 },
   link: { minHeight: MIN_TARGET, paddingHorizontal: 10, justifyContent: 'center' },
 });

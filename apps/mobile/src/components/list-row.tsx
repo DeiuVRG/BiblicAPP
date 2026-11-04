@@ -20,10 +20,11 @@ export function LinkRow({ href, accessibilityLabel, children, indent = 0 }: Prop
       <Pressable
         accessibilityRole="link"
         accessibilityLabel={accessibilityLabel}
-        style={({ pressed }) => [
+        // A flat style object: Link's asChild slot spreads `style`, which breaks arrays/functions on web.
+        style={StyleSheet.flatten([
           styles.row,
-          { borderBottomColor: colors.border, paddingLeft: 16 + indent * 16, opacity: pressed ? 0.7 : 1 },
-        ]}
+          { borderBottomColor: colors.border, paddingLeft: 16 + indent * 16 },
+        ])}
       >
         {children}
       </Pressable>

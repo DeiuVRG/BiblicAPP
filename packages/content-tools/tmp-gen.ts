@@ -1,0 +1,15 @@
+import { canonicalJson, stableId } from '@biblioteca/shared';
+import { createHash } from 'node:crypto';
+import { mkdirSync, writeFileSync } from 'node:fs';
+const words = 'împărăția cerurilor Dumnezeu Fiul omului biserica învățătura lui Isus credință speranță dragoste parabolă ucenici lege profeți'.split(' ');
+const rnd = (() => { let s = 7; return () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296; })();
+const para = (n: number) => Array.from({ length: n }, () => words[Math.floor(rnd() * words.length)]).join(' ') + '.';
+const sections = [0,1,2].map((i) => ({ id: stableId(), ordinal: i, kind: 'chapter' as const, heading: `Capitolul ${i + 1}` }));
+const paragraphs = sections.flatMap((s) => Array.from({ length: 150 }, (_, i) => ({ id: stableId(), sectionId: s.id, ordinal: i, kind: 'p' as const, text: `[${s.heading} §${i}] ` + para(20 + Math.floor(rnd() * 80)) })));
+const pack = { work: { id: stableId(), slug: 'tmp-long', titleRo: 'Lucrare lungă', titleOrig: 'Long work', author: { name: 'Test', born: 1862, died: 1949, tradition: 'x' }, languageOrig: 'en', year: 1903 }, edition: { id: stableId(), language: 'ro', kind: 'source' as const, licence: { status: 'public-domain' as const, note: 'test' }, provenance: { source: 's', extractedBy: 'e', notes: 'n' } }, sections, paragraphs };
+const json = canonicalJson(pack);
+const manifest = { packId: stableId(), kind: 'edition' as const, workId: pack.work.id, editionId: pack.edition.id, revision: 1, version: '1.0.0', createdAt: new Date().toISOString(), sha256: createHash('sha256').update(json).digest('hex'), size: Buffer.byteLength(json), minAppVersion: '0.1.0', signingKeyId: 'placeholder-unsigned', signature: 'AAAA' };
+mkdirSync('apps/mobile/assets/packs/tmp-long', { recursive: true });
+writeFileSync('apps/mobile/assets/packs/tmp-long/pack.json', json);
+writeFileSync('apps/mobile/assets/packs/tmp-long/manifest.json', canonicalJson(manifest));
+console.log(sections[0].id, paragraphs[100].id);

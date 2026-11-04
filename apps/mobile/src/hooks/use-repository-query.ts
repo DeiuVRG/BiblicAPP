@@ -15,7 +15,6 @@ export function useRepositoryQuery<T>(
   const repository = content.status === 'ready' ? content.repository : null;
   const state = useAsync<T | undefined>(
     () => (repository ? query(repository) : new Promise<undefined>(() => undefined)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [repository, ...deps],
   );
   if (content.status === 'error') return { status: 'error' };

@@ -8,7 +8,10 @@ export interface SectionNeighbours {
 }
 
 /** Position of a section in document order plus its neighbours. `sections` must be ordered. */
-export function sectionNeighbours(sections: readonly Section[], sectionId: string): SectionNeighbours | null {
+export function sectionNeighbours(
+  sections: readonly Section[],
+  sectionId: string,
+): SectionNeighbours | null {
   const index = sections.findIndex((section) => section.id === sectionId);
   if (index < 0) return null;
   return {
@@ -42,7 +45,11 @@ export function toPercent(fraction: number): number {
 }
 
 /** Scroll fraction (0..1) from raw scroll metrics. A chapter that fits the screen counts as read. */
-export function scrollFraction(offsetY: number, contentHeight: number, viewportHeight: number): number {
+export function scrollFraction(
+  offsetY: number,
+  contentHeight: number,
+  viewportHeight: number,
+): number {
   const scrollable = contentHeight - viewportHeight;
   if (scrollable <= 0) return 1;
   return Math.min(1, Math.max(0, offsetY / scrollable));

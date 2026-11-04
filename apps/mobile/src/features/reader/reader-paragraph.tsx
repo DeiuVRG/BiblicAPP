@@ -23,14 +23,24 @@ function ReaderParagraphBase({ paragraph, fontSize, lineHeight, query, isTarget 
   const fonts = useFontFamilies();
   const { kind } = paragraph;
 
-  const size = kind === 'note' ? Math.round(fontSize * 0.88) : kind === 'heading' ? Math.round(fontSize * 1.15) : fontSize;
+  const size =
+    kind === 'note'
+      ? Math.round(fontSize * 0.88)
+      : kind === 'heading'
+        ? Math.round(fontSize * 1.15)
+        : fontSize;
   const textStyle = {
     // Left-aligned, never justified: justification hurts readability on narrow screens.
     textAlign: 'left' as const,
     fontSize: size,
     lineHeight: Math.round(size * lineHeight),
     color: kind === 'note' ? colors.textMuted : colors.text,
-    fontFamily: kind === 'heading' ? fonts.readingBold : kind === 'quote' ? fonts.readingItalic : fonts.reading,
+    fontFamily:
+      kind === 'heading'
+        ? fonts.readingBold
+        : kind === 'quote'
+          ? fonts.readingItalic
+          : fonts.reading,
   };
 
   return (

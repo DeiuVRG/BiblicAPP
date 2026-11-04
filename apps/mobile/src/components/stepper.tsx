@@ -42,7 +42,13 @@ export function Stepper({
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+    flexWrap: 'wrap',
+  },
   label: { flexShrink: 1 },
   controls: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   value: { minWidth: 56, textAlign: 'center' },

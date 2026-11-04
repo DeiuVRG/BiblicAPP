@@ -19,7 +19,10 @@ function parsePosition(raw: unknown): ReadingPosition | null {
 }
 
 /** Never throws; returns null when nothing valid is stored. */
-export async function loadPosition(store: KeyValueStore, workId: string): Promise<ReadingPosition | null> {
+export async function loadPosition(
+  store: KeyValueStore,
+  workId: string,
+): Promise<ReadingPosition | null> {
   try {
     const raw = await store.getItem(keyFor(workId));
     return raw ? parsePosition(JSON.parse(raw)) : null;

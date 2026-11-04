@@ -25,7 +25,8 @@ export function ContentProvider({ loader = getRepository, children }: ProviderPr
     let cancelled = false;
     loader().then(
       (loaded) => {
-        if (!cancelled) setState({ status: 'ready', repository: loaded.repository, rejected: loaded.rejected });
+        if (!cancelled)
+          setState({ status: 'ready', repository: loaded.repository, rejected: loaded.rejected });
       },
       () => {
         if (!cancelled) setState({ status: 'error' });

@@ -23,4 +23,6 @@ export default function NotFoundRoute() {
   );
 }
 
-const styles = StyleSheet.create({ center: { alignItems: 'center', justifyContent: 'center', gap: 12, padding: 24 } });
+const styles = StyleSheet.create({
+  center: { alignItems: 'center', justifyContent: 'center', gap: 12, padding: 24 },
+});

@@ -18,7 +18,10 @@ export function HighlightedSpans({ text, query }: { text: string; query: string 
     <>
       {parts.map((part, index) =>
         part.match ? (
-          <Text key={index} style={{ backgroundColor: colors.highlight, color: colors.onHighlight }}>
+          <Text
+            key={index}
+            style={{ backgroundColor: colors.highlight, color: colors.onHighlight }}
+          >
             {part.text}
           </Text>
         ) : (

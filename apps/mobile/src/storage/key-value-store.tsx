@@ -17,7 +17,13 @@ export const asyncStorageStore: KeyValueStore = {
 const StoreContext = createContext<KeyValueStore>(asyncStorageStore);
 
 /** Lets tests (or a future secure/synced store) replace the persistence layer. */
-export function StorageProvider({ store, children }: { store: KeyValueStore; children: ReactNode }) {
+export function StorageProvider({
+  store,
+  children,
+}: {
+  store: KeyValueStore;
+  children: ReactNode;
+}) {
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 }
 
