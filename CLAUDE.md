@@ -10,7 +10,7 @@
 ## Prioritățile proiectului (stabilite de proprietar, noiembrie 2026)
 
 1. Întâi produsul tehnic: aplicația (Expo: iOS + Android + web), backend-ul (Supabase + serviciul `api`), conținutul, cititorul, offline-ul, plățile.
-2. Partea de AI se face spre final (gateway-ul și modurile „Întreabă" vin după ce cititorul și conținutul funcționează).
+2. Reprioritizare (4 noiembrie 2026, seara): referința de produs este platforma The Faith Received (Mere Orthodoxy); se construiește tot ce există acolo, cu accent pe **chatul AI („Întreabă”, cu citări din bibliotecă)** și pe **cărțile traduse în română și engleză**. Inventarul platformei și planul: `docs/the-faith-received-inventory.md`, `docs/roadmap-v2.md`. Partea de AI nu mai este amânată.
 3. Partea legală și de conformitate se tratează după ce aplicația este gata. Deciziile tehnice care o fac ieftină mai târziu (schema `content` neexpusă, ecranele de consimțământ, ștergerea contului, tabelul de licențe) se construiesc totuși de la început, pentru că retrofit-ul costă mai mult.
 
 ## Reguli de produs (fixate de proprietar)
