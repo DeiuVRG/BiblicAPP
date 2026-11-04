@@ -1,0 +1,8 @@
+{
+  "jobId": "vos-1903-kingdom-ro-01-01",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [],
+  "verdict": "ok",
+  "summary": "Fără constatări. Cele 10 propoziții ale sursei au corespondent una la una în română; negațiile, modalitatea și rolurile participanților sunt păstrate, terminologia urmează glosarul și profilul, niciun calc din listă."
+}

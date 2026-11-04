@@ -1,0 +1,43 @@
+{
+  "jobId": "vos-1903-kingdom-ro-01-01",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD948SXM9E7GNT39CV07",
+      "text": "Pe de altă parte, nu se poate tăgădui că, în multe privințe, ideea de Împărăție a acționat în gândirea și învățătura Domnului nostru ca un punct de cristalizare în jurul căruia alte câteva elemente ale adevărului s-au adunat și s-au grupat firesc, într-o îmbinare armonioasă. Din cele ce urmează va reieși că ideea de Biserică, acolo unde apare în învățătura lui, decurge direct din dezvoltarea doctrinei lui despre Împărăție. Dar nu numai atât: în mod evident, el nu privea desăvârșirea lumii și starea finală de slavă decât ca împlinirea care încununează ideea de Împărăție. Mai mult încă, ceea ce a învățat el despre dreptate era legat, în mintea lui, cât se poate de strâns de adevărul despre natura Împărăției. Același lucru se poate afirma, fără riscul de a greși, cu privire la dragostea și harul lui Dumnezeu. Marile categorii ale religiei subiective – credința, pocăința și regenerarea – își aveau, evident, locul în gândirea lui drept corespondente ale anumitor aspecte ale Împărăției. Chiar și un subiect precum cel al miracolelor, care pare atât de îndepărtat de ideea de Împărăție în felul în care o înțelegem de obicei, își trăgea, în realitate, pentru Isus, cea mai mare parte a sensului din aceasta din urmă. În sfârșit, Împărăția reprezenta în mintea Domnului nostru o concepție foarte precisă despre relația istorică dintre propria lui lucrare și noua ordine a lucrurilor introdusă de ea, pe de o parte, și Vechiul Testament, pe de alta. Toate acestea pot fi formulate aici doar în linii generale; în cele ce urmează, sarcina noastră va fi să le elaborăm în amănunt. Dar ceea ce s-a spus până aici este suficient pentru a arăta că aproape nu există niciun subiect important din bogatul repertoriu al învățăturii Domnului nostru cu care studiul nostru asupra dezvăluirilor lui privitoare la Împărăția lui Dumnezeu să nu ne pună în contact.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "in our usual understanding of it",
+          "quoteTarget": "în felul în care o înțelegem de obicei",
+          "note": "Antecedentul lui „it” poate fi „the kingdom-idea” (lectura aleasă, susținută și de „the latter” din aceeași frază) sau „a subject … of miracles”. În română, pronumele feminin „o” trimite la „ideea de Împărăție”, iar „aceasta din urmă” reia aceeași idee."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the kingdom-idea",
+          "quoteTarget": "ideea de Împărăție",
+          "note": "Compusul „kingdom-idea” (și „the idea of the kingdom”) este redat „ideea de Împărăție”; revine des în lucrare (cf. kingdom-gospel, kingdom-parables). De adăugat în glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the consummation of the world",
+          "quoteTarget": "desăvârșirea lumii",
+          "note": "Profilul dă „consummation” = desăvârșire / împlinire finală, după context. Aici este încheierea escatologică a lumii; alternativă pentru revizor: „împlinirea finală a lumii”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a very definite conception",
+          "quoteTarget": "o concepție foarte precisă",
+          "note": "Profilul avertizează (WARN) asupra lui „concepție”; aici este o viziune articulată despre raportul istoric, nu o simplă noțiune, deci s-a păstrat „concepție”."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Paragraf fără citate sau trimiteri biblice (references gol). Redări de ținut consecvent în capitol: love of God = dragostea lui Dumnezeu (uz protestant); disclosures = dezvăluiri; in the sequel = în cele ce urmează; righteousness = dreptate (rând PROPUS din glosar)."
+}

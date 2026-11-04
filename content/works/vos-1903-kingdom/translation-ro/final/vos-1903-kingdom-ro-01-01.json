@@ -1,0 +1,43 @@
+{
+  "jobId": "vos-1903-kingdom-ro-01-01",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD948SXM9E7GNT39CV07",
+      "text": "Pe de altă parte, nu se poate tăgădui că, în multe privințe, ideea Împărăției a acționat în gândirea și învățătura Domnului nostru ca un punct de cristalizare în jurul căruia alte câteva elemente ale adevărului s-au adunat și s-au grupat firesc, într-o îmbinare armonioasă. Din cele ce urmează va reieși că ideea Bisericii, acolo unde apare în învățătura lui, decurge direct din dezvoltarea doctrinei lui despre Împărăție. Dar nu numai atât: în mod evident, el nu privea desăvârșirea lumii și starea finală de slavă decât ca împlinirea care încununează ideea Împărăției. Mai mult încă, ceea ce a învățat el despre dreptate era legat, în mintea lui, cât se poate de strâns de adevărul despre natura Împărăției. Același lucru se poate afirma, fără teamă de a greși, cu privire la dragostea și harul lui Dumnezeu. Marile categorii ale religiei subiective – credința, pocăința și regenerarea – își aveau, evident, locul în gândirea lui drept corespondente ale anumitor aspecte ale Împărăției. Chiar și un subiect precum cel al miracolelor, care pare atât de îndepărtat de ideea Împărăției în felul în care o înțelegem de obicei, își trăgea, în realitate, pentru Isus, cea mai mare parte a sensului din aceasta din urmă. În sfârșit, Împărăția reprezenta în mintea Domnului nostru o concepție foarte precisă despre relația istorică dintre propria lui lucrare și noua ordine a lucrurilor introdusă de ea, pe de o parte, și Vechiul Testament, pe de alta. Toate acestea pot fi formulate aici doar în linii generale; în cele ce urmează, sarcina noastră va fi să le elaborăm în amănunt. Dar ceea ce s-a spus este suficient pentru a arăta că nu există aproape niciun subiect important din bogatul repertoriu al învățăturii Domnului nostru cu care studiul nostru asupra dezvăluirilor sale privitoare la Împărăția lui Dumnezeu să nu ne aducă în contact.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "in our usual understanding of it",
+          "quoteTarget": "în felul în care o înțelegem de obicei",
+          "note": "Antecedentul lui „it” poate fi „the kingdom-idea” (lectura aleasă, susținută și de „the latter” din aceeași frază) sau „a subject … of miracles”. În română, pronumele feminin „o” trimite la „ideea Împărăției”, iar „aceasta din urmă” reia aceeași idee."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the kingdom-idea",
+          "quoteTarget": "ideea Împărăției",
+          "note": "Compusul „kingdom-idea” (ca și „the idea of the kingdom”) este redat „ideea Împărăției”, forma folosită și în partea 0 a capitolului; revine des în lucrare (cf. kingdom-gospel, kingdom-parables). De adăugat în glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the consummation of the world",
+          "quoteTarget": "desăvârșirea lumii",
+          "note": "Profilul dă „consummation” = desăvârșire / împlinire finală, după context. Aici este încheierea escatologică a lumii; alternativă pentru revizor: „împlinirea finală a lumii”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a very definite conception",
+          "quoteTarget": "o concepție foarte precisă",
+          "note": "Profilul avertizează (WARN) asupra lui „concepție”; aici este o viziune articulată despre raportul istoric, nu o simplă noțiune, deci s-a păstrat „concepție”."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Revizie finală: raportul criticului nu are constatări (aplicate 0, respinse 0). Retușuri de redactare, verificate față de original: „ideea de Împărăție/de Biserică” devine „ideea Împărăției/Bisericii” (ca în partea 0 a capitolului); „fără riscul de a greși” devine „fără teamă de a greși”; „aproape nu există niciun” devine „nu există aproape niciun”; „ne pună în contact” devine „ne aducă în contact”; „dezvăluirilor lui” devine „dezvăluirilor sale” (evită „lui … lui Dumnezeu”); eliminat „până aici”, fără corespondent în sursă. Paragraf fără citate sau trimiteri biblice (references gol). Redări de ținut consecvent în capitol: love of God = dragostea lui Dumnezeu (uz protestant); disclosures = dezvăluiri; in the sequel = în cele ce urmează; righteousness = dreptate (rând PROPUS din glosar)."
+}

@@ -1,0 +1,27 @@
+{
+  "jobId": "vos-1903-kingdom-ro-01-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD948SXM9E7GNT39CV02",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "referinta",
+      "quoteSource": "indeed occurs only twice altogether, viz., Jno. iii. 3, 5; xviii. 36",
+      "quoteTarget": "ba chiar apare doar de două ori în total, adică In. 3:3, 5; 18:36",
+      "problem": "Sursa spune că ideea Împărăției apare „only twice altogether”, dar enumeră trei versete (Ioan 3:3, 3:5 și 18:36). Traducerea păstrează fidel și numărul, și referințele, deci nu este o eroare de traducere; discrepanța ține de sursă (posibil autorul numără pasajele, nu versetele, dar textul nu spune acest lucru). Ciorna a marcat locul doar DE_VERIFICAT / INFO; fiind o incongruență între număr și referințele enumerate, i se aplică prin analogie §5 (SURSA_POSIBIL_ERONATA, MAJOR: se traduce cum e, nu se corectează în tăcere), ca revizorul uman să o vadă la rangul potrivit.",
+      "proposal": "Fără modificare de text: „ba chiar apare doar de două ori în total, adică In. 3:3, 5; 18:36”. Flag-ul existent (DE_VERIFICAT, INFO) se ridică la SURSA_POSIBIL_ERONATA (MAJOR), cu explicația că numărul „două” nu se potrivește cu cele trei versete enumerate; fără glosă în text (nu „în două pasaje”) și fără corectarea numărului."
+    },
+    {
+      "sourceId": "01M6JQPD948SXM9E7GNT39CV02",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "the person of Jesus as the Son of God",
+      "quoteTarget": "persoana lui Isus ca Fiu al lui Dumnezeu",
+      "problem": "Profilul fixează (FIX) „the Son of God” → „Fiul lui Dumnezeu”. Ciorna are forma nearticulată „Fiu al lui Dumnezeu”: se abate de la termenul fixat (titlul revine des în lucrare, deci riscă inconsecvență) și pierde articolul hotărât al titlului din original („the Son”), adică tocmai caracterul de titlu unic.",
+      "proposal": "persoana lui Isus ca Fiul lui Dumnezeu"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Nicio omisiune, niciun adaos, nicio negație, modalitate sau agentivitate alterată: cele 34 de propoziții din cele 7 paragrafe sunt aliniate 1:1, iar numele, cifrele și referințele coincid cu job-ul. Calcurile din listă lipsesc, glosarul și profilul sunt respectate, cu o singură abatere minoră („Fiu al lui Dumnezeu”). O anomalie a sursei (numărul „două” față de trei versete) trebuie să ajungă la revizor ca SURSA_POSIBIL_ERONATA; textul nu se schimbă."
+}
