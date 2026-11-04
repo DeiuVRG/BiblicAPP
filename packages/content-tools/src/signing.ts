@@ -156,6 +156,7 @@ export function verifyPackBytes(input: VerifyInput): VerifyResult {
       fromBase64(manifest.signature),
       manifestSigningPayload(manifest),
       fromBase64(key.publicKey),
+      { zip215: false }, // strict RFC 8032 verification, same as the app
     );
   } catch {
     valid = false;

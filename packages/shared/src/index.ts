@@ -1,5 +1,5 @@
 export { canonicalJson, canonicalJsonBytes } from './canonical-json';
-export { isUlid, stableId, ULID_PATTERN } from './ids';
+export { isUlid, ULID_PATTERN } from './id-pattern';
 export {
   AuthorSchema,
   EditionSchema,

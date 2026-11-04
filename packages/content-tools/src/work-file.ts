@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
-import { AuthorSchema, EditionSchema, IdSchema, WorkSchema, stableId } from '@biblioteca/shared';
+import { AuthorSchema, EditionSchema, IdSchema, WorkSchema } from '@biblioteca/shared';
+import { stableId } from '@biblioteca/shared/ids';
 import type { Edition, Work } from '@biblioteca/shared';
 import { z } from 'zod';
 

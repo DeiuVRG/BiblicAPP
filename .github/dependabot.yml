@@ -4,6 +4,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # Let a release age a few days before a PR proposes it (shields against fresh malicious versions).
+    cooldown:
+      default-days: 3
     open-pull-requests-limit: 5
     groups:
       npm-minor-and-patch:
@@ -18,6 +21,8 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 3
     groups:
       actions:
         patterns: ['*']

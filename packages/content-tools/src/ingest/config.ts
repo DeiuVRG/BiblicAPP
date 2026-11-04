@@ -87,7 +87,12 @@ export const IngestConfigSchema = z.object({
       indentMin: z.number().int().min(1).default(2),
       indentMax: z.number().int().min(1).default(9),
       /** `layout` mode: columns before the page's right edge at which a line counts as short. */
-      shortEndChars: z.number().int().min(1).default(5),
+      shortEndChars: z.number().int().min(1).default(12),
+      /**
+       * Regex source (unicode flag) for an OCR mark that replaced a printed paragraph indent
+       * ("=- The ...", "-; The ..."). A line starting with it opens a paragraph.
+       */
+      markPattern: z.string().default('^\\s*(?:=-|-[:;.]?)\\s+\\p{Lu}'),
       /** `length` mode: a line shorter than this fraction of the page's line width ends a paragraph. */
       shortLineRatio: z.number().min(0.3).max(1).default(0.8),
       /** A period after one of these (case-insensitive, no dot) does not end a sentence. */
@@ -110,9 +115,11 @@ export const IngestConfigSchema = z.object({
   noiseLineMaxChars: z.number().int().min(0).default(2),
   /**
    * Regexes removed from the end of body lines: scan noise such as a stray mark after a gap
-   * ("these.      _"). Applied only if at least 12 characters remain.
+   * ("these.      _"). Applied only if at least 12 characters remain. Empty by default: a
+   * generic pattern can delete real words ("of", "the") from justified `-layout` text, so a
+   * work opts in with its own pattern in its ingest config.
    */
-  lineNoise: z.array(RegexSource).default(['\\s{3,}\\S{1,3}\\s*$']),
+  lineNoise: z.array(RegexSource).default([]),
 
   chapters: z.array(ChapterSchema).default([]),
   pageFixes: z.array(PageFixSchema).default([]),

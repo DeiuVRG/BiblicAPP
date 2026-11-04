@@ -1,0 +1,50 @@
+name: Supabase tests
+
+# Starts the local Supabase stack, applies supabase/migrations and runs the pgTAP tests, which
+# fail on any client privilege outside the allow list. Runs on every pull request / push that
+# touches supabase/ (make it a required check in the `main` ruleset) and on demand.
+on:
+  pull_request:
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/supabase-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/supabase-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pgtap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: supabase/setup-cli@v1
+        with:
+          # Pinned CLI version; bump it deliberately (Dependabot does not track this input).
+          version: 2.122.1
+
+      - name: Start local stack
+        run: supabase start
+
+      - name: Reset database (applies migrations)
+        run: supabase db reset
+
+      - name: pgTAP
+        run: supabase test db
+
+      - name: Stop
+        if: always()
+        run: supabase stop --no-backup

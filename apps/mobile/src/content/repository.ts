@@ -2,6 +2,7 @@ import type { Pack, PackManifest, Paragraph, Section } from '@biblioteca/shared'
 
 import { foldText } from '@/search/fold';
 
+import { getAppVersion } from './app-version';
 import { bundledPacks } from './bundled-packs';
 import type { BundledPack } from './bundled-packs';
 import { trustedKeys as defaultTrustedKeys } from './trusted-keys';
@@ -64,15 +65,35 @@ function byOrdinal<T extends { ordinal: number }>(items: readonly T[]): T[] {
   return [...items].sort((a, b) => a.ordinal - b.ordinal);
 }
 
+/**
+ * A pack that passed `verifyPack` (schemas, sha256 and Ed25519 signature against the pinned
+ * keys). `signatureVerified: true` is part of the type on purpose: there is no way to hand the
+ * repository a pack that was not signature-verified without lying to the compiler, and the
+ * repository re-checks it at runtime.
+ */
 export interface VerifiedPack {
   manifest: PackManifest;
   pack: Pack;
+  signatureVerified: true;
+}
+
+/** Thrown when the repository is asked to serve a pack that was not signature-verified. */
+export class UnverifiedPackError extends Error {
+  constructor(packId: string | undefined) {
+    super(`Refusing to serve an unverified content pack${packId ? ` (${packId})` : ''}`);
+    this.name = 'UnverifiedPackError';
+  }
 }
 
 /** In-memory repository over already verified packs. */
 export function createInMemoryRepository(
   verifiedPacks: readonly VerifiedPack[],
 ): ContentRepository {
+  for (const entry of verifiedPacks) {
+    if ((entry as { signatureVerified?: unknown }).signatureVerified !== true) {
+      throw new UnverifiedPackError(entry.manifest?.packId);
+    }
+  }
   const packs = verifiedPacks.map((entry) => entry.pack);
   const packIds = new Map(
     verifiedPacks.map((entry) => [entry.pack.work.id, entry.manifest.packId]),
@@ -160,10 +181,13 @@ export async function loadBundledRepository(options: LoadOptions = {}): Promise<
       manifest: bundled.manifest,
       pack: bundled.pack,
       trustedKeys: options.trustedKeys ?? defaultTrustedKeys,
-      appVersion: options.appVersion,
+      appVersion: options.appVersion ?? getAppVersion(),
     });
-    if (result.ok) {
-      verified.push({ manifest: result.manifest, pack: result.pack });
+    if (result.ok && result.signatureVerified === true) {
+      verified.push({ manifest: result.manifest, pack: result.pack, signatureVerified: true });
+    } else if (result.ok) {
+      // A verifier that accepts without having checked the signature is not good enough.
+      rejected.push({ packId: result.manifest.packId, reason: 'unverified' });
     } else {
       const packId = (bundled.manifest as { packId?: string } | null | undefined)?.packId ?? null;
       rejected.push({ packId, reason: result.reason, detail: result.detail });
@@ -174,8 +198,17 @@ export async function loadBundledRepository(options: LoadOptions = {}): Promise<
 
 let cached: Promise<LoadedRepository> | undefined;
 
-/** Lazily loads (and memoises) the repository over the bundled packs. */
+/**
+ * Lazily loads (and memoises) the repository over the bundled packs. A failed load is not
+ * cached: the next call retries.
+ */
 export function getRepository(): Promise<LoadedRepository> {
-  cached ??= loadBundledRepository();
+  if (!cached) {
+    const attempt = loadBundledRepository();
+    cached = attempt;
+    attempt.catch(() => {
+      if (cached === attempt) cached = undefined;
+    });
+  }
   return cached;
 }

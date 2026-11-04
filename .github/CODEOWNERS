@@ -1,0 +1,11 @@
+# Code owners. In the repository ruleset for `main`, enable "Require review from Code Owners":
+# the trust root (pinned signing keys and the signed packs), the CI/release chain and the database
+# schema must never change without the owner's review. See docs/security.md.
+*                                      @DeiuVRG
+/content/keys/                         @DeiuVRG
+/apps/mobile/src/content/trusted-keys.ts @DeiuVRG
+/apps/mobile/src/content/verify-pack.ts  @DeiuVRG
+/apps/mobile/assets/packs/             @DeiuVRG
+/.github/                              @DeiuVRG
+/supabase/                             @DeiuVRG
+/scripts/                              @DeiuVRG

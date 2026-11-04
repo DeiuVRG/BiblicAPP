@@ -90,6 +90,16 @@ function topLines(page: string[], count: number): string[] {
   return page.filter((line) => line.trim() !== '').slice(0, count);
 }
 
+/**
+ * A top-zone line can only be a running head if it carries a page number at one end, or sits next
+ * to a bare page number line (plain pdftotext puts the number on its own line).
+ */
+function isHeadLike(zone: string[], index: number): boolean {
+  const line = zone[index] as string;
+  if (edgeNumbers(line).length > 0 && !isBarePageNumber(line)) return true;
+  return [zone[index - 1], zone[index + 1]].some((n) => n !== undefined && isBarePageNumber(n));
+}
+
 /** Finds the page offset that most top lines agree on, or null if there is no clear winner. */
 function estimateOffset(pages: PageInput[], zoneLines: number, minVotes: number): number | null {
   const votes = new Map<number, number>();
@@ -114,8 +124,9 @@ function estimateOffset(pages: PageInput[], zoneLines: number, minVotes: number)
 export function detectRunningHeads(pages: PageInput[], options: DetectHeadsOptions): HeadModel {
   const exact = new Map<string, number>();
   for (const { lines } of pages) {
-    for (const line of topLines(lines, options.zoneLines)) {
-      if (isBarePageNumber(line)) continue;
+    const zone = topLines(lines, options.zoneLines);
+    for (const [index, line] of zone.entries()) {
+      if (isBarePageNumber(line) || !isHeadLike(zone, index)) continue;
       const key = headKey(line);
       if (key.length < 3) continue;
       exact.set(key, (exact.get(key) ?? 0) + 1);
@@ -180,22 +191,24 @@ export function stripFurniture(
 
   if (!isOpening) {
     const headIndexes: number[] = [];
-    let seen = 0;
-    for (let i = 0; i < lines.length && seen < options.zoneLines; i += 1) {
-      const line = lines[i] as string;
-      if (line.trim() === '') continue;
-      seen += 1;
-      const matchesExtra = options.extraPatterns.some((p) => p.test(line));
-      if (matchesExtra || isRunningHead(line, model, input.page)) headIndexes.push(i);
+    const zoneIndexes: number[] = [];
+    for (let i = 0; i < lines.length && zoneIndexes.length < options.zoneLines; i += 1) {
+      if ((lines[i] as string).trim() !== '') zoneIndexes.push(i);
     }
+    const zone = zoneIndexes.map((i) => lines[i] as string);
+    zoneIndexes.forEach((lineIndex, zoneIndex) => {
+      const line = lines[lineIndex] as string;
+      const matchesExtra = options.extraPatterns.some((p) => p.test(line));
+      if (matchesExtra || (isHeadLike(zone, zoneIndex) && isRunningHead(line, model, input.page))) {
+        headIndexes.push(lineIndex);
+      }
+    });
     if (headIndexes.length > 0) {
       // A bare page number next to a recognised head belongs to it ("10" / "Title").
-      seen = 0;
-      for (let i = 0; i < lines.length && seen < options.zoneLines; i += 1) {
-        const line = lines[i] as string;
-        if (line.trim() === '') continue;
-        seen += 1;
-        if (isBarePageNumber(line) && !headIndexes.includes(i)) headIndexes.push(i);
+      for (const lineIndex of zoneIndexes) {
+        if (isBarePageNumber(lines[lineIndex] as string) && !headIndexes.includes(lineIndex)) {
+          headIndexes.push(lineIndex);
+        }
       }
     }
     for (const index of headIndexes.sort((a, b) => b - a)) {

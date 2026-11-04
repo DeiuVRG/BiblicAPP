@@ -17,6 +17,9 @@
     "indentMin": 2,
     "indentMax": 9
   },
+  "lineNoise": [
+    "\\s{3,}\\S{1,3}\\s*$"
+  ],
   "chapters": [
     {
       "number": "I",
@@ -254,7 +257,7 @@
       "note": "stray backslash"
     },
     {
-      "pattern": "\\u2018(work|God|first|and)\\b",
+      "pattern": "(?<=\\s)['‘](work|God|first|and)\\b",
       "flags": "g",
       "replace": "$1",
       "note": "stray opening single quote"
@@ -792,12 +795,36 @@
       "flags": "g",
       "replace": "Is. lv. 1",
       "note": "roman numeral 'lv' read as 'Iv'"
+    },
+    {
+      "pattern": "\\bbe- ?\\[fore\\b",
+      "flags": "g",
+      "replace": "before",
+      "note": "'[' for 'b' after a line-end hyphen"
+    },
+    {
+      "pattern": "\\bMessianic['’] works",
+      "flags": "g",
+      "replace": "Messianic works",
+      "note": "stray apostrophe"
+    },
+    {
+      "pattern": "\\bwhich ill itself\\b",
+      "flags": "g",
+      "replace": "which in itself",
+      "note": "OCR 'in' read as 'ill'"
+    },
+    {
+      "pattern": "\\bwhich they, describe\\b",
+      "flags": "g",
+      "replace": "which they describe",
+      "note": "stray comma"
     }
   ],
   "wordFixes": {
     "activItIes": "activities",
     "AIthough": "Although",
-    "COlnes": "Comes",
+    "COlnes": "comes",
     "conceptIon": "conception",
     "conSCIOusness": "consciousness",
     "Ecdesia": "ecclesia",
@@ -842,7 +869,9 @@
     "Heating": "eating",
     "Basileta": "Basileia",
     "developes": "develops",
-    "IS": "is"
+    "IS": "is",
+    "JestIs": "Jesus",
+    "Gael": "God"
   },
   "hyphenation": {
     "keep": [

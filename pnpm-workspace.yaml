@@ -1,3 +1,6 @@
 packages:
   - apps/*
   - packages/*
+# Do not resolve versions published less than a day ago (shields against freshly published
+# malicious releases). The frozen lockfile is not affected.
+minimumReleaseAge: 1440

@@ -49,6 +49,8 @@ export interface IngestReport {
   hyphenChoices: HyphenChoice[];
   /** Indented lines that did not start a paragraph (previous line not terminated). */
   suspects: { page: number; text: string }[];
+  /** Paragraph starts decided by the short-line cue alone, without indentation. */
+  weakBreaks: { page: number; text: string }[];
   idsReused: number;
   idsCreated: number;
   warnings: string[];
@@ -196,6 +198,7 @@ export function ingest(input: IngestInput): IngestResult {
   };
   const hyphenChoices: HyphenChoice[] = [];
   const suspects: { page: number; text: string }[] = [];
+  const weakBreaks: { page: number; text: string }[] = [];
   let paragraphMode: IngestReport['paragraphMode'] = 'n/a';
 
   // Assemble chapters.
@@ -259,6 +262,7 @@ export function ingest(input: IngestInput): IngestResult {
       const segmented = segmentParagraphs(group, config.paragraphs);
       paragraphMode = segmented.mode;
       suspects.push(...segmented.suspects);
+      weakBreaks.push(...segmented.weakBreaks);
       for (const paragraph of segmented.paragraphs) {
         const joined = joinLines(
           paragraph.map((l) => l.text),
@@ -350,6 +354,7 @@ export function ingest(input: IngestInput): IngestResult {
       removedFeet,
       hyphenChoices,
       suspects,
+      weakBreaks,
       idsReused: ids.reused,
       idsCreated: ids.created,
       warnings,

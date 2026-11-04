@@ -1,0 +1,17 @@
+{
+  "$comment": "Reviewed production-dependency advisories that CI tolerates. Every entry needs a reason and an expiry date (YYYY-MM-DD); after the date the advisory blocks CI again. Advisories without any published fix (patched_versions <0.0.0) are tolerated automatically and only warned about, so they do not need an entry here.",
+  "advisories": [
+    {
+      "id": 1244012,
+      "module": "minimatch",
+      "reason": "Reached only through @expo/cli (and Jest) as a build-time tool; it never runs inside the app or on a server. A fix needs a major bump of glob/minimatch inside @expo/cli, which only Expo can ship (pnpm overrides would break its API). Re-check after each Expo SDK patch release.",
+      "expires": "2027-01-31"
+    },
+    {
+      "id": 1244013,
+      "module": "glob",
+      "reason": "Same as minimatch: build-time dependency of @expo/cli, not part of the shipped bundle and not exposed to untrusted input.",
+      "expires": "2027-01-31"
+    }
+  ]
+}

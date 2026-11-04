@@ -1,5 +1,5 @@
 import type { Paragraph, Section } from '@biblioteca/shared';
-import { stableId } from '@biblioteca/shared';
+import { stableId } from '@biblioteca/shared/ids';
 
 import { dice } from './text';
 
@@ -75,21 +75,37 @@ export function assignIds(
   let reused = 0;
   let created = 0;
 
-  for (const draftSection of draft) {
-    // Section matching: same heading first, then same ordinal and kind.
+  // Section matching in two passes so that inserting or removing a section never shifts the ids
+  // of its neighbours: (1) exact heading match for every draft section; (2) ordinal and kind,
+  // only among sections that are still unmatched on both sides.
+  const matches = new Array<Section | undefined>(draft.length).fill(undefined);
+  draft.forEach((draftSection, index) => {
     const byHeading = oldSections.find(
       (s) => !usedSections.has(s.id) && key(s.heading) === key(draftSection.heading),
     );
+    if (byHeading) {
+      usedSections.add(byHeading.id);
+      matches[index] = byHeading;
+    }
+  });
+  draft.forEach((draftSection, index) => {
+    if (matches[index]) return;
     const byOrdinal = oldSections.find(
       (s) =>
         !usedSections.has(s.id) &&
         s.ordinal === draftSection.ordinal &&
         s.kind === draftSection.kind,
     );
-    const matched = byHeading ?? byOrdinal;
+    if (byOrdinal) {
+      usedSections.add(byOrdinal.id);
+      matches[index] = byOrdinal;
+    }
+  });
+
+  for (const [draftIndex, draftSection] of draft.entries()) {
+    const matched = matches[draftIndex];
     let sectionId: string;
     if (matched) {
-      usedSections.add(matched.id);
       sectionId = matched.id;
       reused += 1;
     } else {

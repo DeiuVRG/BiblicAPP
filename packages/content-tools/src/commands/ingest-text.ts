@@ -91,11 +91,25 @@ export async function runIngestText(args: string[]): Promise<number> {
     out.write(`  ${chapter.heading}: ${chapter.paragraphs} paragraphs\n`);
   }
   for (const warning of report.warnings) out.write(`WARNING: ${warning}\n`);
+  // Counts are always printed; the lists need --verbose.
+  const noEvidence = report.hyphenChoices.filter((c) => c.reason === 'soft hyphen');
+  out.write(
+    `review: ${report.suspects.length} indented lines not accepted as paragraph starts, ` +
+      `${report.weakBreaks.length} paragraph starts decided by the short-line cue only, ` +
+      `${noEvidence.length} line-end hyphens joined without evidence in the text ` +
+      `(add exceptions to hyphenation.keep / wordFixes if needed; --verbose lists them)\n`,
+  );
   if (values.verbose) {
     out.write(`\nFoot lines removed (${report.removedFeet.length}):\n`);
     for (const foot of report.removedFeet) out.write(`  ${foot.text}\n`);
     out.write(`\nIndented lines not accepted as paragraph start (${report.suspects.length}):\n`);
     for (const suspect of report.suspects) out.write(`  p${suspect.page}: ${suspect.text}\n`);
+    out.write(
+      `\nParagraph starts decided by the short-line cue only (${report.weakBreaks.length}):\n`,
+    );
+    for (const weak of report.weakBreaks) out.write(`  p${weak.page}: ${weak.text}\n`);
+    out.write(`\nHyphens joined without evidence in the text (${noEvidence.length}):\n`);
+    for (const c of noEvidence) out.write(`  ${c.first}-${c.second}\n`);
     out.write(`\nHyphen decisions (${report.hyphenChoices.length}):\n`);
     for (const c of report.hyphenChoices) {
       out.write(`  ${c.first}-${c.second}: ${c.decision} (${c.reason})\n`);

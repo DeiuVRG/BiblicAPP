@@ -35,6 +35,8 @@ const config = {
       monochromeImage: './assets/images/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
+    // Reading data must not be extractable through `adb backup` or cloud backup.
+    allowBackup: false,
   },
   web: {
     output: 'static',

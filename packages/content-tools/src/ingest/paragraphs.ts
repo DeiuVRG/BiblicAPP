@@ -15,6 +15,11 @@ export interface SegmentOptions {
   shortLineRatio: number;
   /** Lower-case abbreviations whose trailing period does not end a sentence. */
   abbreviations?: readonly string[];
+  /**
+   * Regex source (unicode flag): an OCR mark that stands where a paragraph indent was printed,
+   * e.g. "=- The ..." or "-; The ...". A line that starts with it opens a paragraph.
+   */
+  markPattern?: string;
 }
 
 /**
@@ -35,7 +40,7 @@ export function endsSentence(
  * quote/bracket and a few OCR garbage characters (an indent mark read as "=-" or "~").
  */
 export function startsParagraph(text: string): boolean {
-  return /^[\s=~*.,-]*["'\u2018\u201C\u00AB(\[]?\p{Lu}/u.test(text);
+  return /^[\s=~*.,;:_-]*["'\u2018\u201C\u00AB([]?\p{Lu}/u.test(text);
 }
 
 function percentile(sorted: number[], p: number): number {
@@ -71,6 +76,8 @@ export interface SegmentResult {
   paragraphs: BodyLine[][];
   /** Indented lines that were NOT accepted as a paragraph start (previous line not terminated). */
   suspects: { page: number; text: string }[];
+  /** Paragraph starts decided by the short-line cue alone (no indentation): worth a manual look. */
+  weakBreaks: { page: number; text: string }[];
   mode: 'layout' | 'length';
 }
 
@@ -105,9 +112,11 @@ export function segmentParagraphs(
       ),
     );
 
+  const mark = options.markPattern ? new RegExp(options.markPattern, 'u') : undefined;
   const abbreviations = new Set((options.abbreviations ?? []).map((a) => a.toLowerCase()));
   const paragraphs: BodyLine[][] = [];
   const suspects: { page: number; text: string }[] = [];
+  const weakBreaks: { page: number; text: string }[] = [];
   let current: BodyLine[] = [];
   lines.forEach((line, index) => {
     const previous = index > 0 ? (lines[index - 1] as BodyLine) : undefined;
@@ -117,11 +126,15 @@ export function segmentParagraphs(
       const opener = startsParagraph(line.text);
       if (mode === 'layout') {
         const relative = indentOf(line.text) - (margins.get(line.page) ?? 0);
-        const indentCue = relative >= options.indentMin && relative <= options.indentMax;
+        const indentCue =
+          (relative >= options.indentMin && relative <= options.indentMax) ||
+          (mark?.test(line.text) ?? false);
         const previousEnd = indentOf(previous.text) + previous.text.trim().length;
         const shortCue = previousEnd <= (rightEdge.get(previous.page) ?? 0) - options.shortEndChars;
-        if (sentenceEnd && opener && (indentCue || shortCue)) startsNew = true;
-        else if (indentCue) suspects.push({ page: line.page, text: line.text.trim() });
+        if (sentenceEnd && opener && (indentCue || shortCue)) {
+          startsNew = true;
+          if (!indentCue) weakBreaks.push({ page: line.page, text: line.text.trim() });
+        } else if (indentCue) suspects.push({ page: line.page, text: line.text.trim() });
       } else {
         const width = rightEdge.get(previous.page) ?? 0;
         startsNew =
@@ -135,5 +148,5 @@ export function segmentParagraphs(
     current.push(line);
   });
   if (current.length > 0) paragraphs.push(current);
-  return { paragraphs, suspects, mode };
+  return { paragraphs, suspects, weakBreaks, mode };
 }

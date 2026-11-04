@@ -6,7 +6,7 @@
  */
 
 const DOUBLE = /["“”«»]/g;
-const OPENERS_BEFORE = /[\s(\[—‘“-]/;
+const OPENERS_BEFORE = /[\s([—‘“-]/;
 
 export function typographicQuotes(input: string): string {
   let text = input;

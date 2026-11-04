@@ -1,0 +1,186 @@
+name: Android APK
+
+# Builds a debug-signed release APK for testing (see docs/decizii.md, ADR-003). It cannot be
+# published to Google Play. Runs on pushes to main, on v* tags (also creates a GitHub PRE-release
+# marked "test only") and on demand.
+#
+# The APK is signed with the public Expo template debug keystore: anyone can build an APK that
+# Android accepts as an update of this one. Do not publish it as a normal release, and do not
+# make the Releases page of a public repository a download source, until a real upload keystore
+# exists (GitHub Secret + signingConfigs through a config plugin; see docs/security.md).
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+env:
+  NODE_VERSION: 22.23.4
+  PNPM_VERSION: 10.28.0
+  JAVA_VERSION: '17'
+  EXPO_NO_TELEMETRY: '1'
+  CI: 'true'
+
+jobs:
+  apk:
+    name: Build APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          # Tags need the history of main to prove that the tagged commit is on main.
+          fetch-depth: ${{ startsWith(github.ref, 'refs/tags/') && 0 || 1 }}
+
+      # A v* tag can point at any commit, including an unreviewed branch. Only commits that are
+      # already on main may be built as a release.
+      - name: Tag must point at a commit on main
+        if: startsWith(github.ref, 'refs/tags/')
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      # Third-party action: pinned to a full commit SHA (v3.2.2). Dependabot keeps it current.
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Public env check
+        run: node scripts/check-public-env.mjs --env
+
+      # This workflow does not wait for CI, so it re-checks the one thing that must hold: the
+      # bundled content pack verifies (sha256 + Ed25519 against the pinned keys).
+      - name: Verify the bundled content pack
+        run: pnpm --filter @biblioteca/content-tools cli verify-pack apps/mobile/assets/packs/vos-1903-kingdom-en
+
+      # Continuous Native Generation: android/ is never committed. --no-install because pnpm
+      # already installed the dependencies.
+      - name: Generate the native Android project
+        working-directory: apps/mobile
+        run: npx expo prebuild -p android --no-install
+
+      # expo prebuild generates the Gradle wrapper; check its jar against the official checksums
+      # (pinned to a full commit SHA, v4.4.4).
+      - name: Validate the Gradle wrapper
+        uses: gradle/actions/wrapper-validation@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
+
+      # The android/ directory does not exist in git, so key the cache on what determines it.
+      # No restore-keys fallback: the cache is an unsigned input, so only an exact match is used.
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'apps/mobile/app.config.ts', 'apps/mobile/package.json') }}
+
+      - name: Assemble release APK
+        working-directory: apps/mobile/android
+        run: >
+          ./gradlew assembleRelease --no-daemon --stacktrace
+          -PreactNativeArchitectures=arm64-v8a,x86_64
+          -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=1g"
+
+      # The ref name comes from a git tag, which may contain shell metacharacters: it is read from
+      # the environment (never expanded into the script) and reduced to [A-Za-z0-9._-].
+      - name: Name the APK
+        id: apk
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          src=apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+          test -f "$src"
+          safe_ref="$(printf '%s' "$REF_NAME" | tr -c 'A-Za-z0-9._-' '-')"
+          name="biblioteca-${safe_ref}-${GITHUB_SHA::7}.apk"
+          mkdir -p out
+          cp "$src" "out/$name"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          ls -l out
+
+      # Blocking: the APK must carry a valid signature (the debug one, see the header).
+      - name: Verify the APK signature
+        env:
+          APK_NAME: ${{ steps.apk.outputs.name }}
+        run: |
+          bt="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n1)"
+          "$bt/apksigner" verify --print-certs "out/$APK_NAME"
+
+      # Informational: 16 KB page alignment (Google Play requirement for new apps). zipalign's -P
+      # flag needs recent build-tools, so a failure here is reported but does not fail the build.
+      - name: Inspect 16 KB alignment
+        continue-on-error: true
+        env:
+          APK_NAME: ${{ steps.apk.outputs.name }}
+        run: |
+          bt="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n1)"
+          "$bt/zipalign" -c -P 16 -v 4 "out/$APK_NAME" | tail -n 3
+
+      # Defence in depth for EXPO_PUBLIC_* values inlined by Metro: scan the unpacked APK.
+      - name: Scan the APK for secret-shaped tokens
+        env:
+          APK_NAME: ${{ steps.apk.outputs.name }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/apk-contents"
+          unzip -q "out/$APK_NAME" -d "$RUNNER_TEMP/apk-contents"
+          node scripts/check-public-env.mjs --env --dist "$RUNNER_TEMP/apk-contents"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: biblioteca-apk
+          path: out/${{ steps.apk.outputs.name }}
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    name: Attach APK to the GitHub Release
+    needs: apk
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: biblioteca-apk
+          path: out
+
+      # `gh` is preinstalled on the runner and uses the job token; no third-party action holds
+      # contents: write. Always a pre-release: the APK is debug-signed (test only).
+      - name: Create or update the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          notes='TEST BUILD ONLY. Signed with the public Expo debug keystore: do not distribute, do not treat as an official release. See docs/decizii.md (ADR-003).'
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" out/*.apk --clobber
+          else
+            gh release create "$TAG" out/*.apk --verify-tag --prerelease \
+              --title "$TAG (test build)" --notes "$notes" --generate-notes
+          fi

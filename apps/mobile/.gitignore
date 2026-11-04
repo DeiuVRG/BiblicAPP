@@ -16,3 +16,4 @@ npm-debug.*
 *.tsbuildinfo
 /ios
 /android
+*.keystore

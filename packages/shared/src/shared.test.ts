@@ -6,8 +6,8 @@ import {
   canonicalJson,
   isUlid,
   manifestSigningPayload,
-  stableId,
 } from './index';
+import { stableId } from './ids';
 
 const validPack = {
   work: {
@@ -95,6 +95,10 @@ describe('PackManifestSchema', () => {
     expect(PackManifestSchema.safeParse({ ...manifest, sha256: 'xyz' }).success).toBe(false);
   });
 
+  it('rejects unknown fields (they would be neither signed nor validated)', () => {
+    expect(PackManifestSchema.safeParse({ ...manifest, extra: 'x' }).success).toBe(false);
+  });
+
   it('builds the signing payload without the signature field', () => {
     const payload = new TextDecoder().decode(manifestSigningPayload(manifest));
     expect(payload).not.toContain('signature');
@@ -115,5 +119,21 @@ describe('compareSemver', () => {
     const { compareSemver, parseSemver } = await import('./index');
     expect(parseSemver('1.2')).toBeNull();
     expect(() => compareSemver('x', '1.0.0')).toThrow(TypeError);
+  });
+});
+
+describe('startup safety', () => {
+  it('loads the package index without crypto.getRandomValues and does not export stableId', async () => {
+    const original = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+    Object.defineProperty(globalThis, 'crypto', { value: undefined, configurable: true });
+    try {
+      const { vi } = await import('vitest');
+      vi.resetModules();
+      const shared = await import('./index');
+      expect('stableId' in shared).toBe(false);
+      expect(shared.isUlid('01ARZ3NDEKTSV4RRFFQ69G5FAV')).toBe(true);
+    } finally {
+      if (original) Object.defineProperty(globalThis, 'crypto', original);
+    }
   });
 });

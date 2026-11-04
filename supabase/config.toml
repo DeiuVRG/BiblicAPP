@@ -1,0 +1,17 @@
+# Minimal Supabase CLI configuration for local development and `supabase test db`.
+# Not used in production; the hosted project is configured in the dashboard (see README.md).
+project_id = "biblicapp"
+
+[api]
+enabled = true
+# `content` is intentionally NOT listed: canonical text must never be exposed through PostgREST.
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 17
+
+[db.migrations]
+enabled = true

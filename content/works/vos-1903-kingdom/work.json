@@ -23,8 +23,8 @@
     },
     "provenance": {
       "source": "The Teaching of Jesus Concerning the Kingdom of God and the Church, Geerhardus Vos, American Tract Society, New York, 1903 (series The Teachings of Jesus, ed. John H. Kerr). Scan probably from the Internet Archive (see content/INVENTORY.md, P1-07).",
-      "extractedBy": "OCR text layer of the scan, extracted with pdftotext -layout (poppler 24.02, file content/sources/vos-1903-kingdom/raw-layout.txt); cleaned by packages/content-tools ingest-text with content/works/vos-1903-kingdom/ingest.config.json.",
-      "notes": "Front matter, the table of contents and the printed indices (subjects, texts) are not part of the pack: the indices refer to the page numbers of the printed book. Running heads, page numbers and signature marks were removed; line-end hyphenation was resolved from the text's own usage. OCR errors that survived the cleaning are listed in docs/ocr-notes-vos-1903.md."
+      "extractedBy": "OCR text layer of the scan, extracted with pdftotext -layout (poppler 24.02; content/sources/vos-1903-kingdom/raw-layout.txt, the same extraction as raw.txt but keeping indentation and line-end hyphens). Cleaned by packages/content-tools ingest-text with content/works/vos-1903-kingdom/ingest.config.json.",
+      "notes": "Not part of the pack: front matter, table of contents, and the printed indices of subjects and texts (they refer to the page numbers of the printed book). Removed: running heads, page numbers, signature marks and scan noise. Line-end hyphenation was resolved from the text's own usage. Chapter headings come from the table of contents (the OCR text of the headings is garbled). Known OCR damage was repaired by explicit, reviewable rules in ingest.config.json (page fixes, replacements, word fixes); four Greek words and one Hebrew word were restored from context. Not proof-read against the printed book: Scripture reference numerals and rare words may still carry OCR errors, and the drop-cap words that open each chapter were set in normal case."
     }
   }
 }

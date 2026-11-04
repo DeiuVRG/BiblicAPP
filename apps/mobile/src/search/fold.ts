@@ -4,6 +4,7 @@ const COMBINING_MARKS = /\p{Diacritic}/gu;
 function foldChar(char: string): string {
   if (char === '‘' || char === '’' || char === 'ʼ') return "'";
   if (char === '“' || char === '”') return '"';
+  if (char === 'ς') return 'σ'; // Greek final sigma
   const folded = char.normalize('NFD').replace(COMBINING_MARKS, '').toLowerCase();
   // Keep the fold length-preserving so match offsets map back onto the original text.
   return folded.length === 1 ? folded : char.toLowerCase().slice(0, 1) || char;

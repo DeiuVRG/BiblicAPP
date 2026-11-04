@@ -1,6 +1,9 @@
 import { monotonicFactory } from 'ulid';
 
-const factory = monotonicFactory();
+// Not exported from the package index on purpose: `ulid` needs `crypto.getRandomValues` and
+// Hermes does not provide it. Only tooling and tests (Node) import `@biblioteca/shared/ids`.
+// The factory is also created lazily so that importing this module never throws.
+let factory: ReturnType<typeof monotonicFactory> | undefined;
 
 /**
  * Generates a stable, sortable, URL-safe identifier (ULID: 26 chars, Crockford base32).
@@ -8,12 +11,8 @@ const factory = monotonicFactory();
  * Pass `seedTime` for deterministic ordering in tests.
  */
 export function stableId(seedTime?: number): string {
+  factory ??= monotonicFactory();
   return factory(seedTime);
 }
 
-/** Matches a ULID (Crockford base32, 26 chars). */
-export const ULID_PATTERN = /^[0-9A-HJKMNP-TV-Z]{26}$/;
-
-export function isUlid(value: string): boolean {
-  return ULID_PATTERN.test(value);
-}
+export { isUlid, ULID_PATTERN } from './id-pattern';

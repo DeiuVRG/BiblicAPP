@@ -16,8 +16,11 @@ const Semver = z.string().regex(/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/, 'expec
  *   the manifest without the `signature` field).
  * - `revision`: content revision of the edition (bumps when text changes).
  * - `version`: pack format / release version (semver).
+ *
+ * Strict on purpose: unknown fields are rejected, because they would be neither signed nor
+ * validated (zod would silently strip them before the signing payload is computed).
  */
-export const PackManifestSchema = z.object({
+export const PackManifestSchema = z.strictObject({
   packId: IdSchema,
   kind: z.literal('edition'),
   workId: IdSchema,

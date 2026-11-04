@@ -1,0 +1,90 @@
+name: Web (GitHub Pages)
+
+# Publishes the static web export as a project site: https://<owner>.github.io/BiblicAPP/
+# Repository settings, Pages, "Build and deployment", Source must be set to "GitHub Actions".
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time; never cancel a deployment that is already running.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 22.23.4
+  PNPM_VERSION: 10.28.0
+  EXPO_NO_TELEMETRY: '1'
+  CI: 'true'
+  # Project sites live under /<repository name> (derived, so a rename or a fork keeps working).
+  # Read by apps/mobile/app.config.ts at export time.
+  EXPO_PUBLIC_WEB_BASE_URL: /${{ github.event.repository.name }}
+
+jobs:
+  build:
+    name: Export and verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Public env check
+        run: node scripts/check-public-env.mjs --env
+
+      - name: Export web with the repository base path
+        run: pnpm --filter mobile export:web
+
+      # What is actually shipped: scan the built bundle for secret-shaped tokens.
+      - name: Scan the export for secret-shaped tokens
+        run: node scripts/check-public-env.mjs --env --dist apps/mobile/dist
+
+      # .nojekyll and a 404.html that boots the app, so deep links to /work/<id> and
+      # /read/<id>/<section> work on Pages (it has no rewrites).
+      - name: Prepare for Pages
+        run: node scripts/prepare-pages.mjs apps/mobile/dist
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Smoke-test exactly what will be deployed, including the 404.html deep-link fallback.
+      - name: Smoke test the deployable
+        run: node scripts/smoke-web.mjs --dist apps/mobile/dist --base-path "$EXPO_PUBLIC_WEB_BASE_URL"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/mobile/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

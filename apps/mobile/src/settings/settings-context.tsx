@@ -33,18 +33,23 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const store = useStorage();
   const [settings, setSettings] = useState<ReaderSettings>(DEFAULT_SETTINGS);
   const [ready, setReady] = useState(false);
-  const touched = useRef(false);
+  const loaded = useRef(false);
+  // Changes made before the stored settings were read; merged on top of them after the load so
+  // that fields the user did not touch are not overwritten with defaults.
+  const pending = useRef<Partial<ReaderSettings>>({});
   const latest = useRef(settings);
 
   useEffect(() => {
     let cancelled = false;
     void loadSettings(store).then((stored) => {
       if (cancelled) return;
-      // A change made before the load finished wins over the stored value.
-      if (!touched.current) {
-        latest.current = stored;
-        setSettings(stored);
-      }
+      loaded.current = true;
+      const hasPending = Object.keys(pending.current).length > 0;
+      const merged = hasPending ? sanitizeSettings({ ...stored, ...pending.current }) : stored;
+      pending.current = {};
+      latest.current = merged;
+      setSettings(merged);
+      if (hasPending) void saveSettings(store, merged);
       setReady(true);
     });
     return () => {
@@ -54,11 +59,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const update = useCallback(
     (patch: Partial<ReaderSettings>) => {
-      touched.current = true;
       const next = sanitizeSettings({ ...latest.current, ...patch });
       latest.current = next;
       setSettings(next);
-      void saveSettings(store, next);
+      if (loaded.current) void saveSettings(store, next);
+      else pending.current = { ...pending.current, ...patch };
     },
     [store],
   );
