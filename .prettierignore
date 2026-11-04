@@ -1,0 +1,12 @@
+node_modules
+dist
+.expo
+coverage
+pnpm-lock.yaml
+android
+ios
+content
+docs
+apps/mobile/assets/packs
+.claude
+*.md

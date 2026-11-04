@@ -9,3 +9,9 @@ ios/
 android/
 .claude/settings.local.json
 .DS_Store
+coverage/
+playwright-report/
+test-results/
+content/keys/
+*.tsbuildinfo
+.env.local

@@ -1,0 +1,36 @@
+{
+  "name": "biblicapp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Biblioteca creștină monorepo (Expo app + content tooling).",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint && pnpm lint:root",
+    "lint:root": "eslint --no-error-on-unmatched-pattern scripts eslint.config.mjs eslint.config.base.mjs",
+    "test": "pnpm -r test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~58.0.4",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.0.0",
+    "playwright": "^1.64.1",
+    "prettier": "^3.9.10",
+    "serve": "^14.2.6",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
