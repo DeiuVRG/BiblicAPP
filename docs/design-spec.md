@@ -145,3 +145,43 @@ bar follows `statusBar`. The web body and `color-scheme` follow the active palet
 - Commands: `pnpm --filter mobile typecheck && pnpm --filter mobile lint && pnpm --filter mobile
   test && pnpm format:check && pnpm --filter mobile export:web && node scripts/smoke-web.mjs &&
   node scripts/check-web-theme.mjs`.
+
+## 4. Amendments (4 November 2026, after implementation and two reviews)
+
+Sections 1 to 3 stay as the original brief. Where the shipped design differs, this section is the
+authority; `docs/decizii.md` (ADR-UI, amendments 1 and 2) has the reasoning and the checks.
+
+- **Gutters.** One token per width: 24 px below 768 px and 40 px from 768 px (2.3 said 20 px in one
+  place and 24 px in two others). Column widths (880 / 680) are content widths, gutters on top.
+- **Navigation header (web).** The bar and its rule span the full width, but its content is lined
+  up with the column of the screen below (880 px; 680 px on the reader and Settings), not with the
+  window edge. iOS and Android keep the native header.
+- **Reader header.** The work's title is a running head, not the 600 20 header title of 2.1: Literata
+  italic 15/22 in the muted colour, on two lines on phones, so that the chapter heading stays the
+  first thing the eye meets and the title is never cut off mid-word.
+- **Work page.** The header says "Lucrare" (the work's title is the display title below it). The
+  metadata block has a fourth row, "Original" (language and year of the original). The display
+  title is balanced (no one-word last line) and caption paragraphs are limited to 600 px.
+- **Accent.** Also used for text buttons and the web back arrow (the typographic arrows, "Aa", the
+  header links), which are links in the typographic sense, besides the links, the primary button,
+  the active segment and the current-chapter rule of 2.2 and 2.4.
+- **Control outlines.** A second border token, `borderStrong` (light `#8A877F`, sepia `#8A7852`,
+  dark `#6F6C64`; at least 3:1 on `background` and on `surface`, tested), for the outline of the
+  search field, the steppers, the segmented control and secondary buttons. `border` (2.2) stays
+  for hairlines, chips and the rule of a quotation. The 1.3:1 outline of 2.3 left the steppers
+  barely visible on the reader panel and the search field below WCAG 1.4.11.
+- **Focus.** One keyboard focus ring for the whole web app: 2 px, in the accent colour (2.2 allowed
+  a border only on hover). On a text field it replaces the border instead of doubling it.
+- **Settings.** Section headings are label-style (2.4); the "heading" style of 2.1 is for the table
+  of contents. Rows stack the label above the control below 380 px.
+- **Segmented control.** Wraps into two rows when its options would get less than 84 px each
+  (narrow phones, large system fonts). On web it works like a native radio group: one tab stop,
+  arrow keys, Home and End, Space.
+- **Search.** The clear button sits inside the field. A result names the work only when the
+  results come from more than one work.
+- **Document.** The HTML template is `public/index.html` (an `app/+html.tsx` is ignored with
+  `output: 'single'`) and paints from CSS variables, so `<html>` and `<body>` agree before any
+  JavaScript runs. `ThemeProvider` comes from `expo-router`. Each screen names the browser tab
+  ("Setări · Biblioteca"). The scrollbars follow the palette.
+- **App icons.** The Expo template artwork is replaced by a Literata "B" with a short accent rule
+  (paper on ink); `scripts/generate-icons.mjs` draws every icon and splash image.

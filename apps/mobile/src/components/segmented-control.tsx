@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Platform, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import type { KeyDownEvent } from 'react-native';
 
@@ -24,6 +24,19 @@ export const MIN_SEGMENT_WIDTH = 84;
 
 /** The system font scale is honoured up to the same cap as the text itself (`UI_MAX_FONT_SCALE`). */
 const MAX_SCALE = 1.5;
+
+const GROUP_RADIUS = 6;
+const GROUP_BORDER = 1;
+/** Corner radius of the segments that sit in a corner of the group (inside its border). */
+const SEGMENT_RADIUS = GROUP_RADIUS - GROUP_BORDER;
+
+/** Which corners of the group a segment is in: only those get a rounded corner. */
+export interface Corners {
+  topLeft: boolean;
+  topRight: boolean;
+  bottomLeft: boolean;
+  bottomRight: boolean;
+}
 
 /**
  * Number of segments per row: all of them in one row while each gets at least `MIN_SEGMENT_WIDTH`
@@ -75,7 +88,8 @@ export function SegmentedControl<T extends string>({ label, options, value, onCh
   const { colors } = useTheme();
   const { fontScale } = useWindowDimensions();
   const [width, setWidth] = useState<number | null>(null);
-  const segments = useRef(new Map<T, { focus?: () => void } | null>());
+  // The mounted segments by value, so that an arrow key can move the focus along with the choice.
+  const [segments] = useState(() => new Map<T, { focus?: () => void }>());
   const rows = chunk(options, segmentColumns(options.length, width, fontScale));
 
   const move = (from: number, action: 'next' | 'previous' | 'first' | 'last') => {
@@ -91,7 +105,7 @@ export function SegmentedControl<T extends string>({ label, options, value, onCh
     const option = options[target];
     if (!option) return;
     onChange(option.value);
-    segments.current.get(option.value)?.focus?.();
+    segments.get(option.value)?.focus?.();
   };
 
   return (
@@ -115,9 +129,15 @@ export function SegmentedControl<T extends string>({ label, options, value, onCh
               label={option.label}
               selected={option.value === value}
               first={index === 0}
+              corners={{
+                topLeft: rowIndex === 0 && index === 0,
+                topRight: rowIndex === 0 && index === row.length - 1,
+                bottomLeft: rowIndex === rows.length - 1 && index === 0,
+                bottomRight: rowIndex === rows.length - 1 && index === row.length - 1,
+              }}
               segmentRef={(node) => {
-                if (node) segments.current.set(option.value, node);
-                else segments.current.delete(option.value);
+                if (node) segments.set(option.value, node);
+                else segments.delete(option.value);
               }}
               onPress={() => onChange(option.value)}
               onKey={(key) => {
@@ -143,6 +163,7 @@ function Segment({
   label,
   selected,
   first,
+  corners,
   segmentRef,
   onPress,
   onKey,
@@ -150,6 +171,7 @@ function Segment({
   label: string;
   selected: boolean;
   first: boolean;
+  corners: Corners;
   segmentRef(node: { focus?: () => void } | null): void;
   onPress(): void;
   /** Handles a key press; returns true when the key was used (the page must not scroll). */
@@ -163,9 +185,9 @@ function Segment({
       accessibilityRole="radio"
       accessibilityLabel={label}
       accessibilityState={{ selected, checked: selected }}
-      // react-native-web reads the `aria-*` props only; React Native reads both forms.
+      // react-native-web reads the `aria-*` props only; React Native reads both forms. (A radio
+      // is checked, not selected: `aria-selected` is not allowed on that role.)
       aria-checked={selected}
-      aria-selected={selected}
       // One tab stop for the group (the chosen option), as with native radio buttons.
       {...(Platform.OS === 'web' ? { tabIndex: selected ? 0 : -1 } : null)}
       onPress={onPress}
@@ -179,6 +201,10 @@ function Segment({
           backgroundColor: selected ? colors.accent : hovered ? colors.surface : undefined,
           borderLeftColor: colors.borderStrong,
           borderLeftWidth: first ? 0 : 1,
+          borderTopLeftRadius: corners.topLeft ? SEGMENT_RADIUS : 0,
+          borderTopRightRadius: corners.topRight ? SEGMENT_RADIUS : 0,
+          borderBottomLeftRadius: corners.bottomLeft ? SEGMENT_RADIUS : 0,
+          borderBottomRightRadius: corners.bottomRight ? SEGMENT_RADIUS : 0,
           opacity: pressed ? 0.7 : 1,
         },
       ]}
@@ -194,11 +220,12 @@ function Segment({
   );
 }
 
+// No `overflow: hidden` on the group: it would clip the focus ring of the segments. The segments
+// in the corners round their own corners instead.
 const styles = StyleSheet.create({
   group: {
-    borderWidth: 1,
-    borderRadius: 6,
-    overflow: 'hidden',
+    borderWidth: GROUP_BORDER,
+    borderRadius: GROUP_RADIUS,
   },
   row: { flexDirection: 'row' },
   segment: {

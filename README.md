@@ -22,7 +22,7 @@ Tema luminoasă și cea întunecată, una lângă alta, la mărime de telefon (3
 | `packages/content-tools` | CLI: `ingest-text`, `build-pack`, `verify-pack`, `keygen`                     |
 | `content/`               | surse și lucrări canonice (cheile private în `content/keys/`, ignorat de git) |
 | `supabase/`              | migrări și teste pgTAP (schiță, neaplicată în M0); vezi `supabase/README.md`  |
-| `scripts/`               | verificări de CI: env public, audit, smoke și temă Playwright, pregătire Pages, capturi |
+| `scripts/`               | verificări de CI (env public, audit, smoke și temă Playwright), pregătire Pages, capturi, pictograme |
 | `.github/workflows`      | `ci.yml`, `web-pages.yml`, `android-apk.yml`, `supabase-tests.yml` (manual)   |
 
 ## Rulare pe fiecare platformă
@@ -89,11 +89,12 @@ node scripts/audit-gate.mjs         # pnpm audit --prod, nivel moderate (vezi do
 
 pnpm --filter mobile export:web
 node scripts/smoke-web.mjs          # Playwright: biblioteca listează o lucrare, cititorul arată paragrafe
-node scripts/check-web-theme.mjs    # Playwright: antet, fundal și text din aceeași paletă, luminos și întunecat
+node scripts/check-web-theme.mjs    # Playwright: antet, fundal și text din aceeași paletă, luminos și întunecat; prima pictură, focus, stări ARIA
 node scripts/screenshots-web.mjs    # capturile din docs/screenshots (luminos/întunecat, telefon/desktop)
+node scripts/generate-icons.mjs     # pictogramele aplicației din apps/mobile/assets/images (doar când se schimbă marca sau paletele)
 ```
 
-Smoke-ul pornește `serve` pe un port liber, deschide exportul în Chromium și iese cu cod diferit de zero la orice eșec (la eșec salvează o captură în `test-results/`). Prima dată pe un calculator nou: `pnpm exec playwright install chromium`. Opțiuni: `--dist <dir>`, `--base-path /biblicapp`, `--port <n>`; `SMOKE_CHROMIUM_PATH` indică un alt executabil Chromium. `check-web-theme.mjs` și `screenshots-web.mjs` au aceleași opțiuni (`screenshots-web.mjs` mai primește `--out`, `--screens`, `--schemes`, `--sizes`) și folosesc propriul server static cu revenire la `index.html` pentru rute (exportul este o aplicație single-page).
+Smoke-ul pornește `serve` pe un port liber, deschide exportul în Chromium și iese cu cod diferit de zero la orice eșec (la eșec salvează o captură în `test-results/`). Prima dată pe un calculator nou: `pnpm exec playwright install chromium`. Opțiuni: `--dist <dir>`, `--base-path /biblicapp`, `--port <n>`; `SMOKE_CHROMIUM_PATH` indică un alt executabil Chromium. `check-web-theme.mjs` și `screenshots-web.mjs` au aceleași opțiuni (`check-web-theme.mjs` mai primește `--only <text>`, ca să ruleze doar scenariile al căror nume conține textul; `screenshots-web.mjs` mai primește `--out`, `--screens`, `--schemes`, `--sizes`) și folosesc propriul server static cu revenire la `index.html` pentru rute (exportul este o aplicație single-page).
 
 Simularea locală a ceea ce se publică pe GitHub Pages (bază = numele depozitului, aici `/biblicapp`; `404.html`, deep link):
 
@@ -107,8 +108,8 @@ node scripts/smoke-web.mjs --dist /tmp/pages-dist --base-path /biblicapp
 
 | Workflow           | Când                         | Ce face                                                                                                  |
 | ------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `ci.yml`           | push pe `main`, orice PR     | instalare înghețată, verificare env public, typecheck, lint, format, Vitest + Jest, verificare pachet, export web, smoke Playwright; job separat de audit |
-| `web-pages.yml`    | push pe `main`, manual       | export cu baza `/<nume depozit>` (derivată în workflow), `.nojekyll` + `404.html`, smoke pe ce se publică, deploy pe GitHub Pages    |
+| `ci.yml`           | push pe `main`, orice PR     | instalare înghețată, verificare env public, typecheck, lint, format, Vitest + Jest, verificare pachet, export web, smoke Playwright, verificare de temă Playwright; job separat de audit |
+| `web-pages.yml`    | push pe `main`, manual       | export cu baza `/<nume depozit>` (derivată în workflow), `.nojekyll` + `404.html`, smoke și verificare de temă pe ce se publică, deploy pe GitHub Pages    |
 | `android-apk.yml`  | push pe `main`, tag `v*`, manual | `expo prebuild`, `./gradlew assembleRelease`, APK ca artefact; pe tag `v*` îl atașează la un GitHub Release |
 | `supabase-tests.yml` | doar manual                | pornește stack-ul Supabase local, aplică migrările, rulează pgTAP                                        |
 

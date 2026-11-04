@@ -108,3 +108,35 @@ field is absent) and have `translation-merge` fill it from the translated editio
 
 Side-by-side source/translation view, the "Transparența traducerii" panel, paragraph-level
 alignment navigation (the `sourceId` data is already in the packs for these), downloading packs.
+
+## Amendments (4 November 2026, after the design pass and the pilot translation)
+
+- The design pass (`docs/design-spec.md`, section 4) changed the components and screens: read the
+  current code (`components/app-header.tsx`, `column.tsx`, `chip.tsx`, `segmented-control.tsx`,
+  `setting-row.tsx`, `theme/typography.ts`, `theme/layout.ts`, `features/**`) and keep its design
+  language; the edition switch on the work page uses the existing `SegmentedControl`; edition
+  labels use the existing `Chip`.
+- A partial Romanian pack exists: `apps/mobile/assets/packs/vos-1903-kingdom-ro` (edition
+  `kind: 'translation'`, `sourceEditionId` of the English edition, 1 of 11 sections for now).
+  Bundle it in `bundled-packs.ts` once the repository handles two editions of one work. An edition
+  whose section count is smaller than its source edition's (when the source is installed) is
+  **partial**: show a chip "Traducere parțială" / "Partial translation" on the work page and the
+  library entry, and list only its sections in the TOC.
+- Licence notes are prose in the edition's own language. Add optional `noteRo` and `noteEn` to
+  `LicenceSchema` (additive; absent in existing packs); the UI shows the note matching the
+  interface language, falling back to `note`. For the Vos English edition, add `noteRo` to
+  `content/works/vos-1903-kingdom/work.json` and `edition-en.json` (Romanian translation of the
+  existing note) and rebuild the pack with `build-pack` (`content/keys/dev.key` is present in
+  this container; the revision bumps to 3; `committed-content.test.ts` must stay green, it
+  compares the pack with the edition file). The Romanian edition's note is already Romanian; add
+  its `noteEn`.
+- `titleEn` on `WorkSchema` (section "Edition titles") is still required; for Vos it equals
+  `titleOrig`.
+- Interface language: the reading-language default and the interface-language default both come
+  from the device locale (`expo-localization` is not a dependency; use
+  `Intl.DateTimeFormat().resolvedOptions().locale` with a try/catch and `navigator.language` on
+  web; Hermes supports `Intl.DateTimeFormat`). Persist both in the existing settings store with
+  the sanitiser pattern of `settings/sanitize.ts`.
+- `scripts/check-web-theme.mjs`, `scripts/smoke-web.mjs` and `scripts/screenshots-web.mjs` must
+  keep passing; update their selectors if the library row or the work page structure changes, and
+  re-take the screenshots at the end (`node scripts/screenshots-web.mjs`).

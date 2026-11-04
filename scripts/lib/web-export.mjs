@@ -171,11 +171,23 @@ function stripBase(path, base) {
   return prefix && path.startsWith(`${prefix}/`) ? path.slice(prefix.length) : path;
 }
 
-// Evaluated inside the page: at least two leaf text blocks of `min` characters (rendered paragraphs).
-const hasParagraphs = (min) =>
-  [...document.querySelectorAll('div, span, p')].filter(
-    (el) => el.children.length === 0 && (el.textContent ?? '').trim().length >= min,
-  ).length >= 2;
+// Evaluated inside the page: the reader is on screen when its own progress bar (the one with a
+// value; the loading view has none) is visible and at least two visible leaf text blocks of `min`
+// characters (rendered paragraphs) are. Visible matters: a screen the reader was opened from stays
+// in the DOM under it (display: none), and its table of contents has text blocks too.
+const readerReady = (min) => {
+  const visible = (el) => {
+    const box = el.getBoundingClientRect();
+    return box.width > 0 && box.height > 0;
+  };
+  const progress = [...document.querySelectorAll('[role="progressbar"][aria-valuenow]')].some(
+    visible,
+  );
+  const blocks = [...document.querySelectorAll('div, span, p')].filter(
+    (el) => el.children.length === 0 && (el.textContent ?? '').trim().length >= min && visible(el),
+  );
+  return progress && blocks.length >= 2;
+};
 
 /** The screens of the design, in the order of the reading flow. */
 export const SCREENS = ['library', 'work', 'reader', 'settings'];
@@ -184,7 +196,7 @@ export const SCREENS = ['library', 'work', 'reader', 'settings'];
 export async function waitForScreen(page, screen, timeout) {
   if (screen === 'library') await page.locator('a[href*="/work/"]').first().waitFor({ timeout });
   else if (screen === 'work') await page.locator('a[href*="/read/"]').first().waitFor({ timeout });
-  else if (screen === 'reader') await page.waitForFunction(hasParagraphs, 30, { timeout });
+  else if (screen === 'reader') await page.waitForFunction(readerReady, 30, { timeout });
   else await page.locator('[role="radiogroup"]').first().waitFor({ timeout });
   await page.evaluate(() => document.fonts.ready);
 }

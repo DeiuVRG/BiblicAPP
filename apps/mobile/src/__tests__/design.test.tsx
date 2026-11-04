@@ -1,10 +1,11 @@
 import { act, fireEvent, screen } from '@testing-library/react-native';
 import type { Paragraph } from '@biblioteca/shared';
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Chip } from '@/components/chip';
+import { STACK_BELOW, SettingRow } from '@/components/setting-row';
 import {
   MIN_SEGMENT_WIDTH,
   radioKeyAction,
@@ -218,6 +219,35 @@ describe('SegmentedControl layout and keyboard', () => {
     expect(row('Automat')).toBe(row('Întunecat'));
   });
 
+  it('rounds only the corners of the group, so that nothing has to be clipped (the focus ring is not)', async () => {
+    Dimensions.set({ window: { ...original, fontScale: 1 } });
+    await renderWithProviders(control());
+    const radius = (label: string) => {
+      const style = StyleSheet.flatten(screen.getByLabelText(label).props.style);
+      return [
+        style.borderTopLeftRadius,
+        style.borderTopRightRadius,
+        style.borderBottomRightRadius,
+        style.borderBottomLeftRadius,
+      ];
+    };
+    expect(screen.getByLabelText('Tema').props.style).not.toContainEqual(
+      expect.objectContaining({ overflow: 'hidden' }),
+    );
+    // One row: the first segment has the left corners, the last one the right ones.
+    expect(radius('Automat')).toEqual([5, 0, 0, 5]);
+    expect(radius('Luminos')).toEqual([0, 0, 0, 0]);
+    expect(radius('Sepia')).toEqual([0, 0, 0, 0]);
+    expect(radius('Întunecat')).toEqual([0, 5, 5, 0]);
+
+    // Two rows: one segment per corner.
+    await resizeTo(312);
+    expect(radius('Automat')).toEqual([5, 0, 0, 0]);
+    expect(radius('Luminos')).toEqual([0, 5, 0, 0]);
+    expect(radius('Sepia')).toEqual([0, 0, 0, 5]);
+    expect(radius('Întunecat')).toEqual([0, 0, 5, 0]);
+  });
+
   it('draws the group and its dividers with the control outline colour', async () => {
     await renderWithProviders(control());
     expect(screen.getByLabelText('Tema')).toHaveStyle({ borderColor: palettes.light.borderStrong });
@@ -288,6 +318,64 @@ describe('SegmentedControl layout and keyboard', () => {
   it('leaves the tab order to the platform on iOS and Android', async () => {
     await renderWithProviders(control());
     expect(screen.getByLabelText('Luminos').props.tabIndex).toBeUndefined();
+  });
+});
+
+describe('SettingRow', () => {
+  const original = Dimensions.get('window');
+  afterEach(async () => {
+    // Still mounted here (the automatic cleanup runs later): the update has to go through act.
+    await act(async () => {
+      Dimensions.set({ window: original });
+    });
+  });
+
+  const rowOf = (text: string) => screen.getByText(text).parent!;
+
+  it('puts the control beside its label on a phone that is wide enough, and under it below 380 px', async () => {
+    expect(STACK_BELOW).toBe(380);
+    Dimensions.set({ window: { ...original, width: 390 } });
+    await renderWithProviders(
+      <SettingRow label="Mărimea textului">
+        <Text>control</Text>
+      </SettingRow>,
+    );
+    expect(rowOf('control')).toHaveStyle({ flexDirection: 'row', flexWrap: 'wrap' });
+
+    await act(async () => {
+      Dimensions.set({ window: { ...original, width: 360 } });
+    });
+    // Every row of a group looks alike: no stepper inline in one row and under the label in another.
+    expect(rowOf('control')).toHaveStyle({
+      flexDirection: 'column',
+      flexWrap: 'nowrap',
+      alignItems: 'flex-start',
+    });
+  });
+
+  it('lets a wide control fill the row, shrink on a narrow one, and never use its basis as a height', async () => {
+    Dimensions.set({ window: { ...original, width: 390 } });
+    await renderWithProviders(
+      <SettingRow label="Tema" fill>
+        <Text>control</Text>
+      </SettingRow>,
+    );
+    expect(rowOf('control')).toHaveStyle({
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 300,
+      minWidth: 0,
+      maxWidth: 420,
+    });
+
+    await act(async () => {
+      Dimensions.set({ window: { ...original, width: 320 } });
+    });
+    const stacked = rowOf('control');
+    expect(stacked).toHaveStyle({ alignSelf: 'stretch', maxWidth: 420 });
+    expect(stacked.props.style).not.toEqual(
+      expect.objectContaining({ flexBasis: expect.anything() }),
+    );
   });
 });
 
