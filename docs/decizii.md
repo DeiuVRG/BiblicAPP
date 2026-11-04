@@ -57,3 +57,15 @@ Format: decizie, context, consecințe. Orice abatere de la `docs/arhitectura-app
 - Rutele tipizate (`typedRoutes`) sunt activate, dar fișierul `.expo/types` se generează doar la `expo start`, nu la `typecheck`/`export`; `tsc` în CI nu verifică deci `href`-urile.
 - `react-native-reanimated`, `-worklets`, `-gesture-handler`, `expo-image`, `expo-symbols` și altele din șablon au fost scoase (nefolosite); se adaugă la nevoie, după verificarea compatibilității cu arhitectura nouă și cu paginile de 16 KB.
 - Testele de componente: `@testing-library/react-native` 14 cere pachetul `test-renderer` (nu `react-test-renderer`).
+
+## ADR-UI – Decizii de interfață (cititor, căutare, setări)
+
+- Structură: `src/features/<ecran>` conține ecranele (testabile fără router), `src/app/*` sunt doar rute subțiri; `src/settings`, `src/reading`, `src/search`, `src/storage`, `src/theme` conțin logica fără UI. Persistența trece prin interfața `KeyValueStore` (AsyncStorage implicit, înlocuibil în teste).
+- Ordinea secțiunilor: `ordinal` al secțiunilor este tratat ca ordine globală în document (navigarea anterior/următor merge pe lista plată ordonată). `parentId` este folosit doar pentru indentarea cuprinsului. O secțiune fără paragrafe (de exemplu un titlu de parte) se afișează cu titlul și butoanele de navigare, nu este sărită.
+- Poziția de lectură: una singură pe lucrare (`biblioteca:position:v1:<workId>` = secțiune + primul paragraf vizibil), salvată cu debounce de 500 ms și la ieșire; restaurarea face `scrollToIndex`, iar un capitol cu poziție salvată randează din start paragrafele până la țintă (max. 400) ca poziția să poată fi măsurată. Căutarea trece `p` (paragraf) și `q` (interogare) prin parametrii rutei și are prioritate față de poziția salvată.
+- Temă: `Automat` (sistem), `Luminos`, `Sepia`, `Întunecat`; „Automat" este adăugat peste cele trei cerute. Mărime text 14–26 pt, spațiere rânduri 1,3–2,0, ambele cu butoane − / + (fără dependență de slider).
+- Fonturi: Literata (lectură) și Inter (interfață) din `@expo-google-fonts/*`, importate pe variante individuale (nu din index) ca bundle-ul să conțină doar 6 fișiere. Pe nativ, splash-ul rămâne până se încarcă fonturile și setările; pe web nu se blochează randarea statică, cu fallback Georgia/system-ui. `fontWeight` nu se combină cu fonturile personalizate (Android alege fișierul după nume).
+- Scalarea fonturilor de sistem este respectată; plafon `maxFontSizeMultiplier` 1,6 pentru text de lectură și 1,5 pentru interfață.
+- Căutarea: normalizare care păstrează lungimea (`foldText`), ca pozițiile potrivirilor să se mapeze direct pe textul original; accentele (inclusiv ș/ş, ț/ţ) și majusculele sunt ignorate.
+- `Link asChild`: stilul copilului trebuie să fie obiect plat (Slot-ul din expo-router îl „împrăștie"; array sau funcție produce erori sau stil pierdut pe web).
+- Jest: `jest.setup.js` mock-uiește AsyncStorage pentru toate testele; `src/test-support/` conține mock-ul `expo-router` și helperul de randare cu provideri.

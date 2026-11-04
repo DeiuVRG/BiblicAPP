@@ -33,6 +33,11 @@ const ChapterSchema = z.object({
   number: z.string().min(1),
   /** Clean heading used instead of the (OCR-garbled) heading found in the text. */
   heading: z.string().min(1),
+  /**
+   * Number of non-empty lines the heading occupies in the text. Needed when the heading is not
+   * followed by a blank line (default: up to the first blank line).
+   */
+  headingLines: z.number().int().min(1).optional(),
 });
 
 export const IngestConfigSchema = z.object({

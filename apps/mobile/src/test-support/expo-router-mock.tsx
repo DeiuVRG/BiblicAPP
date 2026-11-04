@@ -1,4 +1,4 @@
-import { cloneElement } from 'react';
+import { cloneElement, useEffect } from 'react';
 import type { ReactElement } from 'react';
 
 /**
@@ -25,4 +25,9 @@ export function Link({
 export const Stack = { Screen: () => null };
 
 export const useRouter = () => router;
+/** Runs the effect once on mount (focus is not modelled). */
+export function useFocusEffect(effect: () => void | (() => void)) {
+  useEffect(effect, [effect]);
+}
+
 export const useLocalSearchParams = () => ({});

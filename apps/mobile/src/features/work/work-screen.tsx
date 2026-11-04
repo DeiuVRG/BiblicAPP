@@ -1,5 +1,5 @@
-import { Link, Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { Link, Stack, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import type { Section } from '@biblioteca/shared';
 
@@ -98,15 +98,18 @@ export function WorkScreen({ workId }: { workId: string }) {
     [workId],
   );
   const [position, setPosition] = useState<ReadingPosition | null>(null);
-  useEffect(() => {
-    let cancelled = false;
-    void loadPosition(store, workId).then((stored) => {
-      if (!cancelled) setPosition(stored);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [store, workId]);
+  // The screen stays mounted under the reader, so re-read the position every time it regains focus.
+  useFocusEffect(
+    useCallback(() => {
+      let cancelled = false;
+      void loadPosition(store, workId).then((stored) => {
+        if (!cancelled) setPosition(stored);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }, [store, workId]),
+  );
 
   if (data.status === 'loading')
     return (

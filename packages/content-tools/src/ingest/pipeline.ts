@@ -204,6 +204,9 @@ export function ingest(input: IngestInput): IngestResult {
     rawHeading: string;
     lines: BodyLine[];
   }
+  const headingLinesByNumber = new Map(
+    config.chapters.flatMap((c) => (c.headingLines ? [[c.number, c.headingLines] as const] : [])),
+  );
   const chapters: Chapter[] = [];
   let current: Chapter | undefined;
   let expected = 1;
@@ -222,7 +225,12 @@ export function ingest(input: IngestInput): IngestResult {
         let j = i + 1;
         while (j < page.lines.length && (page.lines[j] as string).trim() === '') j += 1;
         const headingLines: string[] = [];
-        while (j < page.lines.length && (page.lines[j] as string).trim() !== '') {
+        const limit = headingLinesByNumber.get(marker.number) ?? Infinity;
+        while (
+          j < page.lines.length &&
+          (page.lines[j] as string).trim() !== '' &&
+          headingLines.length < limit
+        ) {
           headingLines.push(page.lines[j] as string);
           j += 1;
         }

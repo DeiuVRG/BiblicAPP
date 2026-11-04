@@ -28,7 +28,8 @@
     },
     {
       "number": "III",
-      "heading": "Kingdom and Kingship. The Kingdom of God and the Kingdom of Heaven"
+      "heading": "Kingdom and Kingship. The Kingdom of God and the Kingdom of Heaven",
+      "headingLines": 3
     },
     {
       "number": "IV",
@@ -67,37 +68,37 @@
     {
       "page": 8,
       "find": "I   N the body of our Lord's teaching\n    as recorded in the Gospels the ref-\n    erences to the kingdom of God oc-\n",
-      "replace": "IN the body of our Lord's teaching\nas recorded in the Gospels the ref-\nerences to the kingdom of God oc-\n",
+      "replace": "In the body of our Lord's teaching\nas recorded in the Gospels the ref-\nerences to the kingdom of God oc-\n",
       "note": "Chapter I drop cap"
     },
     {
       "page": 18,
       "find": " ~ HE first thing to be noticed in\n 1    Jesus' utterances on our theme is\n      that they clearly presuppose a con-\n",
-      "replace": "THE first thing to be noticed in\nJesus' utterances on our theme is\nthat they clearly presuppose a con-\n",
+      "replace": "The first thing to be noticed in\nJesus' utterances on our theme is\nthat they clearly presuppose a con-\n",
       "note": "Chapter II drop cap (OCR read T as ~)"
     },
     {
       "page": 32,
       "find": " cr'HE Greek word Basileta used in\n1      the Gospels for \"kingdom\" and\n       the corresponding Hebrew and\n",
-      "replace": "THE Greek word Basileta used in\nthe Gospels for \"kingdom\" and\nthe corresponding Hebrew and\n",
+      "replace": "The Greek word Basileta used in\nthe Gospels for \"kingdom\" and\nthe corresponding Hebrew and\n",
       "note": "Chapter III drop cap"
     },
     {
       "page": 45,
       "find": " TJ 7 E have already seen that our\nrr        Lord makes a sharp distinction\n          between the Old Testament or-\n",
-      "replace": "WE have already seen that our\nLord makes a sharp distinction\nbetween the Old Testament or-\n",
+      "replace": "We have already seen that our\nLord makes a sharp distinction\nbetween the Old Testament or-\n",
       "note": "Chapter IV drop cap (OCR read W as TJ 7)"
     },
     {
       "page": 73,
       "find": "H        A VING found that both the im-\n         manent and the eschatological\n         conceptions of the coming of the\n",
-      "replace": "HAVING found that both the im-\nmanent and the eschatological\nconceptions of the coming of the\n",
+      "replace": "Having found that both the im-\nmanent and the eschatological\nconceptions of the coming of the\n",
       "note": "Chapter V drop cap"
     },
     {
       "page": 87,
       "find": "I   T has been shown in the foregoing\n     how our Lord designates the new\n     order of things he came to introduce\n « the kingdom of God,\" and that not\n",
-      "replace": "IT has been shown in the foregoing\nhow our Lord designates the new\norder of things he came to introduce\n\"the kingdom of God,\" and that not\n",
+      "replace": "It has been shown in the foregoing\nhow our Lord designates the new\norder of things he came to introduce\n\"the kingdom of God,\" and that not\n",
       "note": "Chapter VI drop cap and guillemet"
     },
     {
@@ -109,31 +110,31 @@
     {
       "page": 110,
       "find": "I   N regard to the relation between the\n     kingdom and righteousness three\n     lines of thought can be distinguished\n",
-      "replace": "IN regard to the relation between the\nkingdom and righteousness three\nlines of thought can be distinguished\n",
+      "replace": "In regard to the relation between the\nkingdom and righteousness three\nlines of thought can be distinguished\n",
       "note": "Chapter VII drop cap"
     },
     {
       "page": 132,
       "find": "TJ 7 E have already seen, that not\nrr   the thought of man's welfare,\n     but that of the glory of God was\n",
-      "replace": "WE have already seen, that not\nthe thought of man's welfare,\nbut that of the glory of God was\n",
+      "replace": "We have already seen, that not\nthe thought of man's welfare,\nbut that of the glory of God was\n",
       "note": "Chapter VIII drop cap"
     },
     {
       "page": 147,
       "find": " ~ HE conception of the kingdom is\n1      common to all periods of our\n       Lord's teaching, that of the\n",
-      "replace": "THE conception of the kingdom is\ncommon to all periods of our\nLord's teaching, that of the\n",
+      "replace": "The conception of the kingdom is\ncommon to all periods of our\nLord's teaching, that of the\n",
       "note": "Chapter IX drop cap"
     },
     {
       "page": 176,
       "find": "F      ROM the beginning our Lord'~\n       announcement of the nearness of\n       the kingdom was linked with the\n",
-      "replace": "FROM the beginning our Lord's\nannouncement of the nearness of\nthe kingdom was linked with the\n",
+      "replace": "From the beginning our Lord's\nannouncement of the nearness of\nthe kingdom was linked with the\n",
       "note": "Chapter X drop cap"
     },
     {
       "page": 198,
       "find": "H       AVING   reached the end of our\n        discussion we may now endeavor\n        briefly to formulate the impor-\n",
-      "replace": "HAVING reached the end of our\ndiscussion we may now endeavor\nbriefly to formulate the impor-\n",
+      "replace": "Having reached the end of our\ndiscussion we may now endeavor\nbriefly to formulate the impor-\n",
       "note": "Chapter XI drop cap"
     },
     {
@@ -143,6 +144,714 @@
       "note": "OCR garbage in place of the full stop"
     }
   ],
-  "replacements": [],
-  "wordFixes": {}
+  "replacements": [
+    {
+      "pattern": "^[-–=~;:_*]+\\s+(?=[A-Z])",
+      "flags": "g",
+      "replace": "",
+      "note": "paragraph-end mark ('-;', '=-') glued to the next paragraph"
+    },
+    {
+      "pattern": "\\bcO!1ception\\b",
+      "flags": "g",
+      "replace": "conception",
+      "note": "OCR"
+    },
+    {
+      "pattern": "(^|\\s)=-\\s+",
+      "flags": "g",
+      "replace": "$1",
+      "note": "indent mark read as '=-'"
+    },
+    {
+      "pattern": "~~ the Son",
+      "flags": "g",
+      "replace": "\"the Son",
+      "note": "garbled opening quote"
+    },
+    {
+      "pattern": "\\bth~ ",
+      "flags": "g",
+      "replace": "the ",
+      "note": "tilde for 'e'"
+    },
+    {
+      "pattern": "\\btha~ ",
+      "flags": "g",
+      "replace": "that ",
+      "note": "tilde for 't'"
+    },
+    {
+      "pattern": "\\bha~ ",
+      "flags": "g",
+      "replace": "has ",
+      "note": "tilde for 's'"
+    },
+    {
+      "pattern": "\\bd~ not",
+      "flags": "g",
+      "replace": "do not",
+      "note": "tilde for 'o'"
+    },
+    {
+      "pattern": "~ind\\b",
+      "flags": "g",
+      "replace": "mind",
+      "note": "tilde for 'm'"
+    },
+    {
+      "pattern": "~piritual",
+      "flags": "g",
+      "replace": "spiritual",
+      "note": "tilde for 's'"
+    },
+    {
+      "pattern": "~t least",
+      "flags": "g",
+      "replace": "at least",
+      "note": "tilde for 'a'"
+    },
+    {
+      "pattern": "\\baim~ at",
+      "flags": "g",
+      "replace": "aims at",
+      "note": "tilde for 's'"
+    },
+    {
+      "pattern": "\\bhim~ self",
+      "flags": "g",
+      "replace": "himself",
+      "note": "tilde and stray space"
+    },
+    {
+      "pattern": "juncture~ in",
+      "flags": "g",
+      "replace": "juncture, in",
+      "note": "tilde for comma"
+    },
+    {
+      "pattern": "king- ~dom",
+      "flags": "g",
+      "replace": "kingdom",
+      "note": "hyphen and tilde inside a word"
+    },
+    {
+      "pattern": "\\bthi[\\\"\\u201d]+ ?S1\\b",
+      "flags": "g",
+      "replace": "this",
+      "note": "garbled 'this'"
+    },
+    {
+      "pattern": "\\bof\\u00b7 things",
+      "flags": "g",
+      "replace": "of things",
+      "note": "stray middle dot"
+    },
+    {
+      "pattern": "\\bas\\\\ profound",
+      "flags": "g",
+      "replace": "as profound",
+      "note": "stray backslash"
+    },
+    {
+      "pattern": "\\u2018(work|God|first|and)\\b",
+      "flags": "g",
+      "replace": "$1",
+      "note": "stray opening single quote"
+    },
+    {
+      "pattern": "<Lk\\. finger\\)",
+      "flags": "g",
+      "replace": "(Lk. finger)",
+      "note": "'<' for '('"
+    },
+    {
+      "pattern": "\\bpromist;\\)",
+      "flags": "g",
+      "replace": "promise",
+      "note": "garbled 'promise'"
+    },
+    {
+      "pattern": "\\bcours;;",
+      "flags": "g",
+      "replace": "course,",
+      "note": "garbled 'course,'"
+    },
+    {
+      "pattern": "\\bmora\\]",
+      "flags": "g",
+      "replace": "moral",
+      "note": "']' for 'l'"
+    },
+    {
+      "pattern": "\\bshal\\]",
+      "flags": "g",
+      "replace": "shall",
+      "note": "']' for 'l'"
+    },
+    {
+      "pattern": "\\bC(?:<|;:)esarea",
+      "flags": "g",
+      "replace": "Caesarea",
+      "note": "ligature misread"
+    },
+    {
+      "pattern": "\\bb,etween",
+      "flags": "g",
+      "replace": "between",
+      "note": "stray comma"
+    },
+    {
+      "pattern": "\\br,ender",
+      "flags": "g",
+      "replace": "render",
+      "note": "stray comma"
+    },
+    {
+      "pattern": "repent\\.\\. ance",
+      "flags": "g",
+      "replace": "repentance",
+      "note": "stray dots and space"
+    },
+    {
+      "pattern": "remem[\\\"\\u201d]'? bered",
+      "flags": "g",
+      "replace": "remembered",
+      "note": "stray quote marks inside a word"
+    },
+    {
+      "pattern": "pres-[\\\"\\u201c\\u201d]+ ent",
+      "flags": "g",
+      "replace": "present",
+      "note": "stray quote marks at a line break"
+    },
+    {
+      "pattern": "infalli-, bility",
+      "flags": "g",
+      "replace": "infallibility",
+      "note": "stray comma at a line break"
+    },
+    {
+      "pattern": "\\brej newal",
+      "flags": "g",
+      "replace": "renewal",
+      "note": "stray 'j'"
+    },
+    {
+      "pattern": "\\bkin[gi]l dom\\b",
+      "flags": "g",
+      "replace": "kingdom",
+      "note": "'kingl dom' for 'kingdom'"
+    },
+    {
+      "pattern": "\\bor-Igm\\b",
+      "flags": "g",
+      "replace": "origin",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\bUJ1ity\\b",
+      "flags": "g",
+      "replace": "unity",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\bsupreme lI1zijying, CeJ1-traliztilg factor",
+      "flags": "g",
+      "replace": "supreme unifying, centralizing factor",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\b(?:expresslOn|expression) III\\b",
+      "flags": "g",
+      "replace": "expression in",
+      "note": "OCR 'III' for 'in'"
+    },
+    {
+      "pattern": "\\bsuggestin g\\b",
+      "flags": "g",
+      "replace": "suggesting",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\bJ ?e[Ss]llS\\b",
+      "flags": "g",
+      "replace": "Jesus",
+      "note": "OCR 'Jesus'"
+    },
+    {
+      "pattern": "\\bJ no\\.",
+      "flags": "g",
+      "replace": "Jno.",
+      "note": "split abbreviation"
+    },
+    {
+      "pattern": "\\bJ er\\.",
+      "flags": "g",
+      "replace": "Jer.",
+      "note": "split abbreviation"
+    },
+    {
+      "pattern": "\\bReb\\. ",
+      "flags": "g",
+      "replace": "Heb. ",
+      "note": "OCR 'Heb.'"
+    },
+    {
+      "pattern": "(?<=\\S)[\\]}|] ?(?=(?:esus|estIs|ewish|ews?|ohn|ohannine|udaism|erusalem|eremiah|ehovah)\\b)",
+      "flags": "g",
+      "replace": " J",
+      "note": "'J' misread as ']' glued to the previous word"
+    },
+    {
+      "pattern": "(?<!\\S)[J\\]}|] ?(?=(?:esus|estIs|ewish|ews?|ohn|ohannine|udaism|erusalem|eremiah|ehovah)\\b)",
+      "flags": "g",
+      "replace": "J",
+      "note": "'J' misread as ']' or split off"
+    },
+    {
+      "pattern": "\\bN (ow|or|one|ot)\\b",
+      "flags": "g",
+      "replace": "N$1",
+      "note": "split drop-cap-like capital"
+    },
+    {
+      "pattern": "\\bN at to believe",
+      "flags": "g",
+      "replace": "Not to believe",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\bH ow\\b",
+      "flags": "g",
+      "replace": "How",
+      "note": "split capital"
+    },
+    {
+      "pattern": "\\bY e\\b",
+      "flags": "g",
+      "replace": "Ye",
+      "note": "split capital"
+    },
+    {
+      "pattern": "\\bTh y\\b",
+      "flags": "g",
+      "replace": "Thy",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\bI t (is|would)\\b",
+      "flags": "g",
+      "replace": "It $1",
+      "note": "split capital"
+    },
+    {
+      "pattern": "\\bA postle\\b",
+      "flags": "g",
+      "replace": "Apostle",
+      "note": "split capital"
+    },
+    {
+      "pattern": "\\bConseq uently\\b",
+      "flags": "g",
+      "replace": "Consequently",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\bun paralleled\\b",
+      "flags": "g",
+      "replace": "unparalleled",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\bch urch\\b",
+      "flags": "g",
+      "replace": "church",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\brigh teous\\b",
+      "flags": "g",
+      "replace": "righteous",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\bwas[\\\"”] withtit [\\\"“] ?them",
+      "flags": "g",
+      "replace": "was \"within\" them",
+      "note": "OCR 'within'"
+    },
+    {
+      "pattern": "\\bvV(e|hile)\\b",
+      "flags": "g",
+      "replace": "W$1",
+      "note": "OCR 'W'"
+    },
+    {
+      "pattern": "\\bVV(hen)\\b",
+      "flags": "g",
+      "replace": "W$1",
+      "note": "OCR 'W'"
+    },
+    {
+      "pattern": "\\\\Ve\\b",
+      "flags": "g",
+      "replace": "We",
+      "note": "OCR 'We'"
+    },
+    {
+      "pattern": "\\bH (?=(?:the kingdom|reign|kingship|kingdom|Thy|I will|judging)\\b)",
+      "flags": "g",
+      "replace": "\"",
+      "note": "'H' read for an opening quote"
+    },
+    {
+      "pattern": "\\bI< ?",
+      "flags": "g",
+      "replace": "\"",
+      "note": "'I<' read for an opening quote"
+    },
+    {
+      "pattern": "\\u00ab\\s*",
+      "flags": "g",
+      "replace": "\"",
+      "note": "guillemet"
+    },
+    {
+      "pattern": "J1\\.ETaJ1\\.\\u20acX\\.oJ1\\.at",
+      "flags": "g",
+      "replace": "μεταμέλομαι",
+      "note": "Greek: metamelomai"
+    },
+    {
+      "pattern": "J1\\.E,avoec,;",
+      "flags": "g",
+      "replace": "μετανοέω",
+      "note": "Greek: metanoeo"
+    },
+    {
+      "pattern": "\\u20ac1rUTTp\\u20ac<pop\\.at",
+      "flags": "g",
+      "replace": "ἐπιστρέφομαι",
+      "note": "Greek: epistrephomai"
+    },
+    {
+      "pattern": "declaring[\\\"\\u201d] behold the kingdom of God is \\u20acVTO~ 11p-0W\\. '\\(",
+      "flags": "g",
+      "replace": "declaring: \"behold the kingdom of God is ἐντός ὑμῶν.\"",
+      "note": "Greek: entos hymon (Lk. xvii. 21)"
+    },
+    {
+      "pattern": "his ecdest[\\\"”] ?a\\.",
+      "flags": "g",
+      "replace": "his ἐκκλησία.",
+      "note": "Greek: ekklesia"
+    },
+    {
+      "pattern": "\\bMe!ekh\\b",
+      "flags": "g",
+      "replace": "Melekh",
+      "note": "Hebrew melekh"
+    },
+    {
+      "pattern": "\\bb\\.asileia\\b",
+      "flags": "g",
+      "replace": "basileia",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\s+t d\\.\\s",
+      "flags": "g",
+      "replace": "; cf. ",
+      "note": "'; cf.' garbled"
+    },
+    {
+      "pattern": "(\\d) j (?=[A-Z])",
+      "flags": "g",
+      "replace": "$1; ",
+      "note": "';' read as 'j'"
+    },
+    {
+      "pattern": "\\bxix\\. 1l\\.",
+      "flags": "g",
+      "replace": "xix. 11.",
+      "note": "digit look-alike"
+    },
+    {
+      "pattern": "\\bvii\\. II\\.",
+      "flags": "g",
+      "replace": "vii. 11.",
+      "note": "digit look-alike"
+    },
+    {
+      "pattern": "\\s+,",
+      "flags": "g",
+      "replace": ",",
+      "note": "space before comma"
+    },
+    {
+      "pattern": ",(?=[A-Za-z])",
+      "flags": "g",
+      "replace": ", ",
+      "note": "missing space after comma"
+    },
+    {
+      "pattern": "\\s+([;:!?])",
+      "flags": "g",
+      "replace": "$1",
+      "note": "space before punctuation"
+    },
+    {
+      "pattern": "\\. \\.(?=\\s|$)",
+      "flags": "g",
+      "replace": ".",
+      "note": "doubled full stop"
+    },
+    {
+      "pattern": "\\bitseff1\\b",
+      "flags": "g",
+      "replace": "itself",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\bth9\\b",
+      "flags": "g",
+      "replace": "the",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\be\\.mphatically\\b",
+      "flags": "g",
+      "replace": "emphatically",
+      "note": "stray dot"
+    },
+    {
+      "pattern": "\\bteachin g\\b",
+      "flags": "g",
+      "replace": "teaching",
+      "note": "split word"
+    },
+    {
+      "pattern": "\\b1esus\\b",
+      "flags": "g",
+      "replace": "Jesus",
+      "note": "'J' read as '1'"
+    },
+    {
+      "pattern": "the rendering it reign of God\\\"",
+      "flags": "g",
+      "replace": "the rendering \"reign of God\"",
+      "note": "garbled opening quote"
+    },
+    {
+      "pattern": "Gospels \\\"no doubt can here exist\\. The present",
+      "flags": "g",
+      "replace": "Gospels \"no doubt can here exist.\" The present",
+      "note": "missing closing quote"
+    },
+    {
+      "pattern": "reference to H?eating[\\\"”] and[\\\"”] drinking\\.[\\\"”]",
+      "flags": "g",
+      "replace": "reference to \"eating\" and \"drinking.\"",
+      "note": "misplaced quotes"
+    },
+    {
+      "pattern": "performance[\\\"”] ?of supernatural",
+      "flags": "g",
+      "replace": "performance of supernatural",
+      "note": "stray quote"
+    },
+    {
+      "pattern": "belie,[\\\"”] ?ed to operate",
+      "flags": "g",
+      "replace": "believed to operate",
+      "note": "split word with stray marks"
+    },
+    {
+      "pattern": "disciples of[\\\"”] your Father,\\\"",
+      "flags": "g",
+      "replace": "disciples of \"your Father,\"",
+      "note": "misplaced quote"
+    },
+    {
+      "pattern": "\\\"The Father ?,\\. in the Synoptical",
+      "flags": "g",
+      "replace": "\"The Father,\" in the Synoptical",
+      "note": "garbled closing quote"
+    },
+    {
+      "pattern": "where[\\\"”] The Father[\\\"”] is also",
+      "flags": "g",
+      "replace": "where \"The Father\" is also",
+      "note": "misplaced quotes"
+    },
+    {
+      "pattern": "the expression \\\"his kingdom 0' of",
+      "flags": "g",
+      "replace": "the expression \"his kingdom\" of",
+      "note": "garbled closing quote"
+    },
+    {
+      "pattern": "This[\\\"”] kingdom of the Son of man",
+      "flags": "g",
+      "replace": "This \"kingdom of the Son of man",
+      "note": "misplaced quote"
+    },
+    {
+      "pattern": "\\bH (?=the gates of Hades)",
+      "flags": "g",
+      "replace": "\"",
+      "note": "'H' read for an opening quote"
+    },
+    {
+      "pattern": "There is;[\\\"”] sphere",
+      "flags": "g",
+      "replace": "There is a sphere",
+      "note": "garbled 'a'"
+    },
+    {
+      "pattern": "almighty power of God, With men",
+      "flags": "g",
+      "replace": "almighty power of God, \"With men",
+      "note": "missing opening quote"
+    },
+    {
+      "pattern": "\\\"0 unbelieving",
+      "flags": "g",
+      "replace": "\"O unbelieving",
+      "note": "digit for letter"
+    },
+    {
+      "pattern": "(?<=[,;(\\\"”?]\\s)d\\.\\s",
+      "flags": "g",
+      "replace": "cf. ",
+      "note": "OCR 'cf.' read as 'd.'"
+    },
+    {
+      "pattern": "\\bIt\\? may",
+      "flags": "g",
+      "replace": "It may",
+      "note": "stray question mark"
+    },
+    {
+      "pattern": "\\bcome-Thy will",
+      "flags": "g",
+      "replace": "come, Thy will",
+      "note": "dash read as hyphen"
+    },
+    {
+      "pattern": "\\b(\\d+) if\\.,",
+      "flags": "g",
+      "replace": "$1 ff.,",
+      "note": "'ff.' read as 'if.'"
+    },
+    {
+      "pattern": ";\\.\\.(?=\\s|$)",
+      "flags": "g",
+      "replace": ".",
+      "note": "scan noise after a semicolon"
+    },
+    {
+      "pattern": "\\bis brought onto Taking\\b",
+      "flags": "g",
+      "replace": "is brought out. Taking",
+      "note": "OCR 'out.' read as 'onto'"
+    },
+    {
+      "pattern": "(\\d) ?- ?(?=\\d)",
+      "flags": "g",
+      "replace": "$1-",
+      "note": "space around a range hyphen"
+    },
+    {
+      "pattern": "\\bmOl[’']archy\\b",
+      "flags": "g",
+      "replace": "monarchy",
+      "note": "OCR"
+    },
+    {
+      "pattern": "(\\p{L})[’']S\\)?(?=\\s)",
+      "flags": "gu",
+      "replace": "$1’s",
+      "note": "capital S after apostrophe"
+    },
+    {
+      "pattern": "\\ball til all\\b",
+      "flags": "g",
+      "replace": "all in all",
+      "note": "OCR"
+    },
+    {
+      "pattern": "\\bIii\\. 7\\b",
+      "flags": "g",
+      "replace": "lii. 7",
+      "note": "roman numeral 'lii' read as 'Iii'"
+    },
+    {
+      "pattern": "\\bIs\\. Iv\\. 1\\b",
+      "flags": "g",
+      "replace": "Is. lv. 1",
+      "note": "roman numeral 'lv' read as 'Iv'"
+    }
+  ],
+  "wordFixes": {
+    "activItIes": "activities",
+    "AIthough": "Although",
+    "COlnes": "Comes",
+    "conceptIon": "conception",
+    "conSCIOusness": "consciousness",
+    "Ecdesia": "ecclesia",
+    "esselKe": "essence",
+    "essense": "essence",
+    "expresslOn": "expression",
+    "expressIOns": "expressions",
+    "htinself": "himself",
+    "ineludes": "includes",
+    "intellVene": "intervene",
+    "Isharacter": "character",
+    "Iteaching": "teaching",
+    "itseff1": "itself",
+    "jllstify": "justify",
+    "js": "is",
+    "kingdomconception": "kingdom-conception",
+    "mInIstry": "ministry",
+    "mtellect": "intellect",
+    "ofthe": "of the",
+    "Ollr": "our",
+    "ongm": "origin",
+    "orgamzmg": "organizing",
+    "pdnciples": "principles",
+    "persoll": "person",
+    "prevades": "pervades",
+    "prtillacy": "primacy",
+    "reIgn": "reign",
+    "religioll": "religion",
+    "retallllllg": "retaining",
+    "seeithappenin": "see it happen in",
+    "selfpreservation": "self-preservation",
+    "supematural": "supernatural",
+    "Synaptical": "Synoptical",
+    "tbe": "the",
+    "tdl": "to",
+    "th9": "the",
+    "tIle": "the",
+    "tramoctioJls": "transactions",
+    "VIew": "view",
+    "vVe": "We",
+    "Weare": "We are",
+    "Heating": "eating",
+    "Basileta": "Basileia",
+    "developes": "develops",
+    "IS": "is"
+  },
+  "hyphenation": {
+    "keep": [
+      "high-priestly",
+      "house-steward",
+      "church-body",
+      "ever-widening",
+      "re-adoption"
+    ],
+    "join": []
+  }
 }
