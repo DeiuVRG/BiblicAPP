@@ -4,14 +4,14 @@ Aplicație de bibliotecă creștină (cărți vechi traduse în română + Bibli
 
 ## Capturi de ecran (exportul web)
 
-Tema luminoasă și cea întunecată, una lângă alta, la mărime de telefon (390×844). Variantele de desktop (1280×800) sunt în `docs/screenshots/<ecran>-<temă>-desktop.png`; toate se regenerează cu `node scripts/screenshots-web.mjs` (după `pnpm --filter mobile export:web`).
+Interfața v2 (`docs/ui-spec-v2.md`: hârtie caldă, IM Fell Great Primer și Source Serif 4, terracotta ca unică culoare de accent), tema luminoasă și cea întunecată, una lângă alta, la mărime de telefon (390×844). Variantele de desktop (1366×900) și cele în tema sepia sunt în `docs/screenshots/v2/<ecran>-<temă>-<mărime>.png` (`phone`, `desktop`); toate se regenerează cu `node scripts/screenshots-web.mjs` (după `pnpm --filter mobile export:web`; `--schemes light,dark,sepia`, `--sizes phone,desktop,tablet`). Kit-ul de componente (butoane, chip-uri, tab-uri, pictograme, hero, benzi) este în `docs/screenshots/v2/components-*.png`.
 
 | Ecran                | Luminos                                                                                                  | Întunecat                                                                                                |
 | -------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| Biblioteca           | <img src="docs/screenshots/library-light-phone.png" width="260" alt="Biblioteca, tema luminoasă">         | <img src="docs/screenshots/library-dark-phone.png" width="260" alt="Biblioteca, tema întunecată">         |
-| Lucrarea și cuprinsul | <img src="docs/screenshots/work-light-phone.png" width="260" alt="Pagina lucrării, tema luminoasă">      | <img src="docs/screenshots/work-dark-phone.png" width="260" alt="Pagina lucrării, tema întunecată">      |
-| Cititorul            | <img src="docs/screenshots/reader-light-phone.png" width="260" alt="Cititorul, tema luminoasă">          | <img src="docs/screenshots/reader-dark-phone.png" width="260" alt="Cititorul, tema întunecată">          |
-| Setări               | <img src="docs/screenshots/settings-light-phone.png" width="260" alt="Setările, tema luminoasă">         | <img src="docs/screenshots/settings-dark-phone.png" width="260" alt="Setările, tema întunecată">         |
+| Biblioteca           | <img src="docs/screenshots/v2/library-light-phone.png" width="260" alt="Biblioteca, tema luminoasă">         | <img src="docs/screenshots/v2/library-dark-phone.png" width="260" alt="Biblioteca, tema întunecată">         |
+| Lucrarea și cuprinsul | <img src="docs/screenshots/v2/work-light-phone.png" width="260" alt="Pagina lucrării, tema luminoasă">      | <img src="docs/screenshots/v2/work-dark-phone.png" width="260" alt="Pagina lucrării, tema întunecată">      |
+| Cititorul            | <img src="docs/screenshots/v2/reader-light-phone.png" width="260" alt="Cititorul, tema luminoasă">          | <img src="docs/screenshots/v2/reader-dark-phone.png" width="260" alt="Cititorul, tema întunecată">          |
+| Setări               | <img src="docs/screenshots/v2/settings-light-phone.png" width="260" alt="Setările, tema luminoasă">         | <img src="docs/screenshots/v2/settings-dark-phone.png" width="260" alt="Setările, tema întunecată">         |
 
 ## Structură
 
@@ -22,7 +22,7 @@ Tema luminoasă și cea întunecată, una lângă alta, la mărime de telefon (3
 | `packages/content-tools` | CLI: `ingest-text`, `build-pack`, `verify-pack`, `keygen`                     |
 | `content/`               | surse și lucrări canonice (cheile private în `content/keys/`, ignorat de git) |
 | `supabase/`              | migrări și teste pgTAP (schiță, neaplicată în M0); vezi `supabase/README.md`  |
-| `scripts/`               | verificări de CI (env public, audit, smoke și temă Playwright), pregătire Pages, capturi, pictograme |
+| `scripts/`               | verificări de CI (env public, audit, smoke și temă Playwright, mărimea fonturilor), pregătire Pages, capturi, pictograme |
 | `.github/workflows`      | `ci.yml`, `web-pages.yml`, `android-apk.yml`, `supabase-tests.yml` (manual)   |
 
 ## Rulare pe fiecare platformă
@@ -91,6 +91,7 @@ pnpm --filter mobile export:web
 node scripts/smoke-web.mjs          # Playwright: biblioteca listează o lucrare, cititorul arată paragrafe
 node scripts/check-web-theme.mjs    # Playwright: antet, fundal și text din aceeași paletă, luminos și întunecat; prima pictură, focus, stări ARIA
 node scripts/screenshots-web.mjs    # capturile din docs/screenshots (luminos/întunecat, telefon/desktop)
+node scripts/measure-fonts.mjs      # mărimea fonturilor livrate în export (prima pictură, la cerere, total); --markdown tipărește tabelul din README
 node scripts/generate-icons.mjs     # pictogramele aplicației din apps/mobile/assets/images (doar când se schimbă marca sau paletele)
 ```
 
@@ -126,6 +127,25 @@ Aplicația este exportată ca single-page (`web.output: 'single'`: un singur `in
 3. APK-ul este semnat cu cheia de **debug** a șablonului (ADR-003): este doar pentru testare, nu poate fi publicat în Google Play. Pe un tag `v*` (de exemplu `git tag v0.1.0 && git push origin v0.1.0`) același APK apare și într-un GitHub Release.
 
 Primul build durează mult (descărcare SDK/NDK, compilare nativă); cache-ul Gradle accelerează rulările următoare. iOS nu este construit în CI în M0 (cere macOS și cont Apple Developer).
+
+## Fonturi
+
+Interfața folosește IM Fell Great Primer (titluri; există numai greutatea 400) și Source Serif 4 (text și interfață), cu Literata și Inter ca opțiuni de lectură (setarea „Fontul lecturii”) și Gentium Plus pentru greaca politonică (se încarcă la deschiderea unei ediții grecești). Fișierele TTF vin din pachetele npm `@expo-google-fonts/*`, fixate exact, și sunt livrate în exportul web (nu din CSS-ul Google Fonts, a cărui felie `latin` pierde `ă ș ț`). Prima pictură așteaptă numai cinci fișiere; restul se încarcă la cerere cu `Font.loadAsync` (`apps/mobile/src/theme/fonts.tsx`, `docs/ui-spec-v2.md` secțiunea 2.2).
+
+Mărimea livrată, măsurată pe exportul web din 4 noiembrie 2026 cu `node scripts/measure-fonts.mjs` (după `pnpm --filter mobile export:web`; scriptul iese cu cod diferit de zero dacă prima pictură depășește 1.400 KiB sau totalul 6.144 KiB, iar în GitHub Actions scrie tabelul și în sumarul jobului):
+
+| Familie | Fișiere | KiB | Rol |
+| --- | ---: | ---: | --- |
+| IMFellGreatPrimer | 2 | 446 | titluri (prima pictură) |
+| SourceSerif4 | 4 | 1051 | text și interfață (prima pictură, în afară de italicul 600) |
+| Literata | 5 | 1245 | opțiune de lectură, la cerere |
+| Inter | 3 | 1005 | opțiunea de lectură „Sans”, la cerere |
+| GentiumPlus | 2 | 1609 | ediții grecești, la cerere |
+| **Total livrat** | **16** | **5357** | 5,23 MiB în exportul web |
+| din care prima pictură (se așteaptă) | 5 | 1294 | 1,26 MiB |
+| din care la cerere (`Font.loadAsync`) | 11 | 4063 | 3,97 MiB |
+
+Înainte de interfața v2 exportul livra 8 fișiere (Literata și Inter, 2,20 MiB), toate așteptate la prima pictură. Acum totalul livrat este mai mare (5,23 MiB: fonturile noi, plus Gentium Plus pentru greacă), dar prima pictură așteaptă doar 1,26 MiB, iar restul se descarcă numai când cititorul alege Literata sau Inter ori deschide o ediție grecească.
 
 ## Securitate
 

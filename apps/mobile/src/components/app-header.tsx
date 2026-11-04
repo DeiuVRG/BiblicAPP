@@ -42,7 +42,10 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
       : typeof options.title === 'string'
         ? options.title
         : route.name;
-  const actions = options.headerRight?.({ tintColor: colors.accent, canGoBack: Boolean(back) });
+  const actions = options.headerRight?.({
+    tintColor: colors.accentStrong,
+    canGoBack: Boolean(back),
+  });
 
   return (
     <View
@@ -62,6 +65,7 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
         {back ? (
           <Button
             variant="text"
+            glyph
             title="←"
             label={t.common.back}
             onPress={navigation.goBack}
@@ -73,6 +77,7 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
           <Link href={libraryHref} asChild>
             <Button
               variant="text"
+              glyph
               accessibilityRole="link"
               title="←"
               label={t.common.backToLibrary}
@@ -84,7 +89,7 @@ export function AppHeader({ options, route, back, navigation }: NativeStackHeade
           <View style={styles.titleGap} />
         )}
         <AppText
-          variant={running ? 'original' : 'headerTitle'}
+          variant={running ? 'original' : 'title'}
           accessibilityRole="header"
           level={1}
           numberOfLines={running && !layout.wide ? 2 : 1}

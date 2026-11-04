@@ -1,85 +1,108 @@
-import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
-import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
-import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
-import { Literata_400Regular } from '@expo-google-fonts/literata/400Regular';
-import { Literata_400Regular_Italic } from '@expo-google-fonts/literata/400Regular_Italic';
-import { Literata_500Medium } from '@expo-google-fonts/literata/500Medium';
-import { Literata_600SemiBold } from '@expo-google-fonts/literata/600SemiBold';
-import { Literata_700Bold } from '@expo-google-fonts/literata/700Bold';
-import { useFonts } from 'expo-font';
-import { createContext, useContext } from 'react';
-import { Platform } from 'react-native';
+import { loadAsync, useFonts } from 'expo-font';
+import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from 'react';
 
-export interface FontFamilies {
-  /** Reading serif (Literata covers U+0218 to U+021B, the comma-below s/t). */
-  reading: string | undefined;
-  readingItalic: string | undefined;
-  /** Literata 500, for typographic samples such as the "Aa" button. */
-  readingMedium: string | undefined;
-  /** Literata 600, for titles. */
-  readingSemiBold: string | undefined;
-  readingBold: string | undefined;
-  /** UI sans (Inter). */
-  ui: string | undefined;
-  uiMedium: string | undefined;
-  uiSemiBold: string | undefined;
+import { fallbackFonts, fontFamiliesFor, needsGreekFace } from './font-families';
+import type { FontFamilies } from './font-families';
+import { FIRST_PAINT_FONTS, FONT_GROUPS } from './font-sources';
+import type { FontGroup } from './font-sources';
+
+export {
+  READING_FONTS,
+  fallbackFonts,
+  fontFamiliesFor,
+  groupForReadingFont,
+  hasPolytonicGreek,
+  loadedFonts,
+  needsGreekFace,
+  readingFaces,
+} from './font-families';
+export type { FontFamilies, FontState, ReadingFaces, ReadingFont } from './font-families';
+export type { FontGroup } from './font-sources';
+
+// --- on-demand loading -------------------------------------------------------------------------
+
+// The groups that finished loading, as an immutable snapshot that is replaced when a group arrives
+// (`useSyncExternalStore` compares snapshots by reference).
+let loadedGroups: ReadonlySet<FontGroup> = new Set();
+const pending = new Map<FontGroup, Promise<boolean>>();
+const listeners = new Set<() => void>();
+
+function subscribe(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
 }
 
-const webSerif = 'Georgia, "Times New Roman", serif';
-const webSans = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+/** The signature of `expo-font`'s `loadAsync` for a map of fonts; the tests pass their own. */
+export type FontLoader = (fonts: Record<string, unknown>) => Promise<void>;
 
-/** Used until the custom fonts are loaded, and when loading fails. */
-export const fallbackFonts: FontFamilies = Platform.select<FontFamilies>({
-  web: {
-    reading: webSerif,
-    readingItalic: webSerif,
-    readingMedium: webSerif,
-    readingSemiBold: webSerif,
-    readingBold: webSerif,
-    ui: webSans,
-    uiMedium: webSans,
-    uiSemiBold: webSans,
-  },
-  default: {
-    reading: undefined,
-    readingItalic: undefined,
-    readingMedium: undefined,
-    readingSemiBold: undefined,
-    readingBold: undefined,
-    ui: undefined,
-    uiMedium: undefined,
-    uiSemiBold: undefined,
-  },
-})!;
+/**
+ * Loads a group of fonts (once: later calls get the same promise). Resolves to true when the
+ * group is loaded and to false when loading failed; it never rejects, and a failed group can be
+ * asked for again. `loader` is a test seam.
+ */
+export function loadFontGroup(
+  group: FontGroup,
+  loader: FontLoader = loadAsync as FontLoader,
+): Promise<boolean> {
+  if (loadedGroups.has(group)) return Promise.resolve(true);
+  const existing = pending.get(group);
+  if (existing) return existing;
+  const promise = Promise.resolve()
+    .then(() => loader(FONT_GROUPS[group]))
+    .then(
+      () => {
+        loadedGroups = new Set([...loadedGroups, group]);
+        pending.delete(group);
+        listeners.forEach((listener) => listener());
+        return true;
+      },
+      () => {
+        pending.delete(group);
+        return false;
+      },
+    );
+  pending.set(group, promise);
+  return promise;
+}
 
-export const loadedFonts: FontFamilies = {
-  reading: 'Literata_400Regular',
-  readingItalic: 'Literata_400Regular_Italic',
-  readingMedium: 'Literata_500Medium',
-  readingSemiBold: 'Literata_600SemiBold',
-  readingBold: 'Literata_700Bold',
-  ui: 'Inter_400Regular',
-  uiMedium: 'Inter_500Medium',
-  uiSemiBold: 'Inter_600SemiBold',
-};
+/** Forgets what was loaded (tests only). */
+export function resetFontGroups(): void {
+  loadedGroups = new Set();
+  pending.clear();
+  listeners.forEach((listener) => listener());
+}
 
-const fontSources = {
-  Literata_400Regular,
-  Literata_400Regular_Italic,
-  Literata_500Medium,
-  Literata_600SemiBold,
-  Literata_700Bold,
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-};
+/** The on-demand groups that are loaded now; re-renders when one arrives. */
+export function useLoadedFontGroups(): ReadonlySet<FontGroup> {
+  return useSyncExternalStore(
+    subscribe,
+    () => loadedGroups,
+    () => loadedGroups,
+  );
+}
 
-/** Loads the bundled fonts. `ready` is true once loading finished (successfully or not). */
+/** Asks for a group when `group` is not null (and every time it changes). */
+export function useFontGroup(group: FontGroup | null): void {
+  useEffect(() => {
+    if (group) void loadFontGroup(group);
+  }, [group]);
+}
+
+// --- the app ----------------------------------------------------------------------------------
+
+/**
+ * Loads the first-paint set. `ready` is true once loading finished (successfully or not): the
+ * splash screen (native) and the blank page (web, the HTML template paints the background) are
+ * held until then, and nothing else is awaited. `families` follows the on-demand groups too.
+ */
 export function useAppFonts(): { ready: boolean; families: FontFamilies } {
-  const [loaded, error] = useFonts(fontSources);
+  const [loaded, error] = useFonts(FIRST_PAINT_FONTS);
+  const groups = useLoadedFontGroups();
   return {
     ready: loaded || error != null,
-    families: loaded ? loadedFonts : fallbackFonts,
+    families: fontFamiliesFor({ firstPaint: loaded, groups }),
   };
 }
 
@@ -88,4 +111,17 @@ export const FontsProvider = FontsContext.Provider;
 
 export function useFontFamilies(): FontFamilies {
   return useContext(FontsContext);
+}
+
+/** Loads the font group of the Greek face when a lane's language needs it; returns the faces. */
+export function useGreekFace(language: string | undefined): FontFamilies['greek'] | null {
+  const greek = needsGreekFace(language);
+  useFontGroup(greek ? 'gentium' : null);
+  const fonts = useFontFamilies();
+  return greek ? fonts.greek : null;
+}
+
+/** A stable callback that loads a group: for event handlers (choosing a font in Settings). */
+export function useFontGroupLoader(): (group: FontGroup) => Promise<boolean> {
+  return useCallback((group: FontGroup) => loadFontGroup(group), []);
 }

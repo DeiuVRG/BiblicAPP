@@ -56,20 +56,20 @@ describe('AppText', () => {
         <AppText variant="caption" muted={false}>
           Subsol
         </AppText>
-        <AppText variant="ui">Buton</AppText>
+        <AppText variant="meta">Buton</AppText>
       </FontsProvider>,
     );
     const title = screen.getByText('Titlu');
     expect(title).toHaveStyle({
-      fontFamily: 'Literata_600SemiBold',
-      fontSize: 22,
+      fontFamily: 'SourceSerif4_600SemiBold',
+      fontSize: 20,
       color: palettes.light.text,
     });
     expect(title.props.accessibilityRole).toBe('header');
 
     const label = screen.getByText('Etichetă');
     expect(label).toHaveStyle({
-      fontFamily: 'Inter_500Medium',
+      fontFamily: 'SourceSerif4_600SemiBold',
       textTransform: 'uppercase',
       color: palettes.light.textMuted,
     });
@@ -87,7 +87,7 @@ describe('AppText', () => {
 });
 
 describe('Button', () => {
-  it('has primary, secondary and text variants that press and expose their name', async () => {
+  it('has primary, outline and text variants that press and expose their name', async () => {
     const onPress = jest.fn();
     await renderWithProviders(
       <>
@@ -102,8 +102,11 @@ describe('Button', () => {
     await fireEvent.press(screen.getByLabelText('Înapoi'));
     expect(onPress).toHaveBeenCalledTimes(3);
     expect(screen.getByLabelText('Oprit')).toBeDisabled();
-    // The primary button is the accent colour with the matching text colour.
-    expect(screen.getByLabelText('Începe')).toHaveStyle({ backgroundColor: palettes.light.accent });
+    // The primary button is `accentStrong` (4.5:1 under its label), the label `onAccent`; the
+    // brand colour `accent` is for fills without text.
+    expect(screen.getByLabelText('Începe')).toHaveStyle({
+      backgroundColor: palettes.light.accentStrong,
+    });
     expect(screen.getByText('Începe')).toHaveStyle({ color: palettes.light.onAccent });
   });
 
@@ -236,17 +239,18 @@ describe('SegmentedControl layout and keyboard', () => {
       expect.objectContaining({ overflow: 'hidden' }),
     );
     // One row: the first segment has the left corners, the last one the right ones.
-    expect(radius('Automat')).toEqual([5, 0, 0, 5]);
+    // (The group has radius 3 and a 1 px border: the segments round their corners by 2.)
+    expect(radius('Automat')).toEqual([2, 0, 0, 2]);
     expect(radius('Luminos')).toEqual([0, 0, 0, 0]);
     expect(radius('Sepia')).toEqual([0, 0, 0, 0]);
-    expect(radius('Întunecat')).toEqual([0, 5, 5, 0]);
+    expect(radius('Întunecat')).toEqual([0, 2, 2, 0]);
 
     // Two rows: one segment per corner.
     await resizeTo(312);
-    expect(radius('Automat')).toEqual([5, 0, 0, 0]);
-    expect(radius('Luminos')).toEqual([0, 5, 0, 0]);
-    expect(radius('Sepia')).toEqual([0, 0, 0, 5]);
-    expect(radius('Întunecat')).toEqual([0, 0, 5, 0]);
+    expect(radius('Automat')).toEqual([2, 0, 0, 0]);
+    expect(radius('Luminos')).toEqual([0, 2, 0, 0]);
+    expect(radius('Sepia')).toEqual([0, 0, 0, 2]);
+    expect(radius('Întunecat')).toEqual([0, 0, 2, 0]);
   });
 
   it('draws the group and its dividers with the control outline colour', async () => {

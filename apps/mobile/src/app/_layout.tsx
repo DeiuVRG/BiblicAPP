@@ -58,7 +58,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
         screenOptions={{
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
-          headerTitleStyle: { fontFamily: fonts.readingSemiBold, fontSize: 20, color: colors.text },
+          headerTitleStyle: { fontFamily: fonts.textSemiBold, fontSize: 20, color: colors.text },
           headerShadowVisible: false,
           headerBackTitle: t.common.back,
           contentStyle: { backgroundColor: colors.background },

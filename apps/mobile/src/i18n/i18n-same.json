@@ -1,0 +1,15 @@
+{
+  "appName": "proper noun: the app is called the same in both languages",
+  "work.original": "cognate: Original",
+  "editionKind.source": "cognate: Original",
+  "reader.typographyButton": "the sample \"Aa\" says what it is in both languages",
+  "settings.themes.sepia": "cognate: Sepia",
+  "settings.fontSizeValue": "a number and the unit pt, written the same",
+  "settings.uiLanguages.ro": "a language is written in its own language: Română",
+  "settings.uiLanguages.en": "a language is written in its own language: English",
+  "readingLanguages.ro": "a language is written in its own language: Română",
+  "readingLanguages.en": "a language is written in its own language: English",
+  "settings.readingFonts.serif": "a name of a face: Serif",
+  "settings.readingFonts.literata": "a name of a typeface: Literata",
+  "settings.readingFonts.sans": "a name of a face: Sans"
+}

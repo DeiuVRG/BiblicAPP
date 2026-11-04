@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Draws the app icons: a Literata SemiBold "B" with a short accent rule under it, in the paper
-// and ink of the palettes (apps/mobile/src/theme/palettes.ts is the source of the colours; the
-// font is the one the app reads in, from @expo-google-fonts/literata). Replaces the Expo template
+// Draws the app icons: an IM Fell Great Primer "B" (the display face of the app, the one of the
+// brand wordmark) with a short accent rule under it, in the paper and ink of the palettes
+// (apps/mobile/src/theme/palettes.ts is the source of the colours; the font is the one the app
+// shows its titles in, from @expo-google-fonts/im-fell-great-primer). Replaces the Expo template
 // artwork and can be run again whenever the palettes or the mark change:
 //
 //   node scripts/generate-icons.mjs [--out apps/mobile/assets/images]
@@ -35,7 +36,8 @@ function colour(palette, token) {
 
 const paper = colour('light', 'background');
 const ink = colour('dark', 'background');
-const burgundy = colour('light', 'accent');
+// `accent` is the brand colour for fills and graphics: the rule under the letter.
+const terracotta = colour('light', 'accent');
 const peach = colour('dark', 'accent');
 
 // --- what is drawn -------------------------------------------------------------------------------
@@ -71,7 +73,7 @@ const ASSETS = [
     cap: 0.54,
   },
   // Native splash, on the paper and on the ink background of the app.
-  { file: 'splash-icon.png', size: 384, glyph: ink, rule: burgundy, ...MARK },
+  { file: 'splash-icon.png', size: 384, glyph: ink, rule: terracotta, ...MARK },
   { file: 'splash-icon-dark.png', size: 384, glyph: paper, rule: peach, ...MARK },
 ];
 
@@ -80,8 +82,8 @@ const ASSETS = [
  * PNG data URL. Takes `[spec, fontBase64]` because the page call passes a single argument.
  */
 async function draw([spec, fontBase64]) {
-  const face = new FontFace('Literata', `url(data:font/ttf;base64,${fontBase64})`, {
-    weight: '600',
+  const face = new FontFace('IMFellGreatPrimer', `url(data:font/ttf;base64,${fontBase64})`, {
+    weight: '400',
   });
   await face.load();
   document.fonts.add(face);
@@ -101,9 +103,9 @@ async function draw([spec, fontBase64]) {
 
   if (spec.glyph) {
     // Scale the font so that the cap height is exactly `cap` of the canvas.
-    ctx.font = '600 100px Literata';
+    ctx.font = '400 100px IMFellGreatPrimer';
     const unit = ctx.measureText('B').actualBoundingBoxAscent / 100;
-    ctx.font = `600 ${(spec.cap * size) / unit}px Literata`;
+    ctx.font = `400 ${(spec.cap * size) / unit}px IMFellGreatPrimer`;
     const box = ctx.measureText('B');
     const glyphHeight = box.actualBoundingBoxAscent + box.actualBoundingBoxDescent;
     const glyphWidth = box.actualBoundingBoxRight - box.actualBoundingBoxLeft;
@@ -138,7 +140,7 @@ async function draw([spec, fontBase64]) {
 async function main() {
   const fontFile = join(
     root,
-    'node_modules/@expo-google-fonts/literata/600SemiBold/Literata_600SemiBold.ttf',
+    'node_modules/@expo-google-fonts/im-fell-great-primer/400Regular/IMFellGreatPrimer_400Regular.ttf',
   );
   const fontBase64 = readFileSync(fontFile).toString('base64');
   mkdirSync(out, { recursive: true });

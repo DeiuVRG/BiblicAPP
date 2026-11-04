@@ -20,7 +20,8 @@ export interface ThemedDocument {
  * root element and of the body (the canvas takes the root element's background: overscroll, the
  * area around the app root), the native widgets' `color-scheme` (form controls), the scrollbars
  * (thumb and track), the browser chrome colour and the CSS variables the HTML template reads
- * (`--app-background` for <html> and <body>, `--app-accent` for the focus ring). The template
+ * (`--app-background` for <html> and <body>, `--app-accent` for the focus ring, which is the
+ * palette's `accentStrong`, and `--app-masthead-ink` for the ring on dark bands). The template
  * paints the stored or system scheme before this runs (`public/index.html`).
  */
 export function applyDocumentTheme(doc: ThemedDocument, name: ThemeName, colors: Palette): void {
@@ -28,7 +29,9 @@ export function applyDocumentTheme(doc: ThemedDocument, name: ThemeName, colors:
   root.colorScheme = name === 'dark' ? 'dark' : 'light';
   root.backgroundColor = colors.background;
   root.setProperty('--app-background', colors.background);
-  root.setProperty('--app-accent', colors.accent);
+  // The focus ring is `accentStrong`; a `masthead` band re-colours it with `--app-masthead-ink`.
+  root.setProperty('--app-accent', colors.accentStrong);
+  root.setProperty('--app-masthead-ink', colors.mastheadInk);
   // Inherited, so it reaches the scroll containers inside the app root as well as the page.
   root.setProperty('scrollbar-color', `${colors.borderStrong} ${colors.background}`);
   if (doc.body) doc.body.style.backgroundColor = colors.background;

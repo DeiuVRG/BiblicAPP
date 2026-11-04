@@ -29,6 +29,19 @@ export function editionLabel(
   return `${editionLanguageLabel(edition.language, t)} · ${t.editionKind[edition.kind].toLowerCase()}`;
 }
 
+/**
+ * "sec. V" / "secolul al V-lea" (long, first: "secolul I") in Romanian, "5th century" in English; a
+ * negative century is before Christ. An empty string for an unknown century.
+ */
+export function formatCenturyLabel(
+  century: number | null | undefined,
+  t: Strings,
+  style: 'short' | 'long' = 'short',
+): string {
+  if (century == null) return '';
+  return style === 'long' ? t.dates.centuryLong(century) : t.dates.centuryShort(century);
+}
+
 /** "1903", "5 î.Hr." / "5 BC" or an empty string for unknown years. */
 export function formatYear(year: number | null | undefined, t: Strings): string {
   if (year == null) return '';

@@ -6,6 +6,7 @@ import { AppText } from '@/components/app-text';
 import { MIN_TARGET } from '@/components/button';
 import { useHover } from '@/components/hover';
 import { useTheme } from '@/theme/theme-context';
+import { radii } from '@/theme/tokens';
 
 interface Option<T extends string> {
   value: T;
@@ -25,7 +26,7 @@ export const MIN_SEGMENT_WIDTH = 84;
 /** The system font scale is honoured up to the same cap as the text itself (`UI_MAX_FONT_SCALE`). */
 const MAX_SCALE = 1.5;
 
-const GROUP_RADIUS = 6;
+const GROUP_RADIUS = radii.sm;
 const GROUP_BORDER = 1;
 /** Corner radius of the segments that sit in a corner of the group (inside its border). */
 const SEGMENT_RADIUS = GROUP_RADIUS - GROUP_BORDER;
@@ -198,7 +199,7 @@ function Segment({
       style={({ pressed }) => [
         styles.segment,
         {
-          backgroundColor: selected ? colors.accent : hovered ? colors.surface : undefined,
+          backgroundColor: selected ? colors.accentStrong : hovered ? colors.surface : undefined,
           borderLeftColor: colors.borderStrong,
           borderLeftWidth: first ? 0 : 1,
           borderTopLeftRadius: corners.topLeft ? SEGMENT_RADIUS : 0,
@@ -210,7 +211,7 @@ function Segment({
       ]}
     >
       <AppText
-        variant="ui"
+        variant="meta"
         numberOfLines={1}
         style={[styles.text, { color: selected ? colors.onAccent : colors.text }]}
       >

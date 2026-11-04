@@ -106,11 +106,13 @@ describe('settings sanitising', () => {
     const stored = { fontSize: 20, lineHeight: 1.5, theme: 'sepia' };
     expect(sanitizeSettings(stored, createDefaultSettings('ro-RO'))).toEqual({
       ...stored,
+      readingFont: 'serif',
       readingLanguage: 'ro',
       uiLanguage: 'system',
     });
     expect(sanitizeSettings(stored, createDefaultSettings('en-US'))).toEqual({
       ...stored,
+      readingFont: 'serif',
       readingLanguage: 'en',
       uiLanguage: 'system',
     });
@@ -137,9 +139,22 @@ describe('default settings', () => {
       fontSize: 18,
       lineHeight: 1.6,
       theme: 'system',
+      readingFont: 'serif',
       readingLanguage: 'ro',
       uiLanguage: 'system',
     });
+  });
+});
+
+describe('reading font setting', () => {
+  it('keeps the three faces the reader can choose and nothing else', () => {
+    for (const readingFont of ['serif', 'literata', 'sans'] as const) {
+      expect(sanitizeSettings({ readingFont }).readingFont).toBe(readingFont);
+    }
+    expect(sanitizeSettings({ readingFont: 'comic' }).readingFont).toBe('serif');
+    expect(sanitizeSettings({ readingFont: 7 }).readingFont).toBe('serif');
+    expect(sanitizeSettings({}).readingFont).toBe('serif');
+    expect(createDefaultSettings('en-US').readingFont).toBe('serif');
   });
 });
 

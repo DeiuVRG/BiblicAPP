@@ -9,7 +9,12 @@ import { Hairline } from '@/components/hairline';
 import { ReadingLanguageControl, UiLanguageControl } from '@/components/language-controls';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
-import { FontSizeControl, LineHeightControl, ThemeControl } from '@/components/typography-controls';
+import {
+  FontSizeControl,
+  LineHeightControl,
+  ReadingFontControl,
+  ThemeControl,
+} from '@/components/typography-controls';
 import { useContent } from '@/content/content-context';
 import { workTitle } from '@/content/titles';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
@@ -51,7 +56,7 @@ function Section({
 function Preview() {
   const t = useT();
   const { colors } = useTheme();
-  const readingStyle = useTypeStyle('body', false);
+  const readingStyle = useTypeStyle('reading', false);
   return (
     <View style={[styles.preview, { backgroundColor: colors.surface }]}>
       <AppText variant="caption">{t.settings.preview}</AppText>
@@ -101,6 +106,7 @@ export function SettingsScreen() {
       <PageTitle parts={[t.settings.title]} />
       <ScrollView contentContainerStyle={[contentStyle, styles.content]}>
         <Section title={t.settings.reading} first>
+          <ReadingFontControl />
           <FontSizeControl />
           <LineHeightControl />
           <Preview />

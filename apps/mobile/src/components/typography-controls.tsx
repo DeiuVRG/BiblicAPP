@@ -4,6 +4,7 @@ import { SegmentedControl } from '@/components/segmented-control';
 import { SettingRow } from '@/components/setting-row';
 import { Stepper } from '@/components/stepper';
 import { useT } from '@/i18n';
+import { READING_FONTS } from '@/theme/font-families';
 import { clamp, roundLineHeight } from '@/settings/sanitize';
 import { useSettings } from '@/settings/settings-context';
 import {
@@ -59,6 +60,23 @@ export function LineHeightControl() {
   );
 }
 
+/** Serif / Literata / Sans: the face of the reading text (Source Serif 4, Literata, Inter). */
+export function ReadingFontControl() {
+  const t = useT();
+  const { settings, update } = useSettings();
+  const options = READING_FONTS.map((value) => ({ value, label: t.settings.readingFonts[value] }));
+  return (
+    <SettingRow label={t.settings.readingFont} fill>
+      <SegmentedControl
+        label={t.settings.readingFont}
+        options={options}
+        value={settings.readingFont}
+        onChange={(readingFont) => update({ readingFont })}
+      />
+    </SettingRow>
+  );
+}
+
 /** Automatic / light / sepia / dark. `labelled={false}` when a section heading already says "Tema". */
 export function ThemeControl({ labelled = true }: { labelled?: boolean }) {
   const t = useT();
@@ -84,10 +102,11 @@ export function ThemeControl({ labelled = true }: { labelled?: boolean }) {
   );
 }
 
-/** Font size, line height and theme controls; used in the reader's typography sheet. */
+/** Font, font size, line height and theme controls; used in the reader's typography sheet. */
 export function TypographyControls() {
   return (
     <View style={styles.group}>
+      <ReadingFontControl />
       <FontSizeControl />
       <LineHeightControl />
       <ThemeControl />

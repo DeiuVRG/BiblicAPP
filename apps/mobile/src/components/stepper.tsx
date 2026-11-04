@@ -29,11 +29,23 @@ export function Stepper({
   return (
     <SettingRow label={label}>
       <View style={styles.controls}>
-        <Button title="−" label={decreaseLabel} onPress={onDecrease} disabled={!canDecrease} />
-        <AppText variant="ui" style={styles.value} accessibilityLiveRegion="polite">
+        <Button
+          glyph
+          title="−"
+          label={decreaseLabel}
+          onPress={onDecrease}
+          disabled={!canDecrease}
+        />
+        <AppText variant="meta" style={styles.value} accessibilityLiveRegion="polite">
           {valueText}
         </AppText>
-        <Button title="+" label={increaseLabel} onPress={onIncrease} disabled={!canIncrease} />
+        <Button
+          glyph
+          title="+"
+          label={increaseLabel}
+          onPress={onIncrease}
+          disabled={!canIncrease}
+        />
       </View>
     </SettingRow>
   );

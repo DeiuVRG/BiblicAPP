@@ -23,6 +23,7 @@ describe('SettingsProvider', () => {
       fontSize: 22,
       lineHeight: 1.7,
       theme: 'dark',
+      readingFont: 'literata',
       readingLanguage: 'en',
       uiLanguage: 'en',
     };
@@ -101,6 +102,7 @@ describe('SettingsProvider', () => {
       fontSize: 20,
       lineHeight: 1.5,
       theme: 'light',
+      readingFont: 'serif',
       readingLanguage: 'en',
       uiLanguage: 'system',
     });

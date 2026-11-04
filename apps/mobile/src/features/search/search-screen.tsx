@@ -91,7 +91,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
               {
                 color: colors.text,
                 borderColor: colors.borderStrong,
-                fontFamily: fonts.ui,
+                fontFamily: fonts.text,
               },
             ]}
           />
@@ -160,7 +160,7 @@ function ResultRow({
   showWork: boolean;
 }) {
   const t = useT();
-  const snippetStyle = useTypeStyle('body', false);
+  const snippetStyle = useTypeStyle('reading', false);
   // The language of the edition the hit is in, written next to the chapter.
   const language = editionLanguageLabel(hit.language, t);
   // Screen readers always hear where the hit is; the visible line names the work only when the

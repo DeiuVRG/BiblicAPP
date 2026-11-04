@@ -210,7 +210,10 @@ export function createInMemoryRepository(
       list.push(paragraph);
       paragraphsBySection.set(paragraph.sectionId, list);
     }
-    summariesByWork.set(pack.work.id, [...(summariesByWork.get(pack.work.id) ?? []), record.summary]);
+    summariesByWork.set(pack.work.id, [
+      ...(summariesByWork.get(pack.work.id) ?? []),
+      record.summary,
+    ]);
     packsByWork.set(pack.work.id, [...(packsByWork.get(pack.work.id) ?? []), pack]);
   }
 

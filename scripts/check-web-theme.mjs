@@ -409,8 +409,8 @@ const focusRing = () => {
   };
 };
 
-// Settings has several radio groups (theme, reading language, interface language): the theme
-// one is found by its name, "Tema".
+// Settings has several radio groups (reading font, theme, reading language, interface language):
+// the theme one is found by its name, "Tema".
 const THEME_RADIOS = '[role="radiogroup"][aria-label="Tema"] [role="radio"]';
 
 /** The theme radios as the DOM exposes them. Evaluated inside the page. */
@@ -466,13 +466,14 @@ async function semanticsProblems(page, scenario, site, routes) {
     await page.waitForTimeout(250);
   };
 
-  // The focus ring: keyboard focus only, 2 px, in the accent colour of the theme.
+  // The focus ring: keyboard focus only, 2 px, in the `accentStrong` of the theme (the brand
+  // colour `accent` is for fills and graphics; text and rings need 4.5:1 and 3:1).
   await open('library', routes.library);
   await page.keyboard.press('Tab');
   const ring = await page.evaluate(focusRing);
   expectEqual('focus ring style after Tab', ring.style, 'solid');
   expectEqual('focus ring width after Tab', ring.width, '2px');
-  expectEqual('focus ring colour after Tab', ring.colour, palette.accent);
+  expectEqual('focus ring colour after Tab', ring.colour, palette.accentStrong);
 
   // Search: the field has focus on arrival; its ring replaces its border; typing does not resize
   // it, and the clear button stays inside it.
@@ -481,7 +482,7 @@ async function semanticsProblems(page, scenario, site, routes) {
   await field.waitFor({ timeout: args.timeout });
   await page.waitForTimeout(250);
   const fieldRing = await page.evaluate(focusRing);
-  expectEqual('search field focus ring colour', fieldRing.colour, palette.accent);
+  expectEqual('search field focus ring colour', fieldRing.colour, palette.accentStrong);
   expectEqual('search field focus ring width', fieldRing.width, '2px');
   expectEqual('search field focus ring offset', fieldRing.offset, '-1px');
   const before = await field.boundingBox();
@@ -589,7 +590,7 @@ async function semanticsProblems(page, scenario, site, routes) {
   expectEqual(
     'radio groups of Settings',
     JSON.stringify(sizes),
-    JSON.stringify({ Tema: 4, 'Limba lecturii': 2, 'Limba interfeței': 3 }),
+    JSON.stringify({ 'Fontul lecturii': 3, Tema: 4, 'Limba lecturii': 2, 'Limba interfeței': 3 }),
   );
   for (const group of groups) {
     expectEqual(
@@ -662,7 +663,7 @@ async function semanticsProblems(page, scenario, site, routes) {
   expectEqual(
     'radio groups of Settings in English',
     JSON.stringify((await page.evaluate(radioGroupsOf)).map((group) => group.name)),
-    JSON.stringify(['Theme', 'Reading language', 'Interface language']),
+    JSON.stringify(['Reading font', 'Theme', 'Reading language', 'Interface language']),
   );
   expectEqual(
     'radio labels cut off on Settings in English',

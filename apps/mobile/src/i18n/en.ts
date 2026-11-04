@@ -1,7 +1,21 @@
+import { formatCentury } from './centuries';
+import { count } from './plural';
 import type { Strings } from './strings';
 
 // English UI strings. Every key of `ro.ts` has to be here (`Strings` is derived from that table).
-// British spelling, like the rest of the project ("licence").
+// British spelling, like the rest of the project ("licence"). A number next to a noun is always
+// written with `count`.
+const forms = {
+  works: { one: 'work', other: 'works' },
+  passages: { one: 'passage', other: 'passages' },
+  editions: { one: 'edition', other: 'editions' },
+  sections: { one: 'section', other: 'sections' },
+  sources: { one: 'source', other: 'sources' },
+  results: { one: 'result', other: 'results' },
+  authors: { one: 'author', other: 'authors' },
+  packs: { one: 'content pack', other: 'content packs' },
+};
+
 export const en: Strings = {
   appName: 'Biblioteca',
   common: {
@@ -9,6 +23,16 @@ export const en: Strings = {
     error: 'Something went wrong. Please try again.',
     back: 'Back',
     backToLibrary: 'Back to the library',
+    close: 'Close',
+  },
+  counts: {
+    works: (n) => count(n, forms.works, 'en'),
+    passages: (n) => count(n, forms.passages, 'en'),
+    editions: (n) => count(n, forms.editions, 'en'),
+    sections: (n) => count(n, forms.sections, 'en'),
+    sources: (n) => count(n, forms.sources, 'en'),
+    results: (n) => count(n, forms.results, 'en'),
+    authors: (n) => count(n, forms.authors, 'en'),
   },
   library: {
     title: 'Library',
@@ -19,10 +43,10 @@ export const en: Strings = {
     settings: 'Settings',
     openWork: (title) => `Open the work ${title}`,
     editions: 'Editions',
-    unverified: (count) =>
-      count === 1
+    unverified: (n) =>
+      n === 1
         ? 'One content pack could not be verified and is not shown.'
-        : `${count} content packs could not be verified and are not shown.`,
+        : `${count(n, forms.packs, 'en')} could not be verified and are not shown.`,
   },
   work: {
     title: 'Work',
@@ -67,8 +91,8 @@ export const en: Strings = {
     hint: 'Type at least 2 characters. Search ignores capitals and diacritics.',
     noResults: 'No results.',
     searching: 'Searching…',
-    results: (count) => (count === 1 ? '1 result' : `${count} results`),
-    resultsCapped: (count) => `First ${count} results`,
+    results: (n) => count(n, forms.results, 'en'),
+    resultsCapped: (n) => `First ${count(n, forms.results, 'en')}`,
     openResult: (heading) => `Open the result in ${heading}`,
     clear: 'Clear the search',
   },
@@ -76,13 +100,19 @@ export const en: Strings = {
     title: 'Settings',
     reading: 'Reading',
     fontSize: 'Text size',
-    fontSizeValue: (size) => `${size} pt`,
+    fontSizeValue: (size) => `${size}\u00A0pt`,
     increaseFontSize: 'Increase the text size',
     decreaseFontSize: 'Decrease the text size',
     lineHeight: 'Line spacing',
     lineHeightValue: (value) => value.toFixed(1),
     increaseLineHeight: 'Increase the line spacing',
     decreaseLineHeight: 'Decrease the line spacing',
+    readingFont: 'Reading font',
+    readingFonts: {
+      serif: 'Serif',
+      literata: 'Literata',
+      sans: 'Sans',
+    },
     theme: 'Theme',
     themes: {
       // Short on purpose: four options share a row of a phone, and "Automatic" is cut off.
@@ -112,7 +142,8 @@ export const en: Strings = {
     licenceTitle: 'Content licence',
     licenceNote:
       'Each edition states its licence status on the page of the work. Public-domain texts can be read and copied freely; the licence shown applies to the others.',
-    fonts: 'Fonts: Literata (reading) and Inter (interface), under the SIL Open Font License.',
+    fonts:
+      'Fonts: IM Fell Great Primer (titles), Source Serif 4 (text and interface), Literata and Inter (reading options), Gentium Plus (Greek), under the SIL Open Font License.',
     noWorks: 'No works installed.',
   },
   licenceStatus: {
@@ -151,6 +182,9 @@ export const en: Strings = {
     bc: (year) => `${year} BC`,
     born: (year) => `b. ${year}`,
     died: (year) => `d. ${year}`,
+    // "5th century"; a negative century is before Christ ("5th century BC"). One form for both.
+    centuryShort: (century) => formatCentury(century, 'en', 'short'),
+    centuryLong: (century) => formatCentury(century, 'en', 'long'),
   },
   notFound: {
     title: 'Page not found',

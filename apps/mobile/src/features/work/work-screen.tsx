@@ -35,6 +35,7 @@ import { loadPosition } from '@/reading/position-store';
 import type { ReadingPosition } from '@/reading/position-store';
 import { useSettings } from '@/settings/settings-context';
 import { useStorage } from '@/storage/key-value-store';
+import { useFontFamilies } from '@/theme/fonts';
 import { PROSE_MAX_WIDTH, useLayout } from '@/theme/layout';
 import { balancedLines, textLanguageProps } from '@/theme/web-styles';
 
@@ -91,7 +92,7 @@ function MetaRow({ label, value }: { label: string; value: string }) {
       <AppText variant="label" style={styles.metaLabel}>
         {label}
       </AppText>
-      <AppText variant="ui" style={styles.metaValue}>
+      <AppText variant="meta" style={styles.metaValue}>
         {value}
       </AppText>
     </View>
@@ -126,7 +127,7 @@ function WorkHeader({ detail, editions, selected, position, onSelectEdition }: H
 
   return (
     <View style={styles.header}>
-      <AppText variant="display" style={balancedLines}>
+      <AppText variant="displayM" style={balancedLines}>
         {title}
       </AppText>
       {original ? <AppText variant="original">{original}</AppText> : null}
@@ -193,6 +194,7 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
   const { settings } = useSettings();
   const router = useRouter();
   const store = useStorage();
+  const fonts = useFontFamilies();
   const contentStyle = useListContentStyle('list');
   const { detail, editions } = loaded;
   const { summary, sections } = selected;
@@ -262,7 +264,15 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
               <View style={styles.tocRow}>
                 {numbered ? (
                   <View style={styles.numeral}>
-                    <AppText variant="label">{numeral}</AppText>
+                    {/* The 600 face at 16 so that roman numerals read clearly (a heading is not
+                        what a screen reader should announce for each row). */}
+                    <AppText
+                      variant="meta"
+                      tone="text"
+                      style={[styles.numeralText, { fontFamily: fonts.textSemiBold }]}
+                    >
+                      {numeral}
+                    </AppText>
                   </View>
                 ) : null}
                 <AppText
@@ -350,5 +360,6 @@ const styles = StyleSheet.create({
   contentsTitle: { marginTop: 32, marginBottom: 8 },
   tocRow: { flexDirection: 'row', alignItems: 'baseline', gap: 12 },
   numeral: { width: 44 },
+  numeralText: { fontSize: 16, lineHeight: 22 },
   tocTitle: { flex: 1 },
 });

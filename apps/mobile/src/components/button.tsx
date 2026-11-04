@@ -1,46 +1,146 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, Easing, Platform, Pressable, StyleSheet, View } from 'react-native';
 import type { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { AppText } from '@/components/app-text';
+import { UI_MAX_FONT_SCALE, useTypeStyle } from '@/components/app-text';
+import { isDarkBand, useBandTone, useLinkTone } from '@/components/band-context';
+import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
+import { useLayout } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
+import { useReducedMotion } from '@/theme/reduced-motion';
+import { duration, easing, motion, radii, transition } from '@/theme/tokens';
 
 /** Minimum touch target (44pt) following platform guidance. */
 export const MIN_TARGET = 44;
-const PRIMARY_HEIGHT = 48;
-const RADIUS = 6;
+/** The primary button is taller on a phone. */
+const PRIMARY_PHONE_HEIGHT = 48;
+/** How far the arrow of a "NAME ›" link moves on hover. */
+const ARROW_SHIFT = 3;
 
-export type ButtonVariant = 'primary' | 'secondary' | 'text';
+export type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'text' | 'pill';
 
 interface Props extends Omit<PressableProps, 'children' | 'style'> {
   title: string;
-  /** Primary: accent fill. Secondary: 1 px outline. Text: accent text, underlined on hover. */
+  /**
+   * `primary`: `accentStrong` fill. `outline`: 1 px `borderStrong`; on hover a fill sweeps in.
+   * `ghost`: for dark bands (an `outline` inside a `masthead` band becomes one). `text`: an
+   * underlined link. `pill`: a round filled button (account forms).
+   */
   variant?: ButtonVariant;
   /** Accessible name; defaults to `title`. */
   label?: string;
   /** For a button that opens and closes something: whether it is open (`aria-expanded` on web). */
   expanded?: boolean;
+  /** The label becomes "…", the button reports `aria-busy` and ignores presses. */
+  loading?: boolean;
+  /** "NAME ›": the label is followed by an arrow that moves 3 px on hover. */
+  arrow?: boolean;
+  /** The label is a glyph or a sample ("×", "−", "Aa"): no capitals, no tracking, no underline. */
+  glyph?: boolean;
   /** Layout of the button itself (must be a plain style: `Link asChild` merges it). */
   style?: ViewStyle;
   /** Overrides for the title text, for example a different font. */
   textStyle?: StyleProp<TextStyle>;
 }
 
+/**
+ * A button on the `button` type style: radius 3, at least 44 high (48 for the primary on a
+ * phone). Hover (web) changes colour, never layout; pressed is `scale(.96)` on web and opacity 0.7
+ * on native; the focus ring is the page's (web) or an outline (native); disabled is 60 % opacity.
+ * Inside a `masthead` band the colours switch to the dark-band inks by themselves.
+ */
 export function Button({
   title,
-  variant = 'secondary',
+  variant = 'outline',
   label,
   expanded,
+  loading = false,
+  arrow = false,
+  glyph = false,
   disabled,
+  onPress,
   style,
   textStyle,
   ...rest
 }: Props) {
   const { colors } = useTheme();
+  const dark = isDarkBand(useBandTone());
+  const inkLinks = useLinkTone() === 'ink';
+  const { wide } = useLayout();
+  const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
-  const primary = variant === 'primary';
-  const text = variant === 'text';
-  const hover = hovered && !disabled;
+  const { focusProps, focusStyle } = useFocusRing();
+  const text = useTypeStyle('button');
+  const hover = hovered && !disabled && !loading;
+
+  // On a dark band an outline button is a ghost one.
+  const visual: ButtonVariant = dark && variant === 'outline' ? 'ghost' : variant;
+  const filled = visual === 'primary' || visual === 'pill';
+  const outline = visual === 'outline';
+  const ghost = visual === 'ghost';
+  const link = visual === 'text';
+
+  // One value drives every hover effect: the sweep of the outline fill, the colour of its label
+  // and the arrow of a "NAME ›" link.
+  const [hoverValue] = useState(() => new Animated.Value(0));
+  // Nothing animates until the pointer actually enters or leaves.
+  const hoverBefore = useRef(false);
+  useEffect(() => {
+    if (hoverBefore.current === hover) return undefined;
+    hoverBefore.current = hover;
+    if (reduced) {
+      hoverValue.setValue(hover ? 1 : 0);
+      return undefined;
+    }
+    const animation = Animated.timing(hoverValue, {
+      toValue: hover ? 1 : 0,
+      duration: outline ? motion.outlineSweep : duration.base,
+      easing: Easing.bezier(...easing.default),
+      useNativeDriver: false,
+    });
+    animation.start();
+    return () => animation.stop();
+  }, [hover, hoverValue, outline, reduced]);
+
+  const linkColor = dark
+    ? inkLinks
+      ? colors.mastheadInk
+      : colors.mastheadAccent
+    : colors.accentStrong;
+  const linkHover = dark
+    ? inkLinks
+      ? colors.mastheadAccent
+      : colors.mastheadInk
+    : colors.accentHover;
+  const labelColor = filled
+    ? colors.onAccent
+    : ghost
+      ? colors.mastheadInk
+      : link
+        ? hover
+          ? linkHover
+          : linkColor
+        : colors.text;
+  // Only the outline label changes colour together with the sweep that runs under it.
+  const animatedColor: Animated.AnimatedInterpolation<string> | string = outline
+    ? hoverValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [colors.text, colors.onAccent],
+      })
+    : labelColor;
+
+  const height = filled && !wide ? PRIMARY_PHONE_HEIGHT : MIN_TARGET;
+  const busy = loading;
+  const caption = loading ? '…' : title;
+
+  const labelStyle = [
+    text,
+    styles.centered,
+    glyph ? styles.glyph : null,
+    link && !glyph ? styles.underline : null,
+    textStyle,
+  ];
 
   return (
     <Pressable
@@ -48,57 +148,107 @@ export function Button({
       accessibilityLabel={label ?? title}
       accessibilityState={{
         disabled: !!disabled,
+        busy,
         ...(expanded === undefined ? null : { expanded }),
       }}
       // react-native-web reads the `aria-*` props only; React Native reads both forms.
       aria-expanded={expanded}
-      disabled={disabled}
+      aria-busy={busy || undefined}
+      // A button that is busy takes no presses; it says "busy", and "disabled" only if it is.
+      disabled={disabled || busy}
+      onPress={onPress}
       {...hoverProps}
+      {...focusProps}
       {...rest}
       style={({ pressed }) => [
         styles.base,
-        primary ? styles.primary : null,
         {
-          backgroundColor: primary ? colors.accent : hover && !text ? colors.surface : undefined,
-          borderColor: primary
-            ? colors.accent
-            : text
-              ? undefined
-              : hover
-                ? colors.textMuted
-                : colors.borderStrong,
-          borderWidth: text ? 0 : 1,
-          opacity: disabled ? 0.45 : pressed ? 0.7 : primary && hover ? 0.9 : 1,
+          minHeight: height,
+          paddingHorizontal: link ? 16 : 20,
+          borderRadius: visual === 'pill' ? radii.pill : ghost ? radii.md : radii.sm,
+          backgroundColor: filled ? (hover ? colors.accentHover : colors.accentStrong) : undefined,
+          borderWidth: filled || link ? 0 : 1,
+          borderColor: outline
+            ? colors.borderStrong
+            : ghost
+              ? hover
+                ? colors.mastheadInk
+                : colors.mastheadBorder
+              : undefined,
+          opacity: disabled ? 0.6 : Platform.OS === 'web' ? 1 : pressed ? motion.pressOpacity : 1,
+          ...(Platform.OS === 'web' && pressed && !disabled
+            ? { transform: [{ scale: motion.pressScale }] }
+            : null),
         },
+        transition('transform, opacity', duration.press, 'default', reduced),
+        focusStyle,
         style,
       ]}
     >
-      <AppText
-        variant="ui"
-        style={[
-          { color: primary ? colors.onAccent : text ? colors.accent : colors.text },
-          text && hover ? styles.underline : null,
-          styles.title,
-          textStyle,
-        ]}
-      >
-        {title}
-      </AppText>
+      {outline ? (
+        // The fill sweeps from left to right; the button clips it to its rounded corners.
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.sweep,
+            {
+              backgroundColor: colors.accentStrong,
+              transform: [{ scaleX: hoverValue }],
+              transformOrigin: 'left center',
+            } as object,
+          ]}
+        />
+      ) : null}
+      <View style={styles.row}>
+        <Animated.Text
+          maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
+          style={[labelStyle, { color: animatedColor }] as StyleProp<TextStyle>}
+        >
+          {caption}
+        </Animated.Text>
+        {arrow ? (
+          <Animated.Text
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
+            maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
+            style={
+              [
+                labelStyle,
+                styles.arrow,
+                {
+                  color: animatedColor,
+                  transform: [
+                    {
+                      translateX: hoverValue.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, ARROW_SHIFT],
+                      }),
+                    },
+                  ],
+                },
+              ] as StyleProp<TextStyle>
+            }
+          >
+            ›
+          </Animated.Text>
+        ) : null}
+      </View>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: MIN_TARGET,
     minWidth: MIN_TARGET,
-    paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: RADIUS,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
-  primary: { minHeight: PRIMARY_HEIGHT },
-  title: { textAlign: 'center' },
+  sweep: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 },
+  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  centered: { textAlign: 'center' },
+  glyph: { textTransform: 'none', letterSpacing: 0 },
   underline: { textDecorationLine: 'underline' },
+  arrow: { textDecorationLine: 'none' },
 });

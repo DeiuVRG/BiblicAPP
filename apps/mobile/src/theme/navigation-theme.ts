@@ -15,12 +15,12 @@ export function buildNavigationTheme(
   return {
     dark: name === 'dark',
     colors: {
-      primary: colors.accent,
+      primary: colors.accentStrong,
       background: colors.background,
       card: colors.background,
       text: colors.text,
       border: colors.border,
-      notification: colors.accent,
+      notification: colors.accentStrong,
     },
     fonts,
   };

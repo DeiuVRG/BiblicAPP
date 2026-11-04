@@ -1,5 +1,20 @@
-// Romanian UI strings. Use comma-below diacritics (ș ț), never cedilla forms.
+import { formatCentury } from './centuries';
+import { count } from './plural';
+
+// Romanian UI strings. Use comma-below diacritics (ș ț), never cedilla forms (a test fails on them).
 // `en.ts` must have every key of this table: its type, `Strings` (strings.ts), is derived from it.
+// A number next to a noun is always written with `count` (plural categories, "de" after 19).
+const forms = {
+  works: { one: 'lucrare', few: 'lucrări', other: 'de lucrări' },
+  passages: { one: 'pasaj', few: 'pasaje', other: 'de pasaje' },
+  editions: { one: 'ediție', few: 'ediții', other: 'de ediții' },
+  sections: { one: 'secțiune', few: 'secțiuni', other: 'de secțiuni' },
+  sources: { one: 'sursă', few: 'surse', other: 'de surse' },
+  results: { one: 'rezultat', few: 'rezultate', other: 'de rezultate' },
+  authors: { one: 'autor', few: 'autori', other: 'de autori' },
+  packs: { one: 'pachet de conținut', few: 'pachete de conținut', other: 'de pachete de conținut' },
+};
+
 export const ro = {
   appName: 'Biblioteca',
   common: {
@@ -7,6 +22,17 @@ export const ro = {
     error: 'Ceva nu a mers bine. Încearcă din nou.',
     back: 'Înapoi',
     backToLibrary: 'Înapoi la bibliotecă',
+    close: 'Închide',
+  },
+  // Counts with their nouns: 1 lucrare, 2 lucrări, 12 lucrări, 20 de lucrări.
+  counts: {
+    works: (n: number) => count(n, forms.works, 'ro'),
+    passages: (n: number) => count(n, forms.passages, 'ro'),
+    editions: (n: number) => count(n, forms.editions, 'ro'),
+    sections: (n: number) => count(n, forms.sections, 'ro'),
+    sources: (n: number) => count(n, forms.sources, 'ro'),
+    results: (n: number) => count(n, forms.results, 'ro'),
+    authors: (n: number) => count(n, forms.authors, 'ro'),
   },
   library: {
     title: 'Biblioteca',
@@ -18,10 +44,10 @@ export const ro = {
     openWork: (title: string) => `Deschide lucrarea ${title}`,
     // Spoken before the list of editions of a work (the chips carry the same text visually).
     editions: 'Ediții',
-    unverified: (count: number) =>
-      count === 1
+    unverified: (n: number) =>
+      n === 1
         ? 'Un pachet de conținut nu a putut fi verificat și nu este afișat.'
-        : `${count} pachete de conținut nu au putut fi verificate și nu sunt afișate.`,
+        : `${count(n, forms.packs, 'ro')} nu au putut fi verificate și nu sunt afișate.`,
   },
   work: {
     title: 'Lucrare',
@@ -70,8 +96,8 @@ export const ro = {
     hint: 'Scrie cel puțin 2 caractere. Căutarea ignoră majusculele și diacriticele.',
     noResults: 'Niciun rezultat.',
     searching: 'Se caută…',
-    results: (count: number) => (count === 1 ? '1 rezultat' : `${count} rezultate`),
-    resultsCapped: (count: number) => `Primele ${count} rezultate`,
+    results: (n: number) => count(n, forms.results, 'ro'),
+    resultsCapped: (n: number) => `Primele ${count(n, forms.results, 'ro')}`,
     openResult: (heading: string) => `Deschide rezultatul din ${heading}`,
     clear: 'Șterge căutarea',
   },
@@ -79,13 +105,21 @@ export const ro = {
     title: 'Setări',
     reading: 'Citire',
     fontSize: 'Mărimea textului',
-    fontSizeValue: (size: number) => `${size} pt`,
+    // A no-break space between a number and its unit.
+    fontSizeValue: (size: number) => `${size}\u00A0pt`,
     increaseFontSize: 'Mărește dimensiunea textului',
     decreaseFontSize: 'Micșorează dimensiunea textului',
     lineHeight: 'Spațierea rândurilor',
     lineHeightValue: (value: number) => value.toFixed(1).replace('.', ','),
     increaseLineHeight: 'Mărește spațierea rândurilor',
     decreaseLineHeight: 'Micșorează spațierea rândurilor',
+    readingFont: 'Fontul lecturii',
+    // Names of the faces, the same in both languages: Source Serif 4 ("Serif"), Literata, Inter ("Sans").
+    readingFonts: {
+      serif: 'Serif',
+      literata: 'Literata',
+      sans: 'Sans',
+    },
     theme: 'Tema',
     themes: {
       system: 'Automat',
@@ -116,7 +150,8 @@ export const ro = {
     licenceTitle: 'Licența conținutului',
     licenceNote:
       'Fiecare ediție își declară statutul de licență în pagina lucrării. Textele din domeniul public pot fi citite și copiate liber; pentru celelalte se aplică licența indicată.',
-    fonts: 'Fonturi: Literata (lectură) și Inter (interfață), sub SIL Open Font License.',
+    fonts:
+      'Fonturi: IM Fell Great Primer (titluri), Source Serif 4 (text și interfață), Literata și Inter (opțiuni de lectură), Gentium Plus (greacă), sub SIL Open Font License.',
     noWorks: 'Nicio lucrare instalată.',
   },
   licenceStatus: {
@@ -160,6 +195,9 @@ export const ro = {
     bc: (year: number) => `${year} î.Hr.`,
     born: (year: string) => `n. ${year}`,
     died: (year: string) => `m. ${year}`,
+    // "sec. V", "secolul al V-lea" (the first one: "secolul I"); a negative century is before Christ.
+    centuryShort: (century: number) => formatCentury(century, 'ro', 'short'),
+    centuryLong: (century: number) => formatCentury(century, 'ro', 'long'),
   },
   notFound: {
     title: 'Pagină negăsită',

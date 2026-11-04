@@ -3,6 +3,7 @@ import { fireEvent, screen, within } from '@testing-library/react-native';
 
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SETTINGS_KEY } from '@/settings/settings-store';
+import { FontsProvider, loadedFonts } from '@/theme/fonts';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
@@ -28,6 +29,7 @@ describe('SettingsScreen', () => {
       fontSize: 19,
       lineHeight: 1.7,
       theme: 'sepia',
+      readingFont: 'serif',
       readingLanguage: 'ro', // the tests run as on a Romanian device
       uiLanguage: 'system',
     });
@@ -39,6 +41,34 @@ describe('SettingsScreen', () => {
     expect(screen.getByLabelText('Sepia').props.accessibilityState).toMatchObject({
       selected: true,
     });
+  });
+
+  it('chooses the face of the reading text: Serif by default, Literata and Sans on request, and remembers it', async () => {
+    await renderWithProviders(
+      <FontsProvider value={loadedFonts}>
+        <SettingsScreen />
+      </FontsProvider>,
+    );
+    const group = within(await screen.findByLabelText('Fontul lecturii'));
+    expect(group.getByLabelText('Serif').props.accessibilityState).toMatchObject({
+      selected: true,
+    });
+    // The preview is set in the reader's face: Source Serif 4 to begin with.
+    expect(screen.getByText(/Împărăția lui Dumnezeu nu vine/)).toHaveStyle({
+      fontFamily: 'SourceSerif4_400Regular',
+    });
+
+    await fireEvent.press(group.getByLabelText('Literata'));
+    expect(screen.getByText(/Împărăția lui Dumnezeu nu vine/)).toHaveStyle({
+      fontFamily: 'Literata_400Regular',
+    });
+    expect(await stored()).toMatchObject({ readingFont: 'literata' });
+
+    await fireEvent.press(group.getByLabelText('Sans'));
+    expect(screen.getByText(/Împărăția lui Dumnezeu nu vine/)).toHaveStyle({
+      fontFamily: 'Inter_400Regular',
+    });
+    expect(await stored()).toMatchObject({ readingFont: 'sans' });
   });
 
   it('keeps the font size within 14 to 26 and ignores corrupt stored data', async () => {

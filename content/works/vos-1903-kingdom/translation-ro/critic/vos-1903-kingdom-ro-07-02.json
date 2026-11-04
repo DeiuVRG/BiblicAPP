@@ -1,0 +1,54 @@
+{
+  "jobId": "vos-1903-kingdom-ro-07-02",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4860",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "a deterrent from evil",
+      "quoteTarget": "mijloc de descurajare a răului",
+      "problem": "„Deterrent” (ceea ce reține pe cineva de la o faptă prin teama de urmări) este redat prin „mijloc de descurajare a răului”. În română „descurajare” înseamnă în primul rând pierderea curajului sau a încrederii; sensul de „efect de reținere” apare mai ales în registrul juridic-administrativ („efect descurajator”), iar aici obiectul descurajării este „răul”, nu oamenii care sunt opriți de la rău, cum cere sursa („a deterrent from evil”). Contextul („teama de pedeapsă”) face sensul ușor de recuperat, deci nu este o pierdere de sens sau de doctrină, dar „a descuraja” pentru „to deter” este un fals prieten într-un registru academic sobru. Ciorna a semnalat deja locul (ALTA, MINOR, „formulare de care nu sunt sigur”); îl confirm.",
+      "proposal": "ca mijloc de reținere de la rău (în paralel cu „ca imbold spre bine”: „de la rău” față de „spre bine”); variantă: „ca frână în calea răului”."
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4861",
+      "severity": "MINOR",
+      "category": "omisiune",
+      "quoteSource": "These second clauses in the beatitudes",
+      "quoteTarget": "Propozițiile din a doua parte a Fericirilor",
+      "problem": "Demonstrativul „These” se pierde: sursa trimite la cele trei propoziții tocmai citate (promisiunile din cele trei Fericiri redate în fraza precedentă), iar româna generalizează la „Propozițiile din a doua parte a Fericirilor”. În plus, „a doua parte a Fericirilor” poate fi citit ca a doua jumătate a seriei de Fericiri, nu ca al doilea membru al fiecărei Fericiri („second clauses in the beatitudes”). Din fraza precedentă sensul se reconstituie, deci nu se pierde nicio afirmație, dar referința precisă a lui „These second clauses” se estompează. Ciorna a semnalat deja locul (ALTA, MINOR) și a observat lipsa demonstrativului; îl confirm și adaug riscul de citire a lui „a doua parte”.",
+      "proposal": "Aceste propoziții din a doua parte a fiecărei Fericiri descriu esența Împărăției finale, în care va consta răsplata. Variantă mai scurtă: „Aceste propoziții care încheie Fericirile”."
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4863",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "punctuatie",
+      "quoteSource": "The Father t as Father",
+      "quoteTarget": "Tatăl, ca Tată",
+      "problem": "Defect tipografic în sursă: o literă „t” rătăcită ține locul unei virgule (probabil „The Father, as Father,”). Apare identic în content/sources/vos-1903-kingdom/raw.txt (rândul 2933), în raw-layout.txt (rândul 3064) și în content/works/vos-1903-kingdom/edition-en.json (rândul 694), deci nu provine din segmentarea ingestiei; în aceeași zonă, un alt „t” (dinaintea lui „d. Matt. v. 46”) a fost deja curățat în ediția engleză ca „another; cf.”, dar acesta a rămas. Traducerea îl citește corect ca virgulă („Tatăl, ca Tată,”), fără pierdere de sens; ciorna a semnalat deja locul (SURSA_POSIBIL_ERONATA, INFO). Defectul rămâne în ediția engleză, pe care cititorul o vede în aplicație.",
+      "proposal": "Fără modificare de text în română. În ediția engleză (edition-en.json), „The Father t as Father,” devine „The Father, as Father,”, iar apoi se reface pachetul."
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4863",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "punctuatie",
+      "quoteSource": "for each disciple t because",
+      "quoteTarget": "pentru fiecare ucenic, deoarece",
+      "problem": "Același tip de defect: o literă „t” rătăcită ține locul unei virgule între „disciple” și „because” (probabil „for each disciple, because”). Identic în raw.txt (rândul 2944), în raw-layout.txt (rândul 3078, „disciple t because the ultimate issue can-”) și în edition-en.json (rândul 694), deci nu provine din ingestie. Traducerea îl citește corect ca virgulă („pentru fiecare ucenic, deoarece”), fără pierdere de sens; ciorna a semnalat deja locul (SURSA_POSIBIL_ERONATA, INFO).",
+      "proposal": "Fără modificare de text în română. În ediția engleză, „for each disciple t because” devine „for each disciple, because”, iar apoi se reface pachetul."
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4863",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "referinta",
+      "quoteSource": "Lk. vi. 32 35",
+      "quoteTarget": "Lc. 6:32–35",
+      "problem": "Sursa are „Lk. vi. 32 35”, fără semnul intervalului între „32” și „35” (identic în raw.txt, rândul 2939, în raw-layout.txt, rândul 3070, și în edition-en.json, rândul 694). Job-ul o citește ca interval (references[].target = „Lc. 6:32–35”, canonical „Luke 6:32-35”), iar traducerea folosește exact această formă, conform §5. Citirea ca interval este firească: trimiterea este paralela lui Mat. 5:46 din aceeași frază („cf. Matt. v. 46 with Lk. vi. 32 35”); identificarea vine din textul biblic cunoscut, nu dintr-o ediție din depozit, unde nu există text biblic. Nu este o eroare de traducere; ciorna a semnalat deja locul (SURSA_POSIBIL_ERONATA, INFO). Defectul rămâne în ediția engleză.",
+      "proposal": "Fără modificare de text în română: se păstrează „Lc. 6:32–35”. În ediția engleză, „Lk. vi. 32 35” devine „Lk. vi. 32-35” (cu cratimă, ca în „Matt. xx. 1-16” din același lot), iar apoi se reface pachetul."
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Nicio constatare CRITIC sau MAJOR; verdict ok. Două constatări MINOR (par. 3: „mijloc de descurajare a răului” pentru „a deterrent from evil”, fals prieten; par. 4: demonstrativul „These” pierdut în „Propozițiile din a doua parte a Fericirilor”, cu o citire posibilă greșită a lui „a doua parte”) și trei SURSA_POSIBIL_ERONATA în par. 6 (două litere „t” rătăcite în loc de virgule și semnul intervalului lipsă din „Lk. vi. 32 35”), toate fără efect asupra sensului traducerii. Cele 50 de propoziții ale sursei (10 + 8 + 7 + 6 + 13 + 6; trimiterea „cf. Heb. xii. 2” din par. 3 numărată separat) au corespondent una la una în română, verificate în ambele sensuri: nicio afirmație lipsă sau adăugată (singurele glose, „din păcate” pentru „but too often”, „și anume” pentru „and that” și „pe pământ” pentru „here below”, redau sensul expresiilor sursei). Negațiile și restricțiile („nu putea decât să ducă”, „nu poate să nu fie determinat”, „numai de ucenici”, „nu doar … ci”, „nicio astfel de relație comercială”), întrebările retorice („Nu putem oare crede”, „de ce n-ar fi făcut apel”, „Crede cineva … câtuși de puțin”), condiționalele („Ar fi nejustificat”, „dacă ar fi bine întemeiată, ar fi gravă”) și modalitatea („nu trebuie neapărat”, „se poate adresa la fel de bine”, „evident”, „limpede”, „trebuie socotit”) sunt păstrate. Rolurile coincid: dreptatea este cerută și dobândită de ucenici, acceptarea vine de la Dumnezeu, răsplata încununează conduita, talanții sunt încredințați slujitorilor de Domnul lor, iar „acest din urmă aspect” este harul și paternitatea, „primul” fiind suveranitatea și domnia, ca în sursă. Parafrazele și citatele autorului (Fericirile, „unprofitable servants”, „He that is faithful …”, „He who receives a prophet …”) sunt redate integral; trimiterile din job apar în text exact în forma din references[].target (Mat. 5:20; Evr. 12:2; Lc. 17:10 de două ori; Mat. 24:47; 25:21, 23; Mat. 10:41, 42; Mc. 10:30; Mat. 20:1–16; Mat. 5:46; Lc. 6:32–35), iar textul nu are alte trimiteri. Intrările din scripture corespund fiecare unui loc din sursă; aluziile și citatele fără trimitere în sursă (Mat. 5:20 în par. 1, Mat. 6:20, In. 4:34, Mat. 5:8, 5:6, 5:9, Mat. 25:14–30, Lc. 12:32, Mat. 7:11) sunt identificate din textul biblic cunoscut, nu dintr-o ediție din depozit, și nu contrazic sursa. Terminologia respectă glosarul și profilul (dreptate, Împărăția, domnie, paternitate, suveranitate, rectitudine distinctă de dreptate, fericire distinctă de binecuvântări, pildă, Fericirile, cărturarii și fariseii, Domnul nostru, ucenicii) și este consecventă cu loturile vecine (a-l satisface în 07-00, Împărăția interioară în 04-03 și 05-01, iudeilor în 03-01, ziua de apoi în 09-03, imputarea în 09-01, ispășirea în 10-02); niciun calc din listă (scanare proprie, zero potriviri); NFC, diacritice cu virgulă, ghilimele „…”, linia de pauză numai în intervale, cratima numai în forme legate. Textul-sursă din job coincide cu raw.txt, cu excepția curățărilor deja făcute în edition-en.json („] esus”, „prevades”, „Godcentered”, „d. Reb.”, „another t d.” devenit „another; cf.”); cele trei defecte rămase sunt în raw.txt (rândurile 2933, 2939, 2944), raw-layout.txt (3064, 3070, 3078) și edition-en.json (rândul 694) și pot fi corectate în bloc, fără nicio modificare în română. translation-check --strict pe ciornă iese cu 0 (CRITIC 0, MAJOR 0, MINOR 0, INFO 11, toate FLAG_PROPOSED; raportul a fost scris în afara depozitului, ca să nu fie modificat fișierul din checks/). Alegerile semnalate de ciornă și judecate acceptabile, fără constatare: „a citi în” pentru „read into” (cu „nejustificat” în cadru, sensul rămâne), „satisfacerea lui Dumnezeu” (genitiv obiectiv, ca „a-l satisface” din 07-00), „bucurie de” pentru „enjoyment of”, „concepția lui Isus” față de „noțiunea” din par. 1, „nefolositori” și „zadarnică” (distincția lui Vos este păstrată de explicația care urmează), „Restituirea”, „ba chiar”, „rectitudinii”, „juridică”, „Legii”, „Domnul lor” și „cf.” cu literă mică după semnul întrebării (ca în sursă)."
+}

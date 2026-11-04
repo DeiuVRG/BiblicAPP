@@ -27,7 +27,7 @@ export function SettingRow({ label, children, fill = false }: Props) {
   const stacked = useLayout().width < STACK_BELOW;
   return (
     <View style={[styles.row, stacked ? styles.stacked : null]}>
-      <AppText variant="ui" style={styles.label}>
+      <AppText variant="meta" style={styles.label}>
         {label}
       </AppText>
       {fill ? <View style={stacked ? styles.fillStacked : styles.fill}>{children}</View> : children}

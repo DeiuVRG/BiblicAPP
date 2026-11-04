@@ -1,5 +1,7 @@
 import { READING_LANGUAGES, UI_LANGUAGE_PREFERENCES } from '@/i18n/language';
 import type { ReadingLanguage, UiLanguagePreference } from '@/i18n/language';
+import { READING_FONTS } from '@/theme/font-families';
+import type { ReadingFont } from '@/theme/font-families';
 import type { ThemePreference } from '@/theme/palettes';
 
 import {
@@ -40,11 +42,14 @@ export function sanitizeSettings(
   const theme = THEME_PREFERENCES.includes(source.theme as ThemePreference)
     ? (source.theme as ThemePreference)
     : defaults.theme;
+  const readingFont = READING_FONTS.includes(source.readingFont as ReadingFont)
+    ? (source.readingFont as ReadingFont)
+    : defaults.readingFont;
   const readingLanguage = READING_LANGUAGES.includes(source.readingLanguage as ReadingLanguage)
     ? (source.readingLanguage as ReadingLanguage)
     : defaults.readingLanguage;
   const uiLanguage = UI_LANGUAGE_PREFERENCES.includes(source.uiLanguage as UiLanguagePreference)
     ? (source.uiLanguage as UiLanguagePreference)
     : defaults.uiLanguage;
-  return { fontSize, lineHeight, theme, readingLanguage, uiLanguage };
+  return { fontSize, lineHeight, theme, readingFont, readingLanguage, uiLanguage };
 }

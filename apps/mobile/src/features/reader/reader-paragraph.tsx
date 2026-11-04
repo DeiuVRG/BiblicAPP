@@ -3,21 +3,26 @@ import { memo, useEffect, useState } from 'react';
 import { Animated, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { HighlightedSpans } from '@/components/highlighted-text';
-import { useFontFamilies } from '@/theme/fonts';
+import { readingFaces, useFontFamilies, useGreekFace } from '@/theme/fonts';
+import type { ReadingFont } from '@/theme/fonts';
+import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
-import { lineHeightFor, paragraphFontSize } from '@/theme/typography';
+import { motion } from '@/theme/tokens';
+import { READING_MAX_FONT_SCALE, lineHeightFor, paragraphFontSize } from '@/theme/typography';
 import { textLanguageProps } from '@/theme/web-styles';
 
 /** Reading text honours the system font scale, capped so very large settings stay usable. */
-export const READING_MAX_FONT_SCALE = 1.6;
+export { READING_MAX_FONT_SCALE } from '@/theme/typography';
 
 /** How long the background of the paragraph a search result jumped to takes to appear. */
-export const TARGET_FADE_MS = 300;
+export const TARGET_FADE_MS = motion.targetFade;
 
 interface Props {
   paragraph: Paragraph;
   fontSize: number;
   lineHeight: number;
+  /** The face the reader chose (Source Serif 4 by default). */
+  readingFont?: ReadingFont;
   /** Search query to highlight inside this paragraph (only set for the jump target). */
   query?: string;
   isTarget?: boolean;
@@ -25,11 +30,16 @@ interface Props {
   language?: string;
 }
 
-/** The `target` background behind a paragraph, fading in over 300 ms. */
+/** The `target` background behind a paragraph, fading in over 300 ms (at once under reduced motion). */
 function TargetBackground() {
   const { colors } = useTheme();
+  const reduced = useReducedMotion();
   const [opacity] = useState(() => new Animated.Value(0));
   useEffect(() => {
+    if (reduced) {
+      opacity.setValue(1);
+      return undefined;
+    }
     const fade = Animated.timing(opacity, {
       toValue: 1,
       duration: TARGET_FADE_MS,
@@ -37,7 +47,7 @@ function TargetBackground() {
     });
     fade.start();
     return () => fade.stop();
-  }, [opacity]);
+  }, [opacity, reduced]);
   return (
     <Animated.View
       style={[styles.target, { backgroundColor: colors.target, opacity }]}
@@ -50,12 +60,19 @@ function ReaderParagraphBase({
   paragraph,
   fontSize,
   lineHeight,
+  readingFont = 'serif',
   query,
   isTarget = false,
   language,
 }: Props) {
   const { colors } = useTheme();
   const fonts = useFontFamilies();
+  // A Greek edition reads in Gentium Plus (polytonic letters; Source Serif 4 has none): the face
+  // loads when the first Greek paragraph is shown.
+  const greek = useGreekFace(language);
+  const faces = greek
+    ? { regular: greek.regular, italic: greek.italic, bold: greek.regular }
+    : readingFaces(fonts, readingFont);
   const { kind } = paragraph;
 
   const size = paragraphFontSize(kind, fontSize);
@@ -65,12 +82,7 @@ function ReaderParagraphBase({
     fontSize: size,
     lineHeight: lineHeightFor(size, lineHeight),
     color: kind === 'note' ? colors.textMuted : colors.text,
-    fontFamily:
-      kind === 'heading'
-        ? fonts.readingBold
-        : kind === 'quote'
-          ? fonts.readingItalic
-          : fonts.reading,
+    fontFamily: kind === 'heading' ? faces.bold : kind === 'quote' ? faces.italic : faces.regular,
   };
 
   return (

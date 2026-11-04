@@ -50,7 +50,7 @@ describe('AppHeader (web)', () => {
     );
     const title = screen.getByTestId('header-title');
     expect(title).toHaveStyle({
-      fontFamily: 'Literata_600SemiBold',
+      fontFamily: 'SourceSerif4_600SemiBold',
       fontSize: 20,
       color: palettes.light.text,
     });
@@ -67,7 +67,7 @@ describe('AppHeader (web)', () => {
     );
     const title = screen.getByTestId('header-title');
     expect(title).toHaveStyle({
-      fontFamily: 'Literata_400Regular_Italic',
+      fontFamily: 'SourceSerif4_400Regular_Italic',
       fontSize: 15,
       color: palettes.light.textMuted,
     });

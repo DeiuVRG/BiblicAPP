@@ -1,13 +1,14 @@
 import type { Paragraph, Section } from '@biblioteca/shared';
 import { Stack, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Column } from '@/components/column';
+import { useEscapeKey } from '@/components/modal-behaviour';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { LoadingView, MessageView } from '@/components/state-views';
@@ -178,14 +179,7 @@ function ChapterView({
   const writer = useReadingPositionWriter(editionId, section.id);
 
   // Web: Escape closes the typography panel, like any other disclosure.
-  useEffect(() => {
-    if (!panelOpen || Platform.OS !== 'web' || typeof document === 'undefined') return undefined;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setPanelOpen(false);
-    };
-    document.addEventListener('keydown', closeOnEscape);
-    return () => document.removeEventListener('keydown', closeOnEscape);
-  }, [panelOpen]);
+  useEscapeKey(panelOpen, () => setPanelOpen(false));
 
   const targetIndex = useMemo(
     () =>
@@ -262,7 +256,7 @@ function ChapterView({
   const header = section.heading ? (
     <View style={styles.chapterHeading}>
       <AppText
-        variant="chapter"
+        variant="chapterTitle"
         {...textLanguageProps(edition.language)}
         maxFontSizeMultiplier={READING_MAX_FONT_SCALE}
       >
@@ -278,7 +272,7 @@ function ChapterView({
           title,
           // A running head, quiet next to the chapter heading (the web header does the same).
           headerTitleStyle: {
-            fontFamily: fonts.readingItalic,
+            fontFamily: fonts.textItalic,
             fontSize: 15,
             color: colors.textMuted,
           },
@@ -311,12 +305,13 @@ function ChapterView({
         ref={listRef}
         data={paragraphs}
         keyExtractor={(paragraph) => paragraph.id}
-        extraData={`${settings.fontSize}|${settings.lineHeight}|${settings.theme}|${highlightedParagraphId ?? ''}`}
+        extraData={`${settings.fontSize}|${settings.lineHeight}|${settings.theme}|${settings.readingFont}|${highlightedParagraphId ?? ''}`}
         renderItem={({ item }) => (
           <ReaderParagraph
             paragraph={item}
             fontSize={settings.fontSize}
             lineHeight={settings.lineHeight}
+            readingFont={settings.readingFont}
             isTarget={item.id === highlightedParagraphId}
             query={item.id === highlightedParagraphId ? query : undefined}
             language={edition.language}
@@ -377,7 +372,8 @@ function ChapterView({
             label={t.reader.typographyLabel}
             expanded={panelOpen}
             onPress={() => setPanelOpen((open) => !open)}
-            textStyle={{ fontFamily: fonts.readingMedium, fontSize: 18 }}
+            glyph
+            textStyle={{ fontFamily: fonts.text, fontSize: 18 }}
           />
           {neighbours?.next ? (
             <Button

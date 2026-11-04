@@ -1,0 +1,45 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWH",
+      "severity": "MINOR",
+      "category": "alta",
+      "quoteSource": "it covers man’s entire religious as well as his moral relation to God",
+      "quoteTarget": "ea cuprinde atât întreaga relație religioasă a omului cu Dumnezeu, cât și relația sa morală",
+      "problem": "În sursă, „to God” determină ambii membri ai perechii, iar „entire” se citește firesc ca acoperind întreaga pereche: pocăința cuprinde întreaga relație a omului cu Dumnezeu, în aspectul ei religios și în cel moral. În română, „cu Dumnezeu” stă numai în primul membru, iar „întreaga” determină numai „relația religioasă”; al doilea membru, „relația sa morală”, rămâne fără „cu Dumnezeu” și fără „întreaga” și se poate citi ca relație morală în general (față de semeni), ceea ce slăbește contrastul cu „sfera morală a vieții în sens mai restrâns” din propoziția precedentă. Contextul face lectura corectă probabilă și sensul de bază se păstrează, de aceea constatarea nu depășește MINOR.",
+      "proposal": "ea cuprinde întreaga relație a omului cu Dumnezeu, atât cea religioasă, cât și cea morală"
+    },
+    {
+      "sourceId": "01M6JQSCXY8XY1PEYDSYW0AHY7",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "a positively offensive and hostile attitude",
+      "quoteTarget": "o atitudine pozitiv ofensatoare și ostilă",
+      "problem": "„Pozitiv” ca adverb de grad înaintea unui adjectiv calchiază englezescul „positively”. În română, „pozitiv” adverbial înseamnă de obicei „favorabil” („a reacționat pozitiv”) sau, colocvial, „categoric”, deci „pozitiv ofensatoare” nu transmite limpede ideea sursei: o ostilitate prezentă și activă, în opoziție cu simpla lipsă din „purely negative sense” (propoziția precedentă) și în ecou cu „positive terms” (propoziția următoare). Sensul se reconstituie din context, iar ciorna a semnalat deja alegerea (ALTA, MINOR), de aceea constatarea rămâne MINOR.",
+      "proposal": "o atitudine activ ofensatoare și ostilă"
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWN",
+      "severity": "SURSA_POSIBIL_ERONATA",
+      "category": "punctuatie",
+      "quoteSource": "requires of -his disciples",
+      "quoteTarget": "cere ucenicilor săi",
+      "problem": "În sursă apare „-his”, cu o cratimă rătăcită înaintea lui „his”. Defectul nu vine din curățarea ediției: content/sources/vos-1903-kingdom/raw.txt (rândul 4122, pagina 175 după antetul OCR) are același „of -his disciples”, deci este în tipar sau în OCR-ul lui, iar job-ul îl păstrează. Traducerea omite cratima, corect și fără pierdere de sens: un artefact tipografic nu se reproduce. Defectul este deja semnalat în ciornă (SURSA_POSIBIL_ERONATA, MINOR).",
+      "proposal": "Se păstrează „ucenicilor săi”. Revizorul uman confruntă scanarea și corectează „-his” în „his” în edition-en.json, nu în traducere."
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWN",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "the internal entanglement of the heart with temporal goods",
+      "quoteTarget": "încurcarea interioară a inimii cu bunurile temporale",
+      "problem": "„Încurcarea … cu” nu redă bine imaginea din „entanglement … with”. În română, „a încurca X cu Y” înseamnă de obicei „a confunda X cu Y”, iar „încurcare” sugerează „confuzie, încurcătură”, nu legarea inimii de bunuri. Lectura greșită („confuzia inimii cu bunurile”) este posibilă izolat, dar contextul („nu posesiunea exterioară, ci …” și „atașamentul lăuntric al sufletului” din propoziția precedentă) o face improbabilă, de aceea MINOR. Ciorna a semnalat deja alegerea (ALTA, INFO) și a notat alternativa „înlănțuire”.",
+      "proposal": "înlănțuirea interioară a inimii de bunurile temporale (variantă: „legarea interioară a inimii de bunurile temporale”)"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Nicio constatare CRITIC sau MAJOR; verdict ok. Patru constatări: trei MINOR (par. 3, „întreaga relație religioasă a omului cu Dumnezeu, cât și relația sa morală”, unde „întreaga” și „cu Dumnezeu” nu mai acoperă al doilea membru; par. 4, „pozitiv ofensatoare”, calc de la „positively”; par. 6, „încurcarea … cu”, care se citește ușor ca „confuzie”) și una SURSA_POSIBIL_ERONATA (par. 6, „of -his disciples”: cratimă rătăcită, prezentă și în raw.txt, rândul 4122, deci defect de tipar sau de OCR, nu al curățării ediției; deja semnalată în ciornă; traducerea o omite corect). Cele 47 de propoziții ale sursei (5 + 7 + 9 + 5 + 8 + 13) au corespondent una la una în română, în aceeași ordine, verificate în ambele sensuri: nicio afirmație lipsă sau adăugată. Negațiile și restricțiile („nu a fost întâmplător, ci …”, „fără să se fi pocăit”, „nu trebuie privit ca …”, „fără vreun merit”, „Nici nu se mărginește”, „nu spune că … ci folosește”, „nu posesiunea exterioară, ci …”, „numai o schimbare interioară …, nu un simplu act exterior”), cauzalele și condiționalele („Pentru că … de aceea”, „deși nu câștigă … totuși”, „Dacă nu vă întoarceți …”, „pentru ca Dumnezeu să poată”, „numai în măsura în care”), modalitatea și gradul de certitudine („cu neputință”, „reiese limpede”, „trebuie să pornească”, „indispensabil”, „trebuie distrus în principiu”, „ar fi suficientă sau chiar cerută”) sunt păstrate. Rolurile coincid: Domnul nostru anunță, insistă și stăruie; Împărăția cere atitudinea numită credință; pocăința angajează întregul om; Isus cere ucenicilor renunțarea; Dumnezeu este cel care ia locul revendicat de legături și bunuri; pasivele „sunt luați … și siliți”, „este condamnată”, „este descrisă”, „este ales” rămân fără agent, ca în sursă. Trimiterile din job (Mat. 4:17; Mc. 1:15; 22:1–14; Lc. 14:16–24; Mat. 21:29–32; 12:41; Lc. 11:32; 15:7, 10; Mat. 13:15; Lc. 17:4; 22:32; Mat. 11:20, 21; 8:22; Lc. 15:24, 32; Mat. 6:24; 18:3; 10:39; 16:25; Lc. 14:25–35; Mc. 9:43; Mat. 10:37) apar în text exact în forma din references[].target; cifrele și numeralele (cele trei cuvinte, al doilea, al treilea, două aspecte, doi stăpâni) coincid cu sursa. Cele trei cuvinte grecești sunt identice cu job-ul la nivel de puncte de cod Unicode (restaurate de ingest.config.json din OCR-ul deformat). Citatele din Mat. 6:24 și Mat. 18:3 sunt redate integral și literal din engleza lui Vos; intrările din scripture care nu provin din job (Lc. 14:21–23, 15:3–10, 15:11–32, 15:17, 15:18, 14:26, Mat. 6:24 ca aluzie) se potrivesc cu locurile din sursă, judecate după textul biblic cunoscut (depozitul nu are o ediție a Bibliei). Terminologia respectă glosarul și profilul (Împărăția lui Dumnezeu / cerurilor, dreptate, pocăință, credință, supremația, harul mântuitor, pildă, Isus, Domnul nostru, ucenici) și este consecventă cu loturile vecine (fiul risipitor și „și-a venit în fire” din 08-01, ospăț de nuntă din 08-00, slujire, stăpânire pentru „sway”, noțiune pentru „conception”); niciun calc din listă. NFC, diacritice cu virgulă, ghilimele românești „…” echilibrate, fără linii noi; titlul (X. Intrarea în Împărăție: pocăința și credința) păstrează numerotarea. Alegeri semnalate de ciornă și judecate acceptabile, fără constatare: „binefacerile” (colocație uzuală, ca în „binefacerile civilizației”), „harului gratuit”, „afecțiunile” (psihologia facultăților; riscul lecturii medicale este mic lângă „intelectul, voința”), „cuvântarea” pentru „discourse” (termenul autorului), „o întristare după Dumnezeu” (ambiguitatea sursei păstrată), „a-i disputa” (ambele lecturi ale sursei duc la același sens), „bunuri temporale” față de „pământești” (distincția lui Vos păstrată), „predare”, „devotament”, „sacrificiu”. Alegeri neflagate, judecate acceptabile: „Pentru că …, de aceea” (corelativul emfatic al autorului, „Because … therefore”), „nu trebuie înțelese în sensul că” pentru „are not meant in the sense that”, „harului și a puterii mântuitoare divine” (aria adjectivelor rămâne deschisă ca în sursă), „ceea ce urmează să fie lepădat”, „cu o ocazie anterioară”, „atitudine de receptivitate și de răspuns”. Observație pentru revizor (nu constatare): nota flag-ului ALTA din par. 1 spune că „de receptivitate și de răspuns” respectă ordinea sursei, dar româna inversează perechea („responsive and receptive”); fără efect asupra sensului. translation-check --strict pe ciornă iese cu 0 (CRITIC 0, MAJOR 0, MINOR 0, INFO 8, toate FLAG_PROPOSED; 1232 cuvinte-sursă, 1193 țintă, raport 1,04); raportul a fost scris în afara depozitului și este identic cu checks/vos-1903-kingdom-ro-10-00.json. Textul-sursă din job coincide cu raw.txt, cu excepția zgomotului OCR (antete de pagină, „Lord'~”, „mtellect”, „js”, „thi\"S1”, „J1.ETaJ1.…” pentru greacă) deja curățat la ingestie."
+}

@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 // Captures the screenshots of the web export used in the README and in design reviews: the
-// library, a work, the reader and Settings, in the light and dark schemes, at phone size
-// (390x844) and desktop size (1280x800), with a device scale factor of 2.
+// library, a work, the reader and Settings, in the light and dark themes (and sepia on request), at
+// the sizes of docs/ui-spec-v2.md 20.1: desktop 1366x900, phone 390x844 and, on request, tablet
+// 768x1024, with a device scale factor of 1 (the sizes of the reference captures, so that a
+// side-by-side is possible).
 //
-//   node scripts/screenshots-web.mjs [--out docs/screenshots] [--dist apps/mobile/dist]
+//   node scripts/screenshots-web.mjs [--out docs/screenshots/v2] [--dist apps/mobile/dist]
 //        [--base-path /BiblicAPP] [--screens library,work,reader,settings]
-//        [--schemes light,dark] [--sizes phone,desktop] [--port N] [--timeout ms]
+//        [--schemes light,dark,sepia] [--sizes phone,desktop,tablet] [--scale 1]
+//        [--port N] [--timeout ms]
 //
-// Files are named <screen>-<scheme>-<size>.png (for example reader-dark-phone.png). Build the
+// Files are named <screen>-<theme>-<size>.png (for example reader-dark-phone.png). Build the
 // export first: pnpm --filter mobile export:web. Each shot is a fresh browser context (empty
-// storage, so the work page offers "Începe lectura") with the colour scheme emulated.
+// storage, so the work page offers "Începe lectura") with the colour scheme emulated; sepia is a
+// stored setting (the system scheme stays light), like in the app.
 
 import { mkdirSync } from 'node:fs';
 import { stat } from 'node:fs/promises';
@@ -25,8 +29,16 @@ import {
   waitForScreen,
 } from './lib/web-export.mjs';
 
-const SIZES = { phone: { width: 390, height: 844 }, desktop: { width: 1280, height: 800 } };
-const SCHEMES = ['light', 'dark'];
+const SIZES = {
+  phone: { width: 390, height: 844 },
+  desktop: { width: 1366, height: 900 },
+  tablet: { width: 768, height: 1024 },
+};
+const SCHEMES = ['light', 'dark', 'sepia'];
+// What a shot shows when no --schemes or --sizes is given (sepia and tablet are asked for).
+const DEFAULT_SCHEMES = ['light', 'dark'];
+const DEFAULT_SIZES = ['phone', 'desktop'];
+const SETTINGS_KEY = 'biblioteca:settings:v1';
 
 const list = (value, allowed, what) => {
   const items = value
@@ -48,11 +60,13 @@ const args = parseArgs(process.argv.slice(2), 'screenshots', {
   '--screens': (value, a) => (a.screens = list(value, SCREENS, 'screen')),
   '--schemes': (value, a) => (a.schemes = list(value, SCHEMES, 'scheme')),
   '--sizes': (value, a) => (a.sizes = list(value, Object.keys(SIZES), 'size')),
+  '--scale': (value, a) => (a.scale = Number(value)),
 });
-const out = args.out ?? join(root, 'docs/screenshots');
+const out = args.out ?? join(root, 'docs/screenshots/v2');
 const screens = args.screens ?? SCREENS;
-const schemes = args.schemes ?? SCHEMES;
-const sizes = args.sizes ?? Object.keys(SIZES);
+const schemes = args.schemes ?? DEFAULT_SCHEMES;
+const sizes = args.sizes ?? DEFAULT_SIZES;
+const scale = args.scale ?? 1;
 
 async function main() {
   mkdirSync(out, { recursive: true });
@@ -70,10 +84,23 @@ async function main() {
       for (const size of sizes) {
         const context = await browser.newContext({
           locale: 'ro-RO',
-          colorScheme: scheme,
+          // Sepia is a theme chosen in Settings: the system scheme is light then.
+          colorScheme: scheme === 'dark' ? 'dark' : 'light',
           viewport: SIZES[size],
-          deviceScaleFactor: 2,
+          deviceScaleFactor: scale,
         });
+        if (scheme === 'sepia') {
+          await context.addInitScript(
+            ([key, value]) => {
+              try {
+                localStorage.setItem(key, value);
+              } catch {
+                /* storage unavailable */
+              }
+            },
+            [SETTINGS_KEY, JSON.stringify({ fontSize: 18, lineHeight: 1.6, theme: 'sepia' })],
+          );
+        }
         for (const screen of screens) {
           const page = await context.newPage();
           page.setDefaultTimeout(args.timeout);

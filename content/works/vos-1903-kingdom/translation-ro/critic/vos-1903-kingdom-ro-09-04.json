@@ -1,0 +1,45 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-04",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "severity": "MINOR",
+      "category": "alta",
+      "quoteSource": "At no time until the very last will it be entirely purified of all evil elements",
+      "quoteTarget": "Niciodată, până chiar în ultima clipă, ea nu va fi pe deplin curățită de toate elementele rele",
+      "problem": "Limita temporală a negației este redată imprecis. „At no time until the very last” înseamnă „în niciun moment înaintea celui din urmă”: curățirea deplină vine abia la sfârșit, lucru pe care ultima propoziție a paragrafului îl spune explicit („în ziua judecății”). În română, „Niciodată” este absolut, iar „până chiar în” are valoare inclusivă, așa că fraza poate fi citită „nici măcar în ultima clipă nu va fi curățită”, ceea ce ar contrazice „Biserica ideal de curată, așa cum va fi ea în starea finală a Împărăției” din restul paragrafului. Negația este păstrată și contextul impune lectura corectă, deci nu este o inversare de sens, ci o pierdere de precizie, la care se adaugă o topică greoaie (incidenta „până chiar în ultima clipă” între „niciodată” și verb). Completarea elipsei „the very last” cu „clipă” este acceptabilă și rămâne.",
+      "proposal": "În niciun moment înainte de ultima clipă nu va fi ea pe deplin curățită de toate elementele rele"
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "severity": "MINOR",
+      "category": "alta",
+      "quoteSource": "Its proximate end is the self-preservation of the church",
+      "quoteTarget": "Scopul ei imediat este autoconservarea Bisericii",
+      "problem": "Referentul lui „ei” nu este limpede. În engleză, „Its” (procedura din Mat. 18:17) se deosebește de „her” (Biserica) prin gen; în română ambele substantive sunt feminine, iar propoziția precedentă se încheie cu „Biserica ideal de curată, așa cum va fi ea în starea finală a Împărăției”, așa că „Scopul ei” se citește întâi ca „scopul Bisericii” și se rectifică abia la „autoconservarea Bisericii”. În aceeași frază, „mărturisirii ei” se referă la Biserică, deci același pronume desemnează două entități diferite. Sensul se reconstituie din context (procedura este mijlocul, păstrarea Bisericii în sfințenie este scopul), dar rolurile ar trebui să se vadă din formulare.",
+      "proposal": "Scopul imediat al procedurii este autoconservarea Bisericii (în propoziția următoare, „Scopul ei ulterior” devine „Scopul ulterior”, în paralel)"
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "severity": "MINOR",
+      "category": "termen",
+      "quoteSource": "which befits her profession",
+      "quoteTarget": "care se cuvine mărturisirii ei",
+      "problem": "„Profession” este aici mărturisirea publică de credință a Bisericii (ceea ce ea declară public că este și că crede). În română, „mărturisire” singur poate însemna și mărturisirea păcatelor (spovedanie), sens sprijinit de vecinătatea cuvintelor „nepocăiți” și „păcatului” din aceeași frază, așa că „mărturisirii ei” poate fi citit „confesiunii ei de păcate”, mai ales de cititorii ortodocși și catolici, pe care profilul lucrării îi numără printre cititori. Sensul corect se deduce din „stare de sfințenie”, dar ezitarea este evitabilă; ciorna a semnalat deja riscul (AMBIGUITATE, MINOR). „De credință” nu adaugă sens nou: este obiectul implicit al lui „profession”.",
+      "proposal": "care se cuvine mărturisirii ei de credință (alternativă: „credinței pe care o mărturisește”)"
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWE",
+      "severity": "MINOR",
+      "category": "calc",
+      "quoteSource": "Its ulterior end is remedial",
+      "quoteTarget": "Scopul ei ulterior este vindecător",
+      "problem": "„Remedial” spune că scopul este de natura unui remediu (leac) pentru păcătos. „Vindecător” descrie de obicei ceva care vindecă efectiv (o putere, o apă, un tămăduitor), iar ca predicat al lui „scop” sună nefiresc și poartă structura englezească „is remedial”. Sensul rămâne limpede din „constând în mântuirea păcătosului”, deci problema este de colocație, nu de sens; ciorna a semnalat deja locul (MINOR).",
+      "proposal": "Scopul ulterior este de vindecare, constând în mântuirea păcătosului lăsat astfel în voia sa (fără „ei”, în paralel cu „Scopul imediat al procedurii”; dacă se păstrează „ei”: „Scopul ei ulterior este de vindecare”)"
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Nicio constatare CRITIC sau MAJOR; verdict ok. Patru constatări MINOR, toate în par. 2 (par. 1 nu are constatări): (1) „At no time until the very last” redat „Niciodată, până chiar în ultima clipă” (limita temporală a negației, imprecisă; propunere cu „în niciun moment înainte de ultima clipă”); (2) „Its proximate end” redat „Scopul ei imediat” (același „ei” pentru procedură și pentru Biserică în aceeași frază; propunere: „Scopul imediat al procedurii”); (3) „her profession” redat „mărturisirii ei” (risc de citire ca mărturisire a păcatelor; propunere: „mărturisirii ei de credință”); (4) „is remedial” redat „este vindecător” (colocație nefirească; propunere: „este de vindecare”). Cele 18 propoziții ale sursei (8 + 10) au corespondent una la una în română, în aceeași ordine, verificate în ambele sensuri: nicio afirmație lipsă sau adăugată (singurele completări sunt „clipă” pentru elipsa „the very last” și „a o exercita” în „datoria de a o exercita”, luat din „obligația de a exercita disciplina bisericească” din par. 1; ambele redau părți ale sursei fără sens nou). Negațiile și restricțiile („nu aduce nicio dezvăluire explicită”, „nu poate fi tratat decât”, „nu justifică”, „nu se făcuse nicio distincție”, „nu tot ceea ce era adevărat … putea fi … afirmat”, „nu poate fi înfăptuită decât la sfârșitul lumii”, „nu aduce în niciun fel atingere … și nici nu scutește”, „nu este menită”, „nu le este dat oamenilor”, „numai Dumnezeu”), cauzalele și concesivele („pentru că aceste pilde implică”, „după cum arată limpede”, „atâta vreme cât”, „deși Împărăția vine acum cu adevărat”, „deși îi simulează înfățișarea”) și modalitatea („nu poate fi regula”, „urmează să fie lăsați”, „trebuie să aibă parte”, „pot fi urmărite”, „trebuie interpretate”, „a devenit necesar”, „S-a crezut uneori”, „ar fi distrusă”, „va îndepărta”) sunt păstrate; lotul nu are întrebări. Rolurile coincid: procedura din Mat. 18:17 este mijlocul, Biserica este cea care se păstrează în sfințenie, păcătosul lăsat astfel în voia sa este obiectul mântuirii, iar Dumnezeu singur este agentul îndepărtării elementelor străine din Biserică. Singura referință din job (Mat. 18:17) apare în text exact în forma din references[].target; par. 1 nu are referințe nici în job, nici în text; intrările suplimentare din scripture (Mat. 13:24–30 și 13:47–50 pentru pildele grâului și neghinei și ale năvodului, Mat. 13:38 pentru „câmpul lumii”) sunt aluzii deduse din context, nu sunt în text și nu contrazic sursa (identificate din textul biblic cunoscut, nu dintr-o ediție din depozit). Numeralele coincid (primul act, două stadii, două pilde, ambele scopuri, 18:17). Lotul nu are citate biblice directe, cuvinte grecești sau ebraice și nu are defecte de sursă. Terminologia respectă glosarul și profilul (Împărăția cu majusculă, Biserica, pilde, Isus, Domnul nostru fără variații, ucenici, veacul de acum, nepocăiți, mântuirea) și este consecventă cu loturile vecine („disciplina bisericească” în 09-02, „procedura disciplinei bisericești” în 09-01, „scop imediat” în 01-00, „scop ulterior” în 04-00, „stadii” în 09-02 și 09-03, „curent” pentru „current” în 03-00, 05-00 și 09-01, „năvod” în 05-01, „se amestecă laolaltă” în 04-03); niciun calc din listă (translation-check: zero constatări în afara a patru INFO FLAG_PROPOSED pentru rândurile propuse „parable”); NFC, diacritice cu virgulă, fără ghilimele drepte sau englezești. Alegeri semnalate de ciornă și judecate acceptabile, fără constatare: „inferență” (termen nou; redările diferă între loturi, „concluzie” în 01-00 și 04-03, „deducție” în 08-00, și se armonizează la nivelul lucrării după aprobarea glosarului), „afirmat și despre” pentru „predicated of”, „urmează să fie lăsați să se amestece laolaltă” (păstrează sensul de rânduială), „în cel mai înalt grad” pentru „eminently”, „Procedura” pentru „process”, „lăsat astfel în voia sa” pentru „thus left to himself”, „fără greș” pentru „infallibly”."
+}
