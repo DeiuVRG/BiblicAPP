@@ -2,6 +2,12 @@
 
 Aplicație de bibliotecă creștină (cărți vechi traduse în română + Biblie + asistent AI), livrată pentru iOS, Android și web dintr-un singur cod (Expo). Arhitectura: `docs/arhitectura-app-biblica.md`. Reguli de lucru: `CLAUDE.md`. Specificația M0: `docs/m0-spec.md`. Decizii: `docs/decizii.md`. Securitate: `docs/security.md`.
 
+## Capturi de ecran (exportul web, M0)
+
+| Biblioteca                                | Cuprins                              | Cititor                              | Setări                             |
+| ----------------------------------------- | ------------------------------------ | ------------------------------------ | ---------------------------------- |
+| ![](docs/screenshots/01-biblioteca.png)   | ![](docs/screenshots/02-cuprins.png) | ![](docs/screenshots/03-cititor.png) | ![](docs/screenshots/04-setari.png) |
+
 ## Structură
 
 | Cale                     | Conținut                                                                      |
