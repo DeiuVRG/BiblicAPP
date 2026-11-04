@@ -13,7 +13,11 @@ export type UiLanguagePreference = 'system' | UiLanguage;
 export const READING_LANGUAGES: readonly ReadingLanguage[] = ['ro', 'en'];
 export const UI_LANGUAGE_PREFERENCES: readonly UiLanguagePreference[] = ['system', 'ro', 'en'];
 
-/** Used when the device locale cannot be read, and as the parameter default of the repository. */
+/**
+ * The reading language of a repository call that names none, so that the primary edition follows
+ * the fallback order of the spec (ro, en, the source edition). It says nothing about the device:
+ * that is `languageFromLocale`.
+ */
 export const FALLBACK_LANGUAGE: ReadingLanguage = 'ro';
 
 /** "en-GB" and "EN" are "en": the language subtag of a BCP 47 code, lower-cased. */
@@ -22,12 +26,12 @@ export function baseLanguage(code: string): string {
 }
 
 /**
- * The product language for a device locale: "ro" when the device is Romanian, "en" for any other
- * language, and "ro" (the safe default) when the locale is unknown.
+ * The product language for a device locale: "ro" when the device is Romanian, "en" for every other
+ * device, one whose locale cannot be read included (the rule of the spec: "ro when the device is
+ * Romanian, else en").
  */
 export function languageFromLocale(locale: string | null | undefined): ReadingLanguage {
-  if (typeof locale !== 'string' || locale.trim() === '') return FALLBACK_LANGUAGE;
-  return baseLanguage(locale.trim()) === 'ro' ? 'ro' : 'en';
+  return typeof locale === 'string' && baseLanguage(locale.trim()) === 'ro' ? 'ro' : 'en';
 }
 
 /** The interface language for the user's choice and the device locale. */

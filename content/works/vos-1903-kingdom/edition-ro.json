@@ -4,6 +4,7 @@
     "slug": "vos-1903-kingdom",
     "titleRo": "Învățătura lui Isus despre Împărăția lui Dumnezeu și Biserică",
     "titleOrig": "The Teaching of Jesus Concerning the Kingdom of God and the Church",
+    "titleEn": "The Teaching of Jesus Concerning the Kingdom of God and the Church",
     "author": {
       "name": "Geerhardus Vos",
       "born": 1862,
@@ -19,7 +20,8 @@
     "kind": "translation",
     "licence": {
       "status": "licensed",
-      "note": "Traducere nouă în română, asistată de AI și în curs de revizuire umană (Biblioteca creștină, 2026). Textul-sursă din 1903 este în domeniul public. Licența finală a traducerii va fi stabilită de proprietar înainte de publicare."
+      "note": "Traducere nouă în română, asistată de AI și în curs de revizuire umană (Biblioteca creștină, 2026). Textul-sursă din 1903 este în domeniul public. Licența finală a traducerii va fi stabilită de proprietar înainte de publicare.",
+      "noteEn": "New Romanian translation, AI-assisted and under human review (Biblioteca creștină, 2026). The 1903 source text is in the public domain. The final licence of the translation will be set by the owner before publication."
     },
     "provenance": {
       "source": "Translated from the canonical text of the 1903 American Tract Society edition (content/works/vos-1903-kingdom/edition-en.json, edition 01M6JQPCFGW7EM3S59E2BAASGZ).",

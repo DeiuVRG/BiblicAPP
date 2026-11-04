@@ -7,7 +7,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
-import { Chip } from '@/components/chip';
 import { Column } from '@/components/column';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
@@ -26,6 +25,7 @@ import { useSettings } from '@/settings/settings-context';
 import { useFontFamilies } from '@/theme/fonts';
 import { useColumnStyle } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
+import { textLanguageProps } from '@/theme/web-styles';
 
 import { READING_MAX_FONT_SCALE, ReaderParagraph } from './reader-paragraph';
 import { useReadingPositionWriter } from './use-reading-position';
@@ -167,7 +167,7 @@ function ChapterView({
   const editionId = edition.editionId;
   const neighbours = sectionNeighbours(sections, section.id);
   const title = workTitle(detail.work, settings.readingLanguage);
-  // The language of the text, said in the header only when the work has more than one.
+  // The language of the text, said at the head of the page only when the work has more than one.
   const languageLabel =
     detail.editions.length > 1 ? editionLanguageLabel(edition.language, t) : null;
 
@@ -261,7 +261,11 @@ function ChapterView({
 
   const header = section.heading ? (
     <View style={styles.chapterHeading}>
-      <AppText variant="chapter" maxFontSizeMultiplier={READING_MAX_FONT_SCALE}>
+      <AppText
+        variant="chapter"
+        {...textLanguageProps(edition.language)}
+        maxFontSizeMultiplier={READING_MAX_FONT_SCALE}
+      >
         {section.heading}
       </AppText>
     </View>
@@ -278,11 +282,18 @@ function ChapterView({
             fontSize: 15,
             color: colors.textMuted,
           },
-          headerRight: languageLabel ? () => <Chip label={languageLabel} /> : undefined,
         }}
       />
       <PageTitle parts={[section.heading, title]} />
-      <Column kind="reading" style={styles.runningHead}>
+      <Column
+        kind="reading"
+        style={[styles.runningHead, languageLabel ? styles.withLanguage : null]}
+      >
+        {languageLabel ? (
+          <AppText variant="label" testID="edition-language">
+            {languageLabel}
+          </AppText>
+        ) : null}
         <AppText
           variant="label"
           accessibilityRole="progressbar"
@@ -308,6 +319,7 @@ function ChapterView({
             lineHeight={settings.lineHeight}
             isTarget={item.id === highlightedParagraphId}
             query={item.id === highlightedParagraphId ? query : undefined}
+            language={edition.language}
           />
         )}
         ListHeaderComponent={header}
@@ -392,7 +404,15 @@ function ChapterView({
 const styles = StyleSheet.create({
   list: { flex: 1 },
   content: { paddingTop: 12, paddingBottom: 48 },
-  runningHead: { alignItems: 'flex-end', paddingTop: 8, paddingBottom: 4 },
+  // The position at the right; the language of the text (when the work has several) at the left.
+  runningHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingTop: 8,
+    paddingBottom: 4,
+  },
+  withLanguage: { justifyContent: 'space-between' },
   chapterHeading: { marginBottom: 24, marginTop: 8 },
   sheet: { borderTopWidth: StyleSheet.hairlineWidth },
   sheetContent: { paddingTop: 16, paddingBottom: 20, gap: 12 },

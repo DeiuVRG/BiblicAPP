@@ -6,13 +6,16 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AppText, useTypeStyle } from '@/components/app-text';
 import { useListContentStyle } from '@/components/column';
 import { Hairline } from '@/components/hairline';
+import { ReadingLanguageControl, UiLanguageControl } from '@/components/language-controls';
 import { PageTitle } from '@/components/page-title';
 import { Screen } from '@/components/screen';
 import { FontSizeControl, LineHeightControl, ThemeControl } from '@/components/typography-controls';
 import { useContent } from '@/content/content-context';
+import { workTitle } from '@/content/titles';
 import { useRepositoryQuery } from '@/hooks/use-repository-query';
-import { t } from '@/i18n';
-import { licenceLabel } from '@/i18n/labels';
+import { useT } from '@/i18n';
+import { editionLabel, licenceLabel } from '@/i18n/labels';
+import { useSettings } from '@/settings/settings-context';
 import { PROSE_MAX_WIDTH } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
 
@@ -46,6 +49,7 @@ function Section({
 }
 
 function Preview() {
+  const t = useT();
   const { colors } = useTheme();
   const readingStyle = useTypeStyle('body', false);
   return (
@@ -59,28 +63,37 @@ function Preview() {
 }
 
 function ContentInfo() {
+  const t = useT();
+  const { settings } = useSettings();
   const content = useContent();
-  const works = useRepositoryQuery((repository) => repository.listWorks(), []);
+  const works = useRepositoryQuery(
+    (repository) => repository.listWorks(settings.readingLanguage),
+    [settings.readingLanguage],
+  );
   const rejected = content.status === 'ready' ? content.rejected.length : 0;
-  const verified = works.status === 'ready' ? works.data.length : 0;
+  // One pack per edition: the count and the list are per pack, not per work.
+  const packs =
+    works.status === 'ready'
+      ? works.data.flatMap((work) => work.editions.map((edition) => ({ work, edition })))
+      : [];
   return (
     <View style={styles.lines}>
-      <AppText variant="caption">{t.settings.packs(verified, rejected)}</AppText>
+      <AppText variant="caption">{t.settings.packs(packs.length, rejected)}</AppText>
       {works.status === 'ready' && works.data.length === 0 ? (
         <AppText variant="caption">{t.settings.noWorks}</AppText>
       ) : null}
-      {works.status === 'ready'
-        ? works.data.map((work) => (
-            <AppText key={work.editionId} variant="caption">
-              {work.titleRo}: {licenceLabel(work.licenceStatus)}
-            </AppText>
-          ))
-        : null}
+      {packs.map(({ work, edition }) => (
+        <AppText key={edition.editionId} variant="caption">
+          {workTitle(work, settings.readingLanguage)} ({editionLabel(edition, t)}):{' '}
+          {licenceLabel(edition.licenceStatus, t)}
+        </AppText>
+      ))}
     </View>
   );
 }
 
 export function SettingsScreen() {
+  const t = useT();
   const contentStyle = useListContentStyle('reading');
   return (
     <Screen>
@@ -94,6 +107,10 @@ export function SettingsScreen() {
         </Section>
         <Section title={t.settings.theme}>
           <ThemeControl labelled={false} />
+        </Section>
+        <Section title={t.settings.language}>
+          <ReadingLanguageControl />
+          <UiLanguageControl />
         </Section>
         <Section title={t.settings.content}>
           <ContentInfo />

@@ -409,17 +409,43 @@ const focusRing = () => {
   };
 };
 
+// Settings has several radio groups (theme, reading language, interface language): the theme
+// one is found by its name, "Tema".
+const THEME_RADIOS = '[role="radiogroup"][aria-label="Tema"] [role="radio"]';
+
 /** The theme radios as the DOM exposes them. Evaluated inside the page. */
 const radiosOf = () =>
-  [...document.querySelectorAll('[role="radio"]')].map((element) => ({
-    label: element.getAttribute('aria-label'),
-    checked: element.getAttribute('aria-checked'),
-    selected: element.getAttribute('aria-selected'),
-    tabindex: element.getAttribute('tabindex'),
-    focused: element === document.activeElement,
+  [...document.querySelectorAll('[role="radiogroup"][aria-label="Tema"] [role="radio"]')].map(
+    (element) => ({
+      label: element.getAttribute('aria-label'),
+      checked: element.getAttribute('aria-checked'),
+      selected: element.getAttribute('aria-selected'),
+      tabindex: element.getAttribute('tabindex'),
+      focused: element === document.activeElement,
+    }),
+  );
+
+/** Every radio group of the page with its radios and their state. Evaluated inside the page. */
+const radioGroupsOf = () =>
+  [...document.querySelectorAll('[role="radiogroup"]')].map((group) => ({
+    name: group.getAttribute('aria-label'),
+    radios: [...group.querySelectorAll('[role="radio"]')].map((radio) => ({
+      label: radio.getAttribute('aria-label'),
+      checked: radio.getAttribute('aria-checked'),
+      tabindex: radio.getAttribute('tabindex'),
+    })),
   }));
 
 const overflowOf = () => document.documentElement.scrollWidth - innerWidth;
+
+/** The labels of radios whose text is wider than the segment it sits in ("Autom…"). Run in the page. */
+const cutOffRadios = () =>
+  [...document.querySelectorAll('[role="radio"]')]
+    .filter((radio) => {
+      const text = radio.firstElementChild;
+      return text !== null && text.scrollWidth > text.clientWidth + 1;
+    })
+    .map((radio) => radio.getAttribute('aria-label'));
 
 /**
  * What a screen reader and the keyboard get from the design: a themed focus ring, the state of
@@ -538,9 +564,14 @@ async function semanticsProblems(page, scenario, site, routes) {
   // Settings: the theme radios expose their state, form one tab stop and answer the keyboard.
   await open('settings', routes.settings);
   expectEqual('sideways overflow on Settings', await page.evaluate(overflowOf), 0);
+  expectEqual(
+    'radio labels cut off on Settings',
+    JSON.stringify(await page.evaluate(cutOffRadios)),
+    '[]',
+  );
   // The theme options share one row while each gets 84 px, and wrap into two rows below that.
   const grid = await page.evaluate(() => {
-    const group = document.querySelector('[role="radiogroup"]');
+    const group = document.querySelector('[role="radiogroup"][aria-label="Tema"]');
     const radios = [...group.querySelectorAll('[role="radio"]')];
     return {
       width: group.getBoundingClientRect().width,
@@ -549,6 +580,31 @@ async function semanticsProblems(page, scenario, site, routes) {
     };
   });
   expectEqual('rows of theme options', grid.rows, grid.width >= grid.count * 84 ? 1 : 2);
+
+  // The language controls are radio groups of the same kind: named, two or three options, one
+  // chosen and one tab stop each.
+  const groups = await page.evaluate(radioGroupsOf);
+  const sizes = Object.fromEntries(groups.map((group) => [group.name, group.radios.length]));
+  // Compared as JSON: two objects are never equal by reference.
+  expectEqual(
+    'radio groups of Settings',
+    JSON.stringify(sizes),
+    JSON.stringify({ Tema: 4, 'Limba lecturii': 2, 'Limba interfeței': 3 }),
+  );
+  for (const group of groups) {
+    expectEqual(
+      `chosen options of "${group.name}"`,
+      group.radios.filter((radio) => radio.checked === 'true').length,
+      1,
+    );
+    for (const radio of group.radios) {
+      expectEqual(
+        `tabindex of "${radio.label}" in "${group.name}"`,
+        radio.tabindex,
+        radio.checked === 'true' ? '0' : '-1',
+      );
+    }
+  }
   const radios = await page.evaluate(radiosOf);
   if (radios.length < 4) problems.push(`found ${radios.length} theme radios, expected 4`);
   for (const radio of radios) {
@@ -571,7 +627,7 @@ async function semanticsProblems(page, scenario, site, routes) {
   if (chosen >= 0) {
     // ArrowRight moves to the next option and wraps from the last to the first.
     const next = (chosen + 1) % radios.length;
-    await page.locator('[role="radio"]').nth(chosen).focus();
+    await page.locator(THEME_RADIOS).nth(chosen).focus();
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(300);
     const moved = await page.evaluate(radiosOf);
@@ -592,6 +648,29 @@ async function semanticsProblems(page, scenario, site, routes) {
       next,
     );
   } else problems.push('no theme radio is checked');
+
+  // The same page in English, chosen the way a reader chooses it (the labels there are not
+  // shorter than the Romanian ones). The page changes language at once, without a reload, so this
+  // has to come last: the theme radios are found by their Romanian name above.
+  await page
+    .locator(
+      '[role="radiogroup"][aria-label="Limba interfeței"] [role="radio"][aria-label="English"]',
+    )
+    .click();
+  await page.waitForFunction(() => document.documentElement.lang === 'en');
+  await page.waitForTimeout(250);
+  expectEqual(
+    'radio groups of Settings in English',
+    JSON.stringify((await page.evaluate(radioGroupsOf)).map((group) => group.name)),
+    JSON.stringify(['Theme', 'Reading language', 'Interface language']),
+  );
+  expectEqual(
+    'radio labels cut off on Settings in English',
+    JSON.stringify(await page.evaluate(cutOffRadios)),
+    '[]',
+  );
+  expectEqual('sideways overflow on Settings in English', await page.evaluate(overflowOf), 0);
+  expectEqual('browser tab in English', await page.title(), 'Settings · Biblioteca');
   return problems;
 }
 

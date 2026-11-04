@@ -3,12 +3,12 @@
   "kind": "edition",
   "workId": "01M6JQPCFFCK900E1P6353MWVK",
   "editionId": "01M6K66F2C06J665YYB3AR377H",
-  "revision": 1,
+  "revision": 2,
   "version": "1.0.0",
-  "createdAt": "2026-11-04T11:48:25.375Z",
-  "sha256": "5eb12fd581466f568eac7d057bdf810ba892c8851e6379808bd9837237bc7420",
-  "size": 11919,
+  "createdAt": "2026-11-04T13:47:54.036Z",
+  "sha256": "3560e14ee2e72e97fd0ec07b56b5db93da15a6e9e2fdae744c04b022c789cafc",
+  "size": 12229,
   "minAppVersion": "0.1.0",
   "signingKeyId": "dev-2026-11",
-  "signature": "SHKnU9YePIPW/aikr5ypQG40tZRH04aL8xSL2rrCJRAV4xaX4ds0aRGsLMoR9qL7jnp0JX5UwgU8o1PRXI42AA=="
+  "signature": "9ujaj67VUw+JelN0seJsdPjmaLuAFbahGDToRuW66DsKeZKtyQT/fdHg86sUr7jlKDUpkCn9T+ryC5t1eiJ2Cg=="
 }

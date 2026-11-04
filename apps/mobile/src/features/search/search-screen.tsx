@@ -136,7 +136,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
             <ResultRow
               hit={item}
               query={query}
-              workTitle={results.data?.titles.get(item.workId) ?? ''}
+              title={results.data?.titles.get(item.workId) ?? ''}
               showWork={manyWorks}
             />
           )}
@@ -150,12 +150,13 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
 function ResultRow({
   hit,
   query,
-  workTitle: title,
+  title,
   showWork,
 }: {
   hit: SearchHit;
   query: string;
-  workTitle: string;
+  /** Title of the work, in the reading language. */
+  title: string;
   showWork: boolean;
 }) {
   const t = useT();
@@ -164,8 +165,9 @@ function ResultRow({
   const language = editionLanguageLabel(hit.language, t);
   // Screen readers always hear where the hit is; the visible line names the work only when the
   // hits come from several works. It may use two lines and breaks between words.
+  const withWork = [hit.sectionHeading, title].filter(Boolean).join(' · ');
+  const heading = (showWork ? withWork : hit.sectionHeading) || withWork;
   const place = [hit.sectionHeading, language, title].filter(Boolean).join(' · ');
-  const visibleHeading = (showWork ? place : hit.sectionHeading) || place;
   return (
     <LinkRow
       href={readHref(hit.workId, hit.sectionId, { p: hit.paragraphId, q: query })}
@@ -173,15 +175,18 @@ function ResultRow({
     >
       <View style={styles.place}>
         <AppText variant="label" numberOfLines={2} style={styles.heading}>
-          {visibleHeading}
+          {heading}
         </AppText>
-        {showWork ? null : (
-          <AppText variant="label" style={styles.language}>
-            {language}
-          </AppText>
-        )}
+        <AppText variant="label" style={styles.language}>
+          {language}
+        </AppText>
       </View>
-      <HighlightedText text={hit.snippet} query={query} style={snippetStyle} />
+      <HighlightedText
+        text={hit.snippet}
+        query={query}
+        style={snippetStyle}
+        language={hit.language}
+      />
     </LinkRow>
   );
 }

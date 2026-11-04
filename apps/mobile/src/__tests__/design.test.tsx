@@ -23,15 +23,16 @@ import { libraryHref, workHref } from '@/navigation-hrefs';
 import { loadedFonts, FontsProvider } from '@/theme/fonts';
 import { palettes } from '@/theme/palettes';
 import { router, screenOptions } from '@/test-support/expo-router-mock';
-import { renderWithProviders } from '@/test-support/render';
+import { createSettingsStore, renderWithProviders } from '@/test-support/render';
+import { vosEditions } from '@/test-support/vos';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
 
+/** The Vos work and the sections of its English edition (eleven chapters). */
 async function bundled() {
   const { repository } = await loadBundledRepository();
-  const [work] = await repository.listWorks();
-  const sections = await repository.getSections(work!.workId);
-  return { repository, work: work!, sections };
+  const { work, english, englishSections } = await vosEditions(repository);
+  return { repository, work, english, sections: englishSections };
 }
 
 /** Installs (or removes) a stand-in `document`: there is none under Jest, and web code checks it. */
@@ -383,9 +384,27 @@ describe('LibraryScreen design', () => {
   it('leads with the editorial line and tags each work with its licence', async () => {
     await renderWithProviders(<LibraryScreen />);
     expect(await screen.findByText('Cărți vechi, traduse cu grijă.')).toBeTruthy();
-    expect(screen.getByText('Domeniu public')).toBeTruthy();
+    // The licence of the edition that opens first (the Romanian translation, by default).
+    expect(screen.getByText('Sub licență')).toBeTruthy();
     // Author, year and language on one label line.
     expect(screen.getByText(/Geerhardus Vos · 1903 · Engleză/)).toBeTruthy();
+  });
+
+  it('tags the work with the public-domain licence of the source text for an English reader', async () => {
+    await renderWithProviders(<LibraryScreen />, {
+      store: createSettingsStore({ readingLanguage: 'en' }),
+    });
+    expect(await screen.findByText('Domeniu public')).toBeTruthy();
+  });
+
+  it('sets the editions as outlined chips that wrap, next to the licence', async () => {
+    await renderWithProviders(<LibraryScreen />);
+    const edition = await screen.findByText('English · original');
+    // label > chip > row of chips
+    const row = edition.parent!.parent!;
+    expect(row).toHaveStyle({ flexDirection: 'row', flexWrap: 'wrap', gap: 8 });
+    expect(screen.getByText('Română · traducere').parent!.parent).toBe(row);
+    expect(screen.getByText('Sub licență').parent!.parent).toBe(row);
   });
 });
 
@@ -484,7 +503,7 @@ describe('ReaderScreen design', () => {
   });
 
   it('offers the table of contents instead of "next" on the last chapter', async () => {
-    const { work, sections } = await bundled();
+    const { work, english, sections } = await bundled();
     const last = sections[sections.length - 1]!;
     await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={last.id} />);
     await screen.findByText(last.heading);
@@ -492,7 +511,8 @@ describe('ReaderScreen design', () => {
     expect(screen.queryByLabelText('Capitolul următor')).toBeNull();
     expect(screen.getByLabelText('Capitolul anterior')).not.toBeDisabled();
     await fireEvent.press(screen.getByText('La cuprins'));
-    expect(router.replace).toHaveBeenCalledWith(workHref(work.workId));
+    // Back to the page of the work, on the edition that was being read.
+    expect(router.replace).toHaveBeenCalledWith(workHref(work.workId, english.editionId));
   });
 });
 

@@ -19,9 +19,14 @@ function Probe() {
 
 describe('SettingsProvider', () => {
   it('does not overwrite stored fields when update() runs before the stored settings load', async () => {
-    const data = new Map([
-      [SETTINGS_KEY, JSON.stringify({ fontSize: 22, lineHeight: 1.7, theme: 'dark' })],
-    ]);
+    const stored = {
+      fontSize: 22,
+      lineHeight: 1.7,
+      theme: 'dark',
+      readingLanguage: 'en',
+      uiLanguage: 'en',
+    };
+    const data = new Map([[SETTINGS_KEY, JSON.stringify(stored)]]);
     let release!: () => void;
     const gate = new Promise<void>((resolve) => {
       release = resolve;
@@ -54,12 +59,50 @@ describe('SettingsProvider', () => {
       await gate;
     });
 
+    // The languages the user had chosen are not replaced by the defaults of the device.
+    const expected = { ...stored, theme: 'sepia' };
     expect(sink.current?.ready).toBe(true);
-    expect(sink.current?.settings).toEqual({ fontSize: 22, lineHeight: 1.7, theme: 'sepia' });
-    expect(JSON.parse(data.get(SETTINGS_KEY)!)).toEqual({
-      fontSize: 22,
-      lineHeight: 1.7,
-      theme: 'sepia',
+    expect(sink.current?.settings).toEqual(expected);
+    expect(JSON.parse(data.get(SETTINGS_KEY)!)).toEqual(expected);
+  });
+
+  it('keeps a language chosen before the stored settings load', async () => {
+    const data = new Map([
+      [SETTINGS_KEY, JSON.stringify({ fontSize: 20, lineHeight: 1.5, theme: 'light' })],
+    ]);
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const store: KeyValueStore = {
+      getItem: async (key) => {
+        await gate;
+        return data.get(key) ?? null;
+      },
+      setItem: async (key, value) => {
+        data.set(key, value);
+      },
+    };
+    await render(
+      <StorageProvider store={store}>
+        <SettingsProvider>
+          <Probe />
+        </SettingsProvider>
+      </StorageProvider>,
+    );
+    await act(async () => {
+      sink.current?.update({ readingLanguage: 'en' });
+    });
+    await act(async () => {
+      release();
+      await gate;
+    });
+    expect(sink.current?.settings).toEqual({
+      fontSize: 20,
+      lineHeight: 1.5,
+      theme: 'light',
+      readingLanguage: 'en',
+      uiLanguage: 'system',
     });
   });
 });

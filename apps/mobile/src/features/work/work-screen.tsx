@@ -36,7 +36,7 @@ import type { ReadingPosition } from '@/reading/position-store';
 import { useSettings } from '@/settings/settings-context';
 import { useStorage } from '@/storage/key-value-store';
 import { PROSE_MAX_WIDTH, useLayout } from '@/theme/layout';
-import { balancedLines } from '@/theme/web-styles';
+import { balancedLines, textLanguageProps } from '@/theme/web-styles';
 
 /** An installed edition of the work with what the page shows of it. */
 export interface EditionView {
@@ -66,12 +66,15 @@ export function selectEdition(
 
 /** The options of the edition switch: the language of each edition ("Română", "English"). */
 function switchOptions(editions: readonly EditionView[], t: Strings) {
-  return editions.map(({ summary }) => {
-    const language = editionLanguageLabel(summary.language, t);
-    // Two editions in one language need more than the language to be told apart.
-    const shared = editions.some(
-      (other) =>
-        other.summary.editionId !== summary.editionId && other.summary.language === summary.language,
+  const labelled = editions.map(({ summary }) => ({
+    summary,
+    language: editionLanguageLabel(summary.language, t),
+  }));
+  return labelled.map(({ summary, language }) => {
+    // Two editions that read the same ("en" and "en-GB" are both "English") need more than the
+    // language to be told apart.
+    const shared = labelled.some(
+      (other) => other.summary.editionId !== summary.editionId && other.language === language,
     );
     return {
       value: summary.editionId,
@@ -205,7 +208,11 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
           async ({ summary: edition }) =>
             [
               edition.editionId,
-              await loadPosition(store, edition.editionId, edition.kind === 'source' ? workId : undefined),
+              await loadPosition(
+                store,
+                edition.editionId,
+                edition.kind === 'source' ? workId : undefined,
+              ),
             ] as const,
         ),
       ).then((entries) => {
@@ -258,7 +265,11 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
                     <AppText variant="label">{numeral}</AppText>
                   </View>
                 ) : null}
-                <AppText variant="body" style={styles.tocTitle}>
+                <AppText
+                  variant="body"
+                  {...textLanguageProps(selected.edition.language)}
+                  style={styles.tocTitle}
+                >
                   {heading || '—'}
                 </AppText>
               </View>

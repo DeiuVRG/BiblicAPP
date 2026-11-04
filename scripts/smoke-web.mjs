@@ -6,6 +6,8 @@
 // Serves the export with `serve`, opens it in headless Chromium and checks that
 //   1. the library lists at least one work (and shows no "unverified pack" notice),
 //   2. opening the work shows its table of contents,
+//   2b. the work has two editions (Romanian and English): choosing the other one puts
+//      `?edition=` in the address and shows that edition's table of contents,
 //   3. opening the first chapter renders several paragraphs of text,
 //   4. (only when the export contains 404.html, i.e. after prepare-pages.mjs) a deep link to
 //      that chapter loads directly, the way GitHub Pages serves it.
@@ -189,6 +191,27 @@ async function main() {
     const chapterLinks = page.locator('a[href*="/read/"]');
     await chapterLinks.first().waitFor({ state: 'visible' });
     step(`work page shows ${await chapterLinks.count()} link(s) into the reader`);
+
+    // 2b. The edition switch (one work, two editions): a radio group on the work page. Choosing
+    // the edition that is not chosen changes the address and the chapters (their first link, the
+    // start button, goes to a section of the other edition).
+    const editionSwitch = page.locator('[role="radiogroup"]');
+    await editionSwitch.first().waitFor({ state: 'visible' });
+    const editions = await editionSwitch.first().locator('[role="radio"]').count();
+    if (editions < 2) throw new Error(`the edition switch offers ${editions} edition(s), not 2`);
+    const startBefore = await chapterLinks.first().getAttribute('href');
+    await editionSwitch.first().locator('[role="radio"][aria-checked="false"]').first().click();
+    await page.waitForURL(/[?&]edition=/);
+    await page.waitForFunction(
+      (before) => document.querySelector('a[href*="/read/"]')?.getAttribute('href') !== before,
+      startBefore,
+    );
+    const chosen = await editionSwitch
+      .first()
+      .locator('[role="radio"][aria-checked="true"]')
+      .count();
+    if (chosen !== 1) throw new Error(`${chosen} editions are chosen after the switch, not 1`);
+    step(`edition switch: ${editions} editions, now ${new URL(page.url()).search}`);
 
     // 3. Reader
     await chapterLinks.first().click();

@@ -4,9 +4,19 @@ import { scrollFraction, sectionDepths, sectionNeighbours, toPercent } from '@/r
 import { PositionWriter } from '@/reading/position-writer';
 import { loadPosition } from '@/reading/position-store';
 import { sanitizeSettings } from '@/settings/sanitize';
-import { DEFAULT_SETTINGS } from '@/settings/types';
-import { formatLifespan, formatYear, languageName } from '@/i18n/labels';
-import { t } from '@/i18n';
+import { DEFAULT_SETTINGS, createDefaultSettings } from '@/settings/types';
+import {
+  editionKindLabel,
+  editionLabel,
+  editionLanguageLabel,
+  formatLifespan,
+  formatYear,
+  languageName,
+  licenceLabel,
+  licenceNote,
+} from '@/i18n/labels';
+import { en } from '@/i18n/en';
+import { ro } from '@/i18n/ro';
 import { splitChapterHeading } from '@/reading/heading';
 import { createMemoryStore } from '@/test-support/render';
 
@@ -58,12 +68,78 @@ describe('reading navigation', () => {
 describe('settings sanitising', () => {
   it('clamps and falls back to defaults', () => {
     expect(sanitizeSettings({ fontSize: 5, lineHeight: 9, theme: 'dark' })).toEqual({
+      ...DEFAULT_SETTINGS,
       fontSize: 14,
       lineHeight: 2,
       theme: 'dark',
     });
     expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
     expect(sanitizeSettings({ fontSize: '20', theme: 'x' })).toEqual(DEFAULT_SETTINGS);
+  });
+
+  it('keeps a valid reading language and interface language', () => {
+    expect(sanitizeSettings({ readingLanguage: 'en', uiLanguage: 'en' })).toMatchObject({
+      readingLanguage: 'en',
+      uiLanguage: 'en',
+    });
+    expect(sanitizeSettings({ readingLanguage: 'ro', uiLanguage: 'system' })).toMatchObject({
+      readingLanguage: 'ro',
+      uiLanguage: 'system',
+    });
+  });
+
+  it('ignores a language it does not know, and a reading language of "system"', () => {
+    const english = createDefaultSettings('en-GB');
+    expect(sanitizeSettings({ readingLanguage: 'fr', uiLanguage: 'de' }, english)).toMatchObject({
+      readingLanguage: 'en',
+      uiLanguage: 'system',
+    });
+    // Reading language is ro or en: "system" belongs to the interface language only.
+    expect(sanitizeSettings({ readingLanguage: 'system' }, english).readingLanguage).toBe('en');
+    expect(sanitizeSettings({ readingLanguage: 7, uiLanguage: null }, english)).toMatchObject({
+      readingLanguage: 'en',
+      uiLanguage: 'system',
+    });
+  });
+
+  it('gives settings stored before the languages existed the defaults of the device', () => {
+    const stored = { fontSize: 20, lineHeight: 1.5, theme: 'sepia' };
+    expect(sanitizeSettings(stored, createDefaultSettings('ro-RO'))).toEqual({
+      ...stored,
+      readingLanguage: 'ro',
+      uiLanguage: 'system',
+    });
+    expect(sanitizeSettings(stored, createDefaultSettings('en-US'))).toEqual({
+      ...stored,
+      readingLanguage: 'en',
+      uiLanguage: 'system',
+    });
+  });
+});
+
+describe('default settings', () => {
+  it('read Romanian on a Romanian device and English on any other, an unknown one included', () => {
+    expect(createDefaultSettings('ro-RO').readingLanguage).toBe('ro');
+    expect(createDefaultSettings('ro').readingLanguage).toBe('ro');
+    expect(createDefaultSettings('en-US').readingLanguage).toBe('en');
+    expect(createDefaultSettings('de-DE').readingLanguage).toBe('en');
+    expect(createDefaultSettings(undefined).readingLanguage).toBe('en');
+    expect(createDefaultSettings('').readingLanguage).toBe('en');
+  });
+
+  it('follow the device for the interface, whatever the device', () => {
+    expect(createDefaultSettings('en-US').uiLanguage).toBe('system');
+    expect(createDefaultSettings('ro-RO').uiLanguage).toBe('system');
+  });
+
+  it('use the (pinned) Romanian device of the tests', () => {
+    expect(DEFAULT_SETTINGS).toEqual({
+      fontSize: 18,
+      lineHeight: 1.6,
+      theme: 'system',
+      readingLanguage: 'ro',
+      uiLanguage: 'system',
+    });
   });
 });
 
@@ -73,38 +149,93 @@ describe('PositionWriter', () => {
 
   it('writes nothing before enable, then debounces', async () => {
     const store = createMemoryStore();
-    const writer = new PositionWriter(store, 'w', 's1');
+    const writer = new PositionWriter(store, 'edition-1', 's1');
     writer.track('p3');
     jest.advanceTimersByTime(2000);
     expect(store.data.size).toBe(0);
 
     writer.enable();
-    expect(await loadPosition(store, 'w')).toMatchObject({ sectionId: 's1', paragraphId: 'p3' });
+    expect(await loadPosition(store, 'edition-1')).toMatchObject({
+      sectionId: 's1',
+      paragraphId: 'p3',
+    });
 
     writer.track('p4');
     writer.track('p5');
-    expect(await loadPosition(store, 'w')).toMatchObject({ paragraphId: 'p3' });
+    expect(await loadPosition(store, 'edition-1')).toMatchObject({ paragraphId: 'p3' });
     jest.advanceTimersByTime(600);
-    expect(await loadPosition(store, 'w')).toMatchObject({ paragraphId: 'p5' });
+    expect(await loadPosition(store, 'edition-1')).toMatchObject({ paragraphId: 'p5' });
   });
 
   it('flushes pending writes', async () => {
     const store = createMemoryStore();
-    const writer = new PositionWriter(store, 'w', 's1');
+    const writer = new PositionWriter(store, 'edition-1', 's1');
     writer.enable();
     writer.track('p9');
     writer.flush();
-    expect(await loadPosition(store, 'w')).toMatchObject({ paragraphId: 'p9' });
+    expect(await loadPosition(store, 'edition-1')).toMatchObject({ paragraphId: 'p9' });
   });
 });
 
 describe('labels', () => {
   it('formats languages, years and lifespans in Romanian', () => {
-    expect(languageName('grc')).toBe('Greaca veche');
-    expect(languageName('xx-YY')).toBe('XX-YY');
-    expect(formatYear(-5)).toBe('5 î.Hr.');
-    expect(formatLifespan(1862, 1949)).toBe('1862–1949');
-    expect(formatLifespan(null, null)).toBe('');
+    expect(languageName('grc', ro)).toBe('Greaca veche');
+    expect(languageName('xx-YY', ro)).toBe('XX-YY');
+    expect(languageName('EN-gb', ro)).toBe('Engleză');
+    expect(formatYear(-5, ro)).toBe('5 î.Hr.');
+    expect(formatYear(1903, ro)).toBe('1903');
+    expect(formatYear(null, ro)).toBe('');
+    expect(formatLifespan(1862, 1949, ro)).toBe('1862–1949');
+    expect(formatLifespan(1862, null, ro)).toBe('n. 1862');
+    expect(formatLifespan(null, 1949, ro)).toBe('m. 1949');
+    expect(formatLifespan(null, null, ro)).toBe('');
+  });
+
+  it('formats languages, years and lifespans in English', () => {
+    expect(languageName('grc', en)).toBe('Ancient Greek');
+    expect(languageName('la', en)).toBe('Latin');
+    expect(languageName('xx-YY', en)).toBe('XX-YY');
+    expect(formatYear(-5, en)).toBe('5 BC');
+    expect(formatLifespan(1862, 1949, en)).toBe('1862–1949');
+    expect(formatLifespan(1862, null, en)).toBe('b. 1862');
+    expect(formatLifespan(null, 1949, en)).toBe('d. 1949');
+  });
+
+  it('writes the two reading languages in their own language, in either interface language', () => {
+    for (const table of [ro, en]) {
+      expect(editionLanguageLabel('ro', table)).toBe('Română');
+      expect(editionLanguageLabel('en', table)).toBe('English');
+      expect(editionLanguageLabel('en-GB', table)).toBe('English');
+    }
+    // Any other language is named in the interface language.
+    expect(editionLanguageLabel('la', ro)).toBe('Latină');
+    expect(editionLanguageLabel('la', en)).toBe('Latin');
+    expect(editionLanguageLabel('xx', en)).toBe('XX');
+  });
+
+  it('labels an edition with its language and what it is', () => {
+    expect(editionLabel({ language: 'ro', kind: 'translation' }, ro)).toBe('Română · traducere');
+    expect(editionLabel({ language: 'en', kind: 'source' }, ro)).toBe('English · original');
+    expect(editionLabel({ language: 'la', kind: 'source' }, ro)).toBe('Latină · original');
+    expect(editionLabel({ language: 'ro', kind: 'translation' }, en)).toBe('Română · translation');
+    expect(editionLabel({ language: 'la', kind: 'source' }, en)).toBe('Latin · original');
+  });
+
+  it('names licence statuses and edition kinds in the interface language', () => {
+    expect(licenceLabel('public-domain', ro)).toBe('Domeniu public');
+    expect(licenceLabel('public-domain', en)).toBe('Public domain');
+    expect(editionKindLabel('translation', ro)).toBe('Traducere');
+    expect(editionKindLabel('source', en)).toBe('Original');
+  });
+
+  it('picks the licence note in the interface language and falls back to the note itself', () => {
+    const licence = { note: 'English note', noteRo: 'Notă în română', noteEn: 'Note in English' };
+    expect(licenceNote(licence, 'ro')).toBe('Notă în română');
+    expect(licenceNote(licence, 'en')).toBe('Note in English');
+    expect(licenceNote({ note: 'Only note' }, 'ro')).toBe('Only note');
+    expect(licenceNote({ note: 'Only note', noteRo: 'Doar româna' }, 'en')).toBe('Only note');
+    expect(licenceNote({ note: 'Only note', noteRo: '  ' }, 'ro')).toBe('Only note');
+    expect(licenceNote({ note: '' }, 'en')).toBe('');
   });
 });
 
@@ -137,9 +268,14 @@ describe('chapter headings', () => {
 
 describe('progress text', () => {
   it('writes a percentage with a no-break space, as in "2 din 11 · 9 %"', () => {
-    expect(t.reader.percent(9)).toBe('9\u00a0%');
-    expect(t.reader.position(2, 11, 9)).toBe('2 din 11 · 9\u00a0%');
-    expect(t.reader.position(2, 11, 9).replace('\u00a0', ' ')).toBe('2 din 11 · 9 %');
+    expect(ro.reader.percent(9)).toBe('9\u00a0%');
+    expect(ro.reader.position(2, 11, 9)).toBe('2 din 11 · 9\u00a0%');
+    expect(ro.reader.position(2, 11, 9).replace('\u00a0', ' ')).toBe('2 din 11 · 9 %');
+  });
+
+  it('writes it the English way: "2 of 11 · 9%"', () => {
+    expect(en.reader.percent(9)).toBe('9%');
+    expect(en.reader.position(2, 11, 9)).toBe('2 of 11 · 9%');
   });
 });
 

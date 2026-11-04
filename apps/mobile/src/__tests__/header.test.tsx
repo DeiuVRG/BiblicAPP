@@ -11,11 +11,13 @@ import { ReaderScreen } from '@/features/reader/reader-screen';
 import { SearchScreen } from '@/features/search/search-screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { WorkScreen } from '@/features/work/work-screen';
-import { t } from '@/i18n';
+import { en } from '@/i18n/en';
+import { ro as t } from '@/i18n/ro';
 import { FontsProvider, loadedFonts } from '@/theme/fonts';
 import { PROSE_MAX_WIDTH } from '@/theme/layout';
 import { palettes } from '@/theme/palettes';
-import { renderWithProviders } from '@/test-support/render';
+import { createSettingsStore, renderWithProviders } from '@/test-support/render';
+import { vosEditions } from '@/test-support/vos';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
 
@@ -123,13 +125,14 @@ describe('page titles (the browser tab)', () => {
   });
 
   it('puts the name of the page first and the name of the app last, once', () => {
-    expect(formatPageTitle(['Setări'])).toBe('Setări · Biblioteca');
-    expect(formatPageTitle(['I. Introductory', 'Învățătura lui Isus'])).toBe(
+    const app = t.appName;
+    expect(formatPageTitle(['Setări'], app)).toBe('Setări · Biblioteca');
+    expect(formatPageTitle(['I. Introductory', 'Învățătura lui Isus'], app)).toBe(
       'I. Introductory · Învățătura lui Isus · Biblioteca',
     );
-    expect(formatPageTitle(['Biblioteca'])).toBe('Biblioteca');
-    expect(formatPageTitle([])).toBe('Biblioteca');
-    expect(formatPageTitle(['  ', 'Căutare '])).toBe('Căutare · Biblioteca');
+    expect(formatPageTitle(['Biblioteca'], app)).toBe('Biblioteca');
+    expect(formatPageTitle([], app)).toBe('Biblioteca');
+    expect(formatPageTitle(['  ', 'Căutare '], app)).toBe('Căutare · Biblioteca');
   });
 
   it('names the library, search, settings and not-found tabs', async () => {
@@ -151,17 +154,54 @@ describe('page titles (the browser tab)', () => {
 
   it('names the work page after the work and the reader after the chapter and the work', async () => {
     const { repository } = await loadBundledRepository();
-    const [work] = await repository.listWorks();
-    const [first] = await repository.getSections(work!.workId);
+    const { work, englishSections } = await vosEditions(repository);
+    const first = englishSections[0]!;
 
-    await renderWithProviders(<WorkScreen workId={work!.workId} />);
+    await renderWithProviders(<WorkScreen workId={work.workId} />);
     await screen.findByLabelText('Începe lectura');
-    expect(fakeDocument.title).toBe(`${work!.titleRo} · Biblioteca`);
+    expect(fakeDocument.title).toBe(`${work.titleRo} · Biblioteca`);
 
     fakeDocument.title = '';
-    await renderWithProviders(<ReaderScreen workId={work!.workId} sectionId={first!.id} />);
+    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={first.id} />);
     await screen.findByRole('progressbar');
-    expect(fakeDocument.title).toBe(`${first!.heading} · ${work!.titleRo} · Biblioteca`);
+    expect(fakeDocument.title).toBe(`${first.heading} · ${work.titleRo} · Biblioteca`);
+  });
+
+  it('names the work in the reading language in the tab', async () => {
+    const { repository } = await loadBundledRepository();
+    const { work, englishSections } = await vosEditions(repository);
+    const store = createSettingsStore({ readingLanguage: 'en' });
+
+    await renderWithProviders(<WorkScreen workId={work.workId} />, { store });
+    await screen.findByLabelText('Începe lectura');
+    expect(fakeDocument.title).toBe(`${work.titleOrig} · Biblioteca`);
+
+    fakeDocument.title = '';
+    await renderWithProviders(
+      <ReaderScreen workId={work.workId} sectionId={englishSections[0]!.id} />,
+      { store },
+    );
+    await screen.findByRole('progressbar');
+    expect(fakeDocument.title).toBe(
+      `${englishSections[0]!.heading} · ${work.titleOrig} · Biblioteca`,
+    );
+  });
+
+  it('names the tabs in the language of the interface', async () => {
+    const store = createSettingsStore({ uiLanguage: 'en' });
+    await renderWithProviders(<LibraryScreen />, { store });
+    await screen.findByText(en.library.subtitle);
+    expect(fakeDocument.title).toBe('Library · Biblioteca');
+
+    await renderWithProviders(<SettingsScreen />, { store });
+    await screen.findByText(en.settings.about);
+    expect(fakeDocument.title).toBe('Settings · Biblioteca');
+
+    await renderWithProviders(<SearchScreen />, { store });
+    expect(fakeDocument.title).toBe('Search · Biblioteca');
+
+    await renderWithProviders(<NotFoundRoute />, { store });
+    expect(fakeDocument.title).toBe('Page not found · Biblioteca');
   });
 
   it('leaves the title alone on iOS and Android, where the native header carries it', async () => {
@@ -175,10 +215,10 @@ describe('page titles (the browser tab)', () => {
 describe('secondary text', () => {
   it('limits the licence note on the work page to a comfortable line length', async () => {
     const { repository } = await loadBundledRepository();
-    const [work] = await repository.listWorks();
-    const detail = await repository.getWork(work!.workId);
-    await renderWithProviders(<WorkScreen workId={work!.workId} />);
-    const note = await screen.findByText(detail!.edition.licence.note!);
+    const { work, english } = await vosEditions(repository);
+    const detail = await repository.getEdition(english.editionId);
+    await renderWithProviders(<WorkScreen workId={work.workId} editionId={english.editionId} />);
+    const note = await screen.findByText(detail!.edition.licence.note);
     expect(note).toHaveStyle({ maxWidth: PROSE_MAX_WIDTH });
   });
 

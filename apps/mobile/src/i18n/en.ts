@@ -85,7 +85,8 @@ export const en: Strings = {
     decreaseLineHeight: 'Decrease the line spacing',
     theme: 'Theme',
     themes: {
-      system: 'Automatic',
+      // Short on purpose: four options share a row of a phone, and "Automatic" is cut off.
+      system: 'Auto',
       light: 'Light',
       sepia: 'Sepia',
       dark: 'Dark',

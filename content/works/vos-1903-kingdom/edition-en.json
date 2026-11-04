@@ -3,6 +3,7 @@
     "id": "01M6JQPCFFCK900E1P6353MWVK",
     "slug": "vos-1903-kingdom",
     "titleRo": "Învățătura lui Isus despre Împărăția lui Dumnezeu și Biserică",
+    "titleEn": "The Teaching of Jesus Concerning the Kingdom of God and the Church",
     "titleOrig": "The Teaching of Jesus Concerning the Kingdom of God and the Church",
     "author": {
       "name": "Geerhardus Vos",
@@ -19,7 +20,8 @@
     "kind": "source",
     "licence": {
       "status": "public-domain",
-      "note": "Original text first published in 1903; the author died in 1949, before the project's public-domain cut-off year (1956). The text is the 1903 edition itself; no later editorial material is included."
+      "note": "Original text first published in 1903; the author died in 1949, before the project's public-domain cut-off year (1956). The text is the 1903 edition itself; no later editorial material is included.",
+      "noteRo": "Text original publicat pentru prima dată în 1903; autorul a murit în 1949, înainte de anul-limită al proiectului pentru domeniul public (1956). Textul este ediția din 1903 ca atare; nu include material editorial ulterior."
     },
     "provenance": {
       "source": "The Teaching of Jesus Concerning the Kingdom of God and the Church, Geerhardus Vos, American Tract Society, New York, 1903 (series The Teachings of Jesus, ed. John H. Kerr). Scan probably from the Internet Archive (see content/INVENTORY.md, P1-07).",

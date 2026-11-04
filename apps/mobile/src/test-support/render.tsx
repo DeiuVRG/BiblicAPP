@@ -5,6 +5,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { loadBundledRepository } from '@/content/repository';
 import type { LoadedRepository, LoadOptions } from '@/content/repository';
 import { AppProviders } from '@/providers';
+import { SETTINGS_KEY } from '@/settings/settings-store';
+import { DEFAULT_SETTINGS } from '@/settings/types';
+import type { ReaderSettings } from '@/settings/types';
 import type { KeyValueStore } from '@/storage/key-value-store';
 
 const metrics = {
@@ -24,6 +27,17 @@ export function createMemoryStore(initial: Record<string, string> = {}): KeyValu
       data.set(key, value);
     },
   };
+}
+
+/** A memory store holding these settings (over the defaults) and, optionally, other entries. */
+export function createSettingsStore(
+  settings: Partial<ReaderSettings>,
+  other: Record<string, string> = {},
+) {
+  return createMemoryStore({
+    ...other,
+    [SETTINGS_KEY]: JSON.stringify({ ...DEFAULT_SETTINGS, ...settings }),
+  });
 }
 
 export interface RenderOptions {

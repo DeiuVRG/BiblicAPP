@@ -6,6 +6,7 @@ import { HighlightedSpans } from '@/components/highlighted-text';
 import { useFontFamilies } from '@/theme/fonts';
 import { useTheme } from '@/theme/theme-context';
 import { lineHeightFor, paragraphFontSize } from '@/theme/typography';
+import { textLanguageProps } from '@/theme/web-styles';
 
 /** Reading text honours the system font scale, capped so very large settings stay usable. */
 export const READING_MAX_FONT_SCALE = 1.6;
@@ -20,6 +21,8 @@ interface Props {
   /** Search query to highlight inside this paragraph (only set for the jump target). */
   query?: string;
   isTarget?: boolean;
+  /** Language of the text (the edition's), when it can differ from the interface language. */
+  language?: string;
 }
 
 /** The `target` background behind a paragraph, fading in over 300 ms. */
@@ -43,7 +46,14 @@ function TargetBackground() {
   );
 }
 
-function ReaderParagraphBase({ paragraph, fontSize, lineHeight, query, isTarget = false }: Props) {
+function ReaderParagraphBase({
+  paragraph,
+  fontSize,
+  lineHeight,
+  query,
+  isTarget = false,
+  language,
+}: Props) {
   const { colors } = useTheme();
   const fonts = useFontFamilies();
   const { kind } = paragraph;
@@ -75,6 +85,7 @@ function ReaderParagraphBase({ paragraph, fontSize, lineHeight, query, isTarget 
       {isTarget ? <TargetBackground /> : null}
       <Text
         selectable
+        {...textLanguageProps(language)}
         maxFontSizeMultiplier={READING_MAX_FONT_SCALE}
         accessibilityRole={kind === 'heading' ? 'header' : undefined}
         // Below the chapter heading (level 2); react-native-web would render h1 otherwise.

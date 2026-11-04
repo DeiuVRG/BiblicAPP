@@ -1,15 +1,19 @@
+import { baseLanguage } from '@/i18n/language';
 import type { ReadingLanguage } from '@/i18n/language';
 
 import type { EditionSummary } from './types';
 
 // Pure rules about the editions of one work. No React, no repository: the repository applies
 // them when it builds its summaries and the screens use them on the summaries they hold.
+//
+// An edition's language is a BCP 47 code ("ro", "ro-MD", "en-GB"). The rules below care about the
+// language only, so "ro-MD" is Romanian and "en-GB" is English, as everywhere else in the app.
 
 type OrderFields = Pick<EditionSummary, 'language' | 'kind'>;
 
 /** Translations into Romanian come first, then the source edition, then everything else. */
 function rank(edition: OrderFields): number {
-  if (edition.kind === 'translation' && edition.language === 'ro') return 0;
+  if (edition.kind === 'translation' && baseLanguage(edition.language) === 'ro') return 0;
   if (edition.kind === 'source') return 1;
   return 2;
 }
@@ -35,7 +39,7 @@ export function pickPrimaryEdition<T extends Pick<EditionSummary, 'language' | '
   readingLanguage: ReadingLanguage,
 ): T | undefined {
   const inLanguage = (language: string) =>
-    editions.find((edition) => edition.language === language);
+    editions.find((edition) => baseLanguage(edition.language) === language);
   return (
     inLanguage(readingLanguage) ??
     inLanguage('ro') ??
