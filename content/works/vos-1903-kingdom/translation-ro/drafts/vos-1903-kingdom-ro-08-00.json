@@ -1,0 +1,243 @@
+{
+  "jobId": "vos-1903-kingdom-ro-08-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "VIII. Esența Împărăției (continuare): Împărăția ca stare de fericire",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4865",
+      "text": "Am văzut deja că nu gândul bunăstării omului, ci cel al slavei lui Dumnezeu era suprem în învățătura Domnului nostru despre Împărăție. Subliniind aceasta, nu trebuie totuși să uităm că pentru el acest gând era legat inseparabil de ideea celei mai mari fericiri imaginabile pentru om. Ca Dumnezeu să domnească era, în ochii lui, într-atât singura stare de lucruri firească și normală, încât nu putea concepe nicio fericire adevărată în afara ei și nici nu putea concepe domnia lui Dumnezeu fără o stare de fericire concomitentă pentru cei care îi dau lui Dumnezeu locul întâi și cel mai înalt. Aceasta este, în general, legătura dintre domnia lui Dumnezeu, ca stăpânire asupra omului, și Împărăția lui Dumnezeu, ca posesiune pentru om, o legătură indicată destul de limpede în zicerea din Mat. 6:33. Odată cu domnia lui Dumnezeu trebuie să vină toate celelalte lucruri, căci, așa cum a formulat-o mai târziu Pavel: „Dacă Dumnezeu este pentru noi, cine va fi împotriva noastră?”",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "If God be for us, who shall be against us?",
+          "quoteTarget": "Dacă Dumnezeu este pentru noi, cine va fi împotriva noastră?",
+          "note": "Citat al autorului din Pavel, fără trimitere în sursă; trimiterea probabilă este Rom. 8:31 (identificată din memorie, neverificată în acest job; nu apare în text, doar în scripture). Tradus din engleza lui Vos („who shall be against us”), nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a possession for man",
+          "quoteTarget": "posesiune pentru om",
+          "note": "«Possession» (ceea ce omul stăpânește, în opoziție cu «rule» = stăpânirea lui Dumnezeu asupra omului) este redat „posesiune”, la fel ca în «in actual possession» → „posesiune efectivă” (par. 3 din lot) și ca în 04-02; pluralul «possessions» (bunurile cuiva, par. 3 din lot) este „bunuri”. Fără rând în glosar; propus pentru glosar după aprobare. Alternative pentru revizor: „bun”, „avuție”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:33",
+          "mode": "reference"
+        },
+        {
+          "ref": "Rom. 8:31",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4866",
+      "text": "Faptul că acest gând nu este formulat mai des și mai direct este lesne de explicat. Atunci când starea de fericire era dedusă din caracterul și voia lui Dumnezeu, era atât de firesc ca gândul să se îndrepte spre paternitatea divină, ca spre izvorul ei, încât trimiterea la domnia lui Dumnezeu cu greu s-ar fi ivit de la sine în minte. Prin urmare, constatăm că Împărăția, ca stare de fericire, este înfățișată ca darul Tatălui pentru mica turmă, mai degrabă decât ca darul Regelui, Lc. 12:32; cf. și Mat. 20:32. Era însă perfect posibil să se ajungă la ideea fericirii printr-o deducție directă din cea a domniei divine. Regele oriental acordă adesea supușilor săi, cu dărnicie regească, daruri de tot felul. Exemple în acest sens, atât din istoria sacră, cât și din cea profană, vor veni lesne în minte. Astfel, și Isus vorbește despre Împărăție sub chipul unui banchet pregătit de rege ca ospăț de nuntă pentru fiul său, Mat. 22:2. Nici nu trebuie uitat că împărăția fusese pentru Israel instrumentul unui ajutor plin de îndurare în vremuri de necaz și o sursă de mare prosperitate națională. În intenția ei ideală – iar într-o anumită măsură, cel puțin în zilele ei mai bune, și în practică –, domnia fusese o instituție democratică, la care cei săraci, cei asupriți și cei nefericiți apelau pentru ajutor și ocrotire. Trecerea de la ideea domniei la cea a harului și a mântuirii era, așadar, ușoară.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MAJOR",
+          "quoteSource": "Matt. xx. 32",
+          "quoteTarget": "Mat. 20:32",
+          "note": "Trimiterea pare nepotrivită cu afirmația pe care o însoțește (Împărăția ca dar al Tatălui). Din memorie, neverificat în acest job: Mat. 20:32 este momentul în care Isus îi cheamă pe cei doi orbi și îi întreabă ce vor să le facă, în timp ce Mat. 20:23 vorbește despre ceea ce este pregătit de Tatăl; posibil cifre inversate în sursă sau în OCR. Tradusă ca în sursă și în job (reguli §5: nu se corectează în tăcere); de verificat în ediția tipărită din 1903."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the kingdom had been for Israel the instrument of gracious help",
+          "quoteTarget": "împărăția fusese pentru Israel instrumentul unui ajutor plin de îndurare",
+          "note": "«The kingdom» desemnează aici, după context («national prosperity», «The kingship had been … a democratic institution»), împărăția istorică a lui Israel, nu Împărăția lui Dumnezeu; de aceea cu minusculă, ca în cap. III, unde împărăția în sens generic apare cu minusculă, deși profilul fixează «kingdom» (absolut) = „Împărăția”. Dacă revizorul citește aici împărăția teocratică din Vechiul Testament, se poate pune majusculă."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 12:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 20:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 22:2",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4867",
+      "text": "Valoarea inestimabilă a Împărăției din punctul de vedere al omului își găsește cea mai clară expresie în pilda comorii din câmp și a mărgăritarului de mare preț. În ambele cazuri se subliniază că cel care găsește își vinde toate bunurile pentru a dobândi acest unic bun transcendent, cf. Mat. 19:12; Mc. 9:43–47; Lc. 18:29. Că Dumnezeu însuși privește Împărăția în această lumină reiese din faptul că a pregătit-o din veșnicie pentru ai săi, Mat. 25:34. Pregătirea din veșnicie arată că Împărăția este întruchiparea supremă a scopului divin plin de har. De aceea se și spune despre Împărăție că este „moștenită”. Pentru că Împărăția cuprinde astfel tot ce este cu adevărat valoros și prețios, Domnul nostru, în legătură cu pildele despre Împărăție, îi declară fericiți pe ucenicii care văd și aud adevărul despre ea. Făcând aceasta, ei sunt aduși în contact nemijlocit cu împlinirea tuturor făgăduințelor din Vechiul Testament. Ceea ce mulți profeți și oameni drepți au dorit în zadar să vadă și să audă este al lor în posesiune efectivă, Mat. 13:16, 17.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the parable of the treasure in the field and the pearl of great price",
+          "quoteTarget": "pilda comorii din câmp și a mărgăritarului de mare preț",
+          "note": "Referire la cele două pilde din Mat. 13:44–46 (comoara din câmp, perla de mare preț); trimiterea nu este în sursă și a fost identificată din memorie, neverificată în acest job. Marcată doar în scripture, ca aluzie, fără a fi adăugată în text. Formulările sunt traducerea titlului dat de autor, nu textul unei ediții românești a Bibliei."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "In doing this they are brought into immediate contact",
+          "quoteTarget": "Făcând aceasta, ei sunt aduși în contact nemijlocit",
+          "note": "«This» poate trimite la faptul că ucenicii văd și aud adevărul despre Împărăție (lectura mai probabilă, subiectul «they» fiind același) sau la declararea lor fericiți de către Domnul. „Făcând aceasta” păstrează aceeași ambiguitate; ambele lecturi duc la aceeași concluzie. «Immediate» este redat „nemijlocit” (direct), nu „imediat”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 13:44–46",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 19:12",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 9:43–47",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 18:29",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 25:34",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:16",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:17",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4868",
+      "text": "Privite concret, binecuvântările în care constă Împărăția sunt în parte de caracter negativ, în parte de caracter pozitiv. Pe latura negativă, Împărăția cuprinde izbăvirea de tot răul. Dintre binecuvântările care țin de această latură, pe primul loc se află iertarea păcatelor. Profeția vorbise deja despre aceasta ca despre un element important al fericirii epocii mesianice, Ier. 31:34. Faptul că Isus nu considera aceasta doar o pregătire pentru Împărăție, ci o socotea ca ținând de însăși substanța Împărăției se poate vedea din Mat. 18:23 ș.urm., unde Împărăția cerurilor este asemănată cu un anume rege, care iartă cu îndurare datoria slujitorului său și îl eliberează. De aici și succesiunea din Rugăciunea Domnului, unde cererea pentru venirea Împărăției este urmată mai întâi de cea pentru înfăptuirea voii lui Dumnezeu și apoi de cea pentru iertarea datoriilor. Pe latura pozitivă, iertării îi corespunde darul dreptății, care nu poate să nu aducă cu sine, pentru cei care îl dobândesc, un sentiment de desfătare și satisfacție spirituale de cel mai înalt grad. Mintea ușurată de povara păcatului și încredințată de acceptarea divină intră într-o stare de pace și odihnă adânci, Mat. 11:28, 29; Mc. 5:34; Lc. 7:50.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the sequence in the Lord’s Prayer",
+          "quoteTarget": "succesiunea din Rugăciunea Domnului",
+          "note": "Aluzie la cererile din Rugăciunea Domnului (venirea Împărăției, înfăptuirea voii lui Dumnezeu, iertarea datoriilor), probabil Mat. 6:10 și 6:12; trimiterile nu sunt în sursă și au fost identificate din memorie, neverificate în acest job. Parafrază a autorului, nu citat; marcate doar în scripture, ca aluzii."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "Positively there corresponds to this the gift of righteousness",
+          "quoteTarget": "Pe latura pozitivă, iertării îi corespunde darul dreptății",
+          "note": "Antecedentul lui «this» poate fi iertarea păcatelor (lectura aleasă, în perechea clasică iertare / dar al dreptății) sau latura negativă în ansamblu (izbăvirea de tot răul). Româna a explicitat „iertării”; în a doua lectură s-ar scrie „Pe latura pozitivă, acestei laturi negative îi corespunde darul dreptății”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the gift of righteousness",
+          "quoteTarget": "darul dreptății",
+          "note": "Fals pozitiv al verificării GLOSSARY vos-righteousness: tiparul \\bdreptat\\w* nu recunoaște genitivul-dativ „dreptății” (alternanța dreptate / dreptății), deși redarea respectă glosarul («righteousness» = dreptate), aici în genitiv, cum e firesc pentru «the gift of righteousness». Textul a rămas neschimbat (cf. „norma dreptății” din 07-00). Propunere pentru glosar: \\bdrept(?:at|ăț)\\w*."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "The mind relieved from the burden of sin",
+          "quoteTarget": "Mintea ușurată de povara păcatului",
+          "note": "«Mind» (în sensul vechi, cuprinzător, de conștiință sau suflet al omului) este redat literal „minte”. Alternative pentru revizor: „sufletul”, „conștiința”. «Assured of the divine acceptance» → „încredințată de acceptarea divină” (acceptare de către Dumnezeu, ca în 07-02)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Ier. 31:34",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 18:23 ș.urm.",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:10",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 6:12",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 11:28",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 11:29",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 5:34",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 7:50",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4869",
+      "text": "Latura pozitivă a fericirii primite în Împărăție este descrisă mai ales prin cele două noțiuni importante, cea de filiație și cea de viață. Așadar, trebuie să zăbovim aici, pe scurt, asupra acestora. Deși cele două atribute, domnia și paternitatea, marchează două elemente distincte în concepția lui Isus despre Dumnezeu, el cu siguranță nu le-a așezat departe una de alta, cu atât mai puțin le-a privit ca fiind opuse una alteia prin însăși natura lor. Ușurința cu care trece de la una la alta, de exemplu în cuvintele de început ale Rugăciunii Domnului, arată că în mintea lui cele două sunt atribute perfect armonioase ale naturii divine. Într-un anumit sens, efectele paternității lui Dumnezeu pot fi subsumate ideii Împărăției. După cum, pe de o parte, domnia putea lua naștere adesea prin extinderea autorității patriarhale dincolo de hotarele tribului, tot astfel, pe de altă parte, regele putea continua să păstreze față de poporul său relația unui tată. De fapt, Vechiul Testament îl înfățișează pe Iehova ca devenind, printr-un singur și același act, Regele lui Israel și Tatăl lui Israel, adică prin izbăvirea din exod, Ex. 4:22; Deut. 32:6; Is. 43:15.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "sonship",
+          "quoteTarget": "filiație",
+          "note": "«Sonship» (starea, calitatea de fiu al lui Dumnezeu) este redat „filiație”, în paralel cu „paternitate” pentru «fatherhood»; termenul revine în tot capitolul (în partea 1: «sonship of all men», «the newness of the sonship»). Alternativă: „calitatea de fii ai lui Dumnezeu”; „înfiere” (adopție) nu a fost folosit, fiindcă nu este același concept. Fără rând în glosar; propus pentru glosar după aprobare (miză teologică)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Jesus’ conception of God",
+          "quoteTarget": "concepția lui Isus despre Dumnezeu",
+          "note": "«Conception» este redat „noțiune” când înseamnă idee (aici «the two important conceptions of sonship and of life» → „cele două noțiuni importante”) și „concepție” când înseamnă viziune articulată («conception of God»); profilul avertizează (WARN) asupra lui „concepție”. Alternativă: „reprezentarea lui Isus despre Dumnezeu”."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "beyond the limits of the .tribe",
+          "quoteTarget": "dincolo de hotarele tribului",
+          "note": "În sursă apare un punct rătăcit înaintea lui «tribe» („.tribe”), probabil artefact OCR; ignorat în traducere."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the opening words of the Lord’s Prayer",
+          "quoteTarget": "cuvintele de început ale Rugăciunii Domnului",
+          "note": "Trimitere implicită la începutul Rugăciunii Domnului (invocarea Tatălui și cererea pentru venirea Împărăției), probabil Mat. 6:9–10; trimiterea nu este în sursă și a fost identificată din memorie, neverificată în acest job. Marcată doar în scripture, ca aluzie."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:9–10",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Ex. 4:22",
+          "mode": "reference"
+        },
+        {
+          "ref": "Deut. 32:6",
+          "mode": "reference"
+        },
+        {
+          "ref": "Is. 43:15",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 0 (prima) din 2 a cap. VIII (5 paragrafe, 1007 cuvinte-sursă). Titlul urmează cap. VII: «Essence of the Kingdom Continued» = „Esența Împărăției (continuare)”; «State of Blessedness» = „stare de fericire”. Redări de ținut consecvent în partea 1 și în restul capitolului: sonship = filiație (TERMEN_NOU, vezi par. 5); fatherhood = paternitate; kingship = domnie; blessedness = fericire; blessings = binecuvântări; possession = posesiune; conception = noțiune (idee) sau concepție (viziune articulată); the little flock = mica turmă (ca în 07-02); the Messianic age = epoca mesianică; the Lord’s Prayer = Rugăciunea Domnului; Jehovah = Iehova; the kingdom (monarhia israelită, par. 2) = împărăția, cu minusculă. Referințele din job apar identic în text. Rom. 8:31, Mat. 13:44–46, Mat. 6:10, 6:12 și Mat. 6:9–10 au fost identificate din memorie, nu sunt în sursă, sunt neverificate și apar doar în scripture și în flaguri, nu în text. Posibilă eroare de sursă: Mat. 20:32 (par. 2). Un punct rătăcit în sursă („.tribe”, par. 5) a fost ignorat. Constatarea MINOR GLOSSARY vos-righteousness din par. 4 este un fals pozitiv al tiparului (genitivul „dreptății”), explicat într-un flag; textul nu a fost modificat. Textul nu este certificat ca publicabil."
+}

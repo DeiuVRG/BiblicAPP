@@ -1,0 +1,102 @@
+{
+  "jobId": "vos-1903-kingdom-ro-07-00",
+  "file": "drafts/vos-1903-kingdom-ro-07-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485M",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domniei"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485M",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485M",
+      "message": "proposed (not approved) glossary row vos-supremacy (FIX) matched: Title of chapter VI; not „suveranitate”.",
+      "quoteSource": "supremacy",
+      "quoteTarget": "supremației"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485N",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485N",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485P",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485P",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "Dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Q",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Q",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Q",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericirii"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485R",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    }
+  ],
+  "stats": {
+    "paragraphs": 6,
+    "sourceWords": 975,
+    "targetWords": 926,
+    "lengthRatio": 1.032
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-03",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZE",
+      "text": "Potrivit învățăturii Domnului nostru, izvorul acestei puteri a Împărăției este Duhul. În cuvintele din Mat. 12:28 ideea este, evident, că acolo unde lucrează Duhul lui Dumnezeu, acolo vine Împărăția lui Dumnezeu. Întreaga sa putere de a săvârși miracole, Isus o atribuie faptului că a fost uns cu Duhul, Lc. 4:18. A-l acuza că scoate demonii în alianță cu Beelzebul înseamnă a huli împotriva Duhului, cf., pentru caracterul interschimbabil al noțiunilor de „Duh” și „putere”, pasaje precum Lc. 1:17, 35; 24:19, 49; Fapte 1:8; 10:38. Într-adevăr, referirile Domnului nostru la Duhul ca autor al faptelor mântuitoare sunt aproape în întregime legate de miracolele sale. Totuși, ar fi inexact, după cum se face uneori, să i se tăgăduiască lui Isus ideea, atât de frumos elaborată de Pavel, că Duhul este izvorul înnoirii morale și religioase a omului, autorul și purtătorul întregii vieți creștine, cu toate harurile și virtuțile ei. În a patra Evanghelie, prezența acestei idei este recunoscută de toți. Aici Domnul nostru învață că omul trebuie să se nască din apă și din Duhul pentru a vedea Împărăția lui Dumnezeu și a intra în ea. În cuvântările de încheiere ale acestei Evanghelii, lucrarea Duhului de a-i călăuzi pe toți ucenicii în cunoașterea adevărului este pusă foarte puternic în relief, iar cunoașterea adevărului din învățătura ioanică a Domnului nostru include în chip limpede înțelegerea și însușirea adevărului de către ucenici, într-un sens moral, spiritual și mântuitor, astfel încât Duhul este pus aici în legătură directă cu viața etică și religioasă a omului.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "The source of this kingdom-power",
+          "quoteTarget": "izvorul acestei puteri a Împărăției",
+          "note": "Compusul «kingdom-power» (revine de mai multe ori în cap. VI, părțile 06-01–06-03) este redat «puterea Împărăției», aici «această putere a Împărăției», ca în 06-01 și 06-02 (tiparul «kingdom-idea» = «ideea Împărăției» din cap. I). «Source» este redat «izvor» în tot paragraful (și în «source of miracles», par. 2). Fără rând în glosar; de adăugat după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "man must be born of water and the Spirit in order to see and to enter the kingdom of God",
+          "quoteTarget": "omul trebuie să se nască din apă și din Duhul pentru a vedea Împărăția lui Dumnezeu și a intra în ea",
+          "note": "Parafrază a autorului după In. 3:3, 5 (contextul: «In the Fourth Gospel … Here our Lord teaches»); sursa nu dă trimitere, identificarea aparține traducătorului, este neverificată pe un text biblic și de confirmat de revizor. Tradusă din formularea autorului, ca text al autorului, cu «din apă și din Duhul» ca în cap. I; marcată «allusion» în scripture. «To see and to enter the kingdom of God» este redat «a vedea Împărăția lui Dumnezeu și a intra în ea», fiindcă cele două verbe cer construcții diferite în română."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "to blaspheme the Spirit",
+          "quoteTarget": "a huli împotriva Duhului",
+          "note": "Aluzie a autorului la cuvintele lui Isus despre hula împotriva Duhului, în episodul acuzației cu Beelzebul (probabil Mat. 12:24, 31–32; cf. Mc. 3:22, 28–30). Sursa nu dă trimitere; identificarea aparține traducătorului, este neverificată pe un text biblic și de confirmat de revizor; marcată «allusion» în scripture. «A huli împotriva Duhului» este construcția obișnuită în română; alternativă: «a-l huli pe Duhul»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the interchangeableness of the conceptions of",
+          "quoteTarget": "caracterul interschimbabil al noțiunilor de",
+          "note": "«Interchangeableness» este redat «caracterul interschimbabil»; «interschimbabil» este un cuvânt rar în română. «Conceptions» = «noțiuni» (profil: «noțiunea de»). Ghilimelele englezești din sursă (pentru «Spirit» și «power») sunt înlocuite cu cele românești, iar virgula trece după ghilimeaua de închidere. Alternativă pentru revizor: «faptul că noțiunile de „Duh” și de „putere” se pot înlocui una cu alta»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "with all its graces and virtues",
+          "quoteTarget": "cu toate harurile și virtuțile ei",
+          "note": "«Graces» desemnează aici, în limbajul tradiției reformate, însușirile pe care Duhul le lucrează în credincios (nu harul ca favoare divină). Redat literal «haruri», care în română poate fi citit și ca „darurile Duhului” (carismele) sau ca „favoruri”. Formulare de care nu sunt sigur. Alternative pentru revizor: «cu toate însușirile și virtuțile ei», «cu toate roadele și virtuțile ei»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the author of saving acts",
+          "quoteTarget": "autor al faptelor mântuitoare",
+          "note": "«Author» (cel care săvârșește, originea faptelor) este redat «autor»; în română «autor» poate însemna și „scriitor” sau, în limbaj juridic, „făptuitor”, însă cu «faptelor» și «vieții creștine» (cf. «the author and bearer of the entire Christian life» → «autorul și purtătorul întregii vieți creștine») sensul rezultă din context. «Acts» este redat «fapte» (nu «lucrări», rezervat pentru «works» = lucrările lui Isus). Alternative pentru revizor: «inițiator», «cel care săvârșește faptele mântuitoare»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "distinctly includes its moral and spiritual saving apprehension and appropriation by the disciples",
+          "quoteTarget": "include în chip limpede înțelegerea și însușirea adevărului de către ucenici, într-un sens moral, spiritual și mântuitor",
+          "note": "Trei puncte de revizuit. (1) «Distinctly» = „clar, fără echivoc”, redat «în chip limpede» (nu «în mod distinct», care în română înseamnă „separat”). (2) «Its» se referă la «the truth»; am repetat «adevărului», fiindcă un pronume («lui», «ei») ar fi putut fi legat de «Domnului nostru» sau de «cunoașterea». (3) Cele trei adjective ale sursei («moral and spiritual saving») sunt redate printr-un complement comun, «într-un sens moral, spiritual și mântuitor», ca să califice ambele substantive; «apprehension» = «înțelegere» (ca în 04-03), nu „teamă”; «appropriation» = «însușire» (a face al său). Alternativă: «cuprinderea și însușirea»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "our Lord’s Johannine teaching",
+          "quoteTarget": "învățătura ioanică a Domnului nostru",
+          "note": "«Johannine» este redat «ioanic» („învățătura ioanică”), adjectiv de uz teologic pentru scrierile și gândirea lui Ioan; singura apariție în lucrare, deci fără propunere pentru glosar. Alternative pentru revizor: «ioaneic», sau, descriptiv, «din Evanghelia după Ioan»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 12:28",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 4:18",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 12:24, 31–32",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 1:17, 35; 24:19, 49; Fapte 1:8; 10:38",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 3:3, 5",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZF",
+      "text": "Chiar și în cuvintele din Evangheliile sinoptice aceeași idee nu lipsește cu totul. Deși Duhul poate lucra în sfera miracolelor, aceste miracole sunt totuși săvârșite în scopul moral de a răsturna împărăția răului. Duhul îl duce pe Isus în pustie ca să fie ispitit de Satan și apare astfel urmărind scopul biruinței morale a Mesiei asupra Prințului Răului. Satan exercită o influență rea asupra omului în sfera morală și religioasă; prin urmare, potrivit principiului opoziției, trebuie să se fi crezut că Duhul lui Dumnezeu exercită o influență bună. Probabil că și cuvântul lui Isus, potrivit căruia Tatăl ceresc, din bunătatea sa, este gata să dea Duhul copiilor săi, Lc. 11:13, nu se referă exclusiv la Duhul ca izvor al miracolelor. Vedem, așadar, că primele contururi ale doctrinei despre Duhul, așa cum a fost dezvoltată ulterior în revelația apostolică, sunt deja trasate de Isus. Dezvăluirea deplină a acestei doctrine nu putea fi așteptată atunci, deoarece dăruirea deplină a Duhului nu putea veni decât după moartea Mântuitorului, In. 7:39. Dar în lucrările sale mesianice Isus a arătat, într-o revelație prin fapte, rolul fundamental pe care îl are Duhul în mântuirea omului. Astfel, Isus se află la punctul de tranziție dintre doctrina despre Duhul din Vechiul Testament, pe de o parte, și deplina desfășurare apostolică a doctrinei, pe de altă parte. În Vechiul Testament accentul cade încă pe caracterul carismatic al lucrării Duhului, prin care titularii oficiilor teocrației sunt făcuți apți pentru sarcina lor. Isus a început să arate cum Duhul oficial, care îi aparține ca Mesia, devine un izvor din care Duhul este împărtășit altora, și aceasta nu doar pentru săvârșirea de lucrări supranaturale, ci și pentru conferirea binecuvântărilor religioase și morale ale Împărăției. Partea învățăturii Domnului nostru în care legătura dintre Duhul și aspectul interior al Împărăției își găsește cea mai clară expresie și care se apropie cel mai mult de tipul apostolic de doctrină este însă cea referitoare la Biserică. Ne vom ocupa de aceasta într-un capitol ulterior.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "Though the Spirit may work in the sphere of the miracles",
+          "quoteTarget": "Deși Duhul poate lucra în sfera miracolelor",
+          "note": "«May» este concesiv („se admite că Duhul lucrează și în sfera miracolelor”). Redat «poate lucra», care păstrează modalitatea fără a o preface în afirmație categorică (reguli §4), dar care în română poate fi citit și ca „este în stare să lucreze”. Alternative pentru revizor: «Deși Duhul lucrează, e drept, în sfera miracolelor» (concesie explicită, dar modalul devine indicativ), «Chiar dacă se poate ca Duhul să lucreze…»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the Prince of Evil",
+          "quoteTarget": "Prințului Răului",
+          "note": "Titlul lui Satan, în formularea autorului (nu citat biblic), este redat cognat, «Prințul Răului» (aici la genitiv-dativ, «Prințului Răului»), cu majuscule ca titlu. Alternative pentru revizor: «Căpetenia Răului», «Stăpânitorul Răului» («ruler» = «stăpânitor» în cap. II)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The Spirit leads Jesus into the wilderness to be tempted of Satan",
+          "quoteTarget": "Duhul îl duce pe Isus în pustie ca să fie ispitit de Satan",
+          "note": "Aluzie la relatarea ispitirii (probabil Mat. 4:1; cf. Mc. 1:12; Lc. 4:1). Sursa nu dă trimitere; identificarea aparține traducătorului, este neverificată pe un text biblic și de confirmat de revizor; marcată «allusion» în scripture. Tradusă ca text al autorului: «wilderness» = «pustie», «to be tempted of Satan» = «ca să fie ispitit de Satan»; prezentul «leads» este păstrat («duce»)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the official Spirit, which belongs to him as Messiah",
+          "quoteTarget": "Duhul oficial, care îi aparține ca Mesia",
+          "note": "«Official» înseamnă aici „legat de oficiul mesianic” (Duhul care îi revine lui Isus ca Mesia, în opoziție cu o însușire strict personală; continuă «office-bearers» din fraza precedentă). Redat cognat «oficial», ca «conștiința sa oficială» din cap. II (02-00), cu aceeași rezervă: în română «oficial» poate fi citit „formal, public”. Relativa «care îi aparține ca Mesia» îi precizează sensul. Alternative pentru revizor: «Duhul legat de oficiul său mesianic», «Duhul oficiului». De armonizat cu cap. II."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the office-bearers of the theocracy",
+          "quoteTarget": "titularii oficiilor teocrației",
+          "note": "«Office» este redat «oficiu» (funcție încredințată), ca să rămână legătura cu «official» = «oficial» din fraza următoare; «slujbă» ar fi putut fi citit „serviciu religios”. Alternative pentru revizor: «titularii funcțiilor teocrației», «cei învestiți cu o funcție în teocrație»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a source of communication of the Spirit to others",
+          "quoteTarget": "un izvor din care Duhul este împărtășit altora",
+          "note": "«Communication» (în sens vechi: faptul de a da altuia din ceea ce ai) este redat prin verbul «a împărtăși»; «comunicare» ar fi sugerat transmiterea de informații. Construcția nominală din sursă devine o relativă. Alternativă pentru revizor: «izvor al transmiterii Duhului către alții»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "in a revelation of facts",
+          "quoteTarget": "într-o revelație prin fapte",
+          "note": "«A revelation of facts» = o revelație care constă în fapte (evenimente), nu în doctrină formulată (în opoziție cu «the full disclosure of this doctrine»). «Of» este redat «prin». Alternative pentru revizor: «într-o revelație în fapte», «într-o revelație alcătuită din fapte»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 4:1; Mc. 1:12; Lc. 4:1",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 11:13",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 7:39",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 3 (ultima) din 4 a cap. VI (2 paragrafe, 639 cuvinte-sursă), în continuarea părții 06-02. Fără headingRo (part nu este 0). Redări ținute consecvent cu 06-00–06-02 și cu cap. I–V: miracle = miracol, works = lucrări, kingdom-power = puterea Împărăției, kingdom of evil / of Satan = împărăția răului / a lui Satan (minusculă), Beelzebub = Beelzebul, Fourth Gospel = a patra Evanghelie, Synoptical = sinoptic (Evangheliile sinoptice), discourses = cuvântări, renewal = înnoire, apprehension = înțelegere, Messiah (genitiv) = Mesiei, kingdom (absolut) = Împărăția, the church = Biserica, Old Testament = Vechiul Testament. Redări noi, fără precedent în lucrare, semnalate prin flag-uri: source = izvor (în tot paragraful), official = oficial (cf. 02-00) și office = oficiu, Johannine = ioanic, graces = haruri, Prince of Evil = Prințul Răului, wilderness = pustie. Trimiterile din text sunt exact cele din job (Mat. 12:28; Lc. 4:18; Lc. 1:17, 35; 24:19, 49; Fapte 1:8; 10:38 în par. 1; Lc. 11:13 și In. 7:39 în par. 2). În scripture am adăugat, ca aluzii identificate de traducător (neverificate pe un text biblic, semnalate prin flag-uri CITAT_BIBLIC): In. 3:3, 5 și Mat. 12:24, 31–32 în par. 1; Mat. 4:1; Mc. 1:12; Lc. 4:1 în par. 2. Nicio anomalie de sursă observată în text. Textul nu este certificat ca publicabil."
+}

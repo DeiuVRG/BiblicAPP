@@ -1,0 +1,62 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-01",
+  "file": "drafts/vos-1903-kingdom-ro-06-01.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSF",
+      "message": "proposed (not approved) glossary row vos-synoptists (FIX) matched: The evangelists; not „sinopticele”.",
+      "quoteSource": "Synoptists",
+      "quoteTarget": "sinoptici"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSF",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQX445EV4SBSWSFQAEGESJ",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQX445EV4SBSWSFQAEGESJ",
+      "message": "proposed (not approved) glossary row vos-supremacy (FIX) matched: Title of chapter VI; not „suveranitate”.",
+      "quoteSource": "supremacy",
+      "quoteTarget": "Supremația"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQX445EV4SBSWSFQAEGESJ",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericirii"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSJ",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domniei"
+    }
+  ],
+  "stats": {
+    "paragraphs": 4,
+    "sourceWords": 956,
+    "targetWords": 887,
+    "lengthRatio": 1.017
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "jobId": "vos-1903-kingdom-ro-07-01",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485T",
+      "text": "Cele două mari porunci sunt a-l iubi pe Dumnezeu mai presus de toate și a-și iubi aproapele ca pe sine însuși, Mc. 12:30, 31. Criteriul practic al conduitei este a face oamenilor tot ceea ce își dorește cineva să i se facă lui însuși, căci aceasta este rezumatul Legii și al profeților, Mat. 7:12. În caz de conflict, simplul ceremonial trebuie să cedeze în fața eticului, Mat. 5:23, 24. Există porunci în privința cărora este suficient să se spună că nu trebuie lăsate nefăcute, cum este darea zeciuielii din izmă, din anason și din chimion, și există porunci de o importanță atât de supremă și de intrinsecă, încât cer de la oameni o hotărâre pozitivă și energică de a le împlini, adică lucrurile de mai mare greutate ale Legii: justiția, mila și credința, Mat. 23:23. Fiindcă dreptatea este o chestiune de interes nemijlocit și personal între suflet și Dumnezeu, ea nu se poate sprijini pe nimic altceva decât pe poruncile revelate de Dumnezeu, iar nicio tradiție omenească nu poate lega conștiința: „Orice plantă pe care Tatăl ceresc nu a sădit-o va fi smulsă din rădăcini”, Mat. 15:13. În sfârșit, singurul lucru care poate conferi valoare, în ochii lui Dumnezeu, oricărui act de ascultare este sinceritatea inimii din care acesta provine. Dreptatea trebuie să fie rod, produsul organic al vieții și al caracterului, expresie a ceea ce se află înăuntru, Mat. 7:16, 20; 21:43.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "one’s neighbor as one’s self",
+          "quoteTarget": "a-și iubi aproapele ca pe sine însuși",
+          "note": "«One» generic (și în «whatsoever one desires to have done to one’s self») este redat prin infinitiv fără subiect („a-și iubi aproapele ca pe sine însuși”) și, în a doua frază, prin „cineva … lui însuși”, ca să nu se introducă persoana a II-a (profil: cititorul nu este adresat direct) și nici un «noi» generic care ar schimba persoana autorului. Formulare de care nu sunt sigur că sună pe deplin natural. Alternativă pentru revizor: persoana I plural generică („să facem oamenilor tot ceea ce dorim să ni se facă nouă înșine”)."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "mint, anise and cummin",
+          "quoteTarget": "izmă, din anason și din chimion",
+          "note": "Denumirile plantelor sunt redate lexical după engleza lui Vos: «anise» → „anason”, «cummin» → „chimion”. În Mat. 23:23, planta numită «anise» în versiunile engleze vechi este de regulă identificată cu mărarul (în engleza modernă «dill»), iar edițiile românești ale Bibliei au probabil «mărar» și «chimen» (neverificat în acest job). Redarea literală păstrează textul autorului; revizorul poate alinia denumirile la ediția biblică licențiată dacă se dorește."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the weightier matters of the law, justice, mercy and faith",
+          "quoteTarget": "lucrurile de mai mare greutate ale Legii: justiția, mila și credința",
+          "note": "Citat al autorului din Mat. 23:23 (trimiterea este în job), fără ghilimele în sursă; tradus din formularea lui Vos, nu după o ediție românească a Bibliei. Marcat în scripture cu quote-author-rendering, de înlocuit ulterior cu o ediție licențiată. «The weightier matters» → „lucrurile de mai mare greutate”, păstrând imaginea «greutății»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "justice, mercy and faith",
+          "quoteTarget": "justiția, mila și credința",
+          "note": "«Justice» (și în paragraful următor: «the divine justice», «love and justice») este redat „justiție”, nu „dreptate”: «righteousness» este „dreptate” (FIX în profil), iar regulile (§6) cer să nu se aplatizeze distincția righteousness/justice. „Justiția divină” este uzuală în teologia românească. În Mat. 23:23 edițiile românești au probabil „dreptatea” sau „judecata” (neverificat). Alternative pentru revizor: «judecata»; „dreptatea” (dar se contopește cu «righteousness»). Propus pentru glosar după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Every plant which the heavenly Father planted not, shall be rooted up",
+          "quoteTarget": "Orice plantă pe care Tatăl ceresc nu a sădit-o va fi smulsă din rădăcini",
+          "note": "Citat al autorului (Mat. 15:13), tradus din formularea lui Vos, nu după o ediție românească a Bibliei: «plant» → „plantă”, «rooted up» → „smulsă din rădăcini”, «the heavenly Father» → „Tatăl ceresc”, așa cum îl scrie autorul. Marcat cu quote-author-rendering, de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "exponential of what is within",
+          "quoteTarget": "expresie a ceea ce se află înăuntru",
+          "note": "«Exponential» (adjectiv rar, în sensul de «care exprimă, care arată»; neverificat într-un dicționar în acest job) este redat „expresie a …”, cu schimbarea clasei gramaticale. Formulare de care nu sunt sigur. Alternative pentru revizor: «care exprimă ceea ce se află înăuntru», «o manifestare a ceea ce se află înăuntru»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 12:30, 31",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 7:12",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 5:23, 24",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 23:23",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 15:13",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 7:16, 20; 21:43",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485V",
+      "text": "Toate acestea au fost rezultatul aducerii oamenilor față în față cu Dumnezeu ca Legiuitor și Rege drept, care are cunoștință personală de conduita fiecărui om. Având în vedere aceasta, este aproape de prisos să observăm că Domnul nostru îl înfățișează pe Dumnezeu și ca Judecător suprem al vieții morale. A fi drept este, strict vorbind, echivalent cu a fi îndreptățit de Dumnezeu. Iar această trimitere la judecata lui Dumnezeu nu este pentru Isus o chestiune secundară, ci un element esențial al noțiunii sale despre dreptate. Procesul acțiunii morale nu i se pare încheiat până când nu primește, în sentința divină de îndreptățire, încununarea și desăvârșirea sa. Dreptul de a trage la răspundere și de a judeca se număra în mod clar, în mintea lui, printre cele mai înalte prerogative regale ale lui Dumnezeu. În această privință, el a păstrat cu grijă valorosul sâmbure de adevăr cuprins în ideile iudaice exagerate despre raportul judiciar dintre Dumnezeu și om. Deși acorda o mare însemnătate iubirii divine, Domnul nostru nu a îngăduit ca accentul pus pe aceasta să întunece principiul important al justiției divine. Corectând unilateralitatea iudaismului, care nu avea ochi pentru harul lui Dumnezeu, el nu a căzut în extrema opusă, aceea de a reduce totul la iubirea lui Dumnezeu. Dimpotrivă, în învățătura lui cele două atribute divine, iubirea și justiția, sunt perfect echilibrate. În binecunoscuta zicere din Mat. 6:33 putem observa legătura strânsă pe care o presupunea el între domnia lui Dumnezeu și dreptatea sa judiciară. Ucenicii sunt îndemnați aici, mai întâi, să facă din Împărăția lui Dumnezeu obiectul urmăririi lor și apoi, ca precizare mai exactă, să caute dreptatea lui Dumnezeu. Prin aceasta din urmă se înțelege fie exercitarea dreptății îndreptățitoare a lui Dumnezeu în favoarea omului, fie dreptatea aceea ca stare omenească, care este socotită înaintea lui Dumnezeu. După oricare dintre cele două interpretări, domnia lui Dumnezeu și exercitarea dreptății judiciare sunt strâns asociate.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "MAJOR",
+          "quoteSource": "being justified of God",
+          "quoteTarget": "a fi îndreptățit de Dumnezeu",
+          "note": "Familia «justify» (aici «justified», «divine justifying sentence», «God’s justifying righteousness»; în par. 4 al lotului «justification») este redată „a îndreptăți” (îndreptățit, sentința divină de îndreptățire, dreptatea îndreptățitoare, îndreptățire), nu „a justifica” (sens curent: a motiva, a scuza) și nici «a socoti neprihănit» (tradiția Cornilescu). „A îndreptăți” păstrează rădăcina «drept» a lui «righteous»/«righteousness» (FIX: dreptate), esențială pentru argumentul lui Vos din acest paragraf («to be righteous is … equivalent to being justified»). Nu există rând în glosar, iar miza teologică este mare; alegerea depinde și de decizia proprietarului privind «dreptate» vs. «neprihănire» (rând PROPUS). De confirmat și de adăugat în glosar: justify/justification → a îndreptăți/îndreptățire. Atenție la coerența cu partea 07-00, unde «the act of declaring man righteous» este redat „actul de a-l declara pe om drept”."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the forensic relation between God and man",
+          "quoteTarget": "raportul judiciar dintre Dumnezeu și om",
+          "note": "«Forensic» (de trei ori în paragraf: «forensic relation», «his forensic righteousness», «exercise of forensic righteousness») este redat „judiciar” („dreptatea sa judiciară”, „dreptății judiciare”). „Forensic” în română sugerează de obicei criminalistica sau medicina legală, iar «juridic» ar fi mai larg; „judiciar” păstrează ideea de tribunal și de sentință, centrală aici (Judecător, judecată, sentință). Alternative pentru revizor: «forensic» (uzual în teologia evanghelică de limbă română, dar ambiguu pentru publicul larg), «juridic». Propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the divine justice",
+          "quoteTarget": "justiției divine",
+          "note": "«Justice» → „justiție”, distinct de «righteousness» = dreptate (FIX); vezi flagul din paragraful precedent (Mat. 23:23). Reapare în «love and justice» → „iubirea și justiția”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the object of their pursuit",
+          "quoteTarget": "obiectul urmăririi lor",
+          "note": "«Pursuit» este redat „urmărire”, distinct de «seek» → „a căuta” (Mat. 6:33), ca să nu se contopească cele două cuvinte ale autorului; revine în paragraful următor («its pursuit» → „urmărirea ei”, față de «the seeking of the kingdom» → „căutarea Împărăției”). Alternative: «ținta eforturilor lor», «năzuința lor»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:33",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485W",
+      "text": "Importanța supremă pe care Isus, în virtutea acestei noțiuni centrate pe Dumnezeu, a acordat-o dreptății se poate deduce din faptul că despre urmărirea ei se vorbește în termeni la fel de absoluți ca despre căutarea Împărăției. Ea este preocuparea cea mai înaltă a ucenicului. El trebuie să flămânzească și să înseteze după ea, să o privească drept însăși hrana vieții sale, singurul lucru care îi va satisface cele mai instinctive dorințe. El trebuie să accepte persecuția de dragul ei, Mat. 5:6, 10. Toate acestea devin de înțeles numai dacă se presupune că, pentru Isus, problema binelui și a răului nu era una pur morală, ci, în sensul cel mai profund, una religioasă. Învățătura lui despre dreptate înseamnă subsumarea eticii sub religie.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the question of right and wrong",
+          "quoteTarget": "problema binelui și a răului",
+          "note": "«Right and wrong» (distincția morală) este redat idiomatic „binele și răul”. Alternativă care păstrează legătura cu rădăcina «drept»: „problema a ceea ce este drept și a ceea ce este nedrept” (mai puțin firească, cu risc de lectură juridică)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the seeking of the kingdom",
+          "quoteTarget": "căutarea Împărăției",
+          "note": "Aluzie la Mat. 6:33 (citat în paragraful precedent și în par. 4 al lotului); marcată în scripture ca aluzie, identificată din context. Foamea și setea după dreptate trimit la Mat. 5:6, 10 (trimiterea din text)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 5:6, 10",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:33",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485X",
+      "text": "Nu avem de ce să ne mirăm că, în lumina unei noțiuni atât de sublime despre ceea ce implica dreptatea, chiar și acest aspect al Împărăției, în care aceasta semăna îndeaproape, cel puțin ca formă, cu ideea iudaică despre domnia lui Dumnezeu deja existentă prin Lege, i se înfățișa totuși lui Isus ca ceva viitor. Împărăția încă urma să vină, fiindcă ea consta într-o respectare a Legii conformată unui ideal cu totul nou, practicată într-un spirit cu totul nou. În fața minții lui stătea ceva cu mult mai mare și mai înalt decât tot ce contemplase vreodată mintea iudaismului. Astfel, însuși idealul de dreptate centrat pe Dumnezeu a pregătit calea pentru a doua linie de gândire care se poate urmări în învățătura Domnului nostru pe această temă, adică aceea că dreptatea este una dintre binecuvântările ce urmează să fie dăruite în Împărăție. Pentru aceasta exista un temei în Vechiul Testament. Profeții preziseseră că funcția legiuitoare a domniei lui Iehova avea să intre într-un stadiu nou în epoca mesianică. Potrivit lui Ieremia, Dumnezeu își va scrie atunci legea pe inimile poporului, 31:33. Potrivit lui Ezechiel, el îl va face pe Israel să umble în rânduielile sale, 36:27. Profețiile din a doua parte a cărții lui Isaia promit o împărtășire a dreptății poporului lui Dumnezeu, ca urmare a unei noi dezvăluiri minunate a dreptății lui Iehova însuși în viitor. Isus, care a preluat atâtea idei evanghelice din ultima sursă menționată, poate că avea în minte aceste profeții atunci când, în Predica de pe Munte, a vorbit despre cei care flămânzesc și însetează după dreptate, Is. 55:1. În orice caz, celelalte Fericiri arată că starea sufletească descrisă aici este mai degrabă una receptivă decât una productivă. Cei care flămânzesc și însetează se află pe aceeași linie cu cei săraci și cu cei blânzi; ei sunt conștienți că nu posedă în ei înșiși binele dorit și așteaptă de la Dumnezeu să li-l ofere. Atunci când sunt săturați, aceasta se datorează nu efortului lor propriu, ci unui act al lui Dumnezeu. Același gând este exprimat indirect în „căutarea” dreptății, poruncită în Mat. 6:33. În pilda fariseului și a vameșului, termenul „îndreptățire” este aplicat unei acceptări a omului de către Dumnezeu care nu se întemeiază pe fapte pline de îngâmfare în propria dreptate, ci pe pocăință și pe încredere în mila divină.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "in which formally at least, it closely resembled",
+          "quoteTarget": "în care aceasta semăna îndeaproape, cel puțin ca formă,",
+          "note": "Antecedentul lui «it» poate fi «the kingdom» (lectura aleasă) sau «this aspect of the kingdom». În română, „aceasta” trimite la „Împărăției”, cel mai apropiat substantiv feminin; ambele lecturi duc la același sens (aspectul legat de dreptate seamănă, ca formă, cu ideea iudaică a domniei prin Lege)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "an impartation of righteousness",
+          "quoteTarget": "o împărtășire a dreptății",
+          "note": "«Impartation» (comunicarea unei părți din ceva) este redat „împărtășire”, în opoziție cu «imputation» (socotire, imputare), pe care Vos o discută în paragraful următor («the imputed righteousness of Christ», partea 07-02). „Împărtășire” poate evoca și Împărtășania în uzul ortodox, dar sensul vizat este «a face părtaș». Alternative: «comunicare», «transmiterea dreptății», «dăruirea dreptății». Propus pentru glosar după aprobare, împreună cu imputed righteousness."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "not based on self-righteous works",
+          "quoteTarget": "care nu se întemeiază pe fapte pline de îngâmfare în propria dreptate",
+          "note": "«Self-righteous works» (adjectivul «self-righteous» aplicat faptelor) este redat „fapte pline de îngâmfare în propria dreptate”, în continuarea lui «self-righteousness» → „îngâmfarea în propria dreptate” din partea 07-00. Formulare de care nu sunt sigur. Alternative: «fapte făcute din încrederea în propria dreptate», «fapte ale dreptății proprii» (aceasta din urmă pierde nuanța peiorativă)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "penitence and trust in the divine mercy",
+          "quoteTarget": "pocăință și pe încredere în mila divină",
+          "note": "«Penitence» este redat „pocăință” (FIX pentru «repentance»), fiindcă „penitență” are în română conotație catolică (sacrament) și ascetică; sursa nu folosește aici «repentance», deci rândul din glosar nu se aplică mecanic. «Trust» → „încredere”, distinct de «faith» = credință (FIX)."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "xxxi. 33",
+          "quoteTarget": "31:33",
+          "note": "Referințele «xxxi. 33» și «xxxvi. 27» sunt date în sursă fără numele cărții (se înțelege din text: Ieremia, respectiv Ezechiel); păstrate fără carte în text, ca în job, pentru paritatea referințelor. În scripture sunt completate: Ier. 31:33 și Ezec. 36:27 (din textul autorului; neverificate în afară de aceasta)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the other beatitudes show",
+          "quoteTarget": "celelalte Fericiri arată",
+          "note": "Aluzii fără trimitere în sursă, identificate din memorie și neverificate în acest job: Fericirile despre «cei săraci» și «cei blânzi» (probabil Mat. 5:3, 5) și pilda fariseului și a vameșului (probabil Lc. 18:9–14). Marcate în scripture ca aluzii. Foamea și setea după dreptate trimit la Mat. 5:6 (citat în par. 3 al lotului)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "When they are satisfied",
+          "quoteTarget": "Atunci când sunt săturați",
+          "note": "«Satisfied» (în contextul foamei și setei) este redat „săturați”, în timp ce «satisfy his most instinctive desires» din paragraful precedent este „a satisface”. Același verb englezesc, două redări după colocație. Alternativă: «satisfăcuți»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Ier. 31:33",
+          "mode": "reference"
+        },
+        {
+          "ref": "Ezec. 36:27",
+          "mode": "reference"
+        },
+        {
+          "ref": "Is. 55:1",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 5:3, 5",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 6:33",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 18:9–14",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 1 (a doua) din 3 a cap. VII (4 paragrafe, 1060 cuvinte-sursă); fără headingRo (part nu este 0). Redări de ținut consecvent în capitolul VII, în continuarea părții 07-00: righteousness = dreptate (FIX), righteous = drept; kingship / reign = domnie; Lawgiver / King / Judge = Legiuitor / Rege / Judecător (cu majusculă când sunt titluri ale lui Dumnezeu); justice = justiție (TERMEN_NOU, distinct de righteousness); forensic = judiciar (TERMEN_NOU); justified / justifying / justification = îndreptățit / îndreptățitor / îndreptățire (TERMEN_NOU, MAJOR: de confirmat de proprietar, vezi flagul din par. 2, și de legat de decizia dreptate vs. neprihănire); impartation = împărtășire (TERMEN_NOU; în partea 07-02 urmează «imputed righteousness»: de ținut distincția împărtășire / imputare); self-righteous(ness) = îngâmfare în propria dreptate (ca în 07-00); conception = noțiune; pursuit = urmărire vs. seeking = căutare; Jehovah = Iehova; the law = Legea (mozaică, cu majusculă) și legea (generic, ca în «își va scrie legea», Ier. 31:33); the Messianic age = epoca mesianică; the beatitudes = Fericirile; repentance / penitence = pocăință; the Sermon on the Mount = Predica de pe Munte. Referințele «xxxi. 33» și «xxxvi. 27» sunt păstrate fără carte în text, ca în job; în scripture au fost completate cu Ier. și Ezec. după textul autorului. Aluziile fără trimitere în sursă (Mat. 5:3, 5; Lc. 18:9–14; Mat. 6:33 în par. 3) sunt identificate din memorie și neverificate. Citatele din Mat. 23:23 și Mat. 15:13 sunt traduse din engleza lui Vos, nu după o ediție românească a Bibliei. Nicio anomalie de sursă găsită. Textul nu este certificat ca publicabil."
+}

@@ -1,0 +1,30 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-00",
+  "file": "drafts/vos-1903-kingdom-ro-06-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSE",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSE",
+      "message": "proposed (not approved) glossary row vos-supremacy (FIX) matched: Title of chapter VI; not „suveranitate”.",
+      "quoteSource": "supremacy",
+      "quoteTarget": "supremația"
+    }
+  ],
+  "stats": {
+    "paragraphs": 4,
+    "sourceWords": 952,
+    "targetWords": 915,
+    "lengthRatio": 1.068
+  }
+}

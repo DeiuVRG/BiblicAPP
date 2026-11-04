@@ -1,0 +1,127 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-04",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV1",
+      "text": "În învățătura obiectivă a lui Isus, pe de altă parte, spre deosebire de conștiința sa subiectivă, nu se poate nega o anumită dezvoltare în prezentarea adevărului privitor la Împărăție. Putem afirma aceasta nu atât pe baza unei comparații între spusele din perioadele mai timpurii și cele din perioadele mai târzii. O asemenea comparație ar fi dificilă, deoarece materialul din Evangheliile noastre nu este dispus în întregime după un plan cronologic. Faptul reiese mai degrabă în felul următor: în două momente ale slujirii Domnului nostru, o anumită fază a doctrinei despre Împărăție este introdusă cu un asemenea accent încât o marchează drept relativ nouă. Aceste două momente sunt ocazia în care Domnul nostru a rostit marile pilde despre Împărăție, și anunțarea patimilor sale în apropiere de Cezareea lui Filip.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the announcement of his passion",
+          "quoteTarget": "anunțarea patimilor sale",
+          "note": "«Passion» (suferința și moartea Domnului) este redat «patimile», la plural: forma obișnuită în română pentru Patimile lui Hristos, folosită și în tradiția protestantă. Termenul revine în cap. X («shortly before the passion»). Fără rând în glosar; propus pentru glosar după aprobare. Alternative pentru revizor: «pătimirea sa», «suferințele sale»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "at two points in our Lord’s ministry",
+          "quoteTarget": "în două momente ale slujirii Domnului nostru",
+          "note": "«Point» (moment al desfășurării slujirii, nu loc sau punct al argumentului) este redat «moment». În paragraful următor «the second critical juncture» este redat «al doilea moment critic», ca să rămână legătura dintre cele două. Alternativă pentru revizor: «puncte de cotitură»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the utterances belonging to the earlier or later periods",
+          "quoteTarget": "spusele din perioadele mai timpurii și cele din perioadele mai târzii",
+          "note": "«Utterances» este redat «spuse», ca «sayings» din părțile anterioare ale capitolului. Ciorna 04-03 are «afirmații» pentru «utterances»; aici s-a evitat «afirmațiile», fiindcă fraza conține deja «a afirma» («We are able to affirm»). De armonizat în capitol. «Earlier or later periods» este redat printr-o comparație între cele două seturi («între … și …»)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "This would be difficult",
+          "quoteTarget": "O asemenea comparație ar fi dificilă",
+          "note": "«This» este redat prin antecedentul său («o asemenea comparație»), fiindcă un «aceasta» românesc ar fi putut fi citit ca referindu-se la «a afirma» din fraza precedentă. Sensul rămâne cel al sursei."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV2",
+      "text": "Din felul în care marile pilde fac distincția dintre venirea imanentă și cea escatologică a Împărăției, și din modul amănunțit în care Isus descrie aici caracterul treptat, invizibil, al celei dintâi ca fiind asemănător cu procesul creșterii organice, ajungem să deducem că, mai înainte, acest principiu nu fusese accentuat în învățătura sa. Aceasta nu înseamnă că el s-ar fi abținut până atunci să se refere la latura spirituală a subiectului. Am văzut mai sus că este adevărat contrariul. Înseamnă pur și simplu că, până în acest moment, în timp ce uneori atribuia Împărăției lucruri adevărate despre ea în stadiul ei pur spiritual, iar alteori îi atribuia lucruri cu caracter escatologic, nu a formulat intenționat deosebirea și raportul dintre cele două, ci a tratat Împărăția ca pe o unitate despre care puteau fi făcute deopotrivă ambele categorii de afirmații. Explicația istorică a acestei particularități este de căutat, probabil, în dorința Domnului nostru de a păstra, în prima perioadă a slujirii sale, o legătură strânsă cu tipul de învățătură din Vechiul Testament, care, după cum am văzut, nu făcea încă deosebire între perioade și stadii în înfăptuirea Împărăției. Astfel, plecându-se spre Israel, el a reluat firul revelației acolo unde îl lăsase Vechiul Testament, pentru a-i da, curând după aceea, o dezvoltare nouă și mai bogată prin rostirile sale în pilde, care au făcut epocă. Elementul nou introdus la al doilea moment critic, în regiunea Cezareei lui Filip, privește raportul Bisericii cu Împărăția și va fi discutat mai târziu într-un capitol separat.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the immanent and eschatological coming of the kingdom",
+          "quoteTarget": "venirea imanentă și cea escatologică a Împărăției",
+          "note": "«Immanent» este redat «imanent» (revine în par. 3 și în capitolele următoare: «immanent kingdom» = «Împărăția imanentă»; ciorna 04-03 are «Împărății imanente»). Glosarul are rând doar pentru «eschatological» (= «escatologic», FIX), nu și pentru «immanent»; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "in condescension to Israel",
+          "quoteTarget": "plecându-se spre Israel",
+          "note": "«Condescension» are aici sensul teologic pozitiv (Domnul se coboară spre Israel, accomodare); «condescendență» are în româna curentă o nuanță peiorativă, de aceea redat prin gerunziul «plecându-se spre Israel», ca în ciorna 03-01 («Dumnezeu se pleacă spre noi» pentru «condescending»). Alternativă pentru revizor: «din condescendență (coborâre) față de Israel»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "his epoch-making parabolic deliverances",
+          "quoteTarget": "rostirile sale în pilde, care au făcut epocă",
+          "note": "«Deliverances» are sensul vechi de «pronouncements» (rostiri). «Parabolic» este redat «în pilde», nu «parabolice»: lista de calcuri avertizează pe «parabol…», iar glosarul interzice «parabolă» pentru parables. «Epoch-making» = «care au făcut epocă»; alternativă: «epocale»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV3",
+      "text": "Se cuvine observat că învățătura Domnului nostru privește două aspecte ale aceleiași Împărății, nu două Împărății separate. Străvechea distincție teologică dintre o Împărăție a harului și o Împărăție a slavei este nefericită din acest motiv. În pildă, creșterea grâului și secerișul aparțin împreună, ca părți legate între ele ale aceluiași proces. Există o singură mișcare continuă de formare a Împărăției, care mai întâi pune stăpânire pe centrul spiritual interior al vieții luat separat, iar apoi pune din nou stăpânire pe același centru, în legătură cu întruchiparea sa exterioară, vizibilă. În al doilea stadiu, esența celui dintâi este inclusă din nou și rămâne de importanță supremă. Împărăția imanentă, așa cum este înfăptuită la început, continuă să aibă parte de imperfecțiuni. De aceea, criza escatologică nu va oferi doar acestui suflet al Împărăției trupul care i se potrivește, ci va aduce și perfecțiunea ideală a spiritului interior însuși. Doctrina Domnului nostru despre Împărăția cu două laturi, astfel înțeleasă, este o mărturie grăitoare a energiei unice cu care el a subordonat fizicul spiritualului, precum și a sobrietății cu care a susținut principiul că fizicul nu trebuie disprețuit, ci prețuit în forma sa regenerată, ca instrument natural și necesar al revelației pentru spiritual.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a kingdom of grace and a kingdom of glory",
+          "quoteTarget": "o Împărăție a harului și o Împărăție a slavei",
+          "note": "Perechea tradițională reformată (regnum gratiae / regnum gloriae), redată «Împărăția harului» / «Împărăția slavei» (ciorna 04-03 are «Împărăția slavei»). Majusculă, fiindcă sunt aspecte ale Împărăției lui Dumnezeu, ca în convenția capitolului. Revine în cap. II și V; fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the two-sided kingdom",
+          "quoteTarget": "Împărăția cu două laturi",
+          "note": "«Two-sided» este redat «cu două laturi», ca în ciorna 04-03 («caracterul cu două laturi al conștiinței sale mesianice»); revine și în cap. V. Fără rând în glosar; propus pentru glosar după aprobare. Alternativă: «cu două fețe»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "subordinated the physical to the spiritual",
+          "quoteTarget": "a subordonat fizicul spiritualului",
+          "note": "«The physical» / «the spiritual» (adjective substantivate, cu sens colectiv) sunt redate «fizicul» / «spiritualul»; revin în cap. V, VI și XI. Fără rând în glosar; propus pentru glosar după aprobare. Alternative pentru revizor: «ceea ce este fizic» / «ceea ce este spiritual», «elementul fizic»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the natural and necessary instrument of revelation for the spiritual",
+          "quoteTarget": "instrument natural și necesar al revelației pentru spiritual",
+          "note": "Lectura probabilă: fizicul este instrumentul prin care spiritualul se revelează sau se exprimă (cf. «soul … fitting body» din fraza anterioară); «for the spiritual» ar putea fi citit și ca «în folosul spiritualului». Redat literal, cu «pentru», păstrând ambiguitatea sursei. Dacă se preferă prima lectură: «instrument natural și necesar de revelare a spiritualului»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "continues to partake of imperfections",
+          "quoteTarget": "continuă să aibă parte de imperfecțiuni",
+          "note": "«Partake of» (a avea ceva din natura lucrului, a-l purta în sine) este redat «a avea parte de»; în română expresia poate sugera mai degrabă «a primi ca soartă». Alternativă pentru revizor: «continuă să poarte în sine imperfecțiuni». Formulare de care nu sunt sigur."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the inward spiritual center of life by itself",
+          "quoteTarget": "centrul spiritual interior al vieții luat separat",
+          "note": "«By itself» este înțeles ca arătând centrul spiritual luat izolat, în opoziție cu «in connection with its external visible embodiment» din continuare, nu ca referindu-se la «mișcare». Ambiguitatea de atașare (centrul / viața) este păstrată ca în sursă."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "In the parable the growing of the grain",
+          "quoteTarget": "În pildă, creșterea grâului",
+          "note": "Sursa nu indică pilda la care se referă «the parable». Identificare neverificată: posibil pilda semănăturii care crește singură (Mc. 4:26–29); de aceea nu s-a adăugat nicio trimitere în «scripture». «Grain» este redat «grâu»."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Ciornă, partea 4 (a cincea, ultima) din 5 a cap. IV (3 paragrafe, 609 cuvinte-sursă). Redări ținute consecvent în capitol, cu părțile 04-00…04-03: kingdom (absolut) = Împărăția; kingdom-parables = pildele despre Împărăție; immanent = imanent; eschatological = escatologic; stage = stadiu; phase = fază; realization / realized = înfăptuire / înfăptuită; ministry = slujire; work = lucrare; view = părere (ca în 04-00…04-02); two-sided = cu două laturi; kingdom of grace / of glory = Împărăția harului / a slavei (ca «Împărăția slavei» din 04-03); the church (instituția) = Biserica; passion = patimile; point / juncture = moment / moment critic; condescension = gerunziul «plecându-se spre» (ca 03-01, unde «condescendent» are nuanță peiorativă). De armonizat: utterances = spuse aici, «afirmații» în 04-03. «Parabolic» este evitat (WARN pe «parabol…»), redat «în pilde». Job-ul nu conține referințe biblice și textul nu citează versete: scripture este gol. Nicio anomalie de sursă găsită. Textul nu este certificat ca publicabil."
+}

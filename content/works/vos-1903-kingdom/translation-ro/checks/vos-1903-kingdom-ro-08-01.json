@@ -1,0 +1,69 @@
+{
+  "jobId": "vos-1903-kingdom-ro-08-01",
+  "file": "drafts/vos-1903-kingdom-ro-08-01.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486A",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parable",
+      "quoteTarget": "pilda"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486A",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parable"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486B",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericiri"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486B",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486C",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericirea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486C",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT486D",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericirii"
+    }
+  ],
+  "stats": {
+    "paragraphs": 4,
+    "sourceWords": 1210,
+    "targetWords": 1190,
+    "lengthRatio": 1.065
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "jobId": "vos-1903-kingdom-ro-02-01",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M17",
+      "text": "Și, în definitiv, chiar Vechiul Testament arătase calea spre această întrebuințare restrânsă, pe care a urmat-o Domnul nostru. Alături de Împărăția existentă, întâlnim în Vechiul Testament o Împărăție care urmează să vină. Aceasta se datorează a trei cauze. În primul rând, la triburile semitice domnia lua foarte adesea naștere prin aceea că o personalitate puternică săvârșea mari fapte de izbăvire și dobândea, în urma lor, o poziție de întâietate, după cum vedem că s-a întâmplat în cazul lui Saul. Astfel, deși Iehova era Rege, el putea totuși să săvârșească în viitor fapte, să înfăptuiască izbăviri pentru poporul său, de natură să-l facă Rege într-un sens nou, cf. Is. 24:21; 43:15; 52:7; Mica 2:12; 4:6; Obad. 21; Ps. 97:1; 99:1. În al doilea rând, suspendarea stăpânirii lui Iehova exercitate în chip vizibil, în timpul exilului, a condus în mod firesc la reprezentarea potrivit căreia el avea să devină în viitor Rege prin reluarea domniei sale. Mai ales în Cartea lui Daniel este dezvoltată ideea Împărăției viitoare a lui Iehova, în contrast cu monarhiile mondiale prin care Împărăția sa părea să fie deocamdată în suspensie. În al treilea rând, apariția profeției mesianice a avut ca urmare firească proiectarea adevăratei Împărății a lui Dumnezeu în viitor. Dacă reprezentantul ideal al lui Iehova nu era regele din prezent, ci stăpânitorul viitor, așa cum îl înfățișează profeții, atunci, în corelație cu aceasta, avea să se ivească de la sine gândul că abia cu acest nou instrument ideal va fi înfăptuită stăpânirea lui Dumnezeu în sensul ei ideal deplin. Așteptarea Împărăției lui Dumnezeu a devenit echivalentă cu speranța mesianică a lui Israel. Or, întrucât Domnul nostru se știa Mesia cel făgăduit și știa că Regele mesianic avusese sub Vechiul Testament predecesorii săi tipologici, putem arăta pe cale indirectă că noțiunea de teocrație ca împărăție tipologică a lui Dumnezeu nu i-a putut fi străină.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Jehovah",
+          "quoteTarget": "Iehova",
+          "note": "«Jehovah» este redat «Iehova» (forma românească curentă); revine în tot capitolul și în lucrare. În vocea autorului, «Jehovah» desemnează pe Dumnezeu, iar «our Lord» / «the Lord» pe Hristos, deci «Domnul» (uzul Cornilescu pentru YHWH) ar estompa această distincție. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "typical predecessors",
+          "quoteTarget": "predecesorii săi tipologici",
+          "note": "«typical» în sens teologic (având valoare de tip, de prefigurare) este redat «tipologic», nu «tipic», care s-ar citi «caracteristic»; la fel în «typical kingdom of God» → «împărăție tipologică a lui Dumnezeu». Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "resuming his reign",
+          "quoteTarget": "reluarea domniei sale",
+          "note": "«reign» este redat «domnie», același cuvânt ca pentru «kingship» (profil: FIX «domnia»); în acest paragraf Vos nu se sprijină pe o distincție între cei doi termeni. «rule» rămâne «stăpânire» (profil). «reign» revine în paragrafele 2 («the present reign of Jehovah») și 4 («the reign of law», «God’s reign»). Fără rând în glosar; revizorul decide dacă «reign» primește alt cuvânt (de exemplu «domnire»)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Is. 24:21; 43:15; 52:7",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mica 2:12; 4:6",
+          "mode": "reference"
+        },
+        {
+          "ref": "Obad. 21",
+          "mode": "reference"
+        },
+        {
+          "ref": "Ps. 97:1; 99:1",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQXWX5V7YXX1X1J6RV8N20",
+      "text": "În Evanghelii, atât lucrul, cât și numele Împărăției par familiare oamenilor printre care a învățat Isus, cf. Mat. 3:2; Mc. 15:43; Lc. 14:15; 17:20. Ar fi însă pripit să deducem de aici că Isus s-a acomodat pur și simplu, în felul său de a vorbi despre Împărăție, la uzul dominant al vremii sale. Nu numai felul în care a tratat el noțiunea în general, ci chiar locul de frunte la care a ridicat-o au purtat pecetea unei mari originalități și au produs cele mai însemnate schimbări din punct de vedere religios. Acest lucru se poate înțelege cel mai bine dacă așezăm uzul Domnului nostru alături de cel întâlnit în literatura iudaică a vremii. Aici, ca și în Vechiul Testament, pe lângă domnia divină asupra lumii, se face trimitere atât la domnia prezentă a lui Iehova peste Israel, cât și la Împărăția sa viitoare. În aceste trimiteri observăm două particularități. Prima este că Împărăția însăși nu este înfățișată, strict vorbind, ca viitoare, ci doar impunerea sau manifestarea Împărăției. Stăpânirea lui Dumnezeu există întotdeauna, numai că în prezent ea nu este recunoscută. În viitor lumea va fi silită să i se supună, și astfel Împărăția se manifestă. Această particularitate este rezultatul felului unilateral în care raportul lui Dumnezeu cu poporul său și cu lumea părea strâns legat de Lege. De aici provine expresia iudaică „a lua asupra sa jugul Împărăției cerurilor”, care înseamnă a face jurământ de ascultare față de Lege. A doua particularitate constă în raritatea cu care, chiar și în acest sens limitat, sursele iudaice vorbesc despre Împărăția lui Dumnezeu ca despre un lucru viitor. În relativ puține dintre cazurile în care este vorba despre noua ordine a lucrurilor așteptată în epoca mesianică, apare în legătură cu aceasta denumirea de Împărăție a lui Dumnezeu. Aceasta nu poate fi întâmplătoare. Probabil, motivul este următorul: noțiunea pe care și-o formase mintea iudaică obișnuită despre noua ordine a lucrurilor și interesul care, după părerea ei, se lega de aceasta nu erau suficient de centrate pe Dumnezeu ca să favorizeze folosirea expresiei „Împărăția lui Dumnezeu”. Accentul era pus în mare măsură pe ceea ce avea să aducă starea așteptată pentru Israel în sens național și temporal. De aceea, ea era gândită de preferință ca împărăția lui Israel peste celelalte națiuni. Sau locul ideii Împărăției era luat de alte noțiuni, precum cea a „veacului viitor”, care erau suficient de vagi ca să lase loc nutririi aceleiași speranțe centrate pe sine.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "two peculiarities",
+          "quoteTarget": "două particularități",
+          "note": "«peculiarity» este redat «particularitate»; termenul revine în paragrafele 2–3 («two peculiarities», «This peculiarity», «The second peculiarity», «these two peculiarities»). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the enforcement or manifestation of the kingdom",
+          "quoteTarget": "impunerea sau manifestarea Împărăției",
+          "note": "«enforcement» (impunerea stăpânirii, prin care lumea este silită să o recunoască; cf. «the world will be made to submit to it» din același paragraf) este redat «impunere». Alternativă pentru revizor: «aplicare»."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "only at present It is not recognized",
+          "quoteTarget": "numai că în prezent ea nu este recunoscută",
+          "note": "«It» apare cu majusculă în sursă, la mijlocul frazei (posibilă particularitate tipografică sau eroare OCR); referentul este «God’s rule». Redat «ea», cu literă mică (reguli §7)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 3:2",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 15:43",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 14:15; 17:20",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M18",
+      "text": "Or, tocmai dintr-o comparație cu aceste două particularități capătă lumina cuvenită preferința Domnului nostru pentru numele „Împărăția lui Dumnezeu”. În timp ce pentru gândirea iudaismului stăpânirea divină este echivalentă cu suveranitatea Legii, Isus, deși nu excludea acest lucru, cunoștea o sferă mult mai largă, în care Dumnezeu avea să-și exercite, prin fapte mântuitoare, glorioasele prerogative ale domniei sale la o scară și într-un mod necunoscute până atunci. În învățătura sa, Împărăția devine din nou o împărăție a harului, precum și a legii, și astfel echilibrul atât de frumos păstrat în Vechiul Testament este restabilit.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a kingdom of grace as well as of law",
+          "quoteTarget": "o împărăție a harului, precum și a legii",
+          "note": "«law» fără articol (principiul legii) este redat cu literă mică, spre deosebire de «the law» = «Legea» (mozaică, cu majusculă, ca în «suveranitatea Legii» din aceeași frază). Revizorul poate uniformiza."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M19",
+      "text": "Consecința acestui fapt a fost, desigur, aceea că trebuia pus un accent puternic pe noutatea Împărăției, pe faptul că ea era și aducea ceva mai mult decât domnia legii, în care iudeii își găseau idealul. Astfel, metoda Domnului de a nu numi Împărăție nici măcar organizarea legală din Vechiul Testament poate că s-a datorat în parte unei revolte a minții sale față de pervertirea iudaică a acesteia. În plus, prin faptul că a dat ideii un loc atât de proeminent în învățătura sa și, totodată, a vorbit despre ea exclusiv ca despre Împărăția lui Dumnezeu, Domnul nostru a protestat împotriva noțiunii greșite, răspândite în popor, despre ea ca despre o împărăție națională menită să aducă lui Israel supremație și slavă. În sfârșit, prin lărgirea pe care o suferise ideea domniei lui Dumnezeu, astfel încât ea reprezenta o domnie a harului mântuitor, precum și a legii, a devenit posibil ca Domnul nostru să subsumeze noțiunii Împărăției întregul complex de binecuvântare și slavă pe care avea să-l implice, pentru poporul lui Dumnezeu, ordinea viitoare a lucrurilor, și totuși să păstreze în fața minții oamenilor gândul că această nouă lume a desfătării era menită să fie savurată ca o lume a lui Dumnezeu. Astfel, prin aducerea laolaltă a numelui „Împărăția lui Dumnezeu” și a întregului conținut al speranțelor mesianice ale lui Israel, el a conferit acestora din urmă cel mai înalt caracter ideal, o consacrare religioasă supremă.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the Old Testament legal organization",
+          "quoteTarget": "organizarea legală din Vechiul Testament",
+          "note": "«legal» are aici sensul «întemeiat pe Lege»; românescul «legală» poate fi citit și ca «conform legii» (fals prieten). Alternativă pentru revizor: «organizarea întemeiată pe Lege din Vechiul Testament»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the Jewish perversion of the same",
+          "quoteTarget": "pervertirea iudaică a acesteia",
+          "note": "Antecedentul lui «the same» poate fi «the Old Testament legal organization» (lectura probabilă) sau «the kingdom»; «acesteia» păstrează ambiguitatea sursei."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Ciornă, partea 1 din 2 a cap. II (4 paragrafe). Redări de ținut consecvent în capitol: Jehovah = Iehova; kingship = domnie și reign = domnie (profil + TERMEN_NOU), rule = stăpânire, sovereignty = suveranitate; typical = tipologic; peculiarity = particularitate; conception = noțiune (ca în cap. I); the kingdom-idea = ideea Împărăției; the law = Legea (mozaică, cu majusculă), «of law» generic = legii; God-centered = centrat pe Dumnezeu; the Jews = iudeii; the coming age = veacul viitor; under the Old Testament = sub Vechiul Testament. Majusculă la Împărăție când este vorba de Împărăția lui Dumnezeu (inclusiv cu articol nehotărât: «o Împărăție care urmează să vină»); minusculă pentru împărăția lui Israel, «împărăție națională» și «împărăție tipologică». Fără citate biblice ale autorului în aceste paragrafe, doar trimiteri (copiate din job). Textul nu este certificat ca publicabil."
+}

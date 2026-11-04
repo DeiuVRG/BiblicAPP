@@ -1,0 +1,107 @@
+{
+  "jobId": "vos-1903-kingdom-ro-08-00",
+  "file": "drafts/vos-1903-kingdom-ro-08-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "GLOSSARY",
+      "severity": "MINOR",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4868",
+      "message": "glossary vos-righteousness: expected a rendering matching /\\bdreptat\\w*/; Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4865",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4865",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericiri"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4866",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4866",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericire"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4867",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parable",
+      "quoteTarget": "pilda"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4867",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parable"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4868",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4868",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericirii"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4869",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4869",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericirii"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4869",
+      "message": "proposed (not approved) glossary row vos-viz (PREFER) matched",
+      "quoteSource": "viz.",
+      "quoteTarget": "adică"
+    }
+  ],
+  "stats": {
+    "paragraphs": 5,
+    "sourceWords": 1007,
+    "targetWords": 953,
+    "lengthRatio": 1.014
+  }
+}

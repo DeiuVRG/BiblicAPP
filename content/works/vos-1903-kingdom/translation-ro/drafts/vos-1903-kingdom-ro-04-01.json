@@ -1,0 +1,215 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-01",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTP",
+      "text": "Trebuie recunoscut că Vechiul Testament nu face deosebire între mai multe stadii sau faze în împlinirea făgăduințelor privitoare la Împărăție, ci privește venirea ei ca pe un întreg nedespărțit. Ioan Botezătorul pare să se fi aflat și el încă pe acest punct de vedere al Vechiului Testament. Aceasta se datora însă caracterului specific al profeției în general, în care există o anumită lipsă de perspectivă, o viziune a lucrurilor despărțite în timp, așezate pe un singur plan. Nu ne este îngăduit să tragem de aici concluzia că Isus, care era mai mult decât un profet și se afla față în față cu realitatea, trebuie să fi fost supus acelorași limitări. Nici nu suntem îndreptățiți să spunem că, fiindcă iudaismul vremii avea o asemenea părere despre această chestiune, trebuie ca și Isus să fi împărtășit-o. Căci, pe de o parte, iudaismul nu era o normă pentru el; pe de altă parte, chiar în sânul iudaismului apăruse deja o distincție între stadii succesive în împlinirea făgăduințelor mesianice.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "several stages or phases",
+          "quoteTarget": "mai multe stadii sau faze",
+          "note": "«stage» este redat «stadiu», iar «phase» «fază»; termenii revin în tot capitolul («successive stages», «provisional stage of realization»). În drafturile anterioare apar atât «stadiu», cât și «etapă»; aici, pentru stadiile înfăptuirii Împărăției, se folosește consecvent «stadiu». Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "took such a view of the matter",
+          "quoteTarget": "avea o asemenea părere despre această chestiune",
+          "note": "«view» (poziția unui autor, a unei epoci sau a unei școli) este redat «părere» în tot job-ul («the Jewish view», «the view that Jesus did not entertain this idea»), ca să rămână distinct de «conception» (redat «noțiune», ca în cap. I–III) și de «vision» (redat «viziune»). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "contemporary Judaism",
+          "quoteTarget": "iudaismul vremii",
+          "note": "«contemporary» înseamnă aici «contemporan cu Isus». Româna «iudaismul contemporan» s-ar citi ca iudaismul de azi, de aceea s-a ales «iudaismul vremii»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTQ",
+      "text": "Am văzut că iudeii obișnuiau să aștepte nu atât o primă venire, cu totul nouă, a Împărăției, cât mai degrabă o manifestare a stăpânirii lui Dumnezeu într-o formă superioară. Și chiar în limitele acestei manifestări viitoare a Împărăției începuseră să fie deosebite stadii. Este posibil ca ideea unei Împărății mesianice preliminare pe pământ, care să dureze un număr determinat de ani și după care să urmeze desăvârșirea lumii și o Împărăție veșnică în condiții cu totul noi, să fi fost dezvoltată încă din vremea Domnului nostru. În învățătura mai târzie a Noului Testament există cu siguranță o distincție oarecum asemănătoare, ca atunci când Pavel face deosebire între domnia de acum a lui Hristos, începând de la înviere, și starea finală de după ce el va fi predat Împărăția Tatălui, 1 Cor. 15:23–28.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "after he shall have delivered the kingdom to the Father",
+          "quoteTarget": "după ce el va fi predat Împărăția Tatălui",
+          "note": "Parafrază a autorului după 1 Cor. 15:24, în cadrul trimiterii 1 Cor. 15:23–28 date în sursă; tradusă ca text al autorului, nu după o ediție românească a Bibliei."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a preliminary Messianic kingdom on earth",
+          "quoteTarget": "unei Împărății mesianice preliminare pe pământ",
+          "note": "Seria de termeni ai capitolului pentru stadiile Împărăției: preliminary = preliminar, provisional = provizoriu, partial = parțial, intermediate = intermediar, împreună cu present / future = prezentă / viitoare (profil). «Kingdom» se scrie cu majusculă («Împărăție») ori de câte ori este vorba de un stadiu al Împărăției lui Dumnezeu, inclusiv cu articol nehotărât și în schemele iudaice (ca în cap. II: «o Împărăție care urmează să vină»); pentru «the kingdom of Satan» rămâne minuscula. De confirmat de revizor."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the consummation of the world",
+          "quoteTarget": "desăvârșirea lumii",
+          "note": "Profilul dă «consummation» = desăvârșire / împlinire finală, după context. Aici este încheierea escatologică a lumii; alternativă pentru revizor: «împlinirea finală a lumii»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "1 Cor. 15:23–28",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQZW8JP9HGD8640APTK857",
+      "text": "Prin urmare, părerea că Împărăția ar putea fi prezentă într-un sens și totuși să trebuiască să vină într-un alt sens nu se afla dincolo de orizontul doctrinar nici măcar al iudaismului, și trebuie să ținem seama, a priori, de posibilitatea ca această părere să apară, într-o formă sau alta, și în învățătura lui Isus. De fapt, anumite afirmații ale lui Isus despre Împărăție ca stare spirituală interioară seamănă foarte mult cu reprezentarea iudaică; de exemplu, cuvintele din Mc. 10:15 despre „primirea Împărăției lui Dumnezeu” sună ca o adaptare a imaginii iudaice care vorbește despre „luarea asupra sa a jugului Împărăției cerurilor”, cf. și Mat. 13:52.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "receiving the kingdom of God",
+          "quoteTarget": "primirea Împărăției lui Dumnezeu",
+          "note": "Citat parțial al autorului din Mc. 10:15 (trimitere dată în sursă), tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "taking up the yoke of the kingdom of heaven",
+          "quoteTarget": "luarea asupra sa a jugului Împărăției cerurilor",
+          "note": "Expresie iudaică («the Jewish figure») citată de autor, fără sursă indicată; nu este citat biblic. «Taking up» este redat «luarea asupra sa», fiindcă «luarea jugului» singură poate fi citită ca preluare a jugului de la altcineva. Alternativă pentru revizor: «asumarea jugului Împărăției cerurilor»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the Jewish representation",
+          "quoteTarget": "reprezentarea iudaică",
+          "note": "«representation» (în sens de idee, imagine mentală; revine în paragraful următor: «this Jewish representation») este redat «reprezentare», ca în cap. II («reprezentarea potrivit căreia»); «the Jewish figure» este redat «imaginea iudaică». Fără rând în glosar; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 10:15",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 13:52",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTR",
+      "text": "Deosebirea dintre această reprezentare iudaică și ideea lui Isus despre Împărăția preliminară constă în aceea că, potrivit părerii iudaice, Împărăția este întotdeauna prezentă, fiind vorba doar de a ști dacă omul o va lua asupra sa, în timp ce, potrivit lui Isus, care prețuia mai puțin eforturile omenești, dar avea o înțelegere mai profundă a păcătoșeniei omului și o noțiune mai înaltă despre ceea ce implică adevărata domnie a lui Dumnezeu, chiar și această Împărăție parțială trebuie să vină mai întâi printr-un act al lui Dumnezeu, înainte ca omul să poată fi invitat să o primească. Cât despre celălalt punct de contact din așteptarea iudaică, trebuie să ne amintim că Împărăția intermediară urma să înceapă odată cu apariția Mesiei. Dacă, așadar, Isus s-a considerat, chiar și în timp ce se afla pe pământ, drept Mesia și drept unul angajat într-o lucrare mesianică, lucru de care nu avem niciun motiv să ne îndoim, trebuie să fi privit și stadiul acestor osteneli mesianice pământești ca pe un stadiu provizoriu de înfăptuire a Împărăției. Desigur, și aici el a transformat din nou noțiunea iudaică, prin atingerea sa care spiritualizează, în ceva cu totul diferit și infinit mai înalt decât ceea ce era înainte.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "who thought less of human efforts",
+          "quoteTarget": "care prețuia mai puțin eforturile omenești",
+          "note": "«thought less of» (= a avea o părere mai puțin bună despre, a da mai puțină valoare) este redat «prețuia mai puțin»; sensul «a avea mai puțină încredere în» este de asemenea posibil. Alternativă pentru revizor: «se bizuia mai puțin pe eforturile omenești»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "this earthly Messianic labor",
+          "quoteTarget": "acestor osteneli mesianice pământești",
+          "note": "«labor» / «labors» este redat «osteneli» (ca în cap. II: «prin ostenelile sale»), distinct de «work» = «lucrare». S-a ales pluralul colectiv, fiindcă singularul «osteneală» ar sugera oboseala. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "by his spiritualizing touch",
+          "quoteTarget": "prin atingerea sa care spiritualizează",
+          "note": "«spiritualizing» este redat printr-o propoziție relativă, ca să se evite adjectivul rar «spiritualizator»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTS",
+      "text": "Trecând la faptele înseși, observăm că nimeni nu neagă prezența ideii unei Împărății spirituale provizorii în consemnarea evanghelică a învățăturii lui Isus, așa cum o avem înaintea noastră. Părerea că Isus nu a nutrit această idee implică în chip necesar să li se atribuie evangheliștilor o reprezentare neistorică a ceea ce a învățat de fapt Domnul nostru. Se pretinde că tradiția evanghelică în această privință a fost colorată de desfășurarea ulterioară a lucrurilor, care a arătat că între prima și a doua venire a Domnului trebuia să se scurgă un timp îndelungat și a impus, prin urmare, presupunerea unei Împărății provizorii de lungă durată. Limitele și scopurile noastre de față ne interzic să abordăm această latură critică a chestiunii. O menționăm doar pentru a observa că, pentru cei care susțin credibilitatea istorică a Evangheliilor, „aici nu poate exista nicio îndoială”. Împărăția spirituală prezentă este recunoscută limpede, prin consens general, în spuse precum cele din Mat. 11:11; 13:41; 16:19.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "no doubt can here exist",
+          "quoteTarget": "aici nu poate exista nicio îndoială",
+          "note": "Fragment între ghilimele, fără autor sau sursă indicați în original; tradus ca text al autorului, fără identificarea sursei (neverificat)."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "this critical phase of the question",
+          "quoteTarget": "această latură critică a chestiunii",
+          "note": "«critical» înseamnă aici «ținând de critica istorică a tradiției evanghelice» (în opoziție cu calea exegezei, tratată în paragraful următor), nu «decisiv» sau «primejdios»; în română «critică» poate fi citit și așa. «Phase» este redat «latură» (aspect), nu «fază», care ar sugera o etapă în timp. Alternativă pentru revizor: «această latură a chestiunii care ține de critica istorică»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the gospel record of Jesus’ teaching",
+          "quoteTarget": "consemnarea evanghelică a învățăturii lui Isus",
+          "note": "«gospel record» este redat «consemnarea evanghelică» (cf. exemplarul din profil: «așa cum este consemnată în Evanghelii»), iar «gospel-tradition» «tradiția evanghelică»; «evanghelic» este folosit în sensul «din Evanghelii», nu în sens confesional. Fără rând în glosar; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 11:11; 13:41; 16:19",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQX4417F26D766CF67E371",
+      "text": "Pe lângă încercările critice de a elimina acest element din învățătura lui Isus, s-au depus însă și eforturi de a atinge același scop pe calea exegezei, iar pe acestea trebuie să le cercetăm pe scurt în timp ce examinăm dovezile de care dispunem. Cele mai limpezi dintre toate par a fi cuvintele rostite de Domnul nostru ca răspuns dat fariseilor care îl acuzaseră că este aliat cu Beelzebul: „Dacă eu scot demonii prin Duhul (Lc.: degetul) lui Dumnezeu, atunci Împărăția lui Dumnezeu a venit peste voi.” Presupunerea care stă la baza acestui argument este că, acolo unde este distrusă împărăția lui Satan, acolo începe în chip necesar Împărăția lui Dumnezeu. Dacă distrugerea împărăției lui Satan s-a petrecut deja la acea vreme, atunci și începutul Împărăției lui Dumnezeu devenise o realitate prezentă. Or, s-a susținut că această spusă nu dovedește nimic în favoarea noțiunii obișnuite despre o Împărăție spirituală care urmează să se înfăptuiască treptat, deoarece Domnul nostru ar fi putut socoti scoaterea demonilor și alte minuni drept semnale ale venirii finale a Împărăției, care se apropie rapid, începutul, ca să zicem așa, al sfârșitului.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "If I by the Spirit (Lk. finger) of God cast out demons, then the kingdom of God has come upon you.",
+          "quoteTarget": "Dacă eu scot demonii prin Duhul (Lc.: degetul) lui Dumnezeu, atunci Împărăția lui Dumnezeu a venit peste voi.",
+          "note": "Citat al autorului, fără trimitere în sursă; trimiterea probabilă este Mat. 12:28, cu varianta din Lc. 11:20 («degetul lui Dumnezeu»), iar acuzația fariseilor la care răspunde este în același context (Mat. 12:24); toate identificate din memorie, neverificate în acest job. Tradus din formularea engleză a lui Vos, nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "(Lk. finger)",
+          "quoteTarget": "(Lc.: degetul)",
+          "note": "Observația autorului: Luca are «degetul» în loc de «Duhul». «Lk.» fără capitol și verset nu este o trimitere propriu-zisă și nu intră în paritatea trimiterilor; este redat «Lc.» (abrevierea românească a evangheliei), cu două puncte adăugate pentru lizibilitate. Alternativă pentru revizor: «(la Luca: degetul)»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Beelzebub",
+          "quoteTarget": "Beelzebul",
+          "note": "Sursa are forma engleză «Beelzebub»; este redat «Beelzebul», forma românească consacrată în tradiția protestantă (reguli §4, nume proprii biblice). Dacă revizorul preferă forma autorului, de schimbat în tot capitolul. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "If the former already took place at that time, then the latter also had become a present reality.",
+          "quoteTarget": "Dacă distrugerea împărăției lui Satan s-a petrecut deja la acea vreme, atunci și începutul Împărăției lui Dumnezeu devenise o realitate prezentă.",
+          "note": "«the former» / «the latter» sunt redate prin antecedentele lor din propoziția precedentă («distrugerea împărăției lui Satan» / «începutul Împărăției lui Dumnezeu»), pentru a evita ambiguitatea de gen și de referent a unui «primul» / «cel din urmă» românesc. Sensul rămâne cel al sursei."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 12:28",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Lc. 11:20",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 12:24",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 1 (a doua) din 5 a cap. IV (6 paragrafe). Redări de ținut consecvent în capitol: promises = făgăduințe (ca în cap. II); stage = stadiu, phase = fază; view = părere; conception = noțiune; representation = reprezentare; labor = osteneli; work = lucrare; realization = înfăptuire; preliminary / provisional / partial / intermediate kingdom = Împărăția preliminară / provizorie / parțială / intermediară (majusculă pentru stadiile Împărăției lui Dumnezeu, minusculă pentru «împărăția lui Satan»); present / future = prezentă / viitoare; the Jews = iudeii; sayings = spuse; rule = stăpânire; reign = domnie; consummation = desăvârșire; Beelzebub = Beelzebul (formă românească consacrată); contemporary Judaism = iudaismul vremii (nu «contemporan»). Trimiterile din text sunt exact cele din job. În ultimul paragraf citatul lui Vos nu are trimitere în sursă; trimiterile Mat. 12:28, Lc. 11:20 și Mat. 12:24 apar numai în scripture și într-un flag, sunt deduse de traducător din memorie și neverificate. Nicio anomalie de sursă găsită. Textul nu este certificat ca publicabil."
+}

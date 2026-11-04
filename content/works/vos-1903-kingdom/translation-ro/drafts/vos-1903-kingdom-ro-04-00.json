@@ -1,0 +1,114 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "IV. Împărăția prezentă și Împărăția viitoare",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTJ",
+      "text": "Am văzut deja că Domnul nostru face o distincție netă între ordinea lucrurilor din Vechiul Testament și Împărăția lui Dumnezeu și că, procedând astfel, se conformează acelei laturi a înfățișării din Vechiul Testament care privește ea însăși Împărăția ca fiind viitoare. Se pune acum întrebarea foarte importantă: cum a conceput el venirea acestei Împărății, atât în ce privește timpul, cât și modul? Până de curând predomina destul de general părerea – socotită a fi în armonie cu propria învățătură a lui Isus – că venirea amintită ar putea fi concepută ca un proces îndelungat, întins pe veacuri și ajungând la desăvârșirea sa printr-o criză bruscă de la sfârșit, care coincide cu a doua venire a lui Hristos și cu sfârșitul lumii de acum. Iar acest proces prelungit, spre deosebire de criza finală, se presupunea că, după părerea Domnului nostru, consta în schimbări în esență interioare, spirituale, invizibile. Împărăția, se credea, vine atunci când Evanghelia este răspândită, inimile sunt schimbate, păcatul și eroarea sunt biruite, dreptatea este cultivată, o comuniune vie cu Dumnezeu este stabilită. În acest sens, Împărăția și-a început venirea atunci când Isus a intrat în slujirea sa publică; lucrarea sa pe pământ, inclusiv moartea sa, făcea parte din înfăptuirea ei; ucenicii erau în ea; întreaga istorie ulterioară a Bisericii este istoria extinderii ei treptate; noi înșine ne putem îndeplini rolul în mersul ei înainte și suntem membri ai ei ca organizație prezentă.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a sudden crisis at the end",
+          "quoteTarget": "printr-o criză bruscă de la sfârșit",
+          "note": "«crisis» este redat «criză» (revine în «the final crisis» din același paragraf și în «world-crisis» din paragraful următor). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "reaching its consummation",
+          "quoteTarget": "ajungând la desăvârșirea sa",
+          "note": "Profilul dă «consummation» = desăvârșire / împlinire finală, după context. Aici este încheierea procesului venirii Împărăției, nu o stare a lumii; redat «desăvârșire». Alternativă pentru revizor: «ajungând la împlinirea sa finală»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTK",
+      "text": "În ultimii ani, însă, această părere a fost supusă unei critici severe din partea unui anumit grup de autori și respinsă ca neistorică. Se susține că Isus a avut despre această chestiune o părere cu totul diferită de cea schițată mai sus. Isus nu a crezut nicio clipă că Împărăția avea să vină prin activitatea sa profetică sau prin orice schimbări spirituale produse astfel în sânul lui Israel. Tot ce urmărea să înfăptuiască prin ostenelile sale nu era decât o pregătire pentru venirea ei: poporul trebuia făcut gata pentru apariția ei. A aduce Împărăția era lucrarea lui Dumnezeu, nu a lui. Niciun om nu putea face nimic nici pentru a o grăbi, nici pentru a o întârzia. Iar când avea să vină, urma să vină dintr-o singură lovitură, printr-o intervenție supranaturală bruscă a lui Dumnezeu, într-o mare criză a lumii, prin urmare nu în parte, ci cu întregul ei conținut deodată, împlinind toate făgăduințele și dând, prin sosirea ei, semnalul sfârșitului lumii de acum. Iar Isus se aștepta ca acest eveniment uluitor să se petreacă în timpul vieții sale sau, după ce ajunsese la certitudinea morții sale care avea să intervină între timp, cel puțin în timpul generației care trăia atunci.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "this view has been subjected to severe criticism",
+          "quoteTarget": "această părere a fost supusă unei critici severe",
+          "note": "«view» (poziție interpretativă: «the older view», «the recent view», «the two opposing views», revine în paragrafele 3 și 4) este redat «părere»; «ethical views» din paragraful 4 este redat «vederi etice». Alternative pentru revizor: «concepție», «interpretare». Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "not for a part but with its whole content all at once",
+          "quoteTarget": "nu în parte, ci cu întregul ei conținut deodată",
+          "note": "Formularea «not for a part» este eliptică (probabil «nu pentru o parte din promisiuni / din conținut»); redată «nu în parte», care păstrează opoziția cu «întregul ei conținut». Alternativă pentru revizor: «nu pentru o parte din ea, ci cu întregul ei conținut deodată»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTM",
+      "text": "Înainte de a încerca să verificăm care dintre aceste două păreri opuse este în acord cu învățătura Domnului nostru, trebuie să observăm cu atenție adevăratul punct de divergență dintre ele și să ne lămurim, de asemenea, ce chestiuni sunt în joc în decizia noastră în favoarea uneia sau a celeilalte. Cele două păreri au în comun faptul că amândouă recunosc că venirea Împărăției, în sensul ei final, absolut, a fost pusă de Isus în legătură cu sfârșitul lumii. Prin urmare, părerea mai veche o include pe cea mai recentă, iar deosebirea provine din faptul că cea dintâi afirmă ceva în plus, pe care cea din urmă îl neagă. Singurul punct aflat în dispută privește dreptul nostru de a-i atribui lui Isus o asemenea noțiune despre Împărăție încât el să poată găsi începutul sosirii ei și în rezultatele pur spirituale ale ostenelilor sale și să extindă, în consecință, această venire treptată a ei pe o perioadă de timp nedeterminată.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "The sole point in.dispute concerns",
+          "quoteTarget": "Singurul punct aflat în dispută privește",
+          "note": "Defect tipografic în sursă: «in.dispute» are un punct în loc de spațiu (eroare de OCR); citit «in dispute». Sensul nu este afectat, dar defectul se află și în textul ediției engleze și se corectează acolo."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTN",
+      "text": "Dar acest unic punct în discuție este încărcat de cele mai grave consecințe, după cum este hotărât într-un sens sau în altul. Căci, în primul rând, el implică problema infailibilității Domnului nostru ca învățător religios. Dacă el a așteptat și a anunțat o singură venire a Împărăției, una care urma să se petreacă în curând, în timpul vieții sale sau al vieții acelei generații – atunci nu există scăpare de concluzia că rezultatul a dovedit că s-a înșelat. În al doilea rând, repartizarea accentului în învățătura Domnului nostru devine în esență diferită dacă adoptăm cea mai modernă părere în această chestiune. Potrivit consensului general, centrul de greutate al predicării sale, ceea ce el consideră de importanță supremă, este Împărăția. Or, dacă putem crede că această Împărăție era pentru el în parte identică cu existența anumitor stări spirituale, precum dreptatea și comuniunea cu Dumnezeu, atunci acestea primesc, odată cu Împărăția, locul cel mai înalt în aprecierea valorilor de către Domnul nostru. Dacă, pe de altă parte, acestea se află în afara Împărăției și sunt simple stări pregătitoare, atunci își pierd poziția centrală și devin mijloace pentru un scop ulterior, care constă în Împărăție. În al treilea rând, controversa afectează caracterul eticii Domnului nostru. Susținătorii părerii recente cred că convingerea lui Isus cu privire la sfârșitul lumii, care se apropia rapid, și-a pus în mare măsură amprenta asupra vederilor sale etice, în sensul că l-a împiedicat să dezvolte un interes pozitiv pentru îndatoririle care țin de această viață prezentă. În sfârșit, se poate spune că este implicată chiar noțiunea despre caracterul Domnului nostru. Cel puțin unii dintre cei care îi atribuie asemenea așteptări exaltate caută să explice aceasta prin teoria că el era o persoană extatică, vizionară, mai degrabă decât un om cu un temperament spiritual calm și echilibrat. Reiese astfel că aspectul doctrinei Domnului nostru despre Împărăție, aflat acum în discuție, este strâns legat de cele mai grave probleme privitoare la valoarea și autoritatea caracterului și lucrării sale în general.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "the lifetime of that generation-then there is no escape",
+          "quoteTarget": "al vieții acelei generații – atunci nu există scăpare",
+          "note": "Defect tipografic în sursă: «generation-then» are cratimă în loc de linie de pauză (probabil «generation—then»); citit ca pauză între condiție și concluzie și redat cu «–». Sensul nu este afectat, dar defectul se află și în textul ediției engleze și se corectează acolo."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "means to an ulterior end consisting in the kingdom",
+          "quoteTarget": "mijloace pentru un scop ulterior, care constă în Împărăție",
+          "note": "«ulterior end» înseamnă aici un scop aflat dincolo de mijloace (un scop mai îndepărtat), nu «ascuns» (ulterior motive). Românescul «ulterior» are sens mai ales temporal. Alternativă pentru revizor: «mijloace pentru un scop mai îndepărtat, care constă în Împărăție»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "in our Lord’s estimation of values",
+          "quoteTarget": "în aprecierea valorilor de către Domnul nostru",
+          "note": "«estimation of values» (evaluarea pe care o face Domnul nostru, locul pe care îl dă fiecărui lucru) este redat «aprecierea valorilor de către Domnul nostru». Alternativă pentru revizor: «în scara de valori a Domnului nostru». Formulare de care nu sunt sigur."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "such high-strung expectations",
+          "quoteTarget": "asemenea așteptări exaltate",
+          "note": "«high-strung» (încordat, tensionat la extrem) este redat «exaltate», în acord cu «ecstatic visionary» din aceeași frază. Alternative pentru revizor: «atât de încordate», «atât de intense». «Exaltat» poate sugera fanatism, nuanță pe care sursa nu o are explicit."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "our Lord’s kingdom-doctrine",
+          "quoteTarget": "doctrinei Domnului nostru despre Împărăție",
+          "note": "Compusul «kingdom-doctrine» este redat «doctrina despre Împărăție», pe linia lui «kingdom-idea» = «ideea Împărăției» și «kingdom-gospel» = «Evanghelia Împărăției» din capitolele anterioare. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the conception of our Lord’s character itself",
+          "quoteTarget": "noțiunea despre caracterul Domnului nostru",
+          "note": "«conception» este redat «noțiune», ca în capitolele I-III (profil: WARN pentru «concepție»); aici sensul este «imaginea pe care ne-o facem despre caracterul Domnului». Alternativă pentru revizor: «concepția despre caracterul Domnului nostru»."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Ciornă, partea 0 (prima) din 5 a cap. IV (4 paragrafe; job-ul nu conține referințe biblice, iar textul autorului nu citează versete, deci scripture este gol peste tot). Redări de ținut consecvent în capitol: kingdom (absolut) = Împărăția, cu majusculă; view = părere (ethical views = vederi etice); conception = noțiune (ca în cap. I-III); crisis = criză; consummation = desăvârșire; the present world = lumea de acum; the second coming = a doua venire; promises = făgăduințe; labors = osteneli; ministry = slujire; work = lucrare; realization = înfăptuire; communion = comuniune; righteousness = dreptate (rând PROPUS din glosar); order of things = ordinea lucrurilor; the church (instituția) = Biserica; kingdom-doctrine = doctrina despre Împărăție. În paragraful 1, ultima frază înșiră asindetic șase propoziții despre Împărăția „în curs de venire” (separate prin virgule în sursă); în română ele sunt despărțite prin punct și virgulă, fără schimbare de sens. Titlul capitolului urmează profilul («the present and the future kingdom» = «Împărăția prezentă și Împărăția viitoare»). Două defecte tipografice ale sursei («in.dispute», par. 3; «generation-then», par. 4) sunt semnalate cu SURSA_POSIBIL_ERONATA (INFO) pentru corectarea ediției engleze. Textul nu este certificat ca publicabil."
+}

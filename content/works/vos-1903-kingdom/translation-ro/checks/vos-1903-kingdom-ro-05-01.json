@@ -1,0 +1,76 @@
+{
+  "jobId": "vos-1903-kingdom-ro-05-01",
+  "file": "drafts/vos-1903-kingdom-ro-05-01.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV9",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parables",
+      "quoteTarget": "pildele"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV9",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parables"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV9",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV9",
+      "message": "proposed (not approved) glossary row vos-viz (PREFER) matched",
+      "quoteSource": "viz.",
+      "quoteTarget": "adică"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVB",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parables",
+      "quoteTarget": "Pildele"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVB",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parables"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVB",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVC",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    }
+  ],
+  "stats": {
+    "paragraphs": 5,
+    "sourceWords": 1073,
+    "targetWords": 1003,
+    "lengthRatio": 1.016
+  }
+}

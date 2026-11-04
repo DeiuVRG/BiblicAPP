@@ -1,0 +1,101 @@
+{
+  "jobId": "vos-1903-kingdom-ro-07-02",
+  "file": "drafts/vos-1903-kingdom-ro-07-02.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Y",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Z",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Z",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4860",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "fericire"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4861",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4861",
+      "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
+      "quoteSource": "blessedness",
+      "quoteTarget": "Fericirilor"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4862",
+      "message": "proposed (not approved) glossary row parable (FIX) matched: „pildă” rather than „parabolă”; same choice as the Bailey project.",
+      "quoteSource": "parable",
+      "quoteTarget": "pildă"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4862",
+      "message": "proposed (not approved) glossary row parable-forbid (FORBID) matched: Do not render parable as „parabolă” in protestant works.",
+      "quoteSource": "parable"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4862",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4863",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD98083QXRPZVTRT4863",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptate"
+    }
+  ],
+  "stats": {
+    "paragraphs": 6,
+    "sourceWords": 1370,
+    "targetWords": 1339,
+    "lengthRatio": 1.019
+  }
+}

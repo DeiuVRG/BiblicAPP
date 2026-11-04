@@ -1,0 +1,22 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-03",
+  "file": "drafts/vos-1903-kingdom-ro-06-03.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZE",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    }
+  ],
+  "stats": {
+    "paragraphs": 2,
+    "sourceWords": 639,
+    "targetWords": 578,
+    "lengthRatio": 1.003
+  }
+}

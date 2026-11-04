@@ -1,0 +1,199 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-01",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSF",
+      "text": "Cuvintele de încheiere ale Rugăciunii Domnului, după versiunea din Matei, sunt cea mai pură expresie a acestei conștiințe a Împărăției pe care Isus a dorit să o cultive în mintea ucenicilor săi: „A ta este Împărăția, și puterea, și slava, în veci.” Chiar dacă aceste cuvinte nu ar fi autentice, întrucât lipsesc din textul lui Luca, iar în textul lui Matei lipsesc la unii martori textuali importanți, motiv pentru care Versiunea Revizuită le pune în margine, ele își păstrează totuși greutatea ca mărturie foarte veche despre noțiunea de Împărăție din Biserica primară. Se va observa că Pavel, în 1 Cor. 15, unde vorbește despre predarea Împărăției de către Hristos Tatălui, descrie conținutul Împărăției finale a lui Dumnezeu exact în același fel, ca pe ceva ce constă în aceea că „Dumnezeu va fi totul în toți”, v. 28, cf. și Apoc. 11:15. Fiindcă Împărăția este astfel centrată pe Dumnezeu însuși, ea poate fi înfățișată de Domnul nostru ca obiect suprem al căutării omenești. Aceasta ar fi în mod vădit imposibil dacă ideea de Împărăție ar fi concepută pe vreun plan inferior, căci în acest caz s-ar interpune între Dumnezeu și om un alt obiect, drept țel absolut al aspirației religioase a omului. Deoarece Împărăția lui Dumnezeu înseamnă idealul înfăptuit al religiei în acest sens cel mai înalt, Isus a declarat că cărturarul nu este departe de Împărăție, pentru că acesta a recunoscut ca supremă porunca de a-l iubi pe Dumnezeu cu toată inima, cu tot sufletul, cu toată puterea și cu toată mintea, Mc. 14:34. În Mat. 6:33, căutarea Împărăției este pusă în opoziție cu căutarea lucrurilor pământești, întrucât ea este, în fond, căutarea lui Dumnezeu însuși. Iar aceeași perspectivă centrată pe Dumnezeu, care își găsește astfel expresia în gândul Împărăției, este și cel mai înalt aspect sub care Isus își privește întreaga lucrare în cuvântările din a patra Evanghelie. Aici Hristos, la sfârșitul slujirii sale, îi vorbește Tatălui: „Te-am slăvit pe pământ, după ce am săvârșit lucrarea pe care mi-ai dat-o să o fac”, 17:4. Constatăm, așadar, că, deși numele de Împărăție lipsește, ideea principală întruchipată în el se găsește atât la Ioan, cât și la sinoptici. Principiul astfel dezvăluit are cea mai mare însemnătate practică imaginabilă. El învață că, în chiar ordinea lucrurilor rânduită pentru mântuirea omenirii, totul este, în ultimă analiză, menit să-l slăvească pe Dumnezeu. Împărăția este o noțiune care nu poate să nu rămână de neînțeles și inacceptabilă pentru orice perspectivă asupra lumii și a religiei care îl înalță pe om în dauna lui Dumnezeu.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MAJOR",
+          "quoteSource": "Mk. xiv. 34",
+          "quoteTarget": "Mc. 14:34",
+          "note": "Trimitere probabil greșită în sursă (din memorie, neverificat în acest job): episodul în care Isus îi spune cărturarului că nu este departe de Împărăție, în legătură cu porunca supremă a iubirii de Dumnezeu, este în Mc. 12:28–34 (cuvintele despre «nu departe de Împărăție» sunt în Mc. 12:34), pe când Mc. 14:34 este din Ghetsimani. Posibil «xii» tipărit sau citit «xiv» (eroare de tipar sau de OCR). Tradus ca în sursă, cu trimiterea neschimbată din job (reguli §5); în `scripture` am adăugat, ca aluzie, și Mc. 12:28–34. Revizorul decide dacă trimiterea se corectează, în ediția engleză și în cea română."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Thine is the kingdom, and the power, and the glory, for ever.",
+          "quoteTarget": "A ta este Împărăția, și puterea, și slava, în veci.",
+          "note": "Doxologia de încheiere a Rugăciunii Domnului, citată de autor «according to the version in Matthew» (Mat. 6:13); trimiterea nu este dată în sursă, ci dedusă din această formulare. Tradusă din engleza autorului, cu repetarea «și … și» păstrată, nu preluată dintr-o ediție românească a Bibliei (reguli §5). De înlocuit ulterior cu ediția licențiată, dacă se dorește."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the Revised Version",
+          "quoteTarget": "Versiunea Revizuită",
+          "note": "Titlul ediției engleze Revised Version este tradus «Versiunea Revizuită», cu majuscule, ca nume de ediție; glosarul nu are rând. Alternativă pentru revizor: păstrarea titlului englezesc, «Revised Version»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "some important authorities",
+          "quoteTarget": "unii martori textuali importanți",
+          "note": "«Authorities» (manuscrise, versiuni și citate patristice care atestă textul) este redat «martori textuali», termenul uzual în critica textuală; «autorități» ar fi putut fi citit ca „oficialități”. Alternative pentru revizor: «mărturii textuale», «manuscrise importante» (mai restrictiv)."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "because the latter recognized",
+          "quoteTarget": "pentru că acesta a recunoscut",
+          "note": "«The latter» ar indica gramatical ultimul substantiv, «the kingdom», dar contextul (cel care a recunoscut porunca este cărturarul) arată că se referă la cărturar. Româna folosește «acesta» (masculin), care îl desemnează fără echivoc pe cărturar, nu pe «Împărăție» (feminin)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "having accomplished the work which thou hast given me to do",
+          "quoteTarget": "după ce am săvârșit lucrarea pe care mi-ai dat-o să o fac",
+          "note": "Citat din In. 17:4 în formularea englezească a autorului (cu «having accomplished», participiu perfect), tradus din ea; participiul este redat printr-o subordonată temporală, «după ce am săvârșit». Trimiterea «xvii. 4» nu are carte în sursă; din context («the discourses of the Fourth Gospel») este In. 17:4, cum este înregistrat în `scripture`. Alternativă pentru revizor: gerunziul «săvârșind lucrarea …»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "kingdom-consciousness",
+          "quoteTarget": "conștiințe a Împărăției",
+          "note": "Compusul «kingdom-consciousness» (apare o singură dată în lucrare) este redat «conștiința Împărăției», cu majusculă, fiindcă desemnează conștiința de Împărăția lui Dumnezeu, nu o însușire generică (spre deosebire de «kingdom-forming» din partea 06-00, redat cu minusculă). Alternativă pentru revizor: «conștiința de Împărăție»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:13",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "1 Cor. 15",
+          "mode": "reference"
+        },
+        {
+          "ref": "1 Cor. 15:28",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Apoc. 11:15",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 12:28–34",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mc. 14:34",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:33",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 17:4",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQX445EV4SBSWSFQAEGESJ",
+      "text": "Supremația lui Dumnezeu în Împărăție se dezvăluie în feluri variate. Ea iese la iveală în faptele prin care este instaurată Împărăția, în ordinea morală sub care există aceasta și în binecuvântările, privilegiile și desfătările spirituale de care se bucură oamenii în ea. Cele dintâi fac din Împărăție o sferă a puterii divine, a doua, o sferă a dreptății divine, iar a treia, o sferă a fericirii dăruite de Dumnezeu. Aceste rubrici nu sunt, desigur, tot atâtea secțiuni în care poate fi împărțit conținutul Împărăției, ci mai degrabă tot atâtea aspecte sub care poate fi privit. Ceea ce, dintr-un punct de vedere, este puterea Împărăției, din altul este dreptatea Împărăției, iar dintr-un al treilea, fericirea Împărăției. Exercitarea puterii este necesară pentru a face cu putință înfăptuirea dreptății, iar înfăptuirea dreptății, pentru a face cu putință dăruirea fericirii. Ținând seama de caracterul descriptiv și de scopul practic al învățăturii Domnului nostru, n-ar trebui să ne străduim să tragem linii de demarcație rigide, ci să lăsăm loc trecerii ușoare a unui aspect în altul.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "What is kingdom-power from one point of view is kingdom-righteousness from another and kingdom-blessedness from still a third.",
+          "quoteTarget": "Ceea ce, dintr-un punct de vedere, este puterea Împărăției, din altul este dreptatea Împărăției, iar dintr-un al treilea, fericirea Împărăției.",
+          "note": "Compușii «kingdom-power», «kingdom-righteousness» și «kingdom-blessedness» (primul revine în părțile 06-02 și 06-03, al treilea în cap. VIII) sunt redați «puterea / dreptatea / fericirea Împărăției», cu majusculă, ca aspecte ale Împărăției lui Dumnezeu; «dreptate» și «fericire» urmează glosarul. Fără rând în glosar; propuși pentru glosar după aprobare. Alternative pentru revizor: «puterea de împărăție», «puterea proprie Împărăției»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "that are enjoyed in it",
+          "quoteTarget": "de care se bucură oamenii în ea",
+          "note": "Pasivul fără agent din sursă nu are un echivalent românesc natural fără subiect; am introdus «oamenii» ca subiect generic al lui «se bucură», fără alt sens. Alternativă pentru revizor: «cei care sunt în ea»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "under which it may be considered",
+          "quoteTarget": "sub care poate fi privit",
+          "note": "«It» poate fi «the content of the kingdom» sau «the kingdom»; ambele lecturi duc la același sens (rubricile sunt unghiuri de vedere, nu compartimente). Româna urmează antecedentul cel mai apropiat, «conținutul Împărăției» (masculin: «privit»). Alternativă: «privită» (Împărăția)."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSJ",
+      "text": "Elementul puterii este unul dintre cele mai vechi și mai constante elemente din descoperirea biblică a domniei divine. Cântarea lui Moise îl preamărește pe Iehova drept Rege, pentru că și-a învins în chip glorios dușmanii, Ex. 15. Iar de la acele vremuri străvechi încoace, nota cuceririi nu lipsește niciodată din declarațiile Vechiului Testament despre Împărăție. Mai ales în Daniel, Împărăția este înfățișată din această latură, atunci când apare ca o piatră care sfărâmă statuia împărățiilor lumii, 2:45. Putem deduce din cuvintele apostolului Pavel din 1 Cor. 15:25 cât de familiară îi era această idee: „Căci el (Hristos) trebuie să domnească până când el (Dumnezeu) va fi pus pe toți dușmanii lui sub picioarele lui.” Aici domnia lui Hristos echivalează cu procesul de supunere a dușmanilor, unul după altul. După ce ultimul dușman, moartea, a fost biruit, nu mai este nevoie de Împărăția lui Hristos: de aceea ea este predată lui Dumnezeu Tatăl. Împărăția lui Hristos, ca proces de cucerire, precede Împărăția lui Dumnezeu cea finală, ca stare stabilă și permanentă.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "For he (Christ) must reign, till he (God) hath put all his enemies under his feet.",
+          "quoteTarget": "Căci el (Hristos) trebuie să domnească până când el (Dumnezeu) va fi pus pe toți dușmanii lui sub picioarele lui.",
+          "note": "Citat din 1 Cor. 15:25 în formularea englezească a autorului, cu glosele lui între paranteze («Christ», «God»), tradus din ea. Posesivele «his enemies / his feet» sunt ambigue în engleză; în română am folosit «lui» (nu reflexivul «săi / sale», care ar lega posesivul de subiectul lui «va fi pus», adică de Dumnezeu), ca să rămână deschisă lectura din context (dușmanii și picioarele lui Hristos). «Hath put» este redat prin viitorul anterior «va fi pus». Ordinea frazei este schimbată față de sursă: propoziția «How familiar this idea was …» urmează, în română, după verbul principal («Putem deduce … cât de familiară îi era …»)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the image of the world-kingdoms ii. 45",
+          "quoteTarget": "statuia împărățiilor lumii, 2:45",
+          "note": "«Image» (Dan. 2) este redat «statuia»; «chipul» sau «imaginea» ar fi echivoce în română. Trimiterea «ii. 45» nu are carte în sursă; din context («Especially in Daniel») este Dan. 2:45 și este lăsată ca în job («2:45»). Sursa nu are virgulă înaintea trimiterii; am adăugat-o."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the final kingdom of God",
+          "quoteTarget": "Împărăția lui Dumnezeu cea finală",
+          "note": "Adjectivul este postpus («cea finală»), ca să rămână neîntreruptă formula din glosar «Împărăția lui Dumnezeu» (verificarea de glosar caută secvența exactă). Alternativă pentru revizor: «Împărăția finală a lui Dumnezeu», cum este redat «the final kingdom» în partea 05-01 și în par. 1 al acestui job."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Ex. 15",
+          "mode": "reference"
+        },
+        {
+          "ref": "2:45",
+          "mode": "reference"
+        },
+        {
+          "ref": "1 Cor. 15:25",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ8",
+      "text": "Această trăsătură era esențială și pentru noțiunea iudaică despre Împărăția care vine. Ceea ce a făcut Domnul nostru a fost să dea acestui mod iudaic de reprezentare un conținut infinit mai înalt, păstrându-i totodată forma. L-a ridicat din sfera politică în cea spirituală. Cuceririle la care se referă el sunt cele asupra lui Satan și a demonilor, asupra păcatului și a răului. Este împărăție împotriva împărăției, dar cele două împărății potrivnice aparțin ambele unei lumi mai înalte decât aceea căreia îi aparțin Roma și imperiul ei. În cuvintele „Dacă eu scot demonii prin Duhul lui Dumnezeu, atunci Împărăția lui Dumnezeu a venit peste voi”, comentate deja în alt context, Domnul nostru face trimitere la manifestarea acestei puteri divine cuceritoare ca la un semn sigur al venirii Împărăției.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "If I by the Spirit of God cast out demons, then the kingdom of God has come upon you",
+          "quoteTarget": "Dacă eu scot demonii prin Duhul lui Dumnezeu, atunci Împărăția lui Dumnezeu a venit peste voi",
+          "note": "Citat din Mat. 12:28; trimiterea nu este dată în sursă («already commented upon in another connection»), ci dedusă din formulare («the Spirit of God»; în Lc. 11:20 stă «degetul lui Dumnezeu»). Tradus din engleza autorului, consecvent cu redarea aceluiași citat în partea 04-01."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "while formally retaining it",
+          "quoteTarget": "păstrându-i totodată forma",
+          "note": "«Formally» determină «retaining» (se păstrează forma, nu fondul). «Formal» ar fi un fals prieten (în română poate însemna „doar de formă”), de aceea «păstrându-i totodată forma»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the forth-putting of this divine conquering power",
+          "quoteTarget": "manifestarea acestei puteri divine cuceritoare",
+          "note": "«Forth-putting» (arhaic: punerea în acțiune, exercitarea) este redat «manifestarea»; «conquering» este «cuceritoare», în legătură cu «conquests» = «cuceririle» din fraza anterioară. Alternativă pentru revizor: «intrarea în acțiune a acestei puteri …»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 12:28",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 1 (a doua) din 4 a cap. VI (4 paragrafe, 956 cuvinte-sursă), în continuarea părții 06-00. Redări ținute consecvent cu 06-00 și cu cap. I–V: kingdom (absolut) = Împărăția; conception = noțiune, iar idea = idee (ideea de Împărăție); God-centered = centrat pe Dumnezeu; view (de ansamblu) = perspectivă; supremacy = supremație; kingship = domnie; Old Testament = Vechiul Testament; early church = Biserica primară; ministry = slujire; Synoptists = sinoptici; Fourth Gospel = a patra Evanghelie; conquest = cucerire, dar victoria asupra unui dușman = a învinge / a birui (cf. 04-00, 04-02). Compuși noi: kingdom-power / -righteousness / -blessedness = puterea / dreptatea / fericirea Împărăției (flag TERMEN_NOU, par. 2); kingdom-consciousness = conștiința Împărăției (par. 1). Un singur punct de sursă pentru om: «Mk. xiv. 34» din par. 1 (flag MAJOR SURSA_POSIBIL_ERONATA; probabil Mc. 12:34). Trimiterile din text sunt exact cele din job; «17:4» și «2:45» nu au carte în job (Ioan 17:4, din contextul «Fourth Gospel»; Dan. 2:45, din contextul «Daniel»); în `scripture`, citatul din In. 17:4 este înregistrat cu cartea. Citatele fără trimitere în sursă (Mat. 6:13, Mat. 12:28) au trimiterea dedusă, semnalată în flag-uri. Textul nu este certificat ca publicabil."
+}

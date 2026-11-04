@@ -1,0 +1,180 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-02",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ9",
+      "text": "Trebuie însă să lărgim această idee: nu doar scoaterea demonilor, ci toate miracolele lui Isus își găsesc interpretarea, cel puțin în parte, în faptul că sunt manifestări ale puterii Împărăției. Este o greșeală să se creadă că Isus le-a privit exclusiv ca semne care îi autentificau misiunea. Fără îndoială, acesta a fost unul dintre scopurile pentru care au fost menite miracolele, iar în a patra Evanghelie el este pus în prim-plan. Dar la sinoptici, unde învățătura lui Isus își are centrul în ideea Împărăției, miracolele nu apar în primul rând în această lumină. Aici ele sunt semne într-un alt sens, adică semne ale sosirii efective a Împărăției, pentru că arată că puterea regală a lui Dumnezeu este deja în mișcare. Isus îi mustră pe oameni pentru că pot interpreta semnele meteorologice, dar nu pot interpreta semnele vremurilor. Aceste semne ale vremurilor nu sunt altceva decât lucrările miraculoase care dovedesc că Împărăția este prezentă. Forțele care vor revoluționa cerul și pământul sunt deja la lucru.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "all the miracles of Jesus",
+          "quoteTarget": "toate miracolele lui Isus",
+          "note": "«Miracle» este redat «miracol» (iar «miraculous» «miraculos»). Glosarul nu are rând; redarea urmează cap. I (varianta finală) și lotul 04-02. Ciornele loturilor 04-01 și 05-01 folosesc și «minune/minuni» (în 05-01 în «minunea minunilor»): de armonizat la revizie. Propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "manifestations of the kingdom-power",
+          "quoteTarget": "manifestări ale puterii Împărăției",
+          "note": "Compusul «kingdom-power» este redat «puterea Împărăției» (aici și în par. 4–5; «kingdom-signs» din par. 3 devine «semne ale Împărăției»), după tiparul «kingdom-idea» = «ideea Împărăției» din cap. I. Revine des în capitol; de adăugat în glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "can interpret the signs of the weather, but cannot interpret the signs of the times",
+          "quoteTarget": "pot interpreta semnele meteorologice, dar nu pot interpreta semnele vremurilor",
+          "note": "În sursă «weather» și «times» se opun, dar în română «vremea» înseamnă și starea atmosferică, și timpul: «semnele vremii» s-ar fi citit ca «semnele vremurilor» și jocul s-ar fi pierdut. De aceea «signs of the weather» este redat «semnele meteorologice», în opoziție cu «semnele vremurilor». Alternative pentru revizor: «semnele vremii de afară», «semnele care anunță schimbarea vremii»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "He rebukes the people",
+          "quoteTarget": "Isus îi mustră pe oameni",
+          "note": "«He» este redat «Isus»: în română un «El» ar fi putut fi citit ca Dumnezeu (ultimul antecedent masculin din fraza precedentă, «puterea regală a lui Dumnezeu»), deci cu agentivitate schimbată. «The people» este redat «oamenii» (nu «poporul» și nu «mulțimile»), ca referința să nu fie nici restrânsă, nici lărgită."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "cannot interpret the signs of the times",
+          "quoteTarget": "nu pot interpreta semnele vremurilor",
+          "note": "Aluzie a autorului la cuvintele lui Isus despre semnele vremii, probabil după Mat. 16:2–3 și Lc. 12:54–56; sursa nu dă nicio trimitere, identificarea aparține traducătorului și este de confirmat de revizor. Tradusă ca text al autorului; marcată «allusion» în scripture."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:2–3",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 12:54–56",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZA",
+      "text": "Pornind de la același principiu, Isus a răspuns întrebării lui Ioan Botezătorul – dacă el era cel care urma să vină sau dacă ei trebuiau să aștepte pe altul – printr-o trimitere la lucrările sale mesianice: „Orbii își capătă vederea, și șchiopii umblă, leproșii sunt curățiți, și surzii aud, și morții sunt înviați, și săracilor li se predică vestea bună”, Mat. 11:5. Lucrările mesianice sunt lucrările care inaugurează Împărăția. Aceasta reiese și mai limpede din cuvântarea din sinagoga de la Nazaret, consemnată de Luca și având drept text profeția lui Isaia: „Duhul Domnului este asupra mea, pentru că m-a uns ca să predic vestea bună săracilor: m-a trimis să proclam eliberarea captivilor și redobândirea vederii pentru orbi, să pun în libertate pe cei zdrobiți, să proclam anul bineplăcut al Domnului”, Lc. 4:18, 19. Aici anul bineplăcut al lui Iehova, anul jubileului, în care toate lucrurile revin la starea lor normală, sănătoasă, nu este altul decât epoca Împărăției și vine prin dăruirea binecuvântărilor enumerate.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The blind receive their sight, and the lame walk, the lepers are cleansed, and the deaf hear, and the dead are raised up, and the poor have good tidings preached unto them",
+          "quoteTarget": "Orbii își capătă vederea, și șchiopii umblă, leproșii sunt curățiți, și surzii aud, și morții sunt înviați, și săracilor li se predică vestea bună",
+          "note": "Citat al autorului după Mat. 11:5, tradus din formularea engleză a lui Vos, nu reprodus din memorie după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «Și» repetat reproduce cadența sursei."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The Spirit of the Lord is upon me, because he anointed me to preach good tidings to the poor: he hath sent me to proclaim release to the captives, and recovering of sight to the blind, to set at liberty them that are bruised, to proclaim the acceptable year of the Lord",
+          "quoteTarget": "Duhul Domnului este asupra mea, pentru că m-a uns ca să predic vestea bună săracilor: m-a trimis să proclam eliberarea captivilor și redobândirea vederii pentru orbi, să pun în libertate pe cei zdrobiți, să proclam anul bineplăcut al Domnului",
+          "note": "Citat al autorului după Lc. 4:18, 19, tradus din formularea engleză a lui Vos, nu reprodus din memorie după o ediție românească; de înlocuit ulterior cu o ediție licențiată. Textul lui Luca reia profeția lui Isaia (probabil Is. 61:1, 2, cu expresia «set at liberty them that are bruised» din Is. 58:6): identificări ale traducătorului, neverificate în sursă, de confirmat de revizor."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the acceptable year of the Lord",
+          "quoteTarget": "anul bineplăcut al Domnului",
+          "note": "«Acceptable» este redat literal «bineplăcut» (primit cu bunăvoință), în citat și în fraza explicativă «the acceptable year of Jehovah» → «anul bineplăcut al lui Iehova», ca legătura dintre ele să rămână vizibilă. Formulare de revizuit; alternative: «anul de bunăvoință al Domnului», «anul primit cu bunăvoință». «Jehovah» este redat «Iehova», ca în cap. II–III."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "his Messianic works",
+          "quoteTarget": "lucrările sale mesianice",
+          "note": "«Works» (faptele lui Isus) este redat «lucrări» (și «miraculous works» → «lucrări miraculoase»), în continuarea lui «work» = «lucrare» din cap. I; distinct de «miracle» = «miracol». Fără rând în glosar; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 11:5",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Lc. 4:18, 19",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZB",
+      "text": "Se va observa că miracolele săvârșite de Isus au fost, cu o singură excepție, miracole binefăcătoare. Isus a refuzat constant să dea un semn din cer, un semn lipsit de acest caracter binefăcător. Semnele adevărate trebuiau să fie semne ale Împărăției, demonstrații ale puterii regale a lui Dumnezeu. Această putere are, prin urmare, două laturi: în ceea ce îi privește pe dușmanii lui Dumnezeu, ea este o putere biruitoare, o putere distrugătoare, o putere judecătoare; în ceea ce îl privește pe om, ea este o putere eliberatoare, o putere vindecătoare, o putere mântuitoare. În scoaterea demonilor se dezvăluie ambele laturi. În celelalte miracole își găsește expresia mai ales latura binefăcătoare. Isus aduce eliberare captivilor și pune în libertate pe cei zdrobiți, căci puterea satanică nu numai că îl face pe om nenorocit, ci îl și reduce la robie, după cum o indică, chiar și în exterior, faptul că demonii controlează organismul fizic al celor posedați.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a liberating, healing, saving power",
+          "quoteTarget": "o putere eliberatoare, o putere vindecătoare, o putere mântuitoare",
+          "note": "«Putere» este repetat în ambele triade (și la «conquering, destructive, judging power»), ca «putere mântuitoare» (glosar: «saving power», FIX; termenul din titlul capitolului) să apară întreg, fără a schimba ordinea adjectivelor din sursă. Alternativă pentru revizor: «o putere eliberatoare, vindecătoare, mântuitoare» (mai concis, dar abatere de la rândul din glosar)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "exhibitions of God’s royal power",
+          "quoteTarget": "demonstrații ale puterii regale a lui Dumnezeu",
+          "note": "«Exhibitions» (arătări publice) este redat «demonstrații», ca să nu se confunde cu «manifestations» = «manifestări» din par. 1. Alternative pentru revizor: «desfășurări», «manifestări»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZC",
+      "text": "Se ridică firesc întrebarea cum poate fi împăcată această identificare a Împărăției cu efectele unei puteri care acționează în mare parte în sfera fizică, cu accentul pus de Isus pe natura spirituală a Împărăției. Răspunsul este că relele fizice pe care le înlătură puterea Împărăției au un fundal moral și spiritual. Satan domnește nu doar în trup, nici doar în minte, privită din punct de vedere patologic, ci și în inima și voința omului, ca instigator al păcatului și sursă a răului moral. De aceea Isus a făcut din miracolele sale prilejul de a sugera și de a înfăptui schimbarea mai profundă prin care erau dezlegate legăturile păcatului și era instaurată din nou stăpânirea lui Dumnezeu în întreaga viață interioară a oamenilor. Întrucât există această legătură reală, procesul fizic poate deveni simbol al celui spiritual. În Evangheliile sinoptice, e drept, aceasta nu este afirmată nicăieri direct, deși exteriorul și interiorul sunt uneori așezate, în chip semnificativ, unul lângă altul, ca părți coordonate ale uneia și aceleiași lucrări, Mc. 2:9. În a patra Evanghelie, însă, Isus dă limpede de înțeles că faptele fizice sunt menite să trimită la fapte spirituale corespunzătoare. Vindecarea orbilor, învierea morților își găsesc corespondentul în ceea ce face el pentru sufletele păcătoșilor.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MAJOR",
+          "quoteSource": "this is now here directly stated",
+          "quoteTarget": "aceasta nu este afirmată nicăieri direct",
+          "note": "Sursa are «now here» (două cuvinte), probabil o eroare de OCR sau de tipar pentru «nowhere»: în lectura literală («acum aici este afirmat direct») concesiva «although the external and the internal are sometimes … placed side by side» nu are sens. Aceleași cuvinte apar în ambele extrageri brute (content/sources/vos-1903-kingdom/raw.txt și raw-layout.txt), deci nu provin din segmentarea ediției. Redat după lectura probabilă «nicăieri» și semnalat aici, nu corectat în tăcere. Revizorul uman confirmă pe ediția tipărită (Vos, 1903) sau alege lectura literală."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the raising of the dead",
+          "quoteTarget": "învierea morților",
+          "note": "«Raising of the dead» (faptul că Isus ridică morți) este redat «învierea morților»; în română expresia poate evoca și învierea de apoi, deși contextul (alături de «vindecarea orbilor») arată minunile lui Isus. Alternativă pentru revizor: «readucerea morților la viață»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 2:9",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZD",
+      "text": "Pe de altă parte, nu trebuie trecut cu vederea că aceste semne fizice au și o legătură cu Împărăția în sfera exterioară însăși. Puterea miraculoasă prevestește acea mare putere a Împărăției care va fi exercitată la sfârșit. Mai ales în contexte escatologice se vorbește despre o revelare a puterii, Mat. 24:30; Mc. 12:24. Toate fenomenele supranaturale care au însoțit nu doar slujirea lui Isus, ci au caracterizat și istoria Bisericii apostolice trebuie interpretate în această lumină. Trebuia să se arate imediat că lucrarea inaugurată de Isus nu urmărește nimic mai puțin decât o înnoire supranaturală a lumii, prin care tot răul va fi biruit, o înnoire atât a lumii fizice, cât și a celei spirituale, Mat. 19:28. Întrucât Vechiul Testament le tratase pe aceste două ca aparținând inseparabil una alteia și întrucât în realitate s-ar părea acum că cele două se află la mare distanță una de alta în timp, era cu atât mai necesar să se dea unele anticipări solide ale schimbării escatologice. Profeția verbală nu era suficientă: era necesară o profeție în fapte, iar aceasta au oferit-o miracolele. În această măsură există un element de adevăr în părerea modernă care îl înfățișează pe Isus ca pe unul care privea miracolele drept începutul sosirii finale a Împărăției. Aici, ca și în alte privințe, învățătura Domnului nostru ne avertizează împotriva acelei tendințe excesive de spiritualizare, pentru care lumea exterioară devine cu totul lipsită de valoare și indiferentă sau chiar scoasă de sub controlul direct al lui Dumnezeu.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "altogether worthless and indifferent",
+          "quoteTarget": "cu totul lipsită de valoare și indiferentă",
+          "note": "«Indifferent» (în sens teologic: fără importanță pentru religie, adiaphoron) este redat cognat «indiferentă»; în română poate fi citit și ca „căruia nu-i pasă”. Alternative pentru revizor: «lipsită de importanță», «fără relevanță»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "is prophetic of",
+          "quoteTarget": "prevestește",
+          "note": "«Is prophetic of» este redat verbal («prevestește»); se pierde legătura lexicală cu «a prophecy in acts» («o profeție în fapte»). Alternative pentru revizor: «are caracter profetic față de», «este o prefigurare profetică a»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 24:30; Mc. 12:24",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 19:28",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 2 din 4 a cap. VI (5 paragrafe, 1007 cuvinte-sursă). Fără headingRo (part nu este 0). Redări de ținut consecvent în capitol: miracle = miracol (miraculous = miraculos), sign = semn, works = lucrări, work = lucrare, kingdom-power = puterea Împărăției, kingdom-signs = semne ale Împărăției, kingdom-idea = ideea Împărăției, saving power = putere mântuitoare (termen FIX; vezi flag par. 3), rule = stăpânire, Jehovah = Iehova (ca în cap. II–III), discourse = cuvântare, ministry = slujire, view (opinie) = părere. Trimiterile din text sunt exact cele din job (Mat. 11:5 și Lc. 4:18, 19 în par. 2, ambele însoțind citate ale autorului; Mc. 2:9 în par. 4; Mat. 24:30; Mc. 12:24 și Mat. 19:28 în par. 5). Singura anomalie de sursă: «now here» în par. 4 (flag MAJOR, probabil «nowhere»). În par. 1 «He» este redat «Isus» pentru a evita citirea «El» = Dumnezeu. Aluzia din par. 1 (semnele vremii) este identificată de traducător, fără trimitere în sursă. Textul nu este certificat ca publicabil."
+}

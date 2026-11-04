@@ -1,0 +1,36 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-02",
+  "file": "drafts/vos-1903-kingdom-ro-04-02.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "GLOSSARY",
+      "severity": "MINOR",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTT",
+      "message": "glossary kingdom-of-god: expected a rendering matching /Împărăți[ae]i? (?:lui Dumnezeu|cerurilor)/; Capitalised in Romanian; „cerurilor” plural (Cornilescu).",
+      "quoteSource": "kingdom of God"
+    },
+    {
+      "check": "NUMBER_MISSING",
+      "severity": "MINOR",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTV",
+      "message": "number(s) of the source missing from the translation: 10",
+      "quoteSource": "10"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTX",
+      "message": "proposed (not approved) glossary row vos-righteousness (FIX) matched: Alternative in the Cornilescu tradition: „neprihănire”; kept as „dreptate” throughout; owner to confirm.",
+      "quoteSource": "righteousness",
+      "quoteTarget": "dreptatea"
+    }
+  ],
+  "stats": {
+    "paragraphs": 4,
+    "sourceWords": 964,
+    "targetWords": 911,
+    "lengthRatio": 1.036
+  }
+}

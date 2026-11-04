@@ -1,0 +1,54 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-02",
+  "file": "drafts/vos-1903-kingdom-ro-06-02.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ9",
+      "message": "proposed (not approved) glossary row vos-synoptists (FIX) matched: The evangelists; not „sinopticele”.",
+      "quoteSource": "Synoptists",
+      "quoteTarget": "sinoptici"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ9",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ9",
+      "message": "proposed (not approved) glossary row vos-viz (PREFER) matched",
+      "quoteSource": "viz.",
+      "quoteTarget": "adică"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZB",
+      "message": "proposed (not approved) glossary row vos-saving-power (FIX) matched",
+      "quoteSource": "saving power",
+      "quoteTarget": "putere mântuitoare"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZC",
+      "message": "proposed (not approved) glossary row vos-fourth-gospel (FIX) matched",
+      "quoteSource": "Fourth Gospel",
+      "quoteTarget": "a patra Evanghelie"
+    }
+  ],
+  "stats": {
+    "paragraphs": 5,
+    "sourceWords": 1007,
+    "targetWords": 934,
+    "lengthRatio": 1
+  }
+}

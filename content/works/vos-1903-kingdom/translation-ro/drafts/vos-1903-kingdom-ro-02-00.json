@@ -1,0 +1,176 @@
+{
+  "jobId": "vos-1903-kingdom-ro-02-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "II. Împărăția și Vechiul Testament",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M14",
+      "text": "Primul lucru care trebuie observat în spusele lui Isus despre tema noastră este că ele presupun limpede, din partea lui, conștiința de a sta, cu lucrarea sa, pe temelia revelației lui Dumnezeu din Vechiul Testament. Domnul nostru se situează pe un teren istoric de la bun început. De la început până la sfârșit, el se referă la „Împărăția lui Dumnezeu” ca la o noțiune fixă, cu care, consideră el de la sine înțeles, ascultătorii săi sunt familiarizați. Afirmând că ea este „aproape”, el îi atribuie, în plus, caracterul unui lucru care face parte din acea lume a profeției, ce înaintează de-a lungul veacurilor spre țelul împlinirii, rânduit de Dumnezeu. A-l înfățișa drept întemeietorul unei religii noi ar fi cu totul în dezacord cu acest principiu fundamental al Evangheliei Împărăției vestite de Domnul nostru. Lucrarea sa a fost înfăptuirea a ceea ce fusese cunoscut și așteptat, sub forma ideală a profeției, cu veacuri înainte. Nu facem aici decât să observăm, într-un punct deosebit de vital, ceea ce stă pretutindeni ca temelie largă și uniformă a conștiinței sale oficiale. Nicio înșiruire de declarații explicite, prin care el recunoaște că acceptă Scripturile Vechiului Testament drept cuvânt al lui Dumnezeu, nu poate egala în forță această subordonare implicită a sa și a lucrării sale față de marele plan unic, a cărui etapă pregătitoare a constituit-o revelația străveche dată lui Israel. Într-adevăr, însușindu-și funcția de a aduce Împărăția și revendicând demnitatea mesianică, Isus a pus stăpânire pe ceea ce, în Vechiul Testament, i-a îngăduit să facă, dintr-o singură lovitură, ca întreaga mișcare istorică a Vechiului Testament să convergă spre el și să se încheie în el. În aceasta se află o îmbinare unică a celei mai sublime conștiințe de sine cu cea mai smerită supunere față de revelația lui Dumnezeu din veacurile de odinioară. Isus se știa pe sine totodată țelul istoriei și slujitorul istoriei.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "at hand",
+          "quoteTarget": "aproape",
+          "note": "Formula proclamației evanghelice, citată de autor între ghilimele, fără trimitere în acest paragraf (cf. Mat. 4:17; Mc. 1:15, referințele din capitolul I); tradusă ca text al autorului, consecvent cu «Împărăția era aproape» din capitolul I, nu după o ediție românească a Bibliei."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "kingdom-gospel",
+          "quoteTarget": "Evangheliei Împărăției vestite de Domnul nostru",
+          "note": "Compusul «kingdom-gospel» este redat «Evanghelia Împărăției» (profil: «gospel» ca text = «Evanghelia»), în paralel cu «kingdom-idea» = «ideea Împărăției» din capitolul I; posesivul «our Lord’s» este explicitat prin «vestite de Domnul nostru». Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the realization of what",
+          "quoteTarget": "înfăptuirea a ceea ce",
+          "note": "«realization» (și «realized» în paragraful 3) este redat «înfăptuire» / «a înfăptui», nu «realizare» / «a realiza» (reguli §4), ca în «înfăptuirea Împărăției» din capitolul I. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "his official consciousness",
+          "quoteTarget": "conștiinței sale oficiale",
+          "note": "«official consciousness» înseamnă aici conștiința pe care Isus o are despre oficiul (misiunea) său mesianic, în opoziție cu o conștiință strict personală. Redat literal «conștiința sa oficială», care în română poate fi citit ca «publică, formală». Alternative pentru revizor: «conștiința sa de oficiu», «conștiința misiunii sale oficiale»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M15",
+      "text": "Vechiul Testament cunoaște o Împărăție a lui Dumnezeu ca existentă deja în acea vreme. Pe lângă domnia universală exercitată de Dumnezeu ca Creator al tuturor lucrurilor, Iehova are în Israel Împărăția sa specială. Pasajul clasic referitor la aceasta din urmă este Ex. 19:4–6, din care reiese că încheierea legământului de la Sinai a întemeiat această relație. În virtutea ei, Iehova, pe lângă faptul că era Dumnezeul lui Israel, a acționat și ca Rege național al lui Israel. Prin revelație directă le-a dat legi, iar prin călăuzirea ulterioară a istoriei lor a făcut din stăpânirea sa o realitate vie. Chiar și mai târziu, când au apărut regi omenești, aceștia nu aveau, din punctul de vedere al religiei legitime, alte drepturi decât cele ale locțiitorilor lui Iehova. Sensul acestei ordini a lucrurilor era că, în viața lui Israel, toate celelalte interese, atât publice, cât și private, erau subordonate religiei și integrate în ea. În timp ce în alte părți religia era o funcție a statului, aici statul a devenit o funcție a religiei. În sine, această idee a unei domnii exercitate de divinitate asupra întregului cuprins al vieții nu era limitată la sfera revelației speciale. Melekh, rege, era un nume obișnuit pentru divinitate în rândul triburilor semitice, astfel încât, într-o oarecare măsură, principiul a ceea ce numim „teocrația” le era cunoscut. Dar raportul pe care își închipuiau că există între ei și zeii lor era, numai în Israel, o realitate trăită efectiv. O conștiință extrem de vie a acestui fapt străbate tot Vechiul Testament.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Jehovah",
+          "quoteTarget": "Iehova",
+          "note": "«Jehovah» este redat «Iehova» (forma românească uzuală; nu «Domnul» sau «Yahweh»), păstrând numele pe care îl folosește autorul. Revine în tot capitolul. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "national King",
+          "quoteTarget": "Rege național",
+          "note": "«King» (despre Dumnezeu) este redat «Rege», în coerență cu profilul (kingship = domnie / calitatea de rege); alternativa din tradiția Cornilescu este «Împărat». Revine («the great King» în paragraful 4, «the Messianic King» în capitol). Fără rând în glosar; de confirmat de proprietar."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "universal reign",
+          "quoteTarget": "domnia universală",
+          "note": "«reign» este redat «domnie» (domnia universală), ca și «kingship» (rând FIX din glosar), în timp ce «rule» este redat «stăpânire» (profil: rule/sovereignty = stăpânire/suveranitate); distincția kingdom (Împărăție) / kingship (domnie) / rule (stăpânire) este păstrată. De confirmat de revizor."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a kingdom of God",
+          "quoteTarget": "o Împărăție a lui Dumnezeu",
+          "note": "Verificarea GLOSSARY (kingdom-of-god) cere forma «Împărăția lui Dumnezeu». Sursa are aici articolul nehotărât («a kingdom of God»: forma veterotestamentară, distinctă de «the kingdom of God» din paragraful 3), deci româna are «o Împărăție a lui Dumnezeu»; constatarea MINOR este un fals pozitiv al tiparului (nu admite «a lui»). Textul rămâne neschimbat; termenul este scris cu majusculă, ca în profil."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Ex. 19:4–6",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M16",
+      "text": "Ținând seama de aceasta, la prima vedere surprinde oarecum faptul că Isus nu vorbește niciodată despre Împărăția lui Dumnezeu ca existentă mai înainte. Pentru el, Împărăția este întotdeauna ceva nou, ce urmează să fie înfăptuit abia acum. Chiar și despre Ioan Botezătorul vorbește ca despre unul care nu se află în Împărăție, pentru că întregul fel în care lucra îl identifica cu orânduirea de mai înainte. Legea și profeții sunt până la Ioan: de atunci Evanghelia Împărăției lui Dumnezeu este predicată, Lc. 16:16; Mat. 11:13. Există doar două pasaje în care ar putea părea că se face referire, sub numele de Împărăție, la vechea ordine teocratică a lucrurilor. În Mat. 8:12, Isus îi numește pe iudei „fiii Împărăției”. Dar aceasta vrea probabil să spună că, în virtutea făgăduințelor, ei sunt moștenitori ai Împărăției, și nu că ar fi avut Împărăția în posesie efectivă înainte de venirea lui Hristos. Potrivit aceluiași principiu, trebuie probabil să interpretăm Mat. 21:43, unde Isus prezice că Împărăția lui Dumnezeu va fi luată de la iudei și dată unei națiuni care aduce roadele Împărăției, Împărăția fiind folosită pentru dreptul asupra Împărăției. Sau, dacă se insistă asupra sensului literal al cuvintelor, ar trebui reținut că Domnul nostru le-a rostit în etapa mai târzie a slujirii sale, într-un moment în care, prin ostenelile sale, Împărăția lui Dumnezeu, în sensul ei nou și cel mai înalt, fusese înfăptuită cel puțin într-un stadiu incipient.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The law and the prophets are until John: from that time the gospel of the kingdom of God is preached",
+          "quoteTarget": "Legea și profeții sunt până la Ioan: de atunci Evanghelia Împărăției lui Dumnezeu este predicată",
+          "note": "Citat adaptat al autorului, fără ghilimele în sursă; formularea urmează Lc. 16:16, iar primul membru are paralelă în Mat. 11:13. Tradus literal ca text al autorului, inclusiv elipsa «sunt până la Ioan», nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the sons of the kingdom",
+          "quoteTarget": "fiii Împărăției",
+          "note": "Citat direct din Mat. 8:12, între ghilimele în sursă; tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "shall be taken away from the Jews and given to a nation bringing forth the fruits thereof",
+          "quoteTarget": "va fi luată de la iudei și dată unei națiuni care aduce roadele Împărăției",
+          "note": "Redare indirectă a autorului după Mat. 21:43, cu formulări din versiunea engleză pe care o citează Vos («a nation bringing forth the fruits thereof»); tradusă ca text al autorului. «thereof» este redat «Împărăției», pentru că «ei» ar fi ambiguu în română între «națiune» și «Împărăție»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the preceding dispensation",
+          "quoteTarget": "orânduirea de mai înainte",
+          "note": "«dispensation» este redat «orânduire» (orânduirea de mai înainte), nu «dispensație», pentru a evita asocierea cu dispensaționalismul, străin de Vos. Alte apariții probabile în capitol («old/new dispensation»). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the Jews",
+          "quoteTarget": "iudei",
+          "note": "«the Jews» este redat «iudeii» (nu «evreii»). Revine frecvent în capitol. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the title to the kingdom",
+          "quoteTarget": "dreptul asupra Împărăției",
+          "note": "«title to the kingdom» (drept juridic asupra Împărăției, în opoziție cu «actual possession») este redat «dreptul asupra Împărăției». Alternativă pentru revizor: «titlul de proprietate asupra Împărăției»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 16:16",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 11:13",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 8:12",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 21:43",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQX43VJPCTG3R9P7P6F6AB",
+      "text": "Singura recunoaștere indirectă a domniei lui Dumnezeu sub Vechiul Testament se găsește în Mat. 5:35, unde Ierusalimul este numit „cetatea Marelui Rege”. Când se pune întrebarea cum trebuie să explicăm această restrângere de către Isus a termenului la noua ordine a lucrurilor, răspunsul nu poate fi căutat, desigur, în vreo lipsă de apreciere din partea lui a motivelor care stau la baza uzului opus, predominant în Vechiul Testament. Nici motivul nu poate să fi constat într-o dorință de a se adapta la noțiunea iudaică contemporană, căci, deși iudeii din acea vreme așteptau Împărăția din viitor, ei o cunoșteau și într-un alt sens ca fiind deja prezentă la ei prin domnia lui Dumnezeu în Lege. Adevărata explicație se află, fără îndoială, în caracterul absolut, ideal, pe care Domnul nostru l-a atribuit ordinii lucrurilor legate de numele de Împărăție. În gândirea lui, ea implica forțe atât de complet noi și binecuvântări atât de neasemuite, încât toate formele relative și provizorii pe care le îmbrăcase mai înainte lucrarea lui Dumnezeu pe pământ păreau, prin comparație, nedemne de acest nume. Astfel, deși nu ar fi negat că instituțiile Vechiului Testament reprezentau o Împărăție reală a lui Dumnezeu, sensul înalt pe care îl conferise termenului făcea nefiresc pentru el să-l aplice acestora.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the city of the great King",
+          "quoteTarget": "cetatea Marelui Rege",
+          "note": "Citat direct din Mat. 5:35, între ghilimele în sursă; tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «King» este redat «Rege» (vezi TERMEN_NOU din paragraful 2), nu «Împărat»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a real kingdom of God",
+          "quoteTarget": "o Împărăție reală a lui Dumnezeu",
+          "note": "Verificarea GLOSSARY (kingdom-of-god) cere forma «Împărăția lui Dumnezeu». Sursa are articolul nehotărât și adjectivul («a real kingdom of God»), deci româna are «o Împărăție reală a lui Dumnezeu»; constatarea MINOR este un fals pozitiv al tiparului (nu admite adjectivul sau «a lui» între termeni). Textul rămâne neschimbat."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 5:35",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă. Redări de ținut consecvent în capitol: Jehovah = Iehova; King (despre Dumnezeu) = Rege; kingship = domnie, reign = domnie, rule = stăpânire; dispensation = orânduire; realization / realized = înfăptuire / înfăptuită; conception = noțiune; ministry = slujire; work = lucrare; labors = osteneli; order of things = ordine a lucrurilor; deity și godhead = divinitate; the Jews = iudeii; kingdom-gospel = Evanghelia Împărăției. Constatările GLOSSARY (kingdom-of-god) din paragrafele 2 și 4 sunt false pozitive ale tiparului: sursa are «a (real) kingdom of God», deci româna are «o Împărăție (reală) a lui Dumnezeu». Nicio anomalie de sursă găsită în acest job; referințele sunt cele din job."
+}

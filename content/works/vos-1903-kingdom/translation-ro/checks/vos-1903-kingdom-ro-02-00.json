@@ -1,0 +1,44 @@
+{
+  "jobId": "vos-1903-kingdom-ro-02-00",
+  "file": "drafts/vos-1903-kingdom-ro-02-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "GLOSSARY",
+      "severity": "MINOR",
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M15",
+      "message": "glossary kingdom-of-god: expected a rendering matching /Împărăți[ae]i? (?:lui Dumnezeu|cerurilor)/; Capitalised in Romanian; „cerurilor” plural (Cornilescu).",
+      "quoteSource": "kingdom of God"
+    },
+    {
+      "check": "GLOSSARY",
+      "severity": "MINOR",
+      "sourceId": "01M6JQX43VJPCTG3R9P7P6F6AB",
+      "message": "glossary kingdom-of-god: expected a rendering matching /Împărăți[ae]i? (?:lui Dumnezeu|cerurilor)/; Capitalised in Romanian; „cerurilor” plural (Cornilescu).",
+      "quoteSource": "kingdom of God"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M15",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domnia"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6JQX43VJPCTG3R9P7P6F6AB",
+      "message": "proposed (not approved) glossary row vos-kingship (FIX) matched: Vos distinguishes kingship (domnie) from kingdom (Împărăție).",
+      "quoteSource": "kingship",
+      "quoteTarget": "domniei"
+    }
+  ],
+  "stats": {
+    "paragraphs": 4,
+    "sourceWords": 1053,
+    "targetWords": 1003,
+    "lengthRatio": 1.049
+  }
+}

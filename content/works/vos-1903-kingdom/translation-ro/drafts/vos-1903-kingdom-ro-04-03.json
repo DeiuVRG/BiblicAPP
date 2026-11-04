@@ -1,0 +1,173 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-03",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTY",
+      "text": "Cel mai limpede, însă, atât realitatea prezentă, cât și natura interioară a Împărăției sunt învățate în unele dintre marile pilde, Mat. 13; Mc. 4; Lc. 8. În pilda grâului și a neghinei, Împărăția apare ca o stare de lucruri în care cei buni și cei răi încă se amestecă laolaltă. Același lucru este valabil pentru pilda năvodului. Aici, așadar, Domnul nostru vorbește în chip vădit despre Împărăție într-o formă diferită de forma ei finală, care este înfățișată ca începând cu despărțirea dintre cele două feluri. Or, se spune că aceste două pilde, ca și interpretarea celei de-a doua, mai ales în Mat. 13:36–43, trădează influența unor noțiuni mai târzii. Dar ce vom spune despre pilda grăuntelui de muștar și a aluatului? Nu se poate tăgădui că Isus concepe aici Împărăția ca pe un organism în creștere, ca pe o putere de dospire, noțiuni care cu greu se pot aplica la altceva decât la o ordine spirituală a lucrurilor. A le interpreta ca descriind contrastul imens dintre micul început al lucrurilor în miracolele lui Isus și marea încheiere a lucrării sale, care înnoiește lumea și care urma să fie văzută în curând, este, ni se pare, o exegeză forțată, care îl învinuiește inutil pe Isus de o folosire artificială a acestor imagini, alese cu atâta finețe și aplicate atât de izbitor potrivit părerii obișnuite. În sfârșit, este de remarcat că, în legătură cu aceste pilde, Isus a vorbit în chip semnificativ despre „tainele” sau „taina” (Mc.) Împărăției cerurilor. Cea mai plauzibilă explicație a acestei afirmații este că ea se referă nu atât la forma învățăturii în pilde, cât la ideea principală întruchipată în unele dintre aceste pilde. Ce altceva ar fi putut numi Isus cu atâta potrivire „o taină”, în comparație cu așteptările iudaice, decât adevărul că Împărăția vine treptat, pe nesimțite, în chip spiritual?",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MAJOR",
+          "quoteSource": "the interpretation of the second, especially in Matt. xiii. 36-43",
+          "quoteTarget": "interpretarea celei de-a doua, mai ales în Mat. 13:36–43",
+          "note": "Discrepanță posibilă în sursă. Autorul vorbește despre «interpretarea celei de-a doua» dintre cele două pilde pomenite (întâi cea a grâului și a neghinei, apoi cea a năvodului), dar trimiterea dată, Mat. 13:36–43, este (din memorie, neverificat în acest job) explicația pildei grâului și a neghinei, adică a primei dintre cele două; explicația pildei năvodului ar fi Mat. 13:49–50. Explicații posibile, neverificate: «the second» ar putea însemna a doua interpretare din Mat. 13 (după cea a semănătorului, 13:18–23) sau o scăpare a autorului în loc de «the first». Tradus ca atare, cu trimiterea din sursă, fără corectare (reguli §5); revizorul uman decide."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "“the mysteries” or “the mystery” (Mk.) of the kingdom of heaven",
+          "quoteTarget": "„tainele” sau „taina” (Mc.) Împărăției cerurilor",
+          "note": "Citat parțial al autorului, fără trimitere cu verset în sursă (apare doar «(Mk.)»). Corespondentele probabile, identificate din memorie și neverificate în acest job, sunt Mat. 13:11 (plural, cu «kingdom of heaven») și Mc. 4:11 (singular); cf. și Lc. 8:10. Trecute ca atare în scripture. Tradus ca text al autorului, nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «(Mk.)» este redat «(Mc.)»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a leavening power",
+          "quoteTarget": "o putere de dospire",
+          "note": "«Leavening power» (imagine din pilda aluatului) este redat «putere de dospire», cum se spune despre drojdie; un adjectiv «dospitor» nu este sigur în uz. Alternativă pentru revizor: «o putere care face aluatul să dospească»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "later conceptions",
+          "quoteTarget": "noțiuni mai târzii",
+          "note": "«Conception(s)» este redat «noțiune/noțiuni» în tot paragraful (și «conceptions which will scarcely apply»), ca în restul capitolului (profil: WARN pentru «concepție»). Aici sensul este «idei, vederi ale unei epoci mai târzii»; alternativă pentru revizor: «concepții mai târzii»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "so strikingly applied on the common view",
+          "quoteTarget": "aplicate atât de izbitor potrivit părerii obișnuite",
+          "note": "Formulare eliptică: «on the common view» înseamnă «dacă se admite părerea obișnuită» (după care imaginile sunt folosite izbitor de potrivit). Redat «potrivit părerii obișnuite» («view» = «părere», ca în părțile 0–1 ale capitolului). Alternativă pentru revizor: «dacă se admite părerea obișnuită». Formulare de care nu sunt sigur."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 13",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 4",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 8",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:36–43",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:11",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mc. 4:11",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTZ",
+      "text": "Din cele de mai sus reiese că este cu neputință să i se tăgăduiască Domnului nostru noțiunea unei Împărății interioare care, ca atare, vine nu dintr-odată, ci într-un proces îndelungat. Unii autori, recunoscând necesitatea acestui lucru, nu vor totuși să admită că aceasta era o noțiune pe care Isus o avea de la începutul slujirii sale. După părerea lor, mintea sa a trecut printr-o dezvoltare în această privință: pornind de la așteptarea unei Împărății care avea să apară brusc, printr-un act nemijlocit al lui Dumnezeu, el s-a convins mai târziu că opoziția manifestată față de persoana și lucrarea sa făcea aceasta cu neputință, că Împărăția slavei nu putea fi înfăptuită de îndată, și astfel a fost condus să creadă că numai pe latura ei interioară, invizibilă, putea fi instaurată chiar acum stăpânirea lui Dumnezeu. Opoziția întâmpinată avea să ducă la moartea sa, dar moartea avea să fie o trecere la o stare înălțată, care la rândul ei avea să fie urmată de venirea sa cu norii cerului și de instaurarea Împărăției în forma ei finală deplină.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the kingdom of glory",
+          "quoteTarget": "Împărăția slavei",
+          "note": "«Kingdom of glory» (stadiul final, în opoziție cu «internal kingdom») este redat «Împărăția slavei», cu «glory» = «slavă» (tradiția protestantă) și majusculă, ca pentru celelalte stadii ale Împărăției din capitol. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "an immediate act of God",
+          "quoteTarget": "un act nemijlocit al lui Dumnezeu",
+          "note": "«Immediate» are două lecturi plauzibile: «nemijlocit, direct» (fără mijlocirea omului; cf. «A aduce Împărăția era lucrarea lui Dumnezeu, nu a lui» din partea 0 a capitolului) sau «instantaneu, de îndată». S-a ales «nemijlocit», fiindcă «suddenly» exprimă deja caracterul brusc, iar «could not immediately be realized» din aceeași frază este redat separat prin «de îndată». Alternativă pentru revizor: «printr-un act imediat al lui Dumnezeu»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "his coming with the clouds of heaven",
+          "quoteTarget": "venirea sa cu norii cerului",
+          "note": "Aluzie la Dan. 7:13 (cf. și Mat. 26:64; Mc. 14:62), fără trimitere în sursă; identificată din memorie, neverificată în acest job. Marcată allusion în scripture; tradusă ca text al autorului, nu reprodusă după o ediție românească a Bibliei."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "an exalted state",
+          "quoteTarget": "o stare înălțată",
+          "note": "Redare literală a adjectivului «exalted»; în teologia reformată există și sintagma «starea de înălțare» (a lui Hristos), pe care sursa nu o folosește aici. Alternativă pentru revizor: «o stare de înălțare»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Dan. 7:13",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV0",
+      "text": "O singură privire aruncată asupra Evangheliilor, însă, va arăta cât de imposibil este să se repartizeze spusele privitoare la forma prezentă și la forma finală a Împărăției în așa fel încât să se stabilească o perioadă la începutul căreia Isus cunoștea numai forma finală. Unele dintre cele mai limpezi afirmații privitoare la venirea spirituală a Împărăției aparțin unui stadiu relativ timpuriu al învățăturii sale, cf. Mat. 11:11; Mc. 2:18–22. Nici argumentele generale aduse în favoarea acestei ipoteze nu au suficientă forță pentru a o face acceptabilă. Este adevărat că Isus a început prin a înfățișa Împărăția ca viitoare, dar lucrul acesta era valabil, la început, deopotrivă pentru înfăptuirea ei spirituală și pentru cea vizibilă, finală. Îi îndemna neîncetat pe ucenici să caute Împărăția, dar aceasta nu implică decât faptul că ea trebuie să vină tot mai mult în ei. Despre Împărăția escatologică el vorbește ca despre „Împărăția”, în sens absolut, dar acest mod de exprimare nu se limitează la perioada timpurie a învățăturii sale: apare și mai târziu, într-o vreme în care se admite că el era familiarizat cu ideea unei Împărății imanente. El putea vorbi astfel pentru că numai la sfârșitul timpului va apărea Împărăția în întregimea ei ideală. Aceasta nu exclude ca el să fi recunoscut ca prezente, cu mult înainte, întruchipări mai puțin complete ale ideii Împărăției. De asemenea, este adevărat că la început el nu se declară Mesia, iar de aici s-ar putea trage concluzia că, împreună cu calitatea sa de Mesia, a așezat în viitor și venirea Împărăției. Această concluzie ar fi corectă dacă reținerea de a se declara Mesia ar fi provenit din convingerea că el nu era încă Mesia și nici lucrarea sa de atunci nu era lucrare mesianică în sensul strict al termenului. De fapt, Isus și-a ținut pretențiile mesianice în plan secund din motive pedagogice, fiind totodată pe deplin conștient că exercita funcții mesianice. Părerea corectă în această privință este că el a deosebit două forme de activitate mesianică, una pe pământ, în smerenie, alta de pe tronul slavei, și, în corespondență cu aceasta, două forme ale Împărăției, una invizibilă acum, alta vizibilă la sfârșit, și că, astfel înțeles, caracterul cu două laturi al conștiinței sale mesianice oferă un paralelism izbitor cu caracterul cu două laturi al noțiunii sale despre Împărăție. În ansamblu, așadar, nu avem niciun motiv să credem că în înțelegerea subiectivă a adevărului de către Domnul nostru a existat vreun progres apreciabil în această chestiune importantă, în limitele slujirii sale publice.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "in such a way as to make out a period",
+          "quoteTarget": "în așa fel încât să se stabilească o perioadă",
+          "note": "«Make out» are aici sensul «a stabili, a întemeia existența (unei perioade)», nu «a distinge cu greu»; redat «să se stabilească». Alternative pentru revizor: «să se contureze o perioadă», «să se poată dovedi o perioadă». Formulare de care nu sunt sigur."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "with his Messiahship",
+          "quoteTarget": "împreună cu calitatea sa de Mesia",
+          "note": "«Messiahship» este redat «calitatea de Mesia» (nu «mesianitate»). Fără rând în glosar; propus pentru glosar după aprobare, ca să fie redat la fel în capitolele următoare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "he does not at first announce himself as Messiah",
+          "quoteTarget": "la început el nu se declară Mesia",
+          "note": "«Announce himself as Messiah» este redat «a se declara Mesia», la fel ca «restraint in the announcement of himself as Messiah» → «reținerea de a se declara Mesia». Alternativă pentru revizor: «a se proclama Mesia»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "nor his present work Messianic work in the strict sense of the term",
+          "quoteTarget": "nici lucrarea sa de atunci nu era lucrare mesianică în sensul strict al termenului",
+          "note": "«His present work» este redat «lucrarea sa de atunci», fiindcă «present» se raportează aici la stadiul timpuriu al slujirii de care vorbește fraza, nu la momentul cititorului."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the two-sidedness of his Messianic consciousness",
+          "quoteTarget": "caracterul cu două laturi al conștiinței sale mesianice",
+          "note": "«Two-sidedness» (repetat în aceeași frază: «two-sidedness of his kingdom-conception») este redat «caracterul cu două laturi», în ton cu «latură» pentru «side» din capitol. Evitate «dualitate» (poate fi citit ca dualism sau ca două conștiințe, cu risc hristologic) și «bilateralitate». «Kingdom-conception» este redat «noțiunea despre Împărăție», pe linia lui «kingdom-idea» = «ideea Împărăției». Fără rând în glosar; de confirmat de revizor."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "subjective apprehension of the truth",
+          "quoteTarget": "înțelegerea subiectivă a adevărului",
+          "note": "«Apprehension» este aici actul de a sesiza, de a-și însuși adevărul (în opoziție cu învățătura obiectivă din paragraful următor), nu «teamă». Redat «înțelegere». Alternativă pentru revizor: «sesizarea subiectivă a adevărului»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 11:11",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 2:18–22",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Ciornă, partea 3 (a patra) din 5 a cap. IV (3 paragrafe, 908 cuvinte-sursă). Redări de ținut consecvent în capitol, în continuarea părților 0–1: kingdom (absolut) = Împărăția; conception(s) = noțiune/noțiuni; kingdom-idea = ideea Împărăției; kingdom-conception = noțiunea despre Împărăție; view = părere; stage = stadiu; realization / realized = înfăptuire / înfăptuită; rule of God = stăpânirea lui Dumnezeu; sayings = spuse; utterances = afirmații; ministry = slujire; work = lucrare; miracles = miracole (ca în varianta finală a cap. I; ciorna 04-01 are «minuni», de armonizat); claims = pretenții; embodiments = întruchipări (embodied = întruchipată); interpretation (a unei pilde) = interpretare; kingdom of glory = Împărăția slavei; Messiahship = calitatea de Mesia; present / final form = forma prezentă / forma finală; imperceptibly = pe nesimțite. «Parabolic form of teaching» este redat «forma învățăturii în pilde» (glosarul interzice «parabolă» pentru parables). Anomalie posibilă de sursă: «the interpretation of the second, especially in Matt. xiii. 36-43» (flag MAJOR, par. 1). Trimiterile din text sunt exact cele din job. Trimiterile Mat. 13:11, Mc. 4:11 și Dan. 7:13 apar numai în scripture și în flag-uri; sunt deduse din memorie și neverificate. Textul nu este certificat ca publicabil."
+}
