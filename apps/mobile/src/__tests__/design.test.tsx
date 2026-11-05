@@ -673,7 +673,10 @@ describe('SearchField', () => {
     const input = screen.getByLabelText('Caută în text');
     expect(input).toHaveStyle({ paddingLeft: 14, paddingRight: 14 });
     await fireEvent.changeText(input, 'k');
-    expect(screen.getByLabelText('Caută în text')).toHaveStyle({ paddingLeft: 14, paddingRight: 44 });
+    expect(screen.getByLabelText('Caută în text')).toHaveStyle({
+      paddingLeft: 14,
+      paddingRight: 44,
+    });
     await fireEvent.changeText(screen.getByLabelText('Caută în text'), '');
     expect(screen.getByLabelText('Caută în text')).toHaveStyle({ paddingRight: 14 });
   });

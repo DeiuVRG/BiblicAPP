@@ -9,7 +9,7 @@
 //
 // smoke-web.mjs calls them after `shellChecks` (scripts/lib/smoke-shell.mjs, whose helpers they use).
 
-/* global document, getComputedStyle, innerWidth, location -- evaluated inside the browser page */
+/* global document, getComputedStyle, innerWidth, NodeFilter -- evaluated inside the browser page */
 import { DESKTOP, PHONE, boxOf, expect, normal, open, shown, textOf } from './smoke-shell.mjs';
 
 /** The test id of the element that has the focus. */
@@ -47,6 +47,29 @@ const placeholderFit = (field) => {
     parseFloat(style.borderLeftWidth) -
     parseFloat(style.borderRightWidth);
   return { text, width: context.measureText(text).width, room };
+};
+
+/**
+ * The visible text whose face is not one of the app's (Source Serif 4, IM Fell Great Primer,
+ * Literata, Inter, Gentium Plus): a bare `Text` draws in the system font, as the arrow of the work
+ * cards did. Evaluated in the page (it must be self-contained).
+ */
+const textInOtherFaces = () => {
+  const own = /^"?(SourceSerif4|IMFellGreatPrimer|Literata|Inter|GentiumPlus)_/;
+  const found = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    const text = (node.textContent ?? '').trim();
+    const parent = node.parentElement;
+    if (!text || !parent) continue;
+    const box = parent.getBoundingClientRect();
+    const style = getComputedStyle(parent);
+    if (box.width === 0 || box.height === 0 || style.visibility === 'hidden') continue;
+    if (!own.test(style.fontFamily)) {
+      found.push(`"${text.slice(0, 20)}" in ${style.fontFamily.slice(0, 40)} at ${style.fontSize}`);
+    }
+  }
+  return found;
 };
 
 /** Fresh browser context and page, with the page errors collected. */
@@ -109,7 +132,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     );
     await context.close();
   }
-  step('S3, S4: on the second and the third screen of the stack an entry of the drawer follows its link and the toggle closes it again, on desktop and on a phone');
+  step(
+    'S3, S4: on the second and the third screen of the stack an entry of the drawer follows its link and the toggle closes it again, on desktop and on a phone',
+  );
 
   const desktop = await newPage(browser, {
     viewport: DESKTOP,
@@ -142,7 +167,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
   await wide.waitForFunction(
     () => document.activeElement?.getAttribute('data-testid') === 'section-item-read',
   );
-  step('S3: ArrowRight and ArrowLeft move between the items of the bar (links too), ArrowDown opens the drawer and moves the focus to its first entry, Esc gives it back');
+  step(
+    'S3: ArrowRight and ArrowLeft move between the items of the bar (links too), ArrowDown opens the drawer and moves the focus to its first entry, Esc gives it back',
+  );
 
   // --- G13 / spec 18: one h1 on every screen, the reader included ---------------------------------
   for (const [path, ready] of [
@@ -155,7 +182,10 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
   ]) {
     await open(wide, base, path, ready);
     const headings = await visibleH1(wide);
-    expect(headings.length === 1, `G13: ${path} has ${headings.length} h1 (${headings.join(' | ')})`);
+    expect(
+      headings.length === 1,
+      `G13: ${path} has ${headings.length} h1 (${headings.join(' | ')})`,
+    );
   }
   await open(wide, base, '/library/all', 'library-count');
   await wide.locator('a[href*="/work/"]:visible').first().click();
@@ -174,6 +204,35 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     `G13: the reader has ${readerH1.length} h1 (${readerH1.join(' | ')}), not one`,
   );
   step(`G13: every screen has one h1, the reader's is the name of the work ("${readerH1[0]}")`);
+
+  // --- G2: every visible text is set in one of the faces of the app -------------------------------------
+  for (const [viewport, label] of [
+    [DESKTOP, 'desktop'],
+    [PHONE, 'phone'],
+  ]) {
+    await wide.setViewportSize(viewport);
+    for (const [path, ready] of [
+      ['/', 'doors'],
+      ['/library', 'library-hero-search'],
+      ['/library/all', 'library-count'],
+      ['/authors', 'authors-count'],
+      ['/search?q=vos&mode=passages', 'search-input'],
+      ['/settings', 'settings-title'],
+    ]) {
+      await open(wide, base, path, ready);
+      await wide.evaluate(() => document.fonts.ready);
+      await wide.waitForTimeout(300);
+      const other = await wide.evaluate(textInOtherFaces);
+      expect(
+        other.length === 0,
+        `G2: on ${path} (${label}) text is set outside the faces of the app: ${other.join('; ')}`,
+      );
+    }
+  }
+  await wide.setViewportSize(DESKTOP);
+  step(
+    'G2: on the landing, the library, the authors, the search and Settings every visible text is in a face of the app, on desktop and on a phone',
+  );
 
   // --- B1: the hero of Selecție (660 + 121 wide, 380 high) ---------------------------------------
   await open(wide, base, '/library', 'library-hero-search');
@@ -201,7 +260,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     ring.width === '2px' && ring.offset === '2px' && ring.color === 'rgb(239, 231, 218)',
     `G7: the ring of the hero field is ${JSON.stringify(ring)}, expected 2px, offset 2px, the ink of the band`,
   );
-  step('G7: the ring of the field in the dark hero is 2 px of the ink of the band, 2 px outside the field');
+  step(
+    'G7: the ring of the field in the dark hero is 2 px of the ink of the band, 2 px outside the field',
+  );
 
   // --- Q1: "/" takes the field of Selecție and of the authors; Down moves into the results -----------
   await open(wide, base, '/library', 'library-hero-search');
@@ -234,7 +295,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     (await focused(wide))?.startsWith('search-author-'),
     `Q1: Down in the "Lucrări" search moved the focus to "${await focused(wide)}"`,
   );
-  step('Q1: "/" focuses the field of Selecție and of the authors page; Down in the search field moves into the results (works and passages)');
+  step(
+    'Q1: "/" focuses the field of Selecție and of the authors page; Down in the search field moves into the results (works and passages)',
+  );
 
   // --- A9 (spec 10): "Pasaje" names the author and the editions of a work, and the count says both ---
   await open(wide, base, '/search?q=%C3%AEmp%C4%83r%C4%83%C8%9Bia&mode=passages', 'search-input');
@@ -250,7 +313,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     /^(Primele \d+ de rezultate, în 1 lucrare|\d+ rezultate? în 1 lucrare)$/i.test(count),
     `A9: the count line reads "${count}"`,
   );
-  step('A9: "Pasaje" shows the author and the editions under the title of a group, and the count line says the works');
+  step(
+    'A9: "Pasaje" shows the author and the editions under the title of a group, and the count line says the works',
+  );
 
   // --- B10, B6, B3: a library row, a work card, the landing ------------------------------------------
   await open(wide, base, '/library/all', 'library-count');
@@ -283,12 +348,20 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     centres.every((centre) => Math.abs(centre - middle) <= 12),
     `B4: the highlighted line and the button of the hero are centred at ${centres.join(' and ')}, the window at ${middle}`,
   );
-  step('B10, B6, B4: the chips are at the right of a row, the arrow of a card is in Source Serif 4, the hero of the landing is centred');
+  step(
+    'B10, B6, B4: the chips are at the right of a row, the arrow of a card is in Source Serif 4, the hero of the landing is centred',
+  );
 
   // --- A12: the footer of a shelf block of one work -------------------------------------------------
   await open(wide, base, '/library', 'library-hero-search');
-  const footer = await wide.locator('[data-testid^="shelf-block-"][data-testid$="-all"]:visible').first().innerText();
-  expect(/^deschide raftul/i.test(normal(footer)), `A12: the footer of a shelf of one work reads "${normal(footer)}"`);
+  const footer = await wide
+    .locator('[data-testid^="shelf-block-"][data-testid$="-all"]:visible')
+    .first()
+    .innerText();
+  expect(
+    /^deschide raftul/i.test(normal(footer)),
+    `A12: the footer of a shelf of one work reads "${normal(footer)}"`,
+  );
   step('A12: the footer of a shelf block of one work reads "DESCHIDE RAFTUL"');
 
   // --- B3/B8: the scroll cue and the breakpoints ----------------------------------------------------
@@ -313,7 +386,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
   await wide.keyboard.press('Escape');
   await wide.setViewportSize(DESKTOP);
   await wide.waitForTimeout(300);
-  step('S3: with a drawer open at 660 points the bar scrolls and a hairline cue with a thumb shows how much is in view');
+  step(
+    'S3: with a drawer open at 660 points the bar scrolls and a hairline cue with a thumb shows how much is in view',
+  );
   await desktop.context.close();
 
   // --- B8: the phone menu does not stay open over the wide layout -------------------------------------
@@ -338,7 +413,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     await shown(page, 'menu-button').click();
     await shown(page, 'menu-drawer-panel').waitFor({ state: 'visible' });
     for (const id of ['language-ro', 'language-en']) {
-      const box = await page.locator(`[data-testid="menu-language-switch"] [data-testid="${id}"]`).boundingBox();
+      const box = await page
+        .locator(`[data-testid="menu-language-switch"] [data-testid="${id}"]`)
+        .boundingBox();
       expect(
         box && box.width >= 43.5 && box.height >= 43.5,
         `G6: "${id}" in the phone menu is ${box?.width} x ${box?.height}`,
@@ -355,7 +432,10 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     });
     await open(coarse.page, base, '/', 'doors');
     for (const id of ['language-ro', 'language-en']) {
-      const box = await coarse.page.locator(`[data-testid="brand-bar"] [data-testid="${id}"]`).first().boundingBox();
+      const box = await coarse.page
+        .locator(`[data-testid="brand-bar"] [data-testid="${id}"]`)
+        .first()
+        .boundingBox();
       expect(
         box && box.width >= 43.5 && box.height >= 43.5,
         `G6b: "${id}" in the brand bar is ${box?.width} x ${box?.height} with a coarse pointer`,
@@ -363,7 +443,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     }
     await coarse.context.close();
   }
-  step('B8, G6, G6b: the phone menu closes when the window grows past 640; the language segments are 44 x 44 for a finger');
+  step(
+    'B8, G6, G6b: the phone menu closes when the window grows past 640; the language segments are 44 x 44 for a finger',
+  );
 
   // --- B9: the filters, shelves and placeholders at the sizes where they were uneven or cut ---------------
   {
@@ -464,7 +546,9 @@ export async function reviewChecks({ browser, origin, basePath, timeout, step, p
     );
     await context.close();
   }
-  step('B9, A10, B1: the filters are two and two at 768 and four at 1366, a shelf is one per row at 600, the placeholders fit at 360 and 390, the phone form is stacked');
+  step(
+    'B9, A10, B1: the filters are two and two at 768 and four at 1366, a shelf is one per row at 600, the placeholders fit at 360 and 390, the phone form is stacked',
+  );
 }
 
 /** Checks of the export built with the flags of Beta 1 (`EXPO_PUBLIC_FEATURES=beta1`). */
@@ -538,7 +622,9 @@ export async function beta1Checks({ browser, origin, basePath, timeout, step, pr
   await boxOf(wide, 'beta-band');
   await shown(wide, 'hero-cta-secondary').click();
   await wide.waitForURL(/\/ask$/);
-  step('L2, L3, L7: the second hero button goes to /ask, there are two doors of one width, the transparency band is there with its button');
+  step(
+    'L2, L3, L7: the second hero button goes to /ask, there are two doors of one width, the transparency band is there with its button',
+  );
 
   // --- G13: every item and entry of the bar lands on a screen with an h1 -------------------------------
   const landed = [];
@@ -546,13 +632,16 @@ export async function beta1Checks({ browser, origin, basePath, timeout, step, pr
   for (const key of keys) {
     await open(wide, base, '/', 'doors');
     const item = shown(wide, `section-item-${key}`);
-    const isLink = (await item.getAttribute('role')) === 'link' || (await item.evaluate((el) => el.tagName)) === 'A';
+    const isLink =
+      (await item.getAttribute('role')) === 'link' ||
+      (await item.evaluate((el) => el.tagName)) === 'A';
     if (isLink) {
       await item.click();
       await wide.waitForTimeout(400);
       landed.push(new URL(wide.url()).pathname);
       expect(
-        (await visibleH1(wide)).length >= 1 && !/nu a fost găsită|not found/i.test(await wide.locator('body').innerText()),
+        (await visibleH1(wide)).length >= 1 &&
+          !/nu a fost găsită|not found/i.test(await wide.locator('body').innerText()),
         `G13: the item "${key}" lands on a screen with no h1, or on "not found"`,
       );
       continue;
@@ -579,7 +668,9 @@ export async function beta1Checks({ browser, origin, basePath, timeout, step, pr
       );
     }
   }
-  step(`G13: every item and every entry of the bar (${landed.join(', ')}) lands on a screen with an h1`);
+  step(
+    `G13: every item and every entry of the bar (${landed.join(', ')}) lands on a screen with an h1`,
+  );
   await desktop.context.close();
 
   // --- S2, S4: the phone ------------------------------------------------------------------------------------
@@ -594,8 +685,9 @@ export async function beta1Checks({ browser, origin, basePath, timeout, step, pr
   await open(small, base, '/', 'doors');
   const scroller = await small.evaluate(() => {
     const element = document.querySelector('[data-testid="section-bar-scroll"]');
-    const first = ['home', 'search', 'read']
-      .map((key) => document.querySelector(`[data-testid="section-item-${key}"]`).getBoundingClientRect());
+    const first = ['home', 'search', 'read'].map((key) =>
+      document.querySelector(`[data-testid="section-item-${key}"]`).getBoundingClientRect(),
+    );
     return {
       content: element.scrollWidth,
       window: element.clientWidth,
@@ -623,6 +715,8 @@ export async function beta1Checks({ browser, origin, basePath, timeout, step, pr
   await shown(small, 'drawer-entry-research-ask').click();
   await small.waitForURL(/\/ask$/);
   expect((await visibleH1(small)).length >= 1, 'G13: /ask has no h1');
-  step('S2, S4: the phone bar scrolls with an edge fade and the first three items in view; a panel entry follows its link');
+  step(
+    'S2, S4: the phone bar scrolls with an edge fade and the first three items in view; a panel entry follows its link',
+  );
   await phone.context.close();
 }

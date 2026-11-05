@@ -180,6 +180,64 @@ describe('a Latin source translated into English (Augustine, chapter I)', () => 
       expect(found(check(job, augustineOutput(job)), 'QUOTES_CURLY_UNBALANCED')).toEqual([]);
     });
 
+    it('QUOTES_CURLY_UNBALANCED: a closing mark before its opening one, the marks swapped', () => {
+      const unbalanced = (extra: string) =>
+        found(
+          check(job, augustineOutput(job, `${AUGUSTINE.en} ${extra}`)),
+          'QUOTES_CURLY_UNBALANCED',
+        );
+      // as many closing marks as opening ones, in the wrong order
+      for (const swapped of ['He said ”yes“.', 'He said yes” and “no.', '”the letter kills“']) {
+        expect(unbalanced(swapped), swapped).toMatchObject([
+          {
+            severity: 'MINOR',
+            message: 'closing ” before any opening “ (the marks are swapped or misplaced)',
+            quoteTarget: expect.stringContaining('”'),
+          },
+        ]);
+      }
+      // a count that is not equal keeps its own message, and is reported once
+      expect(unbalanced('He said yes” and “no”.')).toMatchObject([
+        { message: '1 opening “ but 2 closing ” quotation marks' },
+      ]);
+      expect(unbalanced('He said ”yes.')[0]?.message).toBe(
+        '0 opening “ but 1 closing ” quotation marks',
+      );
+      expect(unbalanced('He said ”yes.')).toHaveLength(1);
+      // well-formed, including a pair inside a pair
+      expect(unbalanced('He said “he told me “no” twice” and “yes”.')).toEqual([]);
+    });
+
+    it('QUOTES_FOREIGN: Romanian, German and French marks are not used in English', () => {
+      for (const [extra, mark] of [
+        ['He said „yes”.', '„'],
+        ['He said „yes“.', '„'],
+        ['He said «yes».', '«'],
+        ['He said ‚yes‘.', '‚'],
+        ['He said ‹yes›.', '‹'],
+      ] as const) {
+        const result = check(job, augustineOutput(job, `${AUGUSTINE.en} ${extra}`));
+        expect(found(result, 'QUOTES_FOREIGN'), extra).toMatchObject([
+          {
+            severity: 'MINOR',
+            sourceId: 'par-1',
+            message: expect.stringContaining(mark),
+            quoteTarget: expect.stringContaining(mark),
+          },
+        ]);
+        // one finding for the defect, not a second one about the count of “ against ”
+        expect(found(result, 'QUOTES_CURLY_UNBALANCED'), extra).toEqual([]);
+        expect(result.report.ok).toBe(true); // MINOR
+      }
+      const many = check(job, augustineOutput(job, `${AUGUSTINE.en} He said «yes» or „no”.`));
+      expect(found(many, 'QUOTES_FOREIGN')).toHaveLength(1);
+      expect(found(many, 'QUOTES_FOREIGN')[0]?.message).toContain('« » „');
+      expect(found(check(job, augustineOutput(job)), 'QUOTES_FOREIGN')).toEqual([]);
+      expect(
+        found(check(job, augustineOutput(job, `${AUGUSTINE.en} He said “yes”.`)), 'QUOTES_FOREIGN'),
+      ).toEqual([]);
+    });
+
     it('does not apply the Romanian checks to English', () => {
       const text = `${AUGUSTINE.en} He said „yes” and “no”.`;
       const result = check(job, augustineOutput(job, text));
@@ -349,6 +407,10 @@ describe('a Latin source translated into Romanian (Augustine, chapter I)', () =>
     expect(found(result, 'QUOTES_STRAIGHT')).toHaveLength(1);
     expect(found(result, 'QUOTES_ENGLISH')).toHaveLength(1);
     expect(found(result, 'QUOTES_CURLY_UNBALANCED')).toEqual([]);
+    // the Romanian marks are the right ones in Romanian
+    const romanian = check(job, augustineOutput(job, `${AUGUSTINE.ro} El a spus „da”.`));
+    expect(found(romanian, 'QUOTES_FOREIGN')).toEqual([]);
+    expect(found(romanian, 'QUOTES_ENGLISH')).toEqual([]);
   });
 });
 
@@ -452,6 +514,53 @@ describe('scripture references of a Latin source', () => {
     );
     expect(found(kept, 'NUMBER_MISSING')).toEqual([]);
   });
+
+  describe('an ibid. with a chapter and no antecedent in its paragraph', () => {
+    // The antecedent is in the paragraph before, which a job does not see: the reference stays
+    // "the chapter and verse of the place cited before", and is carried over as `Ibid. 6:3`.
+    const IBID = 'Ibid. 6, 3 dicit Apostolus, et non est aliud quod credimus in hac vita.';
+    const ibidJob = (lang: 'en' | 'ro') => defined(jobsFor(latinSource(IBID), lang)[0], 'job');
+    const EN = 'The Apostle says that what we believe in this life is nothing else at all.';
+    const RO = 'Apostolul spune că ceea ce credem în această viață nu este nimic altceva.';
+
+    it('is given as "Ibid. 6:3" and the check can be satisfied (English)', () => {
+      const job = ibidJob('en');
+      expect(job.paragraphs[0]?.references).toMatchObject([
+        { source: 'Ibid. 6, 3', target: 'Ibid. 6:3', canonical: ['6:3'] },
+      ]);
+      for (const text of [
+        `Ibid. 6:3 ${EN}`,
+        `The Apostle says (Ibid. 6:3) that what we believe in this life is nothing else at all.`,
+        `The Apostle says, ibid., 6:3, that what we believe in this life is nothing else at all.`,
+      ]) {
+        const result = check(job, finalOutput(job, [text], 'Chapter I'));
+        expect(found(result, 'REF_MISSING'), text).toEqual([]);
+        expect(found(result, 'REF_EXTRA'), text).toEqual([]);
+        expect(found(result, 'REF_FORMAT'), text).toEqual([]);
+        expect(result.report.strictOk, text).toBe(true);
+      }
+    });
+
+    it('is satisfiable in Romanian as well, where the bare 6:3 was and stays valid', () => {
+      const job = ibidJob('ro');
+      expect(job.paragraphs[0]?.references[0]).toMatchObject({ target: 'Ibid. 6:3' });
+      for (const text of [`Ibid. 6:3 ${RO}`, `Apostolul spune (Ibid. 6:3) că ${RO}`, `6:3 ${RO}`]) {
+        const result = check(job, finalOutput(job, [text], 'Capitolul I'));
+        expect(found(result, 'REF_MISSING'), text).toEqual([]);
+        expect(found(result, 'REF_EXTRA'), text).toEqual([]);
+      }
+    });
+
+    it('is still missing when the translation drops it, and extra under a book the source never named', () => {
+      const job = ibidJob('en');
+      expect(found(check(job, finalOutput(job, [EN], 'Chapter I')), 'REF_MISSING')).toMatchObject([
+        { severity: 'MAJOR', quoteSource: 'Ibid. 6, 3' },
+      ]);
+      const booked = check(job, finalOutput(job, [`Rom. 6:3 ${EN}`], 'Chapter I'));
+      expect(found(booked, 'REF_MISSING')).toHaveLength(1);
+      expect(found(booked, 'REF_EXTRA')[0]?.message).toContain('Rom 6:3');
+    });
+  });
 });
 
 describe('a Greek source (the Creed of Constantinople)', () => {
@@ -515,6 +624,41 @@ describe('a Greek source (the Creed of Constantinople)', () => {
       expect(found(result, 'GREEK_COPY')[0]?.message).toContain('θεοτόκος');
       expect(result.report.ok).toBe(true); // MAJOR, not CRITIC
       expect(result.report.strictOk).toBe(false);
+    });
+
+    it('flags a piece of a source word: what is kept is a whole word of the source', () => {
+      const sourceWords = new Set(
+        CREED.grc[1]?.match(/\p{Script=Greek}[\p{Script=Greek}\p{M}]*/gu),
+      );
+      const word = 'ὁμοούσιον';
+      expect(sourceWords.has(word)).toBe(true);
+      // the beginning, the end and the middle of the word, a prefix, a suffix, single letters
+      for (const piece of [
+        word.slice(0, -1),
+        word.slice(1),
+        word.slice(0, 2),
+        word.slice(3),
+        'α',
+        'ς',
+      ]) {
+        expect(sourceWords.has(piece), piece).toBe(false);
+        const result = kept(piece);
+        expect(found(result, 'GREEK_COPY'), piece).toMatchObject([
+          { severity: 'MAJOR', quoteTarget: piece },
+        ]);
+        expect(result.report.strictOk, piece).toBe(false);
+      }
+    });
+
+    it('flags a word broken by a Latin letter: each piece is a run of its own, and neither is a word', () => {
+      const word = 'ὁμοούσιον';
+      const broken = `${word.slice(0, 2)}o${word.slice(3)}`; // the third letter is a Latin o
+      expect(broken).not.toBe(word);
+      const message = found(kept(broken), 'GREEK_COPY')[0]?.message ?? '';
+      expect(message).toContain('ὁμ');
+      expect(message).toContain('ούσιον');
+      // a Latin v for the final nu leaves a piece too
+      expect(found(kept(`${word.slice(0, -1)}v`), 'GREEK_COPY')).toHaveLength(1);
     });
 
     it('does not accept a transliteration instead of the Greek, and does not make one', () => {
@@ -584,6 +728,33 @@ describe('a Greek source (the Creed of Constantinople)', () => {
       expect(found(share, 'RESIDUE_GRC')).toHaveLength(1);
     });
 
+    describe('Greek that the translation keeps as an exact copy of the source', () => {
+      // article I is 22 tokens in English: one function word is over 3 %
+      it('does not make a short kept term a MAJOR finding in a short paragraph', () => {
+        for (const term of ['(καὶ ἀοράτων)', '(εἰς ἕνα Θεὸν)', '“καὶ”', '(εἰς καὶ καὶ)']) {
+          const result = withGreek(term);
+          expect(found(result, 'RESIDUE_GRC'), term).toEqual([]);
+          expect(found(result, 'GREEK_COPY'), term).toEqual([]);
+          expect(result.report.strictOk, term).toBe(true);
+        }
+      });
+
+      it('still counts it toward the 4 hits: a stretch of the source left in Greek is found', () => {
+        const stretch = withGreek('(εἰς καὶ καὶ εἰς)'); // 4 function words, all copies
+        expect(found(stretch, 'GREEK_COPY')).toEqual([]);
+        expect(found(stretch, 'RESIDUE_GRC')).toMatchObject([
+          { severity: 'MAJOR', message: expect.stringContaining('4 Greek function word(s)') },
+        ]);
+      });
+
+      it('counts Greek that is not a copy toward the share as before', () => {
+        // the same word without its accent is not a word of the source
+        expect(found(withGreek('(καὶ)'), 'RESIDUE_GRC')).toEqual([]);
+        expect(found(withGreek('(και)'), 'RESIDUE_GRC')).toHaveLength(1);
+        expect(found(withGreek('(Καὶ)'), 'RESIDUE_GRC')).toHaveLength(1);
+      });
+    });
+
     it('finds nothing in a clean English or Romanian translation', () => {
       expect(found(withGreek(''), 'RESIDUE_GRC')).toEqual([]);
       const ro = defined(jobs('ro')[0], 'job');
@@ -595,15 +766,66 @@ describe('a Greek source (the Creed of Constantinople)', () => {
     });
   });
 
-  it('REF_EXTRA: a reference in the translation of a source that has none', () => {
-    const job = defined(jobs('en')[0], 'job');
-    const result = check(
-      job,
-      finalOutput(job, [`${CREED.en[0]} See Gen. 1:1.`], CREED.heading.en[0]),
+  describe('scripture references of a source without a grammar of references', () => {
+    // Greek and German authors cite Scripture in notations of their own (`Ῥωμ. ε΄ 15`,
+    // `Röm. 5, 15`). Their jobs carry no reference, so what the translator writes can be neither
+    // missing nor extra: there is nothing to compare it with (the Greek grammar is still to come).
+    const CITING = {
+      grc: 'ὡς ὁ Παῦλός φησιν (Ῥωμ. ε΄ 15) καὶ πάλιν (Ῥωμ. ε΄ 20), ὅτι ἡ χάρις ἐπερίσσευσεν ἐν πᾶσιν.',
+      de: 'Wie Paulus sagt (Röm. 5, 15) und wiederum (Röm. 5, 20), dass die Gnade überströmend ward.',
+      la: 'Ut ait Apostolus (Rom. v. 15) et iterum (Rom. v. 20), quod gratia abundavit in omnibus.',
+    } as const;
+    const TRANSLATION =
+      'As Paul says (Rom. 5:15) and again (Rom. 5:20), that grace overflowed among all of them.';
+
+    const checked = (language: keyof typeof CITING, text: string, lang: 'en' | 'ro' = 'en') => {
+      const base = creedSource();
+      const source: Pack = {
+        ...base,
+        edition: { ...base.edition, language },
+        sections: base.sections.slice(0, 1),
+        paragraphs: [
+          { id: 'par-1', sectionId: 'sec-1', ordinal: 0, kind: 'p', text: CITING[language] },
+        ],
+      };
+      const job = defined(jobsFor(source, lang)[0], 'job');
+      return check(job, finalOutput(job, [text], 'Heading'));
+    };
+
+    it.each(['grc', 'de'] as const)(
+      'a correct citation in the translation of a %s source is neither extra nor missing',
+      (language) => {
+        const result = checked(language, TRANSLATION);
+        expect(found(result, 'REF_EXTRA')).toEqual([]);
+        expect(found(result, 'REF_MISSING')).toEqual([]);
+        expect(result.report.findings.filter((f) => f.severity !== 'INFO')).toEqual([]);
+        expect(result.report.strictOk).toBe(true);
+      },
     );
-    expect(found(result, 'REF_EXTRA')).toMatchObject([
-      { severity: 'MAJOR', quoteTarget: 'Gen. 1:1' },
-    ]);
+
+    it('a reference that is added to the translation of a Greek source is not REF_EXTRA either', () => {
+      const result = checked('grc', `${TRANSLATION} See Gen. 1:1.`);
+      expect(found(result, 'REF_EXTRA')).toEqual([]);
+    });
+
+    it('the notation is still checked: roman numerals in an English translation of Greek', () => {
+      const result = checked('grc', TRANSLATION.replace('Rom. 5:15', 'Rom. v. 15'));
+      expect(found(result, 'REF_FORMAT')).toMatchObject([
+        { severity: 'MINOR', message: expect.stringContaining('Rom. v. 15') },
+      ]);
+      expect(found(result, 'REF_EXTRA')).toEqual([]);
+    });
+
+    it('a Latin source, which has a grammar, still compares the two', () => {
+      expect(found(checked('la', TRANSLATION), 'REF_EXTRA')).toEqual([]);
+      expect(found(checked('la', TRANSLATION), 'REF_MISSING')).toEqual([]);
+      const added = checked('la', `${TRANSLATION} See Gen. 1:1.`);
+      expect(found(added, 'REF_EXTRA')).toMatchObject([
+        { severity: 'MAJOR', quoteTarget: 'Gen. 1:1' },
+      ]);
+      const dropped = checked('la', TRANSLATION.replace(' and again (Rom. 5:20)', ''));
+      expect(found(dropped, 'REF_MISSING')).toMatchObject([{ severity: 'MAJOR' }]);
+    });
   });
 
   it('LENGTH_RATIO keeps the bands of the pipeline for Greek', () => {

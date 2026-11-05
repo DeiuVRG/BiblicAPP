@@ -48,15 +48,18 @@ describe('the slash shortcut', () => {
     expect(getSlashTarget()).toBeNull();
   });
 
-  it.each(SCREENS)('%s does not take "/" while another screen is on top of it', async (_name, Screen, id) => {
-    const loaded = await syntheticLibrary().load();
-    await renderWithProviders(
-      <MockScreen focused={false}>
-        <Screen />
-      </MockScreen>,
-      { loaded },
-    );
-    await screen.findByTestId(id);
-    expect(getSlashTarget()).toBeNull();
-  });
+  it.each(SCREENS)(
+    '%s does not take "/" while another screen is on top of it',
+    async (_name, Screen, id) => {
+      const loaded = await syntheticLibrary().load();
+      await renderWithProviders(
+        <MockScreen focused={false}>
+          <Screen />
+        </MockScreen>,
+        { loaded },
+      );
+      await screen.findByTestId(id);
+      expect(getSlashTarget()).toBeNull();
+    },
+  );
 });

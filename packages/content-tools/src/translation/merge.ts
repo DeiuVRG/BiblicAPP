@@ -291,8 +291,10 @@ export function mergeTranslation(input: MergeInput): MergeResult {
           .filter((part) => part !== '')
           .join(' ')
       : meta.edition.provenance.notes;
+  // The work of the merged edition: the sheet is titled with the same title as the edition.
+  const work = workOf(source, meta);
   const parsed = PackSchema.safeParse({
-    work: workOf(source, meta),
+    work,
     edition: {
       id: editionId,
       language: meta.edition.language,
@@ -329,10 +331,7 @@ export function mergeTranslation(input: MergeInput): MergeResult {
     );
   }
   const reviewInput = {
-    title:
-      meta.edition.language === 'ro'
-        ? source.work.titleRo
-        : (source.work.titleEn ?? source.work.titleOrig),
+    title: meta.edition.language === 'ro' ? work.titleRo : (work.titleEn ?? work.titleOrig),
     titleOrig: source.work.titleOrig,
     slug: source.work.slug,
     sourceLanguage: source.edition.language,

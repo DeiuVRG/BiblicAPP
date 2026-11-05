@@ -588,7 +588,9 @@ describe('web template and splash', () => {
   it('keeps the ring of a field on a dark band on the band: 2 px outside the field, not over its light fill', () => {
     // A field's ring sits over its border (-1 px), which on a dark band put half of the ring on the
     // field's light fill, where the ink of the band is 1.2:1: the focus looked like a paler rim.
-    expect(style).toMatch(/input:focus-visible,\s*textarea:focus-visible\s*\{\s*outline-offset:\s*-1px/);
+    expect(style).toMatch(
+      /input:focus-visible,\s*textarea:focus-visible\s*\{\s*outline-offset:\s*-1px/,
+    );
     expect(style).toMatch(
       /\[data-band='masthead'\] input:focus-visible,\s*\[data-band='masthead'\] textarea:focus-visible\s*\{\s*outline-offset:\s*2px/,
     );

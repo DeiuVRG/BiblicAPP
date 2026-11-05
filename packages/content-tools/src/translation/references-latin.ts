@@ -1,6 +1,7 @@
 import { LATIN_BOOK_PATTERN, lookupLatinBook } from './books';
 import {
   DIGIT,
+  IBID,
   matchAt,
   parseRoman,
   parseVerseList,
@@ -55,7 +56,11 @@ const LA_SEPARATOR_ROMAN = sticky(String.raw`\s*[.,:]\s*`);
 const LA_SEPARATOR_ARABIC = sticky(String.raw`\s*(?:[,:]\s*|\.(?=\d))`);
 const LA_CHAPTER_COLON = sticky(String.raw`(\d{1,3})\s*:\s*(?=\d)`);
 const LA_VERSE_MARKER = sticky(String.raw`(?<![\p{L}\p{N}])(vv?|vss?|vers|versic)\.\s*(?=\d)`, 'u');
-const LA_IBID = sticky(String.raw`(?<![\p{L}\p{N}])(?:ibidem|ibid|ib)(?![\p{L}])\.?\s*`, 'iu');
+/**
+ * A single-chapter book cited the Latin way, `Abd. 1, 3` or `Abd. 1.3`: chapter 1 (the only one),
+ * then the verses. It needs a verse after it; `Abd. 1` alone is verse 1.
+ */
+const LA_CHAPTER_ONE = sticky(String.raw`1\s*(?:,\s*|\.(?=\d))(?=\d)`);
 /** What may follow a chapter named without verses: the end of a citation. */
 const LA_BOUNDARY = sticky(String.raw`\s*(?:[;,.:)\]”’"]|$)`);
 
@@ -63,6 +68,12 @@ const LA_BOUNDARY = sticky(String.raw`\s*(?:[;,.:)\]”’"]|$)`);
 const LA_CHAPTER_LABEL = sticky(String.raw`(?:cap|c)\.\s*(?=[\dIVXLCivxlc])`);
 /** `v.` between the separator and the verses: `Ioh. 3, v. 5`. */
 const LA_VERSE_LABEL = sticky(String.raw`(?:vv?|vss?|vers)\.\s*(?=\d)`);
+
+/** What the translator is told when `1, 3` after a single-chapter book was read as chapter 1. */
+const CHAPTER_ONE_NOTE =
+  'Single-chapter book cited with its chapter, the Latin way: "1, 3" is chapter 1, verse 3, so ' +
+  'only the verse is written (not verses 1 and 3); if the source can only mean verses 1 and 3, ' +
+  'flag it (AMBIGUITATE).';
 
 const LA_FOLLOWING = sticky(String.raw`\s*(?:et\s+)?(?:sqq?|seqq?|ff?|ss)(?![A-Za-z0-9])\.?`);
 /**
@@ -152,7 +163,12 @@ function parseLatinBook(text: string, pos: number, probe = false): BookSegment |
   const { book } = found;
   const hasPeriod = match[4] === '.';
   const afterBook = skipSpaces(text, pos + match[0].length);
-  const segment = (chapter: number | null, list: VerseList | null, end: number): BookSegment => {
+  const segment = (
+    chapter: number | null,
+    list: VerseList | null,
+    end: number,
+    extraNote?: string,
+  ): BookSegment => {
     const result: BookSegment = {
       lead: 'book',
       book,
@@ -162,17 +178,23 @@ function parseLatinBook(text: string, pos: number, probe = false): BookSegment |
       end,
     };
     if (found.vulgate) result.vulgate = true;
-    if (found.note !== undefined) result.note = found.note;
+    const note = [found.note, extraNote].filter((part) => part !== undefined).join(' ');
+    if (note !== '') result.note = note;
     return result;
   };
 
   if (book.singleChapter) {
-    // `Iud. 5`, `Abd. 21`; `Abd. 1:21` (with a colon) means the same.
+    // `Iud. 5`, `Abd. 21`; `Abd. 1:21` (with a colon) means the same. The Latin way, chapter and
+    // verse with a comma (`Abd. 1, 3`), is chapter 1 when the first number is 1, the only chapter
+    // there is; any other first number before a comma is the first of a list of verses
+    // (`Iud. 3, 5`). The note tells the translator how the citation was read.
     const colon = matchAt(LA_CHAPTER_COLON, text, afterBook);
     if (colon && Number.parseInt(colon[1] ?? '', 10) !== 1) return null;
-    const at = colon ? afterBook + colon[0].length : afterBook;
+    const chapterOne = colon ? null : matchAt(LA_CHAPTER_ONE, text, afterBook);
+    const lead = colon ?? chapterOne;
+    const at = lead ? afterBook + lead[0].length : afterBook;
     const list = probe ? probeList(text, at) : parseVerseList(text, at, LA_LISTS);
-    return list ? segment(null, list, list.end) : null;
+    return list ? segment(null, list, list.end, chapterOne ? CHAPTER_ONE_NOTE : undefined) : null;
   }
 
   const label = matchAt(LA_CHAPTER_LABEL, text, afterBook);
@@ -187,7 +209,7 @@ function parseLatinBook(text: string, pos: number, probe = false): BookSegment |
 
 /** `ibid. 14` (verses of the chapter before), `ibid. 6, 3` and `ibid. vi, 3` (another chapter). */
 function parseLatinIbid(text: string, pos: number): ChapterSegment | VerseSegment | null {
-  const marker = matchAt(LA_IBID, text, pos);
+  const marker = matchAt(IBID, text, pos);
   if (!marker) return null;
   const at = pos + marker[0].length;
   const chapter = chapterAt(text, at);
@@ -317,14 +339,18 @@ export const LATIN_LOOSE_PATTERNS: readonly RegExp[] = [
   /(?<![\p{L}\p{N}])[ivxlcIVXLC]{1,8}[.,]\s*\d/gu,
   // a book name followed by a numeral or a number: `Matth. IV`, `Rom. 5`
   new RegExp(
-    String.raw`(?<![\p{L}\p{N}])${LATIN_BOOK_WITH_NUMBER}\.?\s*(?:[ivxlcIVXLC]{1,8}(?![A-Za-z0-9])|\d)`,
+    String.raw`(?<![\p{L}\p{N}])${LATIN_BOOK_WITH_NUMBER}\s*\.?\s*(?:[ivxlcIVXLC]{1,8}(?![A-Za-z0-9])|\d)`,
     'gu',
   ),
   // verse markers: `v. 14`, `vv. 14-16`
   /(?<![\p{L}\p{N}])(?:vv?|vss?|vers|versic)\.\s*\d/gu,
   // `ibid.` followed by a number
-  /(?<![\p{L}\p{N}])(?:ibidem|ibid|ib)(?![\p{L}])\.?\s*\d/giu,
+  /(?<![\p{L}\p{N}])(?:ibidem|ibid|ib)(?![\p{L}])\.?\s*,?\s*\d/giu,
 ];
 
-/** What may stand between the end of a Latin run and a number it should have taken along. */
-export const LATIN_CUT_SHORT = /^(?:\s*[,;&]\s*(?:et\s+)?|\s+et\s+|\s+)(?=\d)/;
+/**
+ * What may stand between the end of a Latin run and a number it should have taken along: white
+ * space, a comma, `;`, `&`, `et`, and a period with white space (`Matth. 4. 17`: the chapter
+ * ended the run and the verse was left out).
+ */
+export const LATIN_CUT_SHORT = /^(?:\s*[,;&]\s*(?:et\s+)?|\s+et\s+|\s+|\.\s+)(?=\d)/;

@@ -203,10 +203,7 @@ export function Hero({
         container="wide"
         padding={heroPadding(kind, wide)}
         testID={`${testID}-band`}
-        style={[
-          image ? styles.overImage : null,
-          wide && minHeight ? { minHeight } : null,
-        ]}
+        style={[image ? styles.overImage : null, wide && minHeight ? { minHeight } : null]}
       >
         <View style={[styles.content, center ? styles.contentCenter : null]}>
           {kicker ? (

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { defined } from '../lib/invariant';
-import { findUnparsedFragments, parseReferences } from './notation';
+import { extractReferences, findUnparsedFragments, parseReferences } from './notation';
 import { LATIN_BOOK_CITATIONS } from './reference-fixtures';
 
 const toEn = (text: string) => parseReferences(text, { source: 'la', target: 'en' });
@@ -196,9 +196,60 @@ describe('Latin grammar details', () => {
 
   it('leaves ibid. unresolved when nothing comes before it', () => {
     expect(toEn('ibid. 14')[0]).toMatchObject({ target: 'v. 14', canonical: ['vs 14'] });
-    expect(toEn('ibid. 6, 3')[0]).toMatchObject({ target: '6:3', canonical: ['6:3'] });
     expect(toEn('ibid. et alibi')).toEqual([]);
     expect(toEn('ut ibid. dictum est')).toEqual([]);
+  });
+
+  it('carries an unresolved ibid. and chapter over as "Ibid. 6:3", not as a bare 6:3', () => {
+    // a bare chapter and verse says nothing in a translation, and in English it cannot even be
+    // read back (`10:30` is a time): the word that makes it a reference stays
+    for (const toTarget of [toEn, toRo]) {
+      expect(toTarget('ibid. 6, 3')[0]).toMatchObject({ target: 'Ibid. 6:3', canonical: ['6:3'] });
+      expect(toTarget('Ibid. vi, 3 sq.')[0]).toMatchObject({
+        target: toTarget === toEn ? 'Ibid. 6:3 ff.' : 'Ibid. 6:3 ș.urm.',
+        canonical: ['6:3ff'],
+      });
+      expect(toTarget('ibidem 6, 3; 7, 1')[0]).toMatchObject({
+        target: 'Ibid. 6:3; 7:1',
+        canonical: ['6:3', '7:1'],
+      });
+    }
+    // an ibid. that has an antecedent is a full reference, and a chapter after `;` stays bare
+    expect(toEn('Rom. 5, 12. Et ibid. 6, 3')[1]?.target).toBe('Rom. 6:3');
+    expect(toEn('Rom. 5, 12; ibid. 6, 3')[0]?.target).toBe('Rom. 5:12; 6:3');
+  });
+
+  it('writes an unresolved ibid. so that the translation reads back the same items', () => {
+    for (const target of ['en', 'ro'] as const) {
+      for (const latin of ['ibid. 6, 3', 'Ibid. vi, 3', 'ib. 6, 3 sq.', 'ibidem 6, 3-5; 7, 1']) {
+        const [run] = parseReferences(latin, { source: 'la', target });
+        const written = defined(run, latin).target;
+        const read = extractReferences(`The Apostle says (${written}) in this place.`, target);
+        expect(
+          read.flatMap((r) => r.canonical),
+          `${target}: ${latin} -> ${written}`,
+        ).toEqual(run?.canonical);
+      }
+    }
+    // in the notation of the translation `Ibid.` also takes the book of the run before it
+    expect(
+      extractReferences('See Rom. 5:12. Ibid. 6:3 follows.', 'en').map((r) => r.canonical),
+    ).toEqual([['Rom 5:12'], ['Rom 6:3']]);
+    // ...but is not read without chapter and verses, and the English 6:3 alone is still no reference
+    expect(extractReferences('Ibid. is a Latin word, as in ibid. 6 times.', 'en')).toEqual([]);
+    expect(extractReferences('It happened at 6:3 in the morning.', 'en')).toEqual([]);
+  });
+
+  it('reads a comma after ibid. ("ibid., 14")', () => {
+    for (const text of [
+      'Rom. 5, 12; ibid., 14',
+      'Rom. 5, 12; ibid. , 14',
+      'Rom. 5, 12. Ibid., 14',
+    ]) {
+      const items = toEn(text).flatMap((r) => r.canonical);
+      expect(items, text).toEqual(['Rom 5:12', 'Rom 5:14']);
+      expect(findUnparsedFragments(text, 'la'), text).toEqual([]);
+    }
   });
 
   it('does not swallow the number of the next book', () => {
@@ -235,6 +286,34 @@ describe('Latin grammar details', () => {
     expect(toEn('Abd. 2:21')).toEqual([]);
     // a comma lists verses, as in the English notation
     expect(one('Iud. 3, 5').canonical).toEqual(['Jude 3', 'Jude 5']);
+  });
+
+  it('reads "1, 3" after a single-chapter book as chapter 1, verse 3, with a note', () => {
+    // the Latin way of citing chapter and verse: the only chapter of the book is 1
+    for (const [text, canonical, target] of [
+      ['Abd. 1, 3', ['Obad 3'], 'Obad. 3'],
+      ['Philem. 1, 5', ['Phlm 5'], 'Philem. 5'],
+      ['Iud. 1, 5', ['Jude 5'], 'Jude 5'],
+      ['2 Ioh. 1, 4', ['2John 4'], '2 John 4'],
+      ['Abd. 1.3', ['Obad 3'], 'Obad. 3'],
+      ['Abd. 1, 3-5', ['Obad 3-5'], 'Obad. 3–5'],
+      ['Abd. 1, 3, 5', ['Obad 3', 'Obad 5'], 'Obad. 3, 5'],
+    ] as const) {
+      const run = one(text);
+      expect(run.canonical, text).toEqual(canonical);
+      expect(run.target, text).toBe(target);
+      expect(run.notes?.join(' '), text).toContain('chapter 1, verse');
+    }
+    // the note is added to the one of Jude, not instead of it
+    expect(one('Iud. 1, 5').notes?.join(' ')).toMatch(/Epistle of Jude.*chapter 1, verse 3/);
+    // what is not the Latin way stays as it was: no note, same items
+    expect(one('Abd. 21').notes).toBeUndefined();
+    expect(one('Abd. 1').canonical).toEqual(['Obad 1']);
+    expect(one('Abd. 1:21').notes).toBeUndefined();
+    expect(one('Iud. 3, 5').notes?.join(' ')).not.toContain('chapter 1');
+    expect(one('Iud. 1 et 5').canonical).toEqual(['Jude 1', 'Jude 5']);
+    // a book of several chapters is not touched
+    expect(one('Ioh. 1, 3').canonical).toEqual(['John 1:3']);
   });
 
   it('is deterministic and stateless between calls', () => {
@@ -356,6 +435,36 @@ describe('reference-like fragments that did not parse (Latin)', () => {
 
   it('reports a number that a cut-short run left behind', () => {
     expect(findUnparsedFragments('Ioh. 3, 5, 200 homines', 'la')).toHaveLength(1);
+  });
+
+  it('reports a verse that a period and a space cut off from its chapter ("Matth. 4. 17")', () => {
+    // read as the chapter alone, the verse would be lost without a word
+    const text = 'Ut dicit Dominus, Matth. 4. 17 quod verum est.';
+    expect(toEn(text)[0]).toMatchObject({ source: 'Matth. 4', canonical: ['Matt 4'] });
+    const unparsed = findUnparsedFragments(text, 'la');
+    expect(unparsed).toHaveLength(1);
+    expect(unparsed[0]?.text.startsWith('17')).toBe(true);
+    // the next citation after a sentence is not a leftover, and nor is a period with no number
+    expect(findUnparsedFragments('Matth. 4, 17. 1 Cor. 15, 22 et alia.', 'la')).toEqual([]);
+    expect(findUnparsedFragments('Matth. IV. Hoc dixit.', 'la')).toEqual([]);
+    expect(findUnparsedFragments('Matth. 4, 17. Hoc dixit.', 'la')).toEqual([]);
+  });
+
+  it('reports a citation with white space before its period ("Matth . IV , 17")', () => {
+    for (const text of [
+      'Ut dicit Dominus, Matth . IV , 17 quod verum est.',
+      'Ut dicit Dominus, Matth . 4 , 17 quod verum est.',
+      'Ut dicit Dominus, Rom . v. 12 quod verum est.',
+    ]) {
+      const unparsed = findUnparsedFragments(text, 'la');
+      expect(unparsed, text).toHaveLength(1);
+      expect(unparsed[0]?.text, text).toMatch(/^(Matth|Rom) \. /);
+    }
+    // no part of the first two is a reference
+    expect(toEn('Ut dicit Dominus, Matth . IV , 17 quod verum est.')).toEqual([]);
+    expect(toEn('Ut dicit Dominus, Matth . 4 , 17 quod verum est.')).toEqual([]);
+    // white space around the comma of a well-formed citation is still read
+    expect(one('Matth. IV , 17').canonical).toEqual(['Matt 4:17']);
   });
 
   it('has no list for sources in other languages, Greek included', () => {

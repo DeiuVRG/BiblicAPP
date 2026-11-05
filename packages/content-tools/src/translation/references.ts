@@ -191,6 +191,17 @@ const TARGET_FOLLOWING = sticky(
   'u',
 );
 
+/**
+ * `ibid.`, `ib.`, `ibidem` ("in the same place"; any case, with a comma allowed after it): the
+ * Latin grammar reads it as the antecedent of a citation, the notations of a translation read it
+ * in front of a chapter and verses (`Ibid. 6:3`), which is how a citation with no antecedent in
+ * its paragraph is carried over.
+ */
+export const IBID = sticky(
+  String.raw`(?<![\p{L}\p{N}])(?:ibidem|ibid|ib)(?![\p{L}])\.?\s*,?\s*`,
+  'iu',
+);
+
 export interface VerseList {
   verses: VerseItem[];
   end: number;
@@ -554,6 +565,32 @@ function makeTargetGrammar(notation: TargetNotation): Grammar {
     };
   }
 
+  /**
+   * `Ibid. 6:3`: the chapter and verses of the place cited before, which the source did not name.
+   * It is read in front of a chapter and verses only; the book is the one of the run before it in
+   * the paragraph, when there is one (a canonical item without a book otherwise, like the source's).
+   */
+  function parseIbid(text: string, pos: number): ChapterSegment | null {
+    const marker = matchAt(IBID, text, pos);
+    if (!marker) return null;
+    const at = pos + marker[0].length;
+    const match = matchAt(TARGET_CHAPTER_COLON, text, at);
+    const digits = match?.[1];
+    if (!match || digits === undefined) return null;
+    const chapter = Number.parseInt(digits, 10);
+    if (!validChapter(chapter)) return null;
+    const list = parseVerseList(text, at + match[0].length, lists);
+    if (!list) return null;
+    return {
+      lead: 'chapter',
+      chapter,
+      verses: list.verses,
+      ibid: true,
+      start: pos,
+      end: list.end,
+    };
+  }
+
   function parseChapter(text: string, pos: number, startsRun: boolean): ChapterSegment | null {
     if (startsRun && !notation.bareChapterAtStart) return null;
     // A run cannot start in the middle of `12:30:15`, `3.5:1` or a range.
@@ -570,7 +607,10 @@ function makeTargetGrammar(notation: TargetNotation): Grammar {
 
   return {
     segment: (text, pos, startsRun) =>
-      parseBook(text, pos) ?? parseVerse(text, pos) ?? parseChapter(text, pos, startsRun),
+      parseBook(text, pos) ??
+      parseVerse(text, pos) ??
+      parseIbid(text, pos) ??
+      parseChapter(text, pos, startsRun),
     joiners: notation.joiners,
   };
 }
@@ -720,6 +760,8 @@ export interface Vocabulary {
   joiners: Record<JoinerKind, string>;
   /** What follows a range that is followed by `ff.` in the source: `ș.urm.`, `ff.`. */
   following: string;
+  /** The word that carries a chapter whose antecedent the source did not name: `Ibid.`. */
+  ibid: string;
 }
 
 const JOINER_RO: Record<JoinerKind, string> = {
@@ -744,12 +786,14 @@ export const ROMANIAN_VOCABULARY: Vocabulary = {
   book: (book) => book.ro,
   joiners: JOINER_RO,
   following: ' ș.urm.',
+  ibid: 'Ibid.',
 };
 
 export const ENGLISH_VOCABULARY: Vocabulary = {
   book: (book) => book.en,
   joiners: JOINER_EN,
   following: ' ff.',
+  ibid: 'Ibid.',
 };
 
 function renderVerses(verses: readonly VerseItem[], vocabulary: Vocabulary): string {
@@ -779,17 +823,25 @@ function renderSegment(segment: Segment, vocabulary: Vocabulary): string {
   }
 }
 
-/** A run written with the given vocabulary: `In. 3:3, 5; 18:36` or `John 3:3, 5; 18:36`. */
+/**
+ * A run written with the given vocabulary: `In. 3:3, 5; 18:36` or `John 3:3, 5; 18:36`. A Latin
+ * `ibid. 6, 3` that starts a run and has no antecedent is `Ibid. 6:3`, not a bare `6:3`: a
+ * translation cannot show a chapter and verse without saying that they are those of the place
+ * cited before, and an English text has other numbers written `6:3` (times, ratios).
+ */
 export function renderSegments(
   run: { segments: readonly Segment[] },
   vocabulary: Vocabulary,
 ): string {
   return run.segments
-    .map(
-      (segment) =>
+    .map((segment, index) => {
+      const lead = index === 0 && segment.lead === 'chapter' && segment.ibid === true;
+      return (
         (segment.joiner ? vocabulary.joiners[segment.joiner] : '') +
-        renderSegment(segment, vocabulary),
-    )
+        (lead ? `${vocabulary.ibid} ` : '') +
+        renderSegment(segment, vocabulary)
+      );
+    })
     .join('');
 }
 

@@ -115,10 +115,7 @@ export function EditionBadges({
 }) {
   const t = useT();
   return (
-    <View
-      testID="row-badges"
-      style={[styles.badges, end ? styles.badgesEnd : styles.badgesStart]}
-    >
+    <View testID="row-badges" style={[styles.badges, end ? styles.badgesEnd : styles.badgesStart]}>
       {badges.map((badge) => (
         <View key={badge.key} style={styles.badgeRow}>
           <Chip label={badge.code} accessibilityLabel={badge.label} />

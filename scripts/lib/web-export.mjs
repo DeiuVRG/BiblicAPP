@@ -146,7 +146,9 @@ export function buildExport({ outDir, env = {}, tool = 'export' }) {
     },
   );
   if (result.status !== 0) {
-    throw new Error(`${tool}: the export failed:\n${(result.stderr || result.stdout).slice(-2000)}`);
+    throw new Error(
+      `${tool}: the export failed:\n${(result.stderr || result.stdout).slice(-2000)}`,
+    );
   }
 }
 

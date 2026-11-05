@@ -175,7 +175,9 @@ describe('Toată biblioteca: the page', () => {
       ),
     ).toBe('Conciliul din Calcedon · 451, 1 lucrare');
     // A person has no year after the name.
-    expect(within(screen.getByTestId('author-accordion-augustin')).getByText('Augustin')).toBeTruthy();
+    expect(
+      within(screen.getByTestId('author-accordion-augustin')).getByText('Augustin'),
+    ).toBeTruthy();
     await fireEvent.press(screen.getByTestId('issuing-body-conciliul-din-calcedon-toggle'));
     expect(screen.getByTestId('library-row-definitia-de-la-calcedon')).toBeTruthy();
   });

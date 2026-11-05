@@ -69,6 +69,14 @@ jobs:
       - name: Export web
         run: pnpm --filter mobile export:web
 
+      # Shipped font files: prints the TTF total, fails when the first-paint set grows past its budget.
+      - name: Measure the shipped fonts
+        run: node scripts/measure-fonts.mjs
+
+      # The signed catalogue must match the installed packs (ADR-018).
+      - name: Check the signed catalogue
+        run: pnpm --filter @biblioteca/content-tools cli build-catalogue --check
+
       - name: Scan the export for secret-shaped tokens
         run: node scripts/check-public-env.mjs --env --dist apps/mobile/dist
 

@@ -18,6 +18,13 @@ interface BookSpec {
   /** English abbreviations and full names, matched as written (case sensitive), with or without
    * a period. The number of numbered books is not part of the name. */
   names: readonly string[];
+  /**
+   * Names that only an English translation is read with, not an English source: the abbreviation
+   * the notation of a translation writes but that older theology does not (`Song of Sol.`). The
+   * source grammar keeps reading what it always read, so the jobs of an English source do not
+   * change.
+   */
+  targetNames?: readonly string[];
   singleChapter?: true;
 }
 
@@ -51,7 +58,8 @@ const SPECS: readonly BookSpec[] = [
     code: 'Song',
     ro: 'Cânt.',
     en: 'Song of Sol.',
-    names: ['Cant', 'Canticles', 'Song of Sol', 'Song of Solomon', 'Song of Songs'],
+    names: ['Cant', 'Canticles', 'Song of Solomon', 'Song of Songs'],
+    targetNames: ['Song of Sol'],
   },
   { code: 'Isa', ro: 'Is.', en: 'Isa.', names: ['Is', 'Isa', 'Isaiah'] },
   { code: 'Jer', ro: 'Ier.', en: 'Jer.', names: ['Jer', 'Jeremiah'] },
@@ -199,6 +207,11 @@ for (const { spec, info } of [...ENTRIES, ...EXTRA_ENTRIES]) {
       register(ENGLISH, lookupKey(number, base), info, codeOf);
       englishBases.add(base);
     }
+    register(ENGLISH_TARGET, lookupKey(number, base), info, codeOf);
+    englishTargetBases.add(base);
+  }
+  for (const name of spec.targetNames ?? []) {
+    const { number, base } = splitNumber(name);
     register(ENGLISH_TARGET, lookupKey(number, base), info, codeOf);
     englishTargetBases.add(base);
   }

@@ -7,6 +7,7 @@ import {
   canonicalKey,
   detectForeignNotation,
   extractReferences,
+  hasReferenceGrammar,
   parseReferences,
 } from './notation';
 import type { ReferenceLanguages } from './notation';
@@ -196,16 +197,22 @@ function checkSameAsSource(ctx: ParagraphContext): CheckFinding[] {
   ];
 }
 
+/** The runs of Greek script of a text, in NFC. */
+function greekRuns(text: string): string[] {
+  return text.normalize('NFC').match(GREEK_RUN) ?? [];
+}
+
 /**
  * A source in Greek is translated as a whole, so its Greek cannot be asked for in the
  * translation. What the translation keeps of it (a term in parentheses) must be an exact copy: the
  * same letters, accents and breathings in NFC, never transliterated and never Greek that the
- * source does not have.
+ * source does not have. Every run of Greek script that the translation keeps must be a whole run
+ * of the source: a piece of a word (`ὁμοούσι`, `ούσιον`, one letter) or a word broken by a Latin
+ * letter is not a copy of it.
  */
 function checkGreekCopy(ctx: ParagraphContext): CheckFinding[] {
-  const source = ctx.source.normalize('NFC');
-  const runs = new Set(ctx.text.normalize('NFC').match(GREEK_RUN) ?? []);
-  const altered = [...runs].filter((run) => !source.includes(run));
+  const source = new Set(greekRuns(ctx.source));
+  const altered = [...new Set(greekRuns(ctx.text))].filter((run) => !source.has(run));
   const first = altered[0];
   if (first === undefined) return [];
   return [
@@ -222,8 +229,7 @@ function checkGreekCopy(ctx: ParagraphContext): CheckFinding[] {
 function checkGreek(ctx: ParagraphContext): CheckFinding[] {
   if (primaryLanguage(ctx.languages.source) === 'grc') return checkGreekCopy(ctx);
   const target = ctx.text.normalize('NFC');
-  const runs = new Set(ctx.source.normalize('NFC').match(GREEK_RUN) ?? []);
-  const missing = [...runs].filter((run) => !target.includes(run));
+  const missing = [...new Set(greekRuns(ctx.source))].filter((run) => !target.includes(run));
   const first = missing[0];
   if (first === undefined) return [];
   return [
@@ -278,7 +284,13 @@ function checkResidue(ctx: ParagraphContext): CheckFinding[] {
   const hits = tokens.filter(isHit);
   const first = hits[0];
   if (!first) return [];
-  const share = hits.length / tokens.length;
+  // Greek that the translation of a Greek source keeps as an exact copy (a quoted term such as
+  // `(εἰς ἕνα Θεὸν)`; GREEK_COPY guards it) is not untranslated text: it does not count toward the
+  // share of tokens, so a short kept term is not a MAJOR finding in a short paragraph. It still
+  // counts toward the number of hits, so a stretch of the source left in Greek is found as before.
+  const kept = greek ? new Set(greekRuns(ctx.source)) : new Set<string>();
+  const unexplained = hits.filter((hit) => !kept.has(hit[0].normalize('NFC')));
+  const share = unexplained.length / tokens.length;
   if (hits.length < RESIDUE_MIN_HITS && share < RESIDUE_MIN_SHARE) return [];
   const counts = new Map<string, number>();
   for (const hit of hits) {
@@ -298,6 +310,10 @@ function checkResidue(ctx: ParagraphContext): CheckFinding[] {
 }
 
 function checkReferences(ctx: ParagraphContext): CheckFinding[] {
+  // A source without a grammar of references (Greek, German, ...) has none in its jobs, and what it
+  // cites cannot be known: every reference the translator writes would be "not in the source".
+  // Nothing is missing and nothing is extra; REF_FORMAT still looks at the notation.
+  if (!hasReferenceGrammar(ctx.languages.source)) return [];
   // The marker of Vulgate numbering is for the translator: the translation shows the number only.
   const sourceItems = ctx.jobParagraph.references
     .flatMap((reference) => reference.canonical)
@@ -483,10 +499,15 @@ function checkGlossary(ctx: ParagraphContext, rules: readonly GlossaryRule[]): C
   return findings;
 }
 
+/** Quotation marks that other languages use and English does not: „ ‚ « » ‹ ›. */
+const FOREIGN_QUOTES = /[\u201E\u201A\u00AB\u00BB\u2039\u203A]/gu;
+
 /**
  * Quotation marks of an English translation: “…” with ‘…’ inside. A straight `"` is a typographic
- * defect (QUOTES_STRAIGHT), and the opening and closing double marks must come in pairs
- * (QUOTES_CURLY_UNBALANCED). Single curly marks are not counted: ’ is also the apostrophe.
+ * defect (QUOTES_STRAIGHT), the marks of other languages (Romanian and German „…”, French «…»)
+ * are not used (QUOTES_FOREIGN), and the opening and closing double marks must come in pairs
+ * (QUOTES_CURLY_UNBALANCED), each closing one after its opening one. Single curly marks are not
+ * counted: ’ is also the apostrophe.
  */
 function checkEnglishQuotes(ctx: ParagraphContext): CheckFinding[] {
   const findings: CheckFinding[] = [];
@@ -502,6 +523,22 @@ function checkEnglishQuotes(ctx: ParagraphContext): CheckFinding[] {
       ),
     );
   }
+  const foreign = [...ctx.text.matchAll(FOREIGN_QUOTES)];
+  const firstForeign = foreign[0];
+  if (firstForeign) {
+    const marks = [...new Set(foreign.map((match) => match[0]))];
+    findings.push(
+      finding(
+        ctx,
+        'QUOTES_FOREIGN',
+        'MINOR',
+        `quotation mark(s) of another language in the translation: ${marks.join(' ')} (English: “ and ”)`,
+        { quoteTarget: excerpt(ctx.text, firstForeign.index) },
+      ),
+    );
+    // Whether “ and ” pair up is judged once the marks of the other language are replaced.
+    return findings;
+  }
   const count = (mark: string): number => ctx.text.split(mark).length - 1;
   const opening = count('“');
   const closing = count('”');
@@ -514,6 +551,28 @@ function checkEnglishQuotes(ctx: ParagraphContext): CheckFinding[] {
         `${opening} opening “ but ${closing} closing ” quotation marks`,
       ),
     );
+    return findings;
+  }
+  // As many as there are, but swapped (”…“) or misplaced: a closing mark with nothing open.
+  let depth = 0;
+  for (let index = 0; index < ctx.text.length; index += 1) {
+    const mark = ctx.text.charAt(index);
+    if (mark === '“') depth += 1;
+    else if (mark === '”') {
+      if (depth === 0) {
+        findings.push(
+          finding(
+            ctx,
+            'QUOTES_CURLY_UNBALANCED',
+            'MINOR',
+            'closing ” before any opening “ (the marks are swapped or misplaced)',
+            { quoteTarget: excerpt(ctx.text, index) },
+          ),
+        );
+        break;
+      }
+      depth -= 1;
+    }
   }
   return findings;
 }

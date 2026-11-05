@@ -156,6 +156,41 @@ describe('the title of the work in the language of the translation', () => {
     const source = augustineSource();
     expect(packOf(merge(source, 'en', [AUGUSTINE.en], ['Chapter I'])).work).toEqual(source.work);
   });
+
+  it('is also the title of the review sheet: the sheet and the edition agree', () => {
+    // A source pack has no titleEn (the schema leaves it out of source packs): the sheet of the
+    // English translation must not fall back to the Latin title when the metadata gives one.
+    const source = augustineSource();
+    const base = { ...source, work: { ...source.work } };
+    delete (base.work as { titleEn?: string }).titleEn;
+    const english = merge(base, 'en', [AUGUSTINE.en], ['Chapter I'], {
+      meta: translationMeta('edition-la', 'en', 'On the Spirit and the Letter'),
+    });
+    expect(english.review?.split('\n')[0]).toBe('# Review sheet: On the Spirit and the Letter');
+    expect(packOf(english).work.titleEn).toBe('On the Spirit and the Letter');
+    // the line "Work:" keeps naming the work as the source does
+    expect(english.review).toContain(
+      '- Work: De spiritu et littera (augustine-de-spiritu-et-littera)',
+    );
+
+    const romanian = merge(base, 'ro', [AUGUSTINE.ro], ['Capitolul I'], {
+      meta: translationMeta('edition-la', 'ro', 'Despre duh și literă'),
+    });
+    expect(romanian.review?.split('\n')[0]).toBe('# Fișă de revizie: Despre duh și literă');
+    expect(packOf(romanian).work.titleRo).toBe('Despre duh și literă');
+  });
+
+  it('is still the title of the source without a workTitle, in both languages', () => {
+    const source = augustineSource();
+    const base = { ...source, work: { ...source.work } };
+    delete (base.work as { titleEn?: string }).titleEn;
+    expect(merge(base, 'en', [AUGUSTINE.en], ['Chapter I']).review?.split('\n')[0]).toBe(
+      '# Review sheet: De spiritu et littera',
+    );
+    expect(merge(source, 'ro', [AUGUSTINE.ro], ['Capitolul I']).review?.split('\n')[0]).toBe(
+      '# Fișă de revizie: Despre spirit și literă',
+    );
+  });
 });
 
 describe('the review sheet', () => {

@@ -266,9 +266,7 @@ describe('SearchScreen: passages with several editions', () => {
     await fireEvent.changeText(screen.getByLabelText('Search the text'), 'kingdom of heaven');
     const rows = (await results()).getAllByRole('link');
     expect(rows[0]!.props.accessibilityLabel).toMatch(/^Open the result in /);
-    expect(
-      screen.getByText(/^\d+ results? in 1 work$|^First 50 results, in 1 work$/),
-    ).toBeTruthy();
+    expect(screen.getByText(/^\d+ results? in 1 work$|^First 50 results, in 1 work$/)).toBeTruthy();
     await fireEvent.changeText(screen.getByLabelText('Search the text'), 'zzzzqq');
     expect(await screen.findByText('No results.')).toBeTruthy();
   });

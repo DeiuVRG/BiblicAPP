@@ -524,9 +524,9 @@ describe('two editions of one work', () => {
       expect([...places].sort((a, b) => (a[0] as number) - (b[0] as number))).toEqual(places);
       expect(hits[0]!.sectionHeading).toBe(ro.pack.sections[0]!.heading);
       // The other edition has none of those words.
-      expect(
-        await repository.searchEdition(english.edition.id, 'Împărăția lui Dumnezeu'),
-      ).toEqual([]);
+      expect(await repository.searchEdition(english.edition.id, 'Împărăția lui Dumnezeu')).toEqual(
+        [],
+      );
     });
 
     it('gives the same hits as the global search for the same edition, ignoring case and diacritics', async () => {

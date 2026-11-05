@@ -15,6 +15,8 @@ import {
   lookupRomanianBook,
   sameRomanianAbbreviation,
 } from './books';
+import { extractReferences, parseReferences } from './notation';
+import { parseSourceReferences } from './references';
 
 // Section 5 of docs/traducere-pipeline.md, verbatim.
 const SPEC_CODES =
@@ -87,6 +89,24 @@ describe('book table', () => {
     expect(lookupEnglishBook(undefined, 'Cor')).toBeUndefined();
     expect(lookupEnglishBook('3', 'Cor')).toBeUndefined();
     expect(lookupEnglishBook(undefined, 'Song of Solomon')?.code).toBe('Song');
+  });
+
+  it('reads in an English source what it always read: `Song of Sol` is for translations only', () => {
+    // the abbreviation of the notation of a translation (`Song of Sol.`) was never an English
+    // source name, and a source that cites it must give the same jobs as before the notation
+    expect(lookupEnglishBook(undefined, 'Song of Sol')).toBeUndefined();
+    expect(new RegExp(`^(?:${ENGLISH_BOOK_PATTERN})$`).test('Song of Sol')).toBe(false);
+    expect(parseSourceReferences('Song of Sol. iv. 33')).toMatchObject([
+      { source: 'iv. 33', canonical: ['4:33'] },
+    ]);
+    // ...while an English translation is read back in the notation it writes
+    expect(lookupEnglishTargetBook(undefined, 'Song of Sol')?.code).toBe('Song');
+    expect(extractReferences('See Song of Sol. 4:9.', 'en').map((r) => r.canonical)).toEqual([
+      ['Song 4:9'],
+    ]);
+    expect(parseReferences('Cant. iv. 9', { source: 'en', target: 'en' })[0]?.target).toBe(
+      'Song of Sol. 4:9',
+    );
   });
 
   it('looks up the Romanian abbreviations, with or without the period', () => {

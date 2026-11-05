@@ -222,11 +222,7 @@ export function LandingScreen() {
 
         {/* On `cream` until the editorial bands (4, 5 and 7) give the page its rhythm: a run of paper
             bands divided by hairlines reads flat under a dark hero. */}
-        <Band
-          tone="cream"
-          padding={{ top: 56, bottom: 56 }}
-          testID="free-statement"
-        >
+        <Band tone="cream" padding={{ top: 56, bottom: 56 }} testID="free-statement">
           <AppText variant="body" style={styles.statement}>
             {features.ask ? `${t.landing.freeBooks} ${t.landing.freeAsk}` : t.landing.freeBooks}
           </AppText>
