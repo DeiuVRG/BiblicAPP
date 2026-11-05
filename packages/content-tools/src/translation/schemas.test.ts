@@ -169,3 +169,50 @@ describe('formatIssuePath', () => {
     expect(TranslationOutputSchema.parse(goodOutput(jobOf(0)))).toEqual(goodOutput(jobOf(0)));
   });
 });
+
+describe('fields of the English target', () => {
+  const output = {
+    jobId: 'w-en-01-00',
+    pass: 'draft',
+    model: 'claude-sonnet-5-5',
+    paragraphs: [{ sourceId: 'p1', text: 'Text' }],
+  };
+
+  it('TranslationOutputSchema accepts headingEn next to headingRo, both optional', () => {
+    expect(TranslationOutputSchema.parse({ ...output, headingEn: 'Chapter I' }).headingEn).toBe(
+      'Chapter I',
+    );
+    expect(TranslationOutputSchema.parse(output).headingEn).toBeUndefined();
+    expect(
+      TranslationOutputSchema.parse({
+        ...output,
+        headingRo: 'Capitolul I',
+        headingEn: 'Chapter I',
+      }),
+    ).toMatchObject({ headingRo: 'Capitolul I', headingEn: 'Chapter I' });
+    expect(TranslationOutputSchema.safeParse({ ...output, headingFr: 'x' }).success).toBe(false);
+  });
+
+  it('JobReferenceSchema takes an optional, non-empty note and nothing else', () => {
+    const job = jobOf(0);
+    const reference = {
+      source: 'Ps. 118, 2',
+      target: 'Ps. 118:2',
+      canonical: ['Ps 118:2 vulgate'],
+    };
+    const withReference = (extra: Record<string, unknown>) => ({
+      ...job,
+      paragraphs: job.paragraphs.map((p, i) =>
+        i === 0 ? { ...p, references: [{ ...reference, ...extra }] } : p,
+      ),
+    });
+    expect(TranslationJobSchema.safeParse(withReference({})).success).toBe(true);
+    expect(
+      TranslationJobSchema.safeParse(withReference({ note: 'Vulgate psalm numbering.' })).success,
+    ).toBe(true);
+    expect(messageOf(TranslationJobSchema.safeParse(withReference({ note: '' })))).toContain(
+      'paragraphs[0].references[0].note',
+    );
+    expect(TranslationJobSchema.safeParse(withReference({ notes: ['x'] })).success).toBe(false);
+  });
+});

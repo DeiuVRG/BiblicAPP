@@ -23,6 +23,8 @@ interface HighlightedLineProps {
   variant?: TextVariant;
   /** Turns the sweep off: the bar is simply there. */
   still?: boolean;
+  /** The line sits on the middle axis of the hero instead of at its left edge. */
+  center?: boolean;
   testID?: string;
 }
 
@@ -44,6 +46,7 @@ export function HighlightedLine({
   children,
   variant = 'displayXL',
   still = false,
+  center = false,
   testID = 'hero-highlight',
 }: HighlightedLineProps) {
   const { colors } = useTheme();
@@ -67,7 +70,7 @@ export function HighlightedLine({
     return () => animation.stop();
   }, [staticBar, sweep]);
   return (
-    <View style={styles.line}>
+    <View style={[styles.line, center ? styles.lineCenter : null]}>
       <Animated.View
         testID={testID}
         pointerEvents="none"
@@ -131,6 +134,13 @@ interface HeroProps {
   image?: ImageSourcePropType;
   /** Padding and title size: the landing, an inner page or the library hero. */
   kind?: HeroKind;
+  /**
+   * `start`: everything at the left edge of the column (the inner pages). `center`: everything on
+   * its middle axis, as the reference's landing hero is (kicker, title, sub, buttons and links).
+   */
+  align?: 'start' | 'center';
+  /** The least height of the hero on a wide screen (the library hero is 380 high). */
+  minHeight?: number;
   testID?: string;
 }
 
@@ -152,9 +162,12 @@ export function Hero({
   links,
   image,
   kind = 'landing',
+  align = 'start',
+  minHeight,
   testID = 'hero',
 }: HeroProps) {
   const { wide } = useLayout();
+  const center = align === 'center';
   const reduced = useReducedMotion();
   const lines = typeof title === 'string' ? [title] : [...title];
   const titleVariant = kind === 'landing' ? 'displayXL' : 'displayL';
@@ -190,11 +203,14 @@ export function Hero({
         container="wide"
         padding={heroPadding(kind, wide)}
         testID={`${testID}-band`}
-        style={image ? styles.overImage : undefined}
+        style={[
+          image ? styles.overImage : null,
+          wide && minHeight ? { minHeight } : null,
+        ]}
       >
-        <View style={styles.content}>
+        <View style={[styles.content, center ? styles.contentCenter : null]}>
           {kicker ? (
-            <View style={styles.kickerRow}>
+            <View style={[styles.kickerRow, center ? styles.kickerRowCenter : null]}>
               <View style={styles.kickerText}>
                 {pilcrow ? (
                   <Animated.View
@@ -222,27 +238,44 @@ export function Hero({
           >
             {lines.map((line, index) =>
               index === 1 ? (
-                <HighlightedLine key={line} variant={titleVariant}>
+                <HighlightedLine key={line} variant={titleVariant} center={center}>
                   {line}
                 </HighlightedLine>
               ) : (
-                <AppText key={line} variant={titleVariant} heading={false}>
+                <AppText
+                  key={line}
+                  variant={titleVariant}
+                  heading={false}
+                  style={center ? [styles.lineCenter, styles.textCenter] : undefined}
+                >
                   {line}
                 </AppText>
               ),
             )}
           </View>
           {sub ? (
-            <AppText variant="body" muted style={styles.sub}>
+            <AppText
+              variant="body"
+              muted
+              style={[styles.sub, center ? [styles.subCenter, styles.textCenter] : null]}
+            >
               {sub}
             </AppText>
           ) : null}
           {actions ? (
-            <View style={[styles.actions, wide ? styles.actionsWide : null]}>{actions}</View>
+            <View
+              style={[
+                styles.actions,
+                wide ? styles.actionsWide : null,
+                wide && center ? styles.actionsCenter : null,
+              ]}
+            >
+              {actions}
+            </View>
           ) : null}
           {links ? (
             <LinkToneProvider value="ink">
-              <View style={styles.links}>{links}</View>
+              <View style={[styles.links, center ? styles.linksCenter : null]}>{links}</View>
             </LinkToneProvider>
           ) : null}
         </View>
@@ -292,6 +325,8 @@ const styles = StyleSheet.create({
   hero: { width: '100%', overflow: 'hidden' },
   overImage: { backgroundColor: 'transparent' },
   content: { gap: 20, maxWidth: 880 },
+  // On the middle axis: the stack is as wide as it can be (880) and centred in the column.
+  contentCenter: { width: '100%', alignSelf: 'center', alignItems: 'center' },
   kickerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -299,16 +334,22 @@ const styles = StyleSheet.create({
     columnGap: 14,
     rowGap: 6,
   },
+  kickerRowCenter: { justifyContent: 'center' },
   kickerText: { flexDirection: 'row', alignItems: 'center', columnGap: 8 },
   title: { alignSelf: 'stretch' },
   line: { alignSelf: 'flex-start', justifyContent: 'center' },
+  lineCenter: { alignSelf: 'center' },
+  textCenter: { textAlign: 'center' },
   lineText: { paddingHorizontal: 8, marginHorizontal: -8 },
   bar: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, marginHorizontal: -8 },
   sub: { maxWidth: SUB_MAX_WIDTH },
+  subCenter: { alignSelf: 'center' },
   actions: { gap: 12, alignItems: 'stretch', marginTop: 8 },
   actionsWide: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' },
+  actionsCenter: { justifyContent: 'center' },
   // The text buttons carry 16 points of padding: pulled back so the links meet the left edge.
   links: { flexDirection: 'row', flexWrap: 'wrap', columnGap: 8, rowGap: 0, marginLeft: -16 },
+  linksCenter: { justifyContent: 'center', marginLeft: 0 },
   half: { flex: 1 },
   picture: { width: '100%', height: '100%' },
 });

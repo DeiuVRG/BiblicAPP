@@ -227,7 +227,9 @@ export const CatalogueSchema = z
       const known = bodies.get(body.slug);
       if (
         known !== undefined &&
-        (known.labelRo !== body.labelRo || known.labelEn !== body.labelEn || known.year !== body.year)
+        (known.labelRo !== body.labelRo ||
+          known.labelEn !== body.labelEn ||
+          known.year !== body.year)
       ) {
         issue(
           ['works', index, 'issuingBody'],

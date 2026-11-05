@@ -1,15 +1,17 @@
 import type { Pack } from '@biblioteca/shared';
 import { fireEvent, screen, within } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 
 import { loadBundledRepository } from '@/content/repository';
 import { trustedKeys } from '@/content/trusted-keys';
-import { SearchScreen } from '@/features/search/search-screen';
+import { SearchScreen, takeInTurn } from '@/features/search/search-screen';
 import { libraryAllWith, readHref, workHref } from '@/navigation-hrefs';
 import { resetMockRouter, router, setMockParams } from '@/test-support/expo-router-mock';
 import { syntheticLibrary } from '@/test-support/library-fixtures';
 import { bundledPack, createTestSigner, signPack, translationOf } from '@/test-support/packs';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
 import { vosEditions } from '@/test-support/vos';
+import { palettes } from '@/theme/palettes';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
 
@@ -75,8 +77,9 @@ describe('SearchScreen: passages', () => {
     await renderWithProviders(<SearchScreen />);
     await fireEvent.changeText(screen.getByLabelText('Caută în text'), 'kingdom');
     const count = await screen.findByTestId('search-count');
+    // The hits of both editions, in the one work: cut at the cap, it says both.
     expect(plain(count.props.children)).toMatch(
-      /^\d+ rezultate? în 1 lucrare$|^Primele 50 de rezultate$/,
+      /^\d+ rezultate? în 1 lucrare$|^Primele 50 de rezultate, în 1 lucrare$/,
     );
 
     await fireEvent.changeText(screen.getByLabelText('Caută în text'), 'zzzzqq');
@@ -107,21 +110,69 @@ describe('SearchScreen: passages', () => {
   it('puts the chapter first in each result, so a long line cuts off the work title', async () => {
     setMockParams({ q: 'kingdom', mode: 'passages' });
     const { loaded } = await renderWithProviders(<SearchScreen />);
-    const { work, englishSections } = await vosEditions(loaded.repository);
-    const [row] = (await results()).getAllByRole('link');
-    const label = row!.props.accessibilityLabel as string;
-    const place = label.slice('Deschide rezultatul din '.length, label.indexOf(': '));
-    expect(
-      englishSections
-        .map((section) => section.heading)
-        .some((heading) => place.startsWith(heading)),
-    ).toBe(true);
-    expect(place.endsWith(work.titleRo)).toBe(true);
+    const { work, englishSections, romanianSections } = await vosEditions(loaded.repository);
+    const headings = [...englishSections, ...romanianSections].map((section) => section.heading);
+    const rows = (await results()).getAllByRole('link');
+    for (const row of rows.slice(0, 5)) {
+      const label = row.props.accessibilityLabel as string;
+      const place = label.slice('Deschide rezultatul din '.length, label.indexOf(': '));
+      expect(headings.some((heading) => place.startsWith(heading))).toBe(true);
+      expect(place.endsWith(work.titleRo)).toBe(true);
+    }
+  });
+});
+
+describe('takeInTurn', () => {
+  it('takes one from each list, then one more from each, until the cap', () => {
+    expect(takeInTurn([[1, 2, 3], [4], [5, 6]], 4)).toEqual([[1, 2], [4], [5]]);
+    expect(takeInTurn([[1, 2, 3], [4], [5, 6]], 10)).toEqual([[1, 2, 3], [4], [5, 6]]);
+    expect(takeInTurn([[1, 2, 3], [4], [5, 6]], 0)).toEqual([[], [], []]);
+    // An edition without hits takes nothing and does not hold the others back.
+    expect(takeInTurn([[], [1, 2, 3]], 2)).toEqual([[], [1, 2]]);
+    expect(takeInTurn([], 5)).toEqual([]);
   });
 });
 
 describe('SearchScreen: passages with several editions', () => {
   beforeEach(() => setMockParams({ mode: 'passages' }));
+
+  it('states who wrote the work and its editions under the title of a group', async () => {
+    setMockParams({ q: 'kingdom', mode: 'passages' });
+    const { loaded } = await twoEditions();
+    await renderWithProviders(<SearchScreen />, { loaded });
+    const block = await results();
+    const group = block.getByTestId(/^search-group-/);
+    expect(within(group).getByText(/Geerhardus Vos/i)).toBeTruthy();
+    // One chip per edition, named for a screen reader as the edition is.
+    expect(within(group).getByText('RO')).toBeTruthy();
+    expect(within(group).getByText('EN')).toBeTruthy();
+    expect(within(group).getByLabelText('English · original')).toBeTruthy();
+    expect(within(group).getByLabelText('Română · traducere')).toBeTruthy();
+  });
+
+  it('does not let the first edition fill the cap: both editions are searched on their own, and the count says both the cap and the works', async () => {
+    // "ar" is in the English text and in "Împărăția" of every synthetic Romanian paragraph.
+    setMockParams({ q: 'ar', mode: 'passages' });
+    const big = translationOf(english, { sections: 11, paragraphsPerSection: 40 });
+    const loaded = await loadBundledRepository({
+      packs: [englishPack, signPack(big, signer, { packId: 'vos-synthetic-ro-big' })],
+      trustedKeys: [...trustedKeys, signer.key],
+    });
+    const { repository } = loaded;
+    // The global search takes its 50 from the English edition alone ...
+    const global = await repository.search('ar');
+    expect(new Set(global.map((hit) => hit.language))).toEqual(new Set(['en']));
+    // ... the page lists the editions in turn.
+    await renderWithProviders(<SearchScreen />, { loaded });
+    const block = await results();
+    const rows = block.getAllByRole('link');
+    expect(rows).toHaveLength(50);
+    expect(block.getAllByLabelText('Română').length).toBeGreaterThan(0);
+    expect(block.getAllByLabelText('English').length).toBeGreaterThan(0);
+    expect(plain(screen.getByTestId('search-count').props.children)).toBe(
+      'Primele 50 de rezultate, în 1 lucrare',
+    );
+  });
 
   it('names the language of the edition next to the heading of the section', async () => {
     setMockParams({ q: 'kingdom', mode: 'passages' });
@@ -215,7 +266,9 @@ describe('SearchScreen: passages with several editions', () => {
     await fireEvent.changeText(screen.getByLabelText('Search the text'), 'kingdom of heaven');
     const rows = (await results()).getAllByRole('link');
     expect(rows[0]!.props.accessibilityLabel).toMatch(/^Open the result in /);
-    expect(screen.getByText(/^\d+ results? in 1 work$|^First 50 results$/)).toBeTruthy();
+    expect(
+      screen.getByText(/^\d+ results? in 1 work$|^First 50 results, in 1 work$/),
+    ).toBeTruthy();
     await fireEvent.changeText(screen.getByLabelText('Search the text'), 'zzzzqq');
     expect(await screen.findByText('No results.')).toBeTruthy();
   });
@@ -238,6 +291,51 @@ describe('SearchScreen: passages with several editions', () => {
   });
 });
 
+describe('SearchScreen: the arrow Down in the field (docs/ui-spec-v2.md, 10)', () => {
+  /** Under Jest every element answers `focus` with this one shared mock: it counts the moves. */
+  const focusMock = () =>
+    jest.requireActual<{ default: { focus: jest.Mock } }>(
+      '@react-native/jest-preset/jest/MockNativeMethods',
+    ).default.focus;
+  const down = () =>
+    fireEvent(screen.getByLabelText('Caută în text'), 'keyPress', {
+      nativeEvent: { key: 'ArrowDown' },
+      preventDefault: jest.fn(),
+    });
+  beforeEach(() => focusMock().mockClear());
+
+  it('does nothing while there are no results', async () => {
+    await renderWithProviders(<SearchScreen />);
+    await down();
+    expect(focusMock()).not.toHaveBeenCalled();
+  });
+
+  it('moves the focus to the first author, then to the first work, in "Lucrări"', async () => {
+    const library = syntheticLibrary();
+    await renderWithProviders(<SearchScreen />, { loaded: await library.load() });
+    // An author matches: the first result is the author.
+    await fireEvent.changeText(screen.getByLabelText('Caută în text'), 'toma');
+    await screen.findByTestId('search-author-toma-d-aquino');
+    await down();
+    expect(focusMock()).toHaveBeenCalledTimes(1);
+    // Only a work matches (a title, no name): the first result is the work row.
+    focusMock().mockClear();
+    await fireEvent.changeText(screen.getByLabelText('Caută în text'), 'spirit');
+    await screen.findByTestId('library-row-despre-spirit-si-litera');
+    expect(screen.queryByTestId(/^search-author-/)).toBeNull();
+    await down();
+    expect(focusMock()).toHaveBeenCalledTimes(1);
+  });
+
+  it('moves the focus to the first passage in "Pasaje"', async () => {
+    setMockParams({ q: 'kingdom', mode: 'passages' });
+    await renderWithProviders(<SearchScreen />);
+    await results();
+    await down();
+    expect(focusMock()).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('SearchScreen: works and authors (the default mode)', () => {
   it('opens on "Lucrări" with a hint and no results', async () => {
     await renderWithProviders(<SearchScreen />);
@@ -246,7 +344,7 @@ describe('SearchScreen: works and authors (the default mode)', () => {
     });
     expect(screen.getByText(/cel puțin 2 caractere/)).toBeTruthy();
     expect(screen.queryByTestId('search-results')).toBeNull();
-    expect(screen.getByPlaceholderText('Caută o lucrare, un autor sau un pasaj')).toBeTruthy();
+    expect(screen.getByPlaceholderText('Caută lucrări, autori sau pasaje')).toBeTruthy();
   });
 
   it('finds the authors whose name matches, then the works, and counts both', async () => {
@@ -262,6 +360,26 @@ describe('SearchScreen: works and authors (the default mode)', () => {
     );
     expect(block.getByText('Autori')).toBeTruthy();
     expect(block.getByText('Lucrări')).toBeTruthy();
+  });
+
+  it('sets the name of an author in the colour and the face of a title, in every theme', async () => {
+    const library = syntheticLibrary();
+    for (const theme of ['light', 'dark'] as const) {
+      const view = await renderWithProviders(<SearchScreen />, {
+        loaded: await library.load(),
+        store: createSettingsStore({ theme }),
+      });
+      await fireEvent.changeText(screen.getByLabelText('Caută în text'), 'gust');
+      const name = await within(await screen.findByTestId('search-author-augustin')).findByText(
+        'Augustin',
+      );
+      // A bare Text is black: on the dark theme the name would not be seen.
+      expect(StyleSheet.flatten(name.props.style)).toMatchObject({
+        color: palettes[theme].text,
+        fontSize: expect.any(Number),
+      });
+      await view.unmount();
+    }
   });
 
   it('ignores case and diacritics when it matches a name', async () => {

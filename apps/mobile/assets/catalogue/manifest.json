@@ -1,11 +1,11 @@
 {
   "kind": "catalogue",
-  "revision": 2,
+  "revision": 3,
   "version": "1.0.0",
-  "createdAt": "2026-11-05T02:10:18.085Z",
-  "sha256": "ba886b1073f5221cc39a877f238821323ffc7a4dc3202f9cb617bfac77ca3a05",
-  "size": 5200,
+  "createdAt": "2026-11-05T02:42:47.093Z",
+  "sha256": "124979c11d4618cd6ed87864b0bf71b1edc2bde990388d70574fe007f539a1e9",
+  "size": 5186,
   "minAppVersion": "0.1.0",
   "signingKeyId": "dev-2026-11",
-  "signature": "njMA3/R55MPaWHzm+sVsAHEZEcImiDyfREISqN+zq063Jg3PwcPwv1RlSFJSNDuWe0JkIiYncdKkKvnDnRxvCg=="
+  "signature": "Ifdsrh8AZWnX3s95xfYCBocwJl7I3uchasIvaQ4sbKG0OtSPdOw7zBxnSX2H6jhSJvobIXfRZvB+NWxVlbjlDg=="
 }

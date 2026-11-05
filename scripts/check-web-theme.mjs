@@ -5,13 +5,17 @@
 //                                    [--port N] [--timeout ms] [--only "sepia chosen"]
 //
 // Serves the export (like smoke-web.mjs; unknown paths answer with index.html, the way the
-// GitHub Pages 404.html fallback does) and opens the library, a work, the reader and Settings in
+// GitHub Pages 404.html fallback does) and opens the landing, the library (Selecție and Toată
+// biblioteca), the authors, search, a work, the reader and Settings in
 // headless Chromium, at phone and desktop size, with the colour scheme emulated as light and as
 // dark, and once with a theme chosen in Settings that differs from the system scheme. Each screen
-// is checked right after a full page load and again after the app navigated to it (a link click,
-// the browser's back button). For every state it asserts that
-//   1. the header title colour, the screen background (sampled at several points) and the
-//      background of <html> and <body> all belong to the palette of the active theme
+// is checked right after a full page load, once it is used (the results of a search, the tiles of
+// the centuries, the shelves unfolded, the sheet of a filter, the drawer of the section bar, the
+// menu of a phone) and again after the app navigated to it (a link click, the browser's back
+// button). For every state it asserts that
+//   1. the colour of the page title (the first heading, or the running head of the reader), the
+//      background of the bars of the shell, the bands of the screen (sampled at several points)
+//      and the background of <html> and <body> all belong to the palette of the active theme
 //      (apps/mobile/src/theme/palettes.ts is the source of truth, read from the file),
 //   2. the document's color-scheme, scrollbar colours and theme-color follow that palette,
 //   3. no visible text is rendered with less than 4.5:1 contrast against what is behind it
@@ -176,15 +180,34 @@ function probe(minContrast) {
     return box.width > 0 && box.height > 0 && getComputedStyle(element).visibility !== 'hidden';
   };
 
-  // Header title: the app marks it (screens the user came from stay in the DOM, hidden: take the
-  // visible one); otherwise the first heading in the top strip of the page.
-  const headerTitle =
-    [...document.querySelectorAll('[data-testid="header-title"]')].filter(visible).at(-1) ??
-    [...document.querySelectorAll('[role="heading"], h1')].find(
-      (element) => visible(element) && element.getBoundingClientRect().top < 100,
-    );
+  /** The first element at or under `element` that has text of its own. */
+  const textLeaf = (element) =>
+    [element, ...element.querySelectorAll('*')].find((node) =>
+      [...node.childNodes].some((child) => child.nodeType === 3 && child.textContent.trim() !== ''),
+    ) ?? element;
 
-  // Screen background: what is painted at a few points in the margin, away from text and bars.
+  // The title of the page: the running head of the reader (the page has a toolbar of its own
+  // there), otherwise the first level-1 heading. Screens the user came from stay in the DOM,
+  // hidden: only a visible one counts.
+  const pageTitle =
+    [...document.querySelectorAll('[data-testid="reader-running-title"]')].filter(visible).at(-1) ??
+    [...document.querySelectorAll('h1, [role="heading"][aria-level="1"]')].filter(visible).at(0);
+
+  // The bars of the shell (docs/ui-spec-v2.md, 4.1 and 4.2) of the screen in front.
+  const bar = (id) => [...document.querySelectorAll(`[data-testid="${id}"]`)].filter(visible)[0];
+  const brand = bar('brand-bar');
+  const section = bar('section-bar');
+  const shell = {
+    brandBackground: brand ? css(parse(getComputedStyle(brand).backgroundColor)) : null,
+    brandHeight: brand ? brand.getBoundingClientRect().height : null,
+    sectionBackground: section ? css(parse(getComputedStyle(section).backgroundColor)) : null,
+    sectionBorder: section ? getComputedStyle(section).borderBottomColor : null,
+    sectionHeight: section ? section.getBoundingClientRect().height : null,
+    sectionTop: section ? section.getBoundingClientRect().top : null,
+  };
+
+  // Band backgrounds: what is painted at a few points in the margin, away from text and bars. A
+  // page is a stack of bands (background, cream, warm, the dark masthead), so any of them will do.
   const points = [0.35, 0.7].map((fraction) => [4, Math.round(innerHeight * fraction)]);
   const screenBackgrounds = points.map(([x, y]) => {
     const element = document.elementFromPoint(x, y);
@@ -228,13 +251,15 @@ function probe(minContrast) {
     title: document.title,
     overflowX: document.documentElement.scrollWidth - innerWidth,
     viewportWidth: innerWidth,
-    headerTitleRight: headerTitle ? headerTitle.getBoundingClientRect().right : null,
-    headerTitle: headerTitle
+    pageTitleRight: pageTitle ? pageTitle.getBoundingClientRect().right : null,
+    pageTitle: pageTitle
       ? {
-          text: headerTitle.textContent.trim().slice(0, 40),
-          colour: css(parse(getComputedStyle(headerTitle).color)),
+          text: pageTitle.textContent.trim().slice(0, 40),
+          // The element that holds the letters (a title of two lines has a box around them).
+          colour: css(parse(getComputedStyle(textLeaf(pageTitle)).color)),
         }
       : null,
+    shell,
     screenBackgrounds,
     lowContrast: lowContrast.slice(0, 6),
     scanned,
@@ -243,14 +268,21 @@ function probe(minContrast) {
 
 // The browser tab: what each screen's title has to look like (the app's name comes last).
 const TITLES = {
-  library: /^Biblioteca$/,
+  landing: /^Biblioteca$/,
+  library: /^Selecție · Biblioteca$/,
+  'library-all': /^Toată biblioteca · Biblioteca$/,
+  authors: /^Autori · Biblioteca$/,
+  search: /^Căutare · Biblioteca$/,
   work: /^.+ · Biblioteca$/,
   reader: /^.+ · .+ · Biblioteca$/,
   settings: /^Setări · Biblioteca$/,
 };
 
+// The screens whose title sits in a dark hero band (the masthead).
+const HERO_SCREENS = new Set(['landing', 'library', 'library-all', 'authors', 'search']);
+
 /** Everything wrong with one probed state of `screen`, as readable lines. */
-function judge(found, expectName, screen) {
+function judge(found, expectName, screen, { overlay = false } = {}) {
   const palette = palettes[expectName];
   const problems = [];
   const expectColour = (what, actual, wanted) => {
@@ -262,30 +294,61 @@ function judge(found, expectName, screen) {
   };
   expectColour('<html> background', found.htmlBackground, palette.background);
   expectColour('<body> background', found.bodyBackground, palette.background);
-  found.screenBackgrounds.forEach((colour, index) =>
-    expectColour(
-      `screen background (sample ${index + 1})`,
-      colour ?? 'nothing',
-      palette.background,
-    ),
-  );
-  // The reader's header carries the work's title as a quiet running head, in the muted colour.
-  const titleToken = screen === 'reader' ? 'textMuted' : 'text';
-  if (found.headerTitle)
-    expectColour('header title colour', found.headerTitle.colour, palette[titleToken]);
-  else problems.push('no header title found');
+  // The bands of a page: any of the four backgrounds of the palette, nothing else (a white band
+  // in the dark theme is the bug this script exists for).
+  const bands = [palette.background, palette.cream, palette.warm, palette.masthead];
+  // (Not under a scrim: the sheet of a filter and the menu dim the page behind them.)
+  found.screenBackgrounds.forEach((colour, index) => {
+    if (!overlay && !bands.includes(colour ?? ''))
+      problems.push(
+        `band background (sample ${index + 1}) is ${colour ?? 'nothing'}${whose(colour ?? '')}, expected one of the ${expectName} bands`,
+      );
+  });
+  // The shell: the brand bar is cream, the section bar the page background with a hairline under it,
+  // 64 and 48 points high (56 and 44 on a phone) plus the hairline, and the section bar sits at the top
+  // of the window (it is the sticky header). The reader has no brand bar of its own.
+  const { shell } = found;
+  const phone = found.viewportWidth <= 640;
+  if (screen !== 'reader') {
+    if (shell.brandBackground === null) problems.push('no brand bar');
+    else {
+      expectColour('brand bar background', shell.brandBackground, palette.cream);
+      const wanted = phone ? 56 : 64;
+      if (Math.abs(shell.brandHeight - wanted) > 2)
+        problems.push(
+          `the brand bar is ${shell.brandHeight} px high, expected ${wanted} (+ border)`,
+        );
+    }
+  }
+  if (shell.sectionBackground === null) problems.push('no section bar');
+  else {
+    expectColour('section bar background', shell.sectionBackground, palette.background);
+    expectColour('section bar border', shell.sectionBorder, palette.border);
+    const wanted = phone ? 44 : 48;
+    if (Math.abs(shell.sectionHeight - wanted) > 2)
+      problems.push(
+        `the section bar is ${shell.sectionHeight} px high, expected ${wanted} (+ border)`,
+      );
+  }
+  // The title of the page: light on the dark hero of the library pages, the text colour elsewhere,
+  // the quiet running head in the reader.
+  const titleToken =
+    screen === 'reader' ? 'textMuted' : HERO_SCREENS.has(screen) ? 'mastheadInk' : 'text';
+  if (found.pageTitle)
+    expectColour('page title colour', found.pageTitle.colour, palette[titleToken]);
+  else problems.push('no page title found');
   if (TITLES[screen] && !TITLES[screen].test(found.title))
     problems.push(`browser tab title is "${found.title}", expected ${TITLES[screen]}`);
   if (found.overflowX > 0) problems.push(`the page scrolls sideways by ${found.overflowX} px`);
-  // On a phone the header title stops at the gutter, like the arrow and the links at the edges.
+  // On a phone the title stops at the gutter, like the text around it.
   const gutter = 24;
   if (
     found.viewportWidth < 768 &&
-    found.headerTitleRight !== null &&
-    found.headerTitleRight > found.viewportWidth - gutter + 0.5
+    found.pageTitleRight !== null &&
+    found.pageTitleRight > found.viewportWidth - gutter + 0.5
   )
     problems.push(
-      `the header title ends at ${Math.round(found.headerTitleRight)} px, inside the ${gutter} px gutter of a ${found.viewportWidth} px window`,
+      `the page title ends at ${Math.round(found.pageTitleRight)} px, inside the ${gutter} px gutter of a ${found.viewportWidth} px window`,
     );
   const scheme = expectName === 'dark' ? 'dark' : 'light';
   if (found.colorScheme !== scheme)
@@ -438,6 +501,20 @@ const radioGroupsOf = () =>
 
 const overflowOf = () => document.documentElement.scrollWidth - innerWidth;
 
+/**
+ * Follows the link to Settings the way a reader finds it: in the brand bar on a wide screen, in the
+ * menu (the button at the right of the brand bar) on a phone.
+ */
+async function openSettings(page) {
+  const menu = page.locator('[data-testid="menu-button"]:visible');
+  if (await menu.count()) {
+    await menu.first().click();
+    await page.locator('[data-testid="menu-link-settings"]').first().click();
+  } else {
+    await page.locator('[data-testid="settings-link"]:visible').first().click();
+  }
+}
+
 /** The labels of radios whose text is wider than the segment it sits in ("Autom…"). Run in the page. */
 const cutOffRadios = () =>
   [...document.querySelectorAll('[role="radio"]')]
@@ -583,14 +660,25 @@ async function semanticsProblems(page, scenario, site, routes) {
   expectEqual('rows of theme options', grid.rows, grid.width >= grid.count * 84 ? 1 : 2);
 
   // The language controls are radio groups of the same kind: named, two or three options, one
-  // chosen and one tab stop each.
+  // chosen and one tab stop each. The brand bar has the interface language switch too ("Limba"),
+  // from 641 points up; on a phone it is in the menu.
   const groups = await page.evaluate(radioGroupsOf);
   const sizes = Object.fromEntries(groups.map((group) => [group.name, group.radios.length]));
+  const wide = scenario.viewport.width > 640;
   // Compared as JSON: two objects are never equal by reference.
   expectEqual(
     'radio groups of Settings',
-    JSON.stringify(sizes),
-    JSON.stringify({ 'Fontul lecturii': 3, Tema: 4, 'Limba lecturii': 2, 'Limba interfeței': 3 }),
+    JSON.stringify(sizes, Object.keys(sizes).sort()),
+    JSON.stringify(
+      {
+        ...(wide ? { Limba: 2 } : null),
+        'Fontul lecturii': 3,
+        Tema: 4,
+        'Limba lecturii': 2,
+        'Limba interfeței': 3,
+      },
+      ['Fontul lecturii', 'Limba', 'Limba interfeței', 'Limba lecturii', 'Tema'],
+    ),
   );
   for (const group of groups) {
     expectEqual(
@@ -662,8 +750,16 @@ async function semanticsProblems(page, scenario, site, routes) {
   await page.waitForTimeout(250);
   expectEqual(
     'radio groups of Settings in English',
-    JSON.stringify((await page.evaluate(radioGroupsOf)).map((group) => group.name)),
-    JSON.stringify(['Reading font', 'Theme', 'Reading language', 'Interface language']),
+    JSON.stringify((await page.evaluate(radioGroupsOf)).map((group) => group.name).sort()),
+    JSON.stringify(
+      [
+        ...(wide ? ['Language'] : []),
+        'Reading font',
+        'Theme',
+        'Reading language',
+        'Interface language',
+      ].sort(),
+    ),
   );
   expectEqual(
     'radio labels cut off on Settings in English',
@@ -735,10 +831,19 @@ async function main() {
 
       let checked = 0;
       /** Waits for the screen, probes it and records what is wrong. */
-      const check = async (screen, how) => {
+      const check = async (screen, how, options) => {
         await waitForScreen(page, screen, args.timeout);
-        await page.waitForTimeout(250);
-        const problems = judge(await page.evaluate(probe, MIN_CONTRAST), scenario.expect, screen);
+        // Park the pointer in the corner: a control that ends up under it (the link that was
+        // pressed to get here was somewhere else on the page) would be caught half-way through
+        // its hover animation, and the contrast of a label that is changing colour means nothing.
+        await page.mouse.move(1, 1);
+        await page.waitForTimeout(450);
+        const problems = judge(
+          await page.evaluate(probe, MIN_CONTRAST),
+          scenario.expect,
+          screen,
+          options,
+        );
         checked += 1;
         if (problems.length === 0) return;
         const label = `${scenario.name}: ${screen} (${how})`;
@@ -760,6 +865,37 @@ async function main() {
         await check(screen, 'full load');
       }
 
+      // What a screen draws once it is used: the results of a search, the tiles of the centuries, the
+      // shelves unfolded, the sheet of a filter, the drawer of the section bar and, on a phone, the
+      // menu. A colour that is only wrong here (a bare Text is black on the dark theme) is the bug
+      // this script exists for, and the first look of a screen does not show it.
+      const narrow = scenario.viewport.width <= 640;
+      const states = [
+        ['search', 'results of a search by name', '/search?q=vos', []],
+        ['search', 'passages found', '/search?q=kingdom&mode=passages', []],
+        ['library-all', 'century tiles', '/library/all?view=century', []],
+        [
+          'library-all',
+          'shelves unfolded',
+          '/library/all',
+          ['[data-testid="shelves-fold-toggle"]'],
+        ],
+        ['library-all', 'sheet of a filter', '/library/all', ['[data-testid="filter-century"]']],
+        [
+          'landing',
+          'drawer of the section bar',
+          '/',
+          ['[data-testid="section-item-read"]:visible'],
+        ],
+        ...(narrow ? [['landing', 'menu', '/', ['[data-testid="menu-button"]:visible']]] : []),
+      ];
+      for (const [screen, how, path, clicks] of states) {
+        await page.goto(`${site.base}${path}`, { waitUntil: 'domcontentloaded' });
+        await waitForScreen(page, screen, args.timeout);
+        for (const selector of clicks) await page.locator(selector).first().click();
+        await check(screen, how, { overlay: /sheet|menu/.test(how) });
+      }
+
       // Every screen after the app navigated to it: links forward, the back button, a header link.
       await page.goto(`${site.base}${routes.library}`, { waitUntil: 'domcontentloaded' });
       await waitForScreen(page, 'library', args.timeout);
@@ -770,7 +906,7 @@ async function main() {
       await page.goBack();
       await page.goBack();
       await check('library', 'back navigation');
-      await page.locator('a[href$="/settings"]').first().click();
+      await openSettings(page);
       await check('settings', 'navigation');
 
       // Last, because it changes the theme with the keyboard.

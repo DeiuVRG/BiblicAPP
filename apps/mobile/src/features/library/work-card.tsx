@@ -3,7 +3,7 @@ import { Animated, Platform, Pressable, StyleSheet, View } from 'react-native';
 import type { PressableProps, ViewStyle } from 'react-native';
 import { useEffect, useState } from 'react';
 
-import { AppText } from '@/components/app-text';
+import { AppText, UI_MAX_FONT_SCALE, useTypeStyle } from '@/components/app-text';
 import { Chip } from '@/components/chip';
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
@@ -58,6 +58,8 @@ export function WorkCard({ work, model, language }: Props) {
     <Link href={workHref(work.workId)} asChild>
       <CardPressable
         testID={`work-card-${work.slug}`}
+        // A phone card is compact (140 points or less, docs/ui-spec-v2.md check L5).
+        style={wide ? undefined : styles.compact}
         accessibilityLabel={workAccessibleName(
           title,
           fullMeta(model, work, language, t),
@@ -76,7 +78,12 @@ export function WorkCard({ work, model, language }: Props) {
                 {era}
               </AppText>
             ) : null}
-            <AppText variant={wide ? 'title' : 'heading'} level={3} style={styles.title}>
+            <AppText
+              variant={wide ? 'title' : 'heading'}
+              level={3}
+              numberOfLines={wide ? undefined : 2}
+              style={wide ? styles.title : styles.titleCompact}
+            >
               {title}
             </AppText>
             {wide && description ? (
@@ -116,6 +123,9 @@ function ReadArrow({ hovered, label }: { hovered: boolean; label: string }) {
     return () => animation.stop();
   }, [hovered, reduced, shift]);
   const color = hovered ? colors.accentHover : colors.accentStrong;
+  // The arrow is set in the type of the label (Source Serif 4, 13 points): a bare `Text` is drawn in
+  // the system font.
+  const text = useTypeStyle('button');
   return (
     <View
       style={styles.read}
@@ -125,7 +135,13 @@ function ReadArrow({ hovered, label }: { hovered: boolean; label: string }) {
       <AppText variant="button" style={{ color }}>
         {label}
       </AppText>
-      <Animated.Text style={{ color, transform: [{ translateX: shift }] }}>›</Animated.Text>
+      <Animated.Text
+        testID="work-card-arrow"
+        maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
+        style={[text, { color, transform: [{ translateX: shift }] }]}
+      >
+        ›
+      </Animated.Text>
     </View>
   );
 }
@@ -175,7 +191,9 @@ const styles = StyleSheet.create({
     gap: 4,
     alignItems: 'flex-start',
   },
+  compact: { paddingTop: 14, paddingBottom: 12 },
   title: { marginTop: 4, marginBottom: 2 },
+  titleCompact: { marginTop: 0, marginBottom: 0 },
   badges: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 8 },
   read: { flexDirection: 'row', alignItems: 'center', columnGap: 6, marginTop: 10 },
 });

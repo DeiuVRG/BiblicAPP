@@ -554,7 +554,7 @@ describe('ReaderScreen design', () => {
     }
   });
 
-  it('sets the work title as a quiet running head in the reader, not as a heading', async () => {
+  it('sets the work title as a quiet running head in the reader, which is also its one h1', async () => {
     const { work, sections } = await bundled();
     await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
     await screen.findByRole('progressbar');
@@ -562,8 +562,10 @@ describe('ReaderScreen design', () => {
     expect(head).toHaveTextContent(work.titleRo);
     expect(head).toHaveStyle({ color: palettes.light.textMuted });
     expect(head.props.numberOfLines).toBe(1);
-    // The chapter is the heading of the page; the running head is not a second one.
-    expect(head.props.accessibilityRole).toBeUndefined();
+    // It looks like a running head, and it is the level-1 heading of the screen (one h1 per
+    // screen, docs/ui-spec-v2.md 18): the chapter title below it is the level 2.
+    expect(head.props.accessibilityRole).toBe('header');
+    expect(head.props['aria-level']).toBe(1);
   });
 
   it('offers the table of contents instead of "next" on the last chapter', async () => {
@@ -640,16 +642,18 @@ describe('SearchField', () => {
     await renderWithProviders(<Field />);
     const input = screen.getByLabelText('Caută în text');
     expect(screen.queryByLabelText('Șterge căutarea')).toBeNull();
-    const emptyStyle = { paddingRight: 44, borderColor: palettes.light.borderStrong };
-    expect(input).toHaveStyle(emptyStyle);
-    expect(input).toHaveStyle({ height: 48, borderWidth: 1, fontSize: 16 });
+    const box = { height: 48, borderWidth: 1, fontSize: 16 };
+    expect(input).toHaveStyle({ borderColor: palettes.light.borderStrong });
+    expect(input).toHaveStyle(box);
 
     await fireEvent.changeText(input, 'k');
     const clear = screen.getByLabelText('Șterge căutarea');
-    // The same box as the input (an overlay), and the room for it is reserved from the start.
+    // The same box as the input (an overlay): the box keeps its size, only the room for the text
+    // changes.
     expect(clear.parent).toBe(input.parent);
     expect(clear).toHaveStyle({ position: 'absolute', right: 2, top: 2 });
-    expect(input).toHaveStyle(emptyStyle);
+    expect(input).toHaveStyle(box);
+    expect(input).toHaveStyle({ borderColor: palettes.light.borderStrong });
     // A glyph Inter has (the heavy ballot cross U+2715 fell back to a system font).
     expect(screen.getByText('×')).toBeTruthy();
     // Regression: the button's own colour came after textStyle, so the quiet muted "×" was drawn as
@@ -661,6 +665,71 @@ describe('SearchField', () => {
     await fireEvent.press(clear);
     expect(screen.getByLabelText('Caută în text').props.value).toBe('');
     expect(screen.queryByLabelText('Șterge căutarea')).toBeNull();
+  });
+
+  it('gives an empty field its whole width: the room of the clear button is taken only by text', async () => {
+    // A placeholder of 214 points did not fit in the 161 left of a 221 point field (390 point phone).
+    await renderWithProviders(<Field />);
+    const input = screen.getByLabelText('Caută în text');
+    expect(input).toHaveStyle({ paddingLeft: 14, paddingRight: 14 });
+    await fireEvent.changeText(input, 'k');
+    expect(screen.getByLabelText('Caută în text')).toHaveStyle({ paddingLeft: 14, paddingRight: 44 });
+    await fireEvent.changeText(screen.getByLabelText('Caută în text'), '');
+    expect(screen.getByLabelText('Caută în text')).toHaveStyle({ paddingRight: 14 });
+  });
+
+  it('hands the arrow Down to the screen, which moves the focus into its results, and keeps the caret still', async () => {
+    const down = jest.fn();
+    await renderWithProviders(
+      <SearchField
+        value="kingdom"
+        onChangeText={() => undefined}
+        placeholder="Caută"
+        label="Caută în text"
+        clearLabel="Șterge căutarea"
+        onArrowDown={down}
+      />,
+    );
+    const preventDefault = jest.fn();
+    await fireEvent(screen.getByLabelText('Caută în text'), 'keyPress', {
+      nativeEvent: { key: 'ArrowDown' },
+      preventDefault,
+    });
+    expect(down).toHaveBeenCalledTimes(1);
+    expect(preventDefault).toHaveBeenCalled();
+    // Other keys are the field's own.
+    await fireEvent(screen.getByLabelText('Caută în text'), 'keyPress', {
+      nativeEvent: { key: 'ArrowUp' },
+      preventDefault,
+    });
+    expect(down).toHaveBeenCalledTimes(1);
+  });
+
+  it('leaves the arrow Down alone when the screen has no results to give it to', async () => {
+    await renderWithProviders(<Field />);
+    const preventDefault = jest.fn();
+    await fireEvent(screen.getByLabelText('Caută în text'), 'keyPress', {
+      nativeEvent: { key: 'ArrowDown' },
+      preventDefault,
+    });
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('ends a placeholder that is too long for a narrow field in an ellipsis on web, instead of cutting a letter', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<Field />);
+      expect(StyleSheet.flatten(screen.getByLabelText('Caută în text').props.style)).toMatchObject({
+        textOverflow: 'ellipsis',
+      });
+    } finally {
+      replaced.restore();
+    }
+    await cleanup();
+    await renderWithProviders(<Field />);
+    expect(
+      StyleSheet.flatten(screen.getByLabelText('Caută în text').props.style).textOverflow,
+    ).toBeUndefined();
   });
 
   it('clears with Escape, and says nothing when it is already empty', async () => {

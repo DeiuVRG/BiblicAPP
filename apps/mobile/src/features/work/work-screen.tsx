@@ -127,7 +127,7 @@ function WorkHeader({ detail, editions, selected, position, onSelectEdition }: H
 
   return (
     <View style={styles.header}>
-      <AppText variant="displayM" style={balancedLines}>
+      <AppText variant="displayM" level={1} style={balancedLines}>
         {title}
       </AppText>
       {original ? <AppText variant="original">{original}</AppText> : null}

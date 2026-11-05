@@ -1,4 +1,4 @@
-import { Link, useFocusEffect } from 'expo-router';
+import { Link } from 'expo-router';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import type { TextInputInstance } from 'react-native';
@@ -35,7 +35,7 @@ import { useLibraryQuery } from '@/library/use-library-query';
 import { authorsHref } from '@/navigation-hrefs';
 import { useSettings } from '@/settings/settings-context';
 import { Main, PageScroll } from '@/shell/page-scroll';
-import { setSlashTarget } from '@/shell/slash-target';
+import { useSlashTarget } from '@/shell/use-slash-target';
 import { useFontFamilies } from '@/theme/fonts';
 import { columnStyle, useLayout } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
@@ -46,6 +46,9 @@ import { AzBar } from './az-bar';
 import { CenturyTiles } from './century-tiles';
 import { shelfColumns } from '../landing/landing-screen';
 import { ShelfCard } from './shelf-card';
+
+/** A filter select is at least this wide: the filters share the panel in as many even rows as fit. */
+const FILTER_MIN_CELL = 180;
 
 /** The words of a count line, in capitals by style: what the list is. */
 export function countLineFor(
@@ -136,12 +139,7 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
   const inputRef = useRef<TextInputInstance>(null);
 
   // `/` focuses the field from anywhere on web (the brand bar asks which field before it navigates).
-  useFocusEffect(
-    useCallback(() => {
-      setSlashTarget({ focus: () => inputRef.current?.focus() });
-      return () => setSlashTarget(null);
-    }, []),
-  );
+  useSlashTarget(inputRef);
 
   const page = useMemo(() => libraryPage(model, query), [model, query]);
   const authorView = query.view === 'author';
@@ -265,7 +263,12 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
 
             <View
               testID="filter-panel"
-              style={[styles.panel, { backgroundColor: colors.cream, borderColor: colors.border }]}
+              style={[
+                styles.panel,
+                // 16 on a phone: the search field keeps the width its placeholder needs at 320.
+                phone ? styles.panelPhone : null,
+                { backgroundColor: colors.cream, borderColor: colors.border },
+              ]}
             >
               <SearchField
                 testID="library-search"
@@ -284,10 +287,18 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
               >
                 {countLine}
               </AppText>
-              <View style={[styles.selects, phone ? styles.selectsPhone : null]}>
-                {shelfOptions.length > 0 ? (
-                  <View style={phone ? styles.selectStacked : styles.select}>
+              {/* The selects share the panel in even rows (two and two at 768, four in a row from about
+                  860), one per row on a phone; a row of three and one alone was uneven. */}
+              <ResponsiveGrid
+                columns={phone ? 1 : 4}
+                minCell={phone ? undefined : FILTER_MIN_CELL}
+                gap={16}
+                testID="filter-grid"
+              >
+                {[
+                  shelfOptions.length > 0 ? (
                     <Select
+                      key="shelf"
                       testID="filter-shelf"
                       label={t.library.filterShelf}
                       chooseLabel={t.library.filterChoose(t.library.filterShelf)}
@@ -296,11 +307,10 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
                       options={shelfOptions}
                       onChange={(value) => update({ shelf: value })}
                     />
-                  </View>
-                ) : null}
-                {centuryOptions.length > 0 ? (
-                  <View style={phone ? styles.selectStacked : styles.select}>
+                  ) : null,
+                  centuryOptions.length > 0 ? (
                     <Select
+                      key="century"
                       testID="filter-century"
                       label={t.library.filterCentury}
                       chooseLabel={t.library.filterChoose(t.library.filterCentury)}
@@ -311,11 +321,10 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
                         update({ century: value === null ? null : Number(value) })
                       }
                     />
-                  </View>
-                ) : null}
-                {traditionOptions.length > 0 ? (
-                  <View style={phone ? styles.selectStacked : styles.select}>
+                  ) : null,
+                  traditionOptions.length > 0 ? (
                     <Select
+                      key="tradition"
                       testID="filter-tradition"
                       label={t.library.filterTradition}
                       chooseLabel={t.library.filterChoose(t.library.filterTradition)}
@@ -324,11 +333,10 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
                       options={traditionOptions}
                       onChange={(value) => update({ tradition: value })}
                     />
-                  </View>
-                ) : null}
-                {langOptions.length > 0 ? (
-                  <View style={phone ? styles.selectStacked : styles.select}>
+                  ) : null,
+                  langOptions.length > 0 ? (
                     <Select
+                      key="lang"
                       testID="filter-lang"
                       label={t.library.filterLang}
                       chooseLabel={t.library.filterChoose(t.library.filterLang)}
@@ -337,10 +345,9 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
                       options={langOptions}
                       onChange={(value) => update({ lang: value })}
                     />
-                  </View>
-                ) : null}
-                <View style={phone ? styles.selectStacked : styles.select}>
+                  ) : null,
                   <Select
+                    key="availability"
                     testID="filter-availability"
                     label={t.library.filterAvailability}
                     chooseLabel={t.library.filterChoose(t.library.filterAvailability)}
@@ -352,9 +359,9 @@ function LibraryBody({ model, unverified, query, update, clear, language }: Body
                         availability: value === null ? null : (value as 'ro' | 'en' | 'partial'),
                       })
                     }
-                  />
-                </View>
-              </View>
+                  />,
+                ].filter((select) => select !== null)}
+              </ResponsiveGrid>
               {model.undated > 0 ? (
                 <AppText variant="caption" testID="library-undated">
                   {t.library.undated(model.undated)}
@@ -553,12 +560,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: radii.sm,
   },
+  panelPhone: { padding: 16 },
   count: { marginTop: 4 },
-  selects: { flexDirection: 'row', flexWrap: 'wrap', gap: 16 },
-  selectsPhone: { flexDirection: 'column', flexWrap: 'nowrap' },
-  select: { flexGrow: 1, flexBasis: 180, minWidth: 0, maxWidth: 360 },
-  // In a column a flex basis would be a height: the select just takes the width of the panel.
-  selectStacked: { alignSelf: 'stretch', maxWidth: undefined },
   list: { gap: 16 },
   az: { marginBottom: 16 },
   pager: {

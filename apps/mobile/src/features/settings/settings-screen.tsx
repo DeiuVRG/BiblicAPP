@@ -104,6 +104,10 @@ export function SettingsScreen() {
       <PageTitle parts={[t.settings.title]} />
       <Main>
         <Column kind="reading" style={styles.content}>
+          {/* The page has its own title now that the navigator has no header to carry it. */}
+          <AppText variant="displayM" level={1} testID="settings-title" style={styles.title}>
+            {t.settings.title}
+          </AppText>
           <Section title={t.settings.reading} first>
             <ReadingFontControl />
             <FontSizeControl />
@@ -140,7 +144,8 @@ export function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
-  content: { paddingTop: 8, paddingBottom: 64 },
+  content: { paddingTop: 40, paddingBottom: 64 },
+  title: { marginBottom: 8 },
   section: { gap: 16, paddingTop: 20, paddingBottom: 28 },
   // A card: 1 px border, 3 px corners.
   preview: { padding: 16, borderWidth: 1, borderRadius: radii.sm, gap: 8 },

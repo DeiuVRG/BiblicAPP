@@ -87,7 +87,6 @@ export const en: Strings = {
     menuLanguage: 'Interface language',
     themeButton: (current, next) => `Theme: ${current}. Press for ${next}.`,
     menuTheme: 'Theme',
-    skipToContent: 'Skip to content',
   },
   landing: {
     kicker: 'Biblioteca',
@@ -132,11 +131,8 @@ export const en: Strings = {
   },
   library: {
     title: 'Library',
-    subtitle: 'Old books, carefully translated.',
     empty: 'No works installed.',
     loading: 'Loading the library…',
-    search: 'Search',
-    settings: 'Settings',
     openWork: (title) => `Open the work ${title}`,
     editions: 'Editions',
     unverified: (n) =>
@@ -160,7 +156,8 @@ export const en: Strings = {
     },
     bandFathers: { label: 'Church Fathers', title: 'Read the Church Fathers' },
     bandShelves: { label: 'Shelves', title: 'Every tradition present here' },
-    allOfShelf: (n) => `All ${count(n, forms.works, 'en')}`,
+    // "All 12 works", and for one work the shelf itself ("All 1 work" is not English).
+    allOfShelf: (n) => (n === 1 ? 'Open the shelf' : `All ${count(n, forms.works, 'en')}`),
     foldCollapse: 'Collapse',
     foldExpand: 'Expand',
     allEyebrow: 'Biblioteca · Every work',
@@ -211,10 +208,7 @@ export const en: Strings = {
     centuryTile: (century, n) => `${century}: ${count(n, forms.works, 'en')}`,
     emptyFilters: 'No work matches the filters.',
     clearFilters: 'Clear the filters',
-    rowEditions: 'Editions',
     partialChip: 'Partial',
-    seeWork: 'Read',
-    start: 'Start here',
   },
   authorsPage: {
     eyebrow: 'Biblioteca · Authors',
@@ -275,7 +269,7 @@ export const en: Strings = {
     openResult: (heading) => `Open the result in ${heading}`,
     clear: 'Clear the search',
     eyebrow: 'Search',
-    fieldPlaceholder: 'Search for a work, an author or a passage',
+    fieldPlaceholder: 'Search works, authors or passages',
     modes: 'Kind of search',
     modeWorks: 'Works',
     modePassages: 'Passages',
@@ -283,6 +277,8 @@ export const en: Strings = {
     worksHeading: 'Works',
     inWorks: (results, works) =>
       `${count(results, forms.results, 'en')} in ${count(works, forms.works, 'en')}`,
+    resultsCappedInWorks: (results, works) =>
+      `First ${count(results, forms.results, 'en')}, in ${count(works, forms.works, 'en')}`,
     nameResults: (authors, works) =>
       `${count(authors, forms.authors, 'en')} · ${count(works, forms.works, 'en')}`,
     openAuthor: (name) => `The works of ${name}`,

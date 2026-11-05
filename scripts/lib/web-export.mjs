@@ -7,8 +7,10 @@
 // served under that path only, like a GitHub Pages project site.
 
 /* global document -- evaluated inside the browser page */
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import http from 'node:http';
+import { createRequire } from 'node:module';
 import { extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -126,6 +128,29 @@ export async function serveExport({ dist, basePath = '', port = 0 }) {
 }
 
 /**
+ * Builds the web export of the app into `outDir` with `env` added to the environment: a build
+ * profile that differs from the delivered one only in its flags (`EXPO_PUBLIC_FEATURES=beta1`, see
+ * apps/mobile/src/config/features.ts), which the smoke test serves next to the export under test.
+ */
+export function buildExport({ outDir, env = {}, tool = 'export' }) {
+  const mobile = join(root, 'apps/mobile');
+  const cli = createRequire(import.meta.url).resolve('expo/bin/cli', { paths: [mobile] });
+  const result = spawnSync(
+    process.execPath,
+    [cli, 'export', '--platform', 'web', '--output-dir', outDir],
+    {
+      cwd: mobile,
+      env: { ...process.env, ...env, CI: '1' },
+      encoding: 'utf8',
+      maxBuffer: 64 * 1024 * 1024,
+    },
+  );
+  if (result.status !== 0) {
+    throw new Error(`${tool}: the export failed:\n${(result.stderr || result.stdout).slice(-2000)}`);
+  }
+}
+
+/**
  * Launches Chromium. CI installs the browser matching the Playwright version. On a machine whose
  * preinstalled browser is a different revision (sandboxes), fall back to the binary named by
  * SMOKE_CHROMIUM_PATH or to `$PLAYWRIGHT_BROWSERS_PATH/chromium` (or /opt/pw-browsers/chromium).
@@ -218,16 +243,27 @@ const READY = {
   'library-all': '[data-testid="library-count"]',
   authors: '[data-testid="authors-count"]',
   search: '[data-testid="search-input"]',
+  // The title of Settings (the phone menu has a theme selector of its own, so a radio group is no
+  // proof that the page is there).
+  settings: '[data-testid="settings-title"]',
 };
 
 /** Waits until a screen has drawn its content (fonts loaded, list rows or paragraphs on screen). */
 export async function waitForScreen(page, screen, timeout) {
-  if (READY[screen]) await page.locator(READY[screen]).first().waitFor({ state: 'visible', timeout });
+  // A screen that was left stays mounted under the next one (hidden): only a visible match counts.
+  if (READY[screen])
+    await page.locator(`${READY[screen]}:visible`).first().waitFor({ state: 'visible', timeout });
   else if (screen === 'work') await page.locator('a[href*="/read/"]').first().waitFor({ timeout });
   else if (screen === 'reader') await page.waitForFunction(readerReady, 30, { timeout });
-  else await page.locator('[role="radiogroup"]').first().waitFor({ timeout });
+  else await page.locator(`${READY.settings}:visible`).first().waitFor({ timeout });
   // The landing and the library list their content once the packs are read.
-  if (screen === 'landing') await page.locator('[data-testid^="work-card-"]').first().waitFor({ timeout });
-  if (screen === 'library-all') await page.locator('a[href*="/work/"]').first().waitFor({ timeout });
+  if (screen === 'landing')
+    await page.locator('[data-testid^="work-card-"]').first().waitFor({ timeout });
+  // The list of works (the author view) or the tiles of the centuries (the other view).
+  if (screen === 'library-all')
+    await page
+      .locator('a[href*="/work/"], [data-testid="century-tiles"]')
+      .first()
+      .waitFor({ timeout });
   await page.evaluate(() => document.fonts.ready);
 }

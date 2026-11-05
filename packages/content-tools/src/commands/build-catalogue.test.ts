@@ -98,7 +98,13 @@ const shelf = {
 function setup(): Fixture {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'build-catalogue-'));
   const pair = generateKeyPair();
-  const { secretPath, publicPath } = writeKeyPair(path.join(dir, 'keys'), 'test', 'test-1', pair, false);
+  const { secretPath, publicPath } = writeKeyPair(
+    path.join(dir, 'keys'),
+    'test',
+    'test-1',
+    pair,
+    false,
+  );
   const work: Pack['work'] = {
     id: stableId(),
     slug: 'lucrare-de-proba',
@@ -179,16 +185,32 @@ afterEach(() => {
 
 const build = (f: Fixture, ...extra: string[]) =>
   runBuildCatalogue([
-    '--src', f.src,
-    '--packs', f.packs,
-    '--out', f.out,
-    '--key', f.keyFile,
-    '--pub', f.pubFile,
+    '--src',
+    f.src,
+    '--packs',
+    f.packs,
+    '--out',
+    f.out,
+    '--key',
+    f.keyFile,
+    '--pub',
+    f.pubFile,
     ...extra,
   ]);
 
 const check = (f: Fixture, ...extra: string[]) =>
-  runBuildCatalogue(['--check', '--src', f.src, '--packs', f.packs, '--out', f.out, '--pub', f.pubFile, ...extra]);
+  runBuildCatalogue([
+    '--check',
+    '--src',
+    f.src,
+    '--packs',
+    f.packs,
+    '--out',
+    f.out,
+    '--pub',
+    f.pubFile,
+    ...extra,
+  ]);
 
 const readOut = (f: Fixture) => ({
   bytes: new Uint8Array(fs.readFileSync(path.join(f.out, 'catalogue.json'))),
@@ -228,7 +250,9 @@ describe('build-catalogue', () => {
 
   it('lists every installed pack with its sha256 and size, sorted by pack id', async () => {
     await build(f);
-    const catalogue = CatalogueSchema.parse(JSON.parse(fs.readFileSync(path.join(f.out, 'catalogue.json'), 'utf8')));
+    const catalogue = CatalogueSchema.parse(
+      JSON.parse(fs.readFileSync(path.join(f.out, 'catalogue.json'), 'utf8')),
+    );
     const manifests = ['proba-en', 'proba-ro'].map(
       (id) =>
         JSON.parse(fs.readFileSync(path.join(f.packs, id, 'manifest.json'), 'utf8')) as {
@@ -257,10 +281,19 @@ describe('build-catalogue', () => {
   it('bumps the revision when a source or a pack changes', async () => {
     await build(f);
     const first = readOut(f);
-    fs.writeFileSync(path.join(f.src, 'authors.json'), JSON.stringify({ authors: [{ ...author, bioRo: 'Alt text.' }] }));
+    fs.writeFileSync(
+      path.join(f.src, 'authors.json'),
+      JSON.stringify({ authors: [{ ...author, bioRo: 'Alt text.' }] }),
+    );
     await build(f);
     expect(readOut(f).manifest.revision).toBe(first.manifest.revision + 1);
-    writePack(f.packs, 'proba-ro', { ...f.translation, paragraphs: f.translation.paragraphs.slice(0, 1) }, f.pair, 2);
+    writePack(
+      f.packs,
+      'proba-ro',
+      { ...f.translation, paragraphs: f.translation.paragraphs.slice(0, 1) },
+      f.pair,
+      2,
+    );
     await build(f);
     expect(readOut(f).manifest.revision).toBe(first.manifest.revision + 2);
   });
@@ -270,13 +303,22 @@ describe('build-catalogue', () => {
     expect(await build(f)).toBe(0);
     expect(stderr).toContain('warning: work alta-lucrare');
     expect(stderr).toContain('"Altele"');
-    const catalogue = CatalogueSchema.parse(JSON.parse(fs.readFileSync(path.join(f.out, 'catalogue.json'), 'utf8')));
+    const catalogue = CatalogueSchema.parse(
+      JSON.parse(fs.readFileSync(path.join(f.out, 'catalogue.json'), 'utf8')),
+    );
     expect(catalogue.works).toHaveLength(1);
-    expect(catalogue.packs.map((entry) => entry.packId)).toEqual(['alta-en', 'proba-en', 'proba-ro']);
+    expect(catalogue.packs.map((entry) => entry.packId)).toEqual([
+      'alta-en',
+      'proba-en',
+      'proba-ro',
+    ]);
   });
 
   it('merges several source files and refuses a key it does not know', async () => {
-    fs.writeFileSync(path.join(f.src, 'more-shelves.json'), JSON.stringify({ shelves: [{ ...shelf, slug: 'creeds', order: 2 }] }));
+    fs.writeFileSync(
+      path.join(f.src, 'more-shelves.json'),
+      JSON.stringify({ shelves: [{ ...shelf, slug: 'creeds', order: 2 }] }),
+    );
     expect(await build(f)).toBe(0);
     expect(stdout).toContain('shelves 2');
 
@@ -286,15 +328,23 @@ describe('build-catalogue', () => {
   });
 
   it('refuses startHere in two files', async () => {
-    fs.writeFileSync(path.join(f.src, 'a.json'), JSON.stringify({ startHere: ['lucrare-de-proba'] }));
-    fs.writeFileSync(path.join(f.src, 'b.json'), JSON.stringify({ startHere: ['lucrare-de-proba'] }));
+    fs.writeFileSync(
+      path.join(f.src, 'a.json'),
+      JSON.stringify({ startHere: ['lucrare-de-proba'] }),
+    );
+    fs.writeFileSync(
+      path.join(f.src, 'b.json'),
+      JSON.stringify({ startHere: ['lucrare-de-proba'] }),
+    );
     expect(await build(f)).toBe(2);
     expect(stderr).toContain('startHere is in two files');
   });
 
   it('refuses what does not hold together: a missing pack, another slug, a paragraph that is not there', async () => {
     const worksFile = path.join(f.src, 'works.json');
-    const original = JSON.parse(fs.readFileSync(worksFile, 'utf8')) as { works: Record<string, unknown>[] };
+    const original = JSON.parse(fs.readFileSync(worksFile, 'utf8')) as {
+      works: Record<string, unknown>[];
+    };
     const write = (change: Record<string, unknown>) =>
       fs.writeFileSync(worksFile, JSON.stringify({ works: [{ ...original.works[0], ...change }] }));
 
@@ -350,14 +400,23 @@ describe('build-catalogue --check', () => {
   });
 
   it('fails when a source changed', async () => {
-    fs.writeFileSync(path.join(f.src, 'authors.json'), JSON.stringify({ authors: [{ ...author, bioEn: 'Changed.' }] }));
+    fs.writeFileSync(
+      path.join(f.src, 'authors.json'),
+      JSON.stringify({ authors: [{ ...author, bioEn: 'Changed.' }] }),
+    );
     expect(await check(f)).toBe(1);
     expect(stderr).toContain('STALE');
     expect(stderr).toContain('build-catalogue');
   });
 
   it('fails when a pack was rebuilt, and names it', async () => {
-    writePack(f.packs, 'proba-ro', { ...f.translation, paragraphs: f.translation.paragraphs.slice(0, 1) }, f.pair, 2);
+    writePack(
+      f.packs,
+      'proba-ro',
+      { ...f.translation, paragraphs: f.translation.paragraphs.slice(0, 1) },
+      f.pair,
+      2,
+    );
     expect(await check(f)).toBe(1);
     expect(stderr).toContain('pack proba-ro was rebuilt (sha256 changed)');
   });
@@ -424,20 +483,32 @@ describe('verifyCatalogueBytes', () => {
     expect(verifyCatalogueBytes({ ...base, catalogueBytes: changed })).toMatchObject({
       reason: 'sha256-mismatch',
     });
-    expect(verifyCatalogueBytes({ ...base, trustedKeys: [] })).toMatchObject({ reason: 'unknown-key' });
-    expect(verifyCatalogueBytes({ ...base, trustedKeys: trusted(generateKeyPair()) })).toMatchObject({
+    expect(verifyCatalogueBytes({ ...base, trustedKeys: [] })).toMatchObject({
+      reason: 'unknown-key',
+    });
+    expect(
+      verifyCatalogueBytes({ ...base, trustedKeys: trusted(generateKeyPair()) }),
+    ).toMatchObject({
       reason: 'bad-signature',
     });
-    expect(verifyCatalogueBytes({ ...base, appVersion: '0.0.9' })).toMatchObject({ reason: 'app-too-old' });
+    expect(verifyCatalogueBytes({ ...base, appVersion: '0.0.9' })).toMatchObject({
+      reason: 'app-too-old',
+    });
   });
 
   it('refuses a catalogue that is valid JSON but not in canonical form', () => {
     const { bytes, manifest } = readOut(f);
-    const pretty = new TextEncoder().encode(JSON.stringify(JSON.parse(new TextDecoder().decode(bytes)), null, 2));
+    const pretty = new TextEncoder().encode(
+      JSON.stringify(JSON.parse(new TextDecoder().decode(bytes)), null, 2),
+    );
     const forged = { ...manifest, sha256: sha256Hex(pretty), size: pretty.length };
     // The signature no longer matches either, but the canonical-form rule is checked first.
     expect(
-      verifyCatalogueBytes({ catalogueBytes: pretty, manifest: forged, trustedKeys: trusted(f.pair) }),
+      verifyCatalogueBytes({
+        catalogueBytes: pretty,
+        manifest: forged,
+        trustedKeys: trusted(f.pair),
+      }),
     ).toMatchObject({ ok: false, reason: 'not-canonical' });
   });
 
@@ -486,8 +557,11 @@ describe('committed catalogue (Vos 1903)', () => {
     const workIds = new Set(
       ids.map(
         (id) =>
-          (JSON.parse(fs.readFileSync(path.join(packsDir, id, 'manifest.json'), 'utf8')) as { workId: string })
-            .workId,
+          (
+            JSON.parse(fs.readFileSync(path.join(packsDir, id, 'manifest.json'), 'utf8')) as {
+              workId: string;
+            }
+          ).workId,
       ),
     );
     expect(new Set(catalogue.works.map((work) => work.workId))).toEqual(workIds);

@@ -20,7 +20,7 @@ import { futureHref, libraryAllHref, libraryHref } from '@/navigation-hrefs';
 import { useSettings } from '@/settings/settings-context';
 import { Footer } from '@/shell/footer';
 import { Main, PageScroll } from '@/shell/page-scroll';
-import { useLayout } from '@/theme/layout';
+import { PHONE_MAX, useLayout } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
 
 /** The collection shows at most this many works (docs/ui-spec-v2.md, 5, band 6). */
@@ -31,9 +31,9 @@ export function collectionColumns(width: number): number {
   return width >= 1100 ? 4 : width >= 600 ? 2 : 1;
 }
 
-/** Columns of the shelf cards: five wide, one per row on a phone (5, band 8). */
+/** Columns of the shelf cards: five wide, one per row on a phone, which is up to 640 (5, band 8; 2.4). */
 export function shelfColumns(width: number): number {
-  return width >= 1100 ? 5 : width >= 900 ? 4 : width >= 700 ? 3 : width >= 560 ? 2 : 1;
+  return width >= 1100 ? 5 : width >= 900 ? 4 : width >= 700 ? 3 : width > PHONE_MAX ? 2 : 1;
 }
 
 /** A door of band 2: the name of a section, a sentence and a "NAME ›" link line. */
@@ -144,6 +144,7 @@ export function LandingScreen() {
       <Main>
         <Hero
           kind="landing"
+          align="center"
           kicker={t.landing.kicker}
           badge={t.landing.badge}
           title={[t.landing.titleFirst, t.landing.titleSecond]}
@@ -200,7 +201,8 @@ export function LandingScreen() {
           }
         />
 
-        <Band tone="background" testID="doors">
+        {/* A band that holds only links to other sections: tighter than a band of content. */}
+        <Band tone="background" padding={{ top: 40, bottom: 40 }} testID="doors">
           <View style={styles.doors}>
             {doors.map((door, index) => (
               <View key={door.key} style={styles.doorCell}>
@@ -218,14 +220,20 @@ export function LandingScreen() {
           </View>
         </Band>
 
-        <Band tone="background" topRule testID="free-statement">
+        {/* On `cream` until the editorial bands (4, 5 and 7) give the page its rhythm: a run of paper
+            bands divided by hairlines reads flat under a dark hero. */}
+        <Band
+          tone="cream"
+          padding={{ top: 56, bottom: 56 }}
+          testID="free-statement"
+        >
           <AppText variant="body" style={styles.statement}>
             {features.ask ? `${t.landing.freeBooks} ${t.landing.freeAsk}` : t.landing.freeBooks}
           </AppText>
         </Band>
 
         {model && model.works.length > 0 ? (
-          <Band tone="background" topRule testID="collection">
+          <Band tone="background" testID="collection">
             <View style={styles.bandHead}>
               <AppText variant="displayM" level={2}>
                 {t.landing.collectionTitle}

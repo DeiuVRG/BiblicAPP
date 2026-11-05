@@ -16,8 +16,13 @@ import { useTheme } from '@/theme/theme-context';
 import { radii } from '@/theme/tokens';
 
 const LANGUAGES: readonly UiLanguage[] = ['ro', 'en'];
-/** Height of the switch for a mouse; a finger gets the 44 point target. */
+/** Height of the switch for a mouse. */
 const HEIGHT = 32;
+/**
+ * A finger gets 44 points for each segment: the group is the segment plus the 1 point border of
+ * the group above and below (the segments are the targets, not the group).
+ */
+const TARGET_HEIGHT = MIN_TARGET + 2;
 
 interface Props {
   testID?: string;
@@ -28,7 +33,8 @@ interface Props {
 /**
  * The language of the interface: `RO` and `EN`, two segments, a radio group (docs/ui-spec-v2.md,
  * 3 and 4.1). Choosing one stores it as the interface language (it replaces "System"), the page
- * changes language at once and `html[lang]` follows. 32 high, 44 with a coarse pointer.
+ * changes language at once and `html[lang]` follows. 32 high with a mouse; with a coarse pointer
+ * (and in the phone menu) every segment is a 44 point target.
  */
 export function LanguageSwitch({ testID = 'language-switch', tall = false }: Props) {
   const t = useT();
@@ -36,7 +42,8 @@ export function LanguageSwitch({ testID = 'language-switch', tall = false }: Pro
   const language = useUiLanguage();
   const { update } = useSettings();
   const coarse = useCoarsePointer();
-  const height = tall || coarse ? MIN_TARGET : HEIGHT;
+  const target = tall || coarse;
+  const height = target ? TARGET_HEIGHT : HEIGHT;
   const [segments] = useState(() => new Map<UiLanguage, { focus?: () => void }>());
 
   const choose = (value: UiLanguage) => update({ uiLanguage: value });
@@ -62,6 +69,7 @@ export function LanguageSwitch({ testID = 'language-switch', tall = false }: Pro
           selected={value === language}
           first={index === 0}
           last={index === LANGUAGES.length - 1}
+          target={target}
           segmentRef={(node) => {
             if (node) segments.set(value, node);
             else segments.delete(value);
@@ -86,6 +94,7 @@ function Segment({
   selected,
   first,
   last,
+  target,
   segmentRef,
   onPress,
   onKey,
@@ -95,6 +104,8 @@ function Segment({
   selected: boolean;
   first: boolean;
   last: boolean;
+  /** The segment is a 44 x 44 point target (a finger). */
+  target: boolean;
   segmentRef(node: { focus?: () => void } | null): void;
   onPress(): void;
   onKey(key: string): boolean;
@@ -123,6 +134,7 @@ function Segment({
       {...focusProps}
       style={({ pressed }) => [
         styles.segment,
+        target ? styles.segmentTarget : null,
         {
           backgroundColor: selected ? colors.accentStrong : hovered ? colors.surface : undefined,
           borderLeftColor: colors.borderStrong,
@@ -151,4 +163,5 @@ function Segment({
 const styles = StyleSheet.create({
   group: { flexDirection: 'row', borderWidth: 1, borderRadius: radii.sm },
   segment: { minWidth: 36, paddingHorizontal: 8, alignItems: 'center', justifyContent: 'center' },
+  segmentTarget: { minWidth: MIN_TARGET },
 });

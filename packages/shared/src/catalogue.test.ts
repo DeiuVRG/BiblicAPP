@@ -63,7 +63,15 @@ function valid(): Catalogue {
   return {
     shelves: [shelf('modern', 1), shelf('creeds', 2)],
     authors: [author('geerhardus-vos')],
-    works: [work('w1', 'vos-kingdom'), work('w2', 'nicene-creed', { authorSlug: undefined, issuingBody: body, shelves: ['creeds'], kind: 'creed' })],
+    works: [
+      work('w1', 'vos-kingdom'),
+      work('w2', 'nicene-creed', {
+        authorSlug: undefined,
+        issuingBody: body,
+        shelves: ['creeds'],
+        kind: 'creed',
+      }),
+    ],
     startHere: ['vos-kingdom'],
     packs: [pack('vos-en', 'e1'), pack('vos-ro', 'e2')],
   };
@@ -149,7 +157,14 @@ describe('CatalogueSchema', () => {
 
     const parentless = valid();
     parentless.traditions = [
-      { slug: 'reformed', parent: 'protestant', labelRo: 'R', labelEn: 'R', descRo: '', descEn: '' },
+      {
+        slug: 'reformed',
+        parent: 'protestant',
+        labelRo: 'R',
+        labelEn: 'R',
+        descRo: '',
+        descEn: '',
+      },
     ];
     expect(problems(parentless)).toContain('unknown parent tradition protestant');
   });

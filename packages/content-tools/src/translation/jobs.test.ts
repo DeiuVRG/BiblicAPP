@@ -348,6 +348,43 @@ describe('buildJobs', () => {
     );
   });
 
+  it('writes the references of an English source without a note, so that the jobs of Vos keep their bytes', () => {
+    const { jobs } = build(longSource());
+    const references = jobs.flatMap((j) => j.paragraphs).flatMap((p) => p.references);
+    expect(references.length).toBeGreaterThan(2);
+    expect(references.every((r) => !('note' in r))).toBe(true);
+    expect(JSON.stringify(references)).not.toContain('note');
+  });
+
+  it('carries the source language of the edition and the materials of the target language', () => {
+    const latin = makeSource();
+    latin.edition = { ...latin.edition, id: 'edition-la', language: 'la' };
+    latin.paragraphs = latin.paragraphs.map((p) => ({
+      ...p,
+      text: 'Lectis opusculis, quae ad te nuper elaboravi.',
+    }));
+    const [job] = build(latin, { targetLanguage: 'en' }).jobs;
+    expect(job).toMatchObject({
+      sourceLanguage: 'la',
+      targetLanguage: 'en',
+      sourceEditionId: 'edition-la',
+      jobId: `${SLUG}-en-01-00`,
+      materials: {
+        rules: 'content/translation/rules-en.md',
+        glossary: 'content/translation/glossary-en.csv',
+        calques: 'content/translation/calques-en.json',
+      },
+    });
+    expect(TranslationJobSchema.safeParse(job).success).toBe(true);
+  });
+
+  it('refuses a target language that has no materials', () => {
+    expect(() => build(makeSource(), { targetLanguage: 'fr' })).toThrow(UsageError);
+    expect(() => build(makeSource(), { targetLanguage: 'fr' })).toThrow(
+      /"fr" is not a supported target language/,
+    );
+  });
+
   it('skips sections without paragraphs and reports them', () => {
     const source = makeSource();
     source.sections.push({ id: 'sec-empty', ordinal: 2, kind: 'section', heading: 'Empty' });

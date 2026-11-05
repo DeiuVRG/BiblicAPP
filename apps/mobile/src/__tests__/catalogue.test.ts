@@ -30,7 +30,11 @@ describe('the bundled catalogue (Vos 1903)', () => {
   it('lists exactly the packs that are bundled, with the sha256 and size of their manifests', async () => {
     const result = (await verifyCatalogue(input())) as Extract<VerifyCatalogueResult, { ok: true }>;
     for (const entry of result.catalogue.packs) {
-      const manifest = bundledPack(entry.packId).manifest as { sha256: string; size: number; editionId: string };
+      const manifest = bundledPack(entry.packId).manifest as {
+        sha256: string;
+        size: number;
+        editionId: string;
+      };
       expect(entry).toMatchObject({
         editionId: manifest.editionId,
         sha256: manifest.sha256,
@@ -46,7 +50,11 @@ describe('the bundled catalogue (Vos 1903)', () => {
   it('holds the editorial record of the one installed work, in both languages and without a licence field', async () => {
     const result = (await verifyCatalogue(input())) as Extract<VerifyCatalogueResult, { ok: true }>;
     const [work] = result.catalogue.works;
-    expect(work).toMatchObject({ slug: 'vos-1903-kingdom', authorSlug: 'geerhardus-vos', kind: 'treatise' });
+    expect(work).toMatchObject({
+      slug: 'vos-1903-kingdom',
+      authorSlug: 'geerhardus-vos',
+      kind: 'treatise',
+    });
     expect(work!.blurbRo).toMatch(/Împărăția/);
     expect(work!.blurbEn).toMatch(/kingdom/);
     expect(JSON.stringify(result.catalogue)).not.toMatch(/licen/i);
@@ -61,26 +69,41 @@ describe('verifyCatalogue refuses what it cannot trust', () => {
     const copy = tampered();
     const catalogue = copy.catalogue as Catalogue;
     catalogue.works[0]!.blurbEn = catalogue.works[0]!.blurbEn.replace('Vos asks', 'Vos asxs');
-    expect(await verifyCatalogue(input({ catalogue }))).toMatchObject({ ok: false, reason: 'sha256-mismatch' });
+    expect(await verifyCatalogue(input({ catalogue }))).toMatchObject({
+      ok: false,
+      reason: 'sha256-mismatch',
+    });
   });
 
   it('a longer or shorter text: the size gives it away', async () => {
     const copy = tampered();
     const catalogue = copy.catalogue as Catalogue;
     catalogue.works[0]!.blurbEn += ' (edited)';
-    expect(await verifyCatalogue(input({ catalogue }))).toMatchObject({ ok: false, reason: 'size-mismatch' });
+    expect(await verifyCatalogue(input({ catalogue }))).toMatchObject({
+      ok: false,
+      reason: 'size-mismatch',
+    });
   });
 
   it('a changed manifest (the signature covers it)', async () => {
     const manifest = { ...(bundledCatalogue.manifest as object), revision: 99 };
-    expect(await verifyCatalogue(input({ manifest }))).toMatchObject({ ok: false, reason: 'bad-signature' });
+    expect(await verifyCatalogue(input({ manifest }))).toMatchObject({
+      ok: false,
+      reason: 'bad-signature',
+    });
   });
 
   it('a signature flipped in one character, an unknown key and another key', async () => {
     const manifest = clone(bundledCatalogue.manifest) as { signature: string };
     manifest.signature = `${manifest.signature[0] === 'A' ? 'B' : 'A'}${manifest.signature.slice(1)}`;
-    expect(await verifyCatalogue(input({ manifest }))).toMatchObject({ ok: false, reason: 'bad-signature' });
-    expect(await verifyCatalogue(input({ trustedKeys: [] }))).toMatchObject({ ok: false, reason: 'unknown-key' });
+    expect(await verifyCatalogue(input({ manifest }))).toMatchObject({
+      ok: false,
+      reason: 'bad-signature',
+    });
+    expect(await verifyCatalogue(input({ trustedKeys: [] }))).toMatchObject({
+      ok: false,
+      reason: 'unknown-key',
+    });
     const other = createTestSigner('dev-2026-11');
     expect(await verifyCatalogue(input({ trustedKeys: [other.key] }))).toMatchObject({
       ok: false,
@@ -92,9 +115,15 @@ describe('verifyCatalogue refuses what it cannot trust', () => {
     const copy = tampered();
     const catalogue = copy.catalogue as Catalogue;
     catalogue.works[0]!.shelves = ['nowhere'];
-    expect(await verifyCatalogue(input({ catalogue }))).toMatchObject({ ok: false, reason: 'catalogue-invalid' });
+    expect(await verifyCatalogue(input({ catalogue }))).toMatchObject({
+      ok: false,
+      reason: 'catalogue-invalid',
+    });
     const manifest = { ...(bundledCatalogue.manifest as object), extra: 1 };
-    expect(await verifyCatalogue(input({ manifest }))).toMatchObject({ ok: false, reason: 'manifest-invalid' });
+    expect(await verifyCatalogue(input({ manifest }))).toMatchObject({
+      ok: false,
+      reason: 'manifest-invalid',
+    });
   });
 
   it('an app that is too old, or whose version is unknown (fail closed)', async () => {
@@ -103,7 +132,9 @@ describe('verifyCatalogue refuses what it cannot trust', () => {
       minAppVersion: '9.0.0',
     });
     const keys = [...trustedKeys, signer.key];
-    expect(await verifyCatalogue({ ...demanding, trustedKeys: keys, appVersion: '0.1.0' })).toMatchObject({
+    expect(
+      await verifyCatalogue({ ...demanding, trustedKeys: keys, appVersion: '0.1.0' }),
+    ).toMatchObject({
       ok: false,
       reason: 'app-too-old',
     });
@@ -191,7 +222,10 @@ describe('packs and the signed catalogue (check C1)', () => {
     );
     const signer = createTestSigner('other');
     const state = await loadBundledCatalogue({
-      bundled: signCatalogue({ ...(catalogue as { catalogue: Catalogue }).catalogue, packs: [] }, signer),
+      bundled: signCatalogue(
+        { ...(catalogue as { catalogue: Catalogue }).catalogue, packs: [] },
+        signer,
+      ),
       trustedKeys: [...trustedKeys, signer.key],
     });
     expect(unlisted.catalogue).toBeTruthy();
@@ -224,7 +258,10 @@ describe('packs and the signed catalogue (check C1)', () => {
       ),
     };
     const keys = [...trustedKeys, signer.key];
-    const catalogue = await loadBundledCatalogue({ bundled: signCatalogue(stale, signer), trustedKeys: keys });
+    const catalogue = await loadBundledCatalogue({
+      bundled: signCatalogue(stale, signer),
+      trustedKeys: keys,
+    });
     expect(catalogue.status).toBe('verified');
     const { repository, rejected } = await loadBundledRepository({ catalogue });
     expect(rejected).toEqual([

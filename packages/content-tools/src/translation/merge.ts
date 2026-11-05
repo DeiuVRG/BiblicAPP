@@ -4,6 +4,7 @@ import { stableId } from '@biblioteca/shared/ids';
 
 import { defined } from '../lib/invariant';
 import { formatZodError } from './io';
+import { headingFieldFor } from './languages';
 import { collectRows, countBySeverity, renderReview } from './review';
 import type { LoadedFile, ReviewRow, ReviewSeverity } from './review';
 import type {
@@ -171,11 +172,24 @@ function reuseMap<T extends { id: string; sourceId?: string | undefined }>(
 }
 
 /**
+ * The work of the translated edition: the work of the source, with the title in the language of
+ * the translation when the metadata of the translation gives one.
+ */
+function workOf(source: Pack, meta: TranslationEditionMeta): Pack['work'] {
+  const title = meta.workTitle;
+  if (title === undefined) return source.work;
+  return meta.edition.language === 'ro'
+    ? { ...source.work, titleRo: title }
+    : { ...source.work, titleEn: title };
+}
+
+/**
  * Builds the canonical translated edition and the review sheet from the final outputs
  * (docs/traducere-pipeline.md, section 3.3). Pure apart from `stableId()` for new units.
  */
 export function mergeTranslation(input: MergeInput): MergeResult {
   const { source, meta, previous } = input;
+  const headingField = headingFieldFor(meta.edition.language);
   const problems: string[] = [];
   const warnings: string[] = [];
   const sections = [...source.sections].sort((a, b) => a.ordinal - b.ordinal);
@@ -232,19 +246,19 @@ export function mergeTranslation(input: MergeInput): MergeResult {
   const mergedSections: Section[] = emitted.map((section) => {
     const id = defined(newSectionId.get(section.id), 'section id');
     const firstParagraph = (bySection.get(section.id) ?? [])[0];
-    const headingRo = firstParagraph
-      ? renderings.get(firstParagraph.id)?.output.headingRo?.normalize('NFC').trim()
+    const translatedHeading = firstParagraph
+      ? renderings.get(firstParagraph.id)?.output[headingField]?.normalize('NFC').trim()
       : undefined;
-    if (!headingRo) {
+    if (!translatedHeading) {
       warnings.push(
-        `section ${section.ordinal + 1} "${section.heading}": no headingRo in the part-0 output, using the source heading`,
+        `section ${section.ordinal + 1} "${section.heading}": no ${headingField} in the part-0 output, using the source heading`,
       );
     }
     const merged: Section = {
       id,
       ordinal: section.ordinal,
       kind: section.kind,
-      heading: headingRo || section.heading,
+      heading: translatedHeading || section.heading,
     };
     if (section.parentId !== undefined) {
       merged.parentId = defined(newSectionId.get(section.parentId), 'parent section id');
@@ -278,7 +292,7 @@ export function mergeTranslation(input: MergeInput): MergeResult {
           .join(' ')
       : meta.edition.provenance.notes;
   const parsed = PackSchema.safeParse({
-    work: source.work,
+    work: workOf(source, meta),
     edition: {
       id: editionId,
       language: meta.edition.language,
@@ -315,7 +329,10 @@ export function mergeTranslation(input: MergeInput): MergeResult {
     );
   }
   const reviewInput = {
-    title: source.work.titleRo,
+    title:
+      meta.edition.language === 'ro'
+        ? source.work.titleRo
+        : (source.work.titleEn ?? source.work.titleOrig),
     titleOrig: source.work.titleOrig,
     slug: source.work.slug,
     sourceLanguage: source.edition.language,

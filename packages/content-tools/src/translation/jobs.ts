@@ -4,7 +4,8 @@ import path from 'node:path';
 import type { Pack, Paragraph, Section } from '@biblioteca/shared';
 
 import { UsageError } from '../lib/usage-error';
-import { findUnparsedReferenceFragments, parseSourceReferences } from './references';
+import { targetSpec } from './languages';
+import { findUnparsedFragments, parseReferences } from './notation';
 import type { JobIndex, TranslationJob } from './schemas';
 import { countWords, escapeRegExp } from './text-utils';
 
@@ -197,9 +198,15 @@ function materialsFor(options: BuildJobsOptions): TranslationJob['materials'] {
   };
 }
 
-/** Splits a source edition into translation jobs (docs/traducere-pipeline.md, section 3.1). */
+/**
+ * Splits a source edition into translation jobs (docs/traducere-pipeline.md, section 3.1). The
+ * references of every paragraph are read with the grammar of the language of the source edition
+ * and written in the notation of the target language.
+ */
 export function buildJobs(options: BuildJobsOptions): BuiltJobs {
   const { edition, targetLanguage, chunk } = options;
+  targetSpec(targetLanguage); // a language without materials and notation is a usage error
+  const languages = { source: edition.edition.language, target: targetLanguage };
   const slug = edition.work.slug;
   const sections = [...edition.sections].sort((a, b) => a.ordinal - b.ordinal);
   const bySection = new Map<string, Paragraph[]>();
@@ -237,9 +244,9 @@ export function buildJobs(options: BuildJobsOptions): BuiltJobs {
     parts.forEach((part, partIndex) => {
       const jobId = jobIdFor(slug, targetLanguage, section.ordinal, partIndex);
       const jobParagraphs = part.map((paragraph) => {
-        const runs = parseSourceReferences(paragraph.text);
+        const runs = parseReferences(paragraph.text, languages);
         referenceRuns += runs.length;
-        const fragments = findUnparsedReferenceFragments(paragraph.text, runs);
+        const fragments = findUnparsedFragments(paragraph.text, languages.source, runs);
         if (fragments.length > 0) unparsed.push({ jobId, sourceId: paragraph.id, fragments });
         return {
           id: paragraph.id,
@@ -250,6 +257,7 @@ export function buildJobs(options: BuildJobsOptions): BuiltJobs {
             source: run.source,
             target: run.target,
             canonical: run.canonical,
+            ...(run.notes ? { note: run.notes.join(' ') } : {}),
           })),
         };
       });

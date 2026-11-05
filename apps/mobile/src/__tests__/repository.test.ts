@@ -507,4 +507,65 @@ describe('two editions of one work', () => {
     // "de" is in nearly every paragraph of either edition.
     expect(await repository.search('de')).toHaveLength(50);
   });
+
+  describe('searchEdition (one edition at a time)', () => {
+    it('finds the hits of the edition asked for and of no other, in reading order', async () => {
+      const ro = translation({ sections: 3, paragraphsPerSection: 40 });
+      const { repository } = await load([bundled, ro.signed]);
+      const hits = await repository.searchEdition(ro.pack.edition.id, 'Împărăția lui Dumnezeu');
+      expect(hits.length).toBe(ro.pack.paragraphs.length > 50 ? 50 : ro.pack.paragraphs.length);
+      expect(hits.every((hit) => hit.editionId === ro.pack.edition.id)).toBe(true);
+      expect(hits.every((hit) => hit.language === 'ro' && hit.workId === english.work.id)).toBe(
+        true,
+      );
+      // Section by section, paragraph by paragraph.
+      const order = new Map(ro.pack.sections.map((section) => [section.id, section.ordinal]));
+      const places = hits.map((hit) => [order.get(hit.sectionId)!, hit.paragraphId]);
+      expect([...places].sort((a, b) => (a[0] as number) - (b[0] as number))).toEqual(places);
+      expect(hits[0]!.sectionHeading).toBe(ro.pack.sections[0]!.heading);
+      // The other edition has none of those words.
+      expect(
+        await repository.searchEdition(english.edition.id, 'Împărăția lui Dumnezeu'),
+      ).toEqual([]);
+    });
+
+    it('gives the same hits as the global search for the same edition, ignoring case and diacritics', async () => {
+      const ro = translation();
+      const { repository } = await load([bundled, ro.signed]);
+      const global = await repository.search('IMPARATIA LUI DUMNEZEU');
+      const own = await repository.searchEdition(ro.pack.edition.id, 'IMPARATIA LUI DUMNEZEU');
+      expect(own).toEqual(global.filter((hit) => hit.editionId === ro.pack.edition.id));
+      expect(own.length).toBeGreaterThan(0);
+      // Asked again it answers the same (the folded text is kept, not folded anew).
+      expect(await repository.searchEdition(ro.pack.edition.id, 'IMPARATIA LUI DUMNEZEU')).toEqual(
+        own,
+      );
+    });
+
+    it('caps its own hits at the limit given, 50 by default, so that one edition does not fill the cap of the others', async () => {
+      const ro = translation({ sections: 3, paragraphsPerSection: 40 });
+      const { repository } = await load([bundled, ro.signed]);
+      // "de" is in nearly every paragraph of the English edition, which comes first.
+      expect(await repository.searchEdition(english.edition.id, 'de')).toHaveLength(50);
+      expect(await repository.searchEdition(english.edition.id, 'de', { limit: 7 })).toHaveLength(
+        7,
+      );
+      expect(await repository.searchEdition(english.edition.id, 'de', { limit: 0 })).toEqual([]);
+      // The global search walks the editions in order: the first one takes the 50 ...
+      const global = await repository.search('de');
+      expect(new Set(global.map((hit) => hit.editionId))).toEqual(new Set([english.edition.id]));
+      // ... and the second one, searched on its own, has its hits.
+      expect(
+        (await repository.searchEdition(ro.pack.edition.id, 'sintetic', { limit: 50 })).length,
+      ).toBeGreaterThan(0);
+    });
+
+    it('has nothing for a query of less than two characters, an unknown edition or a refused one', async () => {
+      const ro = translation();
+      const { repository } = await load([bundled, ro.signed]);
+      expect(await repository.searchEdition(ro.pack.edition.id, 'x')).toEqual([]);
+      expect(await repository.searchEdition(ro.pack.edition.id, '  ')).toEqual([]);
+      expect(await repository.searchEdition('no-such-edition', 'Dumnezeu')).toEqual([]);
+    });
+  });
 });

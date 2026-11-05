@@ -1,0 +1,21 @@
+[
+  { "id": "in-the-same-manner-as", "pattern": "\\bin the same manner as\\b", "level": "WARN", "preferred": "in the same way as / just as", "note": "Latin eodem modo quo / sicut" },
+  { "id": "according-to-that-which", "pattern": "\\baccording to that which\\b", "level": "WARN", "preferred": "according to what / as", "note": "Latin secundum id quod" },
+  { "id": "that-which", "pattern": "\\bthat which\\b.*\\bthat which\\b.*\\bthat which\\b", "level": "WARN", "preferred": "what / the thing that; \"that which\" at most twice in a paragraph", "note": "Latin id quod, ea quae" },
+  { "id": "relative-connection", "pattern": "(?:^|[.!?]\\s+)(?:Which|Whom|Whose|Wherefore|Whereof)\\b", "level": "WARN", "preferred": "a demonstrative or a conjunction: This / For this reason / And so", "note": "Latin relative connection (quod, qua re, quibus)" },
+  { "id": "passive-participles", "pattern": "\\bhaving been \\w+\\b[^.;:]*\\bhaving been \\w+\\b", "level": "WARN", "preferred": "turn one of the participial phrases into a clause (after he had..., since it was...)", "note": "over-literal Latin perfect passive participles" },
+  { "id": "being-participles", "pattern": "\\bbeing \\w+(?:ed|en)\\b[^.;:]*\\bbeing \\w+(?:ed|en)\\b[^.;:]*\\bbeing \\w+(?:ed|en)\\b", "level": "WARN", "preferred": "clauses: because, when, although", "note": "ablative absolutes rendered word for word" },
+  { "id": "which-being-so", "pattern": "\\bwhich being so\\b", "level": "WARN", "preferred": "since this is so / this being so", "note": "Latin quae cum ita sint" },
+  { "id": "the-same-repeated", "pattern": "\\bthe same\\b.*\\bthe same\\b.*\\bthe same\\b", "level": "WARN", "preferred": "a pronoun or the noun again; \"the same\" at most twice in a paragraph", "note": "Latin idem, ipse" },
+  { "id": "for-indeed", "pattern": "\\bfor indeed\\b", "level": "WARN", "preferred": "for / indeed", "note": "Latin nam enim, etenim" },
+  { "id": "but-moreover", "pattern": "\\bbut moreover\\b", "level": "WARN", "preferred": "but / and", "note": "Latin autem vero" },
+  { "id": "is-not-able", "pattern": "\\b(?:is|are|was|were) not able to\\b", "level": "WARN", "preferred": "cannot / could not", "note": "Latin non potest" },
+  { "id": "proper-meaning", "pattern": "\\bproper (?:meaning|nature|sense|function|work|name)\\b", "level": "WARN", "preferred": "own / specific / literal (Latin proprius)", "note": "false friend: Latin proprius is \"own\"" },
+  { "id": "science", "pattern": "\\bscience\\b", "level": "WARN", "preferred": "knowledge (Latin scientia)", "note": "false friend" },
+  { "id": "pretend", "pattern": "\\bpretend(?:s|ed|ing)?\\b", "level": "WARN", "preferred": "claim / profess / put forward (Latin praetendere)", "note": "false friend" },
+  { "id": "dilection", "pattern": "\\bdilection\\b", "level": "WARN", "preferred": "love (Latin dilectio)", "note": "Latinism" },
+  { "id": "delectation", "pattern": "\\bdelectation\\b", "level": "WARN", "preferred": "delight / pleasure (Latin delectatio)", "note": "Latinism" },
+  { "id": "per-the", "pattern": "\\bper (?:the|his|her|its|our|their)\\b", "level": "WARN", "preferred": "through / by means of (Latin per + accusative)", "note": "Latin preposition left in English" },
+  { "id": "it-is-manifest", "pattern": "\\bit is manifest that\\b", "level": "WARN", "preferred": "it is clear that / plainly", "note": "Latin manifestum est quod" },
+  { "id": "thus-it-is-that", "pattern": "\\bit is thus that\\b|\\bit is for this reason that\\b", "level": "WARN", "preferred": "that is why / so", "note": "Latin ideo est quod" }
+]

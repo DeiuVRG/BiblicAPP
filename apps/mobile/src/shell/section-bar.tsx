@@ -1,6 +1,6 @@
-import { Link, usePathname } from 'expo-router';
+import { Link, useIsFocused, usePathname } from 'expo-router';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { ElementRef, ReactNode } from 'react';
+import type { ElementRef, ReactNode, Ref } from 'react';
 import { Animated, Easing, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import type {
   KeyDownEvent,
@@ -42,6 +42,8 @@ const ENTRY_HEIGHT = 42;
 /** The phone panel: one row per entry. */
 const PANEL_ROW = 48;
 const DRAWER_GAP = 18;
+/** The thumb of the scroll cue is never shorter than this, so that it can be seen and grasped. */
+const CUE_THUMB_MIN = 32;
 
 function useBarMetrics() {
   const { width } = useLayout();
@@ -112,9 +114,27 @@ type LinkPressableProps = {
   onKey?(key: string): boolean;
   onNavigate?(): void;
   dataPath: string;
-  /** What Link's slot merged in (a plain object), with the props it adds (`href`, `onPress`, `role`). */
+  /**
+   * What Link's slot merged in (a plain object), with the props it adds (`href`, `onPress`, `role`).
+   */
   style?: ViewStyle;
+  /**
+   * The ref the slot hands its child: React 19 passes a ref to a function component as a prop, and
+   * the slot always sets one (`null` when the child has none), so it must not be spread over the
+   * pressable, where it would replace the item's own.
+   */
+  ref?: Ref<FocusHandle>;
 } & Record<string, unknown>;
+
+/** One ref callback for several refs (the item's own and the one the slot passes down). */
+function composeRefs(...refs: (Ref<FocusHandle> | undefined)[]) {
+  return (node: FocusHandle | null) => {
+    for (const ref of refs) {
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as { current: FocusHandle | null }).current = node;
+    }
+  };
+}
 
 // Link's `asChild` slot adds props (href, onPress, role) to its child and merges `style` as plain
 // objects, so the hover and pressed states live inside this wrapper (as in `LinkRow`).
@@ -130,6 +150,7 @@ function LinkPressable({
   onNavigate,
   dataPath: _dataPath,
   style,
+  ref: slotRef,
   ...rest
 }: LinkPressableProps) {
   // The handler that follows the link comes from `Link`; this one runs it, then the side effect.
@@ -139,9 +160,10 @@ function LinkPressable({
   const { hovered, hoverProps } = useHover();
   const { focusProps, focusStyle } = useFocusRing();
   const color = hovered ? colors.accentStrong : current ? colors.text : colors.textMuted;
+  const ref = useMemo(() => composeRefs(itemRef, slotRef), [itemRef, slotRef]);
   return (
     <Pressable
-      ref={itemRef}
+      ref={ref}
       testID={testID}
       accessibilityRole="link"
       accessibilityLabel={label}
@@ -382,6 +404,32 @@ function EntryLink({
 }
 
 /**
+ * The hairline under a wide bar that scrolls sideways (docs/ui-spec-v2.md, 4.3): a drawer that is
+ * wider than the window pushes the last items out of it, and the thumb shows how much of the bar
+ * is in view and where. On a phone the edge fade says the same.
+ */
+function ScrollCue({ width, content, offset }: { width: number; content: number; offset: number }) {
+  const { colors } = useTheme();
+  const thumb = Math.min(width, Math.max(CUE_THUMB_MIN, Math.round((width * width) / content)));
+  const travel = Math.max(1, content - width);
+  const left = Math.round((Math.min(Math.max(offset, 0), travel) / travel) * (width - thumb));
+  return (
+    <View
+      testID="section-bar-cue"
+      pointerEvents="none"
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+      style={[styles.cue, { backgroundColor: colors.border }]}
+    >
+      <View
+        testID="section-bar-cue-thumb"
+        style={[styles.cueThumb, { width: thumb, left, backgroundColor: colors.textMuted }]}
+      />
+    </View>
+  );
+}
+
+/**
  * The section bar. Both bars of a screen are the first two children of its scroll container (the
  * `PageScroll` scaffold) and this one is the sticky header; it is the `navigation` landmark named
  * "Secțiuni". Which items it shows comes from the feature flags (`liveSections`).
@@ -393,8 +441,15 @@ export function SectionBar() {
   const pathname = usePathname();
   const { openDrawer, setOpenDrawer } = useShell();
   const { phone, height } = useBarMetrics();
+  // The stack keeps the screens a reader came from mounted, each with a bar of its own, and the
+  // open drawer is shared by all of them: only the bar of the screen in focus shows it and acts on
+  // it (a press, Esc). A bar that is not in focus would otherwise take a press inside the drawer
+  // of the visible bar for a press outside its own, and close the drawer under the finger.
+  const focused = useIsFocused();
   const sections = useMemo(() => liveSections(features), [features]);
-  const openSection = sections.find((section) => section.key === openDrawer && section.entries);
+  const openSection = focused
+    ? sections.find((section) => section.key === openDrawer && section.entries)
+    : undefined;
   const openKey = openSection?.key ?? null;
 
   const rootRef = useRef<ElementRef<typeof View>>(null);
@@ -573,6 +628,9 @@ export function SectionBar() {
         {phone && overflowing && moreAfter ? (
           <EdgeFade side="right" width={24} testID="section-bar-fade" />
         ) : null}
+        {!phone && overflowing ? (
+          <ScrollCue width={box.width} content={box.content} offset={box.offset} />
+        ) : null}
       </View>
       {phone && openSection ? (
         <View
@@ -645,4 +703,7 @@ const styles = StyleSheet.create({
     zIndex: 20,
   },
   rule: { height: StyleSheet.hairlineWidth },
+  // The cue lies on the lower edge of the bar, above its border.
+  cue: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 2 },
+  cueThumb: { position: 'absolute', top: 0, bottom: 0 },
 });

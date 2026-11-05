@@ -24,6 +24,7 @@ import { ThemeControl } from '@/components/typography-controls';
 import { useFeatures } from '@/config/features';
 import { useT } from '@/i18n';
 import { settingsHref } from '@/navigation-hrefs';
+import { PHONE_MAX } from '@/theme/layout';
 import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 import { easing, elevationStyle } from '@/theme/tokens';
@@ -105,6 +106,14 @@ export function MenuDrawer() {
   const visible = menuOpen;
   useWebModalBehaviour(visible);
   const close = () => setMenuOpen(false);
+
+  // Past 640 points the brand bar has no menu button any more (a rotation, a wider window): the
+  // menu that was open goes with it, instead of staying over a layout that has no way to close it
+  // but its own × and Esc (the same rule as the section drawers, 4.3).
+  const phone = window.width <= PHONE_MAX;
+  useEffect(() => {
+    if (!phone && menuOpen) setMenuOpen(false);
+  }, [phone, menuOpen, setMenuOpen]);
 
   // The drawer stays mounted until it has slid away (`leaving`, set while rendering, as `Sheet` does).
   const [leaving, setLeaving] = useState(false);

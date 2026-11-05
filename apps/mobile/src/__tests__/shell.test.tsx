@@ -1,17 +1,20 @@
 import { act, cleanup, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
-import { AccessibilityInfo, Dimensions, Platform, StyleSheet, Text } from 'react-native';
+import { AccessibilityInfo, Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
 import type { ReactElement } from 'react';
 import { BETA_1_FEATURES, FeaturesProvider } from '@/config/features';
 import type { Features } from '@/config/features';
 import { en } from '@/i18n/en';
 import { ro as t } from '@/i18n/ro';
-import { BrandBar } from '@/shell/brand-bar';
 import { LanguageSwitch } from '@/shell/language-switch';
 import { PageScroll } from '@/shell/page-scroll';
-import { SectionBar } from '@/shell/section-bar';
 import { ShellRoot } from '@/shell/shell-root';
 import { ThemeButton, nextTheme } from '@/shell/theme-button';
-import { resetMockRouter, router, setMockPathname } from '@/test-support/expo-router-mock';
+import {
+  MockScreen,
+  resetMockRouter,
+  router,
+  setMockPathname,
+} from '@/test-support/expo-router-mock';
 import { installFakeDocument } from '@/test-support/fake-document';
 import { stubMatchMedia } from '@/test-support/match-media';
 import { createMemoryStore, createSettingsStore, renderWithProviders } from '@/test-support/render';
@@ -55,6 +58,14 @@ async function renderShell(
     options,
   );
 }
+
+/** Under Jest every element answers `focus` with this one shared mock: it counts the moves. */
+const focusMock = () =>
+  jest.requireActual<{ default: { focus: jest.Mock } }>(
+    '@react-native/jest-preset/jest/MockNativeMethods',
+  ).default.focus;
+
+const keyEvent = (key: string) => ({ nativeEvent: { key }, preventDefault: jest.fn() });
 
 /** Whether a drawer item says its drawer is open (`aria-expanded` reaches the host as the state). */
 const expanded = (item: { props: { accessibilityState?: { expanded?: boolean } } }) =>
@@ -146,6 +157,17 @@ describe('BrandBar', () => {
     expect(ask.props.accessibilityLabel).toBe(t.shell.askButtonLabel);
     await fireEvent.press(ask);
     expect(router.push).toHaveBeenCalledWith('/ask');
+  });
+
+  it('pulls the Settings link back by its padding when it is the last item, so its text meets the column edge', async () => {
+    await renderShell({ ask: false });
+    expect(screen.getByTestId('settings-link')).toHaveStyle({ marginRight: -14 });
+    await cleanup();
+    // With "Întreabă" after it, the filled button is what ends at the edge.
+    await renderShell({ ask: true });
+    expect(StyleSheet.flatten(screen.getByTestId('settings-link').props.style).marginRight).toBe(
+      undefined,
+    );
   });
 
   it('on a phone keeps the wordmark and the menu button, and moves the rest into the menu', async () => {
@@ -271,20 +293,24 @@ describe('LanguageSwitch', () => {
     expect(await key('en', 'a')).not.toHaveBeenCalled();
   });
 
-  it('is 32 high for a mouse and 44 where the target must be a finger', async () => {
+  it('is 32 high for a mouse and 44 points a segment where the target must be a finger', async () => {
     const replaced = jest.replaceProperty(Platform, 'OS', 'web');
     const restore = stubMatchMedia({ '(pointer: coarse)': false });
     try {
       await renderWithProviders(<LanguageSwitch />);
       expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 32 });
+      expect(choose('en')).toHaveStyle({ minWidth: 36 });
       await cleanup();
       await renderWithProviders(<LanguageSwitch tall />);
-      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 44 });
+      // The segments are the targets: 44 inside the 1 point border of the group.
+      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 46 });
+      expect(choose('en')).toHaveStyle({ minWidth: 44 });
       await cleanup();
       // A finger is the pointer on a phone and a tablet, wherever the window is wide.
       restore.change('(pointer: coarse)', true);
       await renderWithProviders(<LanguageSwitch />);
-      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 44 });
+      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 46 });
+      expect(choose('ro')).toHaveStyle({ minWidth: 44 });
     } finally {
       await cleanup();
       restore();
@@ -505,6 +531,174 @@ describe('SectionBar', () => {
     expect(moved).toHaveBeenCalled();
   });
 
+  describe('keys (check S3)', () => {
+    beforeEach(() => focusMock().mockClear());
+
+    it('moves the focus between the items of the bar with the arrows Right and Left, links too', async () => {
+      await renderShell();
+      // home -> search: both are links (Link's slot hands them a `ref` prop of its own).
+      await fireEvent(bar().getByTestId('section-item-home'), 'keyDown', keyEvent('ArrowRight'));
+      expect(focusMock()).toHaveBeenCalledTimes(1);
+      // read -> search, the other way round.
+      await fireEvent(bar().getByTestId('section-item-read'), 'keyDown', keyEvent('ArrowLeft'));
+      expect(focusMock()).toHaveBeenCalledTimes(2);
+      // search -> read: a drawer item is a plain button.
+      await fireEvent(bar().getByTestId('section-item-search'), 'keyDown', keyEvent('ArrowRight'));
+      expect(focusMock()).toHaveBeenCalledTimes(3);
+    });
+
+    it('stays where it is at the ends of the bar', async () => {
+      await renderShell();
+      const left = keyEvent('ArrowLeft');
+      await fireEvent(bar().getByTestId('section-item-home'), 'keyDown', left);
+      expect(left.preventDefault).toHaveBeenCalled();
+      expect(focusMock()).not.toHaveBeenCalled();
+    });
+
+    it('opens a drawer with Down and moves the focus to its first entry', async () => {
+      await renderShell();
+      await fireEvent(bar().getByTestId('section-item-read'), 'keyDown', keyEvent('ArrowDown'));
+      expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
+      // The entry is a link: it was never given the focus while its ref was lost.
+      await waitFor(() => expect(focusMock()).toHaveBeenCalledTimes(1));
+      // With the drawer open, Down moves the focus at once.
+      await fireEvent(bar().getByTestId('section-item-read'), 'keyDown', keyEvent('ArrowDown'));
+      expect(focusMock()).toHaveBeenCalledTimes(2);
+    });
+
+    it('gives the focus back to the toggle with Esc on web', async () => {
+      const { document, uninstall } = installFakeDocument();
+      const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+      try {
+        await renderShell();
+        await fireEvent.press(bar().getByTestId('section-item-read'));
+        focusMock().mockClear();
+        await act(async () => document.dispatch('keydown', { key: 'Escape' }));
+        expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
+        expect(focusMock()).toHaveBeenCalledTimes(1);
+      } finally {
+        await cleanup();
+        replaced.restore();
+        uninstall();
+      }
+    });
+  });
+
+  describe('on a stack of screens (the screens a reader came from stay mounted)', () => {
+    /** Two screens, each with the bars of the page: the one below is not in focus. */
+    async function renderStack() {
+      return renderWithProviders(
+        <FeaturesProvider value={BETA_1_FEATURES}>
+          <ShellRoot>
+            <View testID="below">
+              <MockScreen focused={false}>
+                <PageScroll>
+                  <Text>Below</Text>
+                </PageScroll>
+              </MockScreen>
+            </View>
+            <View testID="top">
+              <MockScreen focused>
+                <PageScroll>
+                  <Text>Top</Text>
+                </PageScroll>
+              </MockScreen>
+            </View>
+          </ShellRoot>
+        </FeaturesProvider>,
+      );
+    }
+    const top = () => within(screen.getByTestId('top'));
+    const below = () => within(screen.getByTestId('below'));
+
+    it('lets only the bar of the screen in focus show the open drawer', async () => {
+      await resizeTo(390);
+      await renderStack();
+      await fireEvent.press(top().getByTestId('section-item-read'));
+      expect(top().getByTestId('section-drawer-read')).toBeTruthy();
+      expect(expanded(top().getByTestId('section-item-read'))).toBe(true);
+      expect(below().queryByTestId('section-drawer-read')).toBeNull();
+      expect(expanded(below().getByTestId('section-item-read'))).toBe(false);
+      // Pressing an entry of the visible drawer follows it.
+      await fireEvent.press(top().getByTestId('drawer-entry-read-authors'));
+      expect(router.push).toHaveBeenCalledWith('/authors');
+    });
+
+    it('lets only the bar in focus listen for a press outside it and for Esc', async () => {
+      const { document, uninstall } = installFakeDocument();
+      const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+      try {
+        await renderStack();
+        expect(document.listening('pointerdown')).toBe(0);
+        await fireEvent.press(top().getByTestId('section-item-read'));
+        // A bar that is not in focus took a press inside the visible drawer for a press outside
+        // its own and closed the drawer under the finger: it must not listen at all.
+        expect(document.listening('pointerdown')).toBe(1);
+        expect(document.listening('keydown')).toBe(2); // the shortcut `/` of the brand bar, Esc
+        await fireEvent.press(top().getByTestId('section-item-read'));
+        expect(document.listening('pointerdown')).toBe(0);
+      } finally {
+        await cleanup();
+        replaced.restore();
+        uninstall();
+      }
+    });
+
+    it('closes the drawer with the route change, as it does for a single screen', async () => {
+      await renderStack();
+      await fireEvent.press(top().getByTestId('section-item-read'));
+      expect(expanded(top().getByTestId('section-item-read'))).toBe(true);
+      await act(async () => setMockPathname('/search'));
+      expect(expanded(top().getByTestId('section-item-read'))).toBe(false);
+    });
+  });
+
+  describe('scroll cue (a wide bar that scrolls sideways)', () => {
+    const scroller = () => bar().getByTestId('section-bar-scroll');
+    // The cue and the fade are decoration, hidden from assistive technology: the queries ask for them.
+    const hidden = { includeHiddenElements: true };
+    async function layOut(width: number, content: number) {
+      await fireEvent(scroller(), 'layout', {
+        nativeEvent: { layout: { x: 0, y: 0, width, height: 56 } },
+      });
+      await fireEvent(scroller(), 'contentSizeChange', content, 56);
+    }
+
+    it('shows no cue while the items fit', async () => {
+      await renderShell();
+      await layOut(900, 600);
+      expect(screen.queryByTestId('section-bar-cue', hidden)).toBeNull();
+    });
+
+    it('draws a hairline with a thumb when the bar overflows: its length is the share in view', async () => {
+      await renderShell();
+      await layOut(660, 1320);
+      const thumb = screen.getByTestId('section-bar-cue-thumb', hidden);
+      expect(screen.getByTestId('section-bar-cue', hidden)).toHaveStyle({ height: 2 });
+      expect(thumb).toHaveStyle({ width: 330, left: 0 });
+      // Scrolled to the end, the thumb is at the end of the hairline.
+      await fireEvent.scroll(scroller(), {
+        nativeEvent: {
+          contentOffset: { x: 660, y: 0 },
+          contentSize: { width: 1320, height: 56 },
+          layoutMeasurement: { width: 660, height: 56 },
+        },
+      });
+      expect(screen.getByTestId('section-bar-cue-thumb', hidden)).toHaveStyle({
+        width: 330,
+        left: 330,
+      });
+    });
+
+    it('leaves a phone to its edge fade', async () => {
+      await resizeTo(390);
+      await renderShell();
+      await layOut(390, 700);
+      expect(screen.queryByTestId('section-bar-cue', hidden)).toBeNull();
+      expect(screen.getByTestId('section-bar-fade', hidden)).toBeTruthy();
+    });
+  });
+
   it('is 48 high on a wide screen and 44 on a phone', async () => {
     await renderShell();
     expect(bar().getByTestId('section-item-search')).toHaveStyle({ minHeight: 48 });
@@ -625,6 +819,14 @@ describe('MenuDrawer', () => {
     await openMenu();
     await act(async () => setMockPathname('/settings'));
     await waitFor(() => expect(screen.queryByTestId('menu-drawer-panel')).toBeNull());
+  });
+
+  it('closes when the window grows past 640 points: the wide brand bar has no menu button', async () => {
+    await openMenu();
+    expect(screen.getByTestId('menu-drawer-panel')).toBeTruthy();
+    await resizeTo(1024);
+    await waitFor(() => expect(screen.queryByTestId('menu-drawer-panel')).toBeNull());
+    expect(screen.queryByTestId('menu-button')).toBeNull();
   });
 
   it('changes the interface language from the menu', async () => {

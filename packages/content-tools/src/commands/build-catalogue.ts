@@ -125,7 +125,9 @@ export async function runBuildCatalogue(args: string[]): Promise<number> {
     const bytes = canonicalJsonBytes(catalogue);
 
     const previousFile = fs.existsSync(manifestPath)
-      ? CatalogueManifestSchema.safeParse(JSON.parse(fs.readFileSync(manifestPath, 'utf8')) as unknown)
+      ? CatalogueManifestSchema.safeParse(
+          JSON.parse(fs.readFileSync(manifestPath, 'utf8')) as unknown,
+        )
       : undefined;
     const previous = previousFile?.success ? previousFile.data : undefined;
 
@@ -164,7 +166,8 @@ export async function runBuildCatalogue(args: string[]): Promise<number> {
     if (!signer) throw new UsageError('no signing key');
     // Unchanged content keeps its revision and creation time; changed content bumps the revision.
     const unchanged = previous !== undefined && previous.sha256 === sha256Hex(bytes);
-    const revision = previous === undefined ? 1 : unchanged ? previous.revision : previous.revision + 1;
+    const revision =
+      previous === undefined ? 1 : unchanged ? previous.revision : previous.revision + 1;
     const createdAt =
       values['created-at'] ??
       (previous !== undefined && unchanged ? previous.createdAt : new Date().toISOString());

@@ -1,7 +1,7 @@
 import { Link } from 'expo-router';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import type { PressableProps, ViewStyle } from 'react-native';
+import type { PressableProps, TextInputInstance, ViewStyle } from 'react-native';
 import type { ReactNode } from 'react';
 
 import { AppText, useTypeStyle } from '@/components/app-text';
@@ -28,6 +28,8 @@ import { useCommittedText } from '@/hooks/use-committed-text';
 import { useUrlState } from '@/hooks/use-url-state';
 import { useSettings } from '@/settings/settings-context';
 import { Main, PageScroll } from '@/shell/page-scroll';
+import { useSlashTarget } from '@/shell/use-slash-target';
+import { PHONE_MAX, useLayout } from '@/theme/layout';
 import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 import { radii } from '@/theme/tokens';
@@ -83,15 +85,26 @@ export function AuthorsScreen() {
 function AuthorsBody({ model, language }: { model: LibraryModel; language: ReadingLanguage }) {
   const t = useT();
   const { colors } = useTheme();
+  const phone = useLayout().width <= PHONE_MAX;
   const [q, setQ] = useUrlState(parseQ, serializeQ);
   const [text, setText] = useCommittedText(q, setQ);
+  // `/` focuses the field of this page instead of opening the search page.
+  const inputRef = useRef<TextInputInstance>(null);
+  useSlashTarget(inputRef);
 
   const all = useMemo(() => authorsOf(model), [model]);
   const shown = useMemo(() => filterAuthors(all, q), [all, q]);
   return (
     <Band tone="background" padding={{ top: 32, bottom: 72 }} testID="authors-body">
       <View style={styles.column}>
-        <View style={[styles.panel, { backgroundColor: colors.cream, borderColor: colors.border }]}>
+        <View
+          style={[
+            styles.panel,
+            // 16 on a phone: the search field keeps the width its placeholder needs at 320.
+            phone ? styles.panelPhone : null,
+            { backgroundColor: colors.cream, borderColor: colors.border },
+          ]}
+        >
           <SearchField
             testID="authors-search"
             value={text}
@@ -99,6 +112,7 @@ function AuthorsBody({ model, language }: { model: LibraryModel; language: Readi
             placeholder={t.authorsPage.placeholder}
             label={t.authorsPage.label}
             clearLabel={t.search.clear}
+            inputRef={inputRef}
           />
           <AppText variant="label" testID="authors-count" accessibilityLiveRegion="polite">
             {t.counts.authors(shown.length)}
@@ -220,6 +234,7 @@ const styles = StyleSheet.create({
   // The list is 880 wide and starts at the left edge of the page, like the hero.
   column: { width: '100%', maxWidth: 880 },
   panel: { marginBottom: 24, padding: 20, gap: 16, borderWidth: 1, borderRadius: radii.sm },
+  panelPhone: { padding: 16 },
   row: {
     minHeight: 44,
     flexDirection: 'row',

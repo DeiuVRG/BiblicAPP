@@ -1,8 +1,10 @@
 import { romanToInt } from '../ingest/headings';
 import {
   ENGLISH_BOOK_PATTERN,
+  ENGLISH_TARGET_BOOK_PATTERN,
   ROMANIAN_BOOK_PATTERN,
   lookupEnglishBook,
+  lookupEnglishTargetBook,
   lookupRomanianBook,
   sameRomanianAbbreviation,
 } from './books';
@@ -15,6 +17,13 @@ import type { BookInfo } from './books';
  *   numerals, `Matt. iv. 17; Mk. i. 15`), with canonical items and the Romanian rendering;
  * - `extractTargetReferences` reads the Romanian notation back into the same canonical items;
  * - `compareReferences` compares the two as multisets.
+ *
+ * Since P1-C2 this file is also the toolkit of the other grammars: the pieces they share (verse
+ * lists, joiners, runs, the state a following `vs.` inherits, the rendering with a vocabulary)
+ * are exported; `references-latin.ts` is the grammar of Latin sources, the English translation
+ * notation (`Matt. 4:17`) is built here by the same factory as the Romanian one, and
+ * `notation.ts` chooses the grammar and the notation for a pair of languages. Nothing in this
+ * file changes what an English source gives in Romanian.
  *
  * Extensions of the written grammar, all needed by the Vos text: a bare chapter at the start of
  * a run (`xviii. 36`, the book is only implied) is a bookless reference; `Book chapter` without
@@ -53,28 +62,40 @@ export interface BookSegment extends SegmentBase {
   lead: 'book';
   book: BookInfo;
   chapter: number | null;
+  /** Latin sources: the book is numbered as in the Vulgate (psalms, Kings, Esdras). */
+  vulgate?: boolean;
+  /** Latin sources: what the translator must know about the abbreviation. */
+  note?: string;
+  /** Latin sources: the book is not written here, it is the antecedent of `ibid.`. */
+  inherited?: true;
 }
 
 /**
  * `xviii. 36`: a chapter that inherits the book of the previous segment of the run. After the word
- * `Chap.` a chapter may stand without verses (`in Chap. xxi`); it has no canonical item.
+ * `Chap.` a chapter may stand without verses (`in Chap. xxi`); it has no canonical item. Latin
+ * `ibid. 6, 3` is a chapter that inherits the book even at the start of a run.
  */
 export interface ChapterSegment extends SegmentBase {
   lead: 'chapter';
   chapter: number;
+  ibid?: true;
 }
 
-/** `vs. 23`: verses of the book and chapter that came before. */
+/** `vs. 23`: verses of the book and chapter that came before (Latin `v. 23`, `ibid. 23`). */
 export interface VerseSegment extends SegmentBase {
   lead: 'verse';
   plural: boolean;
+  ibid?: true;
 }
 
 export type Segment = BookSegment | ChapterSegment | VerseSegment;
 
-interface Resolved {
+/** Where a run leaves the reader: the book and chapter that a following `vs.` inherits. */
+export interface Resolved {
   book: BookInfo | null;
   chapter: number | null;
+  vulgate?: boolean;
+  note?: string;
 }
 
 export interface ReferenceRun {
@@ -83,11 +104,13 @@ export interface ReferenceRun {
   end: number;
   /** The run exactly as written in the source text. */
   source: string;
-  /** The run in Romanian notation. */
+  /** The run in the notation of the target language (Romanian by default). */
   target: string;
-  /** Canonical items, e.g. `Matt 4:17`, `Obad 21`, `Matt 18:23ff`. */
+  /** Canonical items, e.g. `Matt 4:17`, `Obad 21`, `Matt 18:23ff`, `Ps 118:2 vulgate`. */
   canonical: string[];
   segments: readonly Segment[];
+  /** What the translator must know about the run (Latin sources only); absent when nothing. */
+  notes?: string[];
 }
 
 export interface ExtractedReference {
@@ -100,25 +123,25 @@ export interface ExtractedReference {
 // ---------------------------------------------------------------------------------------------
 // Low-level matching
 
-function sticky(source: string, flags = ''): RegExp {
+export function sticky(source: string, flags = ''): RegExp {
   return new RegExp(source, `${flags}y`);
 }
 
-function matchAt(re: RegExp, text: string, pos: number): RegExpExecArray | null {
+export function matchAt(re: RegExp, text: string, pos: number): RegExpExecArray | null {
   re.lastIndex = pos;
   return re.exec(text);
 }
 
-function isWordChar(char: string | undefined): boolean {
+export function isWordChar(char: string | undefined): boolean {
   return char !== undefined && /[\p{L}\p{N}]/u.test(char);
 }
 
-function validVerse(digits: string): boolean {
+export function validVerse(digits: string): boolean {
   const value = Number.parseInt(digits, 10);
   return value >= 1 && value <= MAX_VERSE;
 }
 
-function validChapter(value: number): boolean {
+export function validChapter(value: number): boolean {
   return value >= 1 && value <= MAX_CHAPTER;
 }
 
@@ -146,7 +169,7 @@ function toRoman(value: number): string {
 }
 
 /** Strict roman numeral, one case only, value 1..150 (no `IIII`, no `IC`). */
-function parseRoman(token: string): number | null {
+export function parseRoman(token: string): number | null {
   if (token !== token.toLowerCase() && token !== token.toUpperCase()) return null;
   const value = romanToInt(token);
   if (value === null || !validChapter(value)) return null;
@@ -168,20 +191,22 @@ const TARGET_FOLLOWING = sticky(
   'u',
 );
 
-interface VerseList {
+export interface VerseList {
   verses: VerseItem[];
   end: number;
 }
 
-/** What differs between the English and the Romanian notation inside a list of verses. */
-interface ListGrammar {
+/** What differs between the notations inside a list of verses. */
+export interface ListGrammar {
   /** The `ff.` / `ș.urm.` marker. */
   following: RegExp;
   /** True when the number at `pos` is the number of the next book (`1 Cor.`), not a verse. */
   startsBook: (text: string, pos: number) => boolean;
+  /** What stands between two verses of a list; a comma when absent. */
+  separator?: RegExp;
 }
 
-function matchRange(text: string, pos: number): { item: VerseItem; end: number } | null {
+export function matchRange(text: string, pos: number): { item: VerseItem; end: number } | null {
   const match = matchAt(RANGE, text, pos);
   const from = match?.[1];
   if (!match || from === undefined || !validVerse(from)) return null;
@@ -208,13 +233,13 @@ function mergeLostHyphen(text: string, end: number, verses: VerseItem[]): number
   return secondEnd;
 }
 
-function parseVerseList(text: string, pos: number, grammar: ListGrammar): VerseList | null {
+export function parseVerseList(text: string, pos: number, grammar: ListGrammar): VerseList | null {
   const first = matchRange(text, pos);
   if (!first) return null;
   const verses: VerseItem[] = [first.item];
   let end = first.end;
   for (;;) {
-    const comma = matchAt(COMMA, text, end);
+    const comma = matchAt(grammar.separator ?? COMMA, text, end);
     if (comma) {
       const at = end + comma[0].length;
       // `Rom. v. 12, 1 Cor. xv. 22`: the 1 belongs to the next book, the list ends before the comma.
@@ -241,12 +266,12 @@ function parseVerseList(text: string, pos: number, grammar: ListGrammar): VerseL
 // ---------------------------------------------------------------------------------------------
 // Joiners between the segments of a run
 
-interface Joiner {
+export interface Joiner {
   kind: JoinerKind;
   end: number;
 }
 
-const ALLOWED_LEADS: Record<JoinerKind, ReadonlySet<Segment['lead']>> = {
+export const ALLOWED_LEADS: Record<JoinerKind, ReadonlySet<Segment['lead']>> = {
   semicolon: new Set(['book', 'chapter', 'verse']),
   'comma-and': new Set(['chapter', 'verse']),
   and: new Set(['chapter', 'verse']),
@@ -273,7 +298,7 @@ const TARGET_JOINERS: readonly [RegExp, JoinerKind][] = [
   [sticky(String.raw`\s+[\u0219\u015F]i\s+`), 'and'],
 ];
 
-function matchJoiner(
+export function matchJoiner(
   table: readonly [RegExp, JoinerKind][],
   text: string,
   pos: number,
@@ -299,12 +324,12 @@ const MORE_CHAPTERS = new RegExp(
   String.raw`\.?\s*(?:[-${String.fromCharCode(0x2010)}-${String.fromCharCode(0x2015)}]|,|&|and\b)\s*[ivxlc]{1,8}(?![A-Za-z0-9])`,
   'y',
 );
-const ROMAN = sticky(String.raw`([ivxlcIVXLC]{1,8})(?![A-Za-z0-9])`);
-const CHAPTER_DOT = sticky(String.raw`\s*\.\s*`);
-const DIGIT = sticky(String.raw`\d`);
+export const ROMAN = sticky(String.raw`([ivxlcIVXLC]{1,8})(?![A-Za-z0-9])`);
+export const CHAPTER_DOT = sticky(String.raw`\s*\.\s*`);
+export const DIGIT = sticky(String.raw`\d`);
 const SPACES = sticky(String.raw`\s*`);
 
-function skipSpaces(text: string, pos: number): number {
+export function skipSpaces(text: string, pos: number): number {
   const match = matchAt(SPACES, text, pos);
   return pos + (match?.[0].length ?? 0);
 }
@@ -315,7 +340,7 @@ function skipSpaces(text: string, pos: number): number {
  * book parser decides, in `probe` mode (which looks at the first verse only, so it cannot
  * recurse), and that keeps the English and the Romanian reading of the same text in step.
  */
-function probeList(text: string, pos: number): VerseList | null {
+export function probeList(text: string, pos: number): VerseList | null {
   const first = matchRange(text, pos);
   return first ? { verses: [first.item], end: first.end } : null;
 }
@@ -430,121 +455,168 @@ function parseEnglishSegment(
 }
 
 // ---------------------------------------------------------------------------------------------
-// Romanian (target) segments
+// Target segments: the notation of a translation, Romanian (`Mat. 4:17`) or English (`Matt. 4:17`)
 
-const RO_BOOK = sticky(
-  String.raw`(?<![\p{L}\p{N}])(?:([123])\s?)?(${ROMANIAN_BOOK_PATTERN})(\.?)(?![\p{L}])`,
-  'u',
-);
-const RO_VERSE_MARKER = sticky(String.raw`(?<![\p{L}\p{N}])(vv?)\.\s*(?=\d)`, 'u');
-const RO_NUMBER = sticky(String.raw`\s*(\d{1,3})(?!\d)`);
-const RO_COLON = sticky(String.raw`\s*:\s*(?=\d)`);
-const RO_CHAPTER_COLON = sticky(String.raw`(\d{1,3})\s*:\s*(?=\d)`);
+const TARGET_VERSE_MARKER = sticky(String.raw`(?<![\p{L}\p{N}])(vv?)\.\s*(?=\d)`, 'u');
+const TARGET_NUMBER = sticky(String.raw`\s*(\d{1,3})(?!\d)`);
+const TARGET_COLON = sticky(String.raw`\s*:\s*(?=\d)`);
+const TARGET_CHAPTER_COLON = sticky(String.raw`(\d{1,3})\s*:\s*(?=\d)`);
 
-const RO_LISTS: ListGrammar = {
-  following: TARGET_FOLLOWING,
-  startsBook: (text, pos) =>
-    /[123]/.test(text.charAt(pos)) && parseRomanianBook(text, pos, true) !== null,
-};
-
-function parseRomanianBook(text: string, pos: number, probe = false): BookSegment | null {
-  const verseList = (at: number): VerseList | null =>
-    probe ? probeList(text, at) : parseVerseList(text, at, RO_LISTS);
-  const match = matchAt(RO_BOOK, text, pos);
-  if (!match) return null;
-  const book = lookupRomanianBook(match[1], match[2] ?? '');
-  if (!book) return null;
-  const hasPeriod = match[3] === '.';
-  // Probing for the next citation after a verse: only the abbreviation exactly as in the table
-  // counts, so that the English word `In` before `2 Pet.` is not the book `2 In.`.
-  if (probe && hasPeriod !== book.ro.endsWith('.')) return null;
-  const number = matchAt(RO_NUMBER, text, pos + match[0].length);
-  const digits = number?.[1];
-  if (!number || digits === undefined) return null;
-  const numberStart = pos + match[0].length;
-  const numberEnd = numberStart + number[0].length;
-  const colon = matchAt(RO_COLON, text, numberEnd);
-
-  if (book.singleChapter) {
-    // `Obad. 21`; `Obad. 1:21` is accepted and means the same.
-    if (colon && Number.parseInt(digits, 10) !== 1) return null;
-    const versesAt = colon ? numberEnd + colon[0].length : numberStart;
-    const list = verseList(skipSpaces(text, versesAt));
-    return list
-      ? { lead: 'book', book, chapter: null, verses: list.verses, start: pos, end: list.end }
-      : null;
-  }
-
-  const chapter = Number.parseInt(digits, 10);
-  if (!validChapter(chapter)) return null;
-  if (colon) {
-    const list = verseList(numberEnd + colon[0].length);
-    return list
-      ? { lead: 'book', book, chapter, verses: list.verses, start: pos, end: list.end }
-      : null;
-  }
-  // A chapter that is only named is accepted in exactly the notation of the table.
-  if (hasPeriod !== book.ro.endsWith('.')) return null;
-  return { lead: 'book', book, chapter, verses: [], start: pos, end: numberEnd };
+/** What differs between the Romanian and the English notation of a translation. */
+interface TargetNotation {
+  /** Regex source matching any book name that the notation reads (without number and period). */
+  bookPattern: string;
+  lookup: (number: string | undefined, name: string) => BookInfo | undefined;
+  /** The abbreviation as the notation writes it: `Mat.`, `Matt.`, `John`. */
+  written: (book: BookInfo) => string;
+  /** The `ș.urm.` / `ff.` marker. */
+  following: RegExp;
+  joiners: readonly [RegExp, JoinerKind][];
+  /**
+   * Probing for the next citation after a verse, only the abbreviation exactly as written counts,
+   * so that the English word `In` before `2 Pet.` is not the book `2 In.`. English names collide
+   * with no word of the English text that follows a verse, so English does without.
+   */
+  strictProbe: boolean;
+  /** A run may start with a bare chapter, `18:36`. English times and ratios (`10:30`) would match. */
+  bareChapterAtStart: boolean;
 }
 
-function parseRomanianVerse(text: string, pos: number): VerseSegment | null {
-  const marker = matchAt(RO_VERSE_MARKER, text, pos);
-  if (!marker) return null;
-  const list = parseVerseList(text, pos + marker[0].length, RO_LISTS);
-  if (!list) return null;
-  return {
-    lead: 'verse',
-    plural: marker[1] === 'vv',
-    verses: list.verses,
-    start: pos,
-    end: list.end,
-  };
-}
-
-function parseRomanianChapter(
-  text: string,
-  pos: number,
-  startsRun: boolean,
-): ChapterSegment | null {
-  // A run cannot start in the middle of `12:30:15`, `3.5:1` or a range.
-  if (startsRun && /[:.,/\-\u2013]/.test(text[pos - 1] ?? '')) return null;
-  const match = matchAt(RO_CHAPTER_COLON, text, pos);
-  const digits = match?.[1];
-  if (!match || digits === undefined) return null;
-  const chapter = Number.parseInt(digits, 10);
-  if (!validChapter(chapter)) return null;
-  const list = parseVerseList(text, pos + match[0].length, RO_LISTS);
-  if (!list) return null;
-  return { lead: 'chapter', chapter, verses: list.verses, start: pos, end: list.end };
-}
-
-function parseRomanianSegment(text: string, pos: number, startsRun: boolean): Segment | null {
-  return (
-    parseRomanianBook(text, pos) ??
-    parseRomanianVerse(text, pos) ??
-    parseRomanianChapter(text, pos, startsRun)
+function makeTargetGrammar(notation: TargetNotation): Grammar {
+  const book = sticky(
+    String.raw`(?<![\p{L}\p{N}])(?:([123])\s?)?(${notation.bookPattern})(\.?)(?![\p{L}])`,
+    'u',
   );
+  const lists: ListGrammar = {
+    following: notation.following,
+    startsBook: (text, pos) =>
+      /[123]/.test(text.charAt(pos)) && parseBook(text, pos, true) !== null,
+  };
+
+  function parseBook(text: string, pos: number, probe = false): BookSegment | null {
+    const verseList = (at: number): VerseList | null =>
+      probe ? probeList(text, at) : parseVerseList(text, at, lists);
+    const match = matchAt(book, text, pos);
+    if (!match) return null;
+    const found = notation.lookup(match[1], match[2] ?? '');
+    if (!found) return null;
+    const hasPeriod = match[3] === '.';
+    const written = notation.written(found);
+    if (notation.strictProbe && probe && hasPeriod !== written.endsWith('.')) return null;
+    const number = matchAt(TARGET_NUMBER, text, pos + match[0].length);
+    const digits = number?.[1];
+    if (!number || digits === undefined) return null;
+    const numberStart = pos + match[0].length;
+    const numberEnd = numberStart + number[0].length;
+    const colon = matchAt(TARGET_COLON, text, numberEnd);
+
+    if (found.singleChapter) {
+      // `Obad. 21`; `Obad. 1:21` is accepted and means the same.
+      if (colon && Number.parseInt(digits, 10) !== 1) return null;
+      const versesAt = colon ? numberEnd + colon[0].length : numberStart;
+      const list = verseList(skipSpaces(text, versesAt));
+      return list
+        ? {
+            lead: 'book',
+            book: found,
+            chapter: null,
+            verses: list.verses,
+            start: pos,
+            end: list.end,
+          }
+        : null;
+    }
+
+    const chapter = Number.parseInt(digits, 10);
+    if (!validChapter(chapter)) return null;
+    if (colon) {
+      const list = verseList(numberEnd + colon[0].length);
+      return list
+        ? { lead: 'book', book: found, chapter, verses: list.verses, start: pos, end: list.end }
+        : null;
+    }
+    // A chapter that is only named is accepted in exactly the notation of the table.
+    if (hasPeriod !== written.endsWith('.')) return null;
+    return { lead: 'book', book: found, chapter, verses: [], start: pos, end: numberEnd };
+  }
+
+  function parseVerse(text: string, pos: number): VerseSegment | null {
+    const marker = matchAt(TARGET_VERSE_MARKER, text, pos);
+    if (!marker) return null;
+    const list = parseVerseList(text, pos + marker[0].length, lists);
+    if (!list) return null;
+    return {
+      lead: 'verse',
+      plural: marker[1] === 'vv',
+      verses: list.verses,
+      start: pos,
+      end: list.end,
+    };
+  }
+
+  function parseChapter(text: string, pos: number, startsRun: boolean): ChapterSegment | null {
+    if (startsRun && !notation.bareChapterAtStart) return null;
+    // A run cannot start in the middle of `12:30:15`, `3.5:1` or a range.
+    if (startsRun && /[:.,/\-\u2013]/.test(text[pos - 1] ?? '')) return null;
+    const match = matchAt(TARGET_CHAPTER_COLON, text, pos);
+    const digits = match?.[1];
+    if (!match || digits === undefined) return null;
+    const chapter = Number.parseInt(digits, 10);
+    if (!validChapter(chapter)) return null;
+    const list = parseVerseList(text, pos + match[0].length, lists);
+    if (!list) return null;
+    return { lead: 'chapter', chapter, verses: list.verses, start: pos, end: list.end };
+  }
+
+  return {
+    segment: (text, pos, startsRun) =>
+      parseBook(text, pos) ?? parseVerse(text, pos) ?? parseChapter(text, pos, startsRun),
+    joiners: notation.joiners,
+  };
 }
 
 // ---------------------------------------------------------------------------------------------
 // Runs
 
-interface Grammar {
+export interface Grammar {
   /** `strict`: the segment starts a run or follows a comma, so a bare chapter must look the part. */
   segment: (text: string, pos: number, startsRun: boolean, strict: boolean) => Segment | null;
   joiners: readonly [RegExp, JoinerKind][];
+  /**
+   * Last word on the segments of a run once it is known where the previous run left the reader
+   * (Latin `ibid.` at the start of a run takes the book of the reference before it).
+   */
+  finish?: (segments: Segment[], previous: Resolved | null) => Segment[];
 }
 
-const ENGLISH: Grammar = { segment: parseEnglishSegment, joiners: SOURCE_JOINERS };
-const ROMANIAN: Grammar = { segment: parseRomanianSegment, joiners: TARGET_JOINERS };
+export const ENGLISH: Grammar = { segment: parseEnglishSegment, joiners: SOURCE_JOINERS };
+export const ROMANIAN: Grammar = makeTargetGrammar({
+  bookPattern: ROMANIAN_BOOK_PATTERN,
+  lookup: lookupRomanianBook,
+  written: (book) => book.ro,
+  following: TARGET_FOLLOWING,
+  joiners: TARGET_JOINERS,
+  strictProbe: true,
+  bareChapterAtStart: true,
+});
 
-interface ParsedRun {
+/** The notation of an English translation: `Matt. 4:17; 5:12`, `John 3:3, 5`, `Obad. 21`. */
+export const ENGLISH_TARGET: Grammar = makeTargetGrammar({
+  bookPattern: ENGLISH_TARGET_BOOK_PATTERN,
+  lookup: lookupEnglishTargetBook,
+  written: (book) => book.en,
+  following: SOURCE_FOLLOWING,
+  joiners: SOURCE_JOINERS,
+  strictProbe: false,
+  bareChapterAtStart: false,
+});
+
+export interface ParsedRun {
   segments: Segment[];
   end: number;
 }
 
-function parseRunAt(text: string, pos: number, grammar: Grammar): ParsedRun | null {
+export function parseRunAt(text: string, pos: number, grammar: Grammar): ParsedRun | null {
   if (isWordChar(text[pos - 1]) || !isWordChar(text[pos])) return null;
   const first = grammar.segment(text, pos, true, true);
   if (!first) return null;
@@ -563,6 +635,13 @@ function parseRunAt(text: string, pos: number, grammar: Grammar): ParsedRun | nu
   return { segments, end };
 }
 
+/** The state of a Vulgate-numbered book carries the marker and the note along with it. */
+function withNumbering(state: Resolved, from: { vulgate?: boolean; note?: string }): Resolved {
+  if (from.vulgate === true) state.vulgate = true;
+  if (from.note !== undefined) state.note = from.note;
+  return state;
+}
+
 function nextState(
   segment: Segment,
   current: Resolved | null,
@@ -570,12 +649,19 @@ function nextState(
 ): Resolved | null {
   switch (segment.lead) {
     case 'book':
-      return { book: segment.book, chapter: segment.chapter };
-    case 'chapter':
+      return withNumbering({ book: segment.book, chapter: segment.chapter }, segment);
+    case 'chapter': {
       // A chapter named after `Chap.` has neither verses nor a book, and the Romanian text has no
       // notation to carry it: a `vs.` after it still belongs to the reference before it.
       if (segment.verses.length === 0) return current;
-      return { book: startsRun ? null : (current?.book ?? null), chapter: segment.chapter };
+      // `ibid. 6, 3` keeps the book even at the start of a run.
+      const inherits = segment.ibid === true || !startsRun;
+      const state: Resolved = {
+        book: inherits ? (current?.book ?? null) : null,
+        chapter: segment.chapter,
+      };
+      return inherits && current ? withNumbering(state, current) : state;
+    }
     case 'verse':
       return current;
   }
@@ -585,12 +671,16 @@ function verseText(verse: VerseItem): string {
   return `${verse.from}${verse.to === undefined ? '' : `-${verse.to}`}${verse.following ? 'ff' : ''}`;
 }
 
+/** Vulgate numbering is part of the canonical item: `Ps 118:2 vulgate`. */
+export const VULGATE_MARKER = ' vulgate';
+
 function canonicalItem(state: Resolved | null, verse: string): string {
   if (state === null) return `vs ${verse}`;
   const { book, chapter } = state;
-  if (book?.singleChapter) return `${book.code} ${verse}`;
+  const marker = state.vulgate === true ? VULGATE_MARKER : '';
+  if (book?.singleChapter) return `${book.code} ${verse}${marker}`;
   if (chapter === null) return `vs ${verse}`;
-  return book ? `${book.code} ${chapter}:${verse}` : `${chapter}:${verse}`;
+  return book ? `${book.code} ${chapter}:${verse}${marker}` : `${chapter}:${verse}`;
 }
 
 function segmentItems(segment: Segment, state: Resolved | null): string[] {
@@ -599,25 +689,38 @@ function segmentItems(segment: Segment, state: Resolved | null): string[] {
   }
   // A named chapter: `Matt 13`. (A chapter named after `Chap.` has no book to name.)
   if (segment.lead !== 'book') return [];
-  return state?.book && state.chapter !== null ? [`${state.book.code} ${state.chapter}`] : [];
+  const marker = state?.vulgate === true ? VULGATE_MARKER : '';
+  return state?.book && state.chapter !== null
+    ? [`${state.book.code} ${state.chapter}${marker}`]
+    : [];
 }
 
-/** Canonical items of a run and the state a following `vs.` inherits. */
-function resolveRun(
+/** Canonical items of a run, the notes that go with it and the state a following `vs.` inherits. */
+export function resolveRun(
   segments: readonly Segment[],
   previous: Resolved | null,
-): { canonical: string[]; last: Resolved | null } {
+): { canonical: string[]; last: Resolved | null; notes: string[] } {
   let current = previous;
   const canonical: string[] = [];
+  const notes: string[] = [];
   segments.forEach((segment, index) => {
     current = nextState(segment, current, index === 0);
     canonical.push(...segmentItems(segment, current));
+    if (current?.note !== undefined && !notes.includes(current.note)) notes.push(current.note);
   });
-  return { canonical, last: current };
+  return { canonical, last: current, notes };
 }
 
 // ---------------------------------------------------------------------------------------------
 // Romanian rendering
+
+/** The words and abbreviations a notation writes a run with. */
+export interface Vocabulary {
+  book: (book: BookInfo) => string;
+  joiners: Record<JoinerKind, string>;
+  /** What follows a range that is followed by `ff.` in the source: `ș.urm.`, `ff.`. */
+  following: string;
+}
 
 const JOINER_RO: Record<JoinerKind, string> = {
   semicolon: '; ',
@@ -628,23 +731,43 @@ const JOINER_RO: Record<JoinerKind, string> = {
   and: ' și ',
 };
 
-function renderVerses(verses: readonly VerseItem[]): string {
+const JOINER_EN: Record<JoinerKind, string> = {
+  semicolon: '; ',
+  comma: ', ',
+  'comma-with': ', with ',
+  'comma-and': ', and ',
+  with: ' with ',
+  and: ' and ',
+};
+
+export const ROMANIAN_VOCABULARY: Vocabulary = {
+  book: (book) => book.ro,
+  joiners: JOINER_RO,
+  following: ' ș.urm.',
+};
+
+export const ENGLISH_VOCABULARY: Vocabulary = {
+  book: (book) => book.en,
+  joiners: JOINER_EN,
+  following: ' ff.',
+};
+
+function renderVerses(verses: readonly VerseItem[], vocabulary: Vocabulary): string {
   return verses
     .map((verse) => {
       const range = verse.to === undefined ? verse.from : `${verse.from}\u2013${verse.to}`;
-      return verse.following ? `${range} ș.urm.` : range;
+      return verse.following ? `${range}${vocabulary.following}` : range;
     })
     .join(', ');
 }
 
-function renderSegment(segment: Segment): string {
-  const verses = renderVerses(segment.verses);
+function renderSegment(segment: Segment, vocabulary: Vocabulary): string {
+  const verses = renderVerses(segment.verses, vocabulary);
   switch (segment.lead) {
     case 'book': {
-      if (segment.chapter === null) return `${segment.book.ro} ${verses}`;
-      return verses === ''
-        ? `${segment.book.ro} ${segment.chapter}`
-        : `${segment.book.ro} ${segment.chapter}:${verses}`;
+      const book = vocabulary.book(segment.book);
+      if (segment.chapter === null) return `${book} ${verses}`;
+      return verses === '' ? `${book} ${segment.chapter}` : `${book} ${segment.chapter}:${verses}`;
     }
     case 'chapter':
       return verses === '' ? String(segment.chapter) : `${segment.chapter}:${verses}`;
@@ -656,49 +779,77 @@ function renderSegment(segment: Segment): string {
   }
 }
 
+/** A run written with the given vocabulary: `In. 3:3, 5; 18:36` or `John 3:3, 5; 18:36`. */
+export function renderSegments(
+  run: { segments: readonly Segment[] },
+  vocabulary: Vocabulary,
+): string {
+  return run.segments
+    .map(
+      (segment) =>
+        (segment.joiner ? vocabulary.joiners[segment.joiner] : '') +
+        renderSegment(segment, vocabulary),
+    )
+    .join('');
+}
+
 /** The run in Romanian notation: `In. 3:3, 5; 18:36`, `Mat. 18:23 ș.urm.`, `Obad. 21`. */
 export function renderRomanian(run: { segments: readonly Segment[] }): string {
-  return run.segments
-    .map((segment) => (segment.joiner ? JOINER_RO[segment.joiner] : '') + renderSegment(segment))
-    .join('');
+  return renderSegments(run, ROMANIAN_VOCABULARY);
+}
+
+/** The run in the notation of an English translation: `John 3:3, 5; 18:36`, `Matt. 18:23 ff.`. */
+export function renderEnglish(run: { segments: readonly Segment[] }): string {
+  return renderSegments(run, ENGLISH_VOCABULARY);
 }
 
 // ---------------------------------------------------------------------------------------------
 // Public API
 
-/** All runs of references in English text, in order, with canonical items and Romanian form. */
-export function parseSourceReferences(text: string): ReferenceRun[] {
+/**
+ * All runs of references that a grammar reads in `text`, in order, with their canonical items and
+ * written in the notation of `render`. The state of the previous run is carried to the next one,
+ * so that a standalone `vs. 28` finds the book and chapter before it.
+ */
+export function parseRuns(
+  text: string,
+  grammar: Grammar,
+  render: (run: { segments: readonly Segment[] }) => string,
+): ReferenceRun[] {
   const runs: ReferenceRun[] = [];
   let previous: Resolved | null = null;
   let pos = 0;
   while (pos < text.length) {
-    const parsed = parseRunAt(text, pos, ENGLISH);
+    const parsed = parseRunAt(text, pos, grammar);
     if (!parsed) {
       pos += 1;
       continue;
     }
-    const { canonical, last } = resolveRun(parsed.segments, previous);
+    const segments = grammar.finish ? grammar.finish(parsed.segments, previous) : parsed.segments;
+    const { canonical, last, notes } = resolveRun(segments, previous);
     previous = last;
-    runs.push({
+    const run: ReferenceRun = {
       start: pos,
       end: parsed.end,
       source: text.slice(pos, parsed.end),
-      target: renderRomanian(parsed),
+      target: render({ segments }),
       canonical,
-      segments: parsed.segments,
-    });
+      segments,
+    };
+    if (notes.length > 0) run.notes = notes;
+    runs.push(run);
     pos = parsed.end;
   }
   return runs;
 }
 
-/** All runs of references in Romanian notation, mapped to the same canonical items. */
-export function extractTargetReferences(text: string): ExtractedReference[] {
+/** All runs a grammar reads in a translation, mapped to canonical items. */
+export function extractRuns(text: string, grammar: Grammar): ExtractedReference[] {
   const runs: ExtractedReference[] = [];
   let previous: Resolved | null = null;
   let pos = 0;
   while (pos < text.length) {
-    const parsed = parseRunAt(text, pos, ROMANIAN);
+    const parsed = parseRunAt(text, pos, grammar);
     if (!parsed) {
       pos += 1;
       continue;
@@ -709,6 +860,16 @@ export function extractTargetReferences(text: string): ExtractedReference[] {
     pos = parsed.end;
   }
   return runs;
+}
+
+/** All runs of references in English text, in order, with canonical items and Romanian form. */
+export function parseSourceReferences(text: string): ReferenceRun[] {
+  return parseRuns(text, ENGLISH, renderRomanian);
+}
+
+/** All runs of references in Romanian notation, mapped to the same canonical items. */
+export function extractTargetReferences(text: string): ExtractedReference[] {
+  return extractRuns(text, ROMANIAN);
 }
 
 /** Flat list of the canonical items of several runs. */
@@ -750,13 +911,13 @@ const ENGLISH_WITH_ARABIC = new RegExp(
   'g',
 );
 
-interface Span {
+export interface Span {
   start: number;
   end: number;
 }
 
 /** Sorted spans without those that start inside an earlier one. */
-function outermost(spans: readonly Span[]): Span[] {
+export function outermost(spans: readonly Span[]): Span[] {
   const sorted = [...spans].sort((a, b) => a.start - b.start || b.end - a.end);
   const kept: Span[] = [];
   for (const span of sorted) {
@@ -771,6 +932,11 @@ function outermost(spans: readonly Span[]): Span[] {
  * numerals, English abbreviations (`Matt.`, `Jno.`, `Mk.`), `vs.`. Used by REF_FORMAT.
  */
 export function detectNonRomanianNotation(text: string): string[] {
+  return nonRomanianSpans(text).map((span) => text.slice(span.start, span.end));
+}
+
+/** The spans of `detectNonRomanianNotation`. */
+export function nonRomanianSpans(text: string): Span[] {
   const candidates: Span[] = parseSourceReferences(text).map((run) => ({
     start: run.start,
     end: run.end,
@@ -789,7 +955,7 @@ export function detectNonRomanianNotation(text: string): string[] {
   const foreign = candidates.filter(
     (c) => !romanian.some((r) => r.start <= c.start && c.end <= r.end),
   );
-  return outermost(foreign).map((span) => text.slice(span.start, span.end));
+  return outermost(foreign);
 }
 
 export interface UnparsedFragment {
@@ -798,7 +964,7 @@ export interface UnparsedFragment {
   text: string;
 }
 
-const LOOSE_PATTERNS: readonly RegExp[] = [
+export const LOOSE_PATTERNS: readonly RegExp[] = [
   // roman numeral, period, number: `iv. 17`
   /(?<![A-Za-z0-9])[ivxlc]{1,8}\.\s*\d/g,
   // a book name followed by a numeral or a number: `Matt. xiii`, `Rom. 5`
@@ -816,7 +982,7 @@ const LOOSE_PATTERNS: readonly RegExp[] = [
  * What may stand between the end of a run and a number that it should have taken along: white
  * space (`Lk. vi. 32 7`), a comma or semicolon (`, 200`: not a verse), `and` (`17, 18 and 19`).
  */
-const CUT_SHORT = /^(?:\s*[,;&]\s*(?:and\s+)?|\s+and\s+|\s+)(?=\d)/;
+export const CUT_SHORT = /^(?:\s*[,;&]\s*(?:and\s+)?|\s+and\s+|\s+)(?=\d)/;
 
 /**
  * Reference-like fragments of `text` that `parseSourceReferences` did not turn into a run, plus
@@ -825,10 +991,14 @@ const CUT_SHORT = /^(?:\s*[,;&]\s*(?:and\s+)?|\s+and\s+|\s+)(?=\d)/;
 export function findUnparsedReferenceFragments(
   text: string,
   runs: readonly Span[] = parseSourceReferences(text),
+  notation: { patterns: readonly RegExp[]; cutShort: RegExp } = {
+    patterns: LOOSE_PATTERNS,
+    cutShort: CUT_SHORT,
+  },
 ): UnparsedFragment[] {
   const covered = (index: number): boolean => runs.some((r) => index >= r.start && index < r.end);
   const found: Span[] = [];
-  for (const pattern of LOOSE_PATTERNS) {
+  for (const pattern of notation.patterns) {
     for (const match of text.matchAll(pattern)) {
       if (!covered(match.index)) {
         found.push({ start: match.index, end: match.index + match[0].length });
@@ -836,7 +1006,7 @@ export function findUnparsedReferenceFragments(
     }
   }
   for (const run of runs) {
-    const rest = CUT_SHORT.exec(text.slice(run.end));
+    const rest = notation.cutShort.exec(text.slice(run.end));
     if (!rest) continue;
     const at = run.end + rest[0].length;
     // `, 1 Cor. xv. 22` is the next run, not a leftover.

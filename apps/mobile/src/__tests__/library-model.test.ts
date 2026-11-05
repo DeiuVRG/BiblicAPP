@@ -74,9 +74,18 @@ describe('the model of the installed Vos packs and the bundled catalogue', () =>
     const works = await repository.listWorks('ro');
     const model = buildLibraryModel(works, null, 'ro');
     expect(model.works).toHaveLength(1);
-    expect(model.works[0]).toMatchObject({ entry: null, kind: null, shelves: [OTHER_SHELF], century: 20 });
+    expect(model.works[0]).toMatchObject({
+      entry: null,
+      kind: null,
+      shelves: [OTHER_SHELF],
+      century: 20,
+    });
     expect(model.shelves).toHaveLength(1);
-    expect(model.shelves[0]).toMatchObject({ slug: OTHER_SHELF, labelRo: 'Altele', labelEn: 'Other' });
+    expect(model.shelves[0]).toMatchObject({
+      slug: OTHER_SHELF,
+      labelRo: 'Altele',
+      labelEn: 'Other',
+    });
     expect(model.groups[0]).toMatchObject({ kind: 'name', slug: null, nameRo: 'Geerhardus Vos' });
     expect(model.totals.works).toBe(1);
   });
@@ -88,7 +97,9 @@ describe('the model of the installed Vos packs and the bundled catalogue', () =>
     const works = await repository.listWorks('ro');
     const withoutEntry = { ...catalogueState.catalogue, works: [] };
     const model = buildLibraryModel(works, withoutEntry, 'ro');
-    expect(model.groups.map((group) => [group.kind, group.slug])).toEqual([['author', 'geerhardus-vos']]);
+    expect(model.groups.map((group) => [group.kind, group.slug])).toEqual([
+      ['author', 'geerhardus-vos'],
+    ]);
     expect(model.works[0]).toMatchObject({ entry: null, shelves: [OTHER_SHELF] });
   });
 });
@@ -140,9 +151,20 @@ describe('the model of F-2 (fifteen authors, six shelves, an issuing body)', () 
     expect(groupName(body, 'en')).toBe('Council of Chalcedon');
     expect(model.workById.get(body.workIds[0]!)?.groupKey).toBe(body.key);
     const page = libraryPage(model, EMPTY_QUERY);
-    expect(page.letters.map((entry) => entry.letter)).toEqual(
-      ['A', 'B', 'C', 'E', 'G', 'H', 'I', 'K', 'L', 'O', 'T', 'V'],
-    );
+    expect(page.letters.map((entry) => entry.letter)).toEqual([
+      'A',
+      'B',
+      'C',
+      'E',
+      'G',
+      'H',
+      'I',
+      'K',
+      'L',
+      'O',
+      'T',
+      'V',
+    ]);
   });
 
   it('sorts people under their sort name and counts authors, not works, per letter', async () => {
@@ -178,9 +200,16 @@ describe('the model of F-2 (fifteen authors, six shelves, an issuing body)', () 
     expect(who.modern).toEqual(['Hodge', 'Vos']);
     expect(who.reformation).toEqual(['Calvin', 'Luther']);
     expect(who.creeds).toEqual(['Conciliul din Calcedon']);
-    expect(who.fathers).toEqual(['Augustin', 'Grigorie cel Mare', 'Ioan Damaschin', 'Ioan Gură de Aur']);
+    expect(who.fathers).toEqual([
+      'Augustin',
+      'Grigorie cel Mare',
+      'Ioan Damaschin',
+      'Ioan Gură de Aur',
+    ]);
     const english = (await f2('en')).model;
-    expect(english.shelves.find((shelf) => shelf.slug === 'creeds')!.who).toEqual(['Council of Chalcedon']);
+    expect(english.shelves.find((shelf) => shelf.slug === 'creeds')!.who).toEqual([
+      'Council of Chalcedon',
+    ]);
     expect(shelfLabel(english.shelves[1]!, 'en')).toBe('Church Fathers');
     expect(shelfLabel(english.shelves[1]!, 'ro')).toBe('Părinții Bisericii');
   });
@@ -220,7 +249,11 @@ describe('centuries of a work (6.4)', () => {
   });
 
   it('counts a work with no date as undated, and draws no tile for it', () => {
-    const model = buildLibraryModel([summary(1, { year: null }), summary(2, { year: 1650 })], null, 'ro');
+    const model = buildLibraryModel(
+      [summary(1, { year: null }), summary(2, { year: 1650 })],
+      null,
+      'ro',
+    );
     expect(model.undated).toBe(1);
     expect(model.centuries).toEqual([{ century: 17, count: 1 }]);
   });
@@ -325,7 +358,10 @@ describe('filters and search by name (6.2, 6.5)', () => {
       filterWorks(model, { ...EMPTY_QUERY, ...query }).map((work) => work.slug);
     expect(slugs({ shelf: 'modern' })).toEqual(['teologie-sistematica', 'invatatura-lui-isus']);
     expect(slugs({ century: 16 })).toEqual(['libertatea-crestinului', 'institutio']);
-    expect(slugs({ shelf: 'fathers', century: 5 })).toEqual(['omilii-la-matei', 'despre-spirit-si-litera']);
+    expect(slugs({ shelf: 'fathers', century: 5 })).toEqual([
+      'omilii-la-matei',
+      'despre-spirit-si-litera',
+    ]);
     expect(slugs({ lang: 'de' })).toEqual(['libertatea-crestinului']);
     // Oldest first: 401, 451, 743.
     expect(slugs({ lang: 'grc' })).toEqual([
@@ -342,7 +378,9 @@ describe('filters and search by name (6.2, 6.5)', () => {
 
   it('knows a partial translation when the translation has fewer sections than its source', async () => {
     const { model, works } = await f2();
-    expect(works.every((work) => work.editions.every((edition) => edition.sectionCount === 1))).toBe(true);
+    expect(
+      works.every((work) => work.editions.every((edition) => edition.sectionCount === 1)),
+    ).toBe(true);
     expect(filterWorks(model, { ...EMPTY_QUERY, availability: 'partial' })).toEqual([]);
   });
 
@@ -378,7 +416,10 @@ describe('filters and search by name (6.2, 6.5)', () => {
     expect(search.letters).toEqual([{ letter: 'V', count: 1 }]);
     expect(search.workCount).toBe(1);
     const letterC = libraryPage(model, { ...EMPTY_QUERY, letter: 'C' });
-    expect(letterC.shown.map(({ group }) => group.sortName)).toEqual(['Calvin, Ioan', 'Conciliul din Calcedon']);
+    expect(letterC.shown.map(({ group }) => group.sortName)).toEqual([
+      'Calvin, Ioan',
+      'Conciliul din Calcedon',
+    ]);
     // The letters still list everything the other filters leave: the bar does not shrink to the letter.
     expect(letterC.letters).toHaveLength(12);
     expect(letterC.workCount).toBe(2);
@@ -387,7 +428,9 @@ describe('filters and search by name (6.2, 6.5)', () => {
   it('opens every accordion up to twelve authors, and pages only above one hundred', async () => {
     const { model } = await f2();
     expect(libraryPage(model, EMPTY_QUERY).all.length).toBeGreaterThan(OPEN_ALL_UP_TO);
-    expect(libraryPage(model, { ...EMPTY_QUERY, shelf: 'modern' }).all.length).toBeLessThanOrEqual(OPEN_ALL_UP_TO);
+    expect(libraryPage(model, { ...EMPTY_QUERY, shelf: 'modern' }).all.length).toBeLessThanOrEqual(
+      OPEN_ALL_UP_TO,
+    );
 
     const many = buildLibraryModel(
       Array.from({ length: 230 }, (_, index) => summary(index + 1)),

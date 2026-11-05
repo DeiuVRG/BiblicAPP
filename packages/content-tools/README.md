@@ -79,6 +79,19 @@ eight columns, no quoting: patterns must not contain commas (write `\x2C`); `\b`
 `content/translation/calques-ro.json` holds regexes over the translation. A bad pattern, a
 missing materials file and a schema error all exit with 2.
 
+Languages: `--lang` is the target language, `ro` or `en`; the source language is the language of the
+edition (`edition-en.json`, `edition-la.json`, `edition-grc.json`). `translation-jobs
+content/works/<slug>/edition-la.json --lang en` makes English jobs from a Latin edition: the
+translated heading is `headingEn` (not `headingRo`), references are written `Matt. 4:17` (not
+`Mat. 4:17`), the materials are `rules-en.md`, `glossary-en.csv`, `calques-en.json` and
+`prompts/en/`, and `review.md` is in English. English and Latin sources have a grammar of scripture
+references (Latin: `Matth. IV, 17`, `Ioh. 3, 5`, `ibid.`; the psalms keep the number of the Vulgate,
+marked `vulgate`), and the residue check follows the source language (`RESIDUE_EN`, `RESIDUE_LA`,
+`RESIDUE_GRC`); for a Greek source the Greek of the translation must be an exact copy
+(`GREEK_COPY`). See `docs/traducere-pipeline.md`, sections 1.1, 4 and 5. The test data and where
+they come from are in `src/translation/fixtures/` (first chapter of Augustine's *De spiritu et
+littera*, the Creed of Constantinople).
+
 ## Keys
 
 ```bash
@@ -112,4 +125,6 @@ paragraph starts decided by the short-line cue only, and every hyphen decision, 
 `pnpm --filter @biblioteca/content-tools test` (Vitest): dehyphenation, paragraph joining,
 running-head removal, heading detection, id stability, sign/verify round trip, tampering,
 CLI end to end, checks on the committed sample pack, and the translation tooling (reference
-converter checked against the whole Vos edition, chunking, every check, merge, review sheet).
+converter checked against the whole Vos edition, chunking, every check, merge, review sheet; the
+Latin grammar and the checks per pair of languages; dry runs of the three commands on Latin and Greek
+fixtures).

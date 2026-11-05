@@ -11,6 +11,7 @@ import { useHover } from '@/components/hover';
 import { Icon } from '@/components/icon';
 import { useFeatures } from '@/config/features';
 import { useT } from '@/i18n';
+import { formatYear } from '@/i18n/labels';
 import type { ReadingLanguage } from '@/i18n/language';
 import { groupName } from '@/library/model';
 import type { GroupResult, LibraryModel } from '@/library/model';
@@ -31,8 +32,9 @@ interface Props {
 
 /**
  * An author, or an issuing body, of the list (docs/ui-spec-v2.md, 6.2): an accordion with a chevron,
- * the name in 13 point 600 capitals in `accentStrong` and "N lucrări" at the right. Opened, it shows
- * the link "DESPRE <NUME> ›" (when the author page is live) and one row per work.
+ * the name in 13 point 600 capitals in `accentStrong` and "N lucrări" at the right. An issuing body
+ * carries its year after its name ("CONCILIUL DIN CALCEDON · 451", 6.3). Opened, it shows the link
+ * "DESPRE <NUME> ›" (when the author page is live) and one row per work.
  */
 export function AuthorAccordion({ result, model, language, open, onToggle, query }: Props) {
   const t = useT();
@@ -44,6 +46,9 @@ export function AuthorAccordion({ result, model, language, open, onToggle, query
   const nameStyle = useTypeStyle('button');
   const { group, works } = result;
   const name = groupName(group, language);
+  // A body is told by its name and the year it issued its documents.
+  const year = group.kind === 'body' ? formatYear(group.year, t) : '';
+  const heading = year === '' ? name : `${name} · ${year}`;
   const testID =
     group.kind === 'body'
       ? `issuing-body-${group.slug}`
@@ -53,7 +58,7 @@ export function AuthorAccordion({ result, model, language, open, onToggle, query
       <Pressable
         testID={`${testID}-toggle`}
         accessibilityRole="button"
-        accessibilityLabel={t.library.authorWorks(name, works.length)}
+        accessibilityLabel={t.library.authorWorks(heading, works.length)}
         accessibilityState={{ expanded: open }}
         // react-native-web reads the `aria-*` props only; React Native reads both forms.
         aria-expanded={open}
@@ -70,7 +75,7 @@ export function AuthorAccordion({ result, model, language, open, onToggle, query
         />
         <View style={styles.name}>
           <HighlightedText
-            text={name}
+            text={heading}
             query={query}
             style={[nameStyle, { color: colors.accentStrong, letterSpacing: 1 }]}
           />

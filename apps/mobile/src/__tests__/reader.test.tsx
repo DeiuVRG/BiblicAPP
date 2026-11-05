@@ -85,6 +85,25 @@ describe('ReaderScreen', () => {
     expect(store.data.has(legacyPositionKey(work.workId))).toBe(false);
   });
 
+  it('has one level-1 heading, the name of the work, and the title of the chapter is a level 2 (docs/ui-spec-v2.md, 18)', async () => {
+    const { repository } = await loadBundledRepository();
+    const { work, englishSections } = await vosEditions(repository);
+    const paragraphs = await repository.getParagraphs(englishSections[0]!.id);
+    await renderWithProviders(
+      <ReaderScreen workId={work.workId} sectionId={englishSections[0]!.id} />,
+    );
+    await screen.findByText(paragraphs[0]!.text);
+    const levels = screen
+      .getAllByRole('header')
+      .map((heading) => [heading.props['aria-level'], heading.props.children]);
+    expect(levels.filter(([level]) => level === 1)).toHaveLength(1);
+    const title = screen.getByTestId('reader-running-title');
+    expect(title.props.accessibilityRole).toBe('header');
+    expect(title.props['aria-level']).toBe(1);
+    expect(title).toHaveTextContent(work.titleRo);
+    expect(screen.getByText(englishSections[0]!.heading).props['aria-level']).toBe(2);
+  });
+
   it('goes to the next chapter with the next button and disables previous on the first one', async () => {
     const { repository } = await loadBundledRepository();
     const { work, englishSections } = await vosEditions(repository);
@@ -224,7 +243,10 @@ describe('ReaderScreen scoped to an edition', () => {
         loaded,
       },
     );
-    expect(await screen.findByText('Secțiunea nu a fost găsită.')).toBeTruthy();
+    const message = await screen.findByText('Secțiunea nu a fost găsită.');
+    // The screen has nothing else to name it: the message is its one level-1 heading.
+    expect(message.props.accessibilityRole).toBe('header');
+    expect(message.props['aria-level']).toBe(1);
   });
 
   it('offers the table of contents of this edition at its end', async () => {

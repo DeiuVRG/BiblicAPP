@@ -87,7 +87,6 @@ export const ro = {
     menuLanguage: 'Limba interfeței',
     themeButton: (current: string, next: string) => `Tema: ${current}. Apasă pentru ${next}.`,
     menuTheme: 'Tema',
-    skipToContent: 'Treci la conținut',
   },
   landing: {
     kicker: 'Biblioteca',
@@ -132,11 +131,8 @@ export const ro = {
   },
   library: {
     title: 'Biblioteca',
-    subtitle: 'Cărți vechi, traduse cu grijă.',
     empty: 'Nu există lucrări instalate.',
     loading: 'Se încarcă biblioteca…',
-    search: 'Căutare',
-    settings: 'Setări',
     openWork: (title: string) => `Deschide lucrarea ${title}`,
     // Spoken before the list of editions of a work (the chips carry the same text visually).
     editions: 'Ediții',
@@ -162,7 +158,10 @@ export const ro = {
     },
     bandFathers: { label: 'Părinții Bisericii', title: 'Citește Părinții Bisericii' },
     bandShelves: { label: 'Rafturi', title: 'Toate tradițiile prezente aici' },
-    allOfShelf: (n: number) => `Toate ${count(n, forms.works, 'ro')}`,
+    // The footer of a shelf block: "Toate cele 12 lucrări", and for one work the shelf itself ("Toate
+    // 1 lucrare" is not Romanian).
+    allOfShelf: (n: number) =>
+      n === 1 ? 'Deschide raftul' : `Toate cele ${count(n, forms.works, 'ro')}`,
     foldCollapse: 'Restrânge',
     foldExpand: 'Extinde',
     // Toată biblioteca.
@@ -214,10 +213,7 @@ export const ro = {
     centuryTile: (century: string, n: number) => `${century}: ${count(n, forms.works, 'ro')}`,
     emptyFilters: 'Nicio lucrare nu corespunde filtrelor.',
     clearFilters: 'Șterge filtrele',
-    rowEditions: 'Ediții',
     partialChip: 'Parțial',
-    seeWork: 'Citește',
-    start: 'Începe aici',
   },
   authorsPage: {
     eyebrow: 'Biblioteca · Autori',
@@ -282,7 +278,9 @@ export const ro = {
     openResult: (heading: string) => `Deschide rezultatul din ${heading}`,
     clear: 'Șterge căutarea',
     eyebrow: 'Căutare',
-    fieldPlaceholder: 'Caută o lucrare, un autor sau un pasaj',
+    // Shorter than "Caută o lucrare, un autor sau un pasaj" (286 points): that one did not fit in a
+    // 312 point field on a 360 point phone.
+    fieldPlaceholder: 'Caută lucrări, autori sau pasaje',
     modes: 'Tipul căutării',
     modeWorks: 'Lucrări',
     modePassages: 'Pasaje',
@@ -290,6 +288,9 @@ export const ro = {
     worksHeading: 'Lucrări',
     inWorks: (results: number, works: number) =>
       `${count(results, forms.results, 'ro')} în ${count(works, forms.works, 'ro')}`,
+    // The results were cut at the cap: how many are shown and in how many works.
+    resultsCappedInWorks: (results: number, works: number) =>
+      `Primele ${count(results, forms.results, 'ro')}, în ${count(works, forms.works, 'ro')}`,
     nameResults: (authors: number, works: number) =>
       `${count(authors, forms.authors, 'ro')} · ${count(works, forms.works, 'ro')}`,
     openAuthor: (name: string) => `Lucrările lui ${name}`,

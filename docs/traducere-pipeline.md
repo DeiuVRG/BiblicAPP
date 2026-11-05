@@ -1,6 +1,8 @@
 # Translation pipeline (v3-lite): aligned translated editions
 
-Status: specification for the first implementation (November 2026). Owner-facing summary and
+Status: implemented in `packages/content-tools` (v3-lite, 4 November 2026), generalised on 5 November
+2026 to the target languages `ro` and `en` and the source languages `en`, `la` and `grc` (section 1.1,
+deliverable P1-C2). Owner-facing summary and
 rationale: `docs/skill-traducere-revizie.md` (review of the GP_AI_Translate skill) and
 `docs/arhitectura-app-biblica.md` (section on the translation pipeline). Decisions are recorded in
 `docs/decizii.md` (ADR-012).
@@ -20,7 +22,7 @@ Principles (from the skill review, kept deliberately small):
 3. **Independent critic.** The critic runs in a fresh context with the source, the draft and the
    rules only. It never sees the drafter's reasoning.
 4. **Deterministic checks find anomalies; they do not decide exegesis.** Every check emits flags
-   in one schema. A few typographic defects are auto-fixed (NFC, cedilla diacritics, whitespace);
+   in one schema. A few typographic defects are auto-fixed (NFC, cedilla diacritics in Romanian, whitespace);
    everything else is a flag for a human.
 5. **Flags, not silent fixes.** A paragraph that cannot be rendered faithfully is delivered with a
    flag, never shortened, merged or split. Scripture quoted by the author is translated as the
@@ -29,7 +31,7 @@ Principles (from the skill review, kept deliberately small):
 6. **Nothing is published without human review.** The merged edition is `draft` until a reviewer
    signs it off; the review sheet lists every open finding ordered by risk.
 
-### 1.1 Target languages
+### 1.1 Target and source languages (implemented, P1-C2)
 
 Product rule (owner, 4 November 2026): every work is read in Romanian **and** in English. For an
 English original (Vos 1903) the English edition is the source itself and only `ro` is produced.
@@ -38,16 +40,36 @@ translations, `en` and `ro`, **each from the original** (never one from the othe
 to the source paragraphs. A public-domain English translation, when one exists (NPNF, Loeb-era
 editions before 1930), is given to the critic as a reference and is never copied.
 
-Consequences for this specification: every material file is per target language
-(`rules-<lang>.md`, `glossary-<lang>.csv`, `calques-<lang>.json`, `prompts/<lang>/…`); the
-checks that depend on the target language (`CEDILLA`, `QUOTES_ENGLISH`, `QUOTES_UNBALANCED`,
-`REF_FORMAT`, the Romanian book abbreviations) apply to `ro`, and `en` gets its equivalents
-(straight-quote and curly-quote consistency, standard English abbreviations `Matt. 4:17`); the
-`RESIDUE_*` check uses a function-word list of the **source** language (English for `en`
-sources, Latin `et in ad non quod est sed enim autem cum ut qui quae`, German `und der die das
-nicht ist dass auch wird sich`); the reference parser gets a Latin-notation grammar
-(`Matth. IV, 17`, `Ioh. 3, 5`) before the first Latin work. **v3-lite implements the `ro`
-target with English sources**; the generalisation is the first task before Augustine.
+**Implemented on 5 November 2026 (deliverable P1-C2 of `docs/roadmap-v2.md`, ADR-017):** the target
+languages `ro` and `en`, and the source languages `en` (Vos), `la` (Augustine; the Apostles'
+Creed) and `grc` (the Creed of Constantinople). Everything that depends on a language is looked up
+in `packages/content-tools/src/translation/languages.ts` (the registry), `books.ts` and the
+reference grammars (`references.ts`, `references-latin.ts`, `notation.ts`). The `en` -> `ro` path
+is unchanged: the 31 jobs of Vos regenerate byte for byte and the reports of `translation-check`
+on the 62 committed drafts and final outputs are identical.
+
+| Depends on the target language | `ro` | `en` |
+| --- | --- | --- |
+| materials (all in `content/translation`) | `rules-ro.md`, `glossary-ro.csv`, `calques-ro.json`, `prompts/ro/` | `rules-en.md`, `glossary-en.csv`, `calques-en.json`, `prompts/en/` |
+| heading of a section in part 0 | `headingRo` | `headingEn` |
+| quotation marks | `„…”`, `«…»` (`QUOTES_ENGLISH`, `QUOTES_UNBALANCED`) | `“…”`, `‘…’` (`QUOTES_CURLY_UNBALANCED`) |
+| `QUOTES_STRAIGHT` (straight `"`) | yes | yes |
+| s and t with a cedilla replaced by comma-below letters (`CEDILLA`) | yes | no |
+| notation of the book abbreviations in the job and in the checks | Romanian (`Mat. 4:17`) | English (`Matt. 4:17`) |
+| labels of `review.md` | Romanian | English |
+
+| Depends on the source language | `en` | `la` | `grc` |
+| --- | --- | --- | --- |
+| grammar of scripture references | English (`Matt. iv. 17`) | Latin (`Matth. IV, 17`, `Ioh. 3, 5`, `ibid.`; section 5.3) | none |
+| function words of the residue check | `RESIDUE_EN` | `RESIDUE_LA` | `RESIDUE_GRC` |
+| Greek in the source | `GREEK_MISSING` | `GREEK_MISSING` | `GREEK_COPY` instead |
+| bands of `LENGTH_RATIO` (with the target) | `en` -> `ro`: section 4.2 | `la` -> `en`, `la` -> `ro` | those of `en` -> `ro` |
+
+The profile of a work (`profiles/<slug>.md`) is one file for both targets, with the key terms per
+language. A source in another language (German, French, ...) still gets jobs, without references,
+and no residue check; adding one is a list of function words in `languages.ts` and, when its
+authors cite Scripture in a notation of their own, a grammar next to `references-latin.ts`.
+`translation-jobs` prints a NOTE when the source language has no grammar of references.
 
 ## 2. Data model
 
@@ -64,11 +86,12 @@ The source edition is unchanged (no new fields), so the committed Vos pack keeps
 
 ```
 content/translation/                      shared materials, read by the agents (not by the app)
-  rules-ro.md                             generic editorial rules for Romanian (EN/LA/DE/GRC → RO)
+  rules-<lang>.md                         generic editorial rules per target language (ro, en)
   output-contract.md                      the per-paragraph JSON contract, in prose
-  glossary-ro.csv                         machine-readable glossary (see 2.4)
-  calques-ro.json                         regexes for calques and false friends (see 2.4)
-  profiles/<slug>.md                      per-work profile (tradition, register, names, exemplars)
+  glossary-<lang>.csv                     machine-readable glossary (see 2.4)
+  calques-<lang>.json                     regexes for calques and false friends (see 2.4)
+  profiles/<slug>.md                      per-work profile (tradition, register, names, key terms
+                                          per language, exemplars), one for both targets
   prompts/<lang>/{draft,critic,revise}.md prompt templates with {{PLACEHOLDERS}}, per target language
 content/works/<slug>/
   edition-<src>.json                      canonical source edition (exists)
@@ -96,14 +119,14 @@ TranslationJob = {
   jobId: string,                      // ^[a-z0-9-]+$
   workSlug: string,
   sourceEditionId: Id,
-  sourceLanguage: string,             // e.g. 'en'
-  targetLanguage: string,             // e.g. 'ro'
+  sourceLanguage: string,             // the language of the source edition: 'en', 'la', 'grc'
+  targetLanguage: string,             // 'ro' or 'en'
   section: { id: Id, ordinal: number, kind: 'chapter' | 'section', heading: string },
   part: number,                       // 0-based
   parts: number,                      // parts of this section
   paragraphs: Array<{
     id: Id, ordinal: number, kind: 'p' | 'heading' | 'quote' | 'note', text: string,
-    references: Array<{ source: string, target: string, canonical: string[] }>,
+    references: Array<{ source: string, target: string, canonical: string[], note?: string }>,
   }>,
   context: {
     previousParagraph: string | null, // text of the paragraph before the first one of the job
@@ -127,7 +150,8 @@ TranslationOutput = {
   jobId: string,
   pass: 'draft' | 'revised',
   model: string,                      // e.g. 'claude-sonnet-5-5'
-  headingRo?: string,                 // required when part === 0 (translation-check enforces it)
+  headingRo?: string,                 // required when part === 0 in a Romanian translation
+  headingEn?: string,                 // required when part === 0 in an English translation
   paragraphs: Array<{
     sourceId: Id,
     text: string,                     // min length 1, one paragraph, NFC
@@ -162,6 +186,8 @@ CheckReport = {
 }
 
 TranslationEditionMeta = {           // content/works/<slug>/translation-<lang>/edition.json
+  workTitle?: string,                 // the title of the work in the language of the translation:
+                                      // translation-merge writes it to work.titleEn (en) or titleRo (ro)
   edition: Edition with optional id   // kind 'translation', language, sourceEditionId, licence, provenance
 }
 ```
@@ -185,6 +211,15 @@ All schemas are `z.strictObject` except where a default is given; unknown keys a
 `content/translation/calques-ro.json`: `Array<{ id, pattern, level: 'FORBID' | 'WARN', preferred, note? }>`,
 `pattern` a regular expression over the translation (flags `iu`).
 
+The same formats hold for every target language (`glossary-<lang>.csv`, `calques-<lang>.json`).
+In `glossary-en.csv` the source patterns are Latin or Greek. The Latin ones cover the spellings of
+the printed editions (`i`/`j`, `u`/`v`, `charitas`/`caritas`) and the endings of the forms; they
+avoid the forms of another word where they can (`gratias agere` is not `gratia`), and a row whose
+Latin is ambiguous (`lex` and `legere`) is `PREFER`, which the checks do not enforce. The Greek ones
+are accent-tolerant (`[ὁοό]μοο[υύ]σ[ιί]`), because the accent of a Greek word moves with its ending
+and NFC turns the oxia into the tonos. A `FORBID` row with an empty source pattern applies to every
+paragraph (`no-archaisms`, `holy-ghost-forbid`). All rows of `glossary-en.csv` are `PROPUS`.
+
 ## 3. Commands (`packages/content-tools`, registered in `src/cli.ts`)
 
 All commands resolve paths with `resolveUserPath`, print a one-screen `USAGE` on `--help` or
@@ -201,10 +236,18 @@ Splits the source edition into jobs.
   until the part reaches `target-words`; a paragraph is never split; a single paragraph longer than
   `max-words` forms a part on its own; a final part shorter than `min-last-words` is merged into
   the previous part when the sum stays ≤ `max-words + min-last-words`.
-- Each paragraph gets `references` computed by the reference converter (section 5); `context`
-  holds the neighbouring paragraphs' text and the previous section heading.
-- `materials` paths: `content/translation/rules-ro.md`, `output-contract.md`, `glossary-ro.csv`,
-  `calques-ro.json`, `profiles/<slug>.md` if that file exists, else `null`.
+- `--lang <lang>` is the target language: `ro` or `en` (any other language is a usage error, after
+  the edition has been read), and not the language of the source edition. The job carries
+  `sourceLanguage`, the language of the edition (`en`, `la`, `grc`, ...).
+- Each paragraph gets `references` computed by the reference converter (section 5) with the
+  grammar of the source language and the notation of the target language (`ro`: `Mat. 4:17`, `en`:
+  `Matt. 4:17`); a run that needs a word for the translator (Vulgate numbering, an ambiguous
+  abbreviation) carries a `note`. A source language without a grammar (Greek) gives paragraphs with
+  no references, and the command prints a NOTE. `context` holds the neighbouring paragraphs' text
+  and the previous section heading.
+- `materials` paths, per target language: `content/translation/rules-<lang>.md`,
+  `output-contract.md`, `glossary-<lang>.csv`, `calques-<lang>.json`, `profiles/<slug>.md` if that
+  file exists, else `null`.
 - `index.json`: `{ workSlug, sourceEditionId, targetLanguage, sourceSha256, jobs: [{ jobId, file,
   sectionOrdinal, part, parts, paragraphs, words }] }`. Deterministic for the same input.
 - Prints one line per job: `jobId  paragraphs  words`.
@@ -213,9 +256,13 @@ Splits the source edition into jobs.
 
 Deterministic checks of a `TranslationOutput` (draft or final) against its job.
 
-- `--fix` applies the safe auto-fixes (NFC, cedilla → comma-below, whitespace collapse/trim) and
-  writes the file back (pretty JSON, 2 spaces, trailing newline). Fixed findings stay in the
-  report with `autofixed: true`.
+- `--fix` applies the safe auto-fixes (NFC, whitespace collapse/trim and, for a Romanian
+  translation only, cedilla → comma-below) and writes the file back (pretty JSON, 2 spaces,
+  trailing newline). Fixed findings stay in the report with `autofixed: true`.
+- The checks follow the languages of the job: its `targetLanguage` (heading field, quotation
+  marks, cedilla, notation of references) and its `sourceLanguage` (grammar of references, function
+  words, Greek). Section 4.1 lists what depends on what; a job whose target language is not `ro` or
+  `en` is a usage error (exit 2).
 - `--glossary`, `--calques` override the materials named in the job.
 - `--report <file>` default `<job dir>/../checks/<jobId>.json` (the `checks/` directory next to
   `jobs/`); always written.
@@ -241,18 +288,25 @@ Builds the canonical translated edition from the `final/` outputs.
   new units get `stableId()`; ids of units that disappeared are never reused. The edition id is
   generated once and written back into `translation-<lang>/edition.json` (like `ensureIds`).
 - `work` is copied from the source edition. `sections` mirror the source sections (ordinal, kind,
-  `parentId` mapped to the new ids, `sourceId`), `heading` = `headingRo` from the part-0 output of
-  that section; if absent, the source heading is used and a WARNING is printed. `paragraphs`:
-  `ordinal` and `kind` from the source, `text` NFC, `sourceId`.
+  `parentId` mapped to the new ids, `sourceId`), `heading` = the heading field of the target
+  language (`headingRo`, `headingEn`) from the part-0 output of that section; if absent, the source
+  heading is used and a WARNING names the field. `paragraphs`: `ordinal` and `kind` from the
+  source, `text` NFC, `sourceId`. If `translation-<lang>/edition.json` has a `workTitle`, it
+  becomes `work.titleEn` (English) or `work.titleRo` (Romanian) of the translated edition, so that
+  an English translation of a Latin work has an English title (docs/multi-edition-spec.md); without
+  it the work is copied unchanged.
 - Refuses to merge an output that carries a `CRITIC` flag (or whose latest `checks/` report has a
   CRITIC finding) unless `--allow-critic`; the review sheet lists them either way.
 - Writes `<work>/edition-<lang>.json` (pretty JSON like `ingest-text`) and
   `translation-<lang>/review.md`, then validates the result with `PackSchema`.
-- `review.md`: a header (work, languages, coverage `N/M paragraphs`, `K/L sections`, models seen
-  per pass, counts per severity), then one table ordered CRITIC, MAJOR, SURSA_POSIBIL_ERONATA,
-  MINOR, INFO and, within a severity, by section ordinal and paragraph ordinal. Columns:
-  `Severitate | Secțiune | Paragraf (sourceId) | Sursă | Traducere | Problemă | Propunere | Origine`
-  where `Origine` ∈ `critic | draft | revised | check`. Critic findings with the same `sourceId`
+- `review.md`: a header (work, the pair of languages `Languages: la -> en`, coverage `N/M
+  paragraphs`, `K/L sections`, models seen per pass, counts per severity), then one table ordered
+  CRITIC, MAJOR, SURSA_POSIBIL_ERONATA, MINOR, INFO and, within a severity, by section ordinal and
+  paragraph ordinal. Columns of a Romanian translation:
+  `Severitate | Secțiune | Paragraf (sourceId) | Sursă | Traducere | Problemă | Propunere | Origine`;
+  of an English translation (the reviewer reads English, and so does the title line, which
+  carries the English title of the work): `Severity | Section | Paragraph (sourceId) | Source |
+  Translation | Problem | Proposal | Origin`. `Origine` ∈ `critic | draft | revised | check`. Critic findings with the same `sourceId`
   and `quoteTarget` as a flag in the final output are listed once (the final output wins). PROPUS
   glossary rows that matched are listed as INFO. The sheet is deterministic.
 - Prints coverage, counts and the output paths.
@@ -262,38 +316,123 @@ apps/mobile/assets/packs/<slug>-<lang>` (pack id defaults to `<slug>-<lang>`).
 
 ## 4. Deterministic checks (`translation-check`)
 
-| Check code          | Severity | Auto-fix | What                                                                                              |
-| ------------------- | -------- | -------- | ------------------------------------------------------------------------------------------------- |
-| `PARITY_MISSING`    | CRITIC   | no       | a job paragraph has no output                                                                     |
-| `PARITY_EXTRA`      | CRITIC   | no       | an output `sourceId` is not in the job                                                            |
-| `PARITY_DUPLICATE`  | CRITIC   | no       | a `sourceId` appears twice                                                                        |
-| `EMPTY_TEXT`        | CRITIC   | no       | empty or whitespace-only text                                                                      |
-| `SAME_AS_SOURCE`    | CRITIC   | no       | target equals source or Dice bigram similarity ≥ 0.9 (untranslated)                               |
-| `GREEK_MISSING`     | CRITIC   | no       | a run of Greek script in the source (NFC) is absent from the target                                |
-| `FLAG_CRITIC`       | CRITIC   | no       | the output itself carries a CRITIC flag (reported so that merge can refuse it)                     |
-| `HEADING_MISSING`   | MAJOR    | no       | `part === 0` and no `headingRo`                                                                   |
-| `RESIDUE_EN`        | MAJOR    | no       | English function words left in the target: ≥ 4 hits or ≥ 3 % of tokens from a fixed list          |
-| `REF_MISSING`       | MAJOR    | no       | a canonical scripture reference of the source is missing from the target                          |
-| `REF_EXTRA`         | MAJOR    | no       | the target has a scripture reference the source does not have                                     |
-| `LENGTH_RATIO`      | MAJOR    | no       | target/source characters < 0.75 or > 1.6 (MINOR when < 0.85 or > 1.45)                            |
-| `CALQUE`            | MAJOR    | no       | a `FORBID` calque or glossary `FORBID` rendering matched (`WARN` rows → MINOR)                     |
-| `REF_FORMAT`        | MINOR    | no       | a reference in the target is not in Romanian notation (roman numerals, `Matt.`, `Jno.`, `vs.`)     |
-| `NUMBER_MISSING`    | MINOR    | no       | an Arabic number of the source (outside references) is absent from the target                     |
-| `GLOSSARY`          | MINOR    | no       | a `FIX` glossary row matched the source but its rendering is absent from the target               |
-| `QUOTES_STRAIGHT`   | MINOR    | no       | straight `"` in the target                                                                        |
-| `QUOTES_ENGLISH`    | MINOR    | no       | U+201C `“` in the target (Romanian opens with U+201E `„`)                                          |
-| `QUOTES_UNBALANCED` | MINOR    | no       | count of `„` ≠ count of `”` (after discounting `“`)                                                |
-| `CEDILLA`           | MINOR    | yes      | ş ţ Ş Ţ (cedilla) → ș ț Ș Ț (comma below)                                                          |
-| `NFC`               | MINOR    | yes      | text not in NFC                                                                                   |
-| `WHITESPACE`        | MINOR    | yes      | leading/trailing whitespace, runs of whitespace, line breaks inside a paragraph                   |
-| `FLAG_PROPOSED`     | INFO     | no       | a PROPUS glossary row matched (listed for the reviewer)                                            |
+Every check keeps its code and its severity in every language. The column "Applies" says for which
+languages a check exists; section 4.1 gives the same facts per pair of languages.
 
-English function-word list for `RESIDUE_EN` (lower-cased ASCII tokens): the, and, of, which,
-that, with, this, is, not, from, by, his, their, been, were, into, than, those, these, there,
-what, when, would, should, also, only, but, upon, into, through, between, because, however.
-Tokens are `[A-Za-z]+` runs; words with Romanian diacritics never match.
+| Check code                | Severity | Auto-fix | Applies                    | What                                                                                              |
+| ------------------------- | -------- | -------- | -------------------------- | ------------------------------------------------------------------------------------------------- |
+| `PARITY_MISSING`          | CRITIC   | no       | all                        | a job paragraph has no output                                                                     |
+| `PARITY_EXTRA`            | CRITIC   | no       | all                        | an output `sourceId` is not in the job                                                            |
+| `PARITY_DUPLICATE`        | CRITIC   | no       | all                        | a `sourceId` appears twice                                                                        |
+| `EMPTY_TEXT`              | CRITIC   | no       | all                        | empty or whitespace-only text                                                                     |
+| `SAME_AS_SOURCE`          | CRITIC   | no       | all                        | target equals source or Dice bigram similarity ≥ 0.9 (untranslated)                               |
+| `GREEK_MISSING`           | CRITIC   | no       | sources other than `grc`   | a run of Greek script in the source (NFC) is absent from the target                               |
+| `FLAG_CRITIC`             | CRITIC   | no       | all                        | the output itself carries a CRITIC flag (reported so that merge can refuse it)                    |
+| `HEADING_MISSING`         | MAJOR    | no       | all                        | `part === 0` and no heading in the field of the target language (`headingRo`, `headingEn`)        |
+| `RESIDUE_EN`              | MAJOR    | no       | source `en`                | English function words left in the target: ≥ 4 hits or ≥ 3 % of tokens from a fixed list         |
+| `RESIDUE_LA`              | MAJOR    | no       | source `la`                | the same with the Latin list                                                                      |
+| `RESIDUE_GRC`             | MAJOR    | no       | source `grc`               | the same with the Greek list (accent-insensitive)                                                 |
+| `GREEK_COPY`              | MAJOR    | no       | source `grc`               | Greek script in the translation that is not an exact (NFC) copy of Greek in the source            |
+| `REF_MISSING`             | MAJOR    | no       | all                        | a canonical scripture reference of the source is missing from the target                          |
+| `REF_EXTRA`               | MAJOR    | no       | all                        | the target has a scripture reference the source does not have                                     |
+| `LENGTH_RATIO`            | MAJOR    | no       | all (bands per pair, 4.2)  | target/source characters outside the major band of the pair (MINOR outside the minor band)        |
+| `CALQUE`                  | MAJOR    | no       | all (files per target)     | a `FORBID` calque or glossary `FORBID` rendering matched (`WARN` rows → MINOR)                    |
+| `REF_FORMAT`              | MINOR    | no       | all                        | a reference in the target is not in the notation of the target language (4.1)                     |
+| `NUMBER_MISSING`          | MINOR    | no       | all                        | an Arabic number of the source (outside references) is absent from the target                     |
+| `GLOSSARY`                | MINOR    | no       | all (files per target)     | a `FIX` glossary row matched the source but its rendering is absent from the target               |
+| `QUOTES_STRAIGHT`         | MINOR    | no       | all                        | straight `"` in the target                                                                        |
+| `QUOTES_ENGLISH`          | MINOR    | no       | target `ro`                | U+201C `“` in the target (Romanian opens with U+201E `„`)                                         |
+| `QUOTES_UNBALANCED`       | MINOR    | no       | target `ro`                | count of `„` ≠ count of `”` (after discounting `“`)                                               |
+| `QUOTES_CURLY_UNBALANCED` | MINOR    | no       | target `en`                | count of `“` ≠ count of `”` (single marks are not counted: `’` is also the apostrophe)            |
+| `CEDILLA`                 | MINOR    | yes      | target `ro`                | ş ţ Ş Ţ (cedilla) → ș ț Ș Ț (comma below); not applied to English                                 |
+| `NFC`                     | MINOR    | yes      | all                        | text not in NFC                                                                                   |
+| `WHITESPACE`              | MINOR    | yes      | all                        | leading/trailing whitespace, runs of whitespace, line breaks inside a paragraph                   |
+| `FLAG_PROPOSED`           | INFO     | no       | all                        | a PROPUS glossary row matched (listed for the reviewer)                                           |
+
+**Function words of the residue checks.** Tokens are runs of letters. A hit is a token of the list;
+the check fires on ≥ 4 hits or ≥ 3 % of the tokens, and tokens inside a reference of the target are
+not counted (`Is.` is Isaiah, not the English `is`).
+
+- `RESIDUE_EN` (lower-cased ASCII tokens): the, and, of, which, that, with, this, is, not, from, by,
+  his, their, been, were, into, than, those, these, there, what, when, would, should, also, only,
+  but, upon, through, between, because, however. Words with Romanian diacritics never match.
+- `RESIDUE_LA` (lower-cased ASCII tokens): `et in ad non quod est sed enim autem cum ut qui quae ac
+  atque nec neque`. The words that are also words of the target language, or the first part of a
+  compound in it, are left out for that target: `in ad et non` for English (*in vitro*, *ad hoc*,
+  *et al.*, *non-literal*), `cum est ac in non` for Romanian (*cum* is "how", *est* "east", *ac*
+  "needle", *in* "flax"). A Latin word that is attached to a hyphen (`non-literal`, `sed-like`) is
+  never a hit.
+- `RESIDUE_GRC`: `καὶ τοῦ τῆς τὸν τὴν ἐν εἰς διὰ`. A token is compared after it has been folded
+  (NFD without accents, breathings and the iota subscript, lower case, one form of the sigma), so
+  `και`, `ΚΑΙ`, `καὶ` and `καί` are the same word. The folding only looks words up; the Greek of a
+  text is never changed and never transliterated.
+
+**Greek.** For a source that is not Greek, `GREEK_MISSING` requires every run of Greek script of
+the source to occur in the translation, in NFC (a decomposed copy is the same word; U+1F71 alpha
+with oxia is U+03AC alpha with tonos after NFC), which is the copy-exact rule of the editorial
+rules; a transliteration of a Greek word is a missing word. A Greek source is translated as a
+whole, so its Greek cannot be required: `GREEK_COPY` takes its place and requires the opposite,
+that every run of Greek script that the translation keeps is an exact NFC copy of a run of the
+source (`ὁμοούσιον` yes; `ὁμοουσιον`, `ὁμοούσιος` and `θεοτόκος`, which the source does not have,
+are MAJOR). It never asks for Greek and never produces a transliteration.
+
+### 4.1 What depends on the languages
+
+| | `en` -> `ro` (Vos) | `la` -> `en` | `la` -> `ro` | `grc` -> `en` | `grc` -> `ro` |
+| --- | --- | --- | --- | --- | --- |
+| heading field | `headingRo` | `headingEn` | `headingRo` | `headingEn` | `headingRo` |
+| residue check | `RESIDUE_EN` | `RESIDUE_LA` (leaves out `in ad et non`) | `RESIDUE_LA` (leaves out `cum est ac in non`) | `RESIDUE_GRC` | `RESIDUE_GRC` |
+| Greek | `GREEK_MISSING` | `GREEK_MISSING` | `GREEK_MISSING` | `GREEK_COPY` | `GREEK_COPY` |
+| references of the source | English grammar | Latin grammar | Latin grammar | none | none |
+| notation of the references of the target | Romanian | English | Romanian | English | Romanian |
+| `REF_FORMAT` flags | English abbreviations (`Matt.`, `Jno.`), roman numerals, `vs.` | roman numerals, Latin abbreviations (`Matth.`, `Ioh.`), a comma between chapter and verse | the same as `en` -> `ro` and the Latin notation | the same as `la` -> `en` | English abbreviations and roman numerals |
+| quotation marks | `„…”` | `“…”` | `„…”` | `“…”` | `„…”` |
+| quotation checks | `QUOTES_STRAIGHT`, `QUOTES_ENGLISH`, `QUOTES_UNBALANCED` | `QUOTES_STRAIGHT`, `QUOTES_CURLY_UNBALANCED` | as `en` -> `ro` | as `la` -> `en` | as `en` -> `ro` |
+| `CEDILLA` | yes | no | yes | no | yes |
+| `LENGTH_RATIO` bands (MAJOR / MINOR) | < 0.75, > 1.6 / < 0.85, > 1.45 | < 1.0, > 2.2 / < 1.1, > 1.9 | < 1.0, > 2.3 / < 1.1, > 2.0 | as `en` -> `ro` | as `en` -> `ro` |
+| glossary, calques | `glossary-ro.csv`, `calques-ro.json` | `glossary-en.csv`, `calques-en.json` | `-ro` | `-en` | `-ro` |
+
+`QUOTES_STRAIGHT` looks at the double quotation mark only, in both languages. The straight
+apostrophe and single quotation mark (`Augustine's`) are forbidden by `rules-en.md` (§7: always
+`’`) but are not checked by a code; the critic and the reviewer see them.
+
+`REF_FORMAT` for English flags a fragment only when it is a reference in some other notation and
+not also valid English (`Obad. 21` is valid in both). The unparsed-fragment safety net of
+`translation-jobs` (a reference-like fragment that no grammar read) exists for English and Latin
+sources.
+
+### 4.2 The bands of `LENGTH_RATIO` and what they were set from
+
+The ratio is the characters of the translation over the characters of the source paragraph. The
+bands of a pair are set from a measurement on real text and widened the way the first pair was.
+
+- **`en` -> `ro`** (unchanged). All 131 paragraphs of Vos, English edition against the Romanian
+  edition: total 1.038, median 1.044, 5th to 95th percentile 0.961 to 1.119, minimum 0.934,
+  maximum 1.149. MAJOR below 0.75 or above 1.6, MINOR below 0.85 or above 1.45.
+- **`la` -> `en` and `la` -> `ro`.** Latin is compact: the specification expected 1.3 to 1.6.
+  Measured on Augustine, *De spiritu et littera* 1.1 (210 words, 1,369 characters of Latin):
+  the English translation of 1887 (a reference, measured and not used) has 1,749 characters, ratio
+  1.278; the English of the fixture 1,724, ratio 1.259; its Romanian 1,708, ratio 1.248. A
+  paragraph made mostly of citations is as long as its translation (the citations are the same in
+  both), so a ratio near 1.1 is not alarming. Bands: `la` -> `en` MAJOR below 1.0 (shorter than
+  the Latin is truncated) or above 2.2, MINOR below 1.1 or above 1.9; `la` -> `ro` MAJOR below 1.0
+  or above 2.3, MINOR below 1.1 or above 2.0 (Romanian is a little longer than English).
+- **`grc` -> `en` and `grc` -> `ro`.** Greek is about as long as its translation. The Creed of
+  Constantinople, article by article (1,111 characters of Greek in all): English 1.121, 1.031,
+  1.071 (total 1.051); Romanian 1.273, 0.990, 1.024 (total 1.025). These sit inside the bands of
+  `en` -> `ro`, which Greek keeps. The message says "shorter" or "longer" by the lower band of the
+  pair.
+- Any other pair uses the bands of `en` -> `ro`.
 
 ## 5. Scripture references
+
+References are read by the grammar of the language of the source (English, Latin; Greek has none),
+carried by the job as canonical items and written in the notation of the target language; the
+translation is read back by the grammar of the notation of the target, and `REF_MISSING` and
+`REF_EXTRA` compare the two as multisets of canonical items. The canonical form is the same for
+every pair of languages (book codes below), with one addition for the Vulgate (5.3).
+
+### 5.1 English sources, Romanian notation
 
 Vos (and most 19th/early-20th-century English theology) cites `Book. chapter(roman). verses`:
 `Matt. iv. 17; Mk. i. 15; Lk. iv. 43`, `Jno. iii. 3, 5; xviii. 36`, `Exodus xix. 4-6`,
@@ -328,14 +467,85 @@ like the source), ranges with en dash `1 Cor. 15:23–28`, `Mat. 18:23 ș.urm.`,
 `v.`/`vv.` continuation and `;` chapter continuation) and maps it to the same canonical form;
 the parity check compares the multisets of canonical items of source and target.
 
-The converter lives in `packages/content-tools/src/translation/references.ts` and is pure.
+The converter lives in `packages/content-tools/src/translation/references.ts` and is pure. The
+facade for a pair of languages is `notation.ts` (`parseReferences`, `extractReferences`,
+`detectForeignNotation`, `findUnparsedFragments`); the Latin grammar is `references-latin.ts`; the
+tables of book names are `books.ts`.
+
+### 5.2 The notation of an English translation
+
+Standard English abbreviations (Chicago style, the book code of section 5.1 in parentheses is the
+same): `Gen. Exod. Lev. Num. Deut. Josh. Judg. Ruth 1 Sam. 2 Sam. 1 Kings 2 Kings 1 Chron. 2 Chron.
+Ezra Neh. Esther Job Ps. Prov. Eccles. Song of Sol. Isa. Jer. Lam. Ezek. Dan. Hosea Joel Amos Obad.
+Jonah Mic. Nah. Hab. Zeph. Hag. Zech. Mal. Matt. Mark Luke John Acts Rom. 1 Cor. 2 Cor. Gal. Eph.
+Phil. Col. 1 Thess. 2 Thess. 1 Tim. 2 Tim. Titus Philem. Heb. James 1 Pet. 2 Pet. 1 John 2 John 3
+John Jude Rev.` and, for the deuterocanonical books that the Vulgate has (codes `Tob Jdt Wis Sir Bar
+1Macc 2Macc`): `Tob. Jdt. Wis. Sir. Bar. 1 Macc. 2 Macc.` (Romanian, PROPUS like the rest of the
+Romanian list: `Tob. Iudt. Înț. Sir. Bar. 1 Mac. 2 Mac.`).
+
+Format: `Matt. 4:17; Mark 1:15; Luke 4:43`, `John 3:3, 5; 18:36` (the book is not repeated in a run),
+ranges with an en dash `1 Cor. 15:23–28`, `Matt. 18:23 ff.` ("and following"), `Obad. 21`, `Mark
+10:17, with v. 23` (the joiners are `;`, `, with`, `, and`, `with`, `and`). The extractor reads
+the abbreviations above, the full names (`Matthew 5:3`) and the old abbreviations (`Jno.`, `Mk.`),
+with or without the period, and the continuations `v.` / `vv.` and `; 6:20`. It does **not** read
+roman numerals, Latin or Romanian abbreviations; `REF_FORMAT` reports them. Two limits that are
+deliberate: a bare `5:12` cannot start a run (an English text has times and ratios, `10:30`, `3:1`),
+and a chapter named without verses is read only in the form that the job renders (`John 13`,
+`Matt. 13`), so a prose such as "Job 5 times" is a reference `Job 5` that a reviewer sees as
+`REF_EXTRA`.
+
+### 5.3 Latin sources
+
+Forms (`references-latin.ts`, tests in `references-latin.test.ts` and `notation.test.ts`):
+
+| Latin | Canonical items | English / Romanian |
+| --- | --- | --- |
+| `Matth. IV, 17`, `Matth. iv. 17`, `Matth. 4, 17`, `Matth. 4:17` | `Matt 4:17` | `Matt. 4:17` / `Mat. 4:17` |
+| `Ioh. 3, 5`, `Ioh. c. 3, 5`, `Ioh. 3, v. 5` | `John 3:5` | `John 3:5` / `In. 3:5` |
+| `Rom. v. 12`, `Rom. v, 12` | `Rom 5:12` | `Rom. 5:12` |
+| `I Cor. xv, 22`, `1 Cor. 15, 22`, `II Tim. 3, 16` | `1Cor 15:22`, `2Tim 3:16` | `1 Cor. 15:22` |
+| `Ioh. 3, 5. 8`, `Ioh. 3, 5 et 8`, `Rom. 5, 12-14` | `John 3:5`, `John 3:8`; `Rom 5:12-14` | `John 3:5, 8`; `Rom. 5:12–14` |
+| `Rom. viii. 19 sq.` (also `sqq.`, `seq.`, `seqq.`, `ss.`, `ff.`, `f.`, `et sqq.`) | `Rom 8:19ff` | `Rom. 8:19 ff.` / `Rom. 8:19 ș.urm.` |
+| `Matth. 5, 3; 6, 1`, `Rom. v. 12; vi. 3` | the same book, other chapter | `Matt. 5:3; 6:1` |
+| `Rom. 5, 12; v. 14`, `vv. 14-16`, `Apoc. 3, 20 cum v. 21` | verses of the chapter before | `Rom. 5:12; v. 14`, `Rev. 3:20 with v. 21` |
+| `ibid. 14`, `ib. 14`, `ibidem 14` | verses of the chapter before | after `;` as `v. 14`; at the start of a run, with the book: `Rom. 5:14` |
+| `ibid. 6, 3`, `ibid. vi, 3` | chapter 6 verse 3 of the book before | `John 6:3` |
+| `Matth. V` (a chapter without verses; the citation must end there) | `Matt 5` | `Matt. 5` |
+| `Iud. 5`, `Abd. 21`, `2 Ioh. 5` (single-chapter books) | `Jude 5`, `Obad 21`, `2John 5` | |
+
+Rules of reading: an abbreviation is a book only when a chapter or verses follow; a numbered
+book needs its number (`I`, `II`, `III`, `IV` or `1`-`4`); the roman numeral of a chapter is
+strict (`IIII` and `IC` are not chapters; at most 150); a bare chapter (`; 8, 3`, `; viii, 3`)
+needs a book before it and never starts a run, and after a comma only a lower-case roman numeral
+is a chapter (an Arabic number there is the next verse); `ibid. N, M` is chapter N verse M
+(verses N and M are written `ibid. N et M`); `Iud.` / `Jud.` is Jude, the Book of Judges is
+`Iudic.` / `Judic.`; a verse list stops before the number of the next book (`Rom. 5, 12, 1 Cor.
+15, 22`), and `ibid.` without an antecedent stays unresolved (`vs 14`, `6:3`). Names accepted per
+book are in `books.ts` (`LATIN_SPECS`): the abbreviations of the specification with the `i`/`j`
+variants (`Ioh.`/`Joh.`, `Iac.`/`Jac.`, `Ios.`/`Jos.`, `Iudic.`/`Judic.`, `Ier.`/`Jer.`,
+`Iob`/`Job`, `Ioel`/`Joel`, `Ion.`/`Jon.`) and a few full names (`Osee`, `Abdias`, `Iosue`).
+Ambiguous short forms (`Ez.`, `Jo.`, `Ap.`) are left out on purpose.
+
+**Vulgate numbering.** The Vulgate numbers the psalms, and the books of Kings and Esdras,
+differently from the Hebrew Bible. The pipeline does not renumber anything: the canonical item keeps the number of the source and gets
+the marker ` vulgate` (`Ps. 118, 2` is `Ps 118:2 vulgate`, `3 Reg. 19, 12` is `1Kgs 19:12
+vulgate`, `2 Esdr. 8, 10` is `Neh 8:10 vulgate`), the job's reference carries a `note` that tells
+the translator (the psalm numbers stay as in the source; 1-4 Reg. are 1-2 Samuel and 1-2 Kings;
+1 Esdr. is Ezra, 2 Esdr. is Nehemiah), and the target is written under the usual name of the book
+(`1 Kings 19:12`, `1 Împ. 19:12`). `Par.` / `Paral.` is only another name of Chronicles
+(`1 Par.` is `1Chr`) and has no marker. `REF_MISSING` and `REF_EXTRA` compare the items without
+the marker (what a translation can show), so a psalm renumbered to the Hebrew numbering is both
+missing and extra. Other differences of versification between the Vulgate and the Hebrew Bible are
+not tracked.
 
 ## 6. Agent passes
 
 Three passes per job, each a separate agent context (Sonnet, per project rule; effort `max` for
-the pilot). Prompts are the templates in `content/translation/prompts/` with placeholders filled
-by the orchestrator (`{{JOB_FILE}}`, `{{OUT_FILE}}`, `{{DRAFT_FILE}}`, `{{CRITIC_FILE}}`,
-`{{FINAL_FILE}}`, `{{CHECK_COMMAND}}`).
+the pilot). Prompts are the templates in `content/translation/prompts/<target language>/` with
+placeholders filled by the orchestrator (`{{JOB_FILE}}`, `{{OUT_FILE}}`, `{{DRAFT_FILE}}`,
+`{{CRITIC_FILE}}`, `{{FINAL_FILE}}`, `{{CHECK_COMMAND}}`, `{{SOURCE_LANGUAGE}}`, ...). The `ro` and
+`en` templates have the same placeholders (a test compares them); the English ones name the field
+`headingEn` and the sections of `rules-en.md`, which has the same ten sections as `rules-ro.md`.
 
 1. **Draft** reads the materials named in the job, the job and nothing else; writes
    `drafts/<jobId>.json`; runs `translation-check --fix`; repairs parity/heading problems (only
@@ -371,6 +581,13 @@ edition; the app shows the translation as `Traducere` with the edition's licence
   `review.md` ordering), CLI registration (`cli.test.ts` lists seven commands).
 - `packages/shared` tests cover the new schema refinements (translation without
   `sourceEditionId` rejected; duplicate `sourceId` rejected; source edition unchanged).
+- The generalisation (P1-C2) adds `languages.test.ts`, `reference-fixtures.ts`,
+  `references-latin.test.ts`, `notation.test.ts`, `checks-languages.test.ts`,
+  `merge-languages.test.ts`, `materials.test.ts` and `translation-dry-run.test.ts` (dry runs of the
+  three commands on the first chapter of Augustine, the Creed of Constantinople and a synthetic
+  paragraph of Latin citations, each into English and into Romanian, with the real materials), and
+  extends `books.test.ts` and `schemas.test.ts`. The fixtures and their provenance are in
+  `packages/content-tools/src/translation/fixtures/`.
 - `pnpm -r typecheck && pnpm -r lint && pnpm -r test && pnpm format:check` pass; the committed
   Vos pack and `committed-content.test.ts` are untouched.
 - No new runtime dependencies (a small CSV reader is written by hand; the format has no quoted
@@ -384,7 +601,10 @@ edition; the app shows the translation as `Traducere` with the edition's licence
 
 Claude Batches API runner (production; this version runs through the orchestrator's agents),
 back-translation and embedding similarity as triage signals, the admin review app, glossary
-approval workflow per tradition, Latin/Greek/German calque lists, orthographic modernisation of
+approval workflow per tradition, sources in German, French, Spanish, Italian and Dutch (function
+words, grammar of references, calques), Greek calques beyond the Latinisms of `calques-en.json`, a
+check of the overlap with public-domain English translations (the reference of the critic is not
+compared automatically), orthographic modernisation of
 old Romanian editions, multiple editions per work in the app (the reader currently keys works by
 `work.id`; bundling a second edition of the same work needs an edition switcher).
 
@@ -414,3 +634,47 @@ Deltas from the sections above, accepted after review:
   English labels of section 3.3; critic findings with empty quotes are never deduplicated away.
 - Counts on Vos: 31 jobs, 131 paragraphs, 29,658 words, 153 reference runs / 275 canonical items,
   0 unparsed fragments; 300 tests in `content-tools`, 17 in `shared`.
+
+### 10.1 The generalisation as built (P1-C2, 5 November 2026)
+
+Deltas from sections 1 to 9, as accepted after review (ADR-017 in `docs/decizii.md`):
+
+- **Registry.** `languages.ts` holds the target languages (`ro`, `en`: heading field, cedilla,
+  quotation marks, notation), the source languages with function words (`en`, `la`, `grc`) and the
+  bands of `LENGTH_RATIO` per pair. `translation-jobs` refuses another target after reading the
+  edition; `translation-check` and `translation-merge` refuse a language without materials as usage
+  errors. The jobs and the Vos reports are byte-identical to the ones of 4 November: the generalised
+  code was compared with the committed jobs (`translation-jobs … --lang ro --out <scratch>`; the
+  only difference is `sourceSha256` in `index.json`, which already differed before the change
+  because `edition-en.json` was regenerated after the jobs were written) and with the reports of
+  `translation-check` on all 62 drafts and final outputs of the Vos translation.
+- **Schemas.** `TranslationOutput.headingEn` (optional, next to `headingRo`),
+  `JobReference.note` (optional; absent for Vos), `TranslationEditionMeta.workTitle` (optional).
+  `packages/shared` is untouched.
+- **References.** `references.ts` keeps the English and Romanian grammars (the Romanian one is now
+  built by a factory that also builds the English-translation grammar), exports the pieces the
+  Latin grammar reuses and a generic run loop; `references-latin.ts` is the Latin grammar;
+  `notation.ts` chooses the grammar and the notation for a pair of languages. `books.ts` has the
+  English standard abbreviation of every book, seven deuterocanonical books (Tob, Jdt, Wis, Sir,
+  Bar, 1-2 Macc, read by the Latin grammar and by the English and Romanian notation of a
+  translation, not by the English source grammar) and the Latin names with the Vulgate marks.
+- **Checks.** The new codes are `RESIDUE_LA`, `RESIDUE_GRC`, `GREEK_COPY`, `QUOTES_CURLY_UNBALANCED`;
+  `RESIDUE_EN` is unchanged for English sources; `LENGTH_RATIO` says "shorter" or "longer" by the
+  lower band of the pair (for `en` -> `ro` this is the same as before).
+- **Merge.** The sheet of an English translation is in English; the line `Languages: la -> en`
+  names the pair in every sheet. `workTitle` fills `work.titleEn` / `work.titleRo`.
+- **Materials.** `rules-en.md`, `glossary-en.csv` (26 rows, all PROPUS), `calques-en.json` (19
+  rows, all WARN), `prompts/en/`, the profiles `augustine-de-spiritu-et-littera`,
+  `symbolum-nicaeno-constantinopolitanum`, `symbolum-apostolorum`, and a note in
+  `output-contract.md` on `headingEn`. The glossary rows for the Greek and Latin terms are
+  accent-tolerant and cover the printed spellings (`j`/`v`, `charitas`).
+- **Fixtures.** The Latin of the first chapter of Augustine, *De spiritu et littera* (from the page
+  text of the 1914 Clarendon Press volume of the inventory, a directory of page files and not a PDF,
+  so `pdftotext` was not needed) and the Greek of the Creed of Constantinople, both with test
+  translations, in `packages/content-tools/src/translation/fixtures/`; the records of their
+  sources, with URL, date, licence and checksums, are `content/sources/*/SOURCE.md`.
+- **Counts.** 31 Vos jobs, 131 paragraphs, 154 reference runs and 0 unparsed fragments as before;
+  Augustine chapter I: 1 job, 210 words, no reference, 0 unparsed; the creed: 3 jobs, 3 paragraphs,
+  175 Greek words. The Latin of the 66 sections of the treatise was run through the Latin grammar
+  with the editor's marginal references still in the text: 244 runs, all of them in the margins, none
+  in the prose of Augustine.

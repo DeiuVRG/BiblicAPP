@@ -1,13 +1,16 @@
 import { collapse, dice } from '../ingest/text';
 import { ruleApplies } from './glossary';
 import type { CalqueRule, GlossaryRule } from './glossary';
+import { foldGreek, lengthBands, primaryLanguage, residueSpec, targetSpec } from './languages';
+import type { TargetSpec } from './languages';
 import {
-  canonicalItems,
-  compareReferences,
-  detectNonRomanianNotation,
-  extractTargetReferences,
-  parseSourceReferences,
-} from './references';
+  canonicalKey,
+  detectForeignNotation,
+  extractReferences,
+  parseReferences,
+} from './notation';
+import type { ReferenceLanguages } from './notation';
+import { canonicalItems, compareReferences } from './references';
 import { SEVERITY_RANK } from './schemas';
 import type {
   CheckFinding,
@@ -47,21 +50,11 @@ export interface CheckResult {
   changed: boolean;
 }
 
-// Thresholds and word lists (fixed by the specification).
+// Thresholds (fixed by the specification). The function words of the source languages and the
+// bands of LENGTH_RATIO per pair of languages are in languages.ts.
 const SAME_AS_SOURCE_DICE = 0.9;
-const LENGTH_MAJOR_LOW = 0.75;
-const LENGTH_MAJOR_HIGH = 1.6;
-const LENGTH_MINOR_LOW = 0.85;
-const LENGTH_MINOR_HIGH = 1.45;
 const RESIDUE_MIN_HITS = 4;
 const RESIDUE_MIN_SHARE = 0.03;
-
-// prettier-ignore
-const ENGLISH_FUNCTION_WORDS: ReadonlySet<string> = new Set([
-  'the', 'and', 'of', 'which', 'that', 'with', 'this', 'is', 'not', 'from', 'by', 'his',
-  'their', 'been', 'were', 'into', 'than', 'those', 'these', 'there', 'what', 'when', 'would',
-  'should', 'also', 'only', 'but', 'upon', 'through', 'between', 'because', 'however',
-]);
 
 // Cedilla forms (U+015E, U+015F, U+0162, U+0163) to the comma-below forms Romanian uses.
 const CEDILLA_TO_COMMA: Record<string, string> = {
@@ -100,17 +93,20 @@ export function tidyWhitespace(text: string): string {
 }
 
 /**
- * NFC, cedilla letters to comma-below letters, white space tidied (see `tidyWhitespace`). A text
- * that is only white space is left alone (it is an EMPTY_TEXT finding, and an empty text is not
- * valid).
+ * NFC, cedilla letters to comma-below letters (Romanian only: `cedilla: false` leaves them
+ * alone), white space tidied (see `tidyWhitespace`). A text that is only white space is left
+ * alone (it is an EMPTY_TEXT finding, and an empty text is not valid).
  */
-export function normaliseText(text: string): Normalised {
+export function normaliseText(text: string, options: { cedilla?: boolean } = {}): Normalised {
   const composed = text.normalize('NFC');
   let cedilla = 0;
-  const commaBelow = composed.replace(/[\u015E\u015F\u0162\u0163]/g, (letter) => {
-    cedilla += 1;
-    return CEDILLA_TO_COMMA[letter] ?? letter;
-  });
+  const commaBelow =
+    options.cedilla === false
+      ? composed
+      : composed.replace(/[\u015E\u015F\u0162\u0163]/g, (letter) => {
+          cedilla += 1;
+          return CEDILLA_TO_COMMA[letter] ?? letter;
+        });
   const collapsed = tidyWhitespace(commaBelow);
   const whitespace = collapsed !== '' && collapsed !== commaBelow;
   return {
@@ -153,6 +149,9 @@ function fixableFindings(
 
 interface ParagraphContext {
   job: TranslationJob;
+  /** Source and target language of the job. */
+  languages: ReferenceLanguages;
+  target: TargetSpec;
   jobParagraph: JobParagraph;
   /** The normalised translation of the paragraph. */
   text: string;
@@ -197,7 +196,31 @@ function checkSameAsSource(ctx: ParagraphContext): CheckFinding[] {
   ];
 }
 
+/**
+ * A source in Greek is translated as a whole, so its Greek cannot be asked for in the
+ * translation. What the translation keeps of it (a term in parentheses) must be an exact copy: the
+ * same letters, accents and breathings in NFC, never transliterated and never Greek that the
+ * source does not have.
+ */
+function checkGreekCopy(ctx: ParagraphContext): CheckFinding[] {
+  const source = ctx.source.normalize('NFC');
+  const runs = new Set(ctx.text.normalize('NFC').match(GREEK_RUN) ?? []);
+  const altered = [...runs].filter((run) => !source.includes(run));
+  const first = altered[0];
+  if (first === undefined) return [];
+  return [
+    finding(
+      ctx,
+      'GREEK_COPY',
+      'MAJOR',
+      `Greek in the translation that is not an exact copy of the Greek of the source: ${joinList(altered)}`,
+      { quoteTarget: first },
+    ),
+  ];
+}
+
 function checkGreek(ctx: ParagraphContext): CheckFinding[] {
+  if (primaryLanguage(ctx.languages.source) === 'grc') return checkGreekCopy(ctx);
   const target = ctx.text.normalize('NFC');
   const runs = new Set(ctx.source.normalize('NFC').match(GREEK_RUN) ?? []);
   const missing = [...runs].filter((run) => !target.includes(run));
@@ -216,16 +239,43 @@ function checkGreek(ctx: ParagraphContext): CheckFinding[] {
   ];
 }
 
+const HYPHENS: ReadonlySet<string> = new Set([
+  '-',
+  String.fromCharCode(0x2010),
+  String.fromCharCode(0x2011),
+]);
+
+/** A word that is joined to the next or the previous one by a hyphen: `non-literal`. */
+function isHyphenated(text: string, token: RegExpExecArray): boolean {
+  return (
+    HYPHENS.has(text.charAt(token.index - 1)) ||
+    HYPHENS.has(text.charAt(token.index + token[0].length))
+  );
+}
+
+/**
+ * Function words of the language of the source left in the translation: RESIDUE_EN, RESIDUE_LA,
+ * RESIDUE_GRC. The list is that of the source language (see `residueSpec`); a language without a
+ * list, or equal to the target, is not checked.
+ */
 function checkResidue(ctx: ParagraphContext): CheckFinding[] {
+  const spec = residueSpec(ctx.languages.source, ctx.languages.target);
+  if (!spec) return [];
+  const greek = spec.script === 'greek';
   // The abbreviation of a book is not prose: the Romanian `Is.` (Isaiah) is not the English `is`.
-  const references = extractTargetReferences(ctx.text);
-  const tokens = [...ctx.text.matchAll(/\p{L}+/gu)].filter(
+  const references = extractReferences(ctx.text, ctx.languages.target);
+  const tokens = [...ctx.text.matchAll(greek ? /[\p{L}\p{M}]+/gu : /\p{L}+/gu)].filter(
     (token) => !references.some((ref) => token.index >= ref.start && token.index < ref.end),
   );
-  // Only whole ASCII words count, so Romanian words with diacritics never match.
-  const hits = tokens.filter(
-    (token) => /^[A-Za-z]+$/.test(token[0]) && ENGLISH_FUNCTION_WORDS.has(token[0].toLowerCase()),
-  );
+  const isHit = (token: RegExpExecArray): boolean => {
+    const word = token[0];
+    if (greek) return spec.words.has(foldGreek(word));
+    // Only whole ASCII words count, so Romanian words with diacritics never match.
+    if (!/^[A-Za-z]+$/.test(word) || !spec.words.has(word.toLowerCase())) return false;
+    // A Latin word that is the prefix of an English compound (`non-literal`) is not Latin.
+    return spec.code === 'RESIDUE_EN' || !isHyphenated(ctx.text, token);
+  };
+  const hits = tokens.filter(isHit);
   const first = hits[0];
   if (!first) return [];
   const share = hits.length / tokens.length;
@@ -239,22 +289,25 @@ function checkResidue(ctx: ParagraphContext): CheckFinding[] {
   return [
     finding(
       ctx,
-      'RESIDUE_EN',
+      spec.code,
       'MAJOR',
-      `${hits.length} English function word(s) left in ${tokens.length} tokens: ${joinList(listed)}`,
+      `${hits.length} ${spec.name} function word(s) left in ${tokens.length} tokens: ${joinList(listed)}`,
       { quoteTarget: excerpt(ctx.text, first.index) },
     ),
   ];
 }
 
 function checkReferences(ctx: ParagraphContext): CheckFinding[] {
-  const sourceItems = ctx.jobParagraph.references.flatMap((reference) => reference.canonical);
-  const targetRuns = extractTargetReferences(ctx.text);
+  // The marker of Vulgate numbering is for the translator: the translation shows the number only.
+  const sourceItems = ctx.jobParagraph.references
+    .flatMap((reference) => reference.canonical)
+    .map(canonicalKey);
+  const targetRuns = extractReferences(ctx.text, ctx.languages.target);
   const { missing, extra } = compareReferences(sourceItems, canonicalItems(targetRuns));
   const findings: CheckFinding[] = [];
   if (missing.length > 0) {
     const run = ctx.jobParagraph.references.find((r) =>
-      r.canonical.some((c) => missing.includes(c)),
+      r.canonical.some((c) => missing.includes(canonicalKey(c))),
     );
     findings.push(
       finding(
@@ -287,11 +340,12 @@ function checkReferences(ctx: ParagraphContext): CheckFinding[] {
 
 function checkLength(ctx: ParagraphContext): CheckFinding[] {
   const ratio = ctx.text.length / Math.max(1, ctx.source.length);
+  const bands = lengthBands(ctx.languages.source, ctx.languages.target);
   let severity: Severity | null = null;
-  if (ratio < LENGTH_MAJOR_LOW || ratio > LENGTH_MAJOR_HIGH) severity = 'MAJOR';
-  else if (ratio < LENGTH_MINOR_LOW || ratio > LENGTH_MINOR_HIGH) severity = 'MINOR';
+  if (ratio < bands.majorLow || ratio > bands.majorHigh) severity = 'MAJOR';
+  else if (ratio < bands.minorLow || ratio > bands.minorHigh) severity = 'MINOR';
   if (severity === null) return [];
-  const direction = ratio < 1 ? 'shorter' : 'longer';
+  const direction = ratio < bands.minorLow ? 'shorter' : 'longer';
   return [
     finding(
       ctx,
@@ -341,15 +395,16 @@ function calqueFindings(ctx: ParagraphContext, rules: readonly GlossaryRule[]): 
 }
 
 function checkRefFormat(ctx: ParagraphContext): CheckFinding[] {
-  const fragments = detectNonRomanianNotation(ctx.text);
+  const fragments = detectForeignNotation(ctx.text, ctx.languages);
   const first = fragments[0];
   if (first === undefined) return [];
+  const notation = ctx.target.notation === 'ro' ? 'Romanian' : 'English';
   return [
     finding(
       ctx,
       'REF_FORMAT',
       'MINOR',
-      `reference not in Romanian notation: ${joinList(fragments)}`,
+      `reference not in ${notation} notation: ${joinList(fragments)}`,
       {
         quoteTarget: first,
       },
@@ -378,9 +433,9 @@ function numbersInTranslation(text: string): Set<string> {
 }
 
 /** Numbers of the source outside scripture references. */
-function numbersOutsideReferences(source: string): string[] {
+function numbersOutsideReferences(source: string, languages: ReferenceLanguages): string[] {
   let blanked = source;
-  for (const run of parseSourceReferences(source).reverse()) {
+  for (const run of parseReferences(source, languages).reverse()) {
     blanked =
       blanked.slice(0, run.start) + ' '.repeat(run.end - run.start) + blanked.slice(run.end);
   }
@@ -389,7 +444,9 @@ function numbersOutsideReferences(source: string): string[] {
 
 function checkNumbers(ctx: ParagraphContext): CheckFinding[] {
   const present = numbersInTranslation(ctx.text);
-  const missing = numbersOutsideReferences(ctx.source).filter((n) => !present.has(n));
+  const missing = numbersOutsideReferences(ctx.source, ctx.languages).filter(
+    (n) => !present.has(n),
+  );
   const first = missing[0];
   if (first === undefined) return [];
   return [
@@ -426,7 +483,43 @@ function checkGlossary(ctx: ParagraphContext, rules: readonly GlossaryRule[]): C
   return findings;
 }
 
+/**
+ * Quotation marks of an English translation: “…” with ‘…’ inside. A straight `"` is a typographic
+ * defect (QUOTES_STRAIGHT), and the opening and closing double marks must come in pairs
+ * (QUOTES_CURLY_UNBALANCED). Single curly marks are not counted: ’ is also the apostrophe.
+ */
+function checkEnglishQuotes(ctx: ParagraphContext): CheckFinding[] {
+  const findings: CheckFinding[] = [];
+  const straight = ctx.text.indexOf('"');
+  if (straight >= 0) {
+    findings.push(
+      finding(
+        ctx,
+        'QUOTES_STRAIGHT',
+        'MINOR',
+        'straight quotation mark " in the translation (English: “ and ”)',
+        { quoteTarget: excerpt(ctx.text, straight) },
+      ),
+    );
+  }
+  const count = (mark: string): number => ctx.text.split(mark).length - 1;
+  const opening = count('“');
+  const closing = count('”');
+  if (opening !== closing) {
+    findings.push(
+      finding(
+        ctx,
+        'QUOTES_CURLY_UNBALANCED',
+        'MINOR',
+        `${opening} opening “ but ${closing} closing ” quotation marks`,
+      ),
+    );
+  }
+  return findings;
+}
+
 function checkQuotes(ctx: ParagraphContext): CheckFinding[] {
+  if (ctx.target.quotes === 'en') return checkEnglishQuotes(ctx);
   const findings: CheckFinding[] = [];
   const straight = ctx.text.indexOf('"');
   if (straight >= 0) {
@@ -582,17 +675,25 @@ function round(value: number, digits: number): number {
 /** Runs every check of section 4 and returns the report (and the fixed output with `fix`). */
 export function checkOutput(input: CheckInput): CheckResult {
   const { job, fix } = input;
+  const target = targetSpec(job.targetLanguage);
+  const languages = { source: job.sourceLanguage, target: job.targetLanguage };
   const output = structuredClone(input.output);
   const jobById = new Map(job.paragraphs.map((p) => [p.id, p]));
   const findings: CheckFinding[] = parityFindings(job, output);
   let changed = false;
 
-  const heading = output.headingRo;
+  const headingField = target.headingField;
+  const otherField = headingField === 'headingRo' ? 'headingEn' : 'headingRo';
+  const heading = output[headingField];
   if (job.part === 0 && (heading === undefined || heading.trim() === '')) {
+    const wrong =
+      (output[otherField] ?? '').trim() === ''
+        ? ''
+        : `; ${otherField} is the field of the other target language and is not used`;
     findings.push({
       check: 'HEADING_MISSING',
       severity: 'MAJOR',
-      message: 'part 0 of the section must carry headingRo (the translated heading)',
+      message: `part 0 of the section must carry ${headingField} (the translated heading)${wrong}`,
       quoteSource: job.section.heading,
     });
   }
@@ -602,7 +703,7 @@ export function checkOutput(input: CheckInput): CheckResult {
   let targetChars = 0;
   let targetWords = 0;
   for (const paragraph of output.paragraphs) {
-    const normalised = normaliseText(paragraph.text);
+    const normalised = normaliseText(paragraph.text, { cedilla: target.cedilla });
     const first = !seen.has(paragraph.sourceId);
     seen.add(paragraph.sourceId);
     targetWords += countWords(normalised.text);
@@ -619,6 +720,8 @@ export function checkOutput(input: CheckInput): CheckResult {
       findings.push(
         ...paragraphChecks({
           job,
+          languages,
+          target,
           jobParagraph,
           text: normalised.text,
           source: jobParagraph.text,
@@ -638,10 +741,10 @@ export function checkOutput(input: CheckInput): CheckResult {
   }
 
   if (heading !== undefined) {
-    const normalised = normaliseText(heading);
-    findings.push(...fixableFindings(normalised, fix, { label: 'headingRo' }));
+    const normalised = normaliseText(heading, { cedilla: target.cedilla });
+    findings.push(...fixableFindings(normalised, fix, { label: headingField }));
     if (fix && normalised.text !== heading) {
-      output.headingRo = normalised.text;
+      output[headingField] = normalised.text;
       changed = true;
     }
   }

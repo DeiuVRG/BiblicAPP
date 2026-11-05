@@ -9,6 +9,8 @@ import { resolveUserPath } from '../lib/paths';
 import { UsageError } from '../lib/usage-error';
 import { sha256Hex } from '../signing';
 import { parseJsonText, parseWith, readBytesFile, writeJsonFile } from '../translation/io';
+import { TARGET_LANGUAGES, isTargetLanguage } from '../translation/languages';
+import { hasReferenceGrammar } from '../translation/notation';
 import {
   DEFAULT_CHUNK,
   buildJobs,
@@ -23,8 +25,14 @@ Splits a canonical source edition into translation jobs: parts of a section of a
 --target-words words, never splitting a paragraph, each paragraph with its scripture
 references converted to the target notation and the neighbouring text as context.
 
+The source language is the language of the edition: English and Latin sources have a grammar of
+scripture references (English: Matt. iv. 17; Latin: Matth. IV, 17, Ioh. 3, 5, ibid.); a source
+in another language, Greek included, gets jobs without references. The target language selects
+the materials (content/translation/rules-<lang>.md, glossary-<lang>.csv, calques-<lang>.json),
+the notation of the references (ro: Mat. 4:17, en: Matt. 4:17) and the field of the heading.
+
 Options:
-  --lang <lang>           target language, e.g. ro (required)
+  --lang <lang>           target language: ro or en (required)
   --out <dir>             translation directory (default: <work dir>/translation-<lang>);
                           writes <dir>/jobs/index.json and <dir>/jobs/<jobId>.json
   --sections <list>       chapters to include, 1-based: 1,2,5-7 (default: all)
@@ -108,6 +116,11 @@ function translationJobs(args: string[]): number {
   if (edition.edition.language === lang) {
     throw new UsageError(`--lang ${lang} is the language of the source edition`);
   }
+  if (!isTargetLanguage(lang)) {
+    throw new UsageError(
+      `--lang ${lang} is not a supported target language (supported: ${TARGET_LANGUAGES.join(', ')})`,
+    );
+  }
   const wanted = ranges ? expandSections(ranges, edition.sections.length) : undefined;
 
   const outDir = values.out
@@ -152,6 +165,12 @@ function translationJobs(args: string[]): number {
       `reference runs ${built.referenceRuns}\n`,
   );
   out.write(`unparsed reference-like fragments: ${fragments}\n`);
+  if (!hasReferenceGrammar(edition.edition.language)) {
+    out.write(
+      `NOTE: no grammar of scripture references for source language ${edition.edition.language}; ` +
+        'the jobs carry no references\n',
+    );
+  }
   for (const name of stale)
     out.write(`removed stale job file ${name} (not produced by this run)\n`);
   for (const section of built.emptySections) {

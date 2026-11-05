@@ -14,10 +14,19 @@ export function LoadingView({ message }: { message: string }) {
   );
 }
 
-export function MessageView({ message }: { message: string }) {
+/**
+ * A sentence in the middle of the page. `heading` makes it the level-1 heading of a screen that has
+ * nothing else to name it (a reader that did not find its section): one `h1` per screen.
+ */
+export function MessageView({ message, heading = false }: { message: string; heading?: boolean }) {
   return (
     <View style={styles.center}>
-      <AppText variant="lead" style={styles.message} accessibilityLiveRegion="polite">
+      <AppText
+        variant="lead"
+        {...(heading ? { heading: true, level: 1 } : null)}
+        style={styles.message}
+        accessibilityLiveRegion="polite"
+      >
         {message}
       </AppText>
     </View>

@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View } from 'react-native';
+import { Platform, StyleSheet, TextInput, View } from 'react-native';
 import type { StyleProp, TextInputInstance, ViewStyle } from 'react-native';
 import type { Ref } from 'react';
 
@@ -12,6 +12,9 @@ import { radii } from '@/theme/tokens';
 export const SEARCH_FIELD_HEIGHT = 48;
 /** Room the clear button takes at the right end of the field, so the text never runs under it. */
 const CLEAR_SLOT = MIN_TARGET;
+/** The padding at either end of the text while there is no clear button: the same on both sides. */
+const EDGE = 14;
+const WEB_ELLIPSIS = { textOverflow: 'ellipsis' } as object;
 
 interface Props {
   value: string;
@@ -23,6 +26,8 @@ interface Props {
   clearLabel: string;
   /** Enter was pressed. */
   onSubmit?(): void;
+  /** The arrow Down was pressed (web): the screen moves the focus into its results. */
+  onArrowDown?(): void;
   autoFocus?: boolean;
   /** The right corners are square: a button joins the field there (the hero form of 6.1). */
   joined?: boolean;
@@ -34,7 +39,11 @@ interface Props {
 /**
  * The search field of the product (docs/ui-spec-v2.md, 3): 48 high, a 1 px `borderStrong` outline,
  * radius 6, 16 point text (no zoom on iOS), a clear button inside it, `type=search` on web. The
- * focus ring replaces the border (the page's `input:focus-visible` rule). Escape clears it.
+ * focus ring replaces the border (the page's `input:focus-visible` rule). Escape clears it and the
+ * arrow Down hands the focus to the results (when the screen asks for it). The
+ * box never changes size when the clear button comes; the room it takes at the right end is
+ * reserved only while there is text to clear, so that an empty field gives its whole width to the
+ * placeholder (on a 390 point phone a placeholder of 214 points does not fit in 161).
  */
 export function SearchField({
   value,
@@ -43,6 +52,7 @@ export function SearchField({
   label,
   clearLabel,
   onSubmit,
+  onArrowDown,
   autoFocus,
   joined = false,
   testID = 'search-field',
@@ -68,7 +78,13 @@ export function SearchField({
         returnKeyType="search"
         onSubmitEditing={onSubmit}
         onKeyPress={(event) => {
-          if (event.nativeEvent.key === 'Escape' && value !== '') onChangeText('');
+          const key = event.nativeEvent.key;
+          if (key === 'Escape' && value !== '') onChangeText('');
+          else if (key === 'ArrowDown' && onArrowDown) {
+            // The caret would otherwise jump to the end of the text.
+            event.preventDefault();
+            onArrowDown();
+          }
         }}
         maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
         style={[
@@ -79,7 +95,11 @@ export function SearchField({
             borderColor: colors.borderStrong,
             fontFamily: fonts.text,
           },
+          { paddingRight: value.length > 0 ? CLEAR_SLOT : EDGE },
           joined ? styles.joined : null,
+          // A placeholder that is still too long for a narrow field ends in "…" instead of being cut
+          // through a letter (the web's own `text-overflow`; not part of React Native's types).
+          Platform.OS === 'web' ? WEB_ELLIPSIS : null,
         ]}
       />
       {value.length > 0 ? (
@@ -107,8 +127,7 @@ const styles = StyleSheet.create({
     height: SEARCH_FIELD_HEIGHT,
     borderWidth: 1,
     borderRadius: radii.md,
-    paddingLeft: 14,
-    paddingRight: CLEAR_SLOT,
+    paddingLeft: EDGE,
     fontSize: 16,
   },
   joined: { borderTopRightRadius: 0, borderBottomRightRadius: 0 },

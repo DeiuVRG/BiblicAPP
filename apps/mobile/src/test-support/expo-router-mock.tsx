@@ -1,5 +1,5 @@
-import { cloneElement, useEffect, useSyncExternalStore } from 'react';
-import type { ReactElement } from 'react';
+import { cloneElement, createContext, useContext, useEffect, useSyncExternalStore } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 /**
  * Minimal stand-in for `expo-router` in component tests:
@@ -8,6 +8,11 @@ import type { ReactElement } from 'react';
  * records its `options` in `screenOptions`. The route params are state: `setMockParams` sets them
  * and `router.setParams` merges into them, like the real router, and whatever reads them with
  * `useLocalSearchParams()` re-renders.
+ *
+ * Like the real one, `Link asChild` also hands its child a `ref` prop (`null` when the child has
+ * none): the child is a function component, and in React 19 a ref is an ordinary prop, so a child
+ * that spreads its props over a pressable can overwrite its own ref with it. `MockScreen` stands
+ * for a screen of the stack: the screens that were left stay mounted and are not in focus.
  */
 type Params = Record<string, string | string[] | undefined>;
 
@@ -57,9 +62,23 @@ export function Link({
   children,
 }: {
   href: unknown;
-  children: ReactElement<{ onPress?: () => void }>;
+  children: ReactElement<{ onPress?: () => void; ref?: unknown }>;
 }) {
-  return cloneElement(children, { onPress: () => router.push(href) });
+  // What the slot of the real `Link` does: the child's own ref, or `null` when it has none.
+  return cloneElement(children, {
+    onPress: () => router.push(href),
+    ref: children.props.ref ?? null,
+  });
+}
+
+const FocusContext = createContext(true);
+
+/**
+ * A screen of the stack: what is inside it is in focus or not (`useIsFocused`, `useFocusEffect`).
+ * A screen the reader came from stays mounted under the one on top and is not in focus.
+ */
+export function MockScreen({ focused, children }: { focused: boolean; children: ReactNode }) {
+  return <FocusContext.Provider value={focused}>{children}</FocusContext.Provider>;
 }
 
 /** The `options` of every `Stack.Screen` rendered so far (newest last); tests can assert on them. */
@@ -73,10 +92,14 @@ export const Stack = {
 };
 
 export const useRouter = () => router;
-/** Runs the effect once on mount (focus is not modelled). */
+/** Runs the effect while the screen it is in is in focus (`MockScreen`; a plain tree is in focus). */
 export function useFocusEffect(effect: () => void | (() => void)) {
-  useEffect(effect, [effect]);
+  const focused = useContext(FocusContext);
+  useEffect(() => (focused ? effect() : undefined), [effect, focused]);
 }
+
+/** Whether the screen this is in is in focus (`MockScreen`; a plain tree is in focus). */
+export const useIsFocused = () => useContext(FocusContext);
 
 export const useLocalSearchParams = () => useSyncExternalStore(subscribe, () => params);
 export const usePathname = () => useSyncExternalStore(subscribe, () => pathname);

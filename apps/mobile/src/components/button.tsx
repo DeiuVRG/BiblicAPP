@@ -18,6 +18,8 @@ export const MIN_TARGET = 44;
 const PRIMARY_PHONE_HEIGHT = 48;
 /** The small button (the "Întreabă" of the brand bar) is this high for a mouse on a wide screen. */
 const SMALL_HEIGHT = 36;
+/** Side padding of a small button: a text one at the edge of a bar is pulled back by this much. */
+export const SMALL_PADDING = 14;
 /** How far the arrow of a "NAME ›" link moves on hover. */
 const ARROW_SHIFT = 3;
 
@@ -185,7 +187,7 @@ export function Button({
         styles.base,
         {
           minHeight: height,
-          paddingHorizontal: small ? 14 : link ? 16 : 20,
+          paddingHorizontal: small ? SMALL_PADDING : link ? 16 : 20,
           borderRadius: visual === 'pill' ? radii.pill : ghost ? radii.md : radii.sm,
           backgroundColor: filled ? (hover ? colors.accentHover : colors.accentStrong) : undefined,
           borderWidth: filled || link ? 0 : 1,

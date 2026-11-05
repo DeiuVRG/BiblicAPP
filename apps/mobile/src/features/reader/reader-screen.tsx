@@ -125,7 +125,7 @@ export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Pr
   if (data.status === 'error') {
     return (
       <ReaderFrame>
-        <MessageView message={t.common.error} />
+        <MessageView message={t.common.error} heading />
       </ReaderFrame>
     );
   }
@@ -135,7 +135,7 @@ export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Pr
   if (!data.data.found || !section) {
     return (
       <ReaderFrame>
-        <MessageView message={t.reader.notFound} />
+        <MessageView message={t.reader.notFound} heading />
       </ReaderFrame>
     );
   }
@@ -293,9 +293,12 @@ function ChapterView({
     <ReaderFrame>
       <PageTitle parts={[section.heading, title]} />
       <Column kind="reading" style={styles.runningHead}>
-        {/* The name of the work, as a quiet running head (the header that carried it is gone). */}
+        {/* The name of the work, as a quiet running head (the header that carried it is gone). It is
+            the one level-1 heading of the screen (docs/ui-spec-v2.md, 18); the chapter title is its h2. */}
         <AppText
           variant="original"
+          heading
+          level={1}
           numberOfLines={1}
           testID="reader-running-title"
           style={styles.workTitle}

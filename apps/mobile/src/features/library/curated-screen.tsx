@@ -1,7 +1,7 @@
 import { Link, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
-import type { PressableProps, ViewStyle } from 'react-native';
+import type { PressableProps, TextInputInstance, ViewStyle } from 'react-native';
 import type { ReactNode } from 'react';
 
 import { AppText } from '@/components/app-text';
@@ -33,6 +33,8 @@ import {
 } from '@/navigation-hrefs';
 import { useSettings } from '@/settings/settings-context';
 import { Main, PageScroll } from '@/shell/page-scroll';
+import { useSlashTarget } from '@/shell/use-slash-target';
+import { PHONE_MAX, useLayout } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
 
 import { LibraryRow } from './library-row';
@@ -73,12 +75,25 @@ export function CuratedScreen() {
   );
 }
 
-/** The hero: the question, a joined search form (it goes to the full library) and the buttons. */
+/** The hero of Selecție is this high on a wide screen (docs/ui-spec-v2.md, 6.1). */
+const HERO_MIN_HEIGHT = 380;
+
+/**
+ * The hero: the question, a search form (it goes to the full library) and the buttons. The form is
+ * joined (the field 660 wide, "CAUTĂ" 121 wide) on a wide screen; on a phone the field takes the
+ * width and the button sits under it, as the reference's does: side by side the field would be 221
+ * points wide at 390 and its placeholder would not fit.
+ */
 function CuratedHero() {
   const t = useT();
   const features = useFeatures();
   const router = useRouter();
+  const { width } = useLayout();
+  const stacked = width <= PHONE_MAX;
   const [text, setText] = useState('');
+  // `/` focuses this field (the hero form) instead of opening the search page.
+  const inputRef = useRef<TextInputInstance>(null);
+  useSlashTarget(inputRef);
   const submit = () => {
     const q = text.trim();
     router.push(q === '' ? libraryAllHref : libraryAllWith({ q }));
@@ -86,14 +101,15 @@ function CuratedHero() {
   return (
     <Hero
       kind="library"
+      minHeight={HERO_MIN_HEIGHT}
       testID="library-hero"
       kicker={t.library.heroEyebrow}
       pilcrow={false}
       title={t.library.heroTitle}
       actions={
         <View style={styles.heroActions}>
-          <View style={styles.form}>
-            <View style={styles.formField}>
+          <View style={[styles.form, stacked ? styles.formStacked : null]}>
+            <View style={stacked ? styles.formFieldStacked : styles.formField}>
               <SearchField
                 testID="library-hero-search"
                 value={text}
@@ -102,7 +118,8 @@ function CuratedHero() {
                 label={t.library.heroPlaceholder}
                 clearLabel={t.search.clear}
                 onSubmit={submit}
-                joined
+                joined={!stacked}
+                inputRef={inputRef}
               />
             </View>
             <Button
@@ -110,7 +127,7 @@ function CuratedHero() {
               variant="primary"
               title={t.library.heroSubmit}
               onPress={submit}
-              style={styles.formButton}
+              style={stacked ? styles.formButtonStacked : styles.formButton}
             />
           </View>
           <View style={styles.heroButtons}>
@@ -213,6 +230,9 @@ function Bands({ model, language }: { model: LibraryModel; language: ReadingLang
       {authors.length > 0 ? (
         <FoldBand
           tone="masthead"
+          // With no band between them the dark hero and this dark band are one slab: a light hairline
+          // keeps them two.
+          topRule={creeds.length === 0 && start.length === 0}
           label={t.library.bandAuthors.label}
           title={t.library.bandAuthors.title}
           testID="band-authors"
@@ -373,10 +393,15 @@ function PlainLink({ children, style, ...rest }: PlainLinkProps) {
 }
 
 const styles = StyleSheet.create({
-  heroActions: { gap: 16, alignSelf: 'stretch' },
+  // The hero lays its actions out in a row on a wide screen: this block takes the whole row, so that
+  // the form can be 660 + 121 wide and the buttons wrap under it.
+  heroActions: { gap: 16, alignSelf: 'stretch', width: '100%' },
   form: { flexDirection: 'row', alignItems: 'flex-start', maxWidth: 781 },
+  formStacked: { flexDirection: 'column', alignItems: 'stretch', gap: 12 },
   formField: { flex: 1, minWidth: 0, maxWidth: 660 },
+  formFieldStacked: { alignSelf: 'stretch', minWidth: 0 },
   formButton: { width: 121, minHeight: 48, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
+  formButtonStacked: { alignSelf: 'stretch', minHeight: 48 },
   heroButtons: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   bandFoot: { marginTop: 24, marginLeft: -16, flexDirection: 'row' },
   plain: { gap: 4, paddingVertical: 6, alignItems: 'flex-start' },

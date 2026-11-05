@@ -65,6 +65,13 @@
       [data-band='masthead'] {
         --app-accent: var(--app-masthead-ink, #efe7da);
       }
+      /* A field on a dark band has a light fill: a ring over its border would be half on that fill,
+         where the ink of the band is 1.2:1 and the other half is a hairline. The ring lies on the
+         band instead, 2 px outside the field (3:1 against the dark band, rule 5 of 2.1). */
+      [data-band='masthead'] input:focus-visible,
+      [data-band='masthead'] textarea:focus-visible {
+        outline-offset: 2px;
+      }
       /* A closed disclosure prints open. */
       @media print {
         [data-disclosure-body] {

@@ -204,8 +204,11 @@ function modelsLine(input: ReviewInput): string {
 /** The reviewer's sheet: a header and one table of open findings, ordered by risk. */
 export function renderReview(input: ReviewInput, rows: readonly ReviewRow[]): string {
   const counts = countBySeverity(rows);
+  // The sheet of an English translation is read by an English reviewer: the title, the columns of
+  // the table and the empty message are English. The lines of the header always were.
+  const english = input.targetLanguage === 'en';
   const lines = [
-    `# Fișă de revizie: ${input.title}`,
+    `# ${english ? 'Review sheet' : 'Fișă de revizie'}: ${input.title}`,
     '',
     `- Work: ${input.titleOrig} (${input.slug})`,
     `- Languages: ${input.sourceLanguage} -> ${input.targetLanguage}`,
@@ -214,7 +217,9 @@ export function renderReview(input: ReviewInput, rows: readonly ReviewRow[]): st
     `- Models: ${modelsLine(input)}`,
     `- Findings: ${REVIEW_SEVERITIES.map((s) => `${s} ${counts[s]}`).join(', ')}`,
     '',
-    '| Severitate | Secțiune | Paragraf (sourceId) | Sursă | Traducere | Problemă | Propunere | Origine |',
+    english
+      ? '| Severity | Section | Paragraph (sourceId) | Source | Translation | Problem | Proposal | Origin |'
+      : '| Severitate | Secțiune | Paragraf (sourceId) | Sursă | Traducere | Problemă | Propunere | Origine |',
     '| --- | --- | --- | --- | --- | --- | --- | --- |',
   ];
   for (const row of rows) {
@@ -226,6 +231,8 @@ export function renderReview(input: ReviewInput, rows: readonly ReviewRow[]): st
       `| ${[row.severity, section, paragraph, cell(row.source), cell(row.target), cell(row.problem), cell(row.proposal), row.origin].join(' | ')} |`,
     );
   }
-  if (rows.length === 0) lines.push('', 'Nu există constatări deschise.');
+  if (rows.length === 0) {
+    lines.push('', english ? 'No open findings.' : 'Nu există constatări deschise.');
+  }
   return `${lines.join('\n')}\n`;
 }

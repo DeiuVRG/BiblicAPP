@@ -1,6 +1,6 @@
 import type { Pack } from '@biblioteca/shared';
-import { fireEvent, screen, within } from '@testing-library/react-native';
-import { Platform } from 'react-native';
+import { act, fireEvent, screen, within } from '@testing-library/react-native';
+import { Dimensions, Platform } from 'react-native';
 
 import { loadBundledRepository } from '@/content/repository';
 import type { LoadedRepository } from '@/content/repository';
@@ -143,6 +143,52 @@ describe('LibraryAllScreen with several editions', () => {
     expect(within(row).getByText('EN')).toBeTruthy();
     expect(within(row).getByLabelText('Română · traducere')).toBeTruthy();
     expect(within(row).getByLabelText('English · original')).toBeTruthy();
+  });
+
+  it('puts the badges in the right column of a wide row, right-aligned, with the shelf under them', async () => {
+    const original = Dimensions.get('window');
+    await act(async () => {
+      Dimensions.set({ window: { ...original, width: 1024 } });
+    });
+    try {
+      const { loaded } = await twoEditions();
+      await renderWithProviders(<LibraryAllScreen />, { loaded });
+      const row = (await screen.findAllByTestId(/^library-row-/))[0]!;
+      const side = within(row).getByTestId(/^row-side-/);
+      // The chips are the right column's, not the text column's (they used to float under the
+      // meta line).
+      expect(within(side).getByText('RO')).toBeTruthy();
+      expect(within(side).getByText('EN')).toBeTruthy();
+      expect(within(side).getByTestId('row-badges')).toHaveStyle({ justifyContent: 'flex-end' });
+      expect(side).toHaveStyle({ alignItems: 'flex-end' });
+      // No catalogue entry here: the work is on the shelf of the works the catalogue does not list.
+      expect(within(side).getByText('Altele')).toBeTruthy();
+      // The text column has none of them.
+      expect(within(row).getAllByTestId('row-badges')).toHaveLength(1);
+    } finally {
+      await act(async () => {
+        Dimensions.set({ window: original });
+      });
+    }
+  });
+
+  it('keeps the badges under the meta line on a phone, where the right column has no room', async () => {
+    const original = Dimensions.get('window');
+    await act(async () => {
+      Dimensions.set({ window: { ...original, width: 390 } });
+    });
+    try {
+      const { loaded } = await twoEditions();
+      await renderWithProviders(<LibraryAllScreen />, { loaded });
+      const row = (await screen.findAllByTestId(/^library-row-/))[0]!;
+      expect(within(row).queryByTestId(/^row-side-/)).toBeNull();
+      expect(within(row).getByText('RO')).toBeTruthy();
+      expect(within(row).getByTestId('row-badges')).toHaveStyle({ marginTop: 8 });
+    } finally {
+      await act(async () => {
+        Dimensions.set({ window: original });
+      });
+    }
   });
 
   it('opens the work page without choosing an edition: the page picks the primary one', async () => {

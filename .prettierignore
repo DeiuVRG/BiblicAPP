@@ -10,3 +10,4 @@ docs
 apps/mobile/assets/packs
 .claude
 *.md
+apps/mobile/assets/catalogue/catalogue.json

@@ -1,5 +1,5 @@
 import { act, fireEvent, screen, within } from '@testing-library/react-native';
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { BETA_1_FEATURES, FEATURES, FeaturesProvider } from '@/config/features';
 import type { Features } from '@/config/features';
@@ -12,6 +12,7 @@ import { resetMockRouter, router } from '@/test-support/expo-router-mock';
 import { syntheticLibrary } from '@/test-support/library-fixtures';
 import { bundledPack } from '@/test-support/packs';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
+import { palettes } from '@/theme/palettes';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
 
@@ -64,6 +65,27 @@ describe('LandingScreen: the hero and the doors', () => {
     expect(start).toHaveTextContent(t.landing.start);
     await fireEvent.press(start);
     expect(router.push).toHaveBeenCalledWith('/library');
+  });
+
+  it('sets everything of the hero on its middle axis, as the reference does, and the other bands at the left', async () => {
+    await renderLanding();
+    const hero = within(screen.getByTestId('hero'));
+    // The kicker row, both lines of the title, the sub line and the links are centred.
+    expect(screen.getByText('Tradiția creștină,')).toHaveStyle({
+      alignSelf: 'center',
+      textAlign: 'center',
+    });
+    expect(hero.getByText(t.landing.sub)).toHaveStyle({ textAlign: 'center', alignSelf: 'center' });
+    expect(hero.getByTestId('hero-highlight').parent).toHaveStyle({ alignSelf: 'center' });
+    expect(hero.getByTestId('hero-title').parent).toHaveStyle({ alignItems: 'center' });
+  });
+
+  it('gives the page a rhythm: the free statement is on cream, the doors band is tight', async () => {
+    await renderLanding();
+    expect(screen.getByTestId('free-statement')).toHaveStyle({
+      backgroundColor: palettes.light.cream,
+    });
+    expect(screen.getByTestId('doors')).toHaveStyle({ paddingTop: 40, paddingBottom: 40 });
   });
 
   it('has no "Întreabă" anywhere while the chat is not live (nothing dead)', async () => {
@@ -148,6 +170,20 @@ describe('LandingScreen: the collection and the shelves', () => {
     expect(card.getByText(t.landing.read, { includeHiddenElements: true })).toBeTruthy();
   });
 
+  it('sets the arrow of "CITEȘTE ›" in the type of its label, not in the system font', async () => {
+    await resizeTo(1280);
+    await renderLanding();
+    const card = within(await screen.findByTestId('work-card-despre-spirit-si-litera'));
+    const hidden = { includeHiddenElements: true };
+    const label = StyleSheet.flatten(card.getByText(t.landing.read, hidden).props.style);
+    const arrow = StyleSheet.flatten(card.getByTestId('work-card-arrow', hidden).props.style);
+    // The `button` style (Source Serif 4, 13 points): a bare `Text` had no face of its own and was
+    // drawn in "-apple-system" at 14 points. (Under Jest no face is loaded: both are the fallback.)
+    expect(arrow.fontFamily).toBe(label.fontFamily);
+    expect(arrow).toMatchObject({ fontSize: 13, lineHeight: label.lineHeight });
+    expect(arrow.fontWeight).toBe(label.fontWeight);
+  });
+
   it('keeps a card to a title, a group and the editions on a phone', async () => {
     await resizeTo(390);
     await renderLanding();
@@ -208,7 +244,13 @@ describe('LandingScreen: the collection and the shelves', () => {
     expect(shelfColumns(1280)).toBe(5);
     expect(shelfColumns(1000)).toBe(4);
     expect(shelfColumns(800)).toBe(3);
-    expect(shelfColumns(600)).toBe(2);
+    expect(shelfColumns(700)).toBe(3);
+    expect(shelfColumns(699)).toBe(2);
+    // A phone is up to 640 points (docs/ui-spec-v2.md, 2.4): one shelf per row, whatever the width.
+    expect(shelfColumns(641)).toBe(2);
+    expect(shelfColumns(640)).toBe(1);
+    expect(shelfColumns(600)).toBe(1);
+    expect(shelfColumns(560)).toBe(1);
     expect(shelfColumns(390)).toBe(1);
   });
 });

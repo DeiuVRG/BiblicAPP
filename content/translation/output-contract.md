@@ -81,3 +81,23 @@ gramatica | punctuatie | alta`. `verdict` este `ok` când nu există constatări
 Verificarea automată (`translation-check`) rulează după fiecare pas și scrie
 `checks/<jobId>.json`. Codul de ieșire 0 înseamnă: paritate completă, fără constatări CRITIC.
 Cu `--strict`, și fără MAJOR.
+
+## Limba-țintă `en` / Target language `en`
+
+Contractul este același pentru ambele limbi-țintă; diferă doar câmpul titlului și tipografia.
+The contract is the same for both target languages; only the heading field and the typography
+differ.
+
+1. Titlul secțiunii (partea 0) este `headingRo` într-o traducere în română și **`headingEn`**
+   într-una în engleză; câmpul celeilalte limbi nu se folosește. The heading of the section
+   (part 0) is `headingRo` in a Romanian translation and **`headingEn`** in an English one; the
+   field of the other language is not used (`translation-check` reports `HEADING_MISSING`).
+2. `text` (engleză): un singur paragraf, NFC, ghilimele curbe “…” și ‘…’, apostrof ’, niciodată
+   ghilimele drepte; fără diacriticele românești. `text` (English): one paragraph, NFC, curly
+   quotation marks “…” and ‘…’, apostrophe ’, never straight marks; the Romanian rules on
+   diacritics do not apply.
+3. `scripture`: în notația engleză din job (`references[].target`, de exemplu `Matt. 4:17`);
+   in the English notation of the job. Where a reference carries a `note` (Vulgate numbering),
+   read it.
+4. Codurile flag-urilor și categoriile criticului sunt aceleași identificatori pentru ambele
+   limbi. The flag codes and the critic categories are the same identifiers for both languages.

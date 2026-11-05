@@ -1,6 +1,7 @@
 import { Link } from 'expo-router';
 import { Pressable, StyleSheet, View } from 'react-native';
 import type { PressableProps, ViewStyle } from 'react-native';
+import type { ElementRef, Ref } from 'react';
 
 import { AppText, useTypeStyle } from '@/components/app-text';
 import { MIN_TARGET } from '@/components/button';
@@ -41,15 +42,25 @@ interface Props {
   variant?: 'row' | 'display' | 'compact';
   /** The words to mark in the title and the name (the name search). */
   query?: string;
+  /** Gives the row to a screen that moves the focus into its list (Search, with the arrow Down). */
+  focusRef?: Ref<ElementRef<typeof View>>;
 }
 
 /**
  * A work in a list (docs/ui-spec-v2.md, 3 and 6.2): the title in the reading language, the original
  * title in italic when it differs, a small-caps line (who, when, in what language), and on the right
- * the badges of its editions ("RO", "EN", "LA", "PARȚIAL") and, on a wide screen, its shelf. The whole
- * row is the link to the work. No licence anywhere in it. On hover the title is `accentStrong`.
+ * the badges of its editions ("RO", "EN", "LA", "PARȚIAL") with, under them on a wide screen, its
+ * shelf. On a phone there is no room at the right: the badges sit under the small-caps line. The
+ * whole row is the link to the work. No licence anywhere in it. On hover the title is `accentStrong`.
  */
-export function LibraryRow({ work, model, language, variant = 'row', query = '' }: Props) {
+export function LibraryRow({
+  work,
+  model,
+  language,
+  variant = 'row',
+  query = '',
+  focusRef,
+}: Props) {
   const t = useT();
   const { wide } = useLayout();
   const title = titleOf(work, language);
@@ -62,16 +73,22 @@ export function LibraryRow({ work, model, language, variant = 'row', query = '' 
   return (
     <Link href={workHref(work.workId)} asChild>
       <RowPressable
+        ref={focusRef}
         testID={`library-row-${work.slug}`}
         accessibilityLabel={workAccessibleName(title, meta, badges, t)}
         title={title}
         query={query}
         display={display}
         side={
-          listed && wide && shelf ? (
-            <AppText variant="caption" numberOfLines={1} style={styles.shelf}>
-              {shelf}
-            </AppText>
+          listed && wide ? (
+            <View testID={`row-side-${work.slug}`} style={styles.side}>
+              <EditionBadges badges={badges} end />
+              {shelf ? (
+                <AppText variant="caption" numberOfLines={1} style={styles.shelf}>
+                  {shelf}
+                </AppText>
+              ) : null}
+            </View>
           ) : null
         }
       >
@@ -81,24 +98,36 @@ export function LibraryRow({ work, model, language, variant = 'row', query = '' 
           </AppText>
         ) : null}
         <MetaLine text={meta} query={query} />
-        {listed ? (
-          <View style={styles.badges}>
-            {badges.map((badge) => (
-              <View key={badge.key} style={styles.badgeRow}>
-                <Chip label={badge.code} accessibilityLabel={badge.label} />
-                {badge.partial ? (
-                  <Chip
-                    label={t.library.partialChip}
-                    accessibilityLabel={t.work.partial}
-                    shape="tag"
-                  />
-                ) : null}
-              </View>
-            ))}
-          </View>
-        ) : null}
+        {listed && !wide ? <EditionBadges badges={badges} /> : null}
       </RowPressable>
     </Link>
+  );
+}
+
+/** The editions of a work as chips: "RO", "EN", "LA", and "PARȚIAL" after the one that is partial. */
+export function EditionBadges({
+  badges,
+  end = false,
+}: {
+  badges: ReturnType<typeof editionBadges>;
+  /** Right-aligned (the right column of a wide row). */
+  end?: boolean;
+}) {
+  const t = useT();
+  return (
+    <View
+      testID="row-badges"
+      style={[styles.badges, end ? styles.badgesEnd : styles.badgesStart]}
+    >
+      {badges.map((badge) => (
+        <View key={badge.key} style={styles.badgeRow}>
+          <Chip label={badge.code} accessibilityLabel={badge.label} />
+          {badge.partial ? (
+            <Chip label={t.library.partialChip} accessibilityLabel={t.work.partial} shape="tag" />
+          ) : null}
+        </View>
+      ))}
+    </View>
   );
 }
 
@@ -109,6 +138,8 @@ function MetaLine({ text, query }: { text: string; query: string }) {
 }
 
 type RowPressableProps = Omit<PressableProps, 'children' | 'style'> & {
+  /** React 19 hands a ref to a function component as a prop; it goes on to the pressable. */
+  ref?: Ref<ElementRef<typeof View>>;
   title: string;
   query: string;
   display: boolean;
@@ -179,7 +210,11 @@ const styles = StyleSheet.create({
   },
   text: { flex: 1, gap: 2, minWidth: 0 },
   meta: { marginTop: 4 },
-  badges: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 8 },
+  badges: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 6 },
+  badgesStart: { marginTop: 8 },
+  badgesEnd: { justifyContent: 'flex-end' },
   badgeRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  shelf: { textAlign: 'right', flexShrink: 0, maxWidth: 160, paddingTop: 4 },
+  // The right column: the badges level with the title, the shelf under them.
+  side: { alignItems: 'flex-end', flexShrink: 0, maxWidth: 200, rowGap: 6, paddingTop: 2 },
+  shelf: { textAlign: 'right' },
 });

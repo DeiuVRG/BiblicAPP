@@ -15,9 +15,17 @@ import type { CheckReport, TranslationJob } from '../translation/schemas';
 const USAGE = `Usage: translation-check <output.json> --job <job.json> [options]
 
 Deterministic checks of a translation output (draft or final) against its job: paragraph
-parity, empty or untranslated text, Greek, English residue, scripture references, length,
-calques and glossary, numbers, quotation marks and typography. Checks find anomalies; they
-do not decide exegesis.
+parity, empty or untranslated text, Greek, residue of the source language, scripture
+references, length, calques and glossary, numbers, quotation marks and typography. Checks
+find anomalies; they do not decide exegesis.
+
+The checks follow the languages of the job. The target language gives the heading field
+(headingRo, headingEn), the quotation marks (ro: „…” and the cedilla fix; en: “…” and
+QUOTES_CURLY_UNBALANCED) and the notation of references (Mat. 4:17, Matt. 4:17). The source
+language gives the function words of RESIDUE_EN, RESIDUE_LA and RESIDUE_GRC, the grammar of
+references and, with the target, the bands of LENGTH_RATIO. For a Greek source the Greek of
+the source is not asked for in the translation (GREEK_MISSING); what the translation keeps of
+it must be an exact copy (GREEK_COPY).
 
 Options:
   --job <file>        the job the output answers (required)

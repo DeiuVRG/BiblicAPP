@@ -5,7 +5,7 @@ import type { PressableProps, ViewStyle } from 'react-native';
 import type { ReactNode } from 'react';
 
 import { AppText } from '@/components/app-text';
-import { Button } from '@/components/button';
+import { Button, SMALL_PADDING } from '@/components/button';
 import { useFocusRing } from '@/components/focus-ring';
 import { IconButton } from '@/components/icon-button';
 import { useFeatures } from '@/config/features';
@@ -150,6 +150,8 @@ export function BrandBar() {
                   size="small"
                   title={t.nav.settings}
                   accessibilityRole="link"
+                  // The last item of the bar: its text, not its padding, ends at the column edge.
+                  style={features.ask ? undefined : styles.atEdge}
                 />
               </Link>
               {ask}
@@ -172,4 +174,5 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   right: { flexDirection: 'row', alignItems: 'center', columnGap: 4, flexShrink: 0 },
+  atEdge: { marginRight: -SMALL_PADDING },
 });

@@ -41,6 +41,19 @@ export interface ContentRepository {
   /** Local full-text search across installed packs (case and diacritics insensitive). */
   search(query: string): Promise<SearchHit[]>;
   /**
+   * Local full-text search inside one edition (case and diacritics insensitive), in reading order:
+   * at most `limit` hits (50 by default). The folded text of an edition is built once, when it is
+   * first searched, and kept, so that a search is a scan over strings that are already folded.
+   * An unknown or refused edition has no hits. Find in text (the reader) and Search "Pasaje" (an
+   * edition at a time, so that the first edition cannot fill the cap for the others) use it;
+   * `search` is the same scan over every edition.
+   */
+  searchEdition(
+    editionId: string,
+    query: string,
+    options?: { limit?: number },
+  ): Promise<SearchHit[]>;
+  /**
    * The packs that were refused after the start, when their edition was first opened or searched:
    * the pack bytes were not the ones the signed catalogue lists. They are gone from the lists
    * from then on (`listWorks`, `getWork`), and the library says so.
@@ -212,6 +225,13 @@ function isAdmissible(entry: AdmittedPack): boolean {
   return flags.signatureVerified === true || flags.catalogueVerified === true;
 }
 
+/** A paragraph with its folded text and the heading of its section, ready to be scanned. */
+interface FoldedParagraph {
+  paragraph: Paragraph;
+  heading: string;
+  folded: string;
+}
+
 interface WorkRecord {
   work: Work;
   /** In display order. */
@@ -267,6 +287,45 @@ export function createInMemoryRepository(
   }
 
   const refused: RejectedPack[] = [];
+
+  // The folded text of an edition's paragraphs in reading order, built on its first search.
+  const foldedByEdition = new Map<string, FoldedParagraph[]>();
+  const foldedOf = (record: EditionRecord): FoldedParagraph[] => {
+    const editionId = record.summary.editionId;
+    let list = foldedByEdition.get(editionId);
+    if (!list) {
+      list = record.sections.flatMap((section) =>
+        byOrdinal(paragraphsBySection.get(section.id) ?? []).map((paragraph) => ({
+          paragraph,
+          heading: section.heading,
+          folded: foldText(paragraph.text),
+        })),
+      );
+      foldedByEdition.set(editionId, list);
+    }
+    return list;
+  };
+
+  /** The hits of an edition that is fit to serve, in reading order, at most `limit`. */
+  const scan = (record: EditionRecord, needle: string, limit: number): SearchHit[] => {
+    const hits: SearchHit[] = [];
+    if (limit <= 0) return hits;
+    for (const { paragraph, heading, folded } of foldedOf(record)) {
+      const index = folded.indexOf(needle);
+      if (index < 0) continue;
+      hits.push({
+        workId: record.entry.pack.work.id,
+        editionId: record.summary.editionId,
+        language: record.summary.language,
+        sectionId: paragraph.sectionId,
+        paragraphId: paragraph.id,
+        sectionHeading: heading,
+        snippet: makeSnippet(paragraph.text, index),
+      });
+      if (hits.length >= limit) break;
+    }
+    return hits;
+  };
 
   /** Takes a pack that failed its check out of every list. */
   const refuse = (record: EditionRecord, reason: NonNullable<ReturnType<typeof checkPackBytes>>) => {
@@ -380,25 +439,19 @@ export function createInMemoryRepository(
       const hits: SearchHit[] = [];
       for (const { pack } of accepted) {
         // A search reads every edition: the ones not yet checked are checked now (once).
-        if (!(await open(pack.edition.id))) continue;
-        const headings = new Map(pack.sections.map((s) => [s.id, s.heading]));
-        for (const paragraph of pack.paragraphs) {
-          const haystack = foldText(paragraph.text);
-          const index = haystack.indexOf(needle);
-          if (index < 0) continue;
-          hits.push({
-            workId: pack.work.id,
-            editionId: pack.edition.id,
-            language: pack.edition.language,
-            sectionId: paragraph.sectionId,
-            paragraphId: paragraph.id,
-            sectionHeading: headings.get(paragraph.sectionId) ?? '',
-            snippet: makeSnippet(paragraph.text, index),
-          });
-          if (hits.length >= MAX_SEARCH_HITS) return hits;
-        }
+        const record = await open(pack.edition.id);
+        if (!record) continue;
+        hits.push(...scan(record, needle, MAX_SEARCH_HITS - hits.length));
+        if (hits.length >= MAX_SEARCH_HITS) return hits;
       }
       return hits;
+    },
+
+    async searchEdition(editionId, query, options = {}) {
+      const needle = foldText(query.trim());
+      if (needle.length < 2) return [];
+      const record = await open(editionId);
+      return record ? scan(record, needle, options.limit ?? MAX_SEARCH_HITS) : [];
     },
 
     refusedPacks() {

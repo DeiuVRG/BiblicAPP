@@ -8,6 +8,7 @@ import { parseCommandArgs, runCommand } from '../lib/command';
 import { resolveUserPath } from '../lib/paths';
 import { UsageError } from '../lib/usage-error';
 import { listJsonFiles, readJsonFile, writeJsonFile, writeTextFile } from '../translation/io';
+import { targetSpec } from '../translation/languages';
 import { mergeTranslation } from '../translation/merge';
 import { REVIEW_SEVERITIES } from '../translation/review';
 import type { LoadedFile } from '../translation/review';
@@ -23,7 +24,11 @@ import type { z } from 'zod';
 const USAGE = `Usage: translation-merge --work <dir> --lang <lang> [options]
 
 Builds the canonical translated edition from the final outputs, 1:1 with the source edition,
-and the reviewer's sheet.
+and the reviewer's sheet, for any target language of the pipeline (ro, en): the translated
+heading of a section is headingRo in a Romanian translation and headingEn in an English one,
+the sheet of an English translation is in English, and the header of the sheet names the pair of
+languages (source -> target). A translation-<lang>/edition.json with a "workTitle" gives the
+title of the work in that language (work.titleEn or work.titleRo of the translated edition).
 
 Reads <work>/translation-<lang>/edition.json (hand-written metadata; names the source edition),
 the source edition <work>/edition-*.json with that id, final/*.json, and critic/*.json and
@@ -102,6 +107,7 @@ function findSourceEdition(workDir: string, editionId: string, targetLang: strin
 function storeEditionId(metaPath: string, meta: TranslationEditionMeta, editionId: string): void {
   const { edition } = meta;
   const stored = TranslationEditionMetaSchema.parse({
+    ...(meta.workTitle === undefined ? {} : { workTitle: meta.workTitle }),
     edition: {
       id: editionId,
       language: edition.language,
@@ -136,6 +142,7 @@ function translationMerge(args: string[]): number {
       `${metaPath}: edition.language is "${meta.edition.language}", expected "${lang}"`,
     );
   }
+  targetSpec(lang); // a language the pipeline has no materials for is a usage error
   const source = findSourceEdition(workDir, meta.edition.sourceEditionId, lang);
   const editionPath = path.join(workDir, `edition-${lang}.json`);
   const previous = fs.existsSync(editionPath)

@@ -2,6 +2,7 @@
 // Playwright smoke test for the static web export.
 //
 //   node scripts/smoke-web.mjs [--dist apps/mobile/dist] [--base-path /BiblicAPP] [--port N]
+//        [--beta1-dist DIR | --skip-beta1]
 //
 // Serves the export with `serve`, opens it in headless Chromium and checks that
 //   0. the landing (`/`) draws the shell (brand bar, section bar) and lists the works of the
@@ -12,14 +13,31 @@
 //   2b. the work has two editions (Romanian and English): choosing the other one puts
 //      `?edition=` in the address and shows that edition's table of contents,
 //   3. opening the first chapter renders several paragraphs of text,
-//   4. (only when the export contains 404.html, i.e. after prepare-pages.mjs) a deep link to
-//      that chapter loads directly, the way GitHub Pages serves it.
+//   4. a deep link to that chapter loads directly, the way GitHub Pages serves it (through
+//      404.html: the export's own after prepare-pages.mjs, or a copy of index.html made here),
+//   5. the shell, the landing and the library behave as docs/ui-spec-v2.md section 20 says
+//      (scripts/lib/smoke-shell.mjs: S1-S6, S8, L2, L5, L6, L8, B2-B4, B9, Q1),
+//   6. what the review of the shell phase added (scripts/lib/smoke-review.mjs): the drawer on a stack
+//      of screens, the keys of the bar, one h1 per screen, the hero form, the placeholders, the
+//      breakpoints, the grids,
+//   7. the configuration of Beta 1: an export built with EXPO_PUBLIC_FEATURES=beta1 (built here into
+//      a temporary folder, or taken from --beta1-dist) has the five items of the bar, the two doors
+//      and the transparency band, which S1, S2, L2, L3 and L7 expect and the delivered flags do not
+//      show (--skip-beta1 leaves it out).
 // Use --base-path with an export built with EXPO_PUBLIC_WEB_BASE_URL=/BiblicAPP.
 // Exits non-zero on any failure; a screenshot goes to test-results/ for CI artifacts.
 
 /* global document -- the two helpers below are evaluated inside the browser page */
 import { spawn } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, rmSync, symlinkSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  symlinkSync,
+} from 'node:fs';
 import { createRequire } from 'node:module';
 import net from 'node:net';
 import { tmpdir } from 'node:os';
@@ -28,17 +46,30 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from 'playwright';
 
+import { beta1Checks, reviewChecks } from './lib/smoke-review.mjs';
+import { shellChecks } from './lib/smoke-shell.mjs';
+import { buildExport, serveExport } from './lib/web-export.mjs';
+
 const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
 
 function parseArgs(argv) {
-  const args = { dist: join(root, 'apps/mobile/dist'), basePath: '', port: 0, timeout: 45_000 };
+  const args = {
+    dist: join(root, 'apps/mobile/dist'),
+    basePath: '',
+    port: 0,
+    timeout: 45_000,
+    beta1Dist: null,
+    skipBeta1: false,
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--dist') args.dist = resolve(argv[(i += 1)]);
     else if (a === '--base-path') args.basePath = argv[(i += 1)].replace(/\/+$/, '');
     else if (a === '--port') args.port = Number(argv[(i += 1)]);
     else if (a === '--timeout') args.timeout = Number(argv[(i += 1)]);
+    else if (a === '--beta1-dist') args.beta1Dist = resolve(argv[(i += 1)]);
+    else if (a === '--skip-beta1') args.skipBeta1 = true;
     else {
       console.error(`smoke: unknown argument ${a}`);
       process.exit(2);
@@ -111,17 +142,29 @@ async function main() {
     return 2;
   }
 
-  // Serve the export at <origin><basePath>/ by linking it into a temp dir when a base path is used.
+  // Serve the export at <origin><basePath>/ by linking it into a temp dir. Like GitHub Pages after
+  // prepare-pages.mjs, unknown paths are answered by `404.html` (a copy of index.html: the router
+  // takes the address from the browser), so a deep link and a reload work on every page; an export
+  // that has no 404.html yet gets that copy here.
   let serveRoot = args.dist;
   let tempRoot = null;
+  const fallback = existsSync(join(args.dist, '404.html'))
+    ? join(args.dist, '404.html')
+    : join(args.dist, 'index.html');
   if (args.basePath) {
     tempRoot = mkdtempSync(join(tmpdir(), 'biblicapp-smoke-'));
     const link = join(tempRoot, ...args.basePath.split('/').filter(Boolean));
     mkdirSync(join(link, '..'), { recursive: true });
     symlinkSync(args.dist, link, 'dir');
     // Like GitHub Pages: the site-level 404.html answers unknown paths under the base path.
-    if (existsSync(join(args.dist, '404.html')))
-      copyFileSync(join(args.dist, '404.html'), join(tempRoot, '404.html')); // a copy: serve sizes symlinks wrongly
+    copyFileSync(fallback, join(tempRoot, '404.html')); // a copy: serve sizes symlinks wrongly
+    serveRoot = tempRoot;
+  } else if (!existsSync(join(args.dist, '404.html'))) {
+    tempRoot = mkdtempSync(join(tmpdir(), 'biblicapp-smoke-'));
+    for (const name of readdirSync(args.dist)) {
+      symlinkSync(join(args.dist, name), join(tempRoot, name));
+    }
+    copyFileSync(fallback, join(tempRoot, '404.html'));
     serveRoot = tempRoot;
   }
 
@@ -147,6 +190,8 @@ async function main() {
 
   let browser;
   let page;
+  let beta1Site = null;
+  const tempDirs = [];
   const problems = [];
   const step = (message) => console.log(`smoke: ${message}`);
 
@@ -209,7 +254,8 @@ async function main() {
     // The section bar knows where we are: the drawer entry of this page is the current one.
     await visibleId('section-item-read').click();
     const current = await visibleId('drawer-entry-read-library-all').getAttribute('aria-current');
-    if (current !== 'page') throw new Error(`the drawer entry of the full library is aria-current="${current}"`);
+    if (current !== 'page')
+      throw new Error(`the drawer entry of the full library is aria-current="${current}"`);
     await page.keyboard.press('Escape');
 
     // 2. Work page with table of contents
@@ -249,19 +295,49 @@ async function main() {
     if (paragraphs < 2) throw new Error('the reader shows fewer than 2 paragraphs');
     const readerUrl = page.url();
 
-    // 4. Deep link, the way GitHub Pages serves it (needs 404.html)
-    if (existsSync(join(args.dist, '404.html'))) {
-      const fresh = await context.newPage();
-      fresh.setDefaultTimeout(args.timeout);
-      fresh.on('pageerror', (error) => problems.push(`page error (deep link): ${error.message}`));
-      await fresh.goto(readerUrl, { waitUntil: 'domcontentloaded' });
-      await fresh.waitForFunction(hasParagraphs, 30);
-      step(
-        `deep link ${new URL(readerUrl).pathname} renders the reader through the 404.html fallback`,
-      );
-      await fresh.close();
-    } else {
-      step('no 404.html in the export: deep-link check skipped');
+    // 4. Deep link, the way GitHub Pages serves it (404.html answers any path that is not a file)
+    const fresh = await context.newPage();
+    fresh.setDefaultTimeout(args.timeout);
+    fresh.on('pageerror', (error) => problems.push(`page error (deep link): ${error.message}`));
+    await fresh.goto(readerUrl, { waitUntil: 'domcontentloaded' });
+    await fresh.waitForFunction(hasParagraphs, 30);
+    step(
+      `deep link ${new URL(readerUrl).pathname} renders the reader through the 404.html fallback`,
+    );
+    await fresh.close();
+
+    // 5. The shell, the landing and the library: geometry, the drawer and its keys, the language, the
+    // sticky bar, the filters in the address, the shortcut, the app offline (docs/ui-spec-v2.md, 20).
+    const checkContext = {
+      browser,
+      origin,
+      basePath: args.basePath,
+      timeout: args.timeout,
+      step,
+      problems,
+    };
+    await shellChecks(checkContext);
+    await reviewChecks(checkContext);
+
+    // 7. The flags of Beta 1: the same app built with EXPO_PUBLIC_FEATURES=beta1, served like the
+    // export under test (the base path included).
+    if (!args.skipBeta1) {
+      let beta1Root = args.beta1Dist;
+      if (!beta1Root) {
+        beta1Root = mkdtempSync(join(tmpdir(), 'biblicapp-beta1-'));
+        tempDirs.push(beta1Root);
+        step('building the export with the flags of Beta 1 (EXPO_PUBLIC_FEATURES=beta1)');
+        buildExport({
+          outDir: beta1Root,
+          env: {
+            EXPO_PUBLIC_FEATURES: 'beta1',
+            ...(args.basePath ? { EXPO_PUBLIC_WEB_BASE_URL: args.basePath } : null),
+          },
+          tool: 'smoke',
+        });
+      }
+      beta1Site = await serveExport({ dist: beta1Root, basePath: args.basePath });
+      await beta1Checks({ ...checkContext, origin: beta1Site.origin });
     }
 
     if (problems.length > 0) throw new Error(problems.join('\n'));
@@ -286,8 +362,10 @@ async function main() {
     return 1;
   } finally {
     await browser?.close().catch(() => {});
+    await beta1Site?.close().catch(() => {});
     server.kill('SIGTERM');
     if (tempRoot) rmSync(tempRoot, { recursive: true, force: true });
+    for (const dir of tempDirs) rmSync(dir, { recursive: true, force: true });
   }
 }
 

@@ -48,7 +48,16 @@ const config = {
     favicon: './assets/images/favicon.png',
   },
   plugins: [
-    'expo-router',
+    [
+      'expo-router',
+      {
+        // One bundle on web: the pages of the library are already loaded when the reader goes offline
+        // (docs/ui-spec-v2.md, check L8: after the first load, client-side navigation to the
+        // library, a work and the reader works with no network). Split by route, a link to a page not
+        // opened yet would need a download. The bundle is a few tens of KB larger.
+        asyncRoutes: { web: false, default: 'development' },
+      },
+    ],
     [
       'expo-splash-screen',
       {

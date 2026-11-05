@@ -41,10 +41,19 @@ const ParagraphKindSchema = z.enum(['p', 'heading', 'quote', 'note']);
 export const JobReferenceSchema = z.strictObject({
   /** The run as written in the source, e.g. `Matt. iv. 17; Mk. i. 15`. */
   source: z.string(),
-  /** The same run in Romanian notation, e.g. `Mat. 4:17; Mc. 1:15`. */
+  /**
+   * The same run in the notation of the target language: Romanian (`Mat. 4:17; Mc. 1:15`) for a
+   * Romanian translation, English (`Matt. 4:17; Mark 1:15`) for an English one.
+   */
   target: z.string(),
-  /** Canonical items, e.g. `Matt 4:17`. */
+  /** Canonical items, e.g. `Matt 4:17`; Vulgate numbering is marked, e.g. `Ps 118:2 vulgate`. */
   canonical: z.array(z.string()),
+  /**
+   * What the translator must know about this run and cannot see in `target`: the numbering of the
+   * Vulgate (psalms, the books of Kings), an ambiguous abbreviation. Absent when there is nothing
+   * to say, so that the jobs of English sources are unchanged.
+   */
+  note: NonEmpty.optional(),
 });
 export type JobReference = z.infer<typeof JobReferenceSchema>;
 
@@ -96,8 +105,13 @@ export const TranslationOutputSchema = z.strictObject({
   jobId: JobIdSchema,
   pass: z.enum(['draft', 'revised']),
   model: NonEmpty,
-  /** Required when the job is part 0 of its section (`translation-check` enforces it). */
+  /**
+   * The translated heading of the section, required when the job is part 0 of its section
+   * (`translation-check` enforces it): `headingRo` in a Romanian translation, `headingEn` in an
+   * English one. The field of the other language is not used.
+   */
   headingRo: z.string().optional(),
+  headingEn: z.string().optional(),
   paragraphs: z.array(
     z.strictObject({
       sourceId: IdSchema,
@@ -179,6 +193,12 @@ export type CheckReport = z.infer<typeof CheckReportSchema>;
 
 /** `content/works/<slug>/translation-<lang>/edition.json`: hand-written, the id is added once. */
 export const TranslationEditionMetaSchema = z.strictObject({
+  /**
+   * The title of the work in the language of the translation. `translation-merge` writes it to
+   * `work.titleEn` (English) or `work.titleRo` (Romanian) of the translated edition, so that an
+   * English translation of a Latin work has an English title (docs/multi-edition-spec.md).
+   */
+  workTitle: NonEmpty.optional(),
   edition: z.strictObject({
     id: IdSchema.optional(),
     language: NonEmpty,

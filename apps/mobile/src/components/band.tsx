@@ -19,7 +19,10 @@ interface Props extends ViewProps {
   tone?: BandTone;
   /** The centred container the content sits in; `false` for a band whose content is full width. */
   container?: ColumnKind | false;
-  /** A hairline above the band (a band that follows another one with the same background). */
+  /**
+   * A hairline above the band (a band that follows another one with the same background: two dark
+   * bands in a row, the hero and the authors band, have a light one between them).
+   */
   topRule?: boolean;
   /** Vertical padding: the band padding (88 wide, 56 on a phone) by default, or exact values. */
   padding?: 'band' | 'none' | { top: number; bottom: number };
@@ -59,8 +62,13 @@ export function Band({
     backgroundColor: bandBackground(colors, tone),
     paddingTop: vertical.top,
     paddingBottom: vertical.bottom,
+    // On a dark band the hairline is the light one (`mastheadBorder`): the page's `border` is a tan
+    // that disappears into `masthead`.
     ...(topRule
-      ? { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border }
+      ? {
+          borderTopWidth: StyleSheet.hairlineWidth,
+          borderTopColor: isDarkBand(tone) ? colors.mastheadBorder : colors.border,
+        }
       : null),
   };
   // `dataSet` becomes `data-band` on web and is ignored elsewhere.

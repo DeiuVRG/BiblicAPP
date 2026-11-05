@@ -7,14 +7,16 @@
 //
 //   node scripts/screenshots-web.mjs [--out docs/screenshots/v2] [--dist apps/mobile/dist]
 //        [--base-path /BiblicAPP] [--screens library,work,reader,settings]
-//        [--schemes light,dark,sepia] [--sizes phone,desktop,tablet] [--scale 1]
+//        [--schemes light,dark,sepia] [--sizes phone,desktop,tablet] [--scale 1] [--full-page]
 //        [--port N] [--timeout ms]
 //
-// Files are named <screen>-<theme>-<size>.png (for example reader-dark-phone.png). Build the
+// Files are named <screen>-<theme>-<size>.png (for example reader-dark-phone.png), with -full before
+// the extension when --full-page is given (the window as tall as the page). Build the
 // export first: pnpm --filter mobile export:web. Each shot is a fresh browser context (empty
 // storage, so the work page offers "Începe lectura") with the colour scheme emulated; sepia is a
 // stored setting (the system scheme stays light), like in the app.
 
+/* global document, getComputedStyle -- evaluated inside the browser page */
 import { mkdirSync } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
@@ -55,13 +57,33 @@ const list = (value, allowed, what) => {
   return items;
 };
 
-const args = parseArgs(process.argv.slice(2), 'screenshots', {
-  '--out': (value, a) => (a.out = resolve(value)),
-  '--screens': (value, a) => (a.screens = list(value, SCREENS, 'screen')),
-  '--schemes': (value, a) => (a.schemes = list(value, SCHEMES, 'scheme')),
-  '--sizes': (value, a) => (a.sizes = list(value, Object.keys(SIZES), 'size')),
-  '--scale': (value, a) => (a.scale = Number(value)),
-});
+/** Evaluated in the page: true when no hero highlight is on screen, or its bar has swept to full width. */
+const heroSweepDone = () => {
+  // `offsetWidth` ignores the scale of the sweep (a bounding box would be 0 wide at its start).
+  const bar = [...document.querySelectorAll('[data-testid="hero-highlight"]')].find(
+    (element) => element.offsetWidth > 0,
+  );
+  if (!bar) return true;
+  const transform = getComputedStyle(bar).transform;
+  if (transform === 'none') return true;
+  const scale = /matrix\(([^,]+),/.exec(transform);
+  return !scale || Number(scale[1]) >= 0.999;
+};
+
+const argv = process.argv.slice(2);
+// `--full-page` is a switch: the window is made as tall as the page (a landing is longer than a window).
+const fullPage = argv.includes('--full-page');
+const args = parseArgs(
+  argv.filter((arg) => arg !== '--full-page'),
+  'screenshots',
+  {
+    '--out': (value, a) => (a.out = resolve(value)),
+    '--screens': (value, a) => (a.screens = list(value, SCREENS, 'screen')),
+    '--schemes': (value, a) => (a.schemes = list(value, SCHEMES, 'scheme')),
+    '--sizes': (value, a) => (a.sizes = list(value, Object.keys(SIZES), 'size')),
+    '--scale': (value, a) => (a.scale = Number(value)),
+  },
+);
 const out = args.out ?? join(root, 'docs/screenshots/v2');
 const screens = args.screens ?? SCREENS;
 const schemes = args.schemes ?? DEFAULT_SCHEMES;
@@ -107,7 +129,27 @@ async function main() {
           await page.goto(`${site.base}${routes[screen]}`, { waitUntil: 'domcontentloaded' });
           await waitForScreen(page, screen, args.timeout);
           await page.waitForTimeout(500); // let the last layout pass settle
-          const file = join(out, `${screen}-${scheme}-${size}.png`);
+          // The bar behind the second line of the landing's title sweeps in over 550 ms after a delay of
+          // 250 ms: a still taken before it ends shows a bar that stops short of the full stop.
+          await page.waitForFunction(heroSweepDone, null, { timeout: args.timeout });
+          if (fullPage) {
+            // The page scrolls inside the app's own scroll container, so the window is made as tall
+            // as the content (up to 8000 px) instead of asking for a full-page capture.
+            const content = await page.evaluate(() =>
+              Math.max(
+                0,
+                ...[...document.querySelectorAll('div')]
+                  .filter((el) => /auto|scroll/.test(getComputedStyle(el).overflowY))
+                  .map((el) => el.scrollHeight),
+              ),
+            );
+            await page.setViewportSize({
+              width: SIZES[size].width,
+              height: Math.min(Math.max(content, SIZES[size].height), 8000),
+            });
+            await page.waitForTimeout(400);
+          }
+          const file = join(out, `${screen}-${scheme}-${size}${fullPage ? '-full' : ''}.png`);
           await page.screenshot({ path: file });
           const { size: bytes } = await stat(file);
           console.log(`screenshots: ${relative(root, file)} (${Math.round(bytes / 1024)} KB)`);
