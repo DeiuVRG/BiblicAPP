@@ -6,6 +6,7 @@ import type { PressableProps, ViewStyle } from 'react-native';
 import { MIN_TARGET } from '@/components/button';
 import { useHover } from '@/components/hover';
 import { useTheme } from '@/theme/theme-context';
+import { radii } from '@/theme/tokens';
 
 /** How far a row's hover background reaches past the text, into the gutter. */
 const BLEED = 12;
@@ -83,8 +84,8 @@ const styles = StyleSheet.create({
     marginHorizontal: -BLEED,
     paddingVertical: 16,
     paddingRight: BLEED,
-    borderRadius: 6,
+    borderRadius: radii.sm,
     gap: 4,
   },
-  rule: { position: 'absolute', left: 0, top: 10, bottom: 10, width: 3, borderRadius: 2 },
+  rule: { position: 'absolute', left: 0, top: 10, bottom: 10, width: 3, borderRadius: radii.xs },
 });

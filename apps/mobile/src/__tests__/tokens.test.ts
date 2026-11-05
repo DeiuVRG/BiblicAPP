@@ -4,6 +4,7 @@ import { palettes } from '@/theme/palettes';
 import {
   BAR_HEIGHT,
   FOCUS_RING,
+  FOCUS_RING_ROOM,
   cssEasing,
   duration,
   easing,
@@ -39,6 +40,11 @@ describe('tokens (docs/ui-spec-v2.md, sections 2.4 to 2.6)', () => {
 
   it('draws the focus ring 2 px wide with an offset of 2', () => {
     expect(FOCUS_RING).toEqual({ width: 2, offset: 2 });
+  });
+
+  it('reaches 4 px outside the control it rings: the room a clipping container has to leave', () => {
+    expect(FOCUS_RING_ROOM).toBe(FOCUS_RING.width + FOCUS_RING.offset);
+    expect(FOCUS_RING_ROOM).toBe(4);
   });
 
   it('has three durations and three easings', () => {

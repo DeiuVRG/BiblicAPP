@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import type { ViewProps, ViewStyle } from 'react-native';
 
-import { BandProvider } from '@/components/band-context';
+import { BandProvider, isDarkBand } from '@/components/band-context';
 import type { BandTone } from '@/components/band-context';
 import { bandPadding, columnStyle, useLayout } from '@/theme/layout';
 import type { ColumnKind } from '@/theme/layout';
@@ -11,7 +11,11 @@ import { useTheme } from '@/theme/theme-context';
 export type { BandTone } from '@/components/band-context';
 
 interface Props extends ViewProps {
-  /** The background: the page, `cream`, `warm` or the dark `masthead`. */
+  /**
+   * The background: the page, `cream`, `warm` or the dark `masthead`; `photo` is a `masthead`
+   * band with a picture behind it (the caller draws the picture and the scrim), whose text uses
+   * the ink instead of the orange accent.
+   */
   tone?: BandTone;
   /** The centred container the content sits in; `false` for a band whose content is full width. */
   container?: ColumnKind | false;
@@ -23,7 +27,8 @@ interface Props extends ViewProps {
 
 /** The background colour of a tone. */
 export function bandBackground(colors: Palette, tone: BandTone): string {
-  return tone === 'masthead' ? colors.masthead : colors[tone];
+  if (tone === 'masthead' || tone === 'photo') return colors.masthead;
+  return colors[tone];
 }
 
 /**
@@ -59,7 +64,7 @@ export function Band({
       : null),
   };
   // `dataSet` becomes `data-band` on web and is ignored elsewhere.
-  const marker = tone === 'masthead' ? ({ dataSet: { band: 'masthead' } } as object) : null;
+  const marker = isDarkBand(tone) ? ({ dataSet: { band: 'masthead' } } as object) : null;
   return (
     <BandProvider value={tone}>
       <View testID={testID} {...marker} {...rest} style={[styles.band, surface, style]}>

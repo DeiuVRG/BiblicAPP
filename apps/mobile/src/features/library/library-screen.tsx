@@ -111,5 +111,5 @@ export function LibraryScreen() {
 const styles = StyleSheet.create({
   header: { paddingTop: 24, gap: 16 },
   meta: { marginTop: 4 },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginTop: 8 },
 });

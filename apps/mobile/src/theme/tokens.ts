@@ -21,6 +21,13 @@ export const BORDER_WIDTH = 1;
 /** The focus ring: 2 px, offset 2 (web outline; native outline on the focused control). */
 export const FOCUS_RING = { width: 2, offset: 2 } as const;
 
+/**
+ * How far a focus ring reaches outside the control it rings: its width plus its offset (4). A
+ * container that clips what overflows it (a scroller, a panel with rounded corners) leaves this
+ * much room around the controls inside it, or the ring is cut off (docs/ui-spec-v2.md, check G7).
+ */
+export const FOCUS_RING_ROOM = FOCUS_RING.width + FOCUS_RING.offset;
+
 /** Bar heights in points: brand bar, section bar, reader toolbar, thumb bar and the progress bar. */
 export const BAR_HEIGHT = {
   brand: 64,

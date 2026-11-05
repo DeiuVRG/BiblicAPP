@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from '@testing-library/react-native';
+import { act, fireEvent, screen, within } from '@testing-library/react-native';
 import type { Paragraph } from '@biblioteca/shared';
 import { Dimensions, Platform, StyleSheet, Text } from 'react-native';
 
@@ -15,7 +15,7 @@ import {
 import { loadBundledRepository } from '@/content/repository';
 import { LibraryScreen } from '@/features/library/library-screen';
 import { ReaderParagraph } from '@/features/reader/reader-paragraph';
-import { ReaderScreen } from '@/features/reader/reader-screen';
+import { ReaderScreen, TYPOGRAPHY_PANEL_MAX_HEIGHT } from '@/features/reader/reader-screen';
 import { SearchScreen } from '@/features/search/search-screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import NotFoundRoute from '@/app/+not-found';
@@ -447,6 +447,41 @@ describe('ReaderScreen design', () => {
     expect(screen.queryByText('Mărimea textului')).toBeNull();
   });
 
+  it('keeps the typography panel to 45 % of the window and scrolls inside it (never covers all the text)', async () => {
+    // Regression: the panel grew with its content (four rows since the reading font was added) and
+    // left no text on a 320 x 568 phone or on a phone on its side.
+    expect(TYPOGRAPHY_PANEL_MAX_HEIGHT).toBe(0.45);
+    const before = Dimensions.get('window');
+    const { work, sections } = await bundled();
+    try {
+      await act(async () => {
+        Dimensions.set({ window: { ...before, width: 320, height: 568 } });
+      });
+      await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
+      await fireEvent.press(
+        await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă'),
+      );
+      const panel = screen.getByTestId('typography-panel');
+      expect(StyleSheet.flatten(panel.props.style).maxHeight).toBe(Math.round(568 * 0.45));
+      // The controls are inside a scroll view, so what does not fit can still be reached.
+      const scroll = panel.queryAll((node) => node.type === 'RCTScrollView');
+      expect(scroll).toHaveLength(1);
+      expect(within(scroll[0]!).getByText('Mărimea textului')).toBeTruthy();
+      expect(within(scroll[0]!).getByLabelText('Întunecat')).toBeTruthy();
+      // On its side: 45 % of 375.
+      await act(async () => {
+        Dimensions.set({ window: { ...before, width: 667, height: 375 } });
+      });
+      expect(StyleSheet.flatten(screen.getByTestId('typography-panel').props.style).maxHeight).toBe(
+        Math.round(375 * 0.45),
+      );
+    } finally {
+      await act(async () => {
+        Dimensions.set({ window: before });
+      });
+    }
+  });
+
   it('closes the typography sheet with Escape on web, and only then', async () => {
     const listeners = new Map<string, (event: { key: string }) => void>();
     setFakeDocument({
@@ -590,6 +625,11 @@ describe('SearchScreen field and results', () => {
     expect(input).toHaveStyle(emptyStyle);
     // A glyph Inter has (the heavy ballot cross U+2715 fell back to a system font).
     expect(screen.getByText('×')).toBeTruthy();
+    // Regression: the button's own colour came after textStyle, so the quiet muted "×" was drawn as
+    // an underlined terracotta link.
+    const glyph = StyleSheet.flatten(screen.getByText('×').props.style);
+    expect(glyph).toMatchObject({ color: palettes.light.textMuted, letterSpacing: 0 });
+    expect(glyph.textDecorationLine).toBeUndefined();
 
     await fireEvent.press(clear);
     expect(screen.getByLabelText('Caută în text').props.value).toBe('');
@@ -609,6 +649,17 @@ describe('SearchScreen field and results', () => {
 });
 
 describe('SettingsScreen design', () => {
+  it('draws the preview as a card: 1 px border and 3 px corners', async () => {
+    await renderWithProviders(<SettingsScreen />);
+    const card = (await screen.findByText('Previzualizare')).parent!;
+    expect(card).toHaveStyle({
+      borderWidth: 1,
+      borderColor: palettes.light.border,
+      borderRadius: 3,
+      backgroundColor: palettes.light.surface,
+    });
+  });
+
   it('groups the settings under label-style headings', async () => {
     await renderWithProviders(<SettingsScreen />);
     for (const title of ['Citire', 'Tema', 'Conținut', 'Licența conținutului', 'Despre']) {

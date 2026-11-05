@@ -6,6 +6,9 @@ import { Disclosure } from '@/components/disclosure';
 import { TAB_HEIGHT, Tabs, tabKeyAction, tabLabel } from '@/components/tabs';
 import { FontsProvider, loadedFonts } from '@/theme/fonts';
 import { palettes } from '@/theme/palettes';
+import { FOCUS_RING_ROOM } from '@/theme/tokens';
+import { stubMatchMedia } from '@/test-support/match-media';
+import { styleWhilePressed } from '@/test-support/press';
 import { renderWithProviders } from '@/test-support/render';
 
 const original = Dimensions.get('window');
@@ -150,6 +153,50 @@ describe('Tabs: render', () => {
   });
 });
 
+describe('Tabs: the focus ring is not clipped (check G7)', () => {
+  // The scroller clips what overflows it, and a ring reaches 4 points outside the tab (2 wide,
+  // offset 2): the scroller has to be that much bigger than the tabs, and be pulled back.
+  it('leaves room for the ring above, below and before the tabs, and takes it back with negative margins', async () => {
+    expect(FOCUS_RING_ROOM).toBe(4);
+    await renderWithProviders(<Strip />);
+    const scroll = screen.getByTestId('tabs-scroll');
+    const outer = StyleSheet.flatten(scroll.props.style);
+    const inner = StyleSheet.flatten(scroll.props.contentContainerStyle);
+    expect(inner.paddingTop).toBeGreaterThanOrEqual(FOCUS_RING_ROOM);
+    expect(inner.paddingBottom).toBeGreaterThanOrEqual(FOCUS_RING_ROOM);
+    expect(inner.paddingLeft).toBeGreaterThanOrEqual(FOCUS_RING_ROOM);
+    // The room is given back, so the strip keeps its 46 points and its place.
+    expect(outer.marginTop).toBe(-inner.paddingTop);
+    expect(outer.marginBottom).toBe(-inner.paddingBottom);
+    expect(outer.marginLeft).toBe(-inner.paddingLeft);
+  });
+
+  it('keeps the room at the end of the strip too (the last tab can be focused)', async () => {
+    await renderWithProviders(<Strip />);
+    const inner = StyleSheet.flatten(screen.getByTestId('tabs-scroll').props.contentContainerStyle);
+    expect(inner.paddingRight).toBeGreaterThanOrEqual(FOCUS_RING_ROOM);
+  });
+});
+
+describe('Tabs: pressed look', () => {
+  it('presses to opacity 0.7 on native', async () => {
+    await renderWithProviders(<Strip />);
+    expect(await styleWhilePressed('Prezentare')).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('presses to scale(.96) on web, with no opacity change', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<Strip />);
+      const style = await styleWhilePressed('Prezentare');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
+  });
+});
+
 describe('Tabs: handlers', () => {
   it('chooses a tab when it is pressed', async () => {
     const onChange = jest.fn();
@@ -275,13 +322,62 @@ describe('Disclosure: render', () => {
     });
   });
 
-  it('has a 36 high summary on wide screens and a 44 point target on a phone', async () => {
-    await renderWithProviders(<Disclosure summary="Metodologie">x</Disclosure>);
-    expect(screen.getByLabelText('Metodologie')).toHaveStyle({ minHeight: 44 });
-    await act(async () => {
-      Dimensions.set({ window: { ...original, width: 1024 } });
+  describe('the height of the summary follows the pointer, not only the width', () => {
+    const MOUSE = { '(pointer: coarse)': false };
+    const FINGER = { '(pointer: coarse)': true };
+
+    /** Renders on web with the given pointer and window width, and returns the summary height. */
+    async function heightOn(answers: Record<string, boolean>, width: number): Promise<unknown> {
+      const restore = stubMatchMedia(answers);
+      const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+      try {
+        await act(async () => {
+          Dimensions.set({ window: { ...original, width } });
+        });
+        await renderWithProviders(<Disclosure summary="Metodologie">x</Disclosure>);
+        return StyleSheet.flatten(screen.getByLabelText('Metodologie').props.style).minHeight;
+      } finally {
+        replaced.restore();
+        restore();
+      }
+    }
+
+    it('is 36 for a mouse on a wide screen', async () => {
+      expect(await heightOn(MOUSE, 1024)).toBe(36);
     });
-    expect(screen.getByLabelText('Metodologie')).toHaveStyle({ minHeight: 36 });
+
+    it('is a 44 point target on a phone, with a mouse too', async () => {
+      expect(await heightOn(MOUSE, 390)).toBe(44);
+    });
+
+    it('is 44 for a finger on a wide screen (a tablet: check G6b)', async () => {
+      expect(await heightOn(FINGER, 1024)).toBe(44);
+    });
+
+    it('is 44 on iOS and Android at any width: the pointer there is always a finger', async () => {
+      await act(async () => {
+        Dimensions.set({ window: { ...original, width: 1024 } });
+      });
+      await renderWithProviders(<Disclosure summary="Metodologie">x</Disclosure>);
+      expect(screen.getByLabelText('Metodologie')).toHaveStyle({ minHeight: 44 });
+    });
+  });
+
+  it('dims to opacity 0.7 when it is pressed on native', async () => {
+    await renderWithProviders(<Disclosure summary="Metodologie">x</Disclosure>);
+    expect(await styleWhilePressed('Metodologie')).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('shrinks to 96 % on web when it is pressed, and keeps its opacity', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<Disclosure summary="Metodologie">x</Disclosure>);
+      const style = await styleWhilePressed('Metodologie');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
   });
 
   it('keeps a closed body in the page on web, hidden, so that it prints open', async () => {

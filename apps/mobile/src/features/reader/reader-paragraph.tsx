@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react';
 import { Animated, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { HighlightedSpans } from '@/components/highlighted-text';
-import { readingFaces, useFontFamilies, useGreekFace } from '@/theme/fonts';
+import { needsGreekFace, readingFaces, useFontFamilies, useGreekFace } from '@/theme/fonts';
 import type { ReadingFont } from '@/theme/fonts';
 import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
@@ -68,12 +68,17 @@ function ReaderParagraphBase({
   const { colors } = useTheme();
   const fonts = useFontFamilies();
   // A Greek edition reads in Gentium Plus (polytonic letters; Source Serif 4 has none): the face
-  // loads when the first Greek paragraph is shown.
-  const greek = useGreekFace(language);
-  const faces = greek
-    ? { regular: greek.regular, italic: greek.italic, bold: greek.regular }
-    : readingFaces(fonts, readingFont);
+  // loads when the first Greek paragraph is shown. In any other edition only the polytonic phrases
+  // it quotes ("ἐκκλησία") are set in it, inside text in the reading face.
+  const greek = useGreekFace(language, paragraph.text);
+  const greekEdition = needsGreekFace(language);
+  const faces =
+    greek && greekEdition
+      ? { regular: greek.regular, italic: greek.italic, bold: greek.regular }
+      : readingFaces(fonts, readingFont);
   const { kind } = paragraph;
+  const quotedGreek =
+    greek && !greekEdition ? (kind === 'quote' ? greek.italic : greek.regular) : undefined;
 
   const size = paragraphFontSize(kind, fontSize);
   const textStyle = {
@@ -104,7 +109,11 @@ function ReaderParagraphBase({
         {...(kind === 'heading' ? ({ 'aria-level': 3 } as object) : undefined)}
         style={textStyle}
       >
-        {query ? <HighlightedSpans text={paragraph.text} query={query} /> : paragraph.text}
+        {query || quotedGreek ? (
+          <HighlightedSpans text={paragraph.text} query={query ?? ''} greekFamily={quotedGreek} />
+        ) : (
+          paragraph.text
+        )}
       </Text>
     </View>
   );

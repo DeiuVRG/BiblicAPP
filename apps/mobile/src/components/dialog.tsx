@@ -2,7 +2,7 @@ import { Modal, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-
 import type { ReactNode } from 'react';
 
 import { AppText } from '@/components/app-text';
-import { CloseButton } from '@/components/close-button';
+import { CLOSE_INSET, CloseButton } from '@/components/close-button';
 import { useWebModalBehaviour } from '@/components/modal-behaviour';
 import { useT } from '@/i18n';
 import { useReducedMotion } from '@/theme/reduced-motion';
@@ -118,8 +118,15 @@ export function Dialog({
 const styles = StyleSheet.create({
   root: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   panel: { borderWidth: 1, borderRadius: radii.lg, overflow: 'hidden' },
-  header: { flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 24, paddingRight: 4 },
-  title: { flex: 1, paddingTop: 20, paddingBottom: 4 },
+  // The close button is in the corner of a panel that clips: inset, so its focus ring is not cut.
+  header: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingLeft: 24,
+    paddingTop: CLOSE_INSET,
+    paddingRight: CLOSE_INSET,
+  },
+  title: { flex: 1, paddingTop: 20 - CLOSE_INSET, paddingBottom: 4 },
   scroll: { flexGrow: 0 },
   body: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 4, gap: 12 },
 });

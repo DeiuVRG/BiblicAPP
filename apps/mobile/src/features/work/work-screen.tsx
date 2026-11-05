@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
   metaRow: { flexDirection: 'row', alignItems: 'baseline', gap: 16 },
   metaLabel: { width: 96 },
   metaValue: { flex: 1 },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginTop: 4 },
   licenceNote: { marginTop: 4, maxWidth: PROSE_MAX_WIDTH },
   cta: { alignSelf: 'stretch', marginTop: 24 },
   ctaWide: { alignSelf: 'flex-start', width: 320, marginTop: 24 },

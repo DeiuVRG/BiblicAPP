@@ -152,3 +152,45 @@ export function needsGreekFace(language: string | undefined): boolean {
 export function hasPolytonicGreek(text: string): boolean {
   return /[ἀ-῿]/.test(text);
 }
+
+/** A stretch of text, and whether it is polytonic Greek (to be set in Gentium Plus). */
+export interface GreekRun {
+  text: string;
+  greek: boolean;
+}
+
+// One Greek word: Greek and Coptic (U+0370 to U+03FF) or Greek Extended letters, with their
+// combining marks. A phrase is words joined by spaces and the punctuation that sits between them.
+const GREEK_WORD =
+  '[\\u0370-\\u03FF\\u1F00-\\u1FFF][\\u0300-\\u036F\\u0370-\\u03FF\\u1F00-\\u1FFF]*';
+const GREEK_PHRASE = new RegExp(
+  `${GREEK_WORD}(?:[\\s,.;:·'’"“”()\\u2010-\\u2015-]+${GREEK_WORD})*`,
+  'gu',
+);
+
+/**
+ * Splits text into the runs that need the Greek face and the rest, for a text that is not a Greek
+ * edition but quotes Greek words (an English or Romanian book that gives "ἐκκλησία"). A run is a
+ * whole Greek phrase (words, and the spaces and punctuation between them, so that the phrase is
+ * set in one face) that has at least one Greek Extended letter; a phrase of basic Greek only
+ * (Source Serif 4 has it) stays in the reading face. The runs joined give the text back.
+ */
+export function splitGreekRuns(text: string): GreekRun[] {
+  const runs: GreekRun[] = [];
+  let cursor = 0;
+  const push = (piece: string, greek: boolean) => {
+    if (piece === '') return;
+    const last = runs.at(-1);
+    if (last && last.greek === greek) last.text += piece;
+    else runs.push({ text: piece, greek });
+  };
+  for (const match of text.matchAll(GREEK_PHRASE)) {
+    const phrase = match[0];
+    const at = match.index ?? 0;
+    push(text.slice(cursor, at), false);
+    push(phrase, hasPolytonicGreek(phrase));
+    cursor = at + phrase.length;
+  }
+  push(text.slice(cursor), false);
+  return runs.length > 0 ? runs : [{ text, greek: false }];
+}

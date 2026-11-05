@@ -1,7 +1,7 @@
 import { loadAsync, useFonts } from 'expo-font';
 import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from 'react';
 
-import { fallbackFonts, fontFamiliesFor, needsGreekFace } from './font-families';
+import { fallbackFonts, fontFamiliesFor, hasPolytonicGreek, needsGreekFace } from './font-families';
 import type { FontFamilies } from './font-families';
 import { FIRST_PAINT_FONTS, FONT_GROUPS } from './font-sources';
 import type { FontGroup } from './font-sources';
@@ -15,8 +15,9 @@ export {
   loadedFonts,
   needsGreekFace,
   readingFaces,
+  splitGreekRuns,
 } from './font-families';
-export type { FontFamilies, FontState, ReadingFaces, ReadingFont } from './font-families';
+export type { FontFamilies, FontState, GreekRun, ReadingFaces, ReadingFont } from './font-families';
 export type { FontGroup } from './font-sources';
 
 // --- on-demand loading -------------------------------------------------------------------------
@@ -113,12 +114,20 @@ export function useFontFamilies(): FontFamilies {
   return useContext(FontsContext);
 }
 
-/** Loads the font group of the Greek face when a lane's language needs it; returns the faces. */
-export function useGreekFace(language: string | undefined): FontFamilies['greek'] | null {
-  const greek = needsGreekFace(language);
-  useFontGroup(greek ? 'gentium' : null);
+/**
+ * Loads the font group of the Greek face when a text needs it, and returns the faces: for a lane
+ * whose edition language is ancient Greek, or for any text that has Greek Extended letters (which
+ * Source Serif 4 lacks) whatever its language. `null` when neither applies. (docs/ui-spec-v2.md,
+ * section 2.2.)
+ */
+export function useGreekFace(
+  language: string | undefined,
+  text?: string,
+): FontFamilies['greek'] | null {
+  const needed = needsGreekFace(language) || (text !== undefined && hasPolytonicGreek(text));
+  useFontGroup(needed ? 'gentium' : null);
   const fonts = useFontFamilies();
-  return greek ? fonts.greek : null;
+  return needed ? fonts.greek : null;
 }
 
 /** A stable callback that loads a group: for event handlers (choosing a font in Settings). */

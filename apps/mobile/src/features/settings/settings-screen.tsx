@@ -23,6 +23,7 @@ import { editionLabel, licenceLabel } from '@/i18n/labels';
 import { useSettings } from '@/settings/settings-context';
 import { PROSE_MAX_WIDTH } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
+import { radii } from '@/theme/tokens';
 
 import { READING_MAX_FONT_SCALE } from '../reader/reader-paragraph';
 
@@ -58,7 +59,7 @@ function Preview() {
   const { colors } = useTheme();
   const readingStyle = useTypeStyle('reading', false);
   return (
-    <View style={[styles.preview, { backgroundColor: colors.surface }]}>
+    <View style={[styles.preview, { backgroundColor: colors.surface, borderColor: colors.border }]}>
       <AppText variant="caption">{t.settings.preview}</AppText>
       <Text maxFontSizeMultiplier={READING_MAX_FONT_SCALE} style={readingStyle}>
         {t.settings.previewText}
@@ -142,7 +143,8 @@ export function SettingsScreen() {
 const styles = StyleSheet.create({
   content: { paddingTop: 8 },
   section: { gap: 16, paddingTop: 20, paddingBottom: 28 },
-  preview: { padding: 16, borderRadius: 6, gap: 8 },
+  // A card: 1 px border, 3 px corners.
+  preview: { padding: 16, borderWidth: 1, borderRadius: radii.sm, gap: 8 },
   lines: { gap: 4 },
   prose: { maxWidth: PROSE_MAX_WIDTH },
 });

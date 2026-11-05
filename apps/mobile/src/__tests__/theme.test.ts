@@ -281,7 +281,12 @@ describe('palettes', () => {
         expect(alphaOf(palette.mastheadInkMuted)).toBeCloseTo(0.84, 2);
         expect(opaque(palette.mastheadBorder)).toBe(palette.mastheadInk);
         expect(alphaOf(palette.mastheadBorder)).toBeCloseTo(0.55, 2);
-        expect(opaque(palette.accentBar)).toBe(palette.accent);
+        // The bar is `accent` at 78 %. A hero is dark in every theme, so in dark the bar is the
+        // brand terracotta of the light theme: the pale accent of the dark theme (#D79380) leaves
+        // the large light text only 2.7:1 over a white pixel under the scrim (ADR-017).
+        expect(opaque(palette.accentBar)).toBe(
+          _name === 'dark' ? palettes.light.accent : palette.accent,
+        );
         expect(alphaOf(palette.accentBar)).toBeCloseTo(0.78, 2);
       },
     );
@@ -306,6 +311,64 @@ describe('palettes', () => {
         const bar = over(palette.accentBar, palette.masthead);
         expect(contrast(palette.mastheadInk, bar)).toBeGreaterThanOrEqual(3);
       }
+    });
+
+    // Check G5 (docs/ui-spec-v2.md 20.3): text over a photograph is 4.5:1 against the lightest 5 %
+    // of the pixels behind it (3:1 for the large highlighted line). The worst picture is a white
+    // one, so the colours are computed over a pure white pixel, under the top of the scrim (where
+    // the kicker sits, and the scrim is at its lightest) and under its bottom.
+    describe('over a pure white photograph (the worst case of G5)', () => {
+      it.each(ENTRIES)('%s: the ink reaches 4.5:1 at the top of the scrim', (_name, palette) => {
+        const top = over(palette.heroScrimTop, '#FFFFFF');
+        expect(contrast(palette.mastheadInk, top)).toBeGreaterThanOrEqual(4.5);
+      });
+
+      it.each(ENTRIES)(
+        '%s: the orange accent ink does not, which is why a hero with a picture uses the ink',
+        (_name, palette) => {
+          const top = over(palette.heroScrimTop, '#FFFFFF');
+          expect(contrast(palette.mastheadAccent, top)).toBeLessThan(4.5);
+          // 2.12:1 in light and sepia, 3.97:1 in dark (the scrim is stronger there).
+          expect(contrast(palette.mastheadAccent, top)).toBeGreaterThan(2);
+        },
+      );
+
+      it.each(ENTRIES)(
+        '%s: the large light text on the highlight bar keeps 3:1 (the bar is itself over the scrim)',
+        (_name, palette) => {
+          for (const scrim of [palette.heroScrimTop, palette.heroScrimBottom]) {
+            const bar = over(palette.accentBar, over(scrim, '#FFFFFF'));
+            expect(contrast(palette.mastheadInk, bar)).toBeGreaterThanOrEqual(3);
+          }
+        },
+      );
+
+      it('would fail in dark with the pale accent of the dark theme as the bar (why the bar changed)', () => {
+        const dark = palettes.dark;
+        const pale = `${dark.accent}C7`; // accent at 78 %
+        const bar = over(pale, over(dark.heroScrimTop, '#FFFFFF'));
+        expect(contrast(dark.mastheadInk, bar)).toBeLessThan(3);
+      });
+
+      it.each(ENTRIES)(
+        '%s: the muted ink of the sub line keeps 4.5:1 below the top',
+        (_name, palette) => {
+          // The sub line sits under the title, about halfway down the scrim: the colour there is the
+          // blend of the two stops at 45 % of the way to 78 % of the hero height.
+          const share = 0.45 / 0.78;
+          const stops = [palette.heroScrimTop, palette.heroScrimBottom].map((stop) =>
+            over(stop, '#FFFFFF'),
+          );
+          const blend = over(
+            `${stops[1]}${Math.round(share * 255)
+              .toString(16)
+              .padStart(2, '0')}`,
+            stops[0]!,
+          );
+          const sub = over(palette.mastheadInkMuted, blend);
+          expect(contrast(sub, blend)).toBeGreaterThanOrEqual(4.5);
+        },
+      );
     });
   });
 

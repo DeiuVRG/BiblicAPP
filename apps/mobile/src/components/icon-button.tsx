@@ -1,12 +1,14 @@
 import { Pressable, StyleSheet } from 'react-native';
 
 import { toneColor } from '@/components/app-text';
-import { useBandTone } from '@/components/band-context';
+import { isDarkBand, useBandTone } from '@/components/band-context';
 import { MIN_TARGET } from '@/components/button';
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
 import { Icon } from '@/components/icon';
 import type { IconName } from '@/components/icon';
+import { pressStyle } from '@/components/press';
+import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 
 interface Props {
@@ -36,12 +38,13 @@ export function IconButton({
 }: Props) {
   const { colors } = useTheme();
   const band = useBandTone();
+  const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
   const { focusProps, focusStyle } = useFocusRing();
   const active = (hovered || selected === true) && !disabled;
   const color = active
     ? toneColor(colors, 'accent', band)
-    : toneColor(colors, band === 'masthead' ? 'text' : 'muted', band);
+    : toneColor(colors, isDarkBand(band) ? 'text' : 'muted', band);
   return (
     <Pressable
       testID={testID ?? `icon-button-${name}`}
@@ -61,7 +64,7 @@ export function IconButton({
       {...focusProps}
       style={({ pressed }) => [
         styles.target,
-        { opacity: disabled ? 0.6 : pressed ? 0.7 : 1 },
+        disabled ? { opacity: 0.6 } : pressStyle(pressed, reduced),
         focusStyle,
       ]}
     >

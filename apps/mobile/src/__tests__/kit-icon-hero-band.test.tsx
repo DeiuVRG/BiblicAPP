@@ -1,15 +1,17 @@
-import { act, fireEvent, screen } from '@testing-library/react-native';
+import { act, fireEvent, screen, within } from '@testing-library/react-native';
 import { AccessibilityInfo, Animated, Dimensions, Platform, StyleSheet, Text } from 'react-native';
 
 import { AppText, toneColor } from '@/components/app-text';
 import { Band, bandBackground } from '@/components/band';
-import { useBandTone } from '@/components/band-context';
+import { isDarkBand, useBandTone } from '@/components/band-context';
 import { Button } from '@/components/button';
 import { Hero, HighlightedLine } from '@/components/hero';
 import { ICON_GRID, ICON_NAMES, ICON_STROKE, Icon } from '@/components/icon';
 import { IconButton } from '@/components/icon-button';
 import { FontsProvider, loadedFonts } from '@/theme/fonts';
 import { palettes } from '@/theme/palettes';
+import { stubMatchMedia } from '@/test-support/match-media';
+import { styleWhilePressed } from '@/test-support/press';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
 
 const original = Dimensions.get('window');
@@ -200,13 +202,42 @@ describe('IconButton', () => {
     expect(screen.getByLabelText('Raportează')).toHaveStyle({ opacity: 0.6 });
   });
 
-  it('turns the icon into the ink of a masthead band', async () => {
+  it('turns the icon into the ink of a masthead band, and of a photograph', async () => {
     await renderWithProviders(
-      <Band tone="masthead">
-        <IconButton name="search" label="Căutare" />
-      </Band>,
+      <>
+        <Band tone="masthead">
+          <IconButton name="search" label="Căutare" />
+        </Band>
+        <Band tone="photo">
+          <IconButton name="menu" label="Meniu" />
+        </Band>
+      </>,
     );
     expect(svgOf('search').props.stroke).toBe(light.mastheadInk);
+    expect(svgOf('menu').props.stroke).toBe(light.mastheadInk);
+  });
+
+  it('dims to opacity 0.7 when pressed on native, and is not pressed when disabled', async () => {
+    await renderWithProviders(
+      <>
+        <IconButton name="search" label="Căutare" />
+        <IconButton name="flag" label="Raportează" disabled />
+      </>,
+    );
+    expect(await styleWhilePressed('Căutare')).toMatchObject({ opacity: 0.7 });
+    expect(await styleWhilePressed('Raportează')).toMatchObject({ opacity: 0.6 });
+  });
+
+  it('shrinks to scale(.96) on web, with no opacity change', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<IconButton name="search" label="Căutare" />);
+      const style = await styleWhilePressed('Căutare');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
   });
 });
 
@@ -354,6 +385,73 @@ describe('Band: the tone reaches what is inside', () => {
     expect(toneColor(light, 'text', 'masthead')).toBe(light.mastheadInk);
   });
 
+  it('never puts the muted text colour on warm: textMuted is 4.14:1 there in light (rule 2 of 2.1)', async () => {
+    // Regression: a `label`, `caption` or `lead` (muted by default) on a warm plate was textMuted.
+    await renderWithProviders(
+      <>
+        <Band tone="warm">
+          <AppText variant="label">Latină</AppText>
+          <AppText variant="caption">Un rând</AppText>
+          <AppText variant="kicker">Raft</AppText>
+        </Band>
+        <Band tone="cream">
+          <AppText variant="label">Pe cremă</AppText>
+        </Band>
+      </>,
+    );
+    expect(screen.getByText('Latină')).toHaveStyle({ color: light.text });
+    expect(screen.getByText('Un rând')).toHaveStyle({ color: light.text });
+    // The accent label is allowed on warm (accentStrong is 4.54:1 there).
+    expect(screen.getByText('Raft')).toHaveStyle({ color: light.accentStrong });
+    // The other light bands keep the muted colour.
+    expect(screen.getByText('Pe cremă')).toHaveStyle({ color: light.textMuted });
+    expect(toneColor(light, 'muted', 'warm')).toBe(light.text);
+    for (const name of ['light', 'sepia', 'dark'] as const) {
+      expect(toneColor(palettes[name], 'muted', 'warm')).toBe(palettes[name].text);
+    }
+  });
+
+  it('is dark and masthead-coloured on a photograph, with the accent ink replaced by the ink', async () => {
+    // The orange reaches 2.1:1 against a white pixel under the scrim (4.5:1 is needed, G5).
+    expect(isDarkBand('photo')).toBe(true);
+    expect(isDarkBand('masthead')).toBe(true);
+    expect(isDarkBand('warm')).toBe(false);
+    expect(bandBackground(light, 'photo')).toBe(light.masthead);
+    expect(toneColor(light, 'accent', 'masthead')).toBe(light.mastheadAccent);
+    expect(toneColor(light, 'accent', 'photo')).toBe(light.mastheadInk);
+    expect(toneColor(light, 'danger', 'photo')).toBe(light.mastheadInk);
+    expect(toneColor(light, 'muted', 'photo')).toBe(light.mastheadInkMuted);
+    expect(toneColor(light, 'text', 'photo')).toBe(light.mastheadInk);
+    await renderWithProviders(
+      <>
+        <Band tone="photo">
+          <AppText variant="kicker">Pe fotografie</AppText>
+          <Button variant="text" title="Legătură" />
+        </Band>
+        <Band tone="masthead">
+          <AppText variant="kicker">Pe fundal plat</AppText>
+        </Band>
+      </>,
+    );
+    expect(screen.getByText('Pe fotografie')).toHaveStyle({ color: light.mastheadInk });
+    expect(screen.getByText('Legătură')).toHaveStyle({ color: light.mastheadInk });
+    expect(screen.getByText('Pe fundal plat')).toHaveStyle({ color: light.mastheadAccent });
+  });
+
+  it('marks a photograph band for the focus ring on web like a masthead band', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(
+        <Band testID="photo" tone="photo">
+          <Text>a</Text>
+        </Band>,
+      );
+      expect(screen.getByTestId('photo').props.dataSet).toEqual({ band: 'masthead' });
+    } finally {
+      replaced.restore();
+    }
+  });
+
   it('is "background" outside any band and the band tone inside it', async () => {
     await renderWithProviders(
       <>
@@ -408,6 +506,56 @@ describe('Hero: render', () => {
     expect(screen.getByText('Tradiția creștină,')).toHaveStyle({ fontSize: 32, lineHeight: 36 });
   });
 
+  it('has exactly one heading: the title groups its lines, which are plain text (one h1 per screen)', async () => {
+    // Regression: the wrapper and each of its two lines were headings, which react-native-web
+    // renders as three nested h1 (an <h1> inside an <h1>).
+    const headings = () =>
+      screen.container.queryAll((node) => node.props?.accessibilityRole === 'header');
+    await renderWithProviders(hero());
+    expect(headings()).toHaveLength(1);
+    expect(headings()[0]!.props.testID).toBe('hero-title');
+    for (const line of ['Tradiția creștină,', 'în limba ta.']) {
+      expect(screen.getByText(line).props.accessibilityRole).toBeUndefined();
+      expect(screen.getByText(line).props['aria-level']).toBeUndefined();
+    }
+    // The same for a title of one line (the screen shows the latest render only).
+    await renderWithProviders(hero({ title: 'Despre bibliotecă', testID: 'single' }));
+    expect(headings()).toHaveLength(1);
+    expect(headings()[0]!.props.testID).toBe('single-title');
+    expect(screen.getByText('Despre bibliotecă').props.accessibilityRole).toBeUndefined();
+  });
+
+  it('is one element for a screen reader on native, and not a tab stop on web', async () => {
+    await renderWithProviders(hero());
+    expect(screen.getByTestId('hero-title').props.accessible).toBe(true);
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(hero({ testID: 'web-hero' }));
+      expect(screen.getByTestId('web-hero-title').props.accessible).toBeUndefined();
+      expect(screen.getByTestId('web-hero-title').props['aria-level']).toBe(1);
+    } finally {
+      replaced.restore();
+    }
+  });
+
+  it('keeps AppText headings as they were, and lets a line opt out', async () => {
+    await renderWithProviders(
+      <>
+        <AppText variant="displayL">Titlu</AppText>
+        <AppText variant="displayL" heading={false}>
+          Linie
+        </AppText>
+        <AppText variant="body" heading>
+          Forțat
+        </AppText>
+      </>,
+    );
+    expect(screen.getByText('Titlu').props.accessibilityRole).toBe('header');
+    expect(screen.getByText('Titlu').props['aria-level']).toBe(1);
+    expect(screen.getByText('Linie').props.accessibilityRole).toBeUndefined();
+    expect(screen.getByText('Forțat').props.accessibilityRole).toBe('header');
+  });
+
   it('sets the title at 52/56 on wide screens, and a page hero (not the landing) at displayL', async () => {
     await act(async () => {
       Dimensions.set({ window: { ...original, width: 1366 } });
@@ -458,6 +606,12 @@ describe('Hero: render', () => {
     expect(picture).toHaveLength(1);
     expect(picture[0]!.props.source).toEqual({ uri: 'https://example.org/hero.webp' });
     expect(picture[0]!.props.resizeMode).toBe('cover');
+    // Regression: without an explicit size react-native-web drew a local picture at its own pixel
+    // size from the top left corner, instead of covering the hero.
+    expect(StyleSheet.flatten(picture[0]!.props.style)).toMatchObject({
+      width: '100%',
+      height: '100%',
+    });
     const scrim = screen.container.queryAll(
       (node) =>
         node.props.style &&
@@ -470,6 +624,25 @@ describe('Hero: render', () => {
     );
     expect(scrim.length).toBeGreaterThan(0);
     expect(lower.length).toBeGreaterThan(0);
+  });
+
+  it('writes the kicker, the pilcrow and the badge in the ink over a picture, and in the orange on the flat hero', async () => {
+    // The orange reaches only 2.1:1 against a white pixel under the scrim (G5 needs 4.5:1).
+    await renderWithProviders(
+      <>
+        {hero({ image: { uri: 'https://example.org/hero.webp' }, testID: 'photo' })}
+        {hero({ testID: 'flat' })}
+      </>,
+    );
+    const photo = within(screen.getByTestId('photo'));
+    expect(photo.getByText('Biblioteca')).toHaveStyle({ color: light.mastheadInk });
+    expect(photo.getByText('¶', HIDDEN)).toHaveStyle({ color: light.mastheadInk });
+    expect(photo.getByText('Beta')).toHaveStyle({ color: light.mastheadInk });
+    expect(photo.getByText('Beta').parent).toHaveStyle({ borderColor: light.mastheadInk });
+    const flat = within(screen.getByTestId('flat'));
+    expect(flat.getByText('Biblioteca')).toHaveStyle({ color: light.mastheadAccent });
+    expect(flat.getByText('¶', HIDDEN)).toHaveStyle({ color: light.mastheadAccent });
+    expect(flat.getByText('Beta')).toHaveStyle({ color: light.mastheadAccent });
   });
 
   it('puts a gradient scrim over the picture on web: heroScrimTop to heroScrimBottom at 78 %', async () => {
@@ -630,6 +803,47 @@ describe('Hero: handlers and motion', () => {
       await renderWithProviders(<HighlightedLine>în limba ta.</HighlightedLine>);
       await act(async () => {});
       expect(scale()).toBe(1);
+    });
+
+    it('is full from the very first frame under reduced motion on web, not after the platform answers', async () => {
+      // Regression: the hook started as false until a promise resolved, so the bar was absent for
+      // about 80 ms and then jumped in. On web `prefers-reduced-motion` can be read at once.
+      const restore = stubMatchMedia({ '(prefers-reduced-motion: reduce)': true });
+      const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+      // The platform never answers during this test: only the synchronous read can know.
+      jest.spyOn(AccessibilityInfo, 'isReduceMotionEnabled').mockReturnValue(new Promise(() => {}));
+      const timing = jest.spyOn(Animated, 'timing');
+      const loop = jest.spyOn(Animated, 'loop');
+      try {
+        await renderWithProviders(
+          <Hero kicker="Biblioteca" title={['Tradiția creștină,', 'în limba ta.']} />,
+        );
+        expect(scale()).toBe(1);
+        // No sweep, and no pulse of the pilcrow either.
+        expect(timing).not.toHaveBeenCalled();
+        expect(loop).not.toHaveBeenCalled();
+      } finally {
+        replaced.restore();
+        restore();
+      }
+    });
+
+    it('still sweeps on web when the user did not ask for reduced motion', async () => {
+      const restore = stubMatchMedia({ '(prefers-reduced-motion: reduce)': false });
+      const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+      jest.spyOn(AccessibilityInfo, 'isReduceMotionEnabled').mockResolvedValue(false);
+      const timing = jest.spyOn(Animated, 'timing');
+      try {
+        await renderWithProviders(<HighlightedLine>în limba ta.</HighlightedLine>);
+        expect(timing).toHaveBeenCalledWith(
+          expect.anything(),
+          expect.objectContaining({ delay: 250, duration: 550 }),
+        );
+        expect(scale()).toBe(0);
+      } finally {
+        replaced.restore();
+        restore();
+      }
     });
   });
 });

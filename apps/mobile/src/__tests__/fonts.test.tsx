@@ -16,8 +16,10 @@ import {
   needsGreekFace,
   readingFaces,
   resetFontGroups,
+  splitGreekRuns,
   useAppFonts,
   useFontGroup,
+  useGreekFace,
   useLoadedFontGroups,
 } from '@/theme/fonts';
 import type { FontGroup } from '@/theme/fonts';
@@ -124,6 +126,73 @@ describe('font families', () => {
     expect(hasPolytonicGreek('In principio')).toBe(false);
     // Monotonic Greek (U+0370-03FF) is in Source Serif 4.
     expect(hasPolytonicGreek('λόγος')).toBe(false);
+  });
+});
+
+describe('splitGreekRuns (polytonic Greek quoted in a text that is not Greek)', () => {
+  const joined = (text: string) =>
+    splitGreekRuns(text)
+      .map((run) => run.text)
+      .join('');
+  const greek = (text: string) =>
+    splitGreekRuns(text)
+      .filter((run) => run.greek)
+      .map((run) => run.text);
+
+  it('gives the text back whole, whatever it holds', () => {
+    for (const text of [
+      '',
+      'Plain English.',
+      'The word ἐκκλησία (church) is used; ἐν ἀρχῇ ἦν ὁ λόγος, says John.',
+      'λόγος and ἀγάπη',
+      'Ἰησοῦς Χριστός.',
+    ]) {
+      expect(joined(text)).toBe(text);
+    }
+    expect(splitGreekRuns('')).toEqual([{ text: '', greek: false }]);
+  });
+
+  it('is one non-Greek run for a text with no Greek Extended letters', () => {
+    expect(splitGreekRuns('In the beginning was the Word.')).toEqual([
+      { text: 'In the beginning was the Word.', greek: false },
+    ]);
+    // Monotonic Greek is in Source Serif 4: it stays in the reading face.
+    expect(splitGreekRuns('The letter λ and the word λόγος')).toEqual([
+      { text: 'The letter λ and the word λόγος', greek: false },
+    ]);
+  });
+
+  it('marks a polytonic word as a Greek run and leaves the rest', () => {
+    expect(splitGreekRuns('the church (ἐκκλησία) of God')).toEqual([
+      { text: 'the church (', greek: false },
+      { text: 'ἐκκλησία', greek: true },
+      { text: ') of God', greek: false },
+    ]);
+  });
+
+  it('keeps a Greek phrase in one run, with the spaces and the punctuation between its words', () => {
+    expect(greek('John writes ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν — then stops.')).toEqual([
+      'ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν',
+    ]);
+    // The monotonic word inside a polytonic phrase goes with it, so the phrase is in one face.
+    expect(greek('ἐν λόγος')).toEqual(['ἐν λόγος']);
+  });
+
+  it('does not take the punctuation after the last Greek word, or the Latin words after it', () => {
+    expect(greek('ἐκκλησία, and more')).toEqual(['ἐκκλησία']);
+    expect(greek('say ἐκκλησία.')).toEqual(['ἐκκλησία']);
+  });
+
+  it('finds the several phrases of one paragraph', () => {
+    expect(greek('First ἐκκλησία, then something else, then ἀγάπη.')).toEqual([
+      'ἐκκλησία',
+      'ἀγάπη',
+    ]);
+  });
+
+  it('has no Greek run in Romanian or Latin text', () => {
+    expect(greek('Împărăția lui Dumnezeu este aproape.')).toEqual([]);
+    expect(greek('In principio erat Verbum')).toEqual([]);
   });
 });
 
@@ -243,6 +312,37 @@ describe('font groups in components', () => {
     await render(<Probe group="literata" />);
     // expo-font's loadAsync resolves in the Jest environment: the group shows up as loaded.
     expect(await screen.findByText('literata')).toBeTruthy();
+  });
+});
+
+describe('useGreekFace', () => {
+  function Probe({ language, text }: { language?: string; text?: string }) {
+    const greek = useGreekFace(language, text);
+    const loaded = useLoadedFontGroups();
+    return (
+      <Text testID="state">
+        {greek ? 'greek' : 'none'}:{[...loaded].join(',')}
+      </Text>
+    );
+  }
+
+  it('is wanted for an ancient Greek edition, and loads the group', async () => {
+    await render(<Probe language="grc" text="In principio" />);
+    expect(await screen.findByText('greek:gentium')).toBeTruthy();
+  });
+
+  it('is wanted for polytonic letters in a text of any other language (the Vos English pack quotes them)', async () => {
+    await render(<Probe language="en" text="the word ἐκκλησία" />);
+    expect(await screen.findByText('greek:gentium')).toBeTruthy();
+  });
+
+  it('is not wanted for text without them, or without a text to look at', async () => {
+    await render(<Probe language="en" text="the word church, λόγος" />);
+    await act(async () => {});
+    expect(screen.getByTestId('state')).toHaveTextContent('none:');
+    await render(<Probe language="en" />);
+    await act(async () => {});
+    expect(screen.getByTestId('state')).toHaveTextContent('none:');
   });
 });
 

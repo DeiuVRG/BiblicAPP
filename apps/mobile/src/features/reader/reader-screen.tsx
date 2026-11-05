@@ -1,7 +1,7 @@
 import type { Paragraph, Section } from '@biblioteca/shared';
 import { Stack, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -30,6 +30,13 @@ import { textLanguageProps } from '@/theme/web-styles';
 
 import { READING_MAX_FONT_SCALE, ReaderParagraph } from './reader-paragraph';
 import { useReadingPositionWriter } from './use-reading-position';
+
+/**
+ * The typography panel is at most this share of the window high and scrolls inside itself, so that
+ * on a small phone (320 x 568) or a phone on its side (667 x 375) it never covers all the text it
+ * is there to preview. (The `Aa` sheet of docs/ui-spec-v2.md 8.7 replaces it, at 70 %.)
+ */
+export const TYPOGRAPHY_PANEL_MAX_HEIGHT = 0.45;
 
 interface Props {
   /** The work the section is expected to belong to (the `id` of the route). */
@@ -160,6 +167,7 @@ function ChapterView({
   const t = useT();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { height: windowHeight } = useWindowDimensions();
   const column = useColumnStyle('reading');
   const { settings } = useSettings();
   const { colors } = useTheme();
@@ -331,14 +339,24 @@ function ChapterView({
       />
       {panelOpen ? (
         <View
-          style={[styles.sheet, { backgroundColor: colors.surface, borderTopColor: colors.border }]}
+          testID="typography-panel"
+          style={[
+            styles.sheet,
+            {
+              backgroundColor: colors.surface,
+              borderTopColor: colors.border,
+              maxHeight: Math.round(windowHeight * TYPOGRAPHY_PANEL_MAX_HEIGHT),
+            },
+          ]}
         >
-          <Column kind="reading" style={styles.sheetContent}>
-            <AppText variant="label" accessibilityRole="header">
-              {t.reader.typography}
-            </AppText>
-            <TypographyControls />
-          </Column>
+          <ScrollView keyboardShouldPersistTaps="handled">
+            <Column kind="reading" style={styles.sheetContent}>
+              <AppText variant="label" accessibilityRole="header">
+                {t.reader.typography}
+              </AppText>
+              <TypographyControls />
+            </Column>
+          </ScrollView>
         </View>
       ) : null}
       <View

@@ -29,7 +29,13 @@ interface HighlightedLineProps {
 /**
  * A line of display type with a bar of `accentBar` (the `accent` at 78 %) that sweeps in behind it
  * from the left, over 550 ms after a delay of 250 ms, once. Under reduced motion the bar is just
- * there. The bar sits behind large light text (3:1 holds).
+ * there, from the first frame. The bar sits behind large light text (3:1 holds, also over a white
+ * photograph under the scrim: `theme.test.ts`).
+ *
+ * The line must be a short phrase that fits on one line at the narrowest phone width (320): the
+ * bar is one rectangle as wide as the text block, so a line that wraps would get a slab with empty
+ * bar to the right of its last line. (A bar per line needs the width of each wrapped line, and
+ * react-native-web has no `onTextLayout`.) The line is plain text: the heading is the hero's title.
  */
 export function HighlightedLine({
   children,
@@ -72,7 +78,7 @@ export function HighlightedLine({
           ] as unknown as ViewStyle
         }
       />
-      <AppText variant={variant} style={styles.lineText}>
+      <AppText variant={variant} heading={false} style={styles.lineText}>
         {children}
       </AppText>
     </View>
@@ -84,7 +90,10 @@ interface HeroProps {
   kicker?: string;
   /** A small bordered pill after the kicker ("BETA"). */
   badge?: string;
-  /** The H1: one string, or two lines of which the second carries the highlight bar. */
+  /**
+   * The H1: one string, or two lines of which the second carries the highlight bar (the second
+   * line must fit on one line at 320 points, see `HighlightedLine`).
+   */
   title: string | readonly [string, string];
   /** The sentence under the title. */
   sub?: string;
@@ -101,8 +110,11 @@ interface HeroProps {
 
 /**
  * The top of a page: a kicker, the H1, a sub line and buttons on `masthead`, optionally over a
- * picture under a scrim. All text uses the dark-band inks. Without a picture, or while it loads,
- * the hero is the flat `masthead` colour with the same type.
+ * picture under a scrim. All text uses the dark-band inks; over a picture the kicker, the pilcrow,
+ * the badge and the links are the ink too (the orange accent reaches only 2.1:1 against a white
+ * pixel under the scrim), the band is a `photo` band. Without a picture, or while it loads, the
+ * hero is the flat `masthead` colour with the same type. The title is the one heading (`h1`) of
+ * the hero: its lines are plain text inside it.
  */
 export function Hero({
   kicker,
@@ -147,7 +159,7 @@ export function Hero({
     <View testID={testID} style={styles.hero}>
       {image ? <HeroImage source={image} /> : null}
       <Band
-        tone="masthead"
+        tone={image ? 'photo' : 'masthead'}
         container="wide"
         padding={heroPadding(kind, wide)}
         testID={`${testID}-band`}
@@ -172,7 +184,10 @@ export function Hero({
           <View
             testID={`${testID}-title`}
             accessibilityRole="header"
-            // The heading groups its lines; react-native-web renders it as an h1.
+            // The heading groups its lines (react-native-web renders it as one h1; on native it is
+            // one element for a screen reader, which would otherwise read the lines apart). On web
+            // `accessible` would make it a tab stop, so it is native only.
+            {...(Platform.OS === 'web' ? null : { accessible: true })}
             {...({ 'aria-level': 1 } as object)}
             style={styles.title}
           >
@@ -182,7 +197,7 @@ export function Hero({
                   {line}
                 </HighlightedLine>
               ) : (
-                <AppText key={line} variant={titleVariant}>
+                <AppText key={line} variant={titleVariant} heading={false}>
                   {line}
                 </AppText>
               ),
@@ -237,7 +252,8 @@ function HeroImage({ source }: { source: ImageSourcePropType }) {
       importantForAccessibility="no-hide-descendants"
       style={[StyleSheet.absoluteFill, { backgroundColor: colors.masthead }]}
     >
-      <Image source={source} resizeMode="cover" style={StyleSheet.absoluteFill} />
+      {/* Explicit 100 %: react-native-web gives a local picture its own pixel size otherwise. */}
+      <Image source={source} resizeMode="cover" style={styles.picture} />
       {scrim}
     </View>
   );
@@ -265,4 +281,5 @@ const styles = StyleSheet.create({
   // The text buttons carry 16 points of padding: pulled back so the links meet the left edge.
   links: { flexDirection: 'row', flexWrap: 'wrap', columnGap: 8, rowGap: 0, marginLeft: -16 },
   half: { flex: 1 },
+  picture: { width: '100%', height: '100%' },
 });

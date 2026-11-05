@@ -3,7 +3,7 @@ import { Animated, Easing, Platform, Pressable, StyleSheet, View } from 'react-n
 import type { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { UI_MAX_FONT_SCALE, useTypeStyle } from '@/components/app-text';
-import { isDarkBand, useBandTone, useLinkTone } from '@/components/band-context';
+import { isDarkBand, isPhotoBand, useBandTone, useLinkTone } from '@/components/band-context';
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
 import { useLayout } from '@/theme/layout';
@@ -40,7 +40,10 @@ interface Props extends Omit<PressableProps, 'children' | 'style'> {
   glyph?: boolean;
   /** Layout of the button itself (must be a plain style: `Link asChild` merges it). */
   style?: ViewStyle;
-  /** Overrides for the title text, for example a different font. */
+  /**
+   * Overrides for the title text: a font, a size, a colour. They are applied last, so a colour here
+   * replaces the variant's own (hover included); keep the 4.5:1 of the surface it sits on.
+   */
   textStyle?: StyleProp<TextStyle>;
 }
 
@@ -65,8 +68,10 @@ export function Button({
   ...rest
 }: Props) {
   const { colors } = useTheme();
-  const dark = isDarkBand(useBandTone());
-  const inkLinks = useLinkTone() === 'ink';
+  const band = useBandTone();
+  const dark = isDarkBand(band);
+  // Links are the ink where the band is a picture, and in a hero (whose links are always the ink).
+  const inkLinks = useLinkTone() === 'ink' || isPhotoBand(band);
   const { wide } = useLayout();
   const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
@@ -139,7 +144,6 @@ export function Button({
     styles.centered,
     glyph ? styles.glyph : null,
     link && !glyph ? styles.underline : null,
-    textStyle,
   ];
 
   return (
@@ -202,7 +206,7 @@ export function Button({
       <View style={styles.row}>
         <Animated.Text
           maxFontSizeMultiplier={UI_MAX_FONT_SCALE}
-          style={[labelStyle, { color: animatedColor }] as StyleProp<TextStyle>}
+          style={[labelStyle, { color: animatedColor }, textStyle] as StyleProp<TextStyle>}
         >
           {caption}
         </Animated.Text>
@@ -226,6 +230,7 @@ export function Button({
                     },
                   ],
                 },
+                textStyle,
               ] as StyleProp<TextStyle>
             }
           >

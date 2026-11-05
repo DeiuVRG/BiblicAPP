@@ -72,7 +72,12 @@ export interface Palette {
   mastheadInkMuted: string;
   /** `mastheadInk` at 55 % (border of the ghost button). */
   mastheadBorder: string;
-  /** `accent` at 78 % (the hero highlight bar). */
+  /**
+   * `accent` at 78 % (the hero highlight bar). A hero is dark in every theme, so the bar is the
+   * brand terracotta in every theme: in dark it is the `accent` of the light theme, because the
+   * pale accent of the dark theme (`#D79380`) leaves the large light text on the bar only 2.7:1
+   * over a white pixel under the scrim (3:1 is the bar for large text); see ADR-017.
+   */
   accentBar: string;
   /** The five highlight washes; the text on every wash is `text`. */
   washAmber: string;
@@ -214,7 +219,7 @@ export const palettes: Record<ThemeName, Palette> = {
     heroScrimBottom: '#15120EF9',
     mastheadInkMuted: '#EFE7DAD6',
     mastheadBorder: '#EFE7DA8C',
-    accentBar: '#D79380C7',
+    accentBar: '#C1593CC7',
     washAmber: '#4D3B1C',
     washSage: '#2C3A2A',
     washSlate: '#26313F',

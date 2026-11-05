@@ -99,6 +99,7 @@ export function SearchScreen({ initialQuery = '' }: { initialQuery?: string }) {
             // Inside the field, over the room the input leaves free: the field never resizes.
             <Button
               variant="text"
+              glyph
               title="×"
               label={t.search.clear}
               onPress={() => setText('')}

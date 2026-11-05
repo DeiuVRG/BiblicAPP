@@ -6,15 +6,20 @@ import type { ViewStyle } from 'react-native';
 import { AppText } from '@/components/app-text';
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
+import { pressStyle } from '@/components/press';
 import { useFontFamilies } from '@/theme/fonts';
 import { useLayout } from '@/theme/layout';
+import { useCoarsePointer } from '@/theme/pointer';
 import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 import { easing, motion } from '@/theme/tokens';
 
-/** Height of the summary line on wide screens; a phone gets the 44 pt touch target. */
+/**
+ * Height of the summary line for a mouse on a wide screen; a phone, and any finger (a tablet, also
+ * a wide one), gets the 44 pt touch target.
+ */
 const SUMMARY_HEIGHT = 36;
-const PHONE_SUMMARY_HEIGHT = 44;
+const TOUCH_SUMMARY_HEIGHT = 44;
 
 interface Props {
   /** The always-visible line: "Metodologie". */
@@ -43,6 +48,7 @@ export function Disclosure({
   const { colors } = useTheme();
   const fonts = useFontFamilies();
   const { wide } = useLayout();
+  const coarse = useCoarsePointer();
   const reduced = useReducedMotion();
   const bodyId = useId();
   const { hovered, hoverProps } = useHover();
@@ -97,7 +103,8 @@ export function Disclosure({
         {...focusProps}
         style={({ pressed }) => [
           styles.summary,
-          { minHeight: wide ? SUMMARY_HEIGHT : PHONE_SUMMARY_HEIGHT, opacity: pressed ? 0.7 : 1 },
+          { minHeight: wide && !coarse ? SUMMARY_HEIGHT : TOUCH_SUMMARY_HEIGHT },
+          pressStyle(pressed, reduced),
           focusStyle,
         ]}
       >

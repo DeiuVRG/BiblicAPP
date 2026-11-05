@@ -1,0 +1,151 @@
+{
+  "jobId": "vos-1903-kingdom-ro-03-01",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1G",
+      "text": "Dar care au fost originea și sensul acestei expresii, „Împărăția cerurilor”, și ce lumină aruncă ea asupra noțiunii Domnului nostru despre Împărăție? În rândul iudeilor de mai târziu exista o tendință de a renunța la folosirea numelui lui Dumnezeu. Erau în uz diverse substitute, iar unul dintre ele era „cerul”. În afară de expresia aflată în discuție, urme ale acestui mod de exprimare se găsesc în Mat. 16:19; Mc. 11:30; Lc. 15:18, 21. Era un mod de exprimare care se născuse din obiceiul iudeilor de a sublinia în natura lui Dumnezeu, mai mult decât orice altceva, înălțimea sa deasupra lumii și maiestatea sa de neapropiat, până într-acolo încât să pună în primejdie chiar ceea ce trebuie să fie întotdeauna esența religiei, o comuniune adevărată între Dumnezeu și om. Dar acest obicei, deși era expresia unui cusur caracteristic al iudaismului, avea și o latură bună, căci altfel Domnul nostru nu l-ar fi adoptat. În natura sa omenească, Isus avea un simț profund al distanței infinite dintre Dumnezeu și făptură. Tot ce exista în conștiința iudaică din teama și reverența religioase autentice față de Dumnezeu a trezit un ecou în inima lui și a găsit în el expresia sa ideală, din care dispăruse toată unilateralitatea ce îi aparținea în iudaism. Dacă, așadar, Isus a vorbit despre Dumnezeu sub numele de „cer”, aceasta nu a izvorât dintr-o teamă superstițioasă de a-l numi pe Dumnezeu, ci mai degrabă din dorința de a-l numi în așa fel încât să evoce de îndată cea mai înaltă noțiune despre ființa și caracterul lui Dumnezeu. Pentru aceasta, cuvântul „cer” era deosebit de potrivit, deoarece atrage gândul omului în sus, spre locul unde Dumnezeu își descoperă slava în chip desăvârșit.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "our Lord’s conception of the kingdom",
+          "quoteTarget": "noțiunii Domnului nostru despre Împărăție",
+          "note": "«conception» (în sens de idee, nu de viziune sistematică) este redat «noțiune», ca în cap. I–II (profil: WARN pentru «concepție»); revine în «the most exalted conception of his being and character» (același paragraf) și în «the conception of the latter» (par. 3). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "“heaven” was one of these",
+          "quoteTarget": "unul dintre ele era „cerul”",
+          "note": "«heaven» ca cuvânt (substitut pentru numele lui Dumnezeu) și ca sferă cerească este redat «cer» / «cerul» (singular, ca în engleză); pluralul «ceruri» apare numai în expresiile fixate: «Împărăția cerurilor» (glosar, FIX) și «Tatăl din ceruri» (uz biblic, par. 2). În «the God of heaven» (par. 3) s-a păstrat singularul: «Dumnezeul cerului». Fără rând în glosar pentru «heaven» singur; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a true communion between God and man",
+          "quoteTarget": "o comuniune adevărată între Dumnezeu și om",
+          "note": "«communion» este redat «comuniune»; alternativă din tradiția Cornilescu: «părtășie». Termenul revine în paragraful următor al capitolului («a living communion with God») și în restul lucrării. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "exponential of a characteristic fault of Judaism",
+          "quoteTarget": "expresia unui cusur caracteristic al iudaismului",
+          "note": "«exponential of» are aici un uz rar, apropiat de «expressive of / an exponent of» (nu sensul matematic); redat «expresia unui cusur caracteristic al iudaismului». Alternativă pentru revizor: «reprezentativ pentru un cusur caracteristic al iudaismului»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "spoke of God as heaven",
+          "quoteTarget": "a vorbit despre Dumnezeu sub numele de „cer”",
+          "note": "«spoke of God as heaven» este redat «a vorbit despre Dumnezeu sub numele de „cer”», pentru că «ca despre cer» s-ar putea citi ca o comparație; nuanța «sub numele de» rezultă din contextul substitutelor pentru numele lui Dumnezeu (propozițiile 2–3 ale paragrafului)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:19",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 11:30",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:18, 21",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1H",
+      "text": "Aceasta se poate simți cel mai bine într-o altă expresie, pe care, de asemenea, dintre evangheliști numai Matei ne-a păstrat-o și pe care, de asemenea, Domnul nostru o avea în comun cu învățătorii iudei din acea epocă, expresia „Tatăl din ceruri” sau „Tatăl ceresc”. Dacă în aceasta numele „Tată” exprimă dragostea și harul prin care Dumnezeu se pleacă spre noi, apropierea sa infinită de noi, precizarea „din ceruri” adaugă o reamintire a maiestății sale infinite de deasupra noastră, prin care cea dintâi ar trebui ținută întotdeauna în echilibru, ca nu cumva să vătămăm adevăratul spirit al religiei. Se poate afirma, așadar, că, atunci când Isus se referea la „Împărăția cerurilor”, el nu înțelegea prin aceasta alt sens decât cel al expresiei „Împărăția lui Dumnezeu”, cu excepția măsurii în care exista o notă suplimentară de accentuare a naturii înalte a celui căruia îi aparține această Împărăție.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "Matthew alone has preserved for us",
+          "quoteTarget": "dintre evangheliști numai Matei ne-a păstrat-o",
+          "note": "Afirmația că numai Matei dintre evangheliști ar fi păstrat expresia este a autorului; tradusă ca atare, fără corectare. Pentru revizor: expresii apropiate apar, din memorie și neverificat în acest job, și în Mc. 11:25 și Lc. 11:13, deci formularea sursei pare prea categorică."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the Father in heaven",
+          "quoteTarget": "Tatăl din ceruri",
+          "note": "Expresii citate de autor din Evanghelia după Matei, fără trimitere în acest paragraf; traduse ca text al autorului, în forma uzuală «Tatăl din ceruri» (plural «ceruri», ca în expresia fixată; vezi TERMEN_NOU din par. 1) și «Tatăl ceresc», nu după o ediție românească a Bibliei."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "love and grace of God",
+          "quoteTarget": "dragostea și harul",
+          "note": "«love» (despre Dumnezeu) este redat «dragoste» (uz protestant), ca în capitolul I (final): «dragostea și harul lui Dumnezeu». Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the condescending love and grace of God",
+          "quoteTarget": "dragostea și harul prin care Dumnezeu se pleacă spre noi",
+          "note": "«condescending» (sens teologic pozitiv: Dumnezeu se coboară spre făptură) este redat prin «prin care Dumnezeu se pleacă spre noi», pentru că «condescendent» în româna curentă are o nuanță peiorativă. Alternativă pentru revizor: «dragostea și harul lui Dumnezeu, pline de condescendență (coborâre)»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the qualification “in heaven”",
+          "quoteTarget": "precizarea „din ceruri”",
+          "note": "«qualification» (determinarea adăugată substantivului «Father») este redat «precizarea»; în par. 3, «it primarily qualifies God» este redat «îl caracterizează în primul rând pe Dumnezeu». Alternativă pentru revizor: «determinarea» / «îl determină». Formulare de care nu sunt sigur."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQSCWGQWZMYVZKNSQJHA12",
+      "text": "Totuși, deși cuvântul „cer” îl caracterizează în primul rând pe Dumnezeu și descrie măreția lui, nu cea a Împărăției, Domnul nostru trebuie să fi intenționat ca acest cuvânt să dea o nuanță și noțiunii despre Împărăție. Dacă regele este cel care concentrează în sine toată slava cerului, cum trebuie să fie Împărăția sa? Nu vom greși prea mult dacă spunem că Isus a dorit să trezească în ucenicii săi un simț al caracterului tainic și supranatural, al perfecțiunii și grandorii absolute, al valorii supreme ce aparține acestei noi ordini a lucrurilor, și a dorit ca ei să o privească și să se apropie de ea într-un spirit de prețuire a acestor calități sfinte. Deși expresia „Împărăția cerurilor” nu se găsește în Vechiul Testament, cuvântul „cer” apare acolo deja într-o asociere semnificativă cu ideea Împărăției viitoare. În Daniel se spune că „Dumnezeul cerului” va întemeia o Împărăție, iar aceasta înseamnă că noua domnie își va trage originea, în chip supranatural, din lumea de sus. Și pentru Isus „cerul” și supranaturalul erau idei înrudite, cf. Mat. 16:17; Mc. 11:30. Faptul că gândul la perfecțiunea absolută a lumii cerești, ca element determinant pentru caracterul Împărăției, poate foarte bine să fi fost asociat în mintea lui Isus cu numele „Împărăția cerurilor” reiese din legătura strânsă dintre a doua și a treia cerere din Rugăciunea Domnului: „Să vină Împărăția ta, să se facă voia ta, după cum în cer, așa și pe pământ”, cf. și Mat. 5:48. Cât despre cer ca sferă a valorilor supreme și neschimbătoare și ca țel al aspirației, ne putem referi la cuvinte ca cele din Mat. 5:12; 6:20. Având în vedere semnificația profundă pe care Isus a atribuit-o constant contrastului dintre lumea cerească și cea pământească, este greu de crezut că pentru el cerul a fost o simplă perifrază formală pentru Dumnezeu. Cerul nu îl desemna pe Dumnezeu în general, ci pe Dumnezeu așa cum este cunoscut și descoperit în acele regiuni cerești care fuseseră căminul veșnic al Domnului nostru. Numai ținând seama de aceasta putem spera să înțelegem ceva din sensul profund în care el a numit Împărăția „o Împărăție a cerurilor”.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "“the God of heaven” will set up a kingdom",
+          "quoteTarget": "„Dumnezeul cerului” va întemeia o Împărăție",
+          "note": "Citat parțial și parafrază a autorului, fără trimitere în sursă; trimiterea probabilă este Dan. 2:44 (identificată din memorie, neverificată în acest job). Tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «Împărăție» cu majusculă, ca în «o Împărăție care urmează să vină» din cap. II."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Thy kingdom come, Thy will be done, as in heaven, so on earth",
+          "quoteTarget": "Să vină Împărăția ta, să se facă voia ta, după cum în cer, așa și pe pământ",
+          "note": "Citat al autorului din Rugăciunea Domnului (a doua și a treia cerere; probabil Mat. 6:10, identificat din memorie, neverificat în acest job), fără trimitere în sursă. Tradus din formularea engleză a lui Vos, nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. Pronumele «ta» cu literă mică, conform regulilor din §7 (uz academic); revizorul poate decide majuscula în citatul liturgic."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Dan. 2:44",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 16:17",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 11:30",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:10",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 5:48",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 5:12; 6:20",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Raportul criticului nu are constatări (verdict ok): aplicate 0, respinse 0. Recitire numai în română (reguli §4), fiecare retușare reverificată față de original, fără schimbare de sens. Par. 1: «care apăruse din obiceiul» devine «care se născuse din obiceiul» (calc după «had arisen from»); «a sublinia, în natura lui Dumnezeu, mai mult decât orice altceva,» devine «a sublinia în natura lui Dumnezeu, mai mult decât orice altceva,» (fără virgulă între verb și complement); «din teama religioasă și reverența autentice» devine «din teama și reverența religioase autentice» (adjectivele se acordă cu ambele substantive, ca în «genuine religious fear and reverence»); «în desăvârșire» devine «în chip desăvârșit» («in perfection», complement adverbial). Par. 2: «numai Matei dintre evangheliști ne-a păstrat-o» devine «dintre evangheliști numai Matei ne-a păstrat-o» («among the Evangelists Matthew alone»); «iubirea și harul» devine «dragostea și harul» (uz protestant, ca în capitolul I final; vezi TERMEN_NOU); «făcea referire la» devine «se referea la»; «un alt sens» devine «alt sens» (după negație). Par. 3: «Că gândul … reiese din» devine «Faptul că gândul … reiese din» (propoziție subiectivă la început de frază, fără virgulă înaintea predicatului); «nu desemna pe Dumnezeu» devine «nu îl desemna pe Dumnezeu» (dublarea complementului direct). Flag-urile din ciornă sunt păstrate, cu citatele puse de acord cu textul final; adăugat TERMEN_NOU (love = dragoste) în par. 2; corectat «conform reguli §7» în «conform regulilor din §7» în par. 3. Pentru merge: în ciornele altor loturi (cap. V, VII, VIII) «love» este redat «iubire», iar în capitolul I final «dragoste»; de uniformizat. Redări de ținut consecvent în capitol: heaven = cer / cerul (singular), cu pluralul numai în «Împărăția cerurilor» (glosar) și «Tatăl din ceruri»; conception = noțiune; communion = comuniune; reign = domnie; the Jews = iudeii; the kingdom (absolut) = Împărăția; «a kingdom of heaven / of God» (cu articol nehotărât) = «o Împărăție»; the Lord’s prayer = Rugăciunea Domnului; love = dragoste. Referințele din text sunt exact cele din job; Dan. 2:44 și Mat. 6:10 apar numai în scripture și în flag-uri (nu sunt în sursă; identificate din memorie, neverificate în acest job). Textul nu este certificat ca publicabil."
+}

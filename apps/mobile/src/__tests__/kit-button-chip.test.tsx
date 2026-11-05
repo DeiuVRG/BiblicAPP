@@ -1,11 +1,12 @@
 import { act, fireEvent, screen } from '@testing-library/react-native';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
 
 import { Band } from '@/components/band';
 import { Button } from '@/components/button';
 import { Chip } from '@/components/chip';
 import { palettes } from '@/theme/palettes';
 import { FontsProvider, loadedFonts } from '@/theme/fonts';
+import { styleWhilePressed } from '@/test-support/press';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
 
 const original = Dimensions.get('window');
@@ -104,6 +105,32 @@ describe('Button: render', () => {
     expect(StyleSheet.flatten(label.props.style).textDecorationLine).toBeUndefined();
   });
 
+  it('lets textStyle override the colour of the label, and a glyph label still has no underline', async () => {
+    // Regression: the label colour of the variant came after textStyle, so a quiet "×" (the clear
+    // button of the search field) was drawn as an underlined terracotta link.
+    await renderWithProviders(
+      <>
+        <Button
+          variant="text"
+          glyph
+          title="×"
+          label="Șterge"
+          textStyle={{ color: light.textMuted, fontSize: 24 }}
+        />
+        <Button variant="text" title="Citește" textStyle={{ fontSize: 20 }} />
+      </>,
+    );
+    const glyph = StyleSheet.flatten(screen.getByText('×').props.style);
+    expect(glyph).toMatchObject({ color: light.textMuted, fontSize: 24, letterSpacing: 0 });
+    expect(glyph.textDecorationLine).toBeUndefined();
+    // Without a colour in textStyle the variant's own colour stays, and a link is still underlined.
+    expect(screen.getByText('Citește')).toHaveStyle({
+      color: light.accentStrong,
+      fontSize: 20,
+      textDecorationLine: 'underline',
+    });
+  });
+
   it('adds the arrow of a "NAME ›" link, hidden from screen readers', async () => {
     await renderWithProviders(<Button variant="text" arrow title="Despre bibliotecă" />);
     expect(screen.getByLabelText('Despre bibliotecă')).toBeTruthy();
@@ -197,6 +224,25 @@ describe('Button: handlers', () => {
   });
 });
 
+describe('Button: pressed look', () => {
+  it('dims to opacity 0.7 on native', async () => {
+    await renderWithProviders(<Button variant="primary" title="Începe" />);
+    expect(await styleWhilePressed('Începe')).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('shrinks to scale(.96) on web and keeps full opacity', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<Button variant="primary" title="Începe" />);
+      const style = await styleWhilePressed('Începe');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBe(1);
+    } finally {
+      replaced.restore();
+    }
+  });
+});
+
 describe('Chip: render', () => {
   it('sets the label in the `chip` style with a 1 px border, round by default', async () => {
     await renderWithProviders(withFonts(<Chip label="RO" testID="chip" />));
@@ -254,6 +300,45 @@ describe('Chip: render', () => {
   it('gives a chip that can be pressed a touch target of at least 44', async () => {
     await renderWithProviders(<Chip label="Filtru" onPress={jest.fn()} />);
     expect(screen.getByLabelText('Filtru')).toHaveStyle({ minHeight: 44 });
+  });
+
+  it('does not pin itself to the top of a row: the row decides how its chips line up', async () => {
+    // Regression: `alignSelf: flex-start` beat the `alignItems: center` of the row, so a status
+    // chip sat 10 points above the middle of the button next to it, and a pressable chip (a 44
+    // point target around a 24 point pill) sat 10 points below a static one.
+    await renderWithProviders(
+      <>
+        <Chip label="RO" testID="static" />
+        <Chip label="Filtru" onPress={jest.fn()} testID="pressable" />
+      </>,
+    );
+    const drawn = StyleSheet.flatten(screen.getByTestId('static').props.style);
+    expect(drawn.alignSelf).toBeUndefined();
+    expect(
+      StyleSheet.flatten(screen.getByTestId('pressable').props.style).alignSelf,
+    ).toBeUndefined();
+    expect(
+      StyleSheet.flatten(screen.getByText('Filtru').parent!.props.style).alignSelf,
+    ).toBeUndefined();
+  });
+});
+
+describe('Chip: pressed look', () => {
+  it('dims to opacity 0.7 on native', async () => {
+    await renderWithProviders(<Chip label="Filtru" onPress={jest.fn()} />);
+    expect(await styleWhilePressed('Filtru')).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('shrinks to scale(.96) on web, with no opacity change', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<Chip label="Filtru" onPress={jest.fn()} />);
+      const style = await styleWhilePressed('Filtru');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
   });
 });
 

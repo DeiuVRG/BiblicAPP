@@ -1,0 +1,193 @@
+{
+  "jobId": "vos-1903-kingdom-ro-03-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "III. Împărăție și domnie. Împărăția lui Dumnezeu și Împărăția cerurilor",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1B",
+      "text": "Cuvântul grecesc Basileia, folosit în Evanghelii pentru „împărăție”, și cuvintele ebraice și aramaice corespunzătoare, precum Malkuth și Memlakhah, pot desemna, la fel ca multe cuvinte din limba engleză, aceeași noțiune din două puncte de vedere distincte. Ele pot însemna împărăția ca ceva abstract, anume domnia sau stăpânirea exercitată de rege. Sau pot descrie împărăția ca ceva concret, anume teritoriul, totalitatea supușilor și a bunurilor asupra cărora se domnește, inclusiv toate drepturile, privilegiile și avantajele de care se bucură cineva în această sferă. Acum se pune întrebarea în ce sens a înțeles Domnul nostru expresia atunci când a vorbit despre „Împărăția lui Dumnezeu”. În Vechiul Testament, acolo unde o împărăție este atribuită fie lui Iehova, fie vreunei puteri omenești, sensul vizat este de obicei cel abstract, deși în unele dintre cele mai târzii scrieri ale Vechiului Testament se întâlnesc exemple ale uzului concret, cu referire însă întotdeauna la împărății omenești. Împărăția lui Dumnezeu este aici întotdeauna domnia lui, stăpânirea lui, niciodată domeniul lui. Când Obadia prezice că „Împărăția va fi a Domnului”, el vrea să spună că în viitor supremația va aparține lui Iehova. Că astfel stăteau lucrurile și în uzul iudaic obișnuit din vremea Domnului nostru reiese din felul în care supremația lui Israel asupra națiunilor este asociată cu ideea Împărăției.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the kingdom shall be the Lord’s",
+          "quoteTarget": "Împărăția va fi a Domnului",
+          "note": "Citat al lui Obadia, între ghilimele în sursă, fără trimitere în acest paragraf. Versetul este probabil Obad. 21 (în cap. II Vos trimite la Obad. 21 pentru aceeași idee); identificarea este a traducătorului și nu a fost verificată pe un text biblic. Tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. Trecut în «scripture» cu referința probabilă."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the kingship or rule exercised by the king",
+          "quoteTarget": "domnia sau stăpânirea exercitată de rege",
+          "note": "Schema terminologică a capitolului (distincția kingdom / kingship / reign / rule): kingdom = împărăție (generic și pentru împărățiile omenești), cu majusculă, Împărăția, când este vorba de Împărăția lui Dumnezeu / a cerurilor; kingship = domnie (profil, rând FIX; «calitate de rege» doar în perechea reign / kingship din paragraful 2); reign = domnie (ca în cap. I–II); rule (substantiv) = stăpânire; to rule (verb) = a domni («ruled over» = «asupra cărora se domnește»); sovereignty = suveranitate; supremacy = supremație; territory = teritoriu; domain = domeniu; realm = tărâm. Fără rânduri în glosar pentru reign, rule, domain, realm; propuse pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Jehovah",
+          "quoteTarget": "Iehova",
+          "note": "«Jehovah» este redat «Iehova», ca în cap. II (Vos folosește «Jehovah» pentru Dumnezeu și «the Lord» / «our Lord» pentru Hristos; «Domnul» ar șterge distincția). Revine în tot capitolul. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the English language",
+          "quoteTarget": "limba engleză",
+          "note": "Remarca despre «limba engleză» este păstrată literal (Vos compară cuvintele grecești și semitice cu cuvinte engleze de felul lui «kingdom»). Cuvântul pus între ghilimele în prima propoziție («kingdom», prin care evangheliile engleze redau Basileia) este redat prin echivalentul românesc «împărăție». Revizorul decide dacă păstrează formularea."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Obad. 21",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1C",
+      "text": "Am văzut deja că absența relativă a expresiei „Împărăția lui Dumnezeu” din sursele iudaice indică aceeași concluzie, căci tocmai lipsa de interes pentru adevărul că Iehova avea să fie suprem a împiedicat această expresie să devină populară. Pe de altă parte, pentru Isus gândul că Dumnezeu avea să domnească era un gând glorios, care îi umplea sufletul de cea mai sfântă bucurie. În această măsură, autorii moderni au, fără îndoială, dreptate când insistă ca, în interpretarea spuselor Domnului nostru, sensul de „domnie”, „calitate de rege” să fie punctul nostru de plecare și când avertizează împotriva asocierilor înșelătoare ale cuvântului englezesc „kingdom”, care în uzul modern înseamnă practic întotdeauna teritoriul sau tărâmul. Totuși, este recomandabil să înaintăm aici încet. S-a atras deja atenția asupra lărgirii semnificative pe care Isus a introdus-o în uzul curent al expresiei. Dacă pentru el expresia cuprindea toate privilegiile și binecuvântările ce decurg din domnia lui Dumnezeu care vine, atunci este limpede cât de inevitabil ar tinde, pe buzele lui, să devină o denumire concretă. De la sensul inițial de „stăpânire”, ea ar începe să însemne, dacă nu un teritoriu sau o mulțime de supuși, cel puțin un tărâm, o sferă a vieții, o stare de lucruri, toate acestea concepute mai mult sau mai puțin în sens spațial. Desigur, chiar și așa ar rămâne întotdeauna conotația că Împărăția astfel înțeleasă este deținută și, prin urmare, pătrunsă de Dumnezeu, dar, la urma urmei, redarea „domnia lui Dumnezeu” nu s-ar mai aplica. De fapt, o singură privire aruncată asupra cuvântărilor din Evanghelii arată că este absolut imposibil să se ducă până la capăt redarea abstractă în fiecare caz în parte în care Domnul nostru vorbește despre Împărăția lui Dumnezeu.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "kingship",
+          "quoteTarget": "calitate de rege",
+          "note": "Aici «reign» și «kingship» stau alăturate ca două redări distincte ale sensului abstract. Ambele ar fi «domnie» (profil: kingship = domnia / calitatea de rege, FIX; reign = domnie în cap. I–II), ceea ce ar da «domnie», «domnie». Pentru a păstra perechea, «kingship» este redat aici «calitate de rege» (varianta din profil); în restul capitolului kingship = domnie."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the English word",
+          "quoteTarget": "cuvântului englezesc „kingdom”",
+          "note": "Cuvântul englezesc «kingdom» rămâne în engleză, pentru că afirmația privește uzul modern al acestui cuvânt englezesc (asocierea lui cu teritoriul); în rest «kingdom» = «împărăție». Revizorul poate decide altfel."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the territory or realm",
+          "quoteTarget": "teritoriul sau tărâmul",
+          "note": "territory = teritoriu, realm = tărâm (în paragraful 1: domain = domeniu); sphere of life = sferă a vieții; state of things = stare de lucruri. Fără rânduri în glosar; propuse pentru glosar după aprobare."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "all of these more or less locally conceived",
+          "quoteTarget": "toate acestea concepute mai mult sau mai puțin în sens spațial",
+          "note": "«locally» înseamnă «în termeni de loc» (concepute ca având un loc, ca spațiu delimitat), nu «local» în sensul de regional. Redat «în sens spațial»; ciorna avea «ca localizate», care putea fi citit «restrâns la un loc anume». Alternativă pentru revizorul uman: «ca localizate»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "is possessed and therefore pervaded by God",
+          "quoteTarget": "este deținută și, prin urmare, pătrunsă de Dumnezeu",
+          "note": "«possessed» este redat «deținută» (nu «posedată», care în română sugerează posesiunea demonică); la fel în paragraful 3, în șirul «sought, given, possessed, received, inherited». «Aflată în stăpânirea lui Dumnezeu» ar amesteca «possessed» cu «rule» (= stăpânire)."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1D",
+      "text": "Spus pe scurt, lucrurile stau după cum urmează: în câteva cazuri, traducerea „domnie” este cerută de context, ca atunci când se spune că „Fiul Omului va veni în Împărăția sa”. În alte cazuri, mai puțin rare decât cele precedente, este posibil, poate ceva mai plauzibil, să adoptăm redarea abstractă, ca atunci când citim că Împărăția „vine”, „apare”, „este aproape”, „este văzută”, deși în acestea și în alte cazuri nimeni nu poate susține că înlocuirea cu redarea concretă ar face sensul nenatural. Cu toate că niciunul dintre cele două sensuri nu este nepotrivit, în asemenea cazuri putem fi înclinați, din motive generale, să credem că în mintea Domnului nostru primul loc îl ocupa gândul unei revelații a puterii regale a lui Dumnezeu. Apoi există un număr mare de pasaje, poate majoritatea, în care nota concretă predomină în mod vădit. Când imaginea este cea a „chemării” la Împărăția lui Dumnezeu, a „intrării” în ea, a faptului că este „închisă” sau că oamenii sunt „aruncați afară” din ea, a faptului că este „căutată”, „dată”, „deținută”, „primită”, „moștenită”, oricine simte că, în asemenea moduri de a vorbi, ceea ce vorbitorul are în minte nu este exercitarea stăpânirii divine în sine, ci ordinea lucrurilor rezultată din ea, complexul de binecuvântări produs de ea, sfera în care ea acționează. Ținând seama de aceasta, putem spune că, dacă basileia trebuie redată pretutindeni prin același cuvânt, acel cuvânt ar trebui să fie „împărăție”. A introduce o distincție și a traduce în unele cazuri „domnie”, în altele „împărăție” este evident imposibil de pus în practică, deoarece, după cum s-a arătat mai sus, într-o serie de cazuri nu avem date pe baza cărora să alegem între cele două.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the Son of man shall come in his kingdom",
+          "quoteTarget": "Fiul Omului va veni în Împărăția sa",
+          "note": "Citat între ghilimele, fără trimitere în sursă; formularea seamănă cu Mat. 16:28 (identificare probabilă, neverificată pe un text biblic), adaptată de autor. Tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. Trecut în «scripture» cu referința probabilă Mat. 16:28, care este deducția traducătorului și trebuie confirmată de revizor."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "that word ought to be",
+          "quoteTarget": "acel cuvânt ar trebui să fie „împărăție”",
+          "note": "Vos discută redarea lui basileia în engleză («reign» sau «kingdom»). În română, cuvintele puse în discuție sunt echivalentele «domnie» și «împărăție», iar argumentul se menține (aceeași dilemă a redării); la fel în paragraful 4 («the sovereignty of God» → «suveranitatea lui Dumnezeu»). Revizorul poate decide dacă păstrează în text cuvintele englezești, pentru a marca faptul că discuția privește traducerile englezești."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "required by the connection",
+          "quoteTarget": "cerută de context",
+          "note": "«connection» are aici sensul vechi «context» (legătura firului gândirii), fals prieten pentru «legătură»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:28",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1E",
+      "text": "Și mai puțin satisfăcătoare este propunerea recentă de a traduce pretutindeni „suveranitatea lui Dumnezeu”, căci nu numai că aceasta este nepotrivită pentru toate spusele în care este urmat, fără îndoială, uzul concret al termenului, dar nici nu reușește să exprime pe deplin și cu exactitate sensul abstract acolo unde acesta poate fi recunoscut. Suveranitatea desemnează o relație existentă de drept, chiar și acolo unde nu este impusă efectiv. În cazul lui Dumnezeu, prin urmare, cu greu se poate spune despre ea că vine. Basileia divină cuprinde, după cum am văzut, pe lângă dreptul de a domni, exercitarea efectivă și energică a puterii regale a lui Dumnezeu în fapte de mântuire.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "forth-putting",
+          "quoteTarget": "exercitarea efectivă și energică",
+          "note": "«forth-putting» (a pune în joc, a desfășura) este un compus rar; redat «exercitare» (contrastul este între dreptul de a domni și exercitarea lui efectivă). Alternative pentru revizor: «punerea în acțiune», «desfășurarea»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD95T3NDB2JWKE2W0M1F",
+      "text": "Pe lângă „Împărăția lui Dumnezeu”, găsim „Împărăția cerurilor”. Evanghelistul Matei o folosește aproape exclusiv: numai în 6:33; 12:28; 13:43; 21:31, 43; 26:29 scrie el „Împărăția lui Dumnezeu” sau „Împărăția Tatălui meu” sau „Tatălui lor”, în timp ce „Împărăția cerurilor” apare de peste treizeci de ori în Evanghelia sa. În cap. 12:28 folosirea lui „Dumnezeu” în loc de „ceruri” se explică prin „Duhul lui Dumnezeu” de dinainte; în celelalte două cazuri din cap. 21 nu se vede niciun motiv pentru substituire. În Marcu și Luca „Împărăția cerurilor” nu se găsește. Aceasta ridică întrebarea care dintre aceste două versiuni reproduce mai literal uzul lui Isus însuși. Cu toată probabilitatea, versiunea lui Matei îl reproduce mai literal, deoarece nu se poate indica niciun motiv bun pentru care el să fi pus „Împărăția cerurilor” în locul celeilalte expresii, în timp ce pentru procedeul opus al lui Marcu și Luca se poate găsi un motiv suficient de plauzibil în faptul că, scriind pentru cititori dintre neamuri, ei ar fi putut socoti o expresie atât de tipic iudaică precum „Împărăția cerurilor” mai greu de înțeles decât simplul „Împărăția lui Dumnezeu”. Desigur, când susținem aceasta, nu este nevoie să dăm de înțeles că în fiecare caz în parte în care primul evanghelist are „Împărăția cerurilor”, expresia aceasta a fost folosită efectiv de Isus. Tot ce vrem să afirmăm este enunțul general că Isus a folosit ambele expresii și că, în această măsură, Matei ne-a păstrat o informație care nu mai poate fi obținută din celelalte două Evanghelii sinoptice.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "vi. 33; xii. 28; xiii. 43; xxi. 31, 43; xxvi. 29",
+          "quoteTarget": "6:33; 12:28; 13:43; 21:31, 43; 26:29",
+          "note": "Sursa dă doar capitole și versete, fără numele cărții (se înțelege Matei, din context: «The Evangelist Matthew … in his Gospel»). Copiate din job, fără carte, pentru paritatea referințelor; la fel «Chap. xii. 28» → «cap. 12:28» și «Chap. xxi» → «cap. 21». Revizorul poate adăuga «Mat.» în ediția finală."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "their Father",
+          "quoteTarget": "Tatălui lor",
+          "note": "Elipsă în sursă: «the kingdom of my» / «their Father» înseamnă «the kingdom of my Father» / «of their Father» (probabil Mat. 26:29 și 13:43, după lista de versete; neverificat pe un text biblic). Româna cere genitivul complet în prima citare («Împărăția Tatălui meu»), iar a doua citare păstrează elipsa («Tatălui lor»)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Spirit of God",
+          "quoteTarget": "Duhul lui Dumnezeu",
+          "note": "Fragment din Mat. 12:28 (versetul este dat în text ca «cap. 12:28»), citat de autor ca termen; tradus ca text al autorului, nu după o ediție românească a Bibliei."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "why he should have substituted",
+          "quoteTarget": "el să fi pus „Împărăția cerurilor” în locul celeilalte expresii",
+          "note": "Englezescul «to substitute X» are ca obiect expresia introdusă (aici «the kingdom of heaven»), în timp ce românescul «a substitui» / «a înlocui» are ca obiect expresia înlocuită. Pentru a evita lectura inversă s-a redat «a pune X în locul celeilalte expresii» («Împărăția lui Dumnezeu», dedus din contrastul cu «procedeul opus» al lui Marcu și Luca din aceeași frază). Alternativă pentru revizor: «să fi înlocuit 'Împărăția lui Dumnezeu' cu 'Împărăția cerurilor'»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Gentile readers",
+          "quoteTarget": "cititori dintre neamuri",
+          "note": "Profilul fixează Gentiles = neamurile; forma adjectivală «Gentile readers» este redată «cititori dintre neamuri» (nu «păgâni»). Fără rând în glosar pentru această formă; propus după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "6:33; 12:28; 13:43; 21:31, 43; 26:29",
+          "mode": "reference"
+        },
+        {
+          "ref": "12:28",
+          "mode": "reference"
+        },
+        {
+          "ref": "21",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 1 (MINOR, modalitate); aplicate 1, respinse 0. (1) Par. 5: «nu trebuie să dăm de înțeles» devine «nu este nevoie să dăm de înțeles» («we need not imply» exprimă lipsa necesității, nu o interdicție; în română «nu trebuie să» se citește de obicei ca interdicție); propoziția următoare («Tot ce vrem să afirmăm …») rămâne neschimbată. Retușuri de redactare, fiecare reverificată față de original, fără schimbare de sens: par. 2 «concepute mai mult sau mai puțin ca localizate» devine «concepute mai mult sau mai puțin în sens spațial» («locally conceived»; «localizat» poate fi citit «restrâns la un loc anume»; flag-ul AMBIGUITATE a fost actualizat); par. 3 «a faptului că ea este „închisă”» și «a faptului că ea este „căutată”» devin «a faptului că este „închisă”» și «a faptului că este „căutată”» (pronume-subiect neaccentuat, omis ca în română; antecedentul rămâne «Împărăția lui Dumnezeu»). Verificat fraza cu fraza față de original (36 de propoziții: 8 + 9 + 7 + 4 + 8), fără omisiuni, adaosuri sau modalitate alterată; titlul secțiunii (headingRo) reverificat. Referințele sunt cele din job; în par. 5 ele apar fără numele cărții, ca în sursă (flag DE_VERIFICAT, INFO). Scripture: trimiterile Obad. 21 (par. 1) și Mat. 16:28 (par. 3) nu vin din job, ci sunt deduse de traducător pentru citatele fără trimitere din sursă; nu au fost verificate pe un text biblic și rămân de confirmat de revizorul uman. Redări de ținut consecvent în capitol: Jehovah = Iehova; kingdom generic și împărății omenești = împărăție, iar pentru Împărăția lui Dumnezeu / a cerurilor Împărăția (majusculă); kingship = domnie (perechea reign / kingship din par. 2 = «domnie», «calitate de rege»); reign = domnie; rule (substantiv) = stăpânire, to rule = a domni; sovereignty = suveranitate; supremacy = supremație; territory = teritoriu; realm = tărâm; domain = domeniu; conception = noțiune; usage = uz; rendering = redare; sayings = spuse; discourses = cuvântări; the nations = națiunile; Gentile readers = cititori dintre neamuri; possessed = deținut; Basileia / basileia, Malkuth, Memlakhah copiate ca în sursă. Cuvântul englezesc «kingdom» rămâne în engleză în par. 2 (afirmație despre uzul englez), iar în par. 3–4 discuția despre redarea lui basileia folosește «domnie» / «împărăție» / «suveranitate» (vezi flag-urile). Nicio anomalie de sursă observată la lectură; versetele nu au fost verificate pe un text biblic. Textul nu este certificat ca publicabil."
+}

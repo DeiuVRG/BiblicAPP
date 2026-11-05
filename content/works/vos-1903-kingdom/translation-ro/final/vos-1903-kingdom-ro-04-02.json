@@ -1,0 +1,157 @@
+{
+  "jobId": "vos-1903-kingdom-ro-04-02",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTT",
+      "text": "Drept răspuns la aceasta, observăm că, chiar dacă ar fi o interpretare corectă, prin aceasta ar fi admisă în principiu prezența unui anumit element de gradualitate în felul în care Domnul nostru concepea chestiunea. Venirea nu ar fi în întregime bruscă; ar exista nu numai prevestiri, ci și anticipări reale. Dar este cu neputință ca cuvintele să fie interpretate în sensul de mai sus, deoarece, într-un moment timpuriu al activității sale, Domnul nostru și-a prevăzut moartea ca pe ceva ce trebuia să intervină înainte ca toate lucrurile să poată fi împlinite, astfel încât nu ar fi putut socoti biruința sa asupra demonilor drept imediat premergătoare sfârșitului și vestitoare a acestuia. Sensul cuvintelor sale trebuie să fie că, atunci când încetează puterea lui Satan, începe o nouă ordine a lucrurilor, care în sine este echivalentă cu stăpânirea lui Dumnezeu. Numai într-o privință va trebui recunoscut că spusa aflată în discuție nu cuprinde ideea deplină a Împărăției spirituale a lui Dumnezeu. Ea dovedește prezența reală a Împărăției în timpul slujirii Domnului nostru, dar nu afirmă direct că această Împărăție își are realitatea în stări interioare, invizibile. Scoaterea demonilor, ca și alte miracole, aparține mai degrabă sferei exterioare, vizibile.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "in in ward, invisible states",
+          "quoteTarget": "în stări interioare, invizibile",
+          "note": "Defect tipografic în sursă: «in in ward» pare «in inward» cu un spațiu strecurat în mijlocul cuvântului «inward» (eroare de OCR). Citit «inward» și redat «interioare», ca «inward» în partea 0 a capitolului. Sensul nu este afectat, dar defectul se află și în textul ediției engleze și se corectează acolo."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the spiritual kingdom of God",
+          "quoteTarget": "Împărăției spirituale a lui Dumnezeu",
+          "note": "Constatarea GLOSSARY (kingdom-of-god) pentru acest paragraf este un fals pozitiv al tiparului: sursa are «the spiritual kingdom of God» (în engleză adjectivul precedă «kingdom»), iar româna are «Împărăția spirituală a lui Dumnezeu» (majusculă, «lui Dumnezeu»), adică termenul glosarului, cu adjectivul «spirituale» intercalat între «Împărăției» și «a lui Dumnezeu»; tiparul cere «Împărăției lui Dumnezeu» fără cuvinte intercalate. «Spiritual kingdom» este termen tehnic al capitolului și se redă consecvent «Împărăția spirituală» (ca în 04-01)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "The casting out of demons like other miracles",
+          "quoteTarget": "Scoaterea demonilor, ca și alte miracole",
+          "note": "«Casting out of demons» este redat «scoaterea demonilor» (revine în paragraful 2; «demons» = «demoni»), ca în varianta finală a lotului 04-01. «Miracles» este redat «miracole», ca în varianta finală a cap. I (lotul 01-01) și în ciornele loturilor 04-03, 06-02, 06-03, 10-01 și 10-02; varianta finală a lotului 04-01 are «minuni» (o singură apariție, în ultimul paragraf: «alte minuni»), deci termenul trebuie armonizat în toată lucrarea (de preferat «miracole», care predomină; revine des mai departe, de exemplu în cap. VI și X). Fără rând în glosar; propus pentru glosar după aprobare. Alternative pentru revizor: «izgonirea demonilor», «minuni»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the saying under discussion",
+          "quoteTarget": "spusa aflată în discuție",
+          "note": "«Saying» (cuvânt al lui Isus luat ca unitate de argument; revine în paragrafele 2, 3 și 4: «this saying», «other sayings», «The well known saying») este redat «spusă» / «spuse», ca în variantele finale ale loturilor 01-00, 02-00, 03-00 și 04-01. Alternativă pentru revizor: «cuvânt» / «cuvinte». Fără rând în glosar; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTV",
+      "text": "Aceeași rezervă va trebui făcută în privința unui alt pasaj, cel puțin într-una dintre cele două redări de care este susceptibil. Potrivit Lc. 17:21, Isus a răspuns la întrebarea fariseilor cu privire la momentul apariției Împărăției lui Dumnezeu declarând: „iată, Împărăția lui Dumnezeu este ἐντός ὑμῶν.” Aceasta poate însemna: „înăuntrul vostru” sau poate însemna „în mijlocul vostru”. În primul caz sunt afirmate atât natura spirituală, cât și realitatea prezentă; în cazul din urmă este implicată doar prezența Împărăției într-o formă oarecare în momentul vorbirii. De curând s-a susținut că, în redarea „în mijlocul vostru”, nici măcar ultima inferență menționată nu este justificată, deoarece Domnul nostru vorbește despre viitor și vrea să spună că Împărăția lui Dumnezeu nu vine, la apariția ei finală, în așa fel încât să fie supusă observației sau calculului; oamenii nu vor putea spune: „Aici sau acolo” – iată, deodată va fi în mijlocul vostru. Dar aceasta nu poate fi susținută, deoarece din alte spuse știm că venirea finală a Împărăției este precedată de anumite semne și, în această măsură, este de fapt supusă observației și calculului. Trebuie să alegem între cele două redări date mai sus, iar dintre ele cea de-a doua, „în mijlocul vostru”, merită să fie preferată din două motive: în primul rând, pentru că se potrivește cel mai bine cu scopul întrebării fariseilor, care privea momentul venirii Împărăției, nu sfera ei, și pentru că despre fariseii necredincioși cu greu s-ar putea spune că Împărăția era „înăuntrul” lor. Domnul nostru vrea să-i învețe pe cei care l-au întrebat că, în loc de ceva viitor, de stabilit prin speculație apocaliptică, venirea Împărăției este ceva prezent, prezent chiar în mijlocul celor care sunt curioși în privința zilei și a ceasului apariției ei într-un viitor nedeterminat. Or, aceasta nu explică direct cum este prezentă Împărăția. Rămâne posibilă părerea că Isus s-a referit la lucrările miraculoase ca la una dintre formele de manifestare a puterii regale a lui Dumnezeu, caz în care această spusă nu ne-ar duce dincolo de ceea ce s-a spus mai sus despre scoaterea demonilor. Dar la fel de plauzibilă este părerea că el s-a referit la instaurarea stăpânirii lui Dumnezeu în mijlocul lui Israel prin rezultatele spirituale ale ostenelilor sale.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "behold the kingdom of God is ἐντός ὑμῶν",
+          "quoteTarget": "iată, Împărăția lui Dumnezeu este ἐντός ὑμῶν",
+          "note": "Citat al autorului după Lc. 17:21, cu sintagma greacă lăsată netradusă, ca în sursă (cele două redări ale ei sunt date imediat după). Tradus ca text al autorului, nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MINOR",
+          "quoteSource": "“Here or there,” 10, all at once",
+          "quoteTarget": "„Aici sau acolo” – iată, deodată",
+          "note": "Defect de OCR în sursă: «10,» este aproape sigur interjecția «lo,» (iată), cu «l» citit «1» și «o» citit «0»; sensul se potrivește cu «Lo here! or, lo there!» din formularea engleză tradițională a pasajului. Ediția engleză nu are note de subsol care să explice cifra. Tradus «iată», nu copiat ca număr; de aceea verificarea automată raportează NUMBER_MISSING (10), constatare justificată. Defectul se află și în textul ediției engleze și se corectează acolo."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the two renderings of which it is capable",
+          "quoteTarget": "cele două redări de care este susceptibil",
+          "note": "«Rendering» (traducerea unei sintagme grecești; revine în «the rendering “in your midst”» și «the two renderings given above») este redat «redare», ca în cap. III. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "its sometime appearance",
+          "quoteTarget": "apariției ei într-un viitor nedeterminat",
+          "note": "«Sometime» (la un moment oarecare, nefixat, din viitor) este redat «într-un viitor nedeterminat»; «eventual» ar fi un fals prieten. Alternativă pentru revizor: «apariției ei într-o zi oarecare»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "for two reasons: first, because it suits best the purpose of the question of the Pharisees",
+          "quoteTarget": "din două motive: în primul rând, pentru că se potrivește cel mai bine cu scopul întrebării fariseilor",
+          "note": "În sursă, «first» nu este urmat de «second»: cele două motive sunt legate prin «and because» («first, because … and because …»). Redat ca în sursă („în primul rând, pentru că …, și pentru că …”), fără a adăuga «în al doilea rând» și fără a modifica structura."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 17:21",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTW",
+      "text": "O altă afirmație care învață limpede atât prezența reală a Împărăției, cât și forma ei spirituală de existență este cea din Mat. 11:12; Lc. 16:16. Aici se spune că „Legea și profeții” se întind până la Ioan, adică orânduirea profetică, orientată spre viitor, a vechiului legământ se încheie cu Ioan: de atunci încolo începe o orânduire în care Împărăția lui Dumnezeu nu mai este tema profeției, ci a predicării Evangheliei, prin urmare nu mai este viitoare, ci prezentă. Ioan însuși nu se află în această Împărăție, în timp ce alții se află în ea. Aceasta, firește, nu se poate aplica Împărăției finale, căci din ea Isus cu siguranță nu l-ar fi putut exclude pe Botezătorul. Nu poate însemna decât că Ioan nu are parte de privilegiile puse la dispoziție în noua ordine a lucrurilor, introdusă prin lucrarea lui Isus, deoarece el a continuat, practic, să se situeze pe temeiul Legii și al profeților, pe temeiul vechiului legământ. Iar aceste privilegii la care Ioan nu a avut acces cu siguranță nu au constat în simpla ocazie de a fi martor la miracolele lui Isus ca fapte exterioare; trebuie să fie vorba de o participare la binecuvântări spirituale interioare, căci pe temeiul acesteia Domnul nostru declară că cel mai mic sau mai micul din Împărăție este mai mare decât Ioan, și știm din alte spuse că Isus măsura adevărata măreție într-un alt fel decât prin contactul cu miracolele sale.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the law and the prophets",
+          "quoteTarget": "Legea și profeții",
+          "note": "Fragment citat de autor (cf. Lc. 16:16), tradus ca text al autorului, nu reprodus după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată, dacă este cazul."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the prophetic looking-forward dispensation of the old covenant",
+          "quoteTarget": "orânduirea profetică, orientată spre viitor, a vechiului legământ",
+          "note": "«Dispensation» este redat «orânduire» (două apariții în acest paragraf), ca în cap. II; «looking-forward» (compus adjectival) este redat «orientată spre viitor». Fără rând în glosar pentru «dispensation»; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "pronounces the smallest or smaller in the kingdom greater than John",
+          "quoteTarget": "declară că cel mai mic sau mai micul din Împărăție este mai mare decât Ioan",
+          "note": "Aluzie a autorului la o spusă a Domnului despre Ioan Botezătorul și cel mai mic din Împărăție (probabil Mat. 11:11, cf. Lc. 7:28; Mat. 11:11 apare și în sursa lotului 04-01, ca spusă despre Împărăția spirituală prezentă). Trimiterea nu este în sursa acestui paragraf: este dedusă și nu a fost verificată în acest job. Tradusă ca text al autorului; adăugată în «scripture» ca allusion (Mat. 11:11), ca aplicația s-o poată lega ulterior; revizorul uman o confirmă sau o scoate."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the smallest or smaller in the kingdom",
+          "quoteTarget": "cel mai mic sau mai micul din Împărăție",
+          "note": "Autorul dă ambele lecturi ale adjectivului din textul evanghelic («the smallest or smaller»: superlativ și comparativ); pare să reflecte forma comparativă a adjectivului din textul grecesc, dar textul grecesc nu a fost verificat în acest job. Redat literal, cu cele două forme păstrate distincte (superlativul «cel mai mic» și comparativul articulat «mai micul»), fără a alege între lecturi și fără a adăuga trimiteri sau explicații; în română cele două forme se suprapun în mare parte, deci redarea literală poate părea stranie. Propunere pentru revizor: o notă a editorului sau «cel mai mic – ori, în lectura comparativă, mai micul –»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 11:12",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 16:16",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 11:11",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGTX",
+      "text": "Binecunoscuta spusă din Predica de pe Munte: „Căutați mai întâi Împărăția lui și dreptatea lui, și toate aceste lucruri (adică hrana și îmbrăcămintea) vi se vor adăuga”, Mat. 6:33, poate fi citată și în acest context. Chiar dacă ar fi contestată părerea că dreptatea este aici dreptate prezentă și, ca atare, o precizare mai exactă a Împărăției, rămâne faptul că Împărăția însăși apare ca o posesiune care poate fi dobândită în această viață. Căci hrana și îmbrăcămintea sunt înfățișate aici ca ceva ce urmează să fie adăugat nu la căutarea Împărăției, ci la Împărăția însăși, și se înțelege de la sine că aceasta se aplică numai Împărăției în starea ei prezentă de existență.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Seek ye first his kingdom and his righteousness and all these things (i. e. food and raiment) shall be added unto you",
+          "quoteTarget": "Căutați mai întâi Împărăția lui și dreptatea lui, și toate aceste lucruri (adică hrana și îmbrăcămintea) vi se vor adăuga",
+          "note": "Citat al autorului din Mat. 6:33, cu glosa lui în paranteză («i. e. food and raiment»), tradus ca text al autorului, nu reprodus din memorie după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «Raiment» (arhaism) este redat «îmbrăcăminte», ca «clothing» din fraza a treia. Virgula înaintea lui «și toate aceste lucruri» este adăugată pentru lizibilitate (evită citirea lui «toate aceste lucruri» ca al treilea complement al lui «căutați»)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:33",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 1 (MINOR); aplicate 1, respinse 0. (1) Par. 3: «căci din cauza acesteia» devine «căci pe temeiul acesteia» («on account of this» dă temeiul favorabil al declarației Domnului, iar «din cauza» marchează în română o cauză nefavorabilă; dintre cele două variante propuse de critic, «datorită acesteia» și «pe temeiul acesteia», am ales-o pe a doua, fiindcă declarația Domnului este o judecată întemeiată pe un fapt, nu un efect al acestuia). Retușuri de redactare, fiecare reverificată față de original, fără schimbare de sens: par. 1 «Ca răspuns la aceasta» devine «Drept răspuns la aceasta» (formula idiomatică) și «ca fiind imediat premergătoare … și vestitoare» devine «drept imediat premergătoare … și vestitoare» (în original, «as immediately preceding and heralding» nu are «being»; «a socoti drept» evită calcul «ca fiind»); par. 3 «să stea pe temeiul Legii» devine «să se situeze pe temeiul Legii» (calc spațial după «stand on the basis of»; ca «să se fi situat» din 04-01), «exclude pe Botezător» devine «exclude pe Botezătorul» (referent unic, care cere articolul hotărât după «pe»; în restul lucrării «Ioan Botezătorul»), «trebuie avută în vedere o participare» devine «trebuie să fie vorba de o participare» («must be referred to» identifică privilegiile despre care este vorba, nu cere doar să fie luate în considerare) și «cel mai mic sau mai mic» devine «cel mai mic sau mai micul» (cele două forme ale originalului, «the smallest or smaller», rămân distincte; flag-ul AMBIGUITATE rămâne); par. 4 «Chiar dacă părerea … ar fi contestată» devine «Chiar dacă ar fi contestată părerea …» (verbul înaintea complementivei lungi, pentru lizibilitate). Adăugat în scripture, par. 3: Mat. 11:11 ca allusion (dedus, neverificat; vezi flag-ul). Nota din ciornă la «Împărăției spirituale a lui Dumnezeu» localiza greșit adjectivul în engleză; corectată în flag. Flag nou: par. 2 («first» fără «second» în sursă). Verificat fraza cu fraza față de original (27 de propoziții: 7 + 11 + 6 + 3), fără omisiuni, adaosuri sau modalitate alterată; referințele din text sunt exact cele din job (Lc. 17:21; Mat. 11:12; Lc. 16:16; Mat. 6:33), iar sintagma grecească ἐντός ὑμῶν este identică cu cea din sursă. Constatări automate rămase, justificate prin flag: GLOSSARY kingdom-of-god (par. 1, fals pozitiv: adjectivul «spirituale» este intercalat) și NUMBER_MISSING (10) (par. 2, OCR pentru «lo»). De armonizat la merge: varianta finală a lotului 04-01 are «minuni» (o singură apariție, în ultimul paragraf), iar cap. I final și ciornele loturilor 04-03, 06-02, 06-03, 10-01 și 10-02 au «miracole». Redări de ținut consecvent în capitol: kingdom (absolut) = Împărăția; spiritual kingdom = Împărăția spirituală; view = părere; ministry = slujire; work = lucrare; labors = osteneli; dispensation = orânduire; rule = stăpânire; rendering = redare; order of things = ordine a lucrurilor; righteousness = dreptate; miracles = miracole; casting out of demons = scoaterea demonilor; saying = spusă / spuse; career = activitate. Textul nu este certificat ca publicabil."
+}

@@ -4,11 +4,14 @@ import type { ReactNode } from 'react';
 import { AccessibilityInfo, Dimensions, Platform, StyleSheet, Text } from 'react-native';
 
 import { Button } from '@/components/button';
+import { CLOSE_INSET } from '@/components/close-button';
 import { DIALOG_WIDTH, DIALOG_WIDTH_WIDE, Dialog } from '@/components/dialog';
 import { useEscapeKey } from '@/components/modal-behaviour';
 import { SHEET_MAX_HEIGHT, Sheet, useSheetWidth } from '@/components/sheet';
 import { ToastProvider, useToast } from '@/components/toast';
 import { palettes } from '@/theme/palettes';
+import { FOCUS_RING_ROOM, radii } from '@/theme/tokens';
+import { styleWhilePressed } from '@/test-support/press';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
 
 const original = Dimensions.get('window');
@@ -535,5 +538,79 @@ describe('Toast', () => {
     await render(<Alone />);
     expect(screen.getByText('ok')).toBeTruthy();
     expect(ToastProvider).toBeDefined();
+  });
+});
+
+describe('the close button and its focus ring (check G7)', () => {
+  /**
+   * True when the focus ring of a control that is `top` and `right` points from the corner of a
+   * panel that clips (inside its border, with this corner radius) is whole: not cut by the edges
+   * and not by the rounded corner.
+   */
+  function ringIsWhole(top: number, right: number, radius: number): boolean {
+    const outsideTop = top - FOCUS_RING_ROOM;
+    const outsideRight = right - FOCUS_RING_ROOM;
+    if (outsideTop < 0 || outsideRight < 0) return false;
+    if (outsideTop >= radius || outsideRight >= radius) return true;
+    // The corner of the ring against the circle that rounds the corner.
+    return Math.hypot(radius - outsideRight, radius - outsideTop) <= radius;
+  }
+
+  it('knows what a whole ring is (the old header, flush against the corner, was not)', () => {
+    expect(ringIsWhole(0, 4, radii.lg - 1)).toBe(false); // top edge cut
+    expect(ringIsWhole(4, 4, radii.lg - 1)).toBe(false); // the corner arc cuts the ring's corner
+    expect(ringIsWhole(CLOSE_INSET, CLOSE_INSET, radii.lg - 1)).toBe(true);
+  });
+
+  it.each(['dialog', 'sheet'] as const)(
+    'insets the close button of a %s so that its ring is not cut by the panel',
+    async (kind) => {
+      await renderWithProviders(
+        <Layer kind={kind} startOpen>
+          <Text>Corp</Text>
+        </Layer>,
+      );
+      const header = StyleSheet.flatten(screen.getByLabelText('Închide').parent!.props.style);
+      expect(header.paddingTop).toBeGreaterThanOrEqual(CLOSE_INSET);
+      expect(header.paddingRight).toBeGreaterThanOrEqual(CLOSE_INSET);
+      // The panel has a 1 px border and clips to the radius inside it.
+      expect(ringIsWhole(header.paddingTop, header.paddingRight, radii.lg - 1)).toBe(true);
+    },
+  );
+
+  it('keeps the title where it was: the inset is taken off its own top padding in a dialog', async () => {
+    await renderWithProviders(
+      <Layer kind="dialog" startOpen title="Transparență">
+        <Text>Corp</Text>
+      </Layer>,
+    );
+    const header = StyleSheet.flatten(screen.getByLabelText('Închide').parent!.props.style);
+    const title = StyleSheet.flatten(screen.getByText('Transparență').props.style);
+    expect(header.paddingTop + title.paddingTop).toBe(20);
+  });
+
+  it('dims to 0.7 when pressed on native', async () => {
+    await renderWithProviders(
+      <Layer kind="dialog" startOpen>
+        <Text>Corp</Text>
+      </Layer>,
+    );
+    expect(await styleWhilePressed('Închide')).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('shrinks to scale(.96) on web, with no opacity change', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(
+        <Layer kind="dialog" startOpen>
+          <Text>Corp</Text>
+        </Layer>,
+      );
+      const style = await styleWhilePressed('Închide');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
   });
 });

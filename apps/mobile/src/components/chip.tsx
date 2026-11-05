@@ -1,10 +1,12 @@
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
-import { isDarkBand, useBandTone } from '@/components/band-context';
+import { isDarkBand, isPhotoBand, useBandTone } from '@/components/band-context';
 import { MIN_TARGET } from '@/components/button';
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
+import { pressStyle } from '@/components/press';
+import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 import { radii } from '@/theme/tokens';
 
@@ -25,7 +27,10 @@ interface Props {
 
 /**
  * A small bordered tag on the `chip` type style: 1 px `border`, no fill. A chip with `onPress` is
- * a toggle button whose touch target is 44 high (the drawn chip stays small inside it).
+ * a toggle button whose touch target is 44 high (the drawn chip stays small inside it, centred).
+ * A chip is an inline element: it belongs in a row and takes the row's `alignItems` (`center`
+ * lines a static chip up with the pill of a pressable one); on its own in a column it would
+ * stretch to the full width.
  */
 export function Chip({
   label,
@@ -37,13 +42,20 @@ export function Chip({
   testID,
 }: Props) {
   const { colors } = useTheme();
-  const dark = isDarkBand(useBandTone());
+  const band = useBandTone();
+  const dark = isDarkBand(band);
+  const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
   const { focusProps, focusStyle } = useFocusRing();
   const interactive = onPress !== undefined;
 
-  const accent = dark ? colors.mastheadAccent : colors.accentStrong;
+  // Over a photograph the status is written in the ink, like the rest (the orange fails 4.5:1).
   const ink = dark ? colors.mastheadInk : colors.text;
+  const accent = dark
+    ? isPhotoBand(band)
+      ? colors.mastheadInk
+      : colors.mastheadAccent
+    : colors.accentStrong;
   const borderColor = selected
     ? ink
     : status
@@ -88,7 +100,7 @@ export function Chip({
       onPress={onPress}
       {...hoverProps}
       {...focusProps}
-      style={({ pressed }) => [styles.target, { opacity: pressed ? 0.7 : 1 }, focusStyle]}
+      style={({ pressed }) => [styles.target, pressStyle(pressed, reduced), focusStyle]}
     >
       {drawn()}
     </Pressable>
@@ -96,9 +108,8 @@ export function Chip({
 }
 
 const styles = StyleSheet.create({
-  target: { alignSelf: 'flex-start', minHeight: MIN_TARGET, justifyContent: 'center' },
+  target: { minHeight: MIN_TARGET, justifyContent: 'center' },
   chip: {
-    alignSelf: 'flex-start',
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 4,

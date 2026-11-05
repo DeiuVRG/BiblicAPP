@@ -13,7 +13,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/app-text';
-import { CloseButton } from '@/components/close-button';
+import { CLOSE_INSET, CloseButton } from '@/components/close-button';
 import { useWebModalBehaviour } from '@/components/modal-behaviour';
 import { useT } from '@/i18n';
 import { SHEET_MAX } from '@/theme/layout';
@@ -171,7 +171,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: radii.lg,
     overflow: 'hidden',
   },
-  header: { flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight: 4 },
+  // The close button is in the corner of a panel that clips: inset, so its focus ring is not cut.
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingTop: CLOSE_INSET,
+    paddingRight: CLOSE_INSET,
+  },
   title: { flex: 1, paddingTop: 8 },
   scroll: { flexGrow: 0 },
   body: { paddingHorizontal: 20, paddingBottom: 20, paddingTop: 4, gap: 12 },

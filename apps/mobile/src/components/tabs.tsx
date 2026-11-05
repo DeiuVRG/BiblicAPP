@@ -11,8 +11,11 @@ import { AppText } from '@/components/app-text';
 import { EdgeFade } from '@/components/edge-fade';
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
+import { pressStyle } from '@/components/press';
 import { useFontFamilies } from '@/theme/fonts';
+import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
+import { FOCUS_RING_ROOM } from '@/theme/tokens';
 
 export interface TabItem<T extends string = string> {
   key: T;
@@ -73,6 +76,9 @@ export function tabLabel(tab: TabItem): string {
  * others in 400 `textMuted`. Manual activation (the pattern of the reference): the arrow keys, Home
  * and End move the focus along the tabs (one tab stop, a roving `tabIndex`), Enter or Space chooses
  * the tab that has it. The row scrolls sideways on a phone, with a fade at the edge that has more.
+ * The scroller clips what overflows it, so it is taller and wider than the tabs by the room a
+ * focus ring needs (4 points above, below and before them) and pulled back by the same amount with
+ * negative margins: the ring is never cut and the strip keeps its 46 points.
  */
 export function Tabs<T extends string>({
   label,
@@ -133,6 +139,7 @@ export function Tabs<T extends string>({
             const offset = event.nativeEvent.contentOffset.x;
             setBox((previous) => ({ ...previous, offset }));
           }}
+          style={styles.scroller}
           contentContainerStyle={styles.row}
         >
           {tabs.map((tab, index) => (
@@ -192,6 +199,7 @@ function TabButton<T extends string>({
 }: TabButtonProps<T>) {
   const { colors } = useTheme();
   const fonts = useFontFamilies();
+  const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
   const { focusProps, focusStyle } = useFocusRing();
   const text = tabLabel(tab);
@@ -216,7 +224,7 @@ function TabButton<T extends string>({
       }}
       {...hoverProps}
       {...focusProps}
-      style={({ pressed }) => [styles.tab, { opacity: pressed ? 0.7 : 1 }, focusStyle]}
+      style={({ pressed }) => [styles.tab, pressStyle(pressed, reduced), focusStyle]}
     >
       <View>
         {/* The 600 label is wider than the 400 one: the hidden copy reserves the room, so the
@@ -252,7 +260,22 @@ function TabButton<T extends string>({
 const styles = StyleSheet.create({
   wrap: { borderBottomWidth: StyleSheet.hairlineWidth },
   list: { position: 'relative' },
-  row: { flexDirection: 'row', alignItems: 'stretch', columnGap: GAP, paddingRight: 24 },
+  // Room for the focus ring on three sides (the strip's own end has 24 of padding), taken back by
+  // the negative margins of the scroller.
+  scroller: {
+    marginTop: -FOCUS_RING_ROOM,
+    marginBottom: -FOCUS_RING_ROOM,
+    marginLeft: -FOCUS_RING_ROOM,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    columnGap: GAP,
+    paddingTop: FOCUS_RING_ROOM,
+    paddingBottom: FOCUS_RING_ROOM,
+    paddingLeft: FOCUS_RING_ROOM,
+    paddingRight: 24,
+  },
   tab: { minHeight: TAB_HEIGHT, justifyContent: 'center', minWidth: 44 },
   reserve: { height: 0, opacity: 0, overflow: 'hidden' },
   label: { textAlign: 'center' },
