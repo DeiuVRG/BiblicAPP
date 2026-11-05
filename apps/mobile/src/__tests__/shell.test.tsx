@@ -1,8 +1,6 @@
-import { act, cleanup, fireEvent, screen, within } from '@testing-library/react-native';
-import { Dimensions, Platform, ScrollView, StyleSheet } from 'react-native';
+import { act, cleanup, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
+import { AccessibilityInfo, Dimensions, Platform, StyleSheet, Text } from 'react-native';
 import type { ReactElement } from 'react';
-
-import { Text } from 'react-native';
 import { BETA_1_FEATURES, FeaturesProvider } from '@/config/features';
 import type { Features } from '@/config/features';
 import { en } from '@/i18n/en';
@@ -15,7 +13,7 @@ import { ShellRoot } from '@/shell/shell-root';
 import { ThemeButton, nextTheme } from '@/shell/theme-button';
 import { resetMockRouter, router, setMockPathname } from '@/test-support/expo-router-mock';
 import { installFakeDocument } from '@/test-support/fake-document';
-import type { FakeDocument } from '@/test-support/fake-document';
+import { stubMatchMedia } from '@/test-support/match-media';
 import { createMemoryStore, createSettingsStore, renderWithProviders } from '@/test-support/render';
 import { SETTINGS_KEY } from '@/settings/settings-store';
 
@@ -31,12 +29,15 @@ async function resizeTo(width: number) {
 
 beforeEach(() => {
   resetMockRouter();
+  // No slide, no fade: what is asserted is the state, not the animation (one test below has both).
+  jest.spyOn(AccessibilityInfo, 'isReduceMotionEnabled').mockResolvedValue(true);
 });
 
 afterEach(async () => {
   await act(async () => {
     Dimensions.set({ window: original });
   });
+  jest.restoreAllMocks();
 });
 
 /** The shell as the root layout mounts it: state, the bars of a page and the phone menu. */
@@ -55,20 +56,28 @@ async function renderShell(
   );
 }
 
+/** Whether a drawer item says its drawer is open (`aria-expanded` reaches the host as the state). */
+const expanded = (item: { props: { accessibilityState?: { expanded?: boolean } } }) =>
+  item.props.accessibilityState?.expanded;
+
 const stored = (store: ReturnType<typeof createMemoryStore>) =>
   JSON.parse(store.data.get(SETTINGS_KEY) ?? '{}') as Record<string, unknown>;
 
 describe('PageScroll', () => {
+  /** The scroll container of the screen. */
+  const scroll = () =>
+    screen.getByTestId('screen').children[0] as unknown as {
+      props: { stickyHeaderIndices?: number[] };
+    };
+
   it('puts the brand bar and the section bar first, and the section bar is the sticky header', async () => {
-    await renderShell();
-    const scroll = screen.UNSAFE_getByType(ScrollView);
-    expect(scroll.props.stickyHeaderIndices).toEqual([1]);
-    const [brand, section, page] = scroll.findAll(
-      (node) => typeof node.type === 'string' && node.props.testID !== undefined,
-    );
-    expect(brand!.props.testID).toBe('brand-bar');
-    expect(section!.props.testID).toBe('section-bar');
-    expect(page).toBeDefined();
+    await renderShell({}, {}, <Text testID="page">Page</Text>);
+    expect(scroll().props.stickyHeaderIndices).toEqual([1]);
+    const tree = JSON.stringify(screen.toJSON());
+    const at = (id: string) => tree.indexOf(`"testID":"${id}"`);
+    expect(at('brand-bar')).toBeGreaterThan(-1);
+    expect(at('brand-bar')).toBeLessThan(at('section-bar'));
+    expect(at('section-bar')).toBeLessThan(at('page'));
   });
 
   it('leaves the brand bar out where the page has a toolbar of its own (the reader)', async () => {
@@ -79,14 +88,13 @@ describe('PageScroll', () => {
     );
     expect(screen.queryByTestId('brand-bar')).toBeNull();
     expect(screen.getByTestId('section-bar')).toBeTruthy();
-    expect(screen.UNSAFE_getByType(ScrollView).props.stickyHeaderIndices).toEqual([0]);
+    expect(scroll().props.stickyHeaderIndices).toEqual([0]);
   });
 
   it('is the screen: one scroll container with the page inside it', async () => {
     await renderShell({}, {}, <Text testID="page">Page</Text>);
-    expect(screen.getByTestId('screen')).toBeTruthy();
-    expect(screen.UNSAFE_getAllByType(ScrollView).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByTestId('page')).toBeTruthy();
+    expect(screen.getByTestId('screen').children).toHaveLength(1);
+    expect(within(screen.getByTestId('screen')).getByTestId('page')).toBeTruthy();
   });
 });
 
@@ -195,6 +203,7 @@ describe('BrandBar', () => {
       await cleanup();
       expect(document.listening('keydown')).toBe(0);
     } finally {
+      await cleanup();
       replaced.restore();
       uninstall();
     }
@@ -206,6 +215,7 @@ describe('BrandBar', () => {
       await renderShell();
       expect(document.listening('keydown')).toBe(0);
     } finally {
+      await cleanup();
       uninstall();
     }
   });
@@ -262,11 +272,24 @@ describe('LanguageSwitch', () => {
   });
 
   it('is 32 high for a mouse and 44 where the target must be a finger', async () => {
-    await renderWithProviders(<LanguageSwitch />);
-    expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 32 });
-    await cleanup();
-    await renderWithProviders(<LanguageSwitch tall />);
-    expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 44 });
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    const restore = stubMatchMedia({ '(pointer: coarse)': false });
+    try {
+      await renderWithProviders(<LanguageSwitch />);
+      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 32 });
+      await cleanup();
+      await renderWithProviders(<LanguageSwitch tall />);
+      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 44 });
+      await cleanup();
+      // A finger is the pointer on a phone and a tablet, wherever the window is wide.
+      restore.change('(pointer: coarse)', true);
+      await renderWithProviders(<LanguageSwitch />);
+      expect(screen.getByTestId('language-switch')).toHaveStyle({ height: 44 });
+    } finally {
+      await cleanup();
+      restore();
+      replaced.restore();
+    }
   });
 });
 
@@ -299,7 +322,12 @@ describe('ThemeButton', () => {
   it('draws the icon of the current theme', async () => {
     const store = createSettingsStore({ theme: 'sepia' });
     await renderWithProviders(<ThemeButton />, { store });
-    expect(within(screen.getByTestId('theme-button')).getByTestId('icon-themeSepia')).toBeTruthy();
+    // The icon is decorative (hidden from screen readers): the button carries the name.
+    expect(
+      await within(screen.getByTestId('theme-button')).findByTestId('icon-themeSepia', {
+        includeHiddenElements: true,
+      }),
+    ).toBeTruthy();
   });
 });
 
@@ -324,12 +352,8 @@ describe('SectionBar', () => {
 
   it('shows the five sections of Beta 1 in order (check S1)', async () => {
     await renderShell();
-    const ids = screen
-      .getByTestId('section-bar')
-      .findAll(
-        (node) =>
-          /^section-item-/.test(String(node.props.testID ?? '')) && typeof node.type === 'string',
-      )
+    const ids = bar()
+      .getAllByTestId(/^section-item-/)
       .map((node) => node.props.testID);
     expect(ids).toEqual([
       'section-item-home',
@@ -376,11 +400,11 @@ describe('SectionBar', () => {
     await renderShell();
     const read = bar().getByTestId('section-item-read');
     expect(read.props.accessibilityRole).toBe('button');
-    expect(read.props['aria-expanded']).toBe(false);
+    expect(expanded(read)).toBe(false);
     expect(bar().queryByTestId('section-drawer-read')).toBeNull();
 
     await fireEvent.press(read);
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
     expect(bar().getByTestId('section-item-read').props['aria-controls']).toBe(
       'section-drawer-read',
     );
@@ -401,24 +425,26 @@ describe('SectionBar', () => {
     expect(
       within(drawer).getByTestId('drawer-entry-read-library').props['aria-current'],
     ).toBeUndefined();
-    expect(screen.getByTestId('section-caret-read')).toHaveTextContent('‹');
+    expect(
+      screen.getByTestId('section-caret-read', { includeHiddenElements: true }),
+    ).toHaveTextContent('‹');
   });
 
   it('closes the drawer when the item is pressed again', async () => {
     await renderShell();
     await fireEvent.press(bar().getByTestId('section-item-read'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
     await fireEvent.press(bar().getByTestId('section-item-read'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
   });
 
   it('opens one drawer at a time', async () => {
     await renderShell();
     await fireEvent.press(bar().getByTestId('section-item-research'));
-    expect(bar().getByTestId('section-item-research').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-research'))).toBe(true);
     await fireEvent.press(bar().getByTestId('section-item-read'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
-    expect(bar().getByTestId('section-item-research').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-research'))).toBe(false);
   });
 
   it('follows an entry and closes the drawer', async () => {
@@ -426,15 +452,15 @@ describe('SectionBar', () => {
     await fireEvent.press(bar().getByTestId('section-item-read'));
     await fireEvent.press(bar().getByTestId('drawer-entry-read-library-all'));
     expect(router.push).toHaveBeenCalledWith('/library/all');
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
   });
 
   it('closes the drawer when the page changes', async () => {
     await renderShell();
     await fireEvent.press(bar().getByTestId('section-item-read'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
     await act(async () => setMockPathname('/search'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
   });
 
   it('closes the drawer with Escape on web and gives nothing to a key on iOS and Android', async () => {
@@ -444,10 +470,12 @@ describe('SectionBar', () => {
       await renderShell();
       await fireEvent.press(bar().getByTestId('section-item-read'));
       await act(async () => document.dispatch('keydown', { key: 'a' }));
-      expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+      expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
       await act(async () => document.dispatch('keydown', { key: 'Escape' }));
-      expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+      expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
     } finally {
+      // Unmount while the document is still there: the shell takes its listeners off it.
+      await cleanup();
       replaced.restore();
       uninstall();
     }
@@ -461,7 +489,7 @@ describe('SectionBar', () => {
       preventDefault,
     });
     expect(preventDefault).toHaveBeenCalled();
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
     // The item without a drawer ignores it; the arrows Right and Left are the bar's own.
     const ignored = jest.fn();
     await fireEvent(bar().getByTestId('section-item-search'), 'keyDown', {
@@ -500,19 +528,19 @@ describe('SectionBar', () => {
     expect(entries[1]!.props['aria-current']).toBe('page');
     await fireEvent.press(entries[2]!);
     expect(router.push).toHaveBeenCalledWith('/authors');
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
   });
 
   it('closes an open drawer when the window crosses 640 points', async () => {
     await renderShell();
     await fireEvent.press(bar().getByTestId('section-item-read'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
     await resizeTo(600);
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
     await fireEvent.press(bar().getByTestId('section-item-read'));
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(true);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(true);
     await resizeTo(900);
-    expect(bar().getByTestId('section-item-read').props['aria-expanded']).toBe(false);
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
   });
 
   it('names the items in the interface language', async () => {
@@ -522,10 +550,25 @@ describe('SectionBar', () => {
     expect(screen.getByTestId('section-bar').props['aria-label']).toBe(en.nav.sections);
   });
 
-  it('waits for no animation under reduced motion: the strip is there when the item is pressed', async () => {
+  it('takes the strip away at once under reduced motion', async () => {
     await renderShell();
     await fireEvent.press(bar().getByTestId('section-item-read'));
     expect(bar().getByTestId('section-drawer-read')).toBeTruthy();
+    await fireEvent.press(bar().getByTestId('section-item-read'));
+    expect(bar().queryByTestId('section-drawer-read')).toBeNull();
+  });
+
+  it('keeps the strip until its closing animation has ended, when motion is allowed', async () => {
+    jest.spyOn(AccessibilityInfo, 'isReduceMotionEnabled').mockResolvedValue(false);
+    await renderShell();
+    await fireEvent.press(bar().getByTestId('section-item-read'));
+    expect(bar().getByTestId('section-drawer-read')).toBeTruthy();
+    await fireEvent.press(bar().getByTestId('section-item-read'));
+    // The item says it is closed at once; the strip folds for 300 ms and then goes.
+    expect(expanded(bar().getByTestId('section-item-read'))).toBe(false);
+    await waitFor(() => expect(bar().queryByTestId('section-drawer-read')).toBeNull(), {
+      timeout: 2000,
+    });
   });
 });
 
@@ -560,27 +603,28 @@ describe('MenuDrawer', () => {
     const menu = await openMenu();
     await fireEvent.press(menu.getByTestId('menu-link-settings'));
     expect(router.push).toHaveBeenCalledWith('/settings');
-    await act(async () => undefined);
-    expect(screen.queryByTestId('menu-drawer-panel')).toBeNull();
+    // The panel slides away (260 ms) before it is gone.
+    await waitFor(() => expect(screen.queryByTestId('menu-drawer-panel')).toBeNull());
   });
 
   it('closes with the × button and with the scrim', async () => {
     let menu = await openMenu();
     await fireEvent.press(menu.getByTestId('menu-drawer-close'));
-    await act(async () => undefined);
-    expect(screen.queryByTestId('menu-drawer-panel')).toBeNull();
+    await waitFor(() => expect(screen.queryByTestId('menu-drawer-panel')).toBeNull());
 
     await fireEvent.press(screen.getByTestId('menu-button'));
     menu = within(await screen.findByTestId('menu-drawer'));
-    await fireEvent(menu.getByTestId('menu-drawer-scrim'), 'responderRelease');
-    await act(async () => undefined);
-    expect(screen.queryByTestId('menu-drawer-panel')).toBeNull();
+    await fireEvent(
+      menu.getByTestId('menu-drawer-scrim', { includeHiddenElements: true }),
+      'responderRelease',
+    );
+    await waitFor(() => expect(screen.queryByTestId('menu-drawer-panel')).toBeNull());
   });
 
   it('closes when the page changes', async () => {
     await openMenu();
     await act(async () => setMockPathname('/settings'));
-    expect(screen.queryByTestId('menu-drawer-panel')).toBeNull();
+    await waitFor(() => expect(screen.queryByTestId('menu-drawer-panel')).toBeNull());
   });
 
   it('changes the interface language from the menu', async () => {
