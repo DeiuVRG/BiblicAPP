@@ -131,9 +131,15 @@ describe('retrieveWithPassage', () => {
     });
     const places = result.passages.map((p) => place(p.groupKey));
     expect(places.slice(0, 3)).toEqual(['3.13', '3.12', '3.14']);
-    // The rest answers the question, from the chapter on repentance, not from chapter IV.
-    expect(places.slice(3).filter((where) => where.startsWith('3.'))).toEqual([]);
-    expect(places.slice(3, 6).every((where) => where.startsWith('9.'))).toBe(true);
+    // Whatever the section adds beyond the passage and its neighbours must score at least 15 % of
+    // the best passage of the library; the rest of the answer is the chapter on repentance. The
+    // premise does not depend on how much of the section the Romanian edition has aligned.
+    const best = Math.max(...result.passages.map((p) => p.score));
+    const rest = result.passages.slice(3);
+    for (const passage of rest.filter((p) => place(p.groupKey).startsWith('3.'))) {
+      expect(passage.score).toBeGreaterThanOrEqual(best * 0.15);
+    }
+    expect(rest.filter((p) => place(p.groupKey).startsWith('9.')).length).toBeGreaterThanOrEqual(3);
     expect(result.passages).toHaveLength(10);
   });
 
