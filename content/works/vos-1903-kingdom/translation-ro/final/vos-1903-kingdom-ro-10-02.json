@@ -1,0 +1,243 @@
+{
+  "jobId": "vos-1903-kingdom-ro-10-02",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWR",
+      "text": "Fiind, în însăși esența ei, încredere, credința se sprijină în mod necesar pe o persoană. Ea nu înseamnă a avea încredere în vreo propoziție abstractă, ci a se bizui pe un caracter și pe o dispoziție personale. Ucenicii sunt îndemnați să aibă „credință în Dumnezeu”, Mc. 11:22. Dar, întrucât Isus este revelația și reprezentantul lui Dumnezeu, ba chiar unul cu Dumnezeu, și el este obiectul personal al credinței. Este adevărat că, în Evangheliile sinoptice, acest lucru este afirmat explicit într-un singur pasaj, adică Mat. 18:6, „Acești micuți care cred în mine”. Dar această absență aproape totală a formulei se explică ușor. Ea a fost rezultatul metodei lui Isus de a nu-și proclama direct, la început, propria poziție în Împărăție, ci mai degrabă de a o lăsa să fie dedusă treptat din experiența practică. Ea nu dovedește afirmația unor autori moderni că în Evanghelie, așa cum a predicat-o Isus, nu era loc pentru propria sa persoană, că ea era doar o evanghelie despre Dumnezeu. Deși nu adesea în cuvinte exprese, totuși în fapte constatăm că Domnul nostru caută să suscite și să cultive o relație personală de credință între ucenic și el însuși și, în el însuși, cu Dumnezeu. Conștient că este Mesia, nu putea să nu-și atribuie un loc în Evanghelie și să nu se vadă pe sine, într-un sens real, ca obiect al încrederii religioase. Aceasta reiese din ceea ce i-a spus lui Petru cu puțin timp înainte de patimile sale: „Simone, Simone, iată că Satana a cerut să vă aibă, ca să vă cearnă (de observat pronumele la plural) ca pe grâu; dar eu m-am rugat pentru tine, ca să nu cedeze credința ta.” Aici criza suferinței Domnului nostru este înfățișată ca marea criză în care se pune la încercare adevărata ucenicie. În această criză, Satana îi va cerne pe ucenicii adevărați, despărțindu-i de cei falși. Cei adevărați se vor dovedi prin aceea că, atunci când totul îi este potrivnic lui Isus, credința lor nu cedează. Și, pe de altă parte, atunci când credința lui Petru începe să cedeze, aceasta este descrisă drept o lepădare de Isus; credința, așadar, trebuie să implice opusul lepădării, o mărturisire, o legătură personală de identificare între învățător și ucenic, Lc. 22:31–34. Și este psihologic de neconceput ca la cei care au fost ajutați prin miracolele lui Isus credința să nu fi luat forma încrederii personale în el ca instrument al harului și al puterii mântuitoare ale lui Dumnezeu. Credința în Dumnezeu și credința în Isus s-au contopit aici inevitabil.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MINOR",
+          "quoteSource": "the object of religions trust",
+          "quoteTarget": "obiect al încrederii religioase",
+          "note": "În sursă apare «religions trust», o formă fără sens gramatical («religions» este un plural, fără apostrof, pus ca determinant al lui «trust»); este aproape sigur «religious trust» (n citit în loc de u). Confirmat la revizie (și de critic): același «religions trust» se află în content/sources/vos-1903-kingdom/raw.txt (rândul 4355), în raw-layout.txt (rândul 4568) și în content/works/vos-1903-kingdom/edition-en.json (rândul 946, paragraful 1 al acestui lot), deci defectul este în tipar sau în OCR-ul lui, nu în curățarea sau segmentarea ediției. Tradus «încrederii religioase», intenția evidentă a autorului (în acord cu «credința» și «încrederea personală» din restul paragrafului); defectul nu se reproduce în română. De corectat în ediția engleză, nu în traducere: de preferință o intrare în `replacements` din content/works/vos-1903-kingdom/ingest.config.json («religions trust» → «religious trust»), ca să supraviețuiască unei reingestii; decizia aparține revizorului uman, care confruntă scanarea."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "faith in God",
+          "quoteTarget": "credință în Dumnezeu",
+          "note": "Citat scurt din Mc. 11:22 (trimiterea este în sursă și în job). Tradus din engleza lui Vos, nu după o ediție românească a Bibliei; marcat quote-author-rendering, spre înlocuire ulterioară cu o ediție licențiată. Virgula din interiorul ghilimelelor englezești a trecut în afara lor, după uzul românesc."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "These little ones that believe on me",
+          "quoteTarget": "Acești micuți care cred în mine",
+          "note": "Citat din Mat. 18:6 în engleza lui Vos (trimiterea este în sursă). Tradus din engleza autorului: «little ones» = «micuți» (la revizie în loc de «mici»: «mici» substantivat, fără un substantiv de sprijin, sună nefiresc; alternativă: «cei mici»), «believe on me» = «cred în mine». Marcat quote-author-rendering. Punctul final englezesc din interiorul ghilimelelor a trecut în afara lor, fiindcă citatul este un fragment integrat în propoziția autorului."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Simon, Simon, behold Satan asked to have you, that he might sift you (notice the plural pronoun) as wheat: but I made supplication for thee, that thy faith fail not.",
+          "quoteTarget": "Simone, Simone, iată că Satana a cerut să vă aibă, ca să vă cearnă (de observat pronumele la plural) ca pe grâu; dar eu m-am rugat pentru tine, ca să nu cedeze credința ta.",
+          "note": "Citat din Lc. 22:31, 32 în engleza lui Vos (formă care pare apropiată de RV; apropierea este din memorie, neverificată pe o ediție a Bibliei); trimiterea din sursă, Lc. 22:31–34, vine la sfârșitul unei propoziții ulterioare și îl cuprinde. Tradus din engleza autorului, nu după o ediție românească a Bibliei; marcat quote-author-rendering. Parantezele «(notice the plural pronoun)» sunt ale lui Vos, în interiorul citatului; «notice» este redat printr-un infinitiv impersonal («de observat»), ca să nu se introducă persoana a II-a (profilul lucrării). «Sift» = «a cerne» (și în comentariu: «îi va cerne»). «Fail» = «a ceda», același verb ca în comentariul lui Vos («nu cedează», «începe să cedeze») și în paragraful următor, ca să rămână vizibilă legătura dintre citat și comentariu. Alternative pentru «fail»: «să nu slăbească», «să nu se stingă». «Satan» este subiect, «I» (Isus) este accentuat prin «eu» exprimat, în contrast cu Satana."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a denial of Jesus",
+          "quoteTarget": "o lepădare de Isus",
+          "note": "«Denial» (al lui Petru) este redat «lepădare» (a se lepăda de), iar «avowal» este redat «mărturisire»: perechea lepădare/mărturisire este cea consacrată în limba biblică românească (opusul lui «a mărturisi» este «a se lepăda»). În 09-00, «denial» al unei calități este redat «tăgăduire» (alt sens: negarea unei afirmații); alternativă pentru revizor: «tăgăduire». «The passion» este redat «patimile sale» (ca în 04-04); «sale» explicitează posesorul subînțeles."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a personal character and disposition",
+          "quoteTarget": "un caracter și pe o dispoziție personale",
+          "note": "«Disposition» este redat «dispoziție», în acord cu 10-01 (unde a fost propus pentru glosar); revine în paragraful următor («dispozițiile și tendințele», «dispoziția fundamentală a inimilor lor»). În română «dispoziție» înseamnă și «stare de spirit», de aceea apare de obicei cu un determinant. Alternative: «înclinație», «fire». De adăugat în glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the revelation and representative of God",
+          "quoteTarget": "revelația și reprezentantul lui Dumnezeu",
+          "note": "«Revelation» este redat «revelație», ca în 02-00, 03-00, 04-04, 06-03, 07-00 și 09-00; verbul «reveals» din paragraful următor este «a descoperi» («le descoperă pruncilor»). Alternativă din tradiția protestantă: «descoperire». Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Though not frequently in so many words",
+          "quoteTarget": "Deși nu adesea în cuvinte exprese",
+          "note": "«In so many words» (explicit, în termeni expliciți) nu este calchiat («în atâtea cuvinte»); redat «în cuvinte exprese». «Not frequently» este păstrat ca «nu adesea» (nu «rareori»). Alternativă: «în termeni expliciți»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 11:22",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 18:6",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Lc. 22:31–34",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWS",
+      "text": "Domnul nostru nu înfățișează credința ca pe o mișcare arbitrară a minții, care ar fi independentă de dispozițiile și tendințele mai adânc așezate ale vieții. Isus cunoaște stări anterioare ale inimii, de care sunt determinate credința și necredința. Necredința iudeilor o explică prin faptul că se „poticneau” de el. Ceea ce a fost, a făcut și a învățat Isus se afla, aproape în fiecare punct, în antiteză directă cu ceea ce așteptau ei ca Mesia al lor să fie, să facă și să învețe. Dar aceste așteptări și convingeri ale iudeilor erau adânc înrădăcinate în starea și caracterul lor religios general: necredința lor, așadar, decurgea din dispoziția fundamentală a inimilor lor. Cei care refuză credința o fac pentru că sunt o generație rea și preacurvară. Dacă ar fi ceea ce ar trebui să fie și nu ar fi încălcat juruințele căsătoriei lor de legământ cu Dumnezeu, dacă atitudinea lor față de Dumnezeu ar fi normală, ar crede în cel pe care l-a trimis Dumnezeu. Și toate acestea sunt valabile, la fel, și pentru credință. În ultimă analiză, credința este, potrivit lui Isus, un dar divin. Credința trebuie să fie lucrarea lui Dumnezeu în om, deoarece numai astfel poate fi în armonie cu ea însăși, ca recunoaștere a faptului că datorăm totul lucrării lui Dumnezeu pentru noi și în noi. Tatăl este cel care le descoperă pruncilor ceea ce ascunde de cei înțelepți și pricepuți, Mat. 11:25. Isus se roagă pentru Petru ca să nu cedeze credința lui: ceea ce cerem în rugăciune, afirmăm că depinde de lucrarea lui Dumnezeu. Când Petru își face mărturisirea: „Tu ești Hristos, Fiul Dumnezeului celui viu”, Isus declară că nu carnea și sângele i-au descoperit aceasta, ci Tatăl din ceruri.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "MINOR",
+          "quoteSource": "“offended” in him",
+          "quoteTarget": "se „poticneau” de el",
+          "note": "«Offended» (în ghilimele, ca în sursă) este termenul biblic pentru a se împiedica de cineva, a găsi în el o pricină de poticnire (gr. skandalizesthai); în engleza clasică nu înseamnă «jignit». Redat «a se poticni de», în familia lui «poticnire» din 09-03 («cause stumbling» = «pricinuiește poticnire»). Aluzie probabilă la Mat. 11:6; 13:57; sursa nu dă trimitere, identificarea este din context și din memorie, neverificată; marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA). Alternativă: «se sminteau»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "The unbelief of the Jews",
+          "quoteTarget": "Necredința iudeilor",
+          "note": "«Unbelief» = «necredință» (de trei ori în acest paragraf și de două ori în următorul), în opoziție cu «faith» = «credință»; cf. «necredinței» din 09-00 și «necredincioasă» din 10-01. «Beliefs» (așteptări și convingeri) = «convingeri», ca în 10-01. Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "an evil and adulterous generation",
+          "quoteTarget": "o generație rea și preacurvară",
+          "note": "Formulare a lui Vos care ecoizează Mat. 12:39; 16:4 (identificare din context și din memorie, neverificată; marcată allusion în scripture, nu adăugată în text). Tradus din engleza autorului: «generation» = «generație» (ca în 10-01: «generație necredincioasă»), nu «neam»; «adulterous» = «preacurvară» (registru biblic; «adulterină» ar însemna «născută din adulter»). Alternativă: «adulteră»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the pledges of their covenant marriage to God",
+          "quoteTarget": "juruințele căsătoriei lor de legământ cu Dumnezeu",
+          "note": "«Pledges» (angajamente solemne de fidelitate) este redat «juruințe» (jurămintele de căsătorie); «covenant marriage» = «căsătorie de legământ» («legământ» = covenant, rând FIX din glosar). Nu sunt sigur de «juruințe»; alternative: «angajamentele», «făgăduințele», «jurămintele». Aluzie la imaginea profetică a lui Israel ca soție a lui Dumnezeu; sursa nu dă trimitere și nu s-a adăugat nimic în scripture."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "If they were what they ought to be and had not broken the pledges",
+          "quoteTarget": "Dacă ar fi ceea ce ar trebui să fie și nu ar fi încălcat juruințele",
+          "note": "Condițional mixt: «were … ought to be … were normal … would believe» (ireal prezent, în cadrul vremii lui Isus) și «had not broken» (ireal trecut, anterior). Redat prin condiționalul prezent («ar fi», «ar crede») pentru prezent și condiționalul perfect («nu ar fi încălcat») pentru trecutul anterior; «whom God had sent» = «pe care l-a trimis Dumnezeu». Alternativă: tot condiționalul perfect («ar fi crezut»), care ar duce lectura spre un trecut ireal."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Thou art the Christ, the Son of the living God",
+          "quoteTarget": "Tu ești Hristos, Fiul Dumnezeului celui viu",
+          "note": "Mărturisirea lui Petru, Mat. 16:16 (sursa nu dă trimitere; identificare din context și din memorie, neverificată; apare numai în scripture, nu în text). Tradusă din engleza lui Vos; «the Christ» = «Hristos» (fără articol), ca în 09-00, unde același citat este redat identic. Marcată quote-author-rendering. Continuarea («not flesh and blood has revealed this unto him, but the Father in heaven») este o parafrază a autorului după Mat. 16:17, marcată allusion. Rugăciunea pentru Petru din propoziția precedentă reia Lc. 22:32 (citat cu trimitere în paragraful anterior), marcată allusion."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 11:25",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 11:6",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:57",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 12:39",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 16:4",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 22:32",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 16:16",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 16:17",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWT",
+      "text": "În cuvântările din Evanghelia după Ioan, mai multe puncte importante ale doctrinei Domnului nostru despre credință sunt puse în lumină mai limpede și mai explicit decât în afirmațiile sinoptice. Credința este aici, de la început până la sfârșit, credință în Isus, și nu doar în Isus ca instrument al lui Dumnezeu, ci ca chipul și întruparea lui Dumnezeu, astfel încât a crede în el înseamnă a crede în Dumnezeu. În consecință, această credință în Isus este înfățișată, de asemenea, mai limpede drept o credință cuprinzătoare în el ca Mântuitor pentru viață și pentru moarte, pentru timp și pentru veșnicie, și nu doar drept credință în Isus ca ajutor într-un caz concret de nevoie. Și mai mult, Domnul nostru descrie aici, în chip anticipat, cum se va raporta credința la ispășirea și învierea sa, cum va deveni credință în Hristos cel ceresc și slăvit, In. 3:14; 6:51; 7:29, 38; 11:25; 15:7, 16; 16:23, 24. Pentru că mărturia lui Isus despre sine în această Evanghelie este cu mult mai deplină și mai bogată, credința este identificată mai îndeaproape cu cunoașterea, In. 6:69; 8:24, 28; 14:9, 10, 20; 16:30. Am văzut însă deja mai sus că aici cunoașterea înseamnă cu mult mai mult decât cogniția intelectuală. Ea implică familiaritate practică, încredere și iubire, In. 10:4, 14, 15; 17:25, 26. În fine, Domnul nostru este aici mult mai explicit în privința cauzelor credinței și ale necredinței decât în învățătura sinoptică, mai populară. Credința și necredința sunt stări și acte experiențiale, în care iese la iveală întreaga condiție spirituală a individului. A nu crede este marele păcat, pentru că păcătoșenia adâncă și inerentă a inimii își arată în acest păcat adevăratul ei caracter de ostilitate față de Dumnezeu, In. 9:41; 15:22, 24; 16:8, 9. În același fel, credința este rezultatul unei stări lăuntrice a inimii. Aceasta o descrie Domnul nostru drept faptul de a face adevărul, de a lucra în Dumnezeu, de a fi din adevăr, de a avea în sine iubirea de Dumnezeu, de a auzi de la Tatăl, de a învăța de la el, de a fi atras de Tatăl, de a fi fost dat Fiului de către Tatăl, fapt în virtutea căruia credincioșii sunt oile proprii ale lui Isus încă înainte ca el să li se arate, In. 3:21; 5:42; 6:44, 45; 17:11; 18:37. În toate aceste privințe, învățătura lui Isus consemnată aici nu este în contradicție cu cea care ne-a fost transmisă în celelalte trei Evanghelii, ci este pur și simplu extinderea ei legitimă.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "his atonement and resurrection",
+          "quoteTarget": "ispășirea și învierea sa",
+          "note": "«Atonement» este redat «ispășire» (termen reformat consacrat); nu apare în loturile deja traduse și nu are rând în glosar. Propus după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "practical acquaintance",
+          "quoteTarget": "familiaritate practică",
+          "note": "«Acquaintance» (cunoaștere personală, directă, prin experiență, deosebită de «knowledge» și «cognition») este redat «familiaritate», exact ca în 08-01 («acea familiaritate practică»), pasajul la care trimite Vos cu «We have already seen above»; tot de acolo, «intellectual cognition» = «cogniție intelectuală» (la revizie în loc de «cunoaștere intelectuală», care repeta «cunoașterea» din aceeași propoziție și ștergea distincția dintre «knowledge» și «cognition»). Alternativă: «cunoștință» (ar putea fi citit «cunoaștere practică»). Dacă revizorul schimbă termenul, se schimbă în ambele loturi."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the more popular Synoptical teaching",
+          "quoteTarget": "învățătura sinoptică, mai populară",
+          "note": "«Popular» are aici sensul de «adresat poporului, nespecializat» (nu «îndrăgit»). Virgula din română dă lectura apozitivă (învățătura sinoptică este, în ansamblu, mai populară), nu restrictivă. Alternativă: «mai accesibilă»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "experimental states and acts",
+          "quoteTarget": "stări și acte experiențiale",
+          "note": "«Experimental» are aici sensul vechi, teologic, de «experiențial» (ținând de experiența interioară a credinciosului, ca în «experimental religion»); «experimentale» ar fi un fals prieten (experiment științific). Redat «experiențiale»; alternativă: «trăite». Cuvântul nu are rând în glosar."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "a having of the love of God in one’s self",
+          "quoteTarget": "de a avea în sine iubirea de Dumnezeu",
+          "note": "«The love of God» este ambiguu în engleză (genitiv subiectiv: iubirea lui Dumnezeu pentru noi; genitiv obiectiv: iubirea omului pentru Dumnezeu). Contextul (starea lăuntrică din care răsare credința, «in one’s self») și trimiterea In. 5:42 din rândul de trimiteri favorizează lectura obiectivă (sensul versetului nu a fost verificat pe un text biblic); redat «iubirea de Dumnezeu», care în română este obiectivă (cf. «iubirea de Dumnezeu» în 10-00). Alternativă care păstrează ambiguitatea: «iubirea lui Dumnezeu» (în română tinde spre lectura subiectivă). De decis de revizor."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "a doing of the truth, a working in God, a being of the truth",
+          "quoteTarget": "faptul de a face adevărul, de a lucra în Dumnezeu, de a fi din adevăr",
+          "note": "Seria de substantive verbale a lui Vos («a doing of …, a being of …, a having been given …») nu are echivalent direct în română; redată prin infinitive substantivate după «faptul» («faptul de a face …, de a lucra …, de a fi …»), cu ordinea și numărul membrilor păstrate (opt). Alternativă: substantive verbale («o înfăptuire a adevărului, o lucrare în Dumnezeu …»), mai puțin firești. Legătura relativului «in virtue of which» cu seria este tratată în flag-ul următor."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "in virtue of which believers are Jesus’ own sheep even before he manifests himself to them",
+          "quoteTarget": "fapt în virtutea căruia credincioșii sunt oile proprii ale lui Isus încă înainte ca el să li se arate",
+          "note": "«Which» este deschis în engleză: poate privi ultimul membru al seriei («a having been given by the Father to the Son») sau întreaga stare lăuntrică descrisă în propoziție. Ciorna lega «în virtutea căreia» de «aceasta» (starea lăuntrică), dar relativul feminin se atașa, la prima lectură, de «iubirea de Dumnezeu», singurul substantiv feminin din serie, lectură fără corespondent în sursă (observația criticului, verificată). La revizie, redat «fapt în virtutea căruia», cu «fapt» în aposiție cu ultimul membru, adică lectura după cel mai apropiat antecedent, care se potrivește și cu «even before he manifests himself to them» (a fi dat Fiului de către Tatăl precedă arătarea lui Isus). Lectura «starea lăuntrică în ansamblu» rămâne posibilă în engleză; dacă revizorul o preferă: «– stare în virtutea căreia credincioșii sunt oile proprii ale lui Isus …». Sensul versetelor nu a fost verificat pe un text biblic."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "In. 3:14; 6:51; 7:29, 38; 11:25; 15:7, 16; 16:23, 24",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 6:69; 8:24, 28; 14:9, 10, 20; 16:30",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 10:4, 14, 15; 17:25, 26",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 9:41; 15:22, 24; 16:8, 9",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 3:21; 5:42; 6:44, 45; 17:11; 18:37",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală (pass=revised), partea 2 (a treia) din 3 a cap. X, 3 paragrafe, 1122 cuvinte-sursă; fără headingRo (part nu este 0). Constatările criticului: 3 (2 MINOR, 1 SURSA_POSIBIL_ERONATA; verdict ok, nicio constatare CRITIC sau MAJOR); fiecare verificată față de original și, pentru cea privind sursa, față de fișierele brute; aplicate 2, respinse 0, iar a treia (anomalia din sursă, «religions trust») nu cere schimbare de text și rămâne flag pentru revizorul uman. (1) Par. 3, «is also more clearly represented as a comprehensive faith in him as a Saviour»: în ciornă «mai limpede ca o credință cuprinzătoare» se citea întâi ca un comparativ («mai limpede decât»); acum «mai limpede drept o credință cuprinzătoare în el ca Mântuitor … și nu doar drept credință în Isus ca ajutor …» («drept» ca în «descrisă drept o lepădare», par. 1; virgulele dinaintea lui «ca Mântuitor» și «ca ajutor» au dispărut, ca în sursă, ca adjuncții să rămână legați de «în el» / «în Isus»). (2) Par. 3, «a having been given by the Father to the Son, in virtue of which believers are Jesus’ own sheep»: relativul feminin «în virtutea căreia» nu avea antecedent la îndemână (se citea ca legat de «iubirea de Dumnezeu»); acum «fapt în virtutea căruia», cu «fapt» în aposiție cu ultimul membru al seriei, cel mai apropiat antecedent al lui «which» în sursă; flag nou AMBIGUITATE (MINOR) cu lectura alternativă și formularea ei. Retușuri proprii, după recitirea textului numai în română, reverificate față de original, fără schimbare de sens: par. 1 «Acești mici» → «Acești micuți» («little ones»; «mici» substantivat se citea greu); par. 1 «de a lăsa ca ea să fie dedusă» → «de a o lăsa să fie dedusă» (patru «ea» cu referenți diferiți în propoziții apropiate; unul eliminat); par. 2 «prin faptul că ei se poticneau» → «prin faptul că se poticneau» (pronume subiect redundant, calc după «their being offended»); par. 2 «sunt adevărate … despre credință» → «sunt valabile, la fel, … pentru credință» (calc după «true of»); par. 3 «cunoașterea intelectuală» → «cogniția intelectuală» («We have already seen above» trimite la 08-01, unde «mere intellectual cognition» este «simpla cogniție intelectuală» și «practical acquaintance» este «familiaritate practică»; se păstrează distincția knowledge/cognition din sursă, fără repetarea lui «cunoaștere», și legătura cu locul citat); flag-ul pentru «familiaritate practică» (aceeași redare ca în 08-01, unde este INFO) coborât la INFO. Flag-uri corectate: TERMEN_NOU pentru «unbelief» (de trei ori în par. 2, nu de patru; de două ori în par. 3); CITAT_BIBLIC pentru Lc. 22:31–32 (apropierea de RV este din memorie, neverificată); SURSA_POSIBIL_ERONATA îmbogățit cu locurile defectului (raw.txt 4355, raw-layout.txt 4568, edition-en.json 946) și cu propunerea de corectare a ediției engleze. Verificat frază cu frază, în ambele sensuri, cele 43 de propoziții ale sursei (17 + 13 + 13), fără omisiuni, adaosuri, negații, modalitate sau roluri alterate; niciun calc din lista de calcuri. Redări ținute consecvent cu loturile vecine: faith = credință; unbelief = necredință (09-00, 10-01); belief/conviction = convingere (10-01); disposition = dispoziție (10-01); revelation = revelație (02-00 ș.a.), reveals = a descoperi; denial = lepădare (de Isus) față de tăgăduire (09-00, alt sens); love of God = iubirea de Dumnezeu (10-00); miracles = miracole; generation = generație (10-01); the passion = patimile (04-04); practical acquaintance = familiaritate practică și cognition = cogniție (08-01); the Saviour = Mântuitorul; our Lord = Domnul nostru; Messiah = Mesia; Synoptical Gospels = Evangheliile sinoptice; viz. = adică. Termeni noi propuși pentru glosar (flag-uri TERMEN_NOU): disposition = dispoziție; revelation = revelație (verbul: a descoperi); unbelief = necredință; atonement = ispășire. Trimiterile din job apar în text exact în forma din references[].target (9 serii: 3 + 1 + 5), niciuna în plus. Trimiterile deduse din context (Mat. 11:6; 13:57; 12:39; 16:4; 16:16, 17; Lc. 22:32) apar numai în scripture și în flag-uri, nu în text; sunt identificate din memorie, neverificate pe o ediție a Bibliei, de confirmat de revizor. Textele biblice citate de Vos (Mc. 11:22, Mat. 18:6, Lc. 22:31–32 și mărturisirea lui Petru) sunt traduse din engleza lui, nu după o ediție românească a Bibliei. Fără cuvinte grecești sau ebraice. Textul nu este certificat ca publicabil."
+}

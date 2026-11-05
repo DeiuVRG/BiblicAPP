@@ -16,13 +16,13 @@
       },
       {
         "packId": "vos-1903-kingdom-ro",
-        "revision": 2,
-        "sha256": "3560e14ee2e72e97fd0ec07b56b5db93da15a6e9e2fdae744c04b022c789cafc"
+        "revision": 3,
+        "sha256": "28346e2c4aae660bbe356c659c62dd4f1532b52981cce12daeda15c5cf8b5496"
       }
     ],
     "works": 1,
     "editions": 2,
-    "paragraphs": 139
+    "paragraphs": 262
   },
   "summary": {
     "all": {
@@ -58,11 +58,11 @@
         "rate": 0.9744
       },
       "expectedSectionTop3": {
-        "passed": 35,
+        "passed": 37,
         "total": 39,
-        "rate": 0.8974
+        "rate": 0.9487
       },
-      "sectionMrr": 0.7979
+      "sectionMrr": 0.8397
     },
     "ro": {
       "questions": 20,
@@ -97,11 +97,11 @@
         "rate": 0.95
       },
       "expectedSectionTop3": {
-        "passed": 17,
+        "passed": 19,
         "total": 20,
-        "rate": 0.85
+        "rate": 0.95
       },
-      "sectionMrr": 0.76
+      "sectionMrr": 0.875
     },
     "en": {
       "questions": 20,
@@ -140,7 +140,7 @@
         "total": 19,
         "rate": 0.9474
       },
-      "sectionMrr": 0.8377
+      "sectionMrr": 0.8026
     }
   },
   "languageGap": {
@@ -187,7 +187,6 @@
         8,
         6,
         10,
-        0,
         5
       ],
       "shown": {
@@ -224,7 +223,7 @@
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 2,
+      "firstExpectedRank": 3,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -243,9 +242,9 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
+        5,
         6,
         3,
-        5,
         9
       ],
       "shown": {
@@ -253,7 +252,7 @@
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 1,
+      "firstExpectedRank": 2,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -274,8 +273,7 @@
       "sections": [
         9,
         10,
-        6,
-        0
+        6
       ],
       "shown": {
         "en": 10
@@ -334,9 +332,10 @@
       ],
       "sections": [
         2,
+        8,
         4,
         0,
-        8,
+        6,
         3
       ],
       "shown": {
@@ -367,10 +366,9 @@
         3,
         8,
         0,
+        9,
         5,
-        7,
-        2,
-        9
+        7
       ],
       "shown": {
         "en": 10
@@ -429,7 +427,8 @@
       "sections": [
         5,
         3,
-        9
+        9,
+        4
       ],
       "shown": {
         "en": 10
@@ -513,7 +512,8 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        6
+        6,
+        0
       ],
       "shown": {
         "en": 10
@@ -563,7 +563,7 @@
       "id": "en-14",
       "language": "en",
       "topic": "lords-prayer",
-      "sources": 7,
+      "sources": 9,
       "works": [
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
@@ -572,10 +572,11 @@
         6,
         4,
         7,
-        5
+        5,
+        9
       ],
       "shown": {
-        "en": 7
+        "en": 9
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -720,10 +721,9 @@
       ],
       "sections": [
         5,
-        6,
-        3,
         4,
-        8
+        8,
+        6
       ],
       "shown": {
         "en": 10
@@ -776,15 +776,17 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
+        10,
         8,
-        10
+        0,
+        6
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 1,
+      "firstExpectedRank": 2,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -809,7 +811,7 @@
         2
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -833,12 +835,11 @@
       ],
       "sections": [
         6,
-        7,
-        3,
-        5
+        5,
+        4
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -865,8 +866,7 @@
         0
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -890,15 +890,13 @@
       ],
       "sections": [
         1,
+        3,
         2,
-        5,
-        7,
         10,
-        6,
-        3
+        5
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -921,20 +919,18 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        4,
         2,
-        8,
+        4,
         0,
-        3,
-        7
+        8,
+        3
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 2,
+      "firstExpectedRank": 1,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -953,20 +949,21 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        1,
-        3,
         8,
         0,
+        1,
+        3,
+        9,
         5,
+        7,
         2
       ],
       "shown": {
-        "en": 8,
-        "ro": 2
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 3,
+      "firstExpectedRank": 1,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -985,17 +982,16 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        3,
         8,
-        6,
         4,
-        0,
+        3,
+        6,
+        7,
         9,
-        7
+        0
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1019,11 +1015,12 @@
       ],
       "sections": [
         5,
+        4,
         3,
         9
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1048,14 +1045,12 @@
       "sections": [
         7,
         10,
+        0,
         1,
-        8,
-        5,
-        0
+        8
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1083,8 +1078,7 @@
         0
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1109,11 +1103,10 @@
       "sections": [
         6,
         0,
-        4
+        3
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1136,21 +1129,16 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        0,
-        5,
-        7,
-        6,
+        4,
         3,
-        9,
-        8
+        6
       ],
       "shown": {
-        "en": 7,
-        "ro": 3
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 6,
+      "firstExpectedRank": 1,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -1169,17 +1157,17 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        7,
-        2,
         6,
+        7,
         4,
-        9,
+        2,
         5,
+        9,
         1,
         8
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1203,14 +1191,15 @@
       ],
       "sections": [
         3,
-        5,
-        6,
         7,
-        4,
+        6,
+        5,
+        10,
+        8,
         1
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1233,15 +1222,15 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        0,
         8,
+        0,
         1,
         7,
-        5
+        5,
+        9
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1259,22 +1248,21 @@
       "id": "ro-17",
       "language": "ro",
       "topic": "predica-de-pe-munte",
-      "sources": 10,
+      "sources": 7,
       "works": [
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        0,
         3,
-        5,
+        0,
         6,
+        5,
+        8,
         10,
-        9,
-        1
+        9
       ],
       "shown": {
-        "en": 8,
-        "ro": 2
+        "ro": 7
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
@@ -1292,20 +1280,20 @@
       "id": "ro-18",
       "language": "ro",
       "topic": "portile-hadesului",
-      "sources": 2,
+      "sources": 3,
       "works": [
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        4,
-        8
+        8,
+        4
       ],
       "shown": {
-        "en": 2
+        "ro": 3
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 2,
+      "firstExpectedRank": 1,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {
@@ -1325,15 +1313,14 @@
       ],
       "sections": [
         1,
+        3,
+        8,
         6,
         0,
-        8,
-        7,
-        5
+        2
       ],
       "shown": {
-        "en": 9,
-        "ro": 1
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": false,
@@ -1356,18 +1343,18 @@
         "01M6JQPCFFCK900E1P6353MWVK"
       ],
       "sections": [
-        8,
         6,
+        5,
+        8,
         3,
-        4,
-        5
+        4
       ],
       "shown": {
-        "en": 10
+        "ro": 10
       },
       "expectedWorkHit": true,
       "expectedSectionHit": true,
-      "firstExpectedRank": 5,
+      "firstExpectedRank": 2,
       "citations": 2,
       "invalidCitations": 0,
       "quotations": {

@@ -1,0 +1,223 @@
+{
+  "jobId": "vos-1903-kingdom-ro-07-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "VII. Esența Împărăției (continuare): Împărăția în sfera dreptății",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485M",
+      "text": "În privința raportului dintre Împărăție și dreptate, în învățătura lui Isus se pot distinge trei linii de gândire. Potrivit uneia dintre ele, împlinirea ideală a voii lui Dumnezeu în viața morală a omului este în sine o revelație a supremației divine, iar actul de a-l declara pe om drept este în sine o prerogativă a domniei divine. Potrivit alteia, dreptatea de care are nevoie omul apare ca una dintre binecuvântările pe care Dumnezeu le dăruiește în Împărăția sa. Potrivit unei a treia reprezentări, Împărăția este dată ca răsplată pentru practicarea dreptății în această viață. Vom examina separat fiecare dintre acestea.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "According to still a third representation",
+          "quoteTarget": "Potrivit unei a treia reprezentări",
+          "note": "Constatare a criticului (MINOR), verificată față de original și aplicată: în sursă «still» este doar un accent aditiv într-o enumerare deja numerotată («the one … the other … a third»). Ciorna îl redase prin „încă unei a treia”, construcție greoaie; acum enumerarea „uneia dintre ele … alteia … unei a treia” îi poartă singură sensul, fără pierdere. Alternativă care păstrează accentul aditiv: «Potrivit și unei a treia reprezentări». «Representation» rămâne „reprezentare”, redarea folosită în lucrare (de ex. 04-00, «a reprezentării din Vechiul Testament») și în paralel cu «lines of thought»; alternativă pentru revizor: «viziune»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the act of declaring man righteous",
+          "quoteTarget": "actul de a-l declara pe om drept",
+          "note": "Probabil o trimitere la îndreptățirea declarativă (justificarea), dar sursa nu folosește termenul, deci formularea literală a fost păstrată. S-a evitat „a îndreptăți”, pentru a nu pierde legătura cu «righteous» / «righteousness» (dreptate, FIX în profil) și cu «domnia divină» din aceeași frază. Alternativă: «actul de a-l socoti pe om drept». Lotul 07-01 redă «justified» / «justification» prin „îndreptățit” / „îndreptățire”, fiindcă sursa lui folosește acești termeni; aici sursa are doar formularea descriptivă, deci cele două redări nu se contrazic."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485N",
+      "text": "Potrivit Vechiului Testament și concepției semitice în general, domnia și exercitarea autorității legislative și judecătorești sunt inseparabil unite. Repartizarea modernă a acestor diverse funcții ale guvernării între instituții distincte este cu totul necunoscută. Regele dă legi și le pune în aplicare. „A judeca” și „a domni” sunt expresii sinonime. Acest lucru trebuie avut în vedere pentru a înțelege corect primul aspect al învățăturii Domnului nostru despre dreptate în legătură cu Împărăția. Isus înțelege întotdeauna dreptatea într-un sens specific, pe care aceasta îl dobândește din raportarea la Dumnezeu ca Legiuitor și Judecător. Întrebuințarea noastră modernă a cuvântului este adesea mai laxă, întrucât suntem înclinați să nu asociem cu el decât gândul la ceea ce este corect și echitabil, drept în sine. Pentru Isus, dreptatea însemna toate acestea și mult mai mult decât atât. Ea însemna acea conduită morală și acea stare morală care sunt drepte atunci când sunt măsurate după norma supremă a naturii și a voii lui Dumnezeu, astfel încât ele alcătuiesc o reproducere a acestora din urmă, o revelație, ca să spunem așa, a slavei morale a lui Dumnezeu.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the Semitic conception generally",
+          "quoteTarget": "concepției semitice în general",
+          "note": "«Conception» este redat „concepție” (nu „noțiune”), fiindcă desemnează aici o viziune de ansamblu a unui popor despre domnie și guvernare, nu o idee izolată; profilul avertizează (WARN) asupra lui „concepție”, iar în cap. I partea 1 s-a procedat la fel în situații asemănătoare. În restul loturilor, «conception of …» este redat „noțiune” (par. 3 și 4 din lot: „noțiunea de slavă”, „noțiunea sa despre domnia divină”). Alternativă: «noțiunea semitică»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a looser one",
+          "quoteTarget": "mai laxă",
+          "note": "«Looser» (mai puțin strictă, mai puțin legată de ideea de Legiuitor) este redat „mai laxă”. Alternative pentru revizor: «mai vagă», «mai puțin riguroasă»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "a reproduction of the latter",
+          "quoteTarget": "o reproducere a acestora din urmă",
+          "note": "Antecedentul lui «the latter» poate fi «the supreme norm» sau «the nature and will of God» (ultimul termen menționat). Cele două lecturi coincid ca sens, fiindcă norma este chiar natura și voia lui Dumnezeu. Româna folosește pluralul („acestora din urmă”), care trimite la „naturii și voii lui Dumnezeu”. Alternativă: repetarea explicită, «o reproducere a naturii și a voii lui Dumnezeu»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Lawgiver and Judge",
+          "quoteTarget": "Legiuitor și Judecător",
+          "note": "«Lawgiver» și «Judge» ca titluri ale lui Dumnezeu sunt redate „Legiuitor” și „Judecător”, cu majusculă, ca în sursă; în par. 5 din lot, «a personal lawgiver» (generic) devine „un legiuitor personal”, cu minusculă. Fără rând în glosar; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485P",
+      "text": "Atunci când ucenicii sunt îndemnați să-și lase lumina să strălucească înaintea oamenilor, pentru ca aceștia să le vadă faptele bune și să-l slăvească pe Tatăl din ceruri, această idee este exprimată în limbajul paternității, dar noțiunea de slavă implicată aici este strâns legată de cea de domnie. În Rugăciunea Domnului, cererea „Să vină Împărăția ta” duce firesc mai departe la cererea „Să se facă voia ta, după cum în cer, așa și pe pământ”, astfel încât împlinirea voii lui Dumnezeu este, evident, privită ca una dintre formele principale în care se înfăptuiește domnia sa. Acest principiu își găsește expresia desăvârșită în porunca: „Voi, așadar, să fiți desăvârșiți, după cum Tatăl vostru ceresc este desăvârșit”, Mat. 5:48. Cuvintele tocmai citate nu doar afirmă că norma dreptății se găsește în Dumnezeu, ci implică totodată că scopul dreptății, cauza finală a ascultării, se află în Dumnezeu. Dreptatea trebuie căutată din dorința curată de a-l satisface pe cel care este țelul suprem al întregii existențe morale.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "let their light shine before men that these may see their good works and glorify the Father in heaven",
+          "quoteTarget": "să-și lase lumina să strălucească înaintea oamenilor, pentru ca aceștia să le vadă faptele bune și să-l slăvească pe Tatăl din ceruri",
+          "note": "Parafrază / aluzie a autorului, fără trimitere în sursă; trimiterea probabilă este Mat. 5:16 (identificată din memorie, neverificată în acest job). Tradusă ca text al autorului, nu după o ediție românească a Bibliei; marcată în scripture ca aluzie. De înlocuit ulterior cu o ediție licențiată, dacă se dorește citatul exact."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Thy will be done, as in heaven, so on earth",
+          "quoteTarget": "Să se facă voia ta, după cum în cer, așa și pe pământ",
+          "note": "Cele două cereri citate de autor din Rugăciunea Domnului („Să vină Împărăția ta” și „Să se facă voia ta, …”; probabil Mat. 6:10, identificat din memorie, neverificat; sursa nu dă trimitere). Traduse din formularea engleză a lui Vos, nu după formula liturgică românească, în aceeași redare ca în cap. III (03-01) și V (05-01); de înlocuit ulterior cu o ediție licențiată. «Ta» cu literă mică, conform regulilor §7 (uz academic); revizorul poate decide majuscula."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Ye therefore shall be perfect, as your heavenly Father is perfect",
+          "quoteTarget": "Voi, așadar, să fiți desăvârșiți, după cum Tatăl vostru ceresc este desăvârșit",
+          "note": "Citat al autorului, cu trimiterea Mat. 5:48 din job. Formularea lui Vos („Ye … shall be perfect”) pare apropiată de versiunile engleze revizuite (neverificat în acest job), cu «shall» cu valoare de poruncă; redat prin conjunctiv („să fiți”), fiindcă autorul îl numește «the commandment». Tradus din formularea lui Vos, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the final cause of obedience",
+          "quoteTarget": "cauza finală a ascultării",
+          "note": "«Final cause» (termen aristotelic, causa finalis) este redat „cauză finală”; «aim» = „scop”, «supreme end» = „țel suprem”. Fără rând în glosar; propus pentru glosar dacă termenul revine în lucrare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "satisfying him",
+          "quoteTarget": "a-l satisface",
+          "note": "«Satisfy» (a răspunde cerinței cuiva, a-i da deplină mulțumire) este redat „a satisface”. Alternative pentru revizor: «a-i face pe plac», «a-l mulțumi» (acesta din urmă poate fi confundat cu „a mulțumi” = a aduce mulțumiri)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 5:16",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 6:10",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 5:48",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Q",
+      "text": "În aceste două puncte, învățătura Domnului nostru despre dreptate se afla într-o legătură vitală cu noțiunea sa despre domnia divină, nu mai puțin decât cu cea despre paternitatea divină. Și în ambele privințe trebuie să punem învățătura lui în contrast cu principiile și tendințele care acționau în etica iudaică a vremii, pentru a-i aprecia pe deplin semnificația profundă. Defectele caracteristice ale eticii iudaice erau formalismul, casuistica, înclinația de a pune accentul pe interdicție mai degrabă decât pe poruncă și, mai rău decât toate, îngâmfarea în propria dreptate și ipocrizia. Aceste defecte proveneau dintr-o dublă sursă. Pe de o parte, iudaismul devenise practic o închinare la Lege ca atare. Litera moartă a Legii luase locul Dumnezeului celui viu. Măreția și autoritatea naturii sfinte și voii desăvârșite a lui Dumnezeu nu se mai simțeau în porunci. Pe de altă parte, respectarea Legii de către iudei era centrată pe sine, deoarece era menită în primul rând să fie instrumentul pentru asigurarea fericirii veacului viitor.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "self-righteousness and hypocrisy",
+          "quoteTarget": "îngâmfarea în propria dreptate și ipocrizia",
+          "note": "«Self-righteousness» (atitudinea celui convins de propria dreptate, mai ales în raport cu ceilalți) este redat „îngâmfarea în propria dreptate”: păstrează rădăcina „dreptate” (FIX pentru «righteousness») și evită calcul „dreptate de sine”; „dreptatea proprie” ar putea fi citit ca simplă calitate, nu ca atitudine. Revine în par. 5 din lot («the sins of self-righteousness»). Formulare de care nu sunt sigur; alternative pentru revizor: «încrederea în propria dreptate», «dreptatea de sine», «autosuficiența morală». Propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "worship of the law as such",
+          "quoteTarget": "închinare la Lege ca atare",
+          "note": "«The law» (cu minusculă în sursă) este redat „Legea” cu majusculă când desemnează Legea mozaică a iudaismului (par. 4 și 6 din lot, ca în 02-01 și 04-02). În enunțul general din par. 5 («a deified law», «the spirit of the law») rămâne „lege” cu minusculă. Revizorul poate uniformiza."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485R",
+      "text": "Acolo unde norma dreptății este o lege divinizată, mai degrabă decât un legiuitor personal, și unde motivul suprem al ascultării este unul interesat, acolo defectele enumerate mai sus trebuie să-și facă inevitabil apariția. Dumnezeu fiind ținut la distanță, nu se va simți nicio nevoie puternică de a oferi mai mult decât conformarea la lege în fapta exterioară. Fiindcă rădăcina ultimă, în care toate poruncile sunt una în natura și voia lui Dumnezeu, este pierdută din vedere, legea va deveni o simplă sumă de precepte fără legătură între ele, o colecție de prescripții legale, pentru a căror adaptare la întregul cuprins al vieții exterioare va fi nevoie de un sistem complicat de casuistică dintre cele mai rafinate. Fiindcă motivul determinant este centrat pe sine, evitarea încălcării va constitui o preocupare mai serioasă decât împlinirea pozitivă a ceea ce cere spiritul legii. În sfârșit, acolo unde viața morală este astfel concentrată asupra conduitei exterioare, unde conștiința nu se cercetează și nu se judecă pe sine în prezența Dumnezeului personal, care cunoaște inima, acolo păcatele îngâmfării în propria dreptate și ale ipocriziei găsesc un teren fertil în care să se dezvolte.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "self-righteousness and hypocrisy",
+          "quoteTarget": "îngâmfării în propria dreptate și ale ipocriziei",
+          "note": "Același termen ca în par. 4 din lot (vezi flagul de acolo): «self-righteousness» → „îngâmfarea în propria dreptate”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "a collection of statutory ordinances",
+          "quoteTarget": "o colecție de prescripții legale",
+          "note": "«Statutory ordinances» (rânduieli fixate prin lege) este redat „prescripții legale”. „Statutare” a fost evitat, fiindcă în română „statutar” trimite la statutul unei organizații. Alternative pentru revizor: «rânduieli stabilite prin lege», «dispoziții de drept pozitiv». Formulare de care nu sunt sigur."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a mere aggregate of unrelated precepts",
+          "quoteTarget": "o simplă sumă de precepte fără legătură între ele",
+          "note": "«Aggregate» este redat „sumă” (în ciornă „însumare”, care denumește mai degrabă acțiunea de a aduna; „sumă” este rezultatul ei). S-a evitat „agregat”, care în română desemnează mai ales un ansamblu de piese mecanice. Alternative: «un simplu cumul», «o simplă mulțime»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "the escape from transgression",
+          "quoteTarget": "evitarea încălcării",
+          "note": "«Escape from transgression» poate fi citit ca evitarea faptei de încălcare a legii sau ca scăparea de consecințele ei; în contextul „motivului centrat pe sine” ambele duc la aceeași concluzie. S-a ales „evitarea încălcării”, care le acoperă pe amândouă. Alternativă: «ferirea de călcarea legii»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a deified law",
+          "quoteTarget": "o lege divinizată",
+          "note": "«Deified» este redat „divinizată”; s-a evitat „îndumnezeită”, legat în teologia ortodoxă de îndumnezeirea omului (theosis)."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485S",
+      "text": "Aceasta era conștiința morală în care Domnul nostru a produs o revoluție, prin enunțarea dublului principiu expus mai sus. El a făcut din nou din glasul Legii glasul Dumnezeului celui viu, care este prezent în fiecare poruncă și este atât de absolut în cerințele sale, atât de personal interesat de conduita omului, atât de atent la toate, încât gândul de a-i oferi mai puțin decât întreaga viață interioară – inima, sufletul, mintea, puterea – nu mai poate fi tolerat. Astfel însuflețită de spiritul personalității lui Dumnezeu, Legea devine în mâinile Domnului nostru un organism viu, în care trebuie deosebite sufletul de trup, spiritul de literă, poruncile mai mari de cele mai mici, și care se lasă redus la mari principii cuprinzătoare, în lumina cărora greutatea și sensul tuturor preceptelor luate în parte trebuie apreciate în chip inteligent.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the whole inner life, the heart, the soul, the mind, the strength",
+          "quoteTarget": "întreaga viață interioară – inima, sufletul, mintea, puterea",
+          "note": "Aluzie la porunca iubirii de Dumnezeu din toată inima, sufletul, mintea și puterea (probabil Mc. 12:30, identificat din memorie, neverificat; paragraful următor din sursă dă explicit Mc. xii. 30,31). Fără trimitere în acest paragraf; tradusă ca text al autorului, nu după o ediție românească a Bibliei; marcată în scripture ca aluzie."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "so all-observant",
+          "quoteTarget": "atât de atent la toate",
+          "note": "«All-observant» (care observă tot ce privește conduita omului) este redat „atent la toate”. Alternative pentru revizor: «care nu scapă nimic din vedere», «atotvăzător» (mai apropiat de «all-seeing»)."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "are to be distinguished",
+          "quoteTarget": "trebuie deosebite",
+          "note": "«Are to be» + participiu poate însemna „pot fi” (lectură potențială) sau „trebuie să fie” (obligație). Aici, ca și la «are to be intelligently appreciated» („trebuie apreciate”), s-a ales obligația, care se potrivește argumentului lui Vos (distincțiile sunt normative în învățătura Domnului). Diferența nu schimbă sensul doctrinar."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the spirit of God’s personality",
+          "quoteTarget": "spiritul personalității lui Dumnezeu",
+          "note": "«Spirit» este scris cu minusculă în sursă, deci nu este Duhul Sfânt; redat „spiritul”, nu „Duhul”. «Quickened» = „însuflețită”; «personality» = „personalitate” (Dumnezeu ca persoană). Alternativă: «caracterul personal al lui Dumnezeu»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 12:30",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 1 (MINOR); aplicată 1, respinse 0, verificată față de original. (1) Par. 1: «According to still a third representation» → „Potrivit unei a treia reprezentări” (în loc de „Potrivit încă unei a treia reprezentări”): «still» este doar un accent aditiv într-o enumerare numerotată și nu se pierde nimic prin renunțarea la „încă”; flag-ul din ciornă (ALTA, MINOR) este coborât la INFO, cu alternativa «Potrivit și unei a treia reprezentări». Retușuri proprii, după recitirea textului numai în română, fiecare reverificată față de original, fără schimbare de sens: par. 3 «afirmă nu doar că …, ci implică» → «nu doar afirmă că …, ci implică totodată că» (ordinea engleză «affirm not merely that», cu verbul schimbat după „ci”); par. 4 «care lucrau în etica iudaică» → «care acționau în etica iudaică» («were at work»: în română „a lucra” nu se spune despre principii și tendințe); par. 5 «o simplă însumare de precepte» → «o simplă sumă de precepte» («a mere aggregate»: „însumare” denumește acțiunea de a aduna, „sumă” este rezultatul; flag-ul ALTA a fost actualizat); par. 5 «un teren fertil pentru dezvoltare» → «un teren fertil în care să se dezvolte» (nominalizare calchiată după «for development»; subiectul rămâne „păcatele îngâmfării în propria dreptate și ale ipocriziei”). Verificat frază cu frază față de original, în ambele sensuri (35 de propoziții: 5 + 9 + 5 + 8 + 5 + 3), fără omisiuni, adaosuri, negații sau modalitate alterate. Fraze-cheie ale sursei din job («statutory ordinances», «the escape from transgression», «are to be distinguished») verificate pe content/sources/vos-1903-kingdom/raw.txt; nicio anomalie de sursă. Titlul (headingRo) revizuit: păstrează numerotarea «VII.» și se aliniază cu VI («Esența Împărăției: …») și VIII («Esența Împărăției (continuare): …»). Singura trimitere din job este Mat. 5:48 (par. 3), prezentă în text exact în forma din references[].target. În scripture, pe lângă ea, sunt aluziile identificate de traducător, nedate de sursă: Mat. 5:16 și Mat. 6:10 (par. 3), Mc. 12:30 (par. 6), din memorie, neverificate pe o ediție a Bibliei; de confirmat de revizor. Citatele din Mat. 6:10 și Mat. 5:48 sunt traduse din engleza autorului, nu după o ediție românească a Bibliei. Redări de ținut consecvent în capitol: righteousness = dreptate (FIX); self-righteousness = îngâmfarea în propria dreptate (TERMEN_NOU; aceeași redare în 07-01); kingship = domnie; fatherhood = paternitate; supremacy = supremație; conception = noțiune (excepție: „concepția semitică”, vezi flag); revelation = revelație; Lawgiver / Judge = Legiuitor / Judecător; the law = Legea (mozaică, par. 4 și 6) și legea (enunțul general din par. 5); self-centered = centrat pe sine (ca în 02-01); the coming age = veacul viitor; blessedness = fericire; the Lord’s Prayer = Rugăciunea Domnului (ca în 03-01); aggregate = sumă. Pentru coordonare cu 07-01: acolo «justified» / «justification» = „îndreptățit” / „îndreptățire”, iar aici «the act of declaring man righteous» = „actul de a-l declara pe om drept” (formulare descriptivă a sursei); ambele urmează sursa lor. Textul nu este certificat ca publicabil."
+}

@@ -1,0 +1,138 @@
+{
+  "jobId": "vos-1903-kingdom-ro-06-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "VI. Esența Împărăției: Împărăția ca supremație a lui Dumnezeu în sfera puterii mântuitoare",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD97PGBYC4M45B9F7EZ5",
+      "text": "S-a arătat mai sus cum desemnează Domnul nostru, prin numele „Împărăția lui Dumnezeu”, noua ordine a lucrurilor pe care a venit să o introducă, și aceasta nu doar în rezultatul ei final, ci în tot cursul dezvoltării ei. În continuare trebuie pusă întrebarea: de ce a adoptat el acest nume, în ce consta, în mintea lui însuși, potrivirea denumirii? Cu siguranță ar fi greșit să presupunem că l-a folosit din simplă acomodare la limbajul popular, că numele nu-i sugera în niciun fel principii și idei importante. Aceasta este exclusă de faptul, indicat mai sus, că acest nume nu era nicidecum cel mai cunoscut dintre numele aflate în circulație printre iudei pentru epoca mesianică. Dacă Isus l-a preferat totuși tuturor celorlalte, trebuie să fi avut un motiv real pentru aceasta. Nici nu putem explica alegerea lui prin simpla dependență de Vechiul Testament. Dependența lui Isus de Vechiul Testament nu a fost niciodată o simplă chestiune de formă. El căuta întotdeauna, în formă, substanța, iar în termenii preluați, marile principii ideale pe care aceștia erau meniți să le exprime. Trebuie, așadar, să le căutăm pe acestea. Căutându-le, nu trebuie să ne așteptăm să găsim nicăieri în învățătura lui o definiție a Împărăției. Metoda de predare a lui Isus nu era cea filozofică, de a defini un lucru, ci cea populară, în pilde, de a-l descrie și a-l ilustra. Pavel, deși vorbește mult mai puțin despre Împărăție, s-a apropiat mult mai mult decât Domnul nostru de definirea ei, cf. Rom. 14:17. Absența definiției nu implică totuși lipsa de ordine sau de corelație în aspectele și trăsăturile descrise. În marea varietate de afirmații făcute despre Împărăție, observatorul atent nu va omite să descopere anumite linii generale pe care se desfășoară descrierea sau comparația, anumite principii de seamă la a căror lămurire revine neîncetat. Dacă le putem stabili, vom fi găsit totodată cheia propriei păreri a Domnului nostru despre sensul mai profund al numelui „Împărăția lui Dumnezeu”.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a positive reason",
+          "quoteTarget": "un motiv real",
+          "note": "«Positive» se opune aici lui «mere accommodation» și «mere dependence» și are sensul „real, de substanță”, nu „bun” sau „favorabil”. Ciorna avea «motiv pozitiv», care în română se poate citi „motiv favorabil” (constatare a criticului, confirmată); criticul a propus «motiv de fond» sau «motiv real», iar revizia a păstrat «motiv real», fiindcă «de fond» adaugă ideea de motiv de adâncime. Alternative pentru revizor: «un motiv de fond», «un motiv concret»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "what is the appropriateness of the designation to his own mind",
+          "quoteTarget": "în ce consta, în mintea lui însuși, potrivirea denumirii",
+          "note": "Întrebarea eliptică din sursă („what is the appropriateness … to his own mind”) este redată prin „în ce consta … potrivirea denumirii”, cu „în mintea lui însuși” pentru „to his own mind”. Cele două întrebări rămân alăturate prin virgulă, ca în sursă, iar „Why” devine „de ce”, cu literă mică după două puncte. Alternativă pentru revizor: «ce făcea denumirea potrivită în gândirea lui însuși»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "parabolic",
+          "quoteTarget": "în pilde",
+          "note": "«Parabolic» este redat prin „în pilde” („cea populară, în pilde”), nu prin «parabolic»: glosarul impune «pildă», nu «parabolă», iar lista de calcuri avertizează asupra lui «parabol…». Aceeași soluție ca în cap. IV («forma învățăturii în pilde»)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Rom. 14:17",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQZW8W2X559XN2Q9RD4Y2Z",
+      "text": "De la bun început trebuie să respingem, ca insuficientă, explicația modernă preferată, potrivit căreia, în imaginea Împărăției, punctul de comparație constă în primul rând în asocierea reciprocă a oamenilor, astfel încât aceștia să alcătuiască un organism moral sau religios. Împărăția este, într-adevăr, o comunitate în care oamenii sunt uniți prin cele mai strânse legături, iar acest lucru este scos în relief mai ales în învățătura Domnului nostru despre Biserică. Dacă luăm însă învățătura despre Împărăție în ansamblul ei, acest punct este subliniat doar puțin, Mat. 13:24–30, 47–50. În plus, această noțiune nu este nici pe departe suficient de largă pentru a cuprinde tot ceea ce se afirmă despre Împărăție în Evanghelii, potrivit cărora ea pare să constea în aceeași măsură în daruri și puteri de sus ca și în relații și activități interumane. Asemănarea ei cu o comunitate oferă, în orice caz, doar o explicație parțială a caracterului ei de împărăție, iar în măsura în care această explicație este corectă, ea nu este ultimă, fiindcă adevăratul principiu de formare a împărăției nu este unirea oamenilor ca atare, ci ceea ce, în Dumnezeu, o produce și îi stă la bază.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "at least only a partial explanation",
+          "quoteTarget": "în orice caz, doar o explicație parțială",
+          "note": "„At least only” este o construcție rară. «At least» poate însemna „în orice caz” (oricum, măcar atât) sau, împreună cu «only», „în cel mai bun caz”. Ambele lecturi duc la aceeași concluzie (explicația este doar parțială); româna a ales „în orice caz”, care nu adaugă o concesie. Alternative pentru revizor: «în cel mai bun caz», «cel mult»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the true kingdom-forming principle",
+          "quoteTarget": "adevăratul principiu de formare a împărăției",
+          "note": "«Kingdom-forming» este redat „de formare a împărăției”, pe tiparul din cap. IV (lotul 04-04: «kingdom-forming movement» = «mișcare continuă de formare a Împărăției»); ciorna avea „principiu formator de împărăție”, un calc după compusul englezesc (constatare a criticului, confirmată). Minuscula este păstrată fiindcă aici «kingdom» desemnează însușirea generică de a fi împărăție, ca în «kingdom-character» („caracterul ei de împărăție”) din aceeași frază, nu Împărăția lui Dumnezeu ca atare; în cap. IV compusul se referă la Împărăția lui Dumnezeu și are majusculă. Fără rând în glosar; propus pentru glosar după aprobare. Alternative pentru revizor: majusculă la «Împărăției», pentru uniformitate cu cap. IV; «principiul constitutiv al împărăției»; «principiul care întemeiază împărăția»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "inadequate",
+          "quoteTarget": "insuficientă",
+          "note": "«Inadequate» este redat „insuficientă”, nu „inadecvată” (care în română înseamnă „nepotrivită”): obiecția din paragraf este că explicația nu acoperă tot materialul («not nearly wide enough», «only a partial explanation»). Alternative pentru revizor: «nesatisfăcătoare», «neîndestulătoare»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 13:24–30, 47–50",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSC",
+      "text": "Motivul principal pentru care Isus a folosit acest nume constă, fără îndoială, în aceea că, în noua ordine a lucrurilor, Dumnezeu este factorul suprem și determinant într-un sens oarecum asemănător cu cel al stăpânitorului unei împărății omenești. Noțiunea este o noțiune centrată pe Dumnezeu până în însuși miezul ei. Pentru a-i aprecia semnificația, trebuie să ne străduim să facem ceea ce a făcut Isus: să privim întreaga lume și întreaga viață din punctul de vedere al subordonării lor față de slava lui Dumnezeu. Dificultatea pe care o întâmpinăm în a face aceasta nu constă doar în faptul că suntem înclinați să privim religia dintr-o perspectivă mai joasă, centrată pe om, ci în aceeași măsură în faptul că ideea noastră modernă despre stat nu ne îndeamnă în chip firesc să asociem o asemenea ordine a lucrurilor cu numele de împărăție. Potrivit noțiunii noastre moderne, mai ales în forma ei republicană, instituția statului, cu cârmuitorul ei, există în folosul supușilor; chiar și regele, cel puțin într-o monarhie constituțională, poate fi considerat un mijloc în vederea unui scop. În statul antic lucrurile stau altfel. Aici individul există pentru stat, iar în monarhia orientală statul este centralizat și rezumat în persoana stăpânitorului.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "with its magistrate",
+          "quoteTarget": "cu cârmuitorul ei",
+          "note": "«Magistrate» este folosit în sens politic (cel învestit cu autoritatea în stat; în forma republicană, corespondentul regelui din propoziția următoare), nu în sens judiciar. Ciorna avea „magistratul” (forma din tradiția reformată, «magistratul civil»), care în româna de azi se citește mai ales „judecător, procuror” (constatare a criticului, confirmată); revizia are „cârmuitorul”. «Ruler» rămâne „stăpânitor” (prima și ultima propoziție a paragrafului), deci cele două cuvinte englezești au redări distincte. Ocurență unică în carte; fără rând în glosar. Alternative pentru revizor: „magistratul”, cu explicație și rând în glosar; „demnitarul ei suprem”; „conducătorul” a fost evitat din cauza conotației istorice a titlului «Conducătorul»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the supreme and controlling factor as the ruler in a human kingdom",
+          "quoteTarget": "factorul suprem și determinant într-un sens oarecum asemănător cu cel al stăpânitorului unei împărății omenești",
+          "note": "«Controlling» este redat „determinant” (factorul care hotărăște și ține totul sub control), în pereche cu „suprem”; «ruler» este redat „stăpânitor” (ca în cap. II), în legătură cu «rule» = „stăpânire”. Comparația eliptică din sursă („as the ruler in a human kingdom [is]”) este redată prin „cu cel al stăpânitorului”, ca stăpânitorul omenesc să fie clar termenul comparației; ciorna avea „celui în care este stăpânitorul…”, cu „este” rămas fără predicat (constatare a criticului, confirmată). Alternative pentru revizor: «hotărâtor», «care controlează»; varianta explicită „celui în care stăpânitorul unei împărății omenești este factorul suprem și determinant”, mai greoaie prin repetiție."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "their subserviency to the glory of God",
+          "quoteTarget": "subordonării lor față de slava lui Dumnezeu",
+          "note": "«Subserviency» (faptul de a sluji drept mijloc) este redat „subordonare”. Alternativă pentru revizor: «din punctul de vedere al faptului că ele slujesc slava lui Dumnezeu»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a lower man-centered view of religion",
+          "quoteTarget": "să privim religia dintr-o perspectivă mai joasă, centrată pe om",
+          "note": "«View of religion» este redat „perspectivă”, nu „părere” (cum este redat «view» în capitolele anterioare), fiindcă aici este vorba de un mod de a privi religia, nu de o opinie; „o părere mai joasă despre religie” ar putea fi citit ca „o părere proastă despre religie”. «Lower» = „mai joasă” (mai puțin înaltă, mai pământească)."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQSCWY3BMTYJTZAQAB4XSE",
+      "text": "Or, oricare ar fi meritele sau defectele unui asemenea principiu ca principiu constructiv pentru viața noastră politică omenească, el oferă, evident, singurul punct de vedere din care putem interpreta corect relația fundamentală dintre Dumnezeu și om. Pe baza unei asemenea noțiuni despre domnie fusese exprimată, încă de timpuriu, relația lui Dumnezeu cu Israel sub forma unei stăpâniri regale. Scopul principal al constituției teocratice a lui Israel nu a fost acela de a învăța lumea principiile guvernării civile, deși, fără îndoială, și în această privință se pot desprinde din ea învățăminte valoroase, ci acela de a reflecta legile veșnice ale raporturilor religioase dintre Dumnezeu și om, așa cum vor exista ele în viața desăvârșită de la sfârșit. Iudaismul pierduse simțul pentru aceasta, mutase centrul de greutate de la Dumnezeu la om; în învățătura lui Isus a fost restabilită relația potrivită. Pentru el, Împărăția există acolo unde nu doar Dumnezeu este suprem – căci acest lucru este adevărat în orice vreme și în orice împrejurare –, ci unde Dumnezeu își impune în chip supranatural supremația împotriva tuturor puterilor potrivnice și îl aduce pe om la recunoașterea de bunăvoie a acesteia. Este o stare de lucruri în care totul converge și tinde spre Dumnezeu ca spre binele suprem.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "God supernaturally carries through his supremacy against all opposing powers",
+          "quoteTarget": "Dumnezeu își impune în chip supranatural supremația împotriva tuturor puterilor potrivnice",
+          "note": "«Carries through» (a duce un lucru la capăt, în pofida piedicilor) este redat „își impune”. Alternative pentru revizor: «își duce până la capăt supremația», «își înfăptuiește supremația»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "religious intercourse between God and man",
+          "quoteTarget": "raporturilor religioase dintre Dumnezeu și om",
+          "note": "«Intercourse» (relații reciproce, schimb) este redat „raporturi”, ca să nu se confunde cu «relația» (relation) din aceeași frază și cu «comuniune» (communion) din restul lucrării. Alternativă pentru revizor: «relațiile religioase»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Now whatever may be the merits or demerits",
+          "quoteTarget": "Or, oricare ar fi meritele sau defectele",
+          "note": "«Now» (particulă de tranziție în argumentare) este redat „Or,” (conector argumentativ, ca în capitolele anterioare), iar «demerits» „defectele”. Dacă „Or,” pare prea marcat, poate fi omis fără pierdere de sens."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 4 (toate MINOR); aplicate 4, respinse 0. (1) Par. 1: «motiv pozitiv» devine «motiv real» (sursa: «a positive reason», în contrast cu «mere accommodation» și «mere dependence»; «pozitiv» putea fi citit „favorabil”); flag-ul ALTA coboară la INFO. (2) Par. 2: «principiu formator de împărăție» devine «principiu de formare a împărăției», ca în 04-04 («mișcare continuă de formare a Împărăției»), cu minusculă ca la «caracterul ei de împărăție» din aceeași frază; alternativa cu majusculă rămâne în flag. (3) Par. 3: comparația eliptică «celui în care este stăpânitorul…» (copulă fără predicat, cu «stăpânitorul» citibil ca nume predicativ al lui Dumnezeu) devine «cu cel al stăpânitorului unei împărății omenești», astfel că stăpânitorul omenesc este termenul comparației. (4) Par. 3: «magistratul» devine «cârmuitorul» («magistrat» înseamnă azi mai ales judecător sau procuror; sursa are sensul politic de cârmuitor al statului); flag-ul DE_VERIFICAT coboară la INFO, cu «magistratul» (tradiția reformată) ca alternativă. Retușuri de redactare, fiecare reverificată față de original, fără schimbare de sens: par. 3 «în a reuși aceasta» devine «în a face aceasta» («a reuși» cere de obicei «să» sau «în», iar «aceasta» reia «do what Jesus did»), iar «din cauza ideii noastre moderne despre stat, nu suntem conduși în chip firesc să asociem» devine «ideea noastră modernă despre stat nu ne îndeamnă în chip firesc să asociem» (în sursă ideea este agentul lui «led», nu doar o cauză; negația și «naturally» rămân pe același verb); par. 4 «căci aceasta este adevărat» devine «căci acest lucru este adevărat» (pronumele feminin «aceasta» nu se acordă cu «adevărat»). Verificat frază cu frază față de original, în ambele sensuri (33 de propoziții: 15 + 5 + 7 + 6), fără omisiuni, adaosuri, negații sau modalitate alterate; titlul capitolului este neschimbat. Trimiterile din text sunt cele din job (Rom. 14:17 în par. 1; Mat. 13:24–30, 47–50 în par. 2); paragrafele 3 și 4 nu au trimiteri și nici citate biblice ale autorului, deci scripture este gol acolo. «Or,» pentru «Now» (par. 4) este redarea conectorului în cap. I–IV; poate fi omis fără pierdere de sens. Redări de ținut consecvent în capitol, în continuarea cap. I–V: kingdom (absolut) = Împărăția; conception = noțiune; kingdom-teaching = învățătura despre Împărăție; God-centered / man-centered = centrat pe Dumnezeu / pe om; supremacy = supremație; kingship = domnie; rule = stăpânire; ruler = stăpânitor; magistrate = cârmuitor (ocurență unică); kingdom-forming = de formare a împărăției; consummate = desăvârșit; parabolic = în pilde; the Jews / Judaism = iudeii / iudaismul. Textul nu este certificat ca publicabil."
+}

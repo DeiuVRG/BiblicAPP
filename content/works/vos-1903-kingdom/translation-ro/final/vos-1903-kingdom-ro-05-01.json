@@ -1,0 +1,286 @@
+{
+  "jobId": "vos-1903-kingdom-ro-05-01",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQZW8SCYVBQDQME719YT88",
+      "text": "Credem, însă, că astăzi este mai mare nevoia de a ne feri de o înțelegere greșită a celeilalte laturi a învățăturii Domnului nostru despre Împărăție, cea care privește forma spirituală, invizibilă, a Împărăției. Autorii moderni nu subliniază întotdeauna suficient că, în ciuda caracterului ei interior, Împărăția rămâne, în toate privințele, o Împărăție supranaturală. Este ușor să se vorbească cu desconsiderare despre așteptările iudeilor, de un realism grosolan, dar cei care vorbesc astfel atacă adesea, sub pretextul unui spiritualism rafinat, însăși esența supranaturalismului biblic. După ce se scade tot ce este de scăzut, trebuie susținut că iudeii nu ar fi putut nutri acest realism viguros dacă nu ar fi fost, în adâncul sufletului, supranaturaliști, formați la acea mare școală a supranaturalismului, Vechiul Testament. În această chestiune, Isus era pe deplin de acord cu poziția lor.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Biblical supernaturalism",
+          "quoteTarget": "supranaturalismului biblic",
+          "note": "«Supernaturalism», «supernaturalist» și «supernatural» (adjectivul «supernaturalistic» din par. 3 al lotului) sunt redate «supranaturalism», «supranaturalist», «supranatural», respectiv «supranaturalist». Termeni-cheie ai capitolului, repetați în tot lotul și în capitolele următoare. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "gross realistic expectations of the Jews",
+          "quoteTarget": "așteptările iudeilor, de un realism grosolan",
+          "note": "«Realistic» / «realism» au aici sensul de concret, literal, material (în opoziție cu «spiritualism»), nu «sobru, pragmatic». Un adjectiv românesc «realist» ar fi putut induce sensul greșit (fals prieten); de aceea este redat prin substantivul «realism» («de un realism grosolan», apoi «acest realism viguros» în fraza următoare). Alternativă pentru revizor: «grosolan de literale/materiale», dar ar adăuga o interpretare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "remains to all intents a supernatural kingdom",
+          "quoteTarget": "rămâne, în toate privințele, o Împărăție supranaturală",
+          "note": "«To all intents» (= «to all intents and purposes») este redat «în toate privințele», după constatarea criticului (modalitate, MINOR). Ciorna avea «în esență», care muta accentul pe natura lucrului și sugera o distincție între esență și manifestare pe care Vos nu o face (cf. par. 3 al lotului: forma interioară a Împărăției «nu a pierdut nimic» din caracterul supranatural). Cealaltă propunere a criticului, «practic», poate fi citită ca „aproape” și ar atenua afirmația. Alternative pentru revizor: «practic», «în orice privință care contează»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "After all deductions are made",
+          "quoteTarget": "După ce se scade tot ce este de scăzut",
+          "note": "Idiom de socoteală («după ce s-au făcut toate reducerile cuvenite»). Redat prin metafora aritmetică, evitând «deducții» (fals prieten: în română «deducție» = inferență logică) și «scăderi» (= defecte). Formulare de care nu sunt sigur. Alternativă pentru revizor: «Făcând toate rezervele necesare»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV9",
+      "text": "Împrejurarea că unele dintre pildele care tratează acest aspect al Împărăției au fost luate din sfera vieții organice a dus uneori la noțiuni greșite în această privință. Punctul de comparație din aceste pilde nu este caracterul natural al procesului, ci numai caracterul lui treptat și invizibil. În pilda seminței care crește pe nesimțite, Mc. 4:26–29, se subînțelege mai degrabă contrariul, adică faptul că Dumnezeu dă creșterea fără intervenție umană. Isus își săvârșește toată lucrarea, chiar și pe cea care ține de Împărăția imanentă, în Duhul, iar Duhul reprezintă supranaturalul. Faptul că nu trebuie să identificăm procesele prin care se înfăptuiește această latură a Împărăției cu procese pur naturale se poate vedea cel mai bine din a patra Evanghelie. Aici viața prezentă este echivalentă cu Împărăția imanentă. Dar această viață prezentă pare să fie întru totul supranaturală prin originea și prin caracterul ei. Regenerarea dă intrare în ea.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "misconceptions",
+          "quoteTarget": "noțiuni greșite",
+          "note": "«Misconception» este redat «noțiune greșită», în acord cu titlul capitolului din ciorna 05-00 («Noțiuni greșite curente …»). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "God gives the increase",
+          "quoteTarget": "Dumnezeu dă creșterea",
+          "note": "Posibil ecou al lui 1 Cor. 3:6–7 (KJV: «God gave the increase»), identificat din memorie, neverificat; sursa nu dă nicio trimitere pentru această formulare. Tradus ca text al autorului, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată, dacă aluzia se confirmă."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the present life",
+          "quoteTarget": "viața prezentă",
+          "note": "«The present life» (a patra Evanghelie) este redat literal, «viața prezentă». Din context (este echivalentă cu Împărăția imanentă; «supernatural in its origin and character») pare să însemne viața dată de Dumnezeu ca posesie de acum, nu viața pământească în general; în română «viața prezentă» poate fi citită și ca «viața de pe pământ». Interpretare provizorie, din context; nu a fost verificată în Evanghelia după Ioan. Revizorul decide dacă este nevoie de un cuvânt-călăuză."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "Regeneration introduces into it.",
+          "quoteTarget": "Regenerarea dă intrare în ea.",
+          "note": "Fraza sursei este eliptică («introduces into» fără obiect), iar elipsa este a lui Vos: aceeași formulă apare în cap. VIII, «what introduces into it» (ciorna 08-01: «ceea ce dă intrare în această cunoaștere»). Ciorna avea «Regenerarea introduce în ea.»; criticul a notat (MAJOR, gramatică) că «a introduce» este tranzitiv în română, deci propoziția rămânea fără obiect direct, cu rolul pacientului pierdut. S-a aplicat propunerea lui, «dă intrare în», care păstrează elipsa și agentul (regenerarea) fără a adăuga un participant. Lectura: regenerarea dă intrare în viața prezentă, adică în Împărăția imanentă («ea» = «această viață»); a doua lectură (regenerarea introduce ceva în viață) este exclusă de uzul din cap. VIII. Alternativă cu obiect explicit: «Regenerarea îl introduce pe om în ea», care adaugă însă un participant. Revizorul confirmă lectura."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 4:26–29",
+          "mode": "reference"
+        },
+        {
+          "ref": "1 Cor. 3:6–7",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVA",
+      "text": "Într-un punct ulterior al cercetării noastre, când vom discuta raportul Bisericii cu Împărăția, va reieși și mai clar că, prin transpunerea ei în sfera interiorului și a invizibilului, ideea Împărăției nu a pierdut nimic din asocierile supranaturaliste care îi aparțineau de la însăși originea ei. Deosebirea dintre cele două stadii ale venirii Împărăției nu constă în faptul că unul este produs de forțe deja prezente în lumea omenească, în timp ce celălalt trebuie săvârșit prin introducerea unor forțe miraculoase noi, venite de sus. Este o deosebire doar în modul de acțiune și de revelare a supranaturalului comun ambelor stadii. Aceeași putere atotputernică, lucrând de-a lungul veacurilor, va aduce la îndeplinire și desăvârșirea de la sfârșit. Dar ea va lua o formă nouă când va fi sosit sfârșitul, astfel încât să lucreze instantaneu, și va atrage în sfera acțiunii sale întregul univers fizic. Nu ar fi în acord cu părerea lui Isus să se conceapă lucrurile astfel, ca și cum, prin extinderea treptată a puterii divine care lucrează în interior, prin creșterea Bisericii, prin influența tot mai largă a adevărului, Împărăția care există acum ar deveni atotcuprinzătoare și universală și ar trece astfel, de la sine, în Împărăția finală. Aceasta ar elimina orice escatologie adevărată și ar șterge deosebirea dintre cele două aspecte ale învățăturii lui Isus pe această temă.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "supernaturalistic associations",
+          "quoteTarget": "asocierile supranaturaliste",
+          "note": "«Associations» (idei și imagini legate de noțiune) este redat «asocieri», cognat, ca «o asociere semnificativă» din ciorna 03-01. Alternativă pentru revizor: «conotații supranaturaliste»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the consummation at the end",
+          "quoteTarget": "desăvârșirea de la sfârșit",
+          "note": "«Consummation» este redat «desăvârșire» (profil: «desăvârșire / împlinire finală», după context), ca în 01-01 și 04-00…04-01; aceeași redare în par. 4 al lotului («its consummation»). Alternativă: «împlinirea finală»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "so to conceive of it",
+          "quoteTarget": "să se conceapă lucrurile astfel",
+          "note": "Antecedentul lui «it» este vag în sursă (tranziția de la Împărăția de acum la cea finală / raportul dintre cele două stadii; nu «power», care apare în interiorul clauzei «as if»). Redat neutru, prin «lucrurile», fără pronume, ca să nu se fixeze o lectură. Alternativă: «să se conceapă astfel desăvârșirea»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVB",
+      "text": "Pildele despre grâu și neghină și despre năvod, deși, pe de o parte, implică într-adevăr, după cum am văzut, unitatea superioară a întregii mișcări, pe de altă parte implică și faptul că desăvârșirea ei nu rezultă spontan din procesul precedent, fie el și supranatural. Secerișul este condiționat de coacerea grâului, și totuși coacerea grâului nu poate niciodată, de la sine, să declanșeze secerișul. Secerișul vine atunci când omul pune secera la lucru, pentru că rodul este copt. Tot așa, când Împărăția imanentă își va fi parcurs drumul până la maturitate, Dumnezeu va interveni prin minunea minunilor. De asemenea, ar fi în mod vădit imposibil ca Împărăția finală să vină în orice alt chip decât acesta. Căci această stare finală a Împărăției presupune mari schimbări fizice, cosmice, pe care nicio forță care lucrează în sfera spirituală nu le poate produce. Ar fi greu de supraestimat atât vivacitatea cu care Domnul nostru și-a reprezentat condițiile noi și minunate în care va fi trăită viața celor fericiți în Împărăția viitoare, cât și accentul cu care le descrie. Este o ordine a lucrurilor aflată cu totul deasupra acestei vieți pământești și în care cei drepți vor străluci ca soarele, în care vor fi văzuți toți profeții, în care cei curați în inimă se vor bucura de viziunea beatifică a lui Dumnezeu, în care cei care flămânzesc și însetează după dreptate vor fi pe deplin săturați. Cu siguranță, pentru a înfăptui aceasta trebuie să aibă loc o mare criză, o mare catastrofă la sfârșit, care va fi tocmai opusul oricărei evoluții. Domnul nostru însuși i-a marcat caracterul unic numind-o palingenesis, regenerarea, Mat. 19:28.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The parables of the wheat and the tares and of the fish-net",
+          "quoteTarget": "Pildele despre grâu și neghină și despre năvod",
+          "note": "Pildele sunt numite după titlu, fără trimitere: probabil Mat. 13:24–30 (cf. 13:36–43) și Mat. 13:47–50, identificate din memorie, neverificate. «Fish-net» este redat «năvod» și «tares» «neghină», ca în 04-03 («pilda năvodului», «pilda grâului și a neghinei»)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "puts forth the sickle, because the fruit is ripe",
+          "quoteTarget": "pune secera la lucru, pentru că rodul este copt",
+          "note": "Probabil aluzie la Mc. 4:29 (RV: «he putteth forth the sickle, because the harvest is come»), identificată din memorie, neverificată; sursa nu dă trimitere aici. Tradus ca text al autorului, idiomatic («pune secera la lucru»), nu după o ediție românească a Bibliei."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the vividness with which our Lord realized",
+          "quoteTarget": "vivacitatea cu care Domnul nostru și-a reprezentat",
+          "note": "«Realized» (= a face real în minte, a înțelege în chip viu) nu are obiect propriu în sursă; îl împarte cu «describes» («the new and marvelous conditions»). Redat «și-a reprezentat», cu obiectul mutat la primul verb și reluat prin «le» la al doilea; am evitat «a realiza» (calc). Alternative: «a întrevăzut», «a avut în fața ochilor»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the life of the blessed",
+          "quoteTarget": "viața celor fericiți",
+          "note": "«The blessed» (substantivat) este redat «cei fericiți», în lanț cu «blessedness» = «fericire» (glosar, FIX). Fără rând în glosar; propus pentru glosar după aprobare. Alternativă: «cei binecuvântați»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the righteous shall shine as the sun",
+          "quoteTarget": "cei drepți vor străluci ca soarele",
+          "note": "Posibilă aluzie la Mat. 13:43, identificată din memorie, neverificată; sursa nu dă trimitere. Tradus ca text al autorului, nu după o ediție românească a Bibliei."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "all the prophets will be seen",
+          "quoteTarget": "vor fi văzuți toți profeții",
+          "note": "Posibilă aluzie la Lc. 13:28 (Avraam, Isaac, Iacov «și toți profeții» în Împărăție), identificată din memorie, neverificată; sursa nu dă trimitere."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the pure in heart shall enjoy the beatific vision of God",
+          "quoteTarget": "cei curați în inimă se vor bucura de viziunea beatifică a lui Dumnezeu",
+          "note": "Posibilă aluzie la Mat. 5:8, identificată din memorie, neverificată. «Pure in heart» este tradus literal («cei curați în inimă»), nu reprodus după vreo ediție românească."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "beatific vision",
+          "quoteTarget": "viziunea beatifică",
+          "note": "Termen tehnic (lat. visio beatifica), redat «viziunea beatifică». Fără rând în glosar; propus pentru glosar după aprobare. Alternativă pentru un public protestant: «vederea fericitoare a lui Dumnezeu»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "those who hunger and thirst after righteousness shall be completely filled",
+          "quoteTarget": "cei care flămânzesc și însetează după dreptate vor fi pe deplin săturați",
+          "note": "Posibilă aluzie la Mat. 5:6, identificată din memorie, neverificată. «Righteousness» este redat «dreptate», conform glosarului (FIX, PROPUS), nu «neprihănire» ca în tradiția Cornilescu."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the palingenesis, the regeneration",
+          "quoteTarget": "palingenesis, regenerarea",
+          "note": "«Palingenesis» (transcrierea cu litere latine a termenului grecesc din Mat. 19:28) este lăsat neschimbat, ca în sursă, conform regulii pentru termenii din limbi vechi; forma românească ar fi «palingeneză». «The regeneration» este redat «regenerarea» (profil: PREFER)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 13:24–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:47–50",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mc. 4:29",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:43",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Lc. 13:28",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 5:8",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 5:6",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 19:28",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGVC",
+      "text": "În plus, trebuie să ne ferim de a restrânge Împărăția interioară, spirituală, la sfera eticului. Aceasta este o eroare care s-a bucurat de multă trecere în vremurile recente, ca urmare a faptului că anumite sisteme teologice construite dintr-un punct de vedere etic unilateral au adoptat ideea Împărăției drept centrul lor organizator. Împărăția a fost definită ca o comunitate etică înfăptuită prin interacțiunea oamenilor pe principiul dragostei. Această definiție este eronată în două privințe. În primul rând, potrivit Domnului nostru, întregul conținut al religiei trebuie subsumat Împărăției. Deși este adevărat că Împărăția constă în dreptate, ea nu are nicidecum aceeași întindere cu aceasta, ci constă în multe alte lucruri pe lângă aceasta. Binecuvântări precum viața, iertarea păcatelor și comuniunea cu Dumnezeu aparțin Împărăției în aceeași măsură și au o legătură la fel de vitală cu ideea Împărăției ca și cultivarea dragostei, după cum va reieși mai târziu. Iar în al doilea rând, tot ceea ce aparține Împărăției, atât eticul, cât și religiosul, este înfățișat în învățătura lui Isus despre Împărăție nu ca produs al activității umane, ci ca lucrare a lui Dumnezeu. Nicăieri nu spune el că oamenii fac Împărăția. În Rugăciunea Domnului, cuvintele „Să se facă voia ta” explică cuvintele precedente, „Să vină Împărăția ta”, dar ambele sunt cereri, prin rostirea cărora suntem învățați să privim spre Dumnezeu pentru ca el să întemeieze în noi domnia sa chiar și în acea formă care se va descoperi prin acțiunile noastre.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "This is erroneous in two respects",
+          "quoteTarget": "Această definiție este eronată în două privințe",
+          "note": "«This» este redat prin antecedentul său, «această definiție» (fraza precedentă: «The kingdom has been defined as …»), fiindcă un simplu «Aceasta» ar fi putut fi citit ca referindu-se la «Împărăția». Sensul rămâne cel al sursei."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "coextensive with the same",
+          "quoteTarget": "aceeași întindere cu aceasta",
+          "note": "«Coextensive» este redat prin circumlocuția «aceeași întindere», fiindcă «coextensiv» este rar în româna curentă; «the same» = dreptatea. Alternativă: «coextensivă cu aceasta»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the principle of love",
+          "quoteTarget": "principiul dragostei",
+          "note": "«Love» (în etica Împărăției; la fel «the cultivation of love», redat «cultivarea dragostei») este redat «dragoste», nu «iubire» cum avea ciorna: uz protestant, ca în finalele 01-01 («dragostea și harul lui Dumnezeu») și 03-01 («dragostea și harul»). La data reviziei, ciornele nefinale 07-01, 08-01, 10-00, 10-01 și 10-02 au încă «iubire»; de uniformizat. Fără rând în glosar; propus pentru glosar după aprobare. Alternativă pentru revizor: «iubire»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "forgiveness of sin",
+          "quoteTarget": "iertarea păcatelor",
+          "note": "Singularul generic al sursei («sin») este redat prin sintagma fixă din limba teologică și bisericească românească, «iertarea păcatelor» (plural generic), după constatarea criticului (calc, MINOR). Ciorna avea «iertarea păcatului», urmare mecanică a singularului englez. Sensul generic este neschimbat. Alternativă pentru revizor: «iertarea păcatului», dacă se vrea păstrat singularul sursei."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "In our Lord’s Prayer",
+          "quoteTarget": "În Rugăciunea Domnului",
+          "note": "«Our Lord’s Prayer» (cu posesivul pios «our») este redat prin numele fix «Rugăciunea Domnului», ca în 03-01, 06-01, 07-00 și 08-00 (unde sursa are «the Lord’s Prayer»), după constatarea criticului (termen, MINOR). Ciorna avea «Rugăciunea Domnului nostru», care putea fi citit ca „rugăciunea rostită de Domnul” în general. Posesivul «our» nu are corespondent separat; «Domnului» este același Domn (Hristos). Alternativă pentru revizor: «Rugăciunea Domnului nostru»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Thy will be done",
+          "quoteTarget": "Să se facă voia ta",
+          "note": "Citat al autorului din Rugăciunea Domnului (probabil Mat. 6:10, identificat din memorie, neverificat; sursa nu dă trimitere). Tradus din formularea engleză a lui Vos, în aceeași redare ca în 03-01, nu după formula liturgică românească; de înlocuit ulterior cu o ediție licențiată. «Ta» cu literă mică, conform regulilor §7 (uz academic)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Thy Kingdom come",
+          "quoteTarget": "Să vină Împărăția ta",
+          "note": "A doua cerere din același citat (vezi flagul precedent), tradusă ca text al autorului. Ordinea sursei este păstrată: «Thy will be done» explică «Thy Kingdom come»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:10",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 4 (1 MAJOR, 3 MINOR); aplicate 4, respinse 0, fiecare verificată față de original (job și content/sources/vos-1903-kingdom/raw.txt). (1) Par. 2: «Regenerarea introduce în ea.» devine «Regenerarea dă intrare în ea.» (MAJOR, gramatică): elipsa obiectului este a lui Vos (la fel în cap. VIII, «what introduces into it», redat în ciorna 08-01 «ceea ce dă intrare în această cunoaștere»); «a introduce» tranzitiv fără obiect lăsa propoziția incompletă în română, iar varianta cu obiect explicit («îl introduce pe om») ar fi adăugat un participant. (2) Par. 1: «în esență» devine «în toate privințele» (MINOR, modalitate); cealaltă propunere, «practic», poate fi citită ca „aproape”. (3) Par. 5: «Rugăciunea Domnului nostru» devine «Rugăciunea Domnului» (MINOR, termen), numele fix din 03-01, 06-01, 07-00, 08-00. (4) Par. 5: «iertarea păcatului» devine «iertarea păcatelor» (MINOR, calc). Retușuri proprii, reverificate față de original, fără schimbare de sens: par. 5 «iubirii» devine «dragostei» (de două ori), ca în finalele 01-01 și 03-01 (criticul a notat «iubire» ca redare a celorlalte loturi, dar finalul 03-01 are «dragoste»; ciornele nefinale 07-01, 08-01, 10-00, 10-01, 10-02 au încă «iubire», de uniformizat); par. 5 «datorită faptului că» devine «ca urmare a faptului că» («datorită» se rezervă de obicei cauzelor pozitive, iar aici cauza explică răspândirea unei erori); par. 4 «a lucrurilor, aflată cu totul deasupra acestei vieți pământești, în care» devine «a lucrurilor aflată cu totul deasupra acestei vieți pământești și în care» (relativul «în care» putea fi atașat la «viață», nu la «ordine»; prin «și» este acum coordonat cu participiul «aflată», ambele având ca antecedent «ordine»; participiul feminin singular nu se poate acorda cu «lucrurilor»). Verificat frază cu frază față de original, în ambele sensuri (40 de propoziții: 5 + 8 + 7 + 10 + 10), fără omisiuni, adaosuri, negații sau modalitate alterate. Trimiterile din text sunt cele din job (Mc. 4:26–29; Mat. 19:28). Opt aluzii (1 Cor. 3:6–7; Mat. 13:24–30; 13:47–50; Mc. 4:29; Mat. 13:43; Lc. 13:28; Mat. 5:8; 5:6) și citatul din Rugăciunea Domnului (Mat. 6:10) sunt identificate din memorie și neverificate pe un text biblic (depozitul nu are o ediție); apar numai în scripture și în flag-uri, nu în text. Elipsa din par. 2 și lipsa antecedentului lui «it» din par. 3 («so to conceive of it») sunt ale autorului, nu defecte de ingest. Redări de ținut consecvent: kingdom (absolut) = Împărăția; kingdom-teaching = învățătura despre Împărăție; kingdom-idea = ideea Împărăției; misconception = noțiune greșită; immanent kingdom = Împărăția imanentă; stage = stadiu; consummation = desăvârșire; fish-net = năvod; tares = neghină; supernatural(ism/ist) = supranatural(ism/ist); love = dragoste; reign = domnie; the Lord’s Prayer = Rugăciunea Domnului. Textul nu este certificat ca publicabil."
+}

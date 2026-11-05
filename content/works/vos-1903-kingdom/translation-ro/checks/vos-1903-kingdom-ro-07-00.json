@@ -1,6 +1,6 @@
 {
   "jobId": "vos-1903-kingdom-ro-07-00",
-  "file": "drafts/vos-1903-kingdom-ro-07-00.json",
+  "file": "final/vos-1903-kingdom-ro-07-00.json",
   "ok": true,
   "strictOk": true,
   "findings": [
@@ -96,7 +96,7 @@
   "stats": {
     "paragraphs": 6,
     "sourceWords": 975,
-    "targetWords": 926,
+    "targetWords": 928,
     "lengthRatio": 1.032
   }
 }

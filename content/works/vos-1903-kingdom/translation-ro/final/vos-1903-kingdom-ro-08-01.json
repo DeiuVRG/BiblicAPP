@@ -1,0 +1,279 @@
+{
+  "jobId": "vos-1903-kingdom-ro-08-01",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT486A",
+      "text": "Faptul că locul care revine filiației, ca una dintre binecuvântările Împărăției, nu este întotdeauna recunoscut cu destulă claritate își găsește explicația într-o înțelegere greșită, larg răspândită, a învățăturii Domnului nostru despre filiație. El este adesea interpretat ca unul care învață filiația tuturor oamenilor, fără deosebire. Filiația ar fi atunci ceva ce nu își are originea, în niciun sens, în relația de răscumpărare cu Dumnezeu și nici în Împărăția lui Dumnezeu. Aici este ușor să se cadă într-o extremă atât negând categoric, cât și afirmând fără deosebire că Domnul nostru i-a făcut pe oameni fii ai lui Dumnezeu din fire. Unele dintre cuvintele sale, ca pilda fiului risipitor, implică vădit că, în ciuda înstrăinării păcătosului de Dumnezeu, continuă să existe o relație filială. Întreaga orientare a învățăturii sale merge în sensul că răscumpărarea restabilește ceea ce a fost tulburat de păcat. Dar, admițând aceasta, nu trebuie să trecem cu vederea două considerații importante care l-ar determina inevitabil să sublinieze noutatea filiației de care se bucură omul în starea de răscumpărare. Pe de o parte, Isus avea o cunoaștere prea profundă a gravității păcatului ca să nu recunoască faptul că acesta trebuie să-l facă pe om nevrednic și incapabil de filiație în sensul ei deplin, originar. Pe de altă parte, el avea, de asemenea, o concepție prea înaltă despre perfecțiunea transcendentă a Împărăției ca să nu găsească în ea, în această privință, ca și în altele, ceva ce ar depăși cu mult orice privilegiu religios pe care omul l-ar putea numi al său din fire. Împărăția neutralizează efectele păcatului, dar face mult mai mult decât atât. Îl duce pe om până la limita cea mai înaltă a capacității sale de a-l cunoaște pe Dumnezeu, de a-l iubi, de a-l sluji și de a se bucura de el, iar Domnul nostru nu asociază cu termenul „filiație” nimic mai puțin decât atingerea acestei limite. Cuvintele consemnate în Lc. 20:36, „Ei sunt egali cu îngerii; și sunt fii ai lui Dumnezeu, fiind fii ai învierii”, sunt de ajuns pentru a arăta că filiația față de Dumnezeu i se înfățișa mai degrabă ca punctul culminant decât ca nivelul obișnuit al privilegiului religios, cf. și Mat. 5:9.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "belongs to sonship",
+          "quoteTarget": "revine filiației",
+          "note": "«Sonship» (starea de fiu a omului față de Dumnezeu; termen central al capitolului, repetat de multe ori în lot) este redat „filiație”, aliniat cu 08-00 (par. 5, unde apare prima dată). Derivatele: «sonship to God» = „filiația față de Dumnezeu”, «filial» = „filial/filială”. Fără rând în glosar; miză teologică. Alternative: „calitatea de fiu”, „starea de fiu”; „înfiere” rămâne rezervat pentru «adoption». Propus pentru glosar (FIX) după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "too high a conception of the transcendent perfection of the kingdom",
+          "quoteTarget": "o concepție prea înaltă despre perfecțiunea transcendentă a Împărăției",
+          "note": "«Conception» în sensul de „idee articulată pe care și-o face cineva despre ceva” este redat „concepție”, nu „noțiune” (profilul dă WARN pentru «concepție», dar „o noțiune prea înaltă” nu se poate spune); la fel s-a procedat în 08-00 și 07-02. În rest, «conception» = „noțiune” (par. 2 și 4 ale lotului). Alternativă: „o idee prea înaltă despre”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "made men the sons of God by nature",
+          "quoteTarget": "i-a făcut pe oameni fii ai lui Dumnezeu din fire",
+          "note": "«By nature» (opus lui „prin înfiere/har”) este redat „din fire”, locuțiunea românească uzuală pentru starea naturală; aceeași redare pentru «call his own by nature» („al său din fire”) și pentru «naturally lives for» din par. 3 („din fire trăiește”). Alternative: „prin natură”, „după natură”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the sonship which is enjoyed in the redemptive state",
+          "quoteTarget": "filiației de care se bucură omul în starea de răscumpărare",
+          "note": "Modificat la revizie, după critic. Pasivul «is enjoyed», fără agent, era redat în ciornă cu participiul „gustate”, care sugerează o experiență parțială, absentă din sursă; «enjoyed» are aici sensul „a avea parte de ceva și a se bucura de el”. Redarea „de care se bucură omul” adaugă numai agentul „omul”, subînțeles din context (omul este tema paragrafului: «render man unworthy», «any religious privilege that man could call his own»). Alternativă fără agent: „filiației trăite în starea de răscumpărare”. Același procedeu în par. 4 («can be enjoyed on earth»). «Redemptive relation/state» = „relația/starea de răscumpărare”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "nothing less than the attainment of this",
+          "quoteTarget": "nimic mai puțin decât atingerea acestei limite",
+          "note": "Adăugat la revizie, după critic. «This» reia „the highest limit of knowledge and love and service and enjoyment of God of which he is capable” din propoziția precedentă, nu «sonship». Ciorna avea „atingerea acesteia”, dar în română cel mai apropiat substantiv feminin singular este „filiație”, deci pronumele s-ar fi citit „atingerea filiației”, adică o lectură circulară (Domnul nostru ar asocia termenului „filiație” atingerea filiației). Antecedentul este explicitat („această limită”), ca în „acest uz” și „această cunoaștere” din lot."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "They are equal unto the angels; and are sons of God, being sons of the resurrection",
+          "quoteTarget": "Ei sunt egali cu îngerii; și sunt fii ai lui Dumnezeu, fiind fii ai învierii",
+          "note": "Citat din Lc. 20:36 în engleza lui Vos (apropiată de RV), tradus ca text al autorului, nu după o ediție românească a Bibliei: «equal unto the angels» = „egali cu îngerii”, «sons of the resurrection» redat literal. Marcat quote-author-rendering, spre înlocuire ulterioară cu o ediție licențiată."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the parable of the prodigal son",
+          "quoteTarget": "pilda fiului risipitor",
+          "note": "Trimitere la pilda din Lc. 15:11–32; sursa nu dă trimitere biblică, identificarea este din memorie și neverificată. Marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA). «Parable» = „pildă” (glosar)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 20:36",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 5:9",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:11–32",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT486B",
+      "text": "Și nu numai filiația omului, ci chiar și paternitatea lui Dumnezeu se pretează la această aplicare înaltă și exclusivă. Căci Isus le vorbește mereu ucenicilor despre „Tatăl vostru”, Mat. 6:32. În Evangheliile sinoptice, „Tatăl” îl desemnează întotdeauna pe Dumnezeu în raport cu „Fiul”, adică cu Isus în mod specific. În a patra Evanghelie, unde „Tatăl” este folosit și cu referire la ucenicii în general, acest uz nu se întemeiază pe o noțiune de paternitate universală, ci pe gândul că relația existentă în mod originar între Dumnezeu și Isus este extinsă și asupra ucenicilor. Aceasta este, așadar, cea mai apăsată afirmare a valorii unice a filiației. Și această valoare nu era limitată, în aprecierea Domnului nostru, la sfera morală, așa cum o înfățișează uneori reprezentările moderne unilaterale. Filiația implică mai mult decât asemănarea morală cu Dumnezeu, deși aceasta este, desigur, unul dintre elementele ei principale. Bogata ei semnificație religioasă poate fi percepută cel mai bine din cuvintele jubilante în care Isus vorbește despre propria sa relație filială cu Tatăl, Mat. 11:27, relație care, deși unică într-un anumit sens, trebuie totuși să prezinte o asemănare generală cu filiația ucenicilor. Cunoașterea reciprocă cea mai desăvârșită, comuniunea de viață cea mai nemijlocită, unitatea de scop cea mai deplină, posesiunea comună a unei fericiri și a unei păci desăvârșite între Dumnezeu și om – toate acestea fac parte din filiația în care constă Împărăția. Cel mai înalt dar care poate fi dăruit celor curați în inimă este acela că, în Împărăția finală, vor avea viziunea beatifică, filială, a lui Dumnezeu față în față.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "which, while unique in one sense, must yet bear a general resemblance to the sonship of the disciples",
+          "quoteTarget": "relație care, deși unică într-un anumit sens, trebuie totuși să prezinte o asemănare generală cu filiația ucenicilor",
+          "note": "Antecedentul lui «which» poate fi «his own filial relation to the Father» (lectura aleasă: o relație poate fi unică și, totuși, asemănătoare filiației ucenicilor) sau, în citirea aproape de literă, «Matt. xi. 27» / «the jubilant words». S-a repetat substantivul „relație” înaintea lui „care”, altfel pronumele s-ar fi legat de trimiterea biblică imediat precedentă."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "this is not based on a conception of universal fatherhood",
+          "quoteTarget": "acest uz nu se întemeiază pe o noțiune de paternitate universală",
+          "note": "«This» (folosirea lui «The Father» pentru ucenici) este explicitat „acest uz”: un „aceasta” pus după „a patra Evanghelie” s-ar fi legat de substantivul feminin „Evanghelie”. «Conception» = „noțiune” (profil). «Fatherhood» = „paternitate” (ca în cap. I și VII)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "your Father",
+          "quoteTarget": "Tatăl vostru",
+          "note": "Expresie scurtă citată (nu un verset întreg), cu trimitere la Mat. 6:32; tradusă ca text al autorului. Marcată reference, nu quote-author-rendering, pentru că nu are sens să fie înlocuită cu textul unei ediții a Bibliei (în verset stă mai mult decât expresia citată)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the pure in heart",
+          "quoteTarget": "celor curați în inimă",
+          "note": "Posibilă aluzie la Mat. 5:8 (și, pentru «face to face», un posibil ecou al lui 1 Cor. 13:12, nemarcat); sursa nu dă trimitere; identificată din memorie, neverificată; marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA). «Pure in heart» este tradus literal, ca în 05-01 („cei curați în inimă”), nu după o ediție românească. «Beatific filial vision» = „viziunea beatifică, filială”, cu «viziunea beatifică» ca în 05-01 (TERMEN_NOU acolo)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 6:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 11:27",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 5:8",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT486C",
+      "text": "Al doilea termen cuprinzător prin care Isus descrie fericirea Împărăției este cel al vieții. Ideea de viață din Vechiul Testament are drept trăsături proeminente nu atât elementele creșterii și ale activității, cât mai degrabă cele ale prosperității și ale fericirii în posesiunea favorii lui Dumnezeu. În învățătura sa sinoptică, Domnul nostru rămâne, în linii mari, fidel acestei idei; doar că, în concordanță cu uzul iudaic predominant, el proiectează ideea în viitor, viața fiind aici echivalentă cu ansamblul binecuvântărilor și al bucuriilor Împărăției finale. Totuși, chiar și în învățătura sinoptică găsim că se vorbește uneori despre viață ca despre o posesiune religioasă prezentă și, prin urmare, ca despre o stare spirituală prin însăși esența ei, Mat. 8:22; Lc. 15:24, 32; 20:38. O Împărăție prezentă aduce cu sine, în mod necesar, o participare prezentă la viață. Și în aceeași măsură în care lucrurile stau așa, viața tinde să devină și o viață în sensul subiectiv al cuvântului, un nume pentru creșterea și activitatea spirituală a credinciosului, ceva de „trăit”, precum și de „moștenit”. În cuvântările din a patra Evanghelie putem observa limpede cum dezvoltă Domnul nostru ideea în aceste două direcții. Definiția sa clasică a vieții se găsește în așa-numita rugăciune arhierească: a-l cunoaște pe singurul Dumnezeu adevărat și pe cel pe care l-a trimis, anume pe Isus Hristos, In. 17:3. Cunoașterea lui Dumnezeu despre care se vorbește aici este, desigur, ceva ce, în principiu, este deja împărtășit în prezent, deși posesiunea ei desăvârșită se află încă în viitor. Este o cunoaștere care depășește cu mult simpla cogniție intelectuală: cuprinde acea familiaritate practică, acea sesizare afectuoasă, care izvorăsc din afinitatea de natură și din cea mai înaltă iubire spirituală. De aceea, ceea ce dă intrare în această cunoaștere nu este un proces de instruire, ci o naștere de sus, sau o renaștere, prin care caracterul fundamental este schimbat, astfel încât, din carne, care din fire trăiește pentru această lume inferioară, pământească, senzuală, el devine duh, care din fire trăiește pentru lumea cerului și pentru Dumnezeu. Pentru că Isus este reprezentantul personal și întruchiparea acestei vieți cerești pe pământ, el este calea spre Dumnezeu, In. 14:6.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "Hence what introduces into it",
+          "quoteTarget": "ceea ce dă intrare în această cunoaștere",
+          "note": "«It» este înțeles ca «a knowledge» din propoziția precedentă (lectura aleasă); o lectură alternativă ar fi «life». Substantivul a fost explicitat („această cunoaștere”), fiindcă „ea” s-ar fi legat de „iubire spirituală”, ultimul substantiv feminin. Din același motiv, «To this» de la începutul frazei a treia este redat „acestei idei” (și nu „acesteia”, care s-ar fi legat de „favoarea lui Dumnezeu”). «Introduces into it» este redat „dă intrare în”, fără obiect exprimat, ca în sursă."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "it becomes spirit, which naturally lives for the world of heaven and for God",
+          "quoteTarget": "el devine duh, care din fire trăiește pentru lumea cerului și pentru Dumnezeu",
+          "note": "Subiectul lui «it» este cel mai apropiat substantiv, «the fundamental character» (lectura aleasă, redată „el” după „caracterul fundamental”); lectura alternativă ar fi omul însuși. „El” (masculin) păstrează ambiguitatea. «Flesh» / «spirit» = „carne” / „duh” (cu minusculă: duhul omenesc, nu Duhul Sfânt)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "to know the only true God, and him whom he did send, even Jesus Christ",
+          "quoteTarget": "a-l cunoaște pe singurul Dumnezeu adevărat și pe cel pe care l-a trimis, anume pe Isus Hristos",
+          "note": "Citat adaptat de Vos (persoana a III-a: «him whom he did send»), fără ghilimele în sursă, după In. 17:3; tradus din engleza autorului, nu după o ediție românească a Bibliei. Marcat quote-author-rendering. «Even» (apoziție, ca în engleza biblică) este redat „anume”; «high-priestly prayer» = „rugăciunea arhierească”, numele uzual al In. 17."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "a birth from above, or a re-birth",
+          "quoteTarget": "o naștere de sus, sau o renaștere",
+          "note": "Aluzie la convorbirea cu Nicodim (In. 3:3–7; pentru «from flesh ... becomes spirit», In. 3:6); sursa nu dă trimitere; identificată din memorie, neverificată; marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA). «Birth from above» este redat „naștere de sus”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "that practical acquaintance, that affectionate apprehension",
+          "quoteTarget": "acea familiaritate practică, acea sesizare afectuoasă",
+          "note": "«Acquaintance» = „familiaritate” (cunoaștere prin contact direct), «apprehension» = „sesizare” (înțelegere intuitivă), «mere intellectual cognition» = „simpla cogniție intelectuală”, «congeniality of nature» = „afinitate de natură”. Alternative: „cunoștință practică”, „înțelegere afectuoasă”, „înrudire de natură”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a present enjoyment of life",
+          "quoteTarget": "o participare prezentă la viață",
+          "note": "Modificat la revizie, după critic. «Enjoyment of life» are aici sens religios (a avea parte de viața Împărăției și a se desfăta în ea, în continuarea lui «present religious possession»), nu „bucuria de a trăi”. Ciorna avea „o bucurare prezentă de viață”, substantiv rar care se citește ușor ca „bucuria de a trăi”, adică sensul profan pe care voia să îl evite. „Participare” elimină această citire, dar pierde parțial nuanța de desfătare din «enjoyment». Alternative pentru revizor: „faptul de a avea parte de viață în prezent”, „o desfătare prezentă în viață”, „o bucurare prezentă de viață”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the possession of the favor of God",
+          "quoteTarget": "posesiunea favorii lui Dumnezeu",
+          "note": "«Favor of God» = „favoarea lui Dumnezeu” (uzual în româna evanghelică; „har” rămâne pentru «grace»). Alternativă: „bunăvoința lui Dumnezeu”. «Possession» = „posesiune” (ca în 08-00)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 8:22",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:24",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 15:32",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 20:38",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 17:3",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "In. 3:3–7",
+          "mode": "allusion"
+        },
+        {
+          "ref": "In. 14:6",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT486D",
+      "text": "Vedem, așadar, cât de deplin este dominată această viață, care constituie posesiunea fericită a Împărăției de către om, de gândul comuniunii cu Dumnezeu, ca izvor principal al bucuriei sale. În principiu, însă, același lucru este implicat în unele dintre cuvintele sinoptice citate mai sus, care se apropie de noțiunea vieții ca ceva de dezvoltat în om. Atunci când fiul risipitor, în foamea lui, își amintește de bogățiile casei Tatălui său, se spune despre el că „și-a venit în fire”. Întoarcerea lui la Tatăl este descrisă ca o schimbare din moarte în viață: „Acest frate al tău era mort și este iarăși viu, și era pierdut și este găsit”, Lc. 15:32. Astfel, se vede că readoptarea în filiație și readucerea la viață coincid. Dacă Isus a găsit în amândouă esența privilegiului și a fericirii Împărăției, de care omul se poate bucura pe pământ, nu ne putem îndoi că el le-a socotit, de asemenea, supreme între comorile și desfătările Împărăției finale. Așa cum punctul de plecare al noțiunii sale despre Împărăție se afla în Dumnezeu, în exercitarea activă a stăpânirii regale a lui Dumnezeu, tot așa punctul ei de sosire se află în Dumnezeu, în dăruirea de sine a lui Dumnezeu către om, spre posesiune veșnică. Este învățătura lui Isus, ca și a lui Pavel, că de la Dumnezeu și prin Dumnezeu și spre Dumnezeu sunt toate lucrurile.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "come to himself",
+          "quoteTarget": "și-a venit în fire",
+          "note": "Citat scurt din Lc. 15:17; sursa nu dă trimitere; identificat din memorie, neverificat; marcat în scripture, nu adăugat în text (ar fi REF_EXTRA). «Come to himself» este redat prin idiomul românesc „a-și veni în fire”, echivalentul firesc, care coincide cu formulări din ediții ale Bibliei; la înlocuirea cu o ediție licențiată se verifică potrivirea cu fraza."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "This thy brother was dead, and is alive again, and was lost and is found",
+          "quoteTarget": "Acest frate al tău era mort și este iarăși viu, și era pierdut și este găsit",
+          "note": "Citat din Lc. 15:32 în engleza lui Vos (apropiată de KJV), tradus ca text al autorului, nu după o ediție românească a Bibliei; «thy brother» = „frate al tău”, timpurile verbale ale sursei păstrate. Marcat quote-author-rendering."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "re-adoption to sonship",
+          "quoteTarget": "readoptarea în filiație",
+          "note": "«Re-adoption» (tatăl îl primește iarăși pe fiu) este redat „readoptare”; fără rând în glosar. Alternative: „reînfierea” (dacă se fixează „înfiere” pentru «adoption»), „reprimirea ca fiu”. «Restoration to life» = „readucerea la viață”."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "we cannot doubt, that he also regarded them",
+          "quoteTarget": "nu ne putem îndoi că el le-a socotit",
+          "note": "Virgulă rătăcită în sursă, între «doubt» și «that» (probabil defect de tipar sau de OCR); fără efect asupra sensului. În română nu se pune virgulă înaintea lui „că” aici."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "which can be enjoyed on earth",
+          "quoteTarget": "de care omul se poate bucura pe pământ",
+          "note": "Modificat la revizie, pentru consecvență cu par. 1. Pasivul «can be enjoyed», fără agent, era redat în ciornă „pot fi gustate”; „a gusta” restrânge «enjoyed» la o experiență parțială, care nu este în sursă (criticul a acceptat verbul pentru colocația lui cu „fericirea”, dar el nu se potrivește cu „privilegiul”). Redarea „de care omul se poate bucura” adaugă numai agentul „omul”, ca în par. 1. «Kingdom-privilege and kingdom-blessedness» = „privilegiul și fericirea Împărăției” (genitiv comun); relativul se leagă de ambele. Alternativă fără agent: „care pot fi trăite pe pământ”."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "from God and through God and unto God are all things",
+          "quoteTarget": "de la Dumnezeu și prin Dumnezeu și spre Dumnezeu sunt toate lucrurile",
+          "note": "Aluzie (adaptată de Vos) la Rom. 11:36; sursa nu dă trimitere; identificată din memorie, neverificată; marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA). Tradusă din engleza autorului, cu polisindetul păstrat."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "gift of himself to man for everlasting possession",
+          "quoteTarget": "dăruirea de sine a lui Dumnezeu către om, spre posesiune veșnică",
+          "note": "«God’s gift of himself» este redat „dăruirea de sine a lui Dumnezeu” (Dumnezeu însuși este darul). Alternativă: „darul pe care Dumnezeu i-l face omului din sine însuși”. «Kingdom-conception» = „noțiunea sa despre Împărăție”; «royal sway» = „stăpânirea regală”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 15:17",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Lc. 15:32",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Rom. 11:36",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 3 (3 MINOR); aplicate 3, respinse 0, toate verificate față de original. (1) Par. 1: «the sonship which is enjoyed in the redemptive state» → „filiației de care se bucură omul în starea de răscumpărare” (în loc de „filiației gustate în starea de răscumpărare”): „a gusta” sugerează o experiență parțială, absentă din sursă, iar colocația cu „filiația” este neobișnuită; «enjoyed» înseamnă „a avea parte de ceva și a se bucura de el”; singurul adaos este agentul „omul”, subînțeles din context. Flag-ul din ciornă (ALTA, MINOR) este coborât la INFO, cu alternativa fără agent. (2) Par. 1: «nothing less than the attainment of this» → „nimic mai puțin decât atingerea acestei limite” (în loc de „atingerea acesteia”): «this» reia „the highest limit of knowledge and love and service and enjoyment of God of which he is capable”, iar „acesteia” s-ar fi legat de „filiație” și ar fi dat o lectură circulară; flag INFO adăugat. (3) Par. 3: «a present enjoyment of life» → „o participare prezentă la viață” (în loc de „o bucurare prezentă de viață”): substantivul rar „bucurare” se citește ușor ca „bucuria de a trăi”, sensul profan pe care ciorna voia să îl evite; „participare” păstrează sensul religios al contextului («present religious possession»), cu o pierdere mică a nuanței de desfătare; flag-ul din ciornă (ALTA, MINOR) este coborât la INFO, cu alternativele. Retuș propriu, după recitirea textului numai în română, reverificat față de original: par. 4 «which can be enjoyed on earth» → „de care omul se poate bucura pe pământ” (în loc de „care pot fi gustate pe pământ”), pentru consecvență cu par. 1 și din același motiv („gustate” restrânge «enjoyed» la o experiență parțială, iar verbul nu se potrivește cu „privilegiul”); flag-ul (ALTA, MINOR) este coborât la INFO. Restul textului ciornei este păstrat: la recitirea numai în română nu am găsit alte locuri cu sintaxă englezească ce nu se pot păstra fără pierdere; formulările ușor greoaie („ca unul care învață”, „se pretează la această aplicare”, „adică cu Isus în mod specific”) urmează fidel sursa și sunt lăsate ca atare, pentru decizia revizorului uman. Verificat frază cu frază față de original, în ambele sensuri (42 de propoziții: 12 + 10 + 12 + 8), fără omisiuni, adaosuri, negații, modalitate sau roluri alterate. Redări ținute consecvent cu cap. I–VII și cu 08-00 (versiunea finală): sonship = filiație (TERMEN_NOU din 08-00, aici repetat; «filial» = „filial/ă”); fatherhood = paternitate; blessedness = fericire (blessings = binecuvântări); possession = posesiune; conception = noțiune, cu excepția lui «too high a conception of» = „concepție prea înaltă despre” (flag); discourses = cuvântări; the Fourth Gospel = a patra Evanghelie; the Synoptical Gospels = Evangheliile sinoptice; the final kingdom = Împărăția finală; beatific vision = viziunea beatifică și the pure in heart = cei curați în inimă (ca în 05-01); parable = pildă; Father (Dumnezeu, și tatăl din pildă) = Tatăl; to enjoy = a se bucura (de), enjoyments = bucurii, delights = desfătări; „din fire” pentru «by nature» / «naturally». Termeni noi propuși pentru glosar (INFO): sonship = filiație (de aprobat), re-adoption = readoptare. Antecedente pronominale explicitate acolo unde româna ar fi legat pronumele greșit („acest uz”, „acestei idei”, „această cunoaștere”, „relație care”, „această limită”); vezi flag-urile. Trimiterile din job apar în text exact în forma din references[].target (Lc. 20:36; Mat. 5:9; Mat. 6:32; Mat. 11:27; seria Mat. 8:22; Lc. 15:24, 32; 20:38; In. 17:3; In. 14:6; Lc. 15:32). Citatele și aluziile fără trimitere în sursă (Lc. 15:11–32, Mat. 5:8, In. 3:3–7, Lc. 15:17, Rom. 11:36) sunt marcate doar în scripture și în flag-uri, identificate din memorie și neverificate pe o ediție a Bibliei, de confirmat de revizor; nu au fost adăugate în text. Textele biblice citate de Vos (Lc. 20:36, In. 17:3, Lc. 15:32) sunt traduse din engleza lui, nu după o ediție românească a Bibliei. O virgulă rătăcită în sursă (par. 4, «cannot doubt, that»), fără efect asupra sensului. Textul nu este certificat ca publicabil."
+}

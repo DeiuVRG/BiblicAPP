@@ -1,0 +1,117 @@
+{
+  "jobId": "vos-1903-kingdom-ro-11-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "XI. Recapitulare",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWW",
+      "text": "Ajunși la sfârșitul discuției noastre, putem încerca acum să formulăm pe scurt principiile importante întruchipate în învățătura Domnului nostru despre Împărăția lui Dumnezeu și Biserică. Ele sunt următoarele:",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWX",
+      "text": "În primul rând, noțiunea de Împărăție implică unitatea istorică dintre lucrarea lui Isus și lucrarea lui Dumnezeu din Vechiul Testament. Acestea două alcătuiesc un singur ansamblu de revelație și răscumpărare supranaturale.",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWY",
+      "text": "În al doilea rând, doctrina despre Împărăție reprezintă principiul potrivit căruia religia creștină nu este o simplă chestiune de idei sau experiențe subiective, ci este legată de un mare sistem de fapte și evenimente obiective, supranaturale. Împărăția înseamnă înnoirea lumii prin introducerea unor forțe supranaturale.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "facts and transactions",
+          "quoteTarget": "fapte și evenimente",
+          "note": "«Transactions» (aici în sensul vechi de lucruri petrecute, acte ale lui Dumnezeu în raport cu oamenii, nu operațiuni comerciale) este redat «evenimente», ca în 10-01 («they are transactions where» → «ele sunt evenimente în care»). Ciorna avea «tranzacții», calc care în română se aude ca operațiune comercială (constatare a criticului, aplicată). «Evenimente» pierde ușor nuanța de acțiune între părți; alternativă pentru revizor: «fapte și acte»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWZ",
+      "text": "În al treilea rând, ideea Împărăției este expresia cea mai limpede a principiului conform căruia, atât în sfera realității obiective, cât și în sfera conștiinței umane, totul se află în slujba slavei lui Dumnezeu. În această privință, Împărăția este cea mai profund religioasă dintre toate noțiunile biblice.",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YX0",
+      "text": "În al patrulea rând, mesajul Împărăției conferă creștinismului, așa cum îl proclamă Isus, caracterul declarat al unei religii a mântuirii, și anume a unei mântuiri nu în principal prin propriile eforturi ale omului, ci prin puterea și harul lui Dumnezeu. Împărăția reprezintă elementul specific evanghelic din învățătura Domnului nostru. Același principiu își găsește expresia subiectivă în învățătura lui despre credință.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the professed character of a religion of salvation",
+          "quoteTarget": "caracterul declarat al unei religii a mântuirii",
+          "note": "«professed» (declarat deschis, afirmat public) este redat «declarat»; alternativă: «mărturisit» (cf. «profession» → «mărturisire» în 09-04). Elipsa «and of salvation not primarily by …» este păstrată fără verb («a unei mântuiri nu în principal prin …»), ca să nu se schimbe relația instrumentală «by»."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQSCXZEAE1PF5EZXVR3YV8",
+      "text": "În al cincilea rând, doctrina lui Isus despre Împărăție – potrivit căreia Împărăția este atât interioară, cât și exterioară, venind mai întâi în inima omului și apoi în lumea exterioară – susține primatul spiritualului și eticului asupra fizicului. Lumea nevăzută a vieții religioase interioare, dreptatea dispoziției lăuntrice, filiația față de Dumnezeu sunt ridicate în ea la rang suprem, ca esență a Împărăției, ca realități ultime cărora li se subordonează orice altceva. Caracterul etic inerent al Împărăției își găsește expresia subiectivă în cerința de pocăință.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "as both inward and outward, coming first in the heart of man and afterwards in the external world",
+          "quoteTarget": "potrivit căreia Împărăția este atât interioară, cât și exterioară, venind mai întâi în inima omului și apoi în lumea exterioară",
+          "note": "Participiul «coming» și adjectivele «inward and outward» se raportează la «the kingdom», nu la «doctrine» (subiectul lui «upholds»). Ciorna le lega de Împărăție prin «care este … și care vine», dar în română «doctrina» și «Împărăție» sunt ambele feminine singular și «care» se putea lega de «doctrina» (constatare a criticului, aplicată). Acum subiectul este numit explicit («potrivit căreia Împărăția este …, venind …»), iar «as» (felul în care doctrina înfățișează Împărăția) se păstrează prin «potrivit căreia»; incidenta este între linii de pauză, fiindcă are virgule interne. Alternativă pentru revizor, propunerea literală a criticului: «doctrina lui Isus despre Împărăție, aceasta din urmă fiind atât interioară, cât și exterioară și venind mai întâi în inima omului și apoi în lumea exterioară, susține …»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the righteousness of the disposition",
+          "quoteTarget": "dreptatea dispoziției lăuntrice",
+          "note": "«Disposition» (atitudinea lăuntrică a inimii, spre deosebire de fapta exterioară) este redat «dispoziție», ca în 10-01 și 10-02, unde apare mereu cu un determinant («dispoziția interioară statornică», «dispoziția fundamentală a inimilor lor»). În română «dispoziție» înseamnă și «stare de spirit» sau «prevedere», iar aici nu avea niciun determinant care să o ancoreze; de aceea (constatare a criticului, aplicată) s-a adăugat «lăuntrice», care nu are corespondent lexical în sursă, ci explicitează interioritatea cuprinsă în «disposition» și în «the inner religious life» din aceeași frază. «Interioare» a fost evitat pentru a nu repeta sintagma precedentă. De adăugat în glosar după aprobare (disposition = dispoziție, cu determinant)."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the sonship of God",
+          "quoteTarget": "filiația față de Dumnezeu",
+          "note": "Genitivul «of God» este ambiguu (filiația omului față de Dumnezeu sau filiația Fiului). Contextul (viața religioasă interioară, dreptatea dispoziției) indică filiația credincioșilor; redat ca în 08-01 («sonship to God» → «filiația față de Dumnezeu»), cu «filiație» ca termen al capitolului VIII."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "are in it made supreme",
+          "quoteTarget": "sunt ridicate în ea la rang suprem",
+          "note": "«it» poate trimite la doctrina lui Isus sau la Împărăție. Lectura mai probabilă este doctrina («în ea» = în doctrina lui Isus), dar româna păstrează aceeași ambiguitate prin «în ea» (ambele substantive sunt feminine). Sensul argumentului nu depinde de alegere."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YX1",
+      "text": "În al șaselea rând, forma pe care o îmbracă Împărăția în Biserică arată că Împărăția este inseparabil legată de persoana și lucrarea lui Isus însuși. Religia Împărăției este o religie în care nu există doar un loc pentru Mântuitorul, ci în care locul central este rezervat Mântuitorului. Forma bisericească a Împărăției poartă pe bună dreptate numele de creștinism, pentru că în ea totul depinde de Hristos.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "shows it to be inseparably associated",
+          "quoteTarget": "arată că Împărăția este inseparabil legată",
+          "note": "«It» din «shows it to be» este Împărăția, nu forma (pentru formă ar fi trebuit «shows itself»). Ciorna avea «arată că ea este», unde «ea» putea fi înțeles ca «forma» sau ca «Împărăția» (ambele substantive sunt feminine); pronumele a fost înlocuit prin substantiv, fără a se adăuga vreo idee."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "there is not only a place but in which the central place is for the Saviour",
+          "quoteTarget": "nu există doar un loc pentru Mântuitorul, ci în care locul central este rezervat Mântuitorului",
+          "note": "În sursă «a place» nu are complement; «for the Saviour» este subînțeles din a doua parte a frazei și a fost explicitat în română («un loc pentru Mântuitorul»). Nu se adaugă nicio idee nouă."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YX2",
+      "text": "În sfârșit, gândul Împărăției lui Dumnezeu implică supunerea întregii întinderi a vieții omenești, în toate formele și sferele ei, față de scopurile religiei. Împărăția ne amintește de caracterul absolut, de caracterul atotpătrunzător, de stăpânirea nelimitată, care, de drept, aparțin oricărei religii adevărate. Ea proclamă că religia, și numai religia, poate acționa ca factor suprem unificator și centralizator în viața omului, ca ceea ce leagă totul laolaltă și desăvârșește totul, conducându-l la țelul său final în slujba lui Dumnezeu.",
+      "flags": [],
+      "scripture": []
+    }
+  ],
+  "notes": "Revizie finală (pass=revised), partea 0 (singura) din 1 a cap. XI, 8 paragrafe, 468 cuvinte-sursă. Titlul: «XI. Recapitulation» = „XI. Recapitulare” (revizuit, neschimbat). Constatările criticului: 3 (toate MINOR; verdict ok, nicio constatare CRITIC sau MAJOR); aplicate 3, respinse 0, fiecare verificată față de textul-sursă din job și față de loturile vecine. (1) Par. 3, «facts and transactions»: întemeiată («tranzacții» calchiază cuvântul englezesc și în română se aude ca operațiune comercială, imagine absentă din sursă; în 10-01 același cuvânt este «evenimente»); aplicat «fapte și evenimente obiective, supranaturale» (adjectivele rămân corect acordate); flag-ul DE_VERIFICAT (MINOR) al ciornei devine ALTA (INFO), cu alternativa «fapte și acte». (2) Par. 6, prima frază, «Jesus’ doctrine of the kingdom as both inward and outward, coming first in the heart of man …»: întemeiată (în sursă «inward and outward» și «coming» privesc «the kingdom», iar subiectul lui «upholds» este «doctrine»; în română ambele substantive sunt feminine singular și «care» de după virgulă se putea lega de «doctrina»); aplicat într-o variantă a propunerii criticului: «doctrina lui Isus despre Împărăție – potrivit căreia Împărăția este atât interioară, cât și exterioară, venind mai întâi în inima omului și apoi în lumea exterioară – susține primatul …», cu subiectul numit explicit, «as» păstrat prin «potrivit căreia» și incidenta între linii de pauză (are virgule interne); propunerea literală a criticului («aceasta din urmă fiind … și venind …») rămâne alternativă în flag; flag-ul ALTA (INFO) al ciornei a fost actualizat. (3) Par. 6, «the righteousness of the disposition»: întemeiată (în 10-01 final și 10-02 ciornă «dispoziție» apare mereu cu un determinant, tocmai pentru că în română înseamnă și «stare de spirit» sau «prevedere»; aici nu avea niciunul); aplicat «dreptatea dispoziției lăuntrice» («lăuntric» este folosit în lucrare, de ex. în 09-03, 10-00, 10-01, și evită repetarea lui «interioare» din sintagma precedentă); «lăuntrice» nu are corespondent lexical în sursă, ci explicitează interioritatea din «disposition» și din «the inner religious life» din aceeași frază, deci rămâne semnalat (TERMEN_NOU, INFO). Retușuri proprii, după recitirea textului numai în română, reverificate față de original, fără schimbare de sens: par. 7, «arată că ea este inseparabil legată» → «arată că Împărăția este inseparabil legată» («it» din «shows it to be» este Împărăția, iar «ea» putea fi înțeles și ca «forma», ambele substantive fiind feminine; flag nou ALTA, INFO) și «în ea de Hristos depinde totul» → «în ea totul depinde de Hristos» (dubla topicalizare din «in it on Christ everything depends» se auzea englezește; sensul și accentul pe Hristos rămân); par. 8, virgulă înainte de «care» în «de stăpânirea nelimitată, care, de drept, aparțin …» (în sursă virgula există și relativa privește toată seria de trei substantive; fără virgulă, «care» se lega de «stăpânirea nelimitată» și «aparțin» părea o greșeală de acord). Flag-uri din ciornă păstrate neschimbate: «professed» → «declarat» (par. 5; alternativa «mărturisit», cf. «profession» → «mărturisire» în 09-04, nu câștigă sens aici), «filiația față de Dumnezeu» și «în ea» (par. 6; ambiguități reale ale sursei, păstrate ca atare), «un loc pentru Mântuitorul» (par. 7; complement subînțeles, explicitat). Verificat frază cu frază, în ambele sensuri, cele 20 de propoziții ale sursei (2 + 2 + 2 + 2 + 3 + 3 + 3 + 3), fără omisiuni, adaosuri, negații, modalitate sau roluri alterate; singurele explicitări sunt «pentru Mântuitorul» (par. 7), «Împărăția» în locul lui «ea» (par. 7) și «lăuntrice» (par. 6). Redări ținute consecvent cu loturile vecine: kingdom-idea = ideea Împărăției (01-00, 01-01, 05-00, 05-01, 09-01), kingdom-conception = noțiune (08-01: «noțiunii sale despre Împărăție»), doctrine of the kingdom = doctrina despre Împărăție (05-00, 09-01), Finally = În sfârșit (01-01, 02-01, 04-00), demand for repentance = cerința de pocăință (10-00), sonship = filiație (08-00, 08-01), pervasiveness = caracterul atotpătrunzător (10-01), transactions = evenimente (10-01), disposition = dispoziție (10-01, 10-02), evangelical = evanghelic (04-01, 07-01), redemption = răscumpărare (08-01), renewal = înnoire (06-02, 06-03), the Saviour = Mântuitorul, our Lord = Domnul nostru, righteousness = dreptate, repentance = pocăință, faith = credință, the church = Biserica. Termen nou propus pentru glosar (flag TERMEN_NOU): disposition = dispoziție, cu determinant. Fără trimiteri biblice (references[] gol în toate cele 8 paragrafe), fără citate biblice, cuvinte grecești sau ebraice: scripture este gol peste tot. Textul nu este certificat ca publicabil."
+}

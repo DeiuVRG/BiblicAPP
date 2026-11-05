@@ -1,0 +1,228 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-01",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YW9",
+      "text": "Până acum am examinat cuvintele Domnului nostru exclusiv sub aspectul referirii lor la Biserică și nu am cercetat relevanța lor pentru doctrina despre Împărăție. Observăm acum că Biserica, introdusă aici pentru prima dată în mod formal, se află în cea mai strânsă legătură cu Împărăția, care ocupase până atunci locul de frunte în învățătura lui Isus. Căci imediat după declarația privitoare la zidirea Bisericii, Domnul nostru îi spune mai departe lui Petru: „Îți voi da cheile Împărăției cerurilor; și orice vei lega pe pământ va fi legat în cer; și orice vei dezlega pe pământ va fi dezlegat în cer”, v. 19. Nu ar fi imposibil, desigur, să se dea o interpretare plauzibilă a acestei legături pornind de la părerea că Biserica și Împărăția sunt lucruri separate. Dacă înțelegem Împărăția ca Împărăție finală, iar puterea cheilor ca putere de a da sau de a refuza intrarea, sensul ar putea fi că lui Petru, ca temelie a Bisericii, și, prin urmare, Bisericii, le-a fost dată puterea de a deschide sau de a închide, într-un fel sau altul, porțile Împărăției cerești. Potrivit acestei păreri, Biserica ar fi distinctă de Împărăția despre care se vorbește aici, ba chiar ar sta față de ea așa cum stă un portar față de o casă. Aceasta este însă cu greu o exegeză posibilă, în ceea ce privește chiar cuvintele celei de-a doua declarații. Legarea și dezlegarea nu se referă la cerul însuși, ca și cum cerul ar fi închis sau deschis, ci la anumite lucruri aflate în sfera cerului, și nu numai a cerului, ci deopotrivă a pământului.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "I will give unto thee the keys of the kingdom of heaven; and whatsoever thou shalt bind on earth shall be bound in heaven; and whatsoever thou shalt loose on earth shall be loosed in heaven",
+          "quoteTarget": "Îți voi da cheile Împărăției cerurilor; și orice vei lega pe pământ va fi legat în cer; și orice vei dezlega pe pământ va fi dezlegat în cer",
+          "note": "Citat din Mat. 16:19 în engleza lui Vos (formă apropiată de KJV), tradus ca text al autorului, nu după o ediție românească a Bibliei; marcat quote-author-rendering, spre înlocuire ulterioară cu o ediție licențiată. «Kingdom of heaven» urmează glosarul (FIX: Împărăția cerurilor, la plural), iar «in heaven» (singular în sursă) este redat «în cer», fără aliniere la plural. Persoana a II-a singular din sursă («unto thee», «thou shalt») este păstrată: «Îți voi da», «vei lega»."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "vs. 19",
+          "quoteTarget": "v. 19",
+          "note": "Trimiterea apare în sursă doar ca «vs. 19», fără carte și fără capitol. Se înțelege Mat. 16:19, versetul din care provine citatul de imediat înainte (Mat. 16 este citat explicit în paragraful următor al lotului). În text este păstrată forma din job («v. 19»); în `scripture` este înregistrată completat ca Mat. 16:19. Completarea este dedusă din context, nu verificată."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the declaration concerning the building of the church",
+          "quoteTarget": "declarația privitoare la zidirea Bisericii",
+          "note": "Trimitere la Mat. 16:18 (declarația despre zidirea Bisericii, comentată în tot capitolul; paragraful anterior, dat ca context, citează «I will build»). Sursa nu dă trimitere în acest paragraf; identificarea este dedusă din context, neverificată. Marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA). «Building» este redat «zidire», ca și «in process of building» din paragraful următor."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "their bearing upon the doctrine of the kingdom",
+          "quoteTarget": "relevanța lor pentru doctrina despre Împărăție",
+          "note": "«Bearing upon» este redat «relevanță pentru» (relația de pertinență a cuvintelor Domnului față de doctrina Împărăției). Redarea a fost reverificată la revizie față de original și păstrată; flag-ul din ciornă (MINOR) este coborât la INFO. Alternative pentru revizor: «legătura lor cu doctrina despre Împărăție» sau «însemnătatea lor pentru». «Doctrine of the kingdom» = «doctrina despre Împărăție», ca în rest («kingdom-doctrine»)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Understanding the kingdom as the final kingdom, and the power of the keys as the power to give or deny entrance, the sense might be",
+          "quoteTarget": "Dacă înțelegem Împărăția ca Împărăție finală, iar puterea cheilor ca putere de a da sau de a refuza intrarea, sensul ar putea fi",
+          "note": "Participiul englezesc fără subiect propriu («Understanding … , the sense might be») este redat cu o propoziție subordonată («Dacă înțelegem …»), fiindcă gerunziul românesc ar cere același subiect cu propoziția principală. «The final kingdom» = «Împărăția finală» (ca în cap. VIII); «power of the keys» = «puterea cheilor»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "gate-keeper",
+          "quoteTarget": "portar",
+          "note": "«Gate-keeper» (revine în paragraful următor, în opoziție cu «house-steward») este redat «portar» (păzitorul porții). Fără rând în glosar; propus pentru glosar după aprobare. Alternative: «păzitor al porții», «ușier»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:19",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 16:18",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCXPP0SBWE2QEBYTX2PC",
+      "text": "Imaginea legării și dezlegării va trebui înțeleasă într-un alt sens. Avem de ales între a o interpreta ca referindu-se la legarea și dezlegarea păcatului, adică la imputarea și iertarea păcatului, și a o interpreta ca pe un exemplu al limbajului iudaic curent, care folosea „a lega” în sensul de „a interzice”, iar „a dezlega” în sensul de „a permite”. Prima interpretare ar putea părea favorizată de Mat. 18:18, unde apar aceleași expresii, iar contextul ne duce cu gândul la procedura disciplinei bisericești. În Mat. 16, în schimb, nimic nu arată că imaginea are acest sens restrâns; dimpotrivă, totul indică interpretarea cea mai generală care i se poate da. Cheile despre care se vorbește nu sunt, după toate probabilitățile, cheile ușii exterioare, ci cheile care țin de întreaga casă – cheile nu ale portarului, ci ale administratorului casei – și simbolizează, prin urmare, administrarea treburilor casei în general, cf. Is. 22:22; Apoc. 3:7. Dar, oricare dintre ultimele două păreri menționate am adopta, în ambele cazuri Împărăția cerurilor apare ca ceva ce există, cel puțin în parte, pe pământ. Petru primește cheile Împărăției ca să lege sau să dezlege pe pământ. Ceea ce face el în administrarea Împărăției aici jos va fi recunoscut în cer. Or, întrucât această făgăduință urmează imediat după declarația privitoare la Petru ca stâncă de temelie a Bisericii, devine necesar să presupunem că, după părerea lui Isus, cele două sunt identificate una cu alta. Forța acestei concluzii se va simți dacă observăm că, în cele două afirmații făcute, imaginea este în esență aceeași, adică aceea a casei. Mai întâi, casa este înfățișată ca fiind în curs de zidire, iar Petru ca temelie; apoi aceeași casă apare ca terminată, iar Petru ca învestit cu cheile pentru administrarea treburilor ei. Este în mod limpede exclus ca casa să însemne un lucru în prima afirmație și altul în a doua. Trebuie să fie posibil – atât putem afirma cu încredere – să numim Biserica Împărăție. Este o altă chestiune, la care vom reveni în curând, dacă Împărăția poate fi identificată, în orice împrejurare, cu Biserica.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "The figure of binding and loosing",
+          "quoteTarget": "Imaginea legării și dezlegării",
+          "note": "«Figure» (figură de limbaj: legarea și dezlegarea, cheile, casa) este redat «imagine» în tot paragraful (de trei ori), ca în 06-00 («in the figure of the kingdom» = «în imaginea Împărăției»). Perechea «binding and loosing» = «legarea și dezlegarea», «to bind»/«to loose» = «a lega»/«a dezlega», «to forbid»/«to allow» = «a interzice»/«a permite». Fără rând în glosar; miză teologică (puterea cheilor), propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the most generalizing interpretation that can be put upon it",
+          "quoteTarget": "interpretarea cea mai generală care i se poate da",
+          "note": "«The most generalizing interpretation» (interpretarea care dă imaginii cea mai largă generalitate, opusă sensului «restricted») este redat «interpretarea cea mai generală». Ciorna avea «cea mai generalizatoare», un calc rar; la revizie a fost înlocuit și reverificat față de original (contrastul cu «this restricted sense» rămâne intact). Flag-ul din ciornă (MINOR) este coborât la INFO. Alternativă pentru revizor: «cea mai cuprinzătoare interpretare»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "these two last mentioned views",
+          "quoteTarget": "ultimele două păreri menționate",
+          "note": "«These two last mentioned views» este înțeles drept cele două interpretări ale legării și dezlegării din prima parte a paragrafului (a păcatului, respectiv a limbajului iudaic «a interzice»/«a permite»), opuse celei din paragraful anterior (portarul). Nu sunt cele două feluri de chei (ușa exterioară, întreaga casă): autorul tocmai a socotit improbabile cheile ușii exterioare, iar cu viziunea portarului concluzia «în ambele cazuri Împărăția apare ca ceva existent pe pământ» nu ar decurge; doar în prima lectură ea decurge logic, din faptul că legarea și dezlegarea se exercită «pe pământ». Redarea păstrează formularea sursei și, odată cu ea, ambiguitatea ei de suprafață; la revizie s-a considerat și s-a păstrat această lectură."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the keys not of the gate-keeper, but of the house-steward",
+          "quoteTarget": "cheile nu ale portarului, ci ale administratorului casei",
+          "note": "«House-steward» este redat «administrator al casei» (în legătură cu «administration of the affairs of the house» = «administrarea treburilor casei»). «Gate-keeper» = «portar», ca în paragraful anterior. Fără rând în glosar; propus pentru glosar după aprobare. Alternative mai marcate stilistic: «econom», «ispravnic»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Peter receives the keys of the kingdom to bind or loose on earth",
+          "quoteTarget": "Petru primește cheile Împărăției ca să lege sau să dezlege pe pământ",
+          "note": "Reluare, în cuvintele autorului, a lui Mat. 16:19 (citat în paragraful anterior); împreună cu «Peter as the foundation rock of the church» (Mat. 16:18) alcătuiesc aluzia de bază a paragrafului. Sursa dă aici doar «Matt. xvi» (capitol întreg); în scripture am adăugat aluzia Mat. 16:18–19, dedusă din context, neverificată, nu inclusă în text (ar fi REF_EXTRA)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "Peter as the foundation rock of the church",
+          "quoteTarget": "Petru ca stâncă de temelie a Bisericii",
+          "note": "«Foundation rock» este redat «stâncă de temelie» (nu «piatră de temelie»: sursa spune «rock»); «foundation» simplu (aici și în paragraful anterior: «Peter, as the foundation of the church») = «temelie». Fără rând în glosar; propus pentru glosar și de aliniat cu partea 09-00, care discută aceeași imagine."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "in Jesus’ view these two are identified",
+          "quoteTarget": "după părerea lui Isus, cele două sunt identificate una cu alta",
+          "note": "«These two» nu are antecedent exprimat; din context sunt Biserica (cea zidită pe stâncă) și Împărăția (ale cărei chei le primește Petru), cum arată și concluzia «to call the church the kingdom». Redat «cele două», fără a le numi (ar fi un adaos). «Are identified» = «sunt identificate una cu alta», ca în «whether the kingdom can … be identified with the church». «In Jesus’ view» este redat «după părerea lui Isus» (ciorna avea «în viziunea lui Isus», iar «viziune» se poate citi ca „vedenie”), ca în 04-00 («după părerea Domnului nostru» pentru «our Lord’s view»)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "The force of this",
+          "quoteTarget": "Forța acestei concluzii",
+          "note": "«This» (fără antecedent nominal; reia concluzia că Biserica și Împărăția sunt identificate în gândirea lui Isus) este explicitat prin «concluzii», fiindcă un demonstrativ gol («Forța acestuia», «Forța acestui lucru») ar rămâne fără referent clar în română. Alternativă pentru revizor: «Forța acestui raționament»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 18:18",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 16",
+          "mode": "reference"
+        },
+        {
+          "ref": "Is. 22:22",
+          "mode": "reference"
+        },
+        {
+          "ref": "Apoc. 3:7",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 16:18–19",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWA",
+      "text": "Împărăția, ca Biserică, prezintă trăsăturile unei comunități de oameni. Ea apare ca o casă. Acest caracter aparținea Bisericii Vechiului Testament, în locul căreia este pusă cea a lui Isus; el își găsește expresia și în chiar numele ecclesia, care desemnează adunarea cetățenilor liberi, convocați pentru a delibera și a acționa în chestiunile ce privesc comunitatea politică. În învățătura mai timpurie a lui Isus se găsesc urme ale faptului că el a privit Împărăția sub acest aspect, ca pe un organism alcătuit din oameni, deși reprezentarea aceasta nu este câtuși de puțin proeminentă. Spuse precum Mat. 20:25; Mc. 9:35; Lc. 20:25 sugerează cel puțin ideea Împărăției ca societate întemeiată pe un principiu cu totul diferit de cel care cârmuiește împărățiile acestei lumi. De fapt, Isus a adunat în jurul său un grup de ucenici și este plauzibil să presupunem că a găsit în asocierea lor reciprocă începutul a ceea ce Împărăția lui Dumnezeu era menită, prin însăși natura ei, să fie. Cele două pilde, cea a grâului și a neghinei și cea a năvodului, implică deopotrivă gândul că Împărăția este un ansamblu de oameni, deși miezul lor nu constă în acest gând ca atare, ci în amestecul inevitabil al celor buni cu cei răi până la sfârșit. Cea mai mare apropiere de declarația ulterioară despre Biserică se întâlnește în expresia „Împărăția sa” din Mat. 13:41. Această „Împărăție a Fiului Omului” concordă cu „Biserica lui Isus” prin aceea că ambele expresii fac din Împărăție o colectivitate de oameni, așezată sub Mesia ca stăpânitor al lor.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a body of men placed under the Messiah as their ruler",
+          "quoteTarget": "o colectivitate de oameni, așezată sub Mesia ca stăpânitor al lor",
+          "note": "Autorul variază substantivele: «community of men» = «comunitate de oameni», «organism of men» = «organism alcătuit din oameni» (ca în 06-00, «organism moral sau religios»), «aggregate of men» = «ansamblu de oameni», «body of men» = «colectivitate de oameni»; ele sunt păstrate distincte. «Ruler» = «stăpânitor», ca în 06-00. De aliniat în 09-02 cu «a body of disciples» din paragraful următor al sursei. Fără rând în glosar; propus după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "matters pertaining to the commonwealth",
+          "quoteTarget": "chestiunile ce privesc comunitatea politică",
+          "note": "«Commonwealth» (în sens vechi: statul, comunitatea politică a cetățenilor) este redat «comunitate politică». Alternative: «treburile cetății», «statul», «interesul obștesc». «Take action» (în «to deliberate and take action») este redat «a acționa», nu «a hotărî», ca să nu se adauge un sens de decizie formală. «Ecclesia» este copiat ca atare, conform profilului."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "MAJOR",
+          "quoteSource": "Lk. xx. 25",
+          "quoteTarget": "Lc. 20:25",
+          "note": "Trimiterea este păstrată ca în job (Lc. 20:25), conform reguli §5: nu se corectează în tăcere. Constatarea criticului (SURSA_POSIBIL_ERONATA) este acceptată și verificată la revizie: defectul este în sursă, nu în traducere. Forma «xx» este în tiparul din 1903, nu în curățarea ediției: apare identic în content/sources/vos-1903-kingdom/raw.txt (r. 3548) și raw-layout.txt (r. 3719), iar indexul de texte al cărții listează la Luca «xx. 25», pagina 151 (raw-layout.txt r. 4952; raw.txt r. 4968–4969, OCR lipit: «xviii. 14xx. 25»), fără vreun «xxii. 25». Din textul biblic cunoscut, neverificat pe o ediție a Bibliei (depozitul nu are una): Lc. 20:25 este răspunsul despre dările către Cezar, care se leagă greu de ideea susținută aici («o societate întemeiată pe un principiu cu totul diferit de cel care cârmuiește împărățiile acestei lumi»); paralela lui Mat. 20:25 în Evanghelia după Luca ar fi Lc. 22:25 (cuvintele despre regii neamurilor, urmate de «nu așa între voi»), iar Mc. 9:35 stă în același context al disputei despre întâietate. Posibilă scăpare de tipar sau a autorului («xx» în loc de «xxii»). Textul și `scripture` păstrează Lc. 20:25; revizorul uman confruntă locul cu o ediție a Bibliei și cu exemplarul din 1903 și decide dacă se adaugă o notă editorială («probabil Lc. 22:25») sau se corectează în ediția finală, nu în traducere."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "his kingdom",
+          "quoteTarget": "Împărăția sa",
+          "note": "Expresie scurtă citată din Mat. 13:41 (trimiterea este dată în sursă), tradusă ca text al autorului. Marcată reference, nu quote-author-rendering, pentru că în verset stă mai mult decât expresia citată și nu are sens înlocuirea ei cu o ediție a Bibliei. Pronumele «sa», cu literă mică (uz academic). «Kingdom of the Son of man» = «Împărăția Fiului Omului» (glosar), «church of Jesus» = «Biserica lui Isus»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The two parables of the wheat and the tares and of the fish-net",
+          "quoteTarget": "Cele două pilde, cea a grâului și a neghinei și cea a năvodului",
+          "note": "Trimitere la pildele din Mat. 13:24–30 (grâul și neghina) și Mat. 13:47–50 (năvodul). Sursa nu dă trimiteri în acest paragraf, dar autorul însuși le citează pentru aceleași pilde în 06-00 («Matt. xiii. 24-30, 47-50»). Marcate allusion în scripture, nu adăugate în text (ar fi REF_EXTRA). «Tares» = «neghină» și «fish-net» = «năvod», ca în 04-03; «parable» = «pildă» (glosar)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the later declaration about the church",
+          "quoteTarget": "declarația ulterioară despre Biserică",
+          "note": "Trimitere la Mat. 16:18 (declarația despre zidirea Bisericii, discutată în tot capitolul). Sursa nu dă trimitere în acest paragraf; identificarea este dedusă din context, neverificată. Marcată allusion în scripture, nu adăugată în text (ar fi REF_EXTRA)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 20:25",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 9:35",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 20:25",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:41",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 13:24–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 13:47–50",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 16:18",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală (pass=revised), partea 1 (a doua) din 5 a cap. IX, 3 paragrafe, 937 cuvinte-sursă; fără headingRo (part nu este 0). Constatările criticului: 1 (SURSA_POSIBIL_ERONATA); aplicată 1, respinse 0, verificată față de original. (1) Par. 3, «Lk. xx. 25» → „Lc. 20:25”: confirmată. Trimiterea este redată exact ca în job, fără corectare tăcută (reguli §5); defectul este în sursă, nu în traducere: forma «xx» apare identic în content/sources/vos-1903-kingdom/raw.txt (r. 3548) și raw-layout.txt (r. 3719), iar indexul de texte al cărții (raw-layout.txt r. 4952; raw.txt r. 4968–4969, OCR lipit) listează la Luca «xx. 25», pagina 151, fără «xxii. 25». Din textul biblic cunoscut, neverificat pe o ediție a Bibliei (depozitul nu are una), Lc. 20:25 este răspunsul despre dările către Cezar, iar paralela lui Mat. 20:25 în Luca este Lc. 22:25. Textul și scripture păstrează Lc. 20:25; flag-ul MAJOR SURSA_POSIBIL_ERONATA rămâne deschis pentru revizorul uman (notă editorială «probabil Lc. 22:25» sau corectare în ediția finală, nu în traducere). Retușuri proprii, după recitirea textului numai în română, fiecare reverificată față de original, fără schimbare de sens: par. 1 «în aceeași relație în care se află un portar față de o casă» → «așa cum stă un portar față de o casă» (paralel cu «stand related … as a gate-keeper stands»); par. 2 «interpretarea cea mai generalizatoare» → «interpretarea cea mai generală» (calcul rar «generalizatoare» dispare; flag-ul MINOR din ciornă este coborât la INFO) și «în viziunea lui Isus» → «după părerea lui Isus» («viziune» se poate citi „vedenie”; ca în 04-00, «după părerea Domnului nostru»). Flag INFO adăugat pentru explicitarea lui «this» în «Forța acestei concluzii» (par. 2); flag-ul MINOR «relevanța lor pentru» (par. 1) este coborât la INFO, redarea fiind reverificată și păstrată. Restul ciornei este păstrat după verificarea frază cu frază față de original, în ambele sensuri (31 de propoziții: 8 + 14 + 9), fără omisiuni, adaosuri, negații, modalitate sau roluri alterate. Redări ținute consecvent cu cap. I–VIII și cu 09-00, 09-02: kingdom (absolut) = Împărăția; the final kingdom = Împărăția finală (05-01, 08-01); church = Biserica; view = părere; sayings = spuse (04-01, 05-00: «Spuse precum Mat. …»); promise = făgăduință; ruler = stăpânitor (02-01, 06-00); figure = imagine (03-00, 04-01, 06-00); mutual association = asociere reciprocă (06-00); organism (06-00); prominent = proeminent (02-01, 08-01); tares = neghină și fish-net = năvod (04-03, 05-01); binding and loosing = legarea și dezlegarea (09-02); foundation / foundation rock = temelie / stâncă (09-00, 09-02); the Messiah = Mesia; Son of man = Fiul Omului; ecclesia copiat ca atare. Termeni noi propuși pentru glosar (flag-uri TERMEN_NOU): gate-keeper = portar; house-steward = administratorul casei; foundation rock = stâncă de temelie; figure (of speech) = imagine, cu binding and loosing = legarea și dezlegarea; community / organism / aggregate / body of men = comunitate / organism alcătuit din / ansamblu / colectivitate de oameni. Trimiterile din job apar în text exact în forma din references[].target (v. 19; Mat. 18:18; Mat. 16; Is. 22:22; Apoc. 3:7; Mat. 20:25; Mc. 9:35; Lc. 20:25; Mat. 13:41). Completările fără trimitere în sursă (Mat. 16:19 din «vs. 19», Mat. 16:18, Mat. 16:18–19, Mat. 13:24–30, Mat. 13:47–50) sunt marcate doar în scripture și în flag-uri, identificate din memorie și neverificate pe o ediție a Bibliei, de confirmat de revizor; nu au fost adăugate în text. Citatul din Mat. 16:19 este tradus din engleza lui Vos, nu după o ediție românească a Bibliei. Textul nu este certificat ca publicabil."
+}

@@ -1,6 +1,6 @@
 {
   "jobId": "vos-1903-kingdom-ro-07-02",
-  "file": "drafts/vos-1903-kingdom-ro-07-02.json",
+  "file": "final/vos-1903-kingdom-ro-07-02.json",
   "ok": true,
   "strictOk": true,
   "findings": [
@@ -50,7 +50,7 @@
       "sourceId": "01M6JQPD98083QXRPZVTRT4861",
       "message": "proposed (not approved) glossary row vos-blessedness (FIX) matched",
       "quoteSource": "blessedness",
-      "quoteTarget": "Fericirilor"
+      "quoteTarget": "Fericiri"
     },
     {
       "check": "FLAG_PROPOSED",
@@ -95,7 +95,7 @@
   "stats": {
     "paragraphs": 6,
     "sourceWords": 1370,
-    "targetWords": 1339,
-    "lengthRatio": 1.019
+    "targetWords": 1342,
+    "lengthRatio": 1.02
   }
 }

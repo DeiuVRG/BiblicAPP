@@ -1,0 +1,252 @@
+{
+  "jobId": "vos-1903-kingdom-ro-09-02",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQZW94452351N2NYMHPWD9",
+      "text": "Din cele de mai sus reiese că, dacă Biserica reprezintă un pas înainte față de Împărăția interioară, invizibilă, care ocupase până atunci un loc atât de însemnat în învățătura Domnului nostru, acest pas înainte trebuie căutat în altceva decât în simplul fapt că ea este o colectivitate de ucenici. Pasul înainte constă în două puncte. În primul rând, colectivitatea de ucenici care exista dinainte trebuie să ia acum locul Bisericii Vechiului Testament și, prin urmare, să primească o formă oarecare de organizare exterioară. Aceasta Împărăția nu o avusese până atunci. Fusese interioară și invizibilă nu doar în esența ei, ci și prin aceea că acestei esențe îi lipsise întruchiparea exterioară. Isus, vorbind acum despre casă și despre cheile casei, despre legarea și dezlegarea pe pământ și despre disciplina bisericească, ia măsuri în acest sens. În al doilea rând, Domnul nostru dă de înțeles că noul stadiu în care urmează să intre acum calitatea sa de Mesia va aduce Împărăției un nou aflux de putere supranaturală și va face astfel din ea, nu doar în exterior, ci și în interior, acel lucru nou pe care îl numește Biserica sa.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "a body of disciples",
+          "quoteTarget": "o colectivitate de ucenici",
+          "note": "«Body of disciples» (de două ori în paragraf) este redat „colectivitate de ucenici”, aliniat cu «body of men» = „colectivitate de oameni” din 09-01 (a cărui notă cere explicit alinierea în 09-02); «community of men» rămâne „comunitate de oameni”. Fără rând în glosar; propus pentru glosar după aprobare. Alternative: „grup de ucenici”, „comunitate de ucenici”."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "an advance beyond",
+          "quoteTarget": "un pas înainte față de",
+          "note": "«Advance» (substantiv; revine în «the advance must be sought» și «The advance lies in two points») este redat „pas înainte”. Am evitat „progres” (poate sugera o evoluție imanentă sau morală) și „înaintare”. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the Old Testament church",
+          "quoteTarget": "Bisericii Vechiului Testament",
+          "note": "Vos numește «church» și adunarea din Vechiul Testament. Redat cu majusculă („Biserica Vechiului Testament”), ca în 09-01 (par. 3, «the Old Testament church»), în sensul continuității aceleiași instituții; în 09-00 «the present Jewish church» (adunarea iudaică din vremea lui Isus) este redat cu minusculă („biserica iudaică”). Revizorul poate unifica decizia pentru tot capitolul (de exemplu „adunarea Vechiului Testament”)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "It had been internal and invisible not merely in its essence, but to this essence there had been lacking the outward embodiment",
+          "quoteTarget": "Fusese interioară și invizibilă nu doar în esența ei, ci și prin aceea că acestei esențe îi lipsise întruchiparea exterioară",
+          "note": "Construcția sursei este anacolutică: «not merely in its essence, but to this essence there had been lacking …» nu continuă gramatical primul membru. Redată cu „nu doar în …, ci și prin aceea că …”, care explicitează relația logică (Împărăția era interioară și invizibilă și prin faptul că esenței ei îi lipsea întruchiparea exterioară) fără a adăuga sens. «Embodiment» = „întruchipare”, ca în 04-04. Redarea a fost reverificată la revizie față de original și păstrată; flag-ul din ciornă (MINOR) este coborât la INFO."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "makes provision for this",
+          "quoteTarget": "ia măsuri în acest sens",
+          "note": "Critic (MINOR, calc): ciorna avea „face prevederi pentru aceasta”, cu aer juridic („prevederile legii”), nepotrivit pentru «makes provision for» (a se îngriji de, a pregăti). Redat „ia măsuri în acest sens”; alternativă: „se îngrijește de aceasta”. «This» = organizarea exterioară din propozițiile precedente."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the house and the keys of the house, of binding and loosing on earth, and of church discipline",
+          "quoteTarget": "casă și despre cheile casei, despre legarea și dezlegarea pe pământ și despre disciplina bisericească",
+          "note": "Aluzii la Mat. 16:18–19 (casa zidită, cheile, legarea și dezlegarea pe pământ) și la Mat. 18:17–18 (disciplina bisericească, legarea și dezlegarea). Sursa nu dă trimiteri în acest paragraf; identificarea este dedusă din context și din restul capitolului (Mat. 18:18 în 09-01, Mat. 18:17 în 09-04) și este neverificată pe textul biblic. Marcate allusion în scripture, nu adăugate în text (ar fi REF_EXTRA). «Binding and loosing» = „legarea și dezlegarea” și «church discipline» = „disciplina bisericească”, ca în 09-01."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:18",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 16:19",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 18:17",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 18:18",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD99NDNB29VP3T7F0YWB",
+      "text": "Este posibil să găsim o trimitere la aceasta în cuvintele despre porțile Hadesului, care urmează imediat după declarația Domnului că își va zidi Biserica. După unii, aceste cuvinte implică un conflict între Hades, ca tărâm al morții, și Biserică, ca sferă a vieții. Ele ar însemna atunci că moartea nu va putea birui Biserica sau că Biserica va putea birui moartea, iar temeiul acestei făgăduințe ar fi că Isus va repurta în curând o biruință asupra morții și își va umple Biserica cu o viață de nebiruit, Apoc. 1:18. Probabil, însă, redarea corectă este „porțile Hadesului nu o vor întrece”. Porțile Hadesului par să fi fost o imagine a celei mai mari puteri imaginabile, pentru că nimeni nu le poate străpunge. Potrivit acestei redări, Domnul nostru vrea să spună pur și simplu că Biserica nu va fi întrecută în putere de cel mai puternic dintre lucrurile cunoscute; imaginea dezvoltă mai departe ideea că Biserica este zidită pe o stâncă. Există însă alte spuse care aparțin aceleiași perioade finale a slujirii Domnului nostru și în care el prezice venirea Împărăției cu o putere nouă, necunoscută până atunci. În Mat. 16:28; Mc. 9:1; Lc. 9:27; Mat. 26:64; Mc. 14:62; Lc. 22:69, Isus vorbește despre o venire a Fiului Omului în Împărăția sa, despre o venire a Împărăției lui Dumnezeu cu putere, care va avea loc în viitorul apropiat, astfel încât unii dintre oamenii de atunci vor fi martori ai ei. Un mod obișnuit de a interpreta aceste spuse este acela de a le raporta la venirea finală a Împărăției, la sfârșitul lumii. Cei care adoptă această părere trebuie însă să presupună că Domnul nostru s-a înșelat în privința apropierii evenimentului în cauză și, prin urmare, să renunțe la infailibilitatea învățăturii sale.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "It is possible to find this referred to",
+          "quoteTarget": "Este posibil să găsim o trimitere la aceasta",
+          "note": "«This» nu are antecedent numit; din context pare să fie noul aflux de putere supranaturală (al doilea punct al avansului, în paragraful precedent). Redat „aceasta”, fără a numi antecedentul (ar fi un adaos). «Find this referred to» este redat „să găsim o trimitere la aceasta”."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the gates of Hades shall not surpass it",
+          "quoteTarget": "porțile Hadesului nu o vor întrece",
+          "note": "Redare a lui Vos pentru cuvintele din Mat. 16:18 (trimiterea nu este în acest paragraf; marcată doar în scripture, nu în text, altfel ar fi REF_EXTRA); identificată din context, neverificată pe textul biblic. Tradusă din engleza lui Vos, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «Surpass» = „a întrece”, ca în «excelled in strength» = „întrecută în putere” (propoziția a șasea), distinct de „a birui” din redarea respinsă («conquer»). «Hades» este păstrat „Hades” (gen. „Hadesului”); fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the highest conceivable strength",
+          "quoteTarget": "celei mai mari puteri imaginabile",
+          "note": "«Strength» (de două ori în paragraf) este redat „putere”, ca și «power» („o putere nouă”), iar «the strongest» = „cel mai puternic”, păstrând legătura lexicală dintre «strength» și «strongest». Alternativă pentru revizor: „tărie” / „cel mai tare”, ca să se distingă «strength» de «power». «Figure» = „imagine”, ca în 06-00 și 09-01; «conceivable» = „imaginabil”."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "with anew, previously unknown power",
+          "quoteTarget": "cu o putere nouă, necunoscută până atunci",
+          "note": "Defect tipografic în sursă: «anew» este aproape sigur «a new» (articolul lipit de «new», eroare de OCR sau de tipar), cum cere construcția «a new, previously unknown power». Citit «a new» și redat „o putere nouă”; sensul nu este afectat și textul românesc nu se schimbă. Același defect apare în content/sources/vos-1903-kingdom/raw.txt (r. 3629), în raw-layout.txt (r. 3802) și în content/works/vos-1903-kingdom/edition-en.json (r. 820), deci nu provine din segmentarea ediției și rămâne vizibil în ediția engleză din aplicație; de corectat acolo («with a new, previously unknown power») după decizia revizorului uman."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Jesus speaks of a coming of the Son of man in his kingdom, of a coming of the kingdom of God with power",
+          "quoteTarget": "Isus vorbește despre o venire a Fiului Omului în Împărăția sa, despre o venire a Împărăției lui Dumnezeu cu putere",
+          "note": "Rezumat al autorului, în vorbire indirectă, al spuselor din cele șase trimiteri (Mat. 16:28; Mc. 9:1; Lc. 9:27; Mat. 26:64; Mc. 14:62; Lc. 22:69), copiate identic din job. Tradus ca text al autorului, nu după o ediție românească a Bibliei. Marcate reference în scripture, nu quote-author-rendering, fiindcă autorul nu citează cuvintele versetelor, ci le rezumă."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 16:18",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Apoc. 1:18",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 16:28",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 9:1",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 9:27",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 26:64",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 14:62",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 22:69",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCXPP0SBWE2QEBYTX2PG",
+      "text": "O altă exegeză este perfect posibilă. Putem interpreta aceste spuse ca referindu-se la venirea Împărăției în Biserică. Termenii puternici în care sunt îmbrăcate nu exclud în chip absolut această interpretare. Trebuie recunoscut că acești termeni seamănă cu limbajul în care se vorbește în alte locuri despre venirea finală a Împărăției. Este vorba despre o venire a Împărăției cu putere, despre o venire a lui Isus în Împărăția sa, ba chiar despre o venire a lui Isus cu norii cerului. Dar aceste expresii devin mai ușor de explicat dacă ne străduim să înțelegem ce urma să fie Biserica la prima ei apariție și cum i se înfățișa lui Isus viitorul imediat din propriul său punct de vedere personal. În Biserica primară urmau să existe numeroase manifestări extraordinare ale puterii Duhului, atât de extraordinare, într-adevăr, încât anticipau în unele privințe fenomenele care vor fi observate la sfârșitul lumii. Și chiar fără aceasta, prezența Duhului în Biserică, în forma sa mai obișnuită de lucrare, este ceva suficient de minunat și de uluitor pentru a justifica termenii puternici folosiți. Biserica are cu adevărat în sine puterile lumii viitoare. Ea este mai mult decât Împărăția imanentă, așa cum exista aceasta înainte de înălțarea lui Isus. Ea formează o verigă intermediară între viața de acum și viața veșniciei. Aici putem observa cel mai bine caracterul întru totul supranaturalist al concepției Domnului nostru despre forma bisericească a Împărăției. Iar Domnul nostru privea apariția acestei Biserici dintr-un punct de vedere care îi era propriu în chip deosebit. El urma să fie Domnul și Regele ei. Or, pentru el nu exista acea despărțire netă între Împărăția bisericească și Împărăția finală care există pentru noi, cei care trăim pe pământ. Pentru el, desăvârșirea Împărăției, în care toate se împlinesc, începea cu învierea și înălțarea sa la cer. Nu este, așadar, nefiresc ca el să vorbească despre această stare care se apropia în termeni care, considerați în sine, ne-ar putea face să ne gândim la venirea finală a Împărăției.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "our Lord’s conception of the church-form of the kingdom",
+          "quoteTarget": "concepției Domnului nostru despre forma bisericească a Împărăției",
+          "note": "Profilul avertizează (WARN) asupra lui „concepție”; aici «conception» desemnează înțelegerea de ansamblu a Domnului nostru despre Biserică, calificată prin «thoroughly supernaturalistic» (colocație firească cu „concepție”, nu cu „noțiune”), deci „concepție”; în paragraful următor al lotului, «the conception of the kingdom itself» = „noțiunea de Împărăție”. «Thoroughly» = „întru totul”; construcția «how thoroughly … is» este redată prin substantivul „caracterul întru totul supranaturalist”, fiindcă „cât de întru totul” sună greoi."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the church-kingdom",
+          "quoteTarget": "Împărăția bisericească",
+          "note": "«Church-kingdom» și «church-form of the kingdom» sunt compuse ale lui Vos (Împărăția în forma Bisericii, cf. 09-01 „Împărăția, ca Biserică”); redate „Împărăția bisericească” și „forma bisericească a Împărăției”, în opoziție cu „Împărăția finală” («the final kingdom»). Nu „ecleziastic”, rezervat pentru «ecclesiastical» (cf. 09-00). Fără rând în glosar; propus pentru glosar după aprobare. Alternative: „Împărăția-Biserică”, „Împărăția ca Biserică”, „forma de Biserică a Împărăției”."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the powers of the world to come",
+          "quoteTarget": "puterile lumii viitoare",
+          "note": "Probabil ecou al lui Evr. 6:5 (formularea KJV «the powers of the world to come», din memorie, neverificată); sursa nu dă trimitere; marcat allusion în scripture, nu adăugat în text (ar fi REF_EXTRA). Redat ca text al autorului: «world to come» = „lumea viitoare”, ca în 05-00 (Mc. 12:25); «age to come» ar fi „veacul viitor” (profil). Alternativă pentru revizor, dacă se aliniază la Evr. 6:5: „puterile veacului viitor”."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "It is a coming of the kingdom with power, a coming of Jesus in his kingdom, even a coming of Jesus with the clouds of heaven",
+          "quoteTarget": "Este vorba despre o venire a Împărăției cu putere, despre o venire a lui Isus în Împărăția sa, ba chiar despre o venire a lui Isus cu norii cerului",
+          "note": "Cele trei formule reiau, în cuvintele autorului, spusele din paragraful precedent al lotului («the kingdom of God with power» ~ Mc. 9:1; «the Son of man in his kingdom» ~ Mat. 16:28; «the clouds of heaven» ~ Mat. 26:64 / Mc. 14:62). Corespondența este dedusă din acel paragraf și din memorie, neverificată pe textul biblic; trimiterile nu sunt în sursa acestui paragraf, deci apar doar în scripture (allusion), nu în text (ar fi REF_EXTRA). «Heaven» (singular în sursă) = „cerului”, fără aliniere la plural („cerurilor” din glosar este doar pentru «kingdom of heaven»)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "his resurrection and ascension",
+          "quoteTarget": "învierea și înălțarea sa la cer",
+          "note": "«Ascension» = „înălțarea la cer”, iar «exaltation» („before Jesus’ exaltation”) = „înălțarea lui Isus”; „la cer” menține distincția dintre evenimentul înălțării la cer și starea de înălțare (cf. „stare înălțată” în 09-00). «Consummation» = „desăvârșire” (profil, PREFER), cu „în care toate se împlinesc” pentru «in which all is fulfilled». Fără rând în glosar pentru «ascension»/«exaltation»; propus după aprobare."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 9:1",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 16:28",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 26:64",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mc. 14:62",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Evr. 6:5",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQSCXPP0SBWE2QEBYTX2PH",
+      "text": "Pe lângă aceste pasaje avem afirmația din Mat. 18:20, în care Domnul nostru făgăduiește că va fi prezent în mijlocul ucenicilor săi într-un chip aparte și care aruncă lumină asupra ideii unei veniri a sale care va precede venirea finală. Dar mai ales ultimele cuvântări ale Mântuitorului, păstrate pentru noi în Evanghelia după Ioan, ne ajută să înțelegem ce vrea el să spună în această privință. Aici el se înfățișează limpede ca venind la ucenici în Duhul, și încă într-un chip cu totul deosebit de felul în care va veni la sfârșitul lumii. Este o venire ai cărei martori vor fi ucenicii, în timp ce altora el nu li se va revela. Nu se poate spune că ea se referă la arătările în trup ale lui Isus de după înviere, căci este menită să ducă la o prezență permanentă. Aici avem, așadar, ceva cu totul analog cu afirmațiile sinoptice citate mai înainte, singura deosebire fiind aceea că noțiunea de Împărăție însăși lipsește aici, ca și în alte părți la Ioan.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the statement of Matt. xviii. 20",
+          "quoteTarget": "afirmația din Mat. 18:20",
+          "note": "«Statement» = „afirmație”, ca în 09-01 («the two statements made» = „cele două afirmații făcute”), distinct de «declaration» = „declarație” (09-00). «Synoptical statements previously quoted» (sfârșitul paragrafului) sunt aceleași spuse pe care Vos le numește «sayings» în paragrafele 2 și 3 (redate „spuse”, ca în 03-00, 04-02 și 09-01); aici «statements» = „afirmații”, menținând variația lui Vos. Referința Mat. 18:20 este copiată identic din job."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the Saviour’s last discourses preserved for us in the Gospel according to John",
+          "quoteTarget": "ultimele cuvântări ale Mântuitorului, păstrate pentru noi în Evanghelia după Ioan",
+          "note": "Trimitere generală la cuvântările de despărțire din Evanghelia după Ioan (probabil In. 13–17; din memorie, neverificat). Autorul nu dă trimiteri aici, iar ideile din propozițiile următoare («coming to the disciples in the Spirit», «will not reveal himself») sunt rezumatele lui; nu am marcat versete în scripture, ca să nu inventez corespondențe verset cu verset. «Discourses» = „cuvântări”, ca în cap. I."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "coming to the disciples in the Spirit",
+          "quoteTarget": "venind la ucenici în Duhul",
+          "note": "«In the Spirit» poate fi citit instrumental (prin Duhul) sau locativ (în persoana sau în starea Duhului); redat literal „în Duhul”, păstrând ambiguitatea sursei, fără alegere exegetică."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "an abiding presence",
+          "quoteTarget": "o prezență permanentă",
+          "note": "«Abiding» are rezonanță ioaneică (a rămâne, a locui); „permanentă” pierde puțin din ea. Alternative: „o prezență care rămâne”, „o prezență durabilă”."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 18:20",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală (pass=revised), partea 2 (a treia) din 5 a cap. IX, 4 paragrafe, 1038 cuvinte-sursă; fără headingRo (part nu este 0). Constatările criticului: 2 (1 MINOR, 1 SURSA_POSIBIL_ERONATA); aplicate 2, respinse 0, ambele verificate față de original. (1) Par. 1, «makes provision for this» → „face prevederi pentru aceasta”: confirmat calcul cu aer juridic („prevederile legii”); redat „ia măsuri în acest sens” (alternativă: „se îngrijește de aceasta”); flag-ul MINOR din ciornă este înlocuit cu un flag INFO pentru redarea nouă. (2) Par. 2, «with anew, previously unknown power»: confirmat că «anew» este defect de sursă pentru «a new»; româna îl citea deja corect („o putere nouă”) și rămâne neschimbată; flag-ul SURSA_POSIBIL_ERONATA (INFO) este păstrat și completat cu locurile defectului, verificate la revizie (raw.txt r. 3629, raw-layout.txt r. 3802, edition-en.json r. 820); corectarea în ediția engleză este decizia revizorului uman, nu a traducerii. Retușuri proprii, după recitirea numai în română, reverificate față de original, fără schimbare de sens: par. 3, «din punctul său de vedere personal» → „din propriul său punct de vedere personal” (revine «own» din «his own personal point of view», pierdut în ciornă). Flag-ul MINOR de la «not merely in its essence, but …» (par. 1) este coborât la INFO, redarea fiind reverificată și păstrată. În scripture, par. 3, adăugat Mc. 14:62 (allusion) pentru «the clouds of heaven», în acord cu nota flag-ului respectiv. Restul ciornei este păstrat după verificarea frază cu frază față de original, în ambele sensuri (40 de propoziții: 7 + 10 + 17 + 6), fără omisiuni, adaosuri, negații, modalitate sau roluri alterate. Redări ținute consecvent cu cap. I–VIII și cu 09-00, 09-01: the church (instituția) = Biserica; Old Testament church = Biserica Vechiului Testament (09-01; 09-00 are „bisericii iudaice de acum” pentru «the present Jewish church»); body of disciples = colectivitate de ucenici (după «body of men» = „colectivitate de oameni”, 09-01); sayings = spuse; statement = afirmație (09-01); declaration = declarație (09-00, 09-01); promise = făgăduință și view = părere (09-01); figure = imagine; Messiahship = calitatea de Mesia (04-03, 09-00); stage = stadiu; ministry = slujire; the final kingdom = Împărăția finală; the immanent kingdom = Împărăția imanentă; embodiment = întruchipare (04-04); binding and loosing = legarea și dezlegarea, church discipline = disciplina bisericească (09-01); world to come = lumea viitoare (05-00); early church = Biserica primară (06-01); consummation = desăvârșire (profil). Termeni noi propuși pentru glosar (flag-uri TERMEN_NOU): colectivitate de ucenici; pas înainte (advance); Împărăția bisericească / forma bisericească a Împărăției (church-kingdom / church-form of the kingdom); înălțarea la cer (ascension) față de înălțarea lui Isus (exaltation); putere pentru strength. Trimiterile din job apar în text exact în forma din references[].target (Apoc. 1:18; Mat. 16:28; Mc. 9:1; Lc. 9:27; Mat. 26:64; Mc. 14:62; Lc. 22:69; Mat. 18:20). Trimiterile deduse, fără corespondent în sursa paragrafului, apar numai în scripture și în flag-uri, identificate din memorie și neverificate pe o ediție a Bibliei, de confirmat de revizor, și nu au fost adăugate în text: Mat. 16:18, 16:19, 18:17, 18:18 (par. 1); Mat. 16:18 pentru citatul despre porțile Hadesului (par. 2); Mc. 9:1, Mat. 16:28, Mat. 26:64, Mc. 14:62 și Evr. 6:5 (par. 3). Citatul „porțile Hadesului nu o vor întrece” este tradus din engleza lui Vos, nu după o ediție românească a Bibliei. Textul nu este certificat ca publicabil."
+}

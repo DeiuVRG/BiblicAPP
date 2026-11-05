@@ -1,0 +1,363 @@
+{
+  "jobId": "vos-1903-kingdom-ro-07-02",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Y",
+      "text": "Ar fi nejustificat din punct de vedere istoric a citi în aceste cuvinte întreaga doctrină a dreptății imputate a lui Hristos. Pentru Isus era cu neputință să dezvolte această doctrină într-o formă cât de cât explicită, deoarece ea urma să se întemeieze pe propria sa moarte ispășitoare, care se afla încă în viitor. Domnul nostru vorbește despre o stare de dreptate înaintea lui Dumnezeu, ce urmează să fie conferită ca parte a Împărăției care vine. Nu este explicat limpede în ce măsură se va face aceasta prin imputare, în ce măsură se va face și prin schimbarea inimii și a vieții oamenilor, astfel încât să rezulte fapte pe care Dumnezeu le va putea aproba, în principiu, în judecata sa, și care dintre aceste două va sta la baza celeilalte. Doctrina Domnului nostru este mugurele în care cele două noțiuni, cea a unei dreptăți imputate și cea a unei dreptăți întruchipate în viața sfințită a credinciosului, stau încă închise laolaltă. Totuși nu trebuie trecut cu vederea că, în mai multe privințe, Isus a pregătit calea pentru Pavel, enunțând principii de care învățătura acestuia din urmă se putea lega. El a subliniat că, în urmărirea dreptății, satisfacerea lui Dumnezeu trebuie să fie preocuparea supremă a omului. Aceasta, dusă până la ultimele ei consecințe în privința omului păcătos, nu putea decât să ducă la noțiunea unei dreptăți asigurate de însuși Dumnezeu în viața desăvârșită și în moartea ispășitoare ale lui Hristos. El a afirmat, de asemenea, că dreptatea cerută ucenicilor era de un fel infinit mai înalt decât cea pe care o aveau cărturarii și fariseii, ceva la fel de nou și fără precedent ca Împărăția însăși, și a ridicat astfel problema modului în care urma să fie dobândită această poziție unică înaintea lui Dumnezeu. În plus, el a dat de înțeles că această dreptate putea fi atinsă numai de ucenici, astfel încât trebuie socotit că ea se sprijină pe o stare anterioară de acceptare de către Dumnezeu, determinată de paternitatea și de harul său.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "the imputed righteousness of Christ",
+          "quoteTarget": "dreptății imputate a lui Hristos",
+          "note": "«Imputed» și «imputation» (repetate în paragraf: «by imputation», «a righteousness imputed») sunt redate „imputat(ă)” și „imputare”, termenii uzuali ai teologiei reformate, în continuarea lui „dreptate” (FIX pentru «righteousness»). Fără rând în glosar; cu miză teologică. Alternative din tradiția Cornilescu: „dreptate socotită”, „dreptate atribuită”. Propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "his own atoning death",
+          "quoteTarget": "propria sa moarte ispășitoare",
+          "note": "«Atoning» (repetat în paragraf: «the perfect life and atoning death of Christ») este redat „ispășitor/ispășitoare”; fără rând în glosar. Alternativă: «moartea sa ca jertfă de ispășire». Propus pentru glosar dacă termenul revine în lucrare (substantivul «atonement» ar fi „ispășire”)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "to read into these utterances",
+          "quoteTarget": "a citi în aceste cuvinte",
+          "note": "«Read into» (a introduce într-un text un sens pe care el nu îl are) este redat „a citi în”, cu infinitivul ca subiect impersonal, ca în sursă; «utterances» = „cuvinte” (nu „afirmații”, ca să nu sugereze enunțuri formale). Alternative pentru revizor: «a introduce în aceste cuvinte», «a atribui acestor cuvinte»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "the satisfaction of God",
+          "quoteTarget": "satisfacerea lui Dumnezeu",
+          "note": "Genitiv obiectiv (omul trebuie să se preocupe să-l satisfacă pe Dumnezeu), nu «satisfacția» tehnică (satisfactio) a lui Hristos; ambiguitatea englezei a fost păstrată în „satisfacerea lui Dumnezeu”, în paralel cu «satisfying him» din 07-00 (par. 3 al lotului: „a-l satisface”). Alternative: «mulțumirea lui Dumnezeu», «a-i fi pe plac lui Dumnezeu»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a righteousness provided by God himself",
+          "quoteTarget": "unei dreptăți asigurate de însuși Dumnezeu",
+          "note": "Adăugat la revizie. «Provided» (furnizat, pus la dispoziție) este redat „asigurate”, în sensul „procurate, puse la dispoziție”, nu „garantate”; contextul («in the perfect life and atoning death of Christ») arată sensul. Alternative pentru revizor: «oferite de însuși Dumnezeu», «puse la dispoziție de însuși Dumnezeu»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a righteousness embodied in the sanctified life of the believer",
+          "quoteTarget": "unei dreptăți întruchipate în viața sfințită a credinciosului",
+          "note": "«Embodied» este redat „întruchipată” (care capătă formă concretă); s-a evitat „întrupată”, legat de întruparea lui Hristos. «Conceptions» = „noțiuni” (profil). Alternative: «concretizată», «încorporată»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the righteousness required of the disciples was of an infinitely higher kind than that possessed by the Scribes and Pharisees",
+          "quoteTarget": "dreptatea cerută ucenicilor era de un fel infinit mai înalt decât cea pe care o aveau cărturarii și fariseii",
+          "note": "Parafrază a autorului după Mat. 5:20; trimiterea explicită (Matt. v. 20) apare abia în paragraful următor al sursei, deci nu este în `references` al acestui paragraf și nu a fost adăugată în text. Tradusă ca text al autorului, nu după o ediție românească a Bibliei; marcată în scripture ca aluzie."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 5:20",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT485Z",
+      "text": "A treia reprezentare leagă Împărăția de dreptatea practicată în această viață, ca răsplată. Aici, evident, Împărăția nu desemnează domnia lui Dumnezeu, ci întregul ansamblu al binecuvântărilor rezultate, și anume așa cum vor fi dăruite în ziua de apoi. Astfel, în Mat. 5:20, deținerea unei dreptăți care o întrece pe cea a cărturarilor și a fariseilor apare ca o condiție prealabilă pentru intrarea în Împărăție. Aceeași idee stă la baza numeroaselor pasaje care vorbesc despre o răsplată viitoare. S-a susținut că Isus a păstrat toată această linie de gândire pentru că nu se emancipase pe deplin de eroarea fundamentală a iudaismului, potrivit căreia totul în religie se învârtea în jurul ideilor de merit și de răsplată. Acuzația, dacă ar fi bine întemeiată, ar fi gravă, căci principiul în cauză, departe de a apărea numai în spuse izolate, străbate întreaga învățătură a lui Isus. Viața ucenicului este înfățișată pretutindeni ca o muncă în vie, la plug, pe câmpul de seceriș, în gospodărie. Se pot strânge comori în cer.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "righteousness practised in this life as a reward",
+          "quoteTarget": "dreptatea practicată în această viață, ca răsplată",
+          "note": "«As a reward» se leagă de «connects» (Împărăția, adică ansamblul binecuvântărilor, este răsplata dreptății practicate aici), nu de «practised»; contextul («the resulting blessings», «prerequisite for entering the kingdom») indică această lectură. Ambiguitatea sintactică a fost păstrată în română („ca răsplată” la sfârșitul propoziției), nu rezolvată. Alternativă care o rezolvă: «leagă Împărăția, ca răsplată, de dreptatea practicată în această viață»."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "as a reward",
+          "quoteTarget": "ca răsplată",
+          "note": "Adăugat la revizie. «Reward» (termenul-cheie al lotului, de 19 ori în sursă) este redat consecvent „răsplată”, iar «rewarded» „răsplătit”, ca în 07-00 («reward for the practice of righteousness» = „răsplată pentru practicarea dreptății”). «Wages» este „plată” (par. 5 și 6), ca să se păstreze distincția pe care Vos o face în par. 6 între «wages» și «a gracious gift». Fără rând în glosar; propus pentru glosar după aprobare. Alternativă: «recompensă» (mai puțin biblic)."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "in the last day",
+          "quoteTarget": "în ziua de apoi",
+          "note": "«The last day» (ziua de la sfârșitul veacului, când sunt dăruite binecuvântările finale) este redat „ziua de apoi”, expresie consacrată în româna biblică și teologică. Alternativă: «ziua de pe urmă». Fără rând în glosar; propus dacă revine în lucrare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "at the plow, in the harvest-field, in the household",
+          "quoteTarget": "la plug, pe câmpul de seceriș, în gospodărie",
+          "note": "Imagini din pilde și din cuvintele Domnului, redate literal, fără trimiteri în sursă. «Household» = „gospodărie” (alternativă: «în casă»); «harvest-field» = „câmpul de seceriș” (alternativă: «lanul de seceriș»)."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Treasures can be laid up in heaven.",
+          "quoteTarget": "Se pot strânge comori în cer.",
+          "note": "Aluzie la Mat. 6:20 (cf. Lc. 12:33); sursa nu dă trimitere; identificată din memorie, neverificată în acest job. Tradusă ca text al autorului, nu după o ediție românească a Bibliei; marcată în scripture ca aluzie."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 5:20",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 6:20",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4860",
+      "text": "Pentru a rezolva această dificultate, este necesar să se facă distincții nete. Primul lucru de reținut este că nu avem dreptul să declarăm că dorința de răsplată, ca motiv al conduitei etice, este nedemnă de un standard înalt de moralitate și, prin urmare, nedemnă de elementul mai bun din chiar învățătura Domnului nostru. Așa ar sta lucrurile doar dacă ea ar apărea ca singurul motiv sau ca motivul suprem și dacă alte motive dezinteresate, centrate pe Dumnezeu, nu ar exista alături de ea sau deasupra ei. Dacă Domnul nostru a făcut apel la teama de pedeapsă ca mijloc de reținere de la rău, de ce n-ar fi făcut apel la dorința de fericire și de răsplată ca imbold spre bine? Nu putem oare crede că Isus însuși a fost întărit, în timp ce își îndura suferința, de perspectiva slavei făgăduite? cf. Evr. 12:2. Crede cineva că, în cazul lui, aceasta l-a împiedicat câtuși de puțin să facă din împlinirea voii Tatălui hrana și băutura sa?",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a deterrent from evil",
+          "quoteTarget": "ca mijloc de reținere de la rău",
+          "note": "Constatare a criticului (MINOR, calc), verificată față de original și aplicată. «Deterrent» (ceea ce reține pe cineva de la o faptă prin teama de urmări) fusese redat „mijloc de descurajare a răului”: în română „a descuraja” înseamnă mai ales a face să-și piardă curajul, iar obiectul era „răul”, nu oamenii opriți de la rău, cum cere sursa. Acum: „mijloc de reținere de la rău”, în paralel cu „imbold spre bine” („de la rău” față de „spre bine”). Alternative pentru revizor: «ca frână în calea răului», «ca mijloc de a-i opri pe oameni de la rău» (adaugă „pe oameni”, implicit în sursă)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "? cf. Heb. xii. 2.",
+          "quoteTarget": "? cf. Evr. 12:2.",
+          "note": "În sursă, «cf. Heb. xii. 2» urmează imediat după semnul întrebării, cu literă mică: pare o trimitere atașată întrebării dinainte. A fost păstrat ca în sursă, cu forma din references[].target; conform profilului, «cf.» se păstrează. Revizorul poate hotărî «Cf.» cu majusculă sau mutarea trimiterii înaintea semnului întrebării."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "making it his meat and his drink to do the Father’s will",
+          "quoteTarget": "să facă din împlinirea voii Tatălui hrana și băutura sa",
+          "note": "Aluzie la In. 4:34 (identificată din memorie, neverificată în acest job; sursa nu dă trimitere). «Meat» (arhaic, în sensul de hrană) = „hrană”. Tradusă ca text al autorului, nu după o ediție românească a Bibliei; marcată în scripture ca aluzie."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Evr. 12:2",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 4:34",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4861",
+      "text": "În al doilea rând, trebuie subliniat că stimulentul oferit de făgăduința răsplății nu trebuie neapărat să se adreseze instinctelor inferioare, senzuale, așa cum o făcea, din păcate, prea adesea în mintea iudaică, ci se poate adresa la fel de bine dorințelor celor mai înalte, spirituale. În această privință, învățătura Domnului nostru se desfășoară pe cel mai înalt plan imaginabil. Cei curați cu inima îl vor vedea pe Dumnezeu, cei care flămânzesc și însetează după dreptate vor fi pe deplin satisfăcuți cu aceasta, făcătorii de pace vor fi numiți fii ai lui Dumnezeu. Aceste propoziții din a doua parte a fiecărei Fericiri descriu esența Împărăției finale, în care va consta răsplata. Ele arată, așadar, că răsplata spre care Isus îi îndreaptă pe cei care îl urmează nu este ceva neutru din punct de vedere moral sau spiritual, ci cea mai înaltă bucurie de ceea ce constituie deja aici fericirea firească proprie Împărăției interioare. Astfel, răsplata are o legătură organică cu conduita pe care este menită să o încununeze.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "The pure in heart shall see God, those that hunger and thirst after righteousness shall be completely satisfied with the same, the peacemakers shall be called sons of God",
+          "quoteTarget": "Cei curați cu inima îl vor vedea pe Dumnezeu, cei care flămânzesc și însetează după dreptate vor fi pe deplin satisfăcuți cu aceasta, făcătorii de pace vor fi numiți fii ai lui Dumnezeu",
+          "note": "Trei membre secunde din Fericiri, citate de autor fără trimitere în sursă (probabil Mat. 5:8, 5:6 și 5:9, identificate din memorie, neverificate în acest job). Traduse din formularea engleză a lui Vos («completely satisfied with the same» nu este formularea biblică obișnuită), nu după o ediție românească a Bibliei; marcate în scripture ca quote-author-rendering, de înlocuit ulterior cu o ediție licențiată. «Peacemakers» = „făcătorii de pace” (alternativă: „împăciuitorii”); «righteousness» = „dreptate” (FIX), deci nu „neprihănire”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "These second clauses in the beatitudes",
+          "quoteTarget": "Aceste propoziții din a doua parte a fiecărei Fericiri",
+          "note": "Constatare a criticului (MINOR, omisiune), verificată față de original și aplicată. «These second clauses» sunt cele trei membre tocmai citate (promisiunile care încheie Fericirile despre cei curați cu inima, cei care flămânzesc și făcătorii de pace). Ciorna pierdea demonstrativul și, prin „a doua parte a Fericirilor”, putea fi citită ca a doua jumătate a seriei de Fericiri. Ordinalul „al doilea” nu are un plural firesc în română; de aceea „propoziții din a doua parte a fiecărei Fericiri”. Alternative pentru revizor: «Aceste propoziții care încheie Fericirile», «Aceste propoziții de încheiere ale Fericirilor»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "MINOR",
+          "quoteSource": "the highest enjoyment of what here already constitutes",
+          "quoteTarget": "cea mai înaltă bucurie de ceea ce constituie deja aici",
+          "note": "«Enjoyment of» (a avea parte de, a se bucura de ceva) este redat „bucurie de”; „desfătare” a fost evitat, fiindcă poate sugera plăcerea senzuală, iar fraza tocmai o exclude. Formulare de care nu sunt sigur. Alternative: «savurarea», «deplina bucurare de». Recitită la revizie: nu induce în eroare și nu schimbă sensul, dar rămâne o formulare de revizuit de omul care citește."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "something morally or spiritually indifferent",
+          "quoteTarget": "ceva neutru din punct de vedere moral sau spiritual",
+          "note": "«Indifferent» în sensul de neutru (nici bun, nici rău; adiaphoron), nu „nepăsător”; redat „neutru”. «Natural blessedness» = „fericirea firească” (FIX „fericire”); «internal kingdom» = „Împărăția interioară” (ca în 04-03 și 05-01)."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 5:8",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 5:6",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 5:9",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4862",
+      "text": "În plus, trebuie să observăm că există o deosebire fundamentală între felul în care iudaismul concepea principiul răsplății și concepția lui Isus despre același principiu, în privința necesității cu care se credea că acesta acționează. Potrivit iudeilor, aceasta era o necesitate juridică, împlinirea Legii fiind în sine vrednică de răsplata care îi urmează și având dreptul la ea. De aici, între cele două exista și un raport de echivalență strictă, atât fiind dat pentru atât. Isus a învățat limpede că între Dumnezeu și om nu poate exista nicio astfel de relație comercială, nu doar pentru că aceasta este imposibilă din cauza păcatului omului, ci dintr-un motiv mai profund, anume că suveranitatea absolută a lui Dumnezeu o exclude chiar și în condițiile rectitudinii umane, deoarece Dumnezeu, ca Dumnezeu, are dreptul, independent de orice contract sau de orice stipulare a unei răsplăți, la toată slujirea sau ascultarea pe care omul i-o poate aduce. Ucenicii sunt „slujitori nefolositori”, chiar și după ce au făcut tot ce li se cere, Lc. 17:10. Ei sunt „nefolositori” nu în sensul că munca lor este zadarnică, ci în sensul că nu pot face pentru Dumnezeu, stăpânul lor, mai mult decât poate el să aștepte în chip firesc de la ei. În pildă, talanții, pentru sporirea cărora slujitorii sunt răsplătiți, nu sunt de la bun început ai lor, ci le sunt încredințați de Domnul lor. Drept urmare, raportul de echivalență pură dintre ceea ce se face și ceea ce se primește este desființat cu totul. Răsplata va depăși cu mult dreptatea care o precedă. Cel care este credincios peste puține lucruri va fi pus peste multe, ba chiar peste toate, Mat. 24:47; 25:21, 23. Cel care primește un profet sau un om drept dobândește o răsplată la fel de mare ca a profetului și a oamenilor drepți, Mat. 10:41, 42. Restituirea va fi însutită pentru lucrurile la care s-a renunțat, Mc. 10:30. Iar pilda lucrătorilor din vie învață că, în ultimă analiză, răsplata este un dar gratuit, de unde și faptul că cel care a muncit doar puțin timp poate primi plata întreagă, Mat. 20:1–16; cf. Lc. 17:10.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "unprofitable servants",
+          "quoteTarget": "slujitori nefolositori",
+          "note": "Citat al autorului, cu trimiterea Lc. 17:10 din job (repetată la sfârșitul paragrafului, după «cf.»). Tradus din formularea lui Vos, nu după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată. «Unprofitable» = „nefolositori”, iar «useless» (fraza următoare) = „zadarnică”: distincția pe care o face autorul («not in the sense that their labors are useless») este păstrată prin două cuvinte diferite. «Servants» = „slujitori” (cu precedent în 02-00, „slujitorul istoriei”); alternative: „robi”, „slugi”."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "In the parable, the talents, for the increase of which the servants are rewarded, are not originally their own but entrusted to them by their Lord",
+          "quoteTarget": "În pildă, talanții, pentru sporirea cărora slujitorii sunt răsplătiți, nu sunt de la bun început ai lor, ci le sunt încredințați de Domnul lor",
+          "note": "«The parable» fără trimitere în sursă: pilda talanților (probabil Mat. 25:14–30, identificată din memorie, neverificată în acest job; cf. Mat. 25:21, 23 citat mai jos în același paragraf). Marcată în scripture ca aluzie. «Their Lord» = „Domnul lor”, cu majusculă ca în sursă (în pildă, stăpânul); «God their owner» = „Dumnezeu, stăpânul lor”. «In the parable» este redat „În pildă”, fără a numi pilda, ca în sursă; alternativă pentru revizor: «În pilda talanților»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "He that is faithful over a few things will be set over many things, nay over all things",
+          "quoteTarget": "Cel care este credincios peste puține lucruri va fi pus peste multe, ba chiar peste toate",
+          "note": "Formulare proprie a lui Vos, cu trimiterile Mat. 24:47; 25:21, 23 din job (combină «over a few things … over many things» din Mat. 25 cu «over all his goods» din Mat. 24:47, neverificat în acest job). Tradusă din engleza autorului, nu după o ediție românească a Bibliei; «nay» = „ba chiar”."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "He who receives a prophet or a righteous man obtains a reward as great as that of the prophet and the righteous men",
+          "quoteTarget": "Cel care primește un profet sau un om drept dobândește o răsplată la fel de mare ca a profetului și a oamenilor drepți",
+          "note": "Parafrază a autorului după Mat. 10:41, 42 (trimiterea din job). Tradusă din engleza lui, nu după o ediție românească a Bibliei. Profilul admite „prorocii” doar în citate marcate; s-a ales „profet”, ca în restul lucrării (04-01, 04-02). Alternativă în citat: «prooroc»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "human rectitude",
+          "quoteTarget": "rectitudinii umane",
+          "note": "«Rectitude» (corectitudine morală) este redat „rectitudine”, nu „dreptate”, ca să nu se șteargă distincția față de «righteousness» (FIX „dreptate”). Alternativă: «integritate morală»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Jesus’ conception of the same",
+          "quoteTarget": "concepția lui Isus despre același principiu",
+          "note": "Profilul avertizează (WARN) asupra lui „concepție”; aici desemnează felul în care Isus concepea principiul, în paralel cu «conceived» din aceeași frază, deci s-a păstrat „concepție”, ca în 07-00 (par. 2 al lotului). Alternativă: «felul în care îl concepea Isus»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a legal necessity; the fulfilment of the law",
+          "quoteTarget": "o necesitate juridică, împlinirea Legii",
+          "note": "«Legal necessity» = necesitate de natură juridică („juridică”, nu „legală”, care ar sugera „permisă de lege”). «The law» (cu minusculă în sursă) este redat „Legii”, cu majusculă, fiindcă desemnează Legea mozaică a iudaismului (ca în 07-00 și 02-01)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Restitution will be a hundredfold for things given up",
+          "quoteTarget": "Restituirea va fi însutită pentru lucrurile la care s-a renunțat",
+          "note": "«Restitution» (ceea ce se dă înapoi, înmulțit) este redat „restituirea”; alternativă: «despăgubirea». Cu trimiterea Mc. 10:30 din job."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 17:10",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 25:14–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 24:47; 25:21, 23",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mat. 10:41, 42",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Mc. 10:30",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 20:1–16",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 17:10",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD98083QXRPZVTRT4863",
+      "text": "Vedem, așadar, că Isus, deși acordă un loc considerabil ideii de răsplată în învățătura sa, o ține într-o strictă subordonare față de cele două principii superioare ale suveranității divine și ale harului divin, cu alte cuvinte față de domnia divină și paternitatea divină. Sub acest din urmă aspect, ca și sub primul, relația dintre Dumnezeu și ucenici nu admite acordarea sau primirea de răsplăți pe o bază strict comercială. Tatăl, ca Tată, dă Împărăția micii turme și, în general, le face copiilor săi daruri bune. Ceea ce, dintr-un punct de vedere, poate fi numit plată este, din altul, un dar făcut din har; cf. Mat. 5:46 cu Lc. 6:32–35. Răsplata slujește numai scopului de a oferi un imbold zelului ucenicilor. Deși Împărăția însăși este moștenită de toți, și moștenită prin har, vor exista grade individuale în slava pe care o implică ea pentru fiecare ucenic, deoarece rezultatul final nu poate să nu fie determinat de progresul în dreptate înfăptuit aici, pe pământ.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "The Father t as Father",
+          "quoteTarget": "Tatăl, ca Tată",
+          "note": "Defect tipografic în sursă: o literă «t» rătăcită în locul probabil al unei virgule; citit «The Father, as Father,» și redat „Tatăl, ca Tată,”. Confirmat la revizie (și de critic): același defect în content/sources/vos-1903-kingdom/raw.txt (rândul 2933), în raw-layout.txt (rândul 3064) și în content/works/vos-1903-kingdom/edition-en.json (rândul 694), deci nu provine din segmentarea ingestiei. Sensul nu este afectat. De corectat în ediția engleză: «The Father, as Father,», apoi de refăcut pachetul."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "for each disciple t because",
+          "quoteTarget": "pentru fiecare ucenic, deoarece",
+          "note": "Defect tipografic în sursă: o literă «t» rătăcită între «disciple» și «because», în locul probabil al unei virgule; citit «for each disciple, because». Confirmat la revizie (și de critic): același defect în raw.txt (rândul 2944), în raw-layout.txt (rândul 3078, «disciple t because the ultimate issue can-») și în edition-en.json (rândul 694). Sensul nu este afectat. De corectat în ediția engleză: «for each disciple, because», apoi de refăcut pachetul."
+        },
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "Lk. vi. 32 35",
+          "quoteTarget": "Lc. 6:32–35",
+          "note": "Defect tipografic în sursă: între «32» și «35» lipsește semnul intervalului (pierdut la OCR); job-ul citește referința ca interval (Luke 6:32-35), iar în text s-a folosit forma din references[].target. Confirmat la revizie (și de critic): același defect în raw.txt (rândul 2939), în raw-layout.txt (rândul 3070) și în edition-en.json (rândul 694). Citirea ca interval este firească, trimiterea fiind paralela lui Mat. 5:46 din aceeași frază («cf. Matt. v. 46 with Lk. vi. 32 35»), dar identificarea vine din textul biblic cunoscut, nu dintr-o ediție verificată în acest job. Sensul traducerii nu este afectat. De corectat în ediția engleză: «Lk. vi. 32-35» (cu cratimă, ca «Matt. xx. 1-16» din același lot), apoi de refăcut pachetul."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "gives to the little flock the kingdom, and in general bestows good gifts upon his children",
+          "quoteTarget": "dă Împărăția micii turme și, în general, le face copiilor săi daruri bune",
+          "note": "Aluzii fără trimitere în sursă: «the little flock» și Împărăția dată de Tată (probabil Lc. 12:32) și «good gifts» pentru copii (probabil Mat. 7:11); identificate din memorie, neverificate în acest job. Traduse ca text al autorului, nu după o ediție românească a Bibliei; marcate în scripture ca aluzii. «Little flock» = „mica turmă”, în dativ „micii turme”."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "a gracious gift",
+          "quoteTarget": "un dar făcut din har",
+          "note": "«Gracious» (dăruit din har, nemeritat) este redat „făcut din har”, care păstrează legătura cu «grace» din aceeași frază. «Wages» = „plată” (în par. 5 al lotului, «the full wages» = „plata întreagă”). Alternative: «un dar al harului», «un dar generos»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "In the latter respect as well as in the former",
+          "quoteTarget": "Sub acest din urmă aspect, ca și sub primul",
+          "note": "«The latter» și «the former» trimit la cele două principii din fraza precedentă, în ordinea lor: «the former» = suveranitatea divină (domnia), «the latter» = harul divin (paternitatea). Ordinea din sursă („acest din urmă aspect … primul”) a fost păstrată; lectura inversă nu pare plauzibilă, fiindcă fraza următoare se ocupă de Tatăl și de copiii săi."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 12:32",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 7:11",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 5:46",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 6:32–35",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 5 (2 MINOR, 3 SURSA_POSIBIL_ERONATA); aplicate 5, respinse 0, toate verificate față de original. (1) Par. 3: «a deterrent from evil» → „ca mijloc de reținere de la rău” (în loc de „mijloc de descurajare a răului”): „a descuraja” este fals prieten pentru «to deter», iar cel reținut de la rău este omul, nu răul; flag-ul din ciornă (ALTA, MINOR) este coborât la INFO, cu alternativele. (2) Par. 4: «These second clauses in the beatitudes» → „Aceste propoziții din a doua parte a fiecărei Fericiri” (în loc de „Propozițiile din a doua parte a Fericirilor”): redă demonstrativul și exclude lectura „a doua jumătate a seriei de Fericiri”; flag-ul din ciornă (ALTA, MINOR) este coborât la INFO. (3–5) Par. 6: cele două litere «t» rătăcite în loc de virgule și semnul intervalului lipsă din «Lk. vi. 32 35» sunt defecte ale sursei, confirmate de mine în content/sources/vos-1903-kingdom/raw.txt (rândurile 2933, 2939, 2944), în raw-layout.txt (3064, 3070, 3078) și în content/works/vos-1903-kingdom/edition-en.json (rândul 694); româna le citește corect (virgulă, interval „Lc. 6:32–35”), deci textul românesc nu se schimbă; cele trei flag-uri SURSA_POSIBIL_ERONATA (INFO) rămân, cu propunerea de corectare a ediției engleze (în afara acestui pas): «The Father, as Father,», «for each disciple, because», «Lk. vi. 32-35», apoi refacerea pachetului. Retușuri proprii, după recitirea textului numai în română, fiecare reverificată față de original, fără schimbare de sens: par. 2 «desemnează nu domnia lui Dumnezeu, ci» → «nu desemnează domnia lui Dumnezeu, ci» (ordinea engleză «denotes not … but»; negația trece la verb); par. 2 «cuvinte izolate» → «spuse izolate» («isolated sayings»: „cuvinte izolate” se poate citi „cuvinte singure”, iar «sayings» este redat „spuse” în 03-00, 04-01 și 04-02). Flag-uri adăugate la revizie (INFO): TERMEN_NOU pentru «reward» (omis în ciornă) și ALTA pentru «provided» = „asigurate” (par. 1); în flag-urile ciornei s-a corectat trimiterea la paragraful lui «the full wages» (par. 5, nu 4). Verificat frază cu frază față de original, în ambele sensuri (49 de propoziții plus trimiterea «cf. Heb. xii. 2» din par. 3), fără omisiuni, adaosuri, negații, modalitate sau roluri alterate. Redări ținute consecvent cu 07-00 și cu cap. I–VI: righteousness = dreptate (FIX); kingship = domnie; fatherhood = paternitate; sovereignty = suveranitate; conception = noțiune (excepție: „concepția lui Isus despre același principiu”, vezi flag); reward = răsplată; wages = plată; blessedness = fericire; internal kingdom = Împărăția interioară (ca în 04-03 și 05-01); the coming kingdom = Împărăția care vine; the Scribes and Pharisees = cărturarii și fariseii; Judaism = iudaismul; the Jewish mind = mintea iudaică (ca în 02-01); representation = reprezentare (ca în 07-00); in its ultimate analysis = în ultimă analiză (ca în 06-01). Termeni noi propuși pentru glosar (INFO): imputed / imputation = imputat / imputare; atoning = ispășitor; the last day = ziua de apoi; reward = răsplată. Trimiterile din job apar în text exact în forma din references[].target (Mat. 5:20; Evr. 12:2; Lc. 17:10 de două ori; Mat. 24:47; 25:21, 23; Mat. 10:41, 42; Mc. 10:30; Mat. 20:1–16; Mat. 5:46; Lc. 6:32–35). Citatele și aluziile fără trimitere în sursă (Mat. 5:20 în par. 1, Mat. 6:20, In. 4:34, Mat. 5:8, 5:6, 5:9, Mat. 25:14–30, Lc. 12:32, Mat. 7:11) sunt marcate doar în scripture și în flag-uri, identificate din memorie și neverificate pe o ediție a Bibliei; de confirmat de revizor; nu au fost adăugate în text. Textele biblice citate de Vos sunt traduse din engleza lui, nu după o ediție românească a Bibliei. Textul nu este certificat ca publicabil."
+}

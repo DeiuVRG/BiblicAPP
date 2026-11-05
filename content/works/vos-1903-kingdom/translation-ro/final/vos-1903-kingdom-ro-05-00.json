@@ -1,0 +1,268 @@
+{
+  "jobId": "vos-1903-kingdom-ro-05-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "V. Noțiuni greșite curente despre Împărăția prezentă și Împărăția viitoare",
+  "paragraphs": [
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV5",
+      "text": "După ce am constatat că atât noțiunea imanentă, cât și cea escatologică despre venirea Împărăției sunt reprezentate limpede în învățătura lui Isus și am definit, în linii generale, raportul uneia față de cealaltă, putem trece acum la examinarea fiecăreia în parte, pentru a ne feri de anumite noțiuni greșite la care ambele pot fi ușor expuse. Unii autori, mai ales din categoria celor care susțin cu insistență că Isus nu a avut altă noțiune despre Împărăție decât cea escatologică, au tendința de a identifica părerea care i se atribuie cu așteptările iudaice răspândite. Aceasta ar implica faptul că el nu numai că s-a înșelat în privința momentului apariției Împărăției, ci a avut și o idee intrinsec falsă despre natura ei, fără să fi depășit cu totul limitările epocii și ale mediului său în această privință. Un autor recent din această categorie a afirmat, în toată seriozitatea, că noțiunea despre Împărăție, în forma istorică în care a îmbrățișat-o Domnul nostru, este acel element al învățăturii sale căruia nu-i putem atribui o valoare durabilă, că în experiența lui Isus însuși ea s-a dovedit o iluzie, că învățăturii sale despre paternitatea lui Dumnezeu, și nu acestei noțiuni, i se datorează îmbogățirea pe care a produs-o Domnul nostru în conștiința religioasă a omenirii.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "misconceptions",
+          "quoteTarget": "noțiuni greșite",
+          "note": "«Misconception(s)» este redat «noțiune/noțiuni greșită/greșite» (și în titlul capitolului, «Noțiuni greșite curente»), în linia lui «conception» = «noțiune» din capitolele anterioare (profil: WARN pentru «concepție»). Fără rând în glosar; propus pentru glosar după aprobare. Alternative pentru revizor: «concepții greșite», «înțelegeri greșite»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "the current Jewish expectations",
+          "quoteTarget": "așteptările iudaice răspândite",
+          "note": "«Current» are aici sensul «aflat în circulație, răspândit în epocă» (așteptările iudaice din vremea lui Isus), nu «de azi». Ciorna avea «curente», care în română poate fi citit și ca «actual»; la revizie a fost înlocuit cu «răspândite», fără altă schimbare de sens. Alternative pentru revizor: «așteptările iudaice ale vremii», «așteptările iudaice obișnuite»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "that the notion of the kingdom",
+          "quoteTarget": "noțiunea despre Împărăție",
+          "note": "«Notion» (aici) și «conception» (la începutul paragrafului) sunt redate la fel, «noțiune», ca în capitolele anterioare; distincția dintre cele două cuvinte englezești nu se mai vede în română. «Notion of the kingdom» = «noțiunea despre Împărăție», ca «kingdom-conception» din cap. IV."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "it proved a delusion",
+          "quoteTarget": "ea s-a dovedit o iluzie",
+          "note": "«Delusion» este redat «iluzie»; alternativă pentru revizor: «amăgire» (accent pe a fi indus în eroare)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "rather than to it",
+          "quoteTarget": "și nu acestei noțiuni",
+          "note": "Pronumele «it» (= noțiunea despre Împărăție) este redat explicit, «acestei noțiuni», fiindcă un «ei» ar fi putut fi citit ca trimițând la «învățătura» din același enunț (ambele sunt feminine în română). Nu se adaugă niciun sens nou."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV6",
+      "text": "Această eroare provine din nerecunoașterea aspectului imanent, spiritual, al ideii Împărăției ca efectiv prezent în învățătura lui Isus și a reconstrucției profunde pe care, ca urmare, a suferit-o ideea în ansamblul ei. Din așteptarea iudaismului cu privire la Împărăție, Isus nu a împrumutat mult mai mult decât numele; orice parte din conținutul propriei sale învățături despre Împărăție pe care o avea în comun cu credința escatologică a vremii sale aparținea tipului mai curat și mai nobil de escatologie iudaică, care s-a constituit în jurul ideii de „veacul viitor”. Iar chiar și pe aceasta din urmă a ridicat-o la un plan infinit mai înalt, subsumând-o principiului supremației lui Dumnezeu. În măsura în care era legată de Împărăție, speranța iudaică era intens politică și națională, fiind totodată considerabil pătată de senzualitate. De orice legătură cu politicul era cu totul desprinsă învățătura Domnului nostru despre Împărăție, cf. Mc. 12:13; In. 18:36. În Evanghelii nu se găsește nicio urmă a așa-numitei așteptări hiliastice a unei împărății politice provizorii, acel straniu compromis prin care iudaismul s-a străduit să împace cele două elemente eterogene care se luptau pentru supremație în conștiința sa escatologică. Ceea ce corespunde formal acestei noțiuni în învățătura Domnului nostru este ideea Împărăției invizibile, spirituale, și cât de cu totul diferită este aceasta!",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "chiliastic",
+          "quoteTarget": "hiliastice",
+          "note": "«Chiliastic» este redat «hiliastic» (ortografierea românească a lui «hiliasm», după cum o cunosc din dicționare; neverificată în acest job). Alternative pentru revizor: «chiliastic» (mai aproape de sursă), «milenarist». Fără rând în glosar; de confirmat."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "kingdom-expectation of Judaism",
+          "quoteTarget": "așteptarea iudaismului cu privire la Împărăție",
+          "note": "Compusul «kingdom-expectation» (ca și «kingdom-idea», «kingdom-teaching») este redat prin «așteptarea … cu privire la Împărăție», fiindcă «așteptarea Împărăției» + «iudaismului» ar fi pus două genitive la rând. Când apare singur în capitolele următoare: «așteptarea Împărăției». Fără rând în glosar."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "in result of it",
+          "quoteTarget": "ca urmare",
+          "note": "Antecedentul lui «it» este, probabil, «the immanent, spiritual aspect … as actually present» (reconstrucția a urmat din prezența reală a acestui aspect); se poate citi însă și ca nerecunoașterea însăși. În română pronumele a fost lăsat implicit («ca urmare»), păstrând aceeași ambiguitate minimă; revizorul decide."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "considerably tainted also by sensuality",
+          "quoteTarget": "considerabil pătată de senzualitate",
+          "note": "«Sensuality» (și «sensualistic» din par. 5) este redat «senzualitate» / «senzual»; «senzualist» este evitat, fiindcă în română trimite la senzualismul filozofic. «Considerably» este redat «considerabil» (adverb, ca să nu se repete «măsura» din «În măsura în care»). «Tainted» este redat «pătată»; alternative pentru revizor: «întinată», «viciată». Fără rând în glosar."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "From all political bearings",
+          "quoteTarget": "De orice legătură cu politicul",
+          "note": "«Bearings» (în sensul «raporturi, legături, aspecte») este redat «legătură cu politicul», după propunerea criticului: ciorna avea «implicație politică», care aluneca spre «consecință» și forma o colocație forțată cu «desprinsă». Alternative pentru revizor: «de orice raport cu politica», «de orice aspect politic»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mc. 12:13",
+          "mode": "reference"
+        },
+        {
+          "ref": "In. 18:36",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV7",
+      "text": "La fel de largă și de liberă este doctrina lui Isus despre Împărăție în atitudinea ei față de problema prerogativei naționale a lui Israel. Spuse precum Mat. 8:11; 21:43; 28:19; Mc. 13:10; 14:9; Lc. 4:26, 27 dovedesc că el a prevăzut limpede respingerea multora din Israel și extinderea Evangheliei asupra neamurilor pe scară largă. Este adevărat că toate acestea sunt cuvinte profetice. În propria sa activitate pastorală s-a mărginit deliberat la oile pierdute ale casei lui Israel, iar pe colaboratorii săi i-a ținut în aceleași limite. Dar chiar și așa, în întreaga sa atitudine de învățător al lui Israel se află ceea ce a fost caracterizat, în chip izbitor, drept „universalism intensiv”. În iudeu, omul este cel pe care îl caută și se străduiește să-l mântuiască. Problemele ridicate, îndatoririle cerute, binecuvântările conferite sunt de așa natură încât se pot aplica tuturor, fără deosebire de rasă, castă sau sex.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "the lost sheep of the house of Israel",
+          "quoteTarget": "oile pierdute ale casei lui Israel",
+          "note": "Expresie din Evanghelie preluată de autor fără trimitere și fără ghilimele. Corespondentele probabile, identificate din memorie și neverificate în acest job, sunt Mat. 10:6 și Mat. 15:24; ele apar numai în scripture (allusion) și în acest flag, nu în text. Tradusă ca text al autorului, nu reprodusă după o ediție românească a Bibliei; de înlocuit ulterior cu o ediție licențiată, dacă se decide."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "the rejection of many in Israel",
+          "quoteTarget": "respingerea multora din Israel",
+          "note": "Genitiv obiectiv probabil (mulți din Israel sunt respinși; cf. expresia teologică «the rejection of Israel»), dar se poate citi și ca respingere venită din partea multora din Israel. Româna păstrează aceeași formulare, cu aceeași ambiguitate minimă; revizorul decide dacă e nevoie de precizare."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "kept his helpers within the same limits",
+          "quoteTarget": "pe colaboratorii săi i-a ținut în aceleași limite",
+          "note": "«Helpers» este redat «colaboratorii»; alternativă: «ajutoarele sale» (mai literal, dar în română poate fi citit ca «ajutor» = sprijin). «Sayings» este redat «spuse», ca în cap. III–IV."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "intensive universalism",
+          "quoteTarget": "universalism intensiv",
+          "note": "Caracterizarea este citată de autor dintr-un scriitor nenumit în sursă; tradusă ca atare, între ghilimele."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Mat. 8:11",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 21:43",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 28:19",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 13:10",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 14:9",
+          "mode": "reference"
+        },
+        {
+          "ref": "Lc. 4:26, 27",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mat. 10:6",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 15:24",
+          "mode": "allusion"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQZW8SCYVBQDQME719YT87",
+      "text": "Lc. 22:30 se citează uneori pentru a dovedi că Isus nu se eliberase de particularismul iudaic. Deși este posibil ca „a judeca” să trebuiască înțeles în sensul de „a domni”, totuși cuvintele nu implică nicidecum mântuirea întregului Israel și nici nu exclud chemarea neamurilor. Ele au fost rostite într-un moment în care Isus nu se mai putea îndoi că masele lui Israel aveau să-l respingă. În plus, cuvintele sunt figurative, judecând după context, în care se vorbește despre „a mânca” și „a bea”. Tot ce putem deduce cu temei din ele este că apostolii vor avea o poziție de întâietate în Împărăție.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "“judging”",
+          "quoteTarget": "„a judeca”",
+          "note": "Cuvintele între ghilimele («judging», «eating», «drinking») par preluate din Lc. 22:30, trimiterea din sursă (verificat doar din memorie, nu pe un text biblic); «reigning» este tâlcuirea autorului, nu citat. Gerunziile englezești sunt redate prin infinitive între ghilimele („a judeca”, „a domni”, „a mânca”, „a bea”); alternativă pentru revizor: substantive verbale („judecarea”, „domnirea”, „mâncatul”, „băutul”). Trimiterea Lc. 22:30 este în scripture ca reference; fragmentele citate nu sunt marcate separat, fiindcă sunt cuvinte izolate în fraza autorului."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Though possibly the “judging” may have to be understood",
+          "quoteTarget": "Deși este posibil ca „a judeca” să trebuiască înțeles",
+          "note": "Modalitate: «possibly» + «may have to» (două grade de rezervă) sunt redate printr-o singură construcție, «este posibil ca … să trebuiască», care păstrează atât posibilitatea, cât și obligația de a înțelege altfel cuvântul; nu s-a întărit și nu s-a atenuat nimic."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Lc. 22:30",
+          "mode": "reference"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6JQPD96YP58WZ5QMH3DRGV8",
+      "text": "A treia trăsătură prin care mesajul Domnului nostru despre Împărăție se deosebește de așteptarea iudaică constă în absența elementului senzual, atât de pronunțat în aceasta din urmă. Este adevărat că el vorbește, în legătură cu Împărăția, despre a mânca, a bea, a sta întins la masă, a moșteni pământul etc., și se spune că nu avem dreptul să spiritualizăm toate acestea. Dar Vechiul Testament folosea deja asemenea forme de exprimare, cu conștiința limpede a caracterului lor metaforic. Chiar și în literatura apocaliptică acest sens nu lipsește cu totul, după cum arată afirmația din Enoh 15:11, „Nu vor gusta din nicio hrană și nici nu vor înseta”. Cel puțin cu privire la un punct, Isus a afirmat categoric că plăcerile senzuale ale vieții de acum vor înceta în lumea viitoare, Mc. 12:25. Pe de altă parte, trebuie să ne amintim că se poate merge prea departe în interpretarea care spiritualizează acest gen de afirmații. Nu avem voie să dizolvăm totul în procese pur interioare și în stări mintale, așa cum fac teologii moderni când spun că cerul și iadul sunt în inimile oamenilor. Împărăția escatologică are cu siguranță, în felul în care o concepe Domnul nostru, propriile ei forme exterioare de viață. Aceste imagini reprezintă realități obiective, externe, în care trupul își va avea propriul rol și propria funcție. Când Domnul nostru vorbește despre plăcerile pământești, are în vedere ceva ce va fi cu adevărat analog cu acestea și totuși se va desfășura pe un plan cu totul mai înalt. Dificultatea noastră constă în aceea că nu ne putem forma o noțiune concretă despre forme exterioare de viață fără a recurge la simțuri. Dar dificultatea noastră nu dovedește imposibilitatea, și nici nu dovedește că aceeași dificultate exista pentru Isus, care era familiarizat prin experiență cu lumea cerească.",
+      "flags": [
+        {
+          "code": "SURSA_POSIBIL_ERONATA",
+          "severity": "INFO",
+          "quoteSource": "life. -These figures",
+          "quoteTarget": "viață. Aceste imagini",
+          "note": "Defect tipografic în sursă: o cratimă rătăcită înaintea lui «These» la începutul unei fraze («life. -These»), probabil rest de paginare sau de OCR. Apare și în textul brut al PDF-ului (content/sources/vos-1903-kingdom/raw.txt, rândul 1775), deci nu provine din curățarea de la ingest, și în ediția engleză. Omisă din traducere, fără nicio schimbare de sens; de corectat în ediția engleză («life. -These» devine «life. These»)."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "Enoch xv. 11",
+          "quoteTarget": "Enoh 15:11",
+          "note": "Citat din Cartea lui Enoh (scriere pseudepigrafă, nu din Scriptura canonică). În job trimiterea apare doar ca «xv. 11» (15:11), fără carte, deși în text este precedată de «Enoch» (în textul brut al PDF-ului, «Enoch xv. 11», raw.txt, rândurile 1763-1764). Numele este redat «Enoh» (forma românească consacrată), iar trimiterea este păstrată în notația job-ului. Citatul este tradus ca text al autorului; nici el, nici trimiterea nu au fost verificate față de un text al lui Enoh. Revizorul uman ar trebui să le confrunte cu ediția folosită de Vos."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "sensualistic element",
+          "quoteTarget": "elementului senzual",
+          "note": "«Sensualistic» este redat «senzual», nu «senzualist» (care în română trimite la senzualismul filozofic); la fel «sensual enjoyments» = «plăceri senzuale». Fără rând în glosar."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "earthly enjoyments",
+          "quoteTarget": "plăcerile pământești",
+          "note": "«Enjoyments» (în «sensual enjoyments» și «earthly enjoyments») este redat «plăceri»; alternative pentru revizor: «bucurii» (ton mai pozitiv), «desfătări». Fără rând în glosar."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "reclining at table",
+          "quoteTarget": "a sta întins la masă",
+          "note": "«Reclining» păstrează poziția la masă a banchetului antic (nu doar «a sta la masă»); alternativă pentru revizor: «a sta la masă»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "this sense is not entirely wanting",
+          "quoteTarget": "acest sens nu lipsește cu totul",
+          "note": "«Sense» poate fi «înțeles, semnificație» (sensul metaforic) sau «simț, conștiință» (cf. «the clear consciousness of their metaphorical character» din fraza precedentă). Româna «sens» păstrează prima lectură; pentru a doua: «acest simț», «această conștiință». Revizorul decide."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "in our Lord’s conception",
+          "quoteTarget": "în felul în care o concepe Domnul nostru",
+          "note": "«Conception» este redat printr-un verb, ca să se evite «concepție» (profil: WARN); aceeași soluție ca în cap. IV, partea 2."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "spiritualizing interpretation",
+          "quoteTarget": "interpretarea care spiritualizează",
+          "note": "«Spiritualizing» este redat printr-o propoziție relativă, ca în cap. IV (partea 1), ca să se evite adjectivul rar «spiritualizator»."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Enoh 15:11",
+          "mode": "reference"
+        },
+        {
+          "ref": "Mc. 12:25",
+          "mode": "reference"
+        }
+      ]
+    }
+  ],
+  "notes": "Revizie finală. Constatările criticului: 3 (2 MINOR, 1 SURSA_POSIBIL_ERONATA); aplicate 2, respinse 0; a treia (cratima rătăcită din «life. -These», în sursă) nu cere nicio schimbare în română și rămâne flag, iar corectura din ediția engleză nu face parte din acest fișier. (1) Par. 1: «la care ambele pot ajunge cu ușurință să fie expuse» devine «la care ambele pot fi ușor expuse» (criticul propunea «sunt ușor expuse»; s-a păstrat «pot», ca să rămână modalitatea lui «may»). (2) Par. 2: «De orice implicație politică» devine «De orice legătură cu politicul» (propunerea criticului: «bearings» = legături, raporturi, nu consecințe); flag-ul ALTA coboară la INFO. Retușuri de redactare, fiecare reverificată față de original, fără schimbare de sens: par. 1 «așteptările iudaice curente» devine «așteptările iudaice răspândite» («curente» putea fi citit ca „de azi”; «current» = aflat în circulație în epocă); par. 2 «ca fiind efectiv prezent» devine «ca efectiv prezent», «Isus nu a împrumutat din așteptarea iudaismului cu privire la Împărăție mult mai mult decât numele» devine «Din așteptarea iudaismului cu privire la Împărăție, Isus nu a împrumutat mult mai mult decât numele» (punctul de greutate, «numele», trece la sfârșit, ca în sursă) și «într-o măsură considerabilă» devine «considerabil» (repeta «măsura» din «În măsura în care»); par. 5 «atât de proeminent» devine «atât de pronunțat» («proeminent» este un calc frecvent după «prominent») și se scoate pronumele redundant din «el are în vedere». Verificat frază cu frază față de original, în ambele sensuri (35 de propoziții: 5 paragrafe cu 4 + 7 + 7 + 5 + 12), fără omisiuni, adaosuri, negații sau modalitate alterate. Trimiterile din text sunt cele din job (Enoh 15:11 are cartea adăugată de traducător; în sursă «Enoch xv. 11»); Mat. 10:6 și Mat. 15:24 apar numai în scripture (allusion) și în flag-ul din par. 3, neverificate pe un text biblic. Titlul capitolului păstrează «curente» («greșeli curente» = frecvente). Defectul tipografic al sursei din par. 5 («life. -These») este omis din text și semnalat. Redări de ținut consecvent în capitol, în continuarea cap. I–IV: kingdom (absolut) = Împărăția; conception / notion = noțiune; misconception = noțiune greșită; kingdom-idea = ideea Împărăției; kingdom-doctrine = doctrina despre Împărăție; kingdom-message = mesajul despre Împărăție; kingdom-teaching = învățătura despre Împărăție; kingdom-expectation = așteptarea … cu privire la Împărăție; view = părere; current (despre așteptări) = răspândite; sayings = spuse; utterances = afirmații; supremacy = supremație; the coming age = veacul viitor; the Jews / Judaism = iudeii / iudaismul; Gentiles = neamurile; gospel = Evanghelia; eschatological = escatologic; chiliastic = hiliastic (de confirmat); sensual / sensualistic = senzual; enjoyments = plăceri; spiritualizing = propoziție relativă, ca în 04-01. Textul nu este certificat ca publicabil."
+}
