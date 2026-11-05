@@ -20,7 +20,7 @@ const GRANT = {
  * Starts a press on the control with this accessible name and returns the style it has while it is
  * pressed (the control is found again afterwards: its props changed).
  */
-export async function styleWhilePressed(label: string): Promise<ViewStyle> {
+export async function styleWhilePressed(label: string | RegExp): Promise<ViewStyle> {
   await fireEvent(screen.getByLabelText(label), 'responderGrant', GRANT);
   return StyleSheet.flatten(screen.getByLabelText(label).props.style) as ViewStyle;
 }

@@ -5,7 +5,7 @@ import { AppText, toneColor } from '@/components/app-text';
 import { Band, bandBackground } from '@/components/band';
 import { isDarkBand, useBandTone } from '@/components/band-context';
 import { Button } from '@/components/button';
-import { Hero, HighlightedLine } from '@/components/hero';
+import { Hero, HighlightedLine, wrapsOntoTwoLines } from '@/components/hero';
 import { ICON_GRID, ICON_NAMES, ICON_STROKE, Icon } from '@/components/icon';
 import { IconButton } from '@/components/icon-button';
 import { FontsProvider, loadedFonts } from '@/theme/fonts';
@@ -34,7 +34,7 @@ const pathsOf = (name: string): string[] =>
     .map((node) => node.props.d as string);
 
 describe('Icon: render', () => {
-  it('has the icons of the spec: menu, close, four chevrons, search, link, copy, two bookmarks, flag, lanes, three themes, send, stop, external, check, info', () => {
+  it('has the icons of the spec: menu, close, four chevrons, search, link, copy, two bookmarks, flag, lanes, four themes (auto, light, sepia, dark), send, stop, external, check, info', () => {
     expect([...ICON_NAMES]).toEqual([
       'menu',
       'close',
@@ -51,6 +51,7 @@ describe('Icon: render', () => {
       'lanes',
       'themeAuto',
       'themeLight',
+      'themeSepia',
       'themeDark',
       'send',
       'stop',
@@ -728,6 +729,52 @@ describe('Hero: links and badge', () => {
     await renderWithProviders(<Hero kind="page" title={['Despre', 'bibliotecă']} />);
     expect(screen.getByText('Despre')).toHaveStyle({ fontSize: 32, lineHeight: 36 });
     expect(screen.getByText('bibliotecă')).toHaveStyle({ fontSize: 32, lineHeight: 36 });
+  });
+});
+
+describe('HighlightedLine: a line that wraps is reported while the hero is written', () => {
+  // The bar is one rectangle behind the line, so a second title line that wraps would get a slab
+  // with empty bar to the right of its last line (a 390 point phone: edge to edge). The copy of
+  // the heroes has to fit on one line at 320 points; in development a layout that is taller than
+  // one line says so.
+  const layoutOf = (height: number) => ({
+    nativeEvent: { layout: { x: 0, y: 0, width: 250, height } },
+  });
+
+  it('tells a block of one line from a wrapped one by its height', () => {
+    expect(wrapsOntoTwoLines(33, 33)).toBe(false); // one line
+    expect(wrapsOntoTwoLines(36, 33)).toBe(false); // a little taller (rounding, font metrics)
+    expect(wrapsOntoTwoLines(66, 33)).toBe(true); // two lines
+    expect(wrapsOntoTwoLines(99, 33)).toBe(true);
+    expect(wrapsOntoTwoLines(40, undefined)).toBe(false); // no line height known: no verdict
+  });
+
+  it('warns when the text of the line wraps onto a second line', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    await renderWithProviders(
+      <HighlightedLine still>o a doua linie mult prea lungă pentru un telefon mic</HighlightedLine>,
+    );
+    // displayXL on a phone is 29 / 33; two lines are 66 high.
+    await fireEvent(screen.getByText(/mult prea lungă/), 'layout', layoutOf(66));
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0]![0]).toContain('wraps onto a second line');
+    expect(warn.mock.calls[0]![0]).toContain('mult prea lungă');
+  });
+
+  it('says nothing for a line that fits', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    await renderWithProviders(<HighlightedLine still>în limba ta.</HighlightedLine>);
+    await fireEvent(screen.getByText('în limba ta.'), 'layout', layoutOf(33));
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('judges a hero of an inner page by its own line height (displayL is 32 / 36)', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    await renderWithProviders(<Hero kind="page" title={['Despre', 'bibliotecă']} />);
+    await fireEvent(screen.getByText('bibliotecă'), 'layout', layoutOf(36));
+    expect(warn).not.toHaveBeenCalled();
+    await fireEvent(screen.getByText('bibliotecă'), 'layout', layoutOf(72));
+    expect(warn).toHaveBeenCalledTimes(1);
   });
 });
 

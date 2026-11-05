@@ -1,16 +1,15 @@
 import type { Edition, Section } from '@biblioteca/shared';
-import { Link, Stack, useFocusEffect, useRouter } from 'expo-router';
+import { Link, useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Chip } from '@/components/chip';
-import { useListContentStyle } from '@/components/column';
+import { Column } from '@/components/column';
 import { Hairline } from '@/components/hairline';
 import { LinkRow } from '@/components/list-row';
 import { PageTitle } from '@/components/page-title';
-import { Screen } from '@/components/screen';
 import { SegmentedControl } from '@/components/segmented-control';
 import { LoadingView, MessageView } from '@/components/state-views';
 import { isPartialEdition } from '@/content/editions';
@@ -34,6 +33,7 @@ import { sectionDepths } from '@/reading/navigation';
 import { loadPosition } from '@/reading/position-store';
 import type { ReadingPosition } from '@/reading/position-store';
 import { useSettings } from '@/settings/settings-context';
+import { Main, PageScroll } from '@/shell/page-scroll';
 import { useStorage } from '@/storage/key-value-store';
 import { useFontFamilies } from '@/theme/fonts';
 import { PROSE_MAX_WIDTH, useLayout } from '@/theme/layout';
@@ -195,7 +195,6 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
   const router = useRouter();
   const store = useStorage();
   const fonts = useFontFamilies();
-  const contentStyle = useListContentStyle('list');
   const { detail, editions } = loaded;
   const { summary, sections } = selected;
   const [positions, setPositions] = useState<Record<string, ReadingPosition | null>>({});
@@ -231,15 +230,14 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
   const numbered = sections.some((section) => splitChapterHeading(section.heading).numeral);
   const title = workTitle(detail.work, settings.readingLanguage);
 
+  // The work hub is rebuilt in the next phase (docs/ui-spec-v2.md, 7); until then it keeps its
+  // layout and sits in the shell: the brand bar and the section bar are the first children of the
+  // page's scroll container.
   return (
-    <Screen>
-      {/* The title page below carries the work's title; the header only says where we are. */}
-      <Stack.Screen options={{ title, headerTitle: t.work.title }} />
+    <PageScroll>
       <PageTitle parts={[title]} />
-      <FlatList
-        data={sections}
-        keyExtractor={(section) => section.id}
-        ListHeaderComponent={
+      <Main>
+        <Column kind="list" style={styles.page}>
           <WorkHeader
             detail={detail}
             editions={editions}
@@ -247,48 +245,49 @@ function WorkView({ workId, loaded, selected }: ViewProps) {
             position={position}
             onSelectEdition={(editionId) => router.setParams({ edition: editionId })}
           />
-        }
-        ListFooterComponent={sections.length > 0 ? <Hairline /> : undefined}
-        ListEmptyComponent={<MessageView message={t.work.emptyContents} />}
-        ItemSeparatorComponent={Hairline}
-        renderItem={({ item }) => {
-          const { numeral, title: heading } = splitChapterHeading(item.heading);
-          const current = position?.sectionId === item.id;
-          return (
-            <LinkRow
-              href={readHref(workId, item.id)}
-              accessibilityLabel={`${t.work.openSection(item.heading)}${current ? `, ${t.work.inProgress}` : ''}`}
-              indent={depths.get(item.id) ?? 0}
-              current={current}
-            >
-              <View style={styles.tocRow}>
-                {numbered ? (
-                  <View style={styles.numeral}>
-                    {/* The 600 face at 16 so that roman numerals read clearly (a heading is not
-                        what a screen reader should announce for each row). */}
+          {sections.length === 0 ? <MessageView message={t.work.emptyContents} /> : null}
+          {sections.map((section, index) => {
+            const { numeral, title: heading } = splitChapterHeading(section.heading);
+            const current = position?.sectionId === section.id;
+            return (
+              <View key={section.id}>
+                {index > 0 ? <Hairline /> : null}
+                <LinkRow
+                  href={readHref(workId, section.id)}
+                  accessibilityLabel={`${t.work.openSection(section.heading)}${current ? `, ${t.work.inProgress}` : ''}`}
+                  indent={depths.get(section.id) ?? 0}
+                  current={current}
+                >
+                  <View style={styles.tocRow}>
+                    {numbered ? (
+                      <View style={styles.numeral}>
+                        {/* The 600 face at 16 so that roman numerals read clearly (a heading is not
+                            what a screen reader should announce for each row). */}
+                        <AppText
+                          variant="meta"
+                          tone="text"
+                          style={[styles.numeralText, { fontFamily: fonts.textSemiBold }]}
+                        >
+                          {numeral}
+                        </AppText>
+                      </View>
+                    ) : null}
                     <AppText
-                      variant="meta"
-                      tone="text"
-                      style={[styles.numeralText, { fontFamily: fonts.textSemiBold }]}
+                      variant="body"
+                      {...textLanguageProps(selected.edition.language)}
+                      style={styles.tocTitle}
                     >
-                      {numeral}
+                      {heading || '—'}
                     </AppText>
                   </View>
-                ) : null}
-                <AppText
-                  variant="body"
-                  {...textLanguageProps(selected.edition.language)}
-                  style={styles.tocTitle}
-                >
-                  {heading || '—'}
-                </AppText>
+                </LinkRow>
               </View>
-            </LinkRow>
-          );
-        }}
-        contentContainerStyle={contentStyle}
-      />
-    </Screen>
+            );
+          })}
+          {sections.length > 0 ? <Hairline /> : null}
+        </Column>
+      </Main>
+    </PageScroll>
   );
 }
 
@@ -323,29 +322,30 @@ export function WorkScreen({ workId, editionId }: Props) {
 
   if (data.status === 'loading')
     return (
-      <Screen>
+      <PageScroll>
         <LoadingView message={t.common.loading} />
-      </Screen>
+      </PageScroll>
     );
   if (data.status === 'error')
     return (
-      <Screen>
+      <PageScroll>
         <MessageView message={t.common.error} />
-      </Screen>
+      </PageScroll>
     );
   const selected = data.data
     ? selectEdition(data.data.editions, editionId, data.data.detail.primaryEditionId)
     : undefined;
   if (!data.data || !selected)
     return (
-      <Screen>
+      <PageScroll>
         <MessageView message={t.work.notFound} />
-      </Screen>
+      </PageScroll>
     );
   return <WorkView workId={workId} loaded={data.data} selected={selected} />;
 }
 
 const styles = StyleSheet.create({
+  page: { paddingBottom: 64 },
   header: { paddingTop: 32, gap: 8 },
   author: { marginTop: 4 },
   switch: { marginTop: 16, maxWidth: 420 },

@@ -283,7 +283,7 @@ describe('palettes', () => {
         expect(alphaOf(palette.mastheadBorder)).toBeCloseTo(0.55, 2);
         // The bar is `accent` at 78 %. A hero is dark in every theme, so in dark the bar is the
         // brand terracotta of the light theme: the pale accent of the dark theme (#D79380) leaves
-        // the large light text only 2.7:1 over a white pixel under the scrim (ADR-017).
+        // the large light text only 2.7:1 over a white pixel under the scrim (ADR-016, amendment 1).
         expect(opaque(palette.accentBar)).toBe(
           _name === 'dark' ? palettes.light.accent : palette.accent,
         );

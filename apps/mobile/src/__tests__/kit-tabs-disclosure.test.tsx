@@ -1,5 +1,5 @@
 import { act, fireEvent, screen } from '@testing-library/react-native';
-import { AccessibilityInfo, Dimensions, Platform, StyleSheet } from 'react-native';
+import { AccessibilityInfo, Dimensions, Platform, ScrollView, StyleSheet } from 'react-native';
 import { useState } from 'react';
 
 import { Disclosure } from '@/components/disclosure';
@@ -175,6 +175,116 @@ describe('Tabs: the focus ring is not clipped (check G7)', () => {
     await renderWithProviders(<Strip />);
     const inner = StyleSheet.flatten(screen.getByTestId('tabs-scroll').props.contentContainerStyle);
     expect(inner.paddingRight).toBeGreaterThanOrEqual(FOCUS_RING_ROOM);
+  });
+});
+
+describe('Tabs: a tab that gets the focus is scrolled whole into view, ring included (check G7)', () => {
+  // Regression: a browser scrolls a tab that is only partly visible not at all (and one that is
+  // hidden only as far as the edge of the strip), so a keyboard user moved the focus to a tab that
+  // was cut by the scroller, ring and all, or could not be seen.
+  const scrollTo = () => ScrollView.prototype.scrollTo as unknown as jest.Mock;
+  beforeEach(() => scrollTo().mockClear());
+
+  /** A 300 wide strip over 900 points of content, with the tabs at these places: [x, width]. */
+  async function layOut(places: Record<string, readonly [number, number]>, offset = 0) {
+    const scroll = screen.getByTestId('tabs-scroll');
+    await fireEvent(scroll, 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, width: 300, height: 54 } },
+    });
+    await fireEvent(scroll, 'contentSizeChange', 900, 54);
+    for (const [label, [x, width]] of Object.entries(places)) {
+      await fireEvent(screen.getByLabelText(label), 'layout', {
+        nativeEvent: { layout: { x, y: 4, width, height: 46 } },
+      });
+    }
+    if (offset > 0) {
+      await fireEvent.scroll(scroll, {
+        nativeEvent: {
+          contentOffset: { x: offset, y: 0 },
+          contentSize: { width: 900, height: 54 },
+          layoutMeasurement: { width: 300, height: 54 },
+        },
+      });
+    }
+  }
+
+  const PLACES = { 'Cuprins · 11': [4, 100], Prezentare: [140, 90], Index: [700, 60] } as const;
+
+  it('scrolls a tab that is hidden to the right until its ring is inside, with the ring room after it', async () => {
+    await renderWithProviders(<Strip />);
+    await layOut(PLACES);
+    await fireEvent(screen.getByLabelText('Index'), 'focus');
+    // 700 + 60 + 4 (the ring) - 300 (the window)
+    expect(scrollTo()).toHaveBeenCalledWith({ x: 464, animated: false });
+  });
+
+  it('scrolls a tab that is only partly visible: the browser would leave it cut', async () => {
+    await renderWithProviders(<Strip />);
+    await layOut({ ...PLACES, Index: [250, 90] });
+    await fireEvent(screen.getByLabelText('Index'), 'focus');
+    expect(scrollTo()).toHaveBeenCalledWith({ x: 44, animated: false });
+  });
+
+  it('scrolls back to a tab that is hidden to the left, with the ring room before it', async () => {
+    await renderWithProviders(<Strip />);
+    await layOut(PLACES, 400);
+    scrollTo().mockClear();
+    await fireEvent(screen.getByLabelText('Prezentare'), 'focus');
+    expect(scrollTo()).toHaveBeenCalledWith({ x: 136, animated: false });
+  });
+
+  it('never scrolls past the end of the content', async () => {
+    await renderWithProviders(<Strip />);
+    await layOut({ ...PLACES, Index: [850, 50] });
+    await fireEvent(screen.getByLabelText('Index'), 'focus');
+    expect(scrollTo()).toHaveBeenCalledWith({ x: 600, animated: false });
+  });
+
+  it('does not scroll when the tab and its ring are already inside the strip', async () => {
+    await renderWithProviders(<Strip />);
+    await layOut(PLACES);
+    await fireEvent(screen.getByLabelText('Prezentare'), 'focus');
+    expect(scrollTo()).not.toHaveBeenCalled();
+  });
+
+  it('does not scroll before the strip has been laid out', async () => {
+    await renderWithProviders(<Strip />);
+    await fireEvent(screen.getByLabelText('Index'), 'focus');
+    expect(scrollTo()).not.toHaveBeenCalled();
+  });
+
+  it('scrolls a tab into view when it is chosen with a tap (no focus event on a touch screen)', async () => {
+    await renderWithProviders(<Strip />);
+    await layOut(PLACES);
+    await fireEvent.press(screen.getByLabelText('Index'));
+    expect(scrollTo()).toHaveBeenCalledWith({ x: 464, animated: false });
+  });
+
+  it('gives the focus to the next tab without the scroll of the browser: the strip scrolls it itself', async () => {
+    // Under Jest every element of a tab answers `focus` with this one shared mock.
+    const { default: methods } = jest.requireActual<{ default: { focus: jest.Mock } }>(
+      '@react-native/jest-preset/jest/MockNativeMethods',
+    );
+    methods.focus.mockClear();
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<Strip />);
+      await fireEvent(screen.getByLabelText('Cuprins · 11'), 'keyDown', key('ArrowRight'));
+      expect(methods.focus).toHaveBeenCalledTimes(1);
+      expect(methods.focus).toHaveBeenCalledWith({ preventScroll: true });
+    } finally {
+      replaced.restore();
+    }
+  });
+
+  it('keeps the other behaviours of the focus: a native ring is drawn while a tab has it', async () => {
+    await renderWithProviders(<Strip />);
+    await fireEvent(screen.getByLabelText('Prezentare'), 'focus');
+    expect(screen.getByLabelText('Prezentare')).toHaveStyle({ outlineWidth: 2, outlineOffset: 2 });
+    await fireEvent(screen.getByLabelText('Prezentare'), 'blur');
+    expect(StyleSheet.flatten(screen.getByLabelText('Prezentare').props.style).outlineWidth).toBe(
+      undefined,
+    );
   });
 });
 

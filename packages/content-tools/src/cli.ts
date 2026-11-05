@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+import { runBuildCatalogue } from './commands/build-catalogue';
 import { runBuildPack } from './commands/build-pack';
 import { runIngestText } from './commands/ingest-text';
 import { runKeygen } from './commands/keygen';
@@ -16,6 +17,10 @@ export const commands: Record<string, Command> = {
   'ingest-text': {
     summary: 'raw pdftotext output -> canonical work JSON',
     run: runIngestText,
+  },
+  'build-catalogue': {
+    summary: 'editorial sources + installed packs -> signed catalogue.json + manifest.json',
+    run: runBuildCatalogue,
   },
   'build-pack': {
     summary: 'canonical work JSON -> pack.json + manifest.json (hashed and signed)',

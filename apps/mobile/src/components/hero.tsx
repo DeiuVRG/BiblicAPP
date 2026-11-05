@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Animated, Easing, Image, Platform, StyleSheet, View } from 'react-native';
-import type { ImageSourcePropType, ViewStyle } from 'react-native';
+import type { ImageSourcePropType, LayoutChangeEvent, ViewStyle } from 'react-native';
 
-import { AppText } from '@/components/app-text';
+import { AppText, useTypeStyle } from '@/components/app-text';
 import type { TextVariant } from '@/components/app-text';
 import { Band } from '@/components/band';
 import { LinkToneProvider } from '@/components/band-context';
@@ -35,7 +35,10 @@ interface HighlightedLineProps {
  * The line must be a short phrase that fits on one line at the narrowest phone width (320): the
  * bar is one rectangle as wide as the text block, so a line that wraps would get a slab with empty
  * bar to the right of its last line. (A bar per line needs the width of each wrapped line, and
- * react-native-web has no `onTextLayout`.) The line is plain text: the heading is the hero's title.
+ * react-native-web has no `onTextLayout`.) In development a line that wraps is reported with a
+ * warning (`wrapsOntoTwoLines`), so that a hero with a long second line is caught while it is
+ * written, not by a reader of a small phone. The line is plain text: the heading is the hero's
+ * title.
  */
 export function HighlightedLine({
   children,
@@ -45,6 +48,7 @@ export function HighlightedLine({
 }: HighlightedLineProps) {
   const { colors } = useTheme();
   const reduced = useReducedMotion();
+  const { lineHeight } = useTypeStyle(variant);
   const staticBar = still || reduced;
   const [sweep] = useState(() => new Animated.Value(staticBar ? 1 : 0));
   useEffect(() => {
@@ -78,16 +82,38 @@ export function HighlightedLine({
           ] as unknown as ViewStyle
         }
       />
-      <AppText variant={variant} heading={false} style={styles.lineText}>
+      <AppText
+        variant={variant}
+        heading={false}
+        style={styles.lineText}
+        onLayout={
+          __DEV__
+            ? (event: LayoutChangeEvent) => {
+                if (wrapsOntoTwoLines(event.nativeEvent.layout.height, lineHeight)) {
+                  console.warn(
+                    `HighlightedLine: "${children}" wraps onto a second line, so its bar would be one slab. Shorten it: it has to fit on one line at 320 points.`,
+                  );
+                }
+              }
+            : undefined
+        }
+      >
         {children}
       </AppText>
     </View>
   );
 }
 
+/** True when a text block of this height is more than one line of this line height. */
+export function wrapsOntoTwoLines(height: number, lineHeight: number | undefined): boolean {
+  return lineHeight !== undefined && lineHeight > 0 && height > lineHeight * 1.5;
+}
+
 interface HeroProps {
   /** The small line above the title ("¶ BIBLIOTECA"); the pilcrow pulses. */
   kicker?: string;
+  /** Whether the kicker starts with the pulsing pilcrow (the landing's does; an inner page's eyebrow does not). */
+  pilcrow?: boolean;
   /** A small bordered pill after the kicker ("BETA"). */
   badge?: string;
   /**
@@ -118,6 +144,7 @@ interface HeroProps {
  */
 export function Hero({
   kicker,
+  pilcrow = true,
   badge,
   title,
   sub,
@@ -133,7 +160,7 @@ export function Hero({
   const titleVariant = kind === 'landing' ? 'displayXL' : 'displayL';
   const [pulse] = useState(() => new Animated.Value(1));
   useEffect(() => {
-    if (!kicker || reduced) {
+    if (!kicker || !pilcrow || reduced) {
       pulse.setValue(1);
       return undefined;
     }
@@ -153,7 +180,7 @@ export function Hero({
     );
     loop.start();
     return () => loop.stop();
-  }, [kicker, reduced, pulse]);
+  }, [kicker, pilcrow, reduced, pulse]);
 
   return (
     <View testID={testID} style={styles.hero}>
@@ -169,13 +196,15 @@ export function Hero({
           {kicker ? (
             <View style={styles.kickerRow}>
               <View style={styles.kickerText}>
-                <Animated.View
-                  accessibilityElementsHidden
-                  importantForAccessibility="no-hide-descendants"
-                  style={{ opacity: pulse }}
-                >
-                  <AppText variant="kicker">¶</AppText>
-                </Animated.View>
+                {pilcrow ? (
+                  <Animated.View
+                    accessibilityElementsHidden
+                    importantForAccessibility="no-hide-descendants"
+                    style={{ opacity: pulse }}
+                  >
+                    <AppText variant="kicker">¶</AppText>
+                  </Animated.View>
+                ) : null}
                 <AppText variant="kicker">{kicker}</AppText>
               </View>
               {badge ? <Chip status label={badge} /> : null}

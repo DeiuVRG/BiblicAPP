@@ -5,6 +5,8 @@ import type { PressableProps, ViewStyle } from 'react-native';
 
 import { MIN_TARGET } from '@/components/button';
 import { useHover } from '@/components/hover';
+import { pressStyle } from '@/components/press';
+import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 import { radii } from '@/theme/tokens';
 
@@ -56,6 +58,7 @@ type RowPressableProps = Omit<PressableProps, 'children' | 'style'> & {
 // handed to Link.
 function RowPressable({ children, indent, current, style, ...rest }: RowPressableProps) {
   const { colors } = useTheme();
+  const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
   return (
     <Pressable
@@ -67,8 +70,8 @@ function RowPressable({ children, indent, current, style, ...rest }: RowPressabl
         {
           paddingLeft: BLEED + indent * INDENT_STEP,
           backgroundColor: hovered ? colors.surface : undefined,
-          opacity: pressed ? 0.7 : 1,
         },
+        pressStyle(pressed, reduced),
         style,
       ]}
     >

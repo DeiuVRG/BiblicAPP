@@ -1,0 +1,31 @@
+{
+  "works": [
+    {
+      "workId": "01M6JQPCFFCK900E1P6353MWVK",
+      "slug": "vos-1903-kingdom",
+      "authorSlug": "geerhardus-vos",
+      "shelves": ["modern"],
+      "kind": "treatise",
+      "blurbRo": "Vos se întreabă ce a înțeles Isus prin Împărăția lui Dumnezeu: de la rădăcinile ei în Vechiul Testament până la deosebirea dintre Împărăția de acum și cea care vine. Spre sfârșit, cartea leagă Împărăția de Biserică și de chemarea la pocăință și credință.",
+      "blurbEn": "Vos asks what Jesus meant by the kingdom of God: from its roots in the Old Testament to the difference between the kingdom now and the kingdom to come. Toward the end the book relates the kingdom to the Church and to the call to repentance and faith.",
+      "blurbKind": "editorial",
+      "start": [
+        {
+          "paragraphId": "01M6JQPD948SXM9E7GNT39CV00",
+          "whyRo": "Aici se vede cât loc ocupă Împărăția în învățătura lui Isus și ce își propune Vos să cerceteze.",
+          "whyEn": "Here you see how large a place the kingdom has in the teaching of Jesus and what Vos sets out to examine."
+        },
+        {
+          "paragraphId": "01M6JQPD97PGBYC4M45B9F7EZ5",
+          "whyRo": "Miezul argumentului: de ce a ales Isus tocmai numele „Împărăția lui Dumnezeu”.",
+          "whyEn": "The heart of the argument: why Jesus chose the name “kingdom of God” at all."
+        },
+        {
+          "paragraphId": "01M6JQPD99NDNB29VP3T7F0YW7",
+          "whyRo": "Capitolul în care Vos leagă Împărăția de Biserică, pornind de la cele două locuri în care Isus vorbește despre ea.",
+          "whyEn": "The chapter in which Vos relates the kingdom to the Church, starting from the two places where Jesus speaks of it."
+        }
+      ]
+    }
+  ]
+}

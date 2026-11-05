@@ -1,0 +1,11 @@
+{
+  "kind": "catalogue",
+  "revision": 2,
+  "version": "1.0.0",
+  "createdAt": "2026-11-05T02:10:18.085Z",
+  "sha256": "ba886b1073f5221cc39a877f238821323ffc7a4dc3202f9cb617bfac77ca3a05",
+  "size": 5200,
+  "minAppVersion": "0.1.0",
+  "signingKeyId": "dev-2026-11",
+  "signature": "njMA3/R55MPaWHzm+sVsAHEZEcImiDyfREISqN+zq063Jg3PwcPwv1RlSFJSNDuWe0JkIiYncdKkKvnDnRxvCg=="
+}

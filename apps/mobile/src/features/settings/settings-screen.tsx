@@ -1,14 +1,12 @@
 import Constants from 'expo-constants';
-import { Stack } from 'expo-router';
 import type { ReactNode } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { AppText, useTypeStyle } from '@/components/app-text';
-import { useListContentStyle } from '@/components/column';
+import { Column } from '@/components/column';
 import { Hairline } from '@/components/hairline';
 import { ReadingLanguageControl, UiLanguageControl } from '@/components/language-controls';
 import { PageTitle } from '@/components/page-title';
-import { Screen } from '@/components/screen';
 import {
   FontSizeControl,
   LineHeightControl,
@@ -21,6 +19,7 @@ import { useRepositoryQuery } from '@/hooks/use-repository-query';
 import { useT } from '@/i18n';
 import { editionLabel, licenceLabel } from '@/i18n/labels';
 import { useSettings } from '@/settings/settings-context';
+import { Main, PageScroll } from '@/shell/page-scroll';
 import { PROSE_MAX_WIDTH } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
 import { radii } from '@/theme/tokens';
@@ -100,48 +99,48 @@ function ContentInfo() {
 
 export function SettingsScreen() {
   const t = useT();
-  const contentStyle = useListContentStyle('reading');
   return (
-    <Screen>
-      <Stack.Screen options={{ title: t.settings.title }} />
+    <PageScroll>
       <PageTitle parts={[t.settings.title]} />
-      <ScrollView contentContainerStyle={[contentStyle, styles.content]}>
-        <Section title={t.settings.reading} first>
-          <ReadingFontControl />
-          <FontSizeControl />
-          <LineHeightControl />
-          <Preview />
-        </Section>
-        <Section title={t.settings.theme}>
-          <ThemeControl labelled={false} />
-        </Section>
-        <Section title={t.settings.language}>
-          <ReadingLanguageControl />
-          <UiLanguageControl />
-        </Section>
-        <Section title={t.settings.content}>
-          <ContentInfo />
-        </Section>
-        <Section title={t.settings.licenceTitle}>
-          <AppText variant="caption" style={styles.prose}>
-            {t.settings.licenceNote}
-          </AppText>
-        </Section>
-        <Section title={t.settings.about}>
-          <View style={styles.lines}>
-            <AppText variant="caption">
-              {t.appName} · {t.settings.version} {appVersion()}
+      <Main>
+        <Column kind="reading" style={styles.content}>
+          <Section title={t.settings.reading} first>
+            <ReadingFontControl />
+            <FontSizeControl />
+            <LineHeightControl />
+            <Preview />
+          </Section>
+          <Section title={t.settings.theme}>
+            <ThemeControl labelled={false} />
+          </Section>
+          <Section title={t.settings.language}>
+            <ReadingLanguageControl />
+            <UiLanguageControl />
+          </Section>
+          <Section title={t.settings.content}>
+            <ContentInfo />
+          </Section>
+          <Section title={t.settings.licenceTitle}>
+            <AppText variant="caption" style={styles.prose}>
+              {t.settings.licenceNote}
             </AppText>
-            <AppText variant="caption">{t.settings.fonts}</AppText>
-          </View>
-        </Section>
-      </ScrollView>
-    </Screen>
+          </Section>
+          <Section title={t.settings.about}>
+            <View style={styles.lines}>
+              <AppText variant="caption">
+                {t.appName} · {t.settings.version} {appVersion()}
+              </AppText>
+              <AppText variant="caption">{t.settings.fonts}</AppText>
+            </View>
+          </Section>
+        </Column>
+      </Main>
+    </PageScroll>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { paddingTop: 8 },
+  content: { paddingTop: 8, paddingBottom: 64 },
   section: { gap: 16, paddingTop: 20, paddingBottom: 28 },
   // A card: 1 px border, 3 px corners.
   preview: { padding: 16, borderWidth: 1, borderRadius: radii.sm, gap: 8 },

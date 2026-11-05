@@ -4,7 +4,10 @@
 //   node scripts/smoke-web.mjs [--dist apps/mobile/dist] [--base-path /BiblicAPP] [--port N]
 //
 // Serves the export with `serve`, opens it in headless Chromium and checks that
-//   1. the library lists at least one work (and shows no "unverified pack" notice),
+//   0. the landing (`/`) draws the shell (brand bar, section bar) and lists the works of the
+//      library as cards, and the section bar's "Citește" drawer leads to the full library,
+//   1. the full library (`/library/all`) lists at least one work (and shows no "unverified pack"
+//      notice),
 //   2. opening the work shows its table of contents,
 //   2b. the work has two editions (Romanian and English): choosing the other one puts
 //      `?edition=` in the address and shows that edition's table of contents,
@@ -172,9 +175,28 @@ async function main() {
       }
     });
 
-    // 1. Library
+    // 0. Landing and the shell: both bars, the collection as cards, the drawer to the full library
     await page.goto(`${origin}${args.basePath}/`, { waitUntil: 'domcontentloaded' });
-    const workLinks = page.locator('a[href*="/work/"]');
+    await page.locator('[data-testid="section-bar"]').waitFor({ state: 'visible' });
+    for (const id of ['brand-bar', 'hero', 'doors']) {
+      if ((await page.locator(`[data-testid="${id}"]`).count()) < 1) {
+        throw new Error(`the landing has no "${id}"`);
+      }
+    }
+    const cards = page.locator('[data-testid^="work-card-"]');
+    await cards.first().waitFor({ state: 'visible' });
+    step(`landing draws the shell and ${await cards.count()} work card(s)`);
+    // A screen under another one stays mounted and hidden: only what is visible counts.
+    const visibleId = (id) => page.locator(`[data-testid="${id}"]:visible`);
+    await visibleId('section-item-read').click();
+    if ((await visibleId('section-item-read').getAttribute('aria-expanded')) !== 'true') {
+      throw new Error('the "Citește" drawer did not open (aria-expanded is not true)');
+    }
+    await visibleId('drawer-entry-read-library-all').click();
+    await page.waitForURL(/\/library\/all/);
+
+    // 1. Full library (the landing stays mounted under it, hidden: only visible links count)
+    const workLinks = page.locator('a[href*="/work/"]:visible');
     await workLinks.first().waitFor({ state: 'visible' });
     const works = await workLinks.count();
     if (works < 1) throw new Error('the library lists no works');
@@ -184,6 +206,11 @@ async function main() {
     if (unverified.some((text) => /verific/i.test(text))) {
       throw new Error(`the app rejected a bundled pack: ${unverified.join(' | ')}`);
     }
+    // The section bar knows where we are: the drawer entry of this page is the current one.
+    await visibleId('section-item-read').click();
+    const current = await visibleId('drawer-entry-read-library-all').getAttribute('aria-current');
+    if (current !== 'page') throw new Error(`the drawer entry of the full library is aria-current="${current}"`);
+    await page.keyboard.press('Escape');
 
     // 2. Work page with table of contents
     await workLinks.first().click();
@@ -195,7 +222,7 @@ async function main() {
     // 2b. The edition switch (one work, two editions): a radio group on the work page. Choosing
     // the edition that is not chosen changes the address and the chapters (their first link, the
     // start button, goes to a section of the other edition).
-    const editionSwitch = page.locator('[role="radiogroup"]');
+    const editionSwitch = page.locator('[role="radiogroup"]:visible');
     await editionSwitch.first().waitFor({ state: 'visible' });
     const editions = await editionSwitch.first().locator('[role="radio"]').count();
     if (editions < 2) throw new Error(`the edition switch offers ${editions} edition(s), not 2`);

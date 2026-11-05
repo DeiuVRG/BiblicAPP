@@ -11,5 +11,12 @@
   "readingLanguages.en": "a language is written in its own language: English",
   "settings.readingFonts.serif": "a name of a face: Serif",
   "settings.readingFonts.literata": "a name of a typeface: Literata",
-  "settings.readingFonts.sans": "a name of a face: Sans"
+  "settings.readingFonts.sans": "a name of a face: Sans",
+  "nav.lexicon": "cognate: Lexicon",
+  "landing.kicker": "proper noun: the app is called the same in both languages",
+  "landing.badge": "cognate: Beta",
+  "landing.betaKicker": "cognate: Beta",
+  "landing.feedbackSubject": "the subject line of the feedback mail, with the name of the app",
+  "landing.contact": "cognate: Contact",
+  "library.heroEyebrow": "proper noun: the app is called the same in both languages"
 }

@@ -1,5 +1,9 @@
 import type { Pack, PackManifest, Paragraph, Section, Work } from '@biblioteca/shared';
 
+import { checkPackBytes, vouchForPack } from '@/catalogue/catalogue-packs';
+import type { CatalogueBackedPack } from '@/catalogue/catalogue-packs';
+import { NO_CATALOGUE, loadBundledCatalogue } from '@/catalogue/verify-catalogue';
+import type { CatalogueState } from '@/catalogue/verify-catalogue';
 import { FALLBACK_LANGUAGE } from '@/i18n/language';
 import type { ReadingLanguage } from '@/i18n/language';
 import { foldText } from '@/search/fold';
@@ -36,6 +40,12 @@ export interface ContentRepository {
   locateSection(sectionId: string): Promise<SectionLocation | null>;
   /** Local full-text search across installed packs (case and diacritics insensitive). */
   search(query: string): Promise<SearchHit[]>;
+  /**
+   * The packs that were refused after the start, when their edition was first opened or searched:
+   * the pack bytes were not the ones the signed catalogue lists. They are gone from the lists
+   * from then on (`listWorks`, `getWork`), and the library says so.
+   */
+  refusedPacks(): readonly RejectedPack[];
 }
 
 export interface RejectedPack {
@@ -48,6 +58,11 @@ export interface LoadedRepository {
   repository: ContentRepository;
   /** Packs that failed verification. They are never exposed through the repository. */
   rejected: RejectedPack[];
+  /**
+   * The signed catalogue as it was verified at start, which is the source of the shelves, the
+   * authors and the blurbs of the library (and of the pack hashes the repository checks lazily).
+   */
+  catalogue: CatalogueState;
 }
 
 export interface LoadOptions {
@@ -56,6 +71,13 @@ export interface LoadOptions {
   appVersion?: string;
   /** Injectable for tests. */
   verify?: typeof verifyPack;
+  /**
+   * The catalogue to trust (the result of `loadBundledCatalogue`). A pack that a verified
+   * catalogue lists is admitted without its own signature check and its hash is checked when its
+   * edition is first opened or searched; every other pack is verified in full at start, as before.
+   * Without it, or when it was rejected, every pack is verified in full.
+   */
+  catalogue?: CatalogueState;
 }
 
 const MAX_SEARCH_HITS = 50;
@@ -94,6 +116,9 @@ export interface VerifiedPack {
   signatureVerified: true;
 }
 
+/** A pack the repository may serve: verified in full, or vouched for by the signed catalogue. */
+export type AdmittedPack = VerifiedPack | CatalogueBackedPack;
+
 /** Thrown when the repository is asked to serve a pack that was not signature-verified. */
 export class UnverifiedPackError extends Error {
   constructor(packId: string | undefined) {
@@ -109,11 +134,13 @@ export class UnverifiedPackError extends Error {
  * work are fine: they are two editions of it. Ids are compared within their kind (a section id
  * against section ids, a paragraph id against paragraph ids), which is what lookups need.
  */
-export function admitPacks(packs: readonly VerifiedPack[]): {
-  accepted: VerifiedPack[];
+export function admitPacks<T extends { manifest: PackManifest; pack: Pack }>(
+  packs: readonly T[],
+): {
+  accepted: T[];
   rejected: RejectedPack[];
 } {
-  const accepted: VerifiedPack[] = [];
+  const accepted: T[] = [];
   const rejected: RejectedPack[] = [];
   const editionIds = new Set<string>();
   const sectionIds = new Set<string>();
@@ -140,7 +167,7 @@ export function admitPacks(packs: readonly VerifiedPack[]): {
   return { accepted, rejected };
 }
 
-function summarize(entry: VerifiedPack): EditionSummary {
+function summarize(entry: AdmittedPack): EditionSummary {
   const { pack, manifest } = entry;
   return {
     editionId: pack.edition.id,
@@ -168,9 +195,21 @@ function mergeWork(packs: readonly Pack[]): Work | undefined {
 }
 
 interface EditionRecord {
-  entry: VerifiedPack;
+  entry: AdmittedPack;
   summary: EditionSummary;
   sections: Section[];
+  /**
+   * `verified`: checked in full. `pending`: the signed catalogue vouches for it and its bytes are
+   * checked when it is first opened. `refused`: those bytes were not the ones the catalogue lists.
+   */
+  state: 'verified' | 'pending' | 'refused';
+  /** The one check of a pending edition, shared by everyone who waits for it. */
+  check?: Promise<boolean>;
+}
+
+function isAdmissible(entry: AdmittedPack): boolean {
+  const flags = entry as { signatureVerified?: unknown; catalogueVerified?: unknown };
+  return flags.signatureVerified === true || flags.catalogueVerified === true;
 }
 
 interface WorkRecord {
@@ -179,14 +218,16 @@ interface WorkRecord {
   editions: EditionSummary[];
 }
 
-/** In-memory repository over already verified packs. */
+/**
+ * In-memory repository over admitted packs: those verified in full, and those that a verified
+ * catalogue vouches for, whose bytes are checked against the catalogue when their edition is first
+ * opened or searched (`listWorks` and `getWork` only read the metadata and never wait for it).
+ */
 export function createInMemoryRepository(
-  verifiedPacks: readonly VerifiedPack[],
+  verifiedPacks: readonly AdmittedPack[],
 ): ContentRepository {
   for (const entry of verifiedPacks) {
-    if ((entry as { signatureVerified?: unknown }).signatureVerified !== true) {
-      throw new UnverifiedPackError(entry.manifest?.packId);
-    }
+    if (!isAdmissible(entry)) throw new UnverifiedPackError(entry.manifest?.packId);
   }
   // A clash between packs is reported by `loadBundledRepository`; here the later pack is skipped.
   const { accepted } = admitPacks(verifiedPacks);
@@ -202,6 +243,7 @@ export function createInMemoryRepository(
       entry,
       summary: summarize(entry),
       sections: byOrdinal(pack.sections),
+      state: (entry as { signatureVerified?: unknown }).signatureVerified === true ? 'verified' : 'pending',
     };
     editionRecords.set(pack.edition.id, record);
     for (const section of pack.sections) sectionOwner.set(section.id, record);
@@ -224,6 +266,43 @@ export function createInMemoryRepository(
     if (work) works.set(workId, { work, editions: orderEditions(summaries) });
   }
 
+  const refused: RejectedPack[] = [];
+
+  /** Takes a pack that failed its check out of every list. */
+  const refuse = (record: EditionRecord, reason: NonNullable<ReturnType<typeof checkPackBytes>>) => {
+    record.state = 'refused';
+    refused.push({
+      packId: record.summary.packId,
+      reason,
+      detail: 'the pack is not the one the signed catalogue lists',
+    });
+    const work = works.get(record.entry.pack.work.id);
+    if (work) {
+      work.editions = work.editions.filter((edition) => edition.editionId !== record.summary.editionId);
+      if (work.editions.length === 0) works.delete(record.entry.pack.work.id);
+    }
+  };
+
+  /**
+   * The edition, once it is fit to serve: a pending one has its bytes checked first (once; callers
+   * share the check). Null for an unknown or refused edition.
+   */
+  const open = async (editionId: string): Promise<EditionRecord | null> => {
+    const record = editionRecords.get(editionId);
+    if (!record || record.state === 'refused') return null;
+    if (record.state === 'verified') return record;
+    record.check ??= Promise.resolve().then(() => {
+      const reason = checkPackBytes(record.entry as CatalogueBackedPack);
+      if (reason === null) {
+        if (record.state === 'pending') record.state = 'verified';
+        return true;
+      }
+      refuse(record, reason);
+      return false;
+    });
+    return (await record.check) ? record : null;
+  };
+
   const summaryOf = (record: WorkRecord, readingLanguage: ReadingLanguage): WorkSummary | null => {
     const primary = pickPrimaryEdition(record.editions, readingLanguage);
     if (!primary) return null;
@@ -235,6 +314,8 @@ export function createInMemoryRepository(
       ...(work.titleEn === undefined ? null : { titleEn: work.titleEn }),
       titleOrig: work.titleOrig,
       authorName: work.author.name,
+      authorBorn: work.author.born,
+      authorDied: work.author.died,
       year: work.year,
       languageOrig: work.languageOrig,
       editions: [...record.editions],
@@ -262,7 +343,7 @@ export function createInMemoryRepository(
     },
 
     async getEdition(editionId) {
-      const record = editionRecords.get(editionId);
+      const record = await open(editionId);
       if (!record) return null;
       const { pack } = record.entry;
       return {
@@ -273,16 +354,19 @@ export function createInMemoryRepository(
     },
 
     async getSections(editionId) {
-      return [...(editionRecords.get(editionId)?.sections ?? [])];
+      const record = await open(editionId);
+      return [...(record?.sections ?? [])];
     },
 
     async getParagraphs(sectionId) {
+      const owner = sectionOwner.get(sectionId);
+      if (!owner || !(await open(owner.summary.editionId))) return [];
       return byOrdinal(paragraphsBySection.get(sectionId) ?? []);
     },
 
     async locateSection(sectionId) {
       const owner = sectionOwner.get(sectionId);
-      if (!owner) return null;
+      if (!owner || !(await open(owner.summary.editionId))) return null;
       return {
         workId: owner.entry.pack.work.id,
         editionId: owner.summary.editionId,
@@ -295,6 +379,8 @@ export function createInMemoryRepository(
       if (needle.length < 2) return [];
       const hits: SearchHit[] = [];
       for (const { pack } of accepted) {
+        // A search reads every edition: the ones not yet checked are checked now (once).
+        if (!(await open(pack.edition.id))) continue;
         const headings = new Map(pack.sections.map((s) => [s.id, s.heading]));
         for (const paragraph of pack.paragraphs) {
           const haystack = foldText(paragraph.text);
@@ -314,23 +400,49 @@ export function createInMemoryRepository(
       }
       return hits;
     },
+
+    refusedPacks() {
+      return [...refused];
+    },
   };
 }
 
 /**
- * Verifies every bundled pack and builds a repository from those that pass. A pack that clashes
- * with an earlier one (same edition, or ids already taken) is rejected too.
+ * Builds a repository from the bundled packs. A pack that the verified catalogue lists is admitted
+ * after the cheap checks (schemas, identity, the catalogue's entry) and its bytes are checked when
+ * its edition is first opened; every other pack is verified in full here (schemas, sha256, Ed25519
+ * signature against the pinned keys). A pack that fails, or that clashes with an earlier one (same
+ * edition, or ids already taken), is rejected.
  */
 export async function loadBundledRepository(options: LoadOptions = {}): Promise<LoadedRepository> {
   const verify = options.verify ?? verifyPack;
-  const verified: VerifiedPack[] = [];
+  const catalogue = options.catalogue ?? NO_CATALOGUE;
+  const listed =
+    catalogue.status === 'verified'
+      ? new Map(catalogue.catalogue.packs.map((entry) => [entry.packId, entry]))
+      : null;
+  const appVersion = options.appVersion ?? getAppVersion();
+  const verified: AdmittedPack[] = [];
   const rejected: RejectedPack[] = [];
   for (const bundled of options.packs ?? bundledPacks) {
+    const packId = (bundled.manifest as { packId?: string } | null | undefined)?.packId;
+    const expected = packId === undefined ? undefined : listed?.get(packId);
+    if (expected) {
+      const vouched = vouchForPack({
+        manifest: bundled.manifest,
+        pack: bundled.pack,
+        expected,
+        appVersion,
+      });
+      if (vouched.ok) verified.push(vouched.entry);
+      else rejected.push({ packId: packId ?? null, reason: vouched.reason, detail: vouched.detail });
+      continue;
+    }
     const result = await verify({
       manifest: bundled.manifest,
       pack: bundled.pack,
       trustedKeys: options.trustedKeys ?? defaultTrustedKeys,
-      appVersion: options.appVersion ?? getAppVersion(),
+      appVersion,
     });
     if (result.ok && result.signatureVerified === true) {
       verified.push({ manifest: result.manifest, pack: result.pack, signatureVerified: true });
@@ -338,24 +450,24 @@ export async function loadBundledRepository(options: LoadOptions = {}): Promise<
       // A verifier that accepts without having checked the signature is not good enough.
       rejected.push({ packId: result.manifest.packId, reason: 'unverified' });
     } else {
-      const packId = (bundled.manifest as { packId?: string } | null | undefined)?.packId ?? null;
-      rejected.push({ packId, reason: result.reason, detail: result.detail });
+      rejected.push({ packId: packId ?? null, reason: result.reason, detail: result.detail });
     }
   }
   const admitted = admitPacks(verified);
   rejected.push(...admitted.rejected);
-  return { repository: createInMemoryRepository(admitted.accepted), rejected };
+  return { repository: createInMemoryRepository(admitted.accepted), rejected, catalogue };
 }
 
 let cached: Promise<LoadedRepository> | undefined;
 
 /**
- * Lazily loads (and memoises) the repository over the bundled packs. A failed load is not
- * cached: the next call retries.
+ * Lazily loads (and memoises) the repository over the bundled packs, with the bundled catalogue
+ * verified once (its signature is the only check of the start for the packs it lists). A failed
+ * load is not cached: the next call retries.
  */
 export function getRepository(): Promise<LoadedRepository> {
   if (!cached) {
-    const attempt = loadBundledRepository();
+    const attempt = loadBundledCatalogue().then((catalogue) => loadBundledRepository({ catalogue }));
     cached = attempt;
     attempt.catch(() => {
       if (cached === attempt) cached = undefined;

@@ -3,8 +3,9 @@ import { describe, expect, it } from 'vitest';
 import { commands, usage } from './cli';
 
 describe('cli', () => {
-  it('registers the seven commands', () => {
+  it('registers the eight commands', () => {
     expect(Object.keys(commands).sort()).toEqual([
+      'build-catalogue',
       'build-pack',
       'ingest-text',
       'keygen',

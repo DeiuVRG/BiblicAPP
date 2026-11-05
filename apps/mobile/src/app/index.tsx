@@ -1,5 +1,5 @@
-import { LibraryScreen } from '@/features/library/library-screen';
+import { LandingScreen } from '@/features/landing/landing-screen';
 
-export default function LibraryRoute() {
-  return <LibraryScreen />;
+export default function LandingRoute() {
+  return <LandingScreen />;
 }

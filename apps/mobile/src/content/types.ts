@@ -24,6 +24,9 @@ export interface WorkSummary {
   titleEn?: string;
   titleOrig: string;
   authorName: string;
+  /** Life dates of the author as the pack records them (null when unknown). */
+  authorBorn: number | null;
+  authorDied: number | null;
   year: number | null;
   languageOrig: string;
   /** Ordered: translations into Romanian first, then the source edition, then the others. */

@@ -1,6 +1,7 @@
 import type { Paragraph, Section } from '@biblioteca/shared';
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { FlatList, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -23,6 +24,7 @@ import { scrollFraction, sectionNeighbours, toPercent } from '@/reading/navigati
 import { loadPosition } from '@/reading/position-store';
 import { useStorage } from '@/storage/key-value-store';
 import { useSettings } from '@/settings/settings-context';
+import { SectionBar } from '@/shell/section-bar';
 import { useFontFamilies } from '@/theme/fonts';
 import { useColumnStyle } from '@/theme/layout';
 import { useTheme } from '@/theme/theme-context';
@@ -66,6 +68,20 @@ type Loaded =
       savedParagraphId: string | null;
     };
 
+/**
+ * The reader's frame: the section bar shows (docs/ui-spec-v2.md, 4.1 and 8.1) and the brand bar does
+ * not, because the reader has its own toolbar (the next phase builds it). The bar is not a sticky
+ * header here: the list under it is the scroll container, so the bar stays where it is.
+ */
+function ReaderFrame({ children }: { children: ReactNode }) {
+  return (
+    <Screen>
+      <SectionBar />
+      {children}
+    </Screen>
+  );
+}
+
 export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Props) {
   const t = useT();
   const store = useStorage();
@@ -101,16 +117,16 @@ export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Pr
 
   if (data.status === 'loading') {
     return (
-      <Screen>
+      <ReaderFrame>
         <LoadingView message={t.common.loading} />
-      </Screen>
+      </ReaderFrame>
     );
   }
   if (data.status === 'error') {
     return (
-      <Screen>
+      <ReaderFrame>
         <MessageView message={t.common.error} />
-      </Screen>
+      </ReaderFrame>
     );
   }
   const section = data.data.found
@@ -118,9 +134,9 @@ export function ReaderScreen({ workId, sectionId, targetParagraphId, query }: Pr
     : undefined;
   if (!data.data.found || !section) {
     return (
-      <Screen>
+      <ReaderFrame>
         <MessageView message={t.reader.notFound} />
-      </Screen>
+      </ReaderFrame>
     );
   }
   const { detail, edition, sections, paragraphs, savedParagraphId } = data.data;
@@ -274,23 +290,18 @@ function ChapterView({
   ) : undefined;
 
   return (
-    <Screen>
-      <Stack.Screen
-        options={{
-          title,
-          // A running head, quiet next to the chapter heading (the web header does the same).
-          headerTitleStyle: {
-            fontFamily: fonts.textItalic,
-            fontSize: 15,
-            color: colors.textMuted,
-          },
-        }}
-      />
+    <ReaderFrame>
       <PageTitle parts={[section.heading, title]} />
-      <Column
-        kind="reading"
-        style={[styles.runningHead, languageLabel ? styles.withLanguage : null]}
-      >
+      <Column kind="reading" style={styles.runningHead}>
+        {/* The name of the work, as a quiet running head (the header that carried it is gone). */}
+        <AppText
+          variant="original"
+          numberOfLines={1}
+          testID="reader-running-title"
+          style={styles.workTitle}
+        >
+          {title}
+        </AppText>
         {languageLabel ? (
           <AppText variant="label" testID="edition-language">
             {languageLabel}
@@ -411,22 +422,22 @@ function ChapterView({
           )}
         </Column>
       </View>
-    </Screen>
+    </ReaderFrame>
   );
 }
 
 const styles = StyleSheet.create({
   list: { flex: 1 },
   content: { paddingTop: 12, paddingBottom: 48 },
-  // The position at the right; the language of the text (when the work has several) at the left.
+  // The work at the left, then the language of the text (when the work has several) and the position.
   runningHead: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    columnGap: 16,
     paddingTop: 8,
     paddingBottom: 4,
   },
-  withLanguage: { justifyContent: 'space-between' },
+  workTitle: { flex: 1, minWidth: 0 },
   chapterHeading: { marginBottom: 24, marginTop: 8 },
   sheet: { borderTopWidth: StyleSheet.hairlineWidth },
   sheetContent: { paddingTop: 16, paddingBottom: 20, gap: 12 },

@@ -5,6 +5,8 @@ import type { KeyDownEvent } from 'react-native';
 import { AppText } from '@/components/app-text';
 import { MIN_TARGET } from '@/components/button';
 import { useHover } from '@/components/hover';
+import { pressStyle } from '@/components/press';
+import { useReducedMotion } from '@/theme/reduced-motion';
 import { useTheme } from '@/theme/theme-context';
 import { radii } from '@/theme/tokens';
 
@@ -179,6 +181,7 @@ function Segment({
   onKey(key: string): boolean;
 }) {
   const { colors } = useTheme();
+  const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
   return (
     <Pressable
@@ -206,8 +209,8 @@ function Segment({
           borderTopRightRadius: corners.topRight ? SEGMENT_RADIUS : 0,
           borderBottomLeftRadius: corners.bottomLeft ? SEGMENT_RADIUS : 0,
           borderBottomRightRadius: corners.bottomRight ? SEGMENT_RADIUS : 0,
-          opacity: pressed ? 0.7 : 1,
         },
+        pressStyle(pressed, reduced),
       ]}
     >
       <AppText

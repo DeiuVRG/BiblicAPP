@@ -12,6 +12,7 @@ import type { ReactElement } from 'react';
 type Params = Record<string, string | string[] | undefined>;
 
 let params: Params = {};
+let pathname = '/';
 const listeners = new Set<() => void>();
 
 function subscribe(listener: () => void): () => void {
@@ -24,6 +25,23 @@ function subscribe(listener: () => void): () => void {
 /** Replaces the params `useLocalSearchParams()` returns (tests start from `{}`). */
 export function setMockParams(next: Params): void {
   params = next;
+  listeners.forEach((listener) => listener());
+}
+
+/** Replaces the path `usePathname()` returns ("/library/all"); tests start from "/". */
+export function setMockPathname(next: string): void {
+  pathname = next;
+  listeners.forEach((listener) => listener());
+}
+
+/** Puts the mock router back as a test found it: no params, the landing as the path. */
+export function resetMockRouter(): void {
+  params = {};
+  pathname = '/';
+  router.push.mockClear();
+  router.replace.mockClear();
+  router.back.mockClear();
+  router.setParams.mockClear();
   listeners.forEach((listener) => listener());
 }
 
@@ -61,3 +79,4 @@ export function useFocusEffect(effect: () => void | (() => void)) {
 }
 
 export const useLocalSearchParams = () => useSyncExternalStore(subscribe, () => params);
+export const usePathname = () => useSyncExternalStore(subscribe, () => pathname);

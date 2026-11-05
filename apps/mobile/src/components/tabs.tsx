@@ -1,10 +1,11 @@
-import { useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import type {
   KeyDownEvent,
   LayoutChangeEvent,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  ScrollViewInstance,
 } from 'react-native';
 
 import { AppText } from '@/components/app-text';
@@ -23,6 +24,11 @@ export interface TabItem<T extends string = string> {
   /** Appears in the label: "Cuprins · 11". */
   count?: number;
   testID?: string;
+}
+
+/** What the strip needs of the element of a tab: to give it the focus without a scroll of its own. */
+interface TabHandle {
+  focus?: (options?: { preventScroll?: boolean }) => void;
 }
 
 interface Props<T extends string> {
@@ -78,7 +84,10 @@ export function tabLabel(tab: TabItem): string {
  * the tab that has it. The row scrolls sideways on a phone, with a fade at the edge that has more.
  * The scroller clips what overflows it, so it is taller and wider than the tabs by the room a
  * focus ring needs (4 points above, below and before them) and pulled back by the same amount with
- * negative margins: the ring is never cut and the strip keeps its 46 points.
+ * negative margins: the ring is never cut and the strip keeps its 46 points. A tab that gets the
+ * focus or is chosen is scrolled whole into view, ring included: a browser scrolls a tab that is
+ * only partly visible not at all, and one that is hidden only as far as the edge, so the strip does
+ * it itself.
  */
 export function Tabs<T extends string>({
   label,
@@ -99,8 +108,44 @@ export function Tabs<T extends string>({
     setChosen(value);
     setStop(value);
   }
-  const refs = useRef(new Map<T, { focus?: () => void }>());
+  const refs = useRef(new Map<T, TabHandle>());
+  const scroller = useRef<ScrollViewInstance>(null);
   const [box, setBox] = useState({ width: 0, content: 0, offset: 0 });
+  // Where each tab is in the scrolled content, and how far the strip is scrolled (read by the
+  // handlers, so kept out of the state: they must not wait for a render).
+  const places = useRef(new Map<T, { x: number; width: number }>());
+  const scrolled = useRef(0);
+  const reduced = useReducedMotion();
+
+  /**
+   * Scrolls the strip, if it has to, so that the tab and its focus ring are inside it. Returns
+   * false while the layout is not known yet (nothing was done).
+   */
+  const reveal = useCallback(
+    (key: T, animated: boolean): boolean => {
+      const place = places.current.get(key);
+      if (!place || box.width <= 0) return false;
+      const start = place.x - FOCUS_RING_ROOM;
+      const end = place.x + place.width + FOCUS_RING_ROOM;
+      let target = scrolled.current;
+      if (start < target) target = Math.max(0, start);
+      else if (end > target + box.width) {
+        target = Math.min(end - box.width, Math.max(0, box.content - box.width));
+      }
+      if (Math.abs(target - scrolled.current) >= 1) {
+        scroller.current?.scrollTo({ x: target, animated });
+      }
+      return true;
+    },
+    [box.width, box.content],
+  );
+
+  // The chosen tab is scrolled into view when it changes (a tap on a half-hidden tab, a link that
+  // sets the tab); the first time, once the layout is known, it is placed without animation.
+  const placed = useRef(false);
+  useEffect(() => {
+    if (reveal(value, placed.current && !reduced)) placed.current = true;
+  }, [value, reveal, reduced]);
 
   const move = (from: number, action: 'next' | 'previous' | 'first' | 'last') => {
     const last = tabs.length - 1;
@@ -115,7 +160,8 @@ export function Tabs<T extends string>({
     const tab = tabs[target];
     if (!tab) return;
     setStop(tab.key);
-    refs.current.get(tab.key)?.focus?.();
+    // The strip scrolls the tab into view itself (`reveal`, from the focus handler of the tab).
+    refs.current.get(tab.key)?.focus?.({ preventScroll: true });
   };
 
   const overflowing = box.content > box.width + 1;
@@ -126,6 +172,7 @@ export function Tabs<T extends string>({
     <View testID={testID} style={[styles.wrap, { borderBottomColor: colors.border }]}>
       <View accessibilityRole="tablist" accessibilityLabel={label} style={styles.list}>
         <ScrollView
+          ref={scroller}
           testID={`${testID}-scroll`}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -137,6 +184,7 @@ export function Tabs<T extends string>({
           onContentSizeChange={(content) => setBox((previous) => ({ ...previous, content }))}
           onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
             const offset = event.nativeEvent.contentOffset.x;
+            scrolled.current = offset;
             setBox((previous) => ({ ...previous, offset }));
           }}
           style={styles.scroller}
@@ -155,6 +203,8 @@ export function Tabs<T extends string>({
                 if (node) refs.current.set(tab.key, node);
                 else refs.current.delete(tab.key);
               }}
+              onPlace={(x, width) => places.current.set(tab.key, { x, width })}
+              onReveal={() => reveal(tab.key, !reduced)}
               onSelect={() => onChange(tab.key)}
               onKey={(key) => {
                 const action = tabKeyAction(key);
@@ -180,7 +230,11 @@ interface TabButtonProps<T extends string> {
   stop: boolean;
   nativeId: string;
   controls: string | undefined;
-  tabRef(node: { focus?: () => void } | null): void;
+  tabRef(node: TabHandle | null): void;
+  /** Reports where the tab is in the scrolled content (its layout, relative to the content). */
+  onPlace(x: number, width: number): void;
+  /** The tab got the focus: the strip scrolls it, ring included, into view. */
+  onReveal(): void;
   onSelect(): void;
   /** Handles a key press; returns true when the key was used (the page must not scroll). */
   onKey(key: string): boolean;
@@ -194,6 +248,8 @@ function TabButton<T extends string>({
   nativeId,
   controls,
   tabRef,
+  onPlace,
+  onReveal,
   onSelect,
   onKey,
 }: TabButtonProps<T>) {
@@ -219,11 +275,19 @@ function TabButton<T extends string>({
       // One tab stop for the list (the roving tabindex), as in the ARIA pattern.
       {...(Platform.OS === 'web' ? { tabIndex: stop ? 0 : -1 } : null)}
       onPress={onSelect}
+      onLayout={(event: LayoutChangeEvent) => {
+        const { x, width } = event.nativeEvent.layout;
+        onPlace(x, width);
+      }}
       onKeyDown={(event: KeyDownEvent) => {
         if (onKey(event.nativeEvent.key)) event.preventDefault();
       }}
       {...hoverProps}
-      {...focusProps}
+      onFocus={() => {
+        focusProps.onFocus?.();
+        onReveal();
+      }}
+      onBlur={focusProps.onBlur}
       style={({ pressed }) => [styles.tab, pressStyle(pressed, reduced), focusStyle]}
     >
       <View>

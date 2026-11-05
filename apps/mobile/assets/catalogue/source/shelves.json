@@ -1,0 +1,68 @@
+{
+  "shelves": [
+    {
+      "slug": "creeds",
+      "order": 1,
+      "labelRo": "Crezuri, mărturisiri și catehisme",
+      "labelEn": "Creeds, confessions and catechisms",
+      "descRo": "Texte prin care Biserica și-a spus credința: crezuri, mărturisiri de credință și catehisme.",
+      "descEn": "Texts in which the Church has put its faith into words: creeds, confessions of faith and catechisms."
+    },
+    {
+      "slug": "fathers",
+      "order": 2,
+      "labelRo": "Părinții Bisericii",
+      "labelEn": "Church Fathers",
+      "descRo": "Scrierile creștinilor din primele secole, de la ucenicii apostolilor până la marile sinoade și după ele.",
+      "descEn": "Writings of the Christians of the early centuries, from the disciples of the apostles through the great councils and beyond."
+    },
+    {
+      "slug": "medieval",
+      "order": 3,
+      "labelRo": "Evul Mediu",
+      "labelEn": "The Middle Ages",
+      "descRo": "Teologie, predici și meditații scrise între sfârșitul epocii patristice și Reformă.",
+      "descEn": "Theology, sermons and meditations written between the end of the patristic age and the Reformation."
+    },
+    {
+      "slug": "reformation",
+      "order": 4,
+      "labelRo": "Reforma",
+      "labelEn": "The Reformation",
+      "descRo": "Scrieri ale reformatorilor și ale contemporanilor lor din secolele al XVI-lea și al XVII-lea.",
+      "descEn": "Writings of the reformers and of their contemporaries in the sixteenth and seventeenth centuries."
+    },
+    {
+      "slug": "puritans",
+      "order": 5,
+      "labelRo": "Puritani și teologi englezi",
+      "labelEn": "Puritans and English divines",
+      "descRo": "Predicatori și teologi englezi din secolele al XVII-lea și al XVIII-lea, cu accent pe viața credinței.",
+      "descEn": "English preachers and theologians of the seventeenth and eighteenth centuries, with an emphasis on the life of faith."
+    },
+    {
+      "slug": "modern",
+      "order": 6,
+      "labelRo": "Teologie modernă",
+      "labelEn": "Modern theology",
+      "descRo": "Teologi din secolele al XIX-lea și al XX-lea care au scris pentru studiul Scripturii și al doctrinei.",
+      "descEn": "Theologians of the nineteenth and twentieth centuries who wrote for the study of Scripture and doctrine."
+    },
+    {
+      "slug": "devotional",
+      "order": 7,
+      "labelRo": "Viață duhovnicească",
+      "labelEn": "Spiritual life",
+      "descRo": "Cărți de rugăciune, de meditație și de îndrumare a vieții de credință.",
+      "descEn": "Books of prayer, meditation and guidance for the life of faith."
+    },
+    {
+      "slug": "orthodox",
+      "order": 8,
+      "labelRo": "Ortodoxie",
+      "labelEn": "Orthodox writers",
+      "descRo": "Scriitori din tradiția răsăriteană, de la Părinții greci până la autori mai noi.",
+      "descEn": "Writers of the Eastern tradition, from the Greek Fathers to more recent authors."
+    }
+  ]
+}

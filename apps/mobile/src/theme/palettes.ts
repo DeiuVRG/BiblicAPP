@@ -76,7 +76,7 @@ export interface Palette {
    * `accent` at 78 % (the hero highlight bar). A hero is dark in every theme, so the bar is the
    * brand terracotta in every theme: in dark it is the `accent` of the light theme, because the
    * pale accent of the dark theme (`#D79380`) leaves the large light text on the bar only 2.7:1
-   * over a white pixel under the scrim (3:1 is the bar for large text); see ADR-017.
+   * over a white pixel under the scrim (3:1 is the bar for large text); see ADR-016, amendment 1.
    */
   accentBar: string;
   /** The five highlight washes; the text on every wash is `text`. */

@@ -31,6 +31,7 @@ export const ICON_NAMES = [
   'lanes',
   'themeAuto',
   'themeLight',
+  'themeSepia',
   'themeDark',
   'send',
   'stop',
@@ -102,6 +103,14 @@ function shapes(name: IconName, color: string): ReactNode {
       return (
         <>
           <Circle cx={10} cy={10} r={3} />
+          <Path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M15.3 4.7l-1.4 1.4M6.1 13.9l-1.4 1.4" />
+        </>
+      );
+    case 'themeSepia':
+      // The sun of the light theme, with a filled disc: the warm page.
+      return (
+        <>
+          <Circle cx={10} cy={10} r={3} fill={color} />
           <Path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M15.3 4.7l-1.4 1.4M6.1 13.9l-1.4 1.4" />
         </>
       );

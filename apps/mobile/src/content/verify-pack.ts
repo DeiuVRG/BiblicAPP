@@ -33,7 +33,10 @@ export type VerifyFailureReason =
   // Not found by `verifyPack` (it sees one pack): the repository finds them when it puts verified
   // packs together. The later pack of a clash is rejected.
   | 'duplicate-edition'
-  | 'duplicate-id';
+  | 'duplicate-id'
+  // Found when a pack is checked against the signed catalogue (catalogue/catalogue-packs.ts): the
+  // manifest of the pack is not the one the catalogue lists (a pack rebuilt without the catalogue).
+  | 'catalogue-mismatch';
 
 export interface VerifyPackInput {
   /** Parsed manifest.json (untrusted). */

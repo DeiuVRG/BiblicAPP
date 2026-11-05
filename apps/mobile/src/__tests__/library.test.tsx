@@ -1,12 +1,14 @@
 import type { Pack } from '@biblioteca/shared';
-import { fireEvent, screen } from '@testing-library/react-native';
+import { fireEvent, screen, within } from '@testing-library/react-native';
+import { Platform } from 'react-native';
 
 import { loadBundledRepository } from '@/content/repository';
 import type { LoadedRepository } from '@/content/repository';
 import { trustedKeys } from '@/content/trusted-keys';
-import { LibraryScreen } from '@/features/library/library-screen';
+import { LibraryAllScreen } from '@/features/library/library-all-screen';
+import { en } from '@/i18n/en';
 import { workHref } from '@/navigation-hrefs';
-import { router } from '@/test-support/expo-router-mock';
+import { resetMockRouter, router } from '@/test-support/expo-router-mock';
 import {
   barePack,
   bundledPack,
@@ -14,6 +16,7 @@ import {
   signPack,
   translationOf,
 } from '@/test-support/packs';
+import { styleWhilePressed } from '@/test-support/press';
 import { createSettingsStore, renderWithProviders } from '@/test-support/render';
 import { vosEditions } from '@/test-support/vos';
 
@@ -24,18 +27,44 @@ const englishPack = bundledPack('vos-1903-kingdom-en');
 const english = englishPack.pack as Pack;
 const trusted = [...trustedKeys, signer.key];
 
+/** The rows of the list, in the order they are drawn. */
+const rows = () => screen.getAllByTestId(/^library-row-/);
+
 beforeEach(() => {
-  router.push.mockClear();
+  resetMockRouter();
 });
 
-describe('LibraryScreen', () => {
+describe('LibraryRow: pressed look (docs/ui-spec-v2.md, 2.6 and 3)', () => {
+  it('dims the row to opacity 0.7 on native', async () => {
+    await renderWithProviders(<LibraryAllScreen />);
+    await screen.findAllByTestId(/^library-row-/);
+    expect(await styleWhilePressed(/^Deschide lucrarea/)).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('shrinks the row to scale(.96) on web, with no opacity change', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<LibraryAllScreen />);
+      await screen.findAllByTestId(/^library-row-/);
+      const style = await styleWhilePressed(/^Deschide lucrarea/);
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
+  });
+});
+
+describe('LibraryAllScreen', () => {
   it('lists the verified works with author and language', async () => {
     const { repository } = await loadBundledRepository();
     const { work } = await vosEditions(repository);
-    await renderWithProviders(<LibraryScreen />);
+    await renderWithProviders(<LibraryAllScreen />);
 
     expect(await screen.findByText(work.titleRo)).toBeTruthy();
-    expect(screen.getByLabelText(new RegExp(work.authorName))).toBeTruthy();
+    expect(
+      screen.getByLabelText(new RegExp(`^Deschide lucrarea .*${work.authorName}`)),
+    ).toBeTruthy();
   });
 
   it('hides a pack that fails verification and tells the user', async () => {
@@ -47,18 +76,21 @@ describe('LibraryScreen', () => {
     const loaded = await loadBundledRepository({ packs: [englishPack], verify });
     expect(verify).toHaveBeenCalled();
 
-    await renderWithProviders(<LibraryScreen />, { loaded });
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
     expect(await screen.findByText('Nu există lucrări instalate.')).toBeTruthy();
     expect(screen.queryByText(work.titleRo)).toBeNull();
     expect(
       screen.getByText('Un pachet de conținut nu a putut fi verificat și nu este afișat.'),
     ).toBeTruthy();
+    // Nothing to filter: the panel and the tabs are not drawn around an empty library.
+    expect(screen.queryByTestId('filter-panel')).toBeNull();
+    expect(screen.queryByTestId('view-tabs')).toBeNull();
   });
 
   it('counts the packs that were rejected, not the works', async () => {
     const verify = jest.fn(async () => ({ ok: false as const, reason: 'bad-signature' as const }));
     const loaded = await loadBundledRepository({ verify });
-    await renderWithProviders(<LibraryScreen />, { loaded });
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
     expect(
       await screen.findByText(
         '2 pachete de conținut nu au putut fi verificate și nu sunt afișate.',
@@ -71,15 +103,22 @@ describe('LibraryScreen', () => {
     expect(loaded.rejected).toEqual([
       { packId: 'vos-1903-kingdom-en', reason: 'duplicate-edition' },
     ]);
-    await renderWithProviders(<LibraryScreen />, { loaded });
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
     expect(await screen.findByText(english.work.titleRo)).toBeTruthy();
     expect(
       screen.getByText('Un pachet de conținut nu a putut fi verificat și nu este afișat.'),
     ).toBeTruthy();
   });
+
+  it('shows the alert as an alert, for screen readers', async () => {
+    const loaded = await loadBundledRepository({ packs: [englishPack, englishPack] });
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
+    const notice = await screen.findByTestId('library-unverified');
+    expect(notice.props.accessibilityRole).toBe('alert');
+  });
 });
 
-describe('LibraryScreen with several editions', () => {
+describe('LibraryAllScreen with several editions', () => {
   const twoEditions = async (sections = 3) => {
     const translation = translationOf(english, { sections });
     const loaded = await loadBundledRepository({
@@ -91,64 +130,73 @@ describe('LibraryScreen with several editions', () => {
 
   it('has one row per work, however many editions it has', async () => {
     const { loaded } = await twoEditions();
-    await renderWithProviders(<LibraryScreen />, { loaded });
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
     expect(await screen.findByText(english.work.titleRo)).toBeTruthy();
-    expect(screen.getAllByRole('link')).toHaveLength(1);
+    expect(rows()).toHaveLength(1);
   });
 
-  it('shows the editions as short labels: the language and what the edition is', async () => {
+  it('shows the editions as badges: the language code, and for screen readers what the edition is', async () => {
     const { loaded } = await twoEditions();
-    await renderWithProviders(<LibraryScreen />, { loaded });
-    expect(await screen.findByText('Română · traducere')).toBeTruthy();
-    expect(screen.getByText('English · original')).toBeTruthy();
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
+    const row = (await screen.findAllByTestId(/^library-row-/))[0]!;
+    expect(within(row).getByText('RO')).toBeTruthy();
+    expect(within(row).getByText('EN')).toBeTruthy();
+    expect(within(row).getByLabelText('Română · traducere')).toBeTruthy();
+    expect(within(row).getByLabelText('English · original')).toBeTruthy();
   });
 
   it('opens the work page without choosing an edition: the page picks the primary one', async () => {
     const { loaded } = await twoEditions();
-    await renderWithProviders(<LibraryScreen />, { loaded });
-    await fireEvent.press(await screen.findByRole('link'));
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
+    await fireEvent.press((await screen.findAllByTestId(/^library-row-/))[0]!);
     expect(router.push).toHaveBeenCalledWith(workHref(english.work.id));
     expect(workHref(english.work.id).params).toEqual({ id: english.work.id });
   });
 
   it('tells a partial translation on the row, and only when it covers fewer sections', async () => {
     const partial = await twoEditions(3);
-    const first = await renderWithProviders(<LibraryScreen />, { loaded: partial.loaded });
-    expect(await screen.findByText('Traducere parțială')).toBeTruthy();
+    const first = await renderWithProviders(<LibraryAllScreen />, { loaded: partial.loaded });
+    const chip = await screen.findByText('Parțial');
+    expect(chip.parent!.props.accessibilityLabel).toBe('Traducere parțială');
     await first.unmount();
 
     const whole = await twoEditions(11);
-    await renderWithProviders(<LibraryScreen />, { loaded: whole.loaded });
-    await screen.findByText('Română · traducere');
-    expect(screen.queryByText('Traducere parțială')).toBeNull();
+    await renderWithProviders(<LibraryAllScreen />, { loaded: whole.loaded });
+    await screen.findByText('RO');
+    expect(screen.queryByText('Parțial')).toBeNull();
   });
 
-  it('tags the row with the licence of the edition that opens first', async () => {
+  it('has no licence text in a row, in either reading language (the licence lives on the work page)', async () => {
+    // docs/ui-spec-v2.md section 6 and check B6: the list shows no licence chip (task "Finisare
+    // UI"); the "Sub licență" and "Domeniu public" tags of the first design are gone.
     const { loaded } = await twoEditions();
-    const first = await renderWithProviders(<LibraryScreen />, { loaded });
-    // Romanian reading: the translation opens first, under its own licence.
-    expect(await screen.findByText('Sub licență')).toBeTruthy();
+    const first = await renderWithProviders(<LibraryAllScreen />, { loaded });
+    await screen.findByText('RO');
+    expect(screen.queryByText('Sub licență')).toBeNull();
     expect(screen.queryByText('Domeniu public')).toBeNull();
+    expect(screen.queryByText(/licen/i)).toBeNull();
+    expect(rows()[0]!.props.accessibilityLabel).not.toMatch(/licen/i);
     await first.unmount();
 
-    // English reading: the source text, in the public domain.
-    await renderWithProviders(<LibraryScreen />, {
+    await renderWithProviders(<LibraryAllScreen />, {
       loaded,
       store: createSettingsStore({ readingLanguage: 'en' }),
     });
-    expect(await screen.findByText('Domeniu public')).toBeTruthy();
+    await screen.findByText('RO');
     expect(screen.queryByText('Sub licență')).toBeNull();
+    expect(screen.queryByText('Domeniu public')).toBeNull();
+    expect(screen.queryByText(/licen/i)).toBeNull();
   });
 
   it('titles the row in the reading language, with the original title under it', async () => {
     const { loaded } = await twoEditions();
-    const first = await renderWithProviders(<LibraryScreen />, { loaded });
+    const first = await renderWithProviders(<LibraryAllScreen />, { loaded });
     expect(await screen.findByText(english.work.titleRo)).toBeTruthy();
     expect(screen.getByText(english.work.titleOrig)).toBeTruthy();
     await first.unmount();
 
     // The original is English: for an English reader the title is the original, shown once.
-    await renderWithProviders(<LibraryScreen />, {
+    await renderWithProviders(<LibraryAllScreen />, {
       loaded,
       store: createSettingsStore({ readingLanguage: 'en' }),
     });
@@ -158,9 +206,9 @@ describe('LibraryScreen with several editions', () => {
 
   it('gives screen readers the title, the author line and the editions in the label of the row', async () => {
     const { loaded } = await twoEditions(3);
-    await renderWithProviders(<LibraryScreen />, { loaded });
-    const row = await screen.findByRole('link');
-    expect(row.props.accessibilityLabel).toBe(
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
+    const [row] = await screen.findAllByTestId(/^library-row-/);
+    expect(row!.props.accessibilityLabel).toBe(
       `Deschide lucrarea ${english.work.titleRo}. Geerhardus Vos · 1903 · Engleză. ` +
         'Ediții: Română · traducere, traducere parțială; English · original',
     );
@@ -169,14 +217,14 @@ describe('LibraryScreen with several editions', () => {
   it('is written in English with an English interface', async () => {
     const { loaded } = await twoEditions(3);
     const store = createSettingsStore({ uiLanguage: 'en', readingLanguage: 'en' });
-    await renderWithProviders(<LibraryScreen />, { loaded, store });
-    expect(await screen.findByText('Old books, carefully translated.')).toBeTruthy();
-    expect(screen.getByText('Română · translation')).toBeTruthy();
-    expect(screen.getByText('English · original')).toBeTruthy();
-    expect(screen.getByText('Partial translation')).toBeTruthy();
-    expect(screen.getByText('Public domain')).toBeTruthy();
+    await renderWithProviders(<LibraryAllScreen />, { loaded, store });
+    expect(await screen.findByText(en.library.allTitle)).toBeTruthy();
+    expect(screen.getByLabelText('Română · translation')).toBeTruthy();
+    expect(screen.getByLabelText('English · original')).toBeTruthy();
+    expect(screen.getByText('Partial')).toBeTruthy();
+    expect(screen.queryByText('Public domain')).toBeNull(); // no licence tag in the list
     expect(screen.getByText(/Geerhardus Vos · 1903 · English/)).toBeTruthy();
-    const row = screen.getByRole('link');
+    const row = rows()[0]!;
     expect(row.props.accessibilityLabel).toContain('Open the work');
     expect(row.props.accessibilityLabel).toContain('Editions: ');
   });
@@ -184,7 +232,7 @@ describe('LibraryScreen with several editions', () => {
   it('tells an empty library in English too', async () => {
     const verify = jest.fn(async () => ({ ok: false as const, reason: 'bad-signature' as const }));
     const loaded = await loadBundledRepository({ packs: [englishPack], verify });
-    await renderWithProviders(<LibraryScreen />, {
+    await renderWithProviders(<LibraryAllScreen />, {
       loaded,
       store: createSettingsStore({ uiLanguage: 'en' }),
     });
@@ -195,7 +243,7 @@ describe('LibraryScreen with several editions', () => {
   });
 });
 
-describe('LibraryScreen with a work whose original is not English', () => {
+describe('LibraryAllScreen with a work whose original is not English', () => {
   // A Latin work read in Romanian and in English, whatever the original language.
   async function latinWork(): Promise<LoadedRepository> {
     // Without the English title the real pack now carries: only the English translation has one.
@@ -234,19 +282,21 @@ describe('LibraryScreen with a work whose original is not English', () => {
   it('lists the translations into Romanian first, then the original, then the others', async () => {
     const loaded = await latinWork();
     expect(loaded.rejected).toEqual([]);
-    await renderWithProviders(<LibraryScreen />, { loaded });
-    await screen.findByText('Română · traducere');
-    const labels = screen
-      .getAllByText(/ · (traducere|original)$/)
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
+    const row = (await screen.findAllByTestId(/^library-row-/))[0]!;
+    const codes = within(row)
+      .getAllByText(/^(RO|EN|LA)$/)
       .map((node) => node.props.children as string);
-    expect(labels).toEqual(['Română · traducere', 'Latină · original', 'English · traducere']);
+    expect(codes).toEqual(['RO', 'LA', 'EN']);
+    expect(within(row).getByLabelText('Latină · original')).toBeTruthy();
+    expect(within(row).getByLabelText('English · traducere')).toBeTruthy();
     // The Romanian translation covers 2 of 11 sections, the English one all of them.
-    expect(screen.getAllByText('Traducere parțială')).toHaveLength(1);
+    expect(within(row).getAllByText('Parțial')).toHaveLength(1);
   });
 
   it('titles the row for an English reader with the English title, and keeps the Latin one under it', async () => {
     const loaded = await latinWork();
-    await renderWithProviders(<LibraryScreen />, {
+    await renderWithProviders(<LibraryAllScreen />, {
       loaded,
       store: createSettingsStore({ readingLanguage: 'en' }),
     });
@@ -257,7 +307,7 @@ describe('LibraryScreen with a work whose original is not English', () => {
 
   it('titles the row for a Romanian reader with the Romanian title', async () => {
     const loaded = await latinWork();
-    await renderWithProviders(<LibraryScreen />, { loaded });
+    await renderWithProviders(<LibraryAllScreen />, { loaded });
     expect(await screen.findByText('Despre spirit și literă')).toBeTruthy();
     expect(screen.getByText('De spiritu et littera')).toBeTruthy();
     expect(screen.queryByText('On the Spirit and the Letter')).toBeNull();

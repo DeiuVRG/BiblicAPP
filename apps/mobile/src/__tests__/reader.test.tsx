@@ -238,7 +238,7 @@ describe('ReaderScreen scoped to an edition', () => {
   });
 });
 
-describe('ReaderScreen header and language label', () => {
+describe('ReaderScreen running head and language label', () => {
   beforeEach(() => {
     screenOptions.length = 0;
   });
@@ -260,7 +260,7 @@ describe('ReaderScreen header and language label', () => {
     expect(screen.getByTestId('edition-language')).toHaveTextContent('English');
   });
 
-  it('sets the label beside the position, in the same quiet label style', async () => {
+  it('sets the label beside the position, in the same quiet label style, after the name of the work', async () => {
     const { loaded, workId, englishSections } = await twoEditions();
     await renderWithProviders(<ReaderScreen workId={workId} sectionId={englishSections[0]!.id} />, {
       loaded,
@@ -268,8 +268,14 @@ describe('ReaderScreen header and language label', () => {
     const progress = await screen.findByRole('progressbar');
     const label = screen.getByTestId('edition-language');
     expect(label.parent).toBe(progress.parent);
-    // The language at the left, the position at the right.
-    expect(label.parent).toHaveStyle({ flexDirection: 'row', justifyContent: 'space-between' });
+    // The name of the work at the left (it takes the room), then the language, then the position.
+    expect(label.parent).toHaveStyle({ flexDirection: 'row' });
+    const row = label.parent!.children.filter((child) => typeof child !== 'string');
+    expect(row.map((child) => (child as { props: { testID?: string } }).props.testID)).toEqual([
+      'reader-running-title',
+      'edition-language',
+      undefined,
+    ]);
   });
 
   it('shows no language label when the work has one edition, and keeps the position at the right', async () => {
@@ -280,27 +286,33 @@ describe('ReaderScreen header and language label', () => {
     );
     const progress = await screen.findByRole('progressbar');
     expect(screen.queryByTestId('edition-language')).toBeNull();
-    expect(progress.parent).toHaveStyle({ justifyContent: 'flex-end' });
+    // The title of the work takes the room, so the position is the last thing of the row.
+    const row = progress.parent!.children.filter((child) => typeof child !== 'string');
+    expect((row[0] as { props: { testID?: string } }).props.testID).toBe('reader-running-title');
+    expect(row.at(-1)).toBe(progress);
   });
 
-  it('leaves the whole header to the title of the work: no actions that would squeeze it', async () => {
+  it('names the work in a quiet running head, since the navigator has no header any more', async () => {
     const { loaded, workId, englishSections } = await twoEditions();
     await renderWithProviders(<ReaderScreen workId={workId} sectionId={englishSections[0]!.id} />, {
       loaded,
     });
     await screen.findByRole('progressbar');
-    expect(screenOptions.at(-1)).toMatchObject({ title: english.work.titleRo });
-    expect(screenOptions.at(-1)).not.toHaveProperty('headerRight');
+    expect(screen.getByTestId('reader-running-title')).toHaveTextContent(english.work.titleRo);
+    // The shell of the screen: the section bar, and no brand bar (the reader has its own toolbar).
+    expect(screen.getByTestId('section-bar')).toBeTruthy();
+    expect(screen.queryByTestId('brand-bar')).toBeNull();
+    expect(screenOptions).toEqual([]);
   });
 
-  it('titles the header with the work in the reading language', async () => {
+  it('names the work in the reading language', async () => {
     const { loaded, workId, englishSections } = await twoEditions();
     await renderWithProviders(<ReaderScreen workId={workId} sectionId={englishSections[0]!.id} />, {
       loaded,
       store: createSettingsStore({ readingLanguage: 'en' }),
     });
     await screen.findByRole('progressbar');
-    expect(screenOptions.at(-1)).toMatchObject({ title: english.work.titleOrig });
+    expect(screen.getByTestId('reader-running-title')).toHaveTextContent(english.work.titleOrig);
   });
 
   it('writes the label in its own language under an English interface', async () => {

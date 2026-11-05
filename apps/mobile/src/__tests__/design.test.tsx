@@ -1,10 +1,12 @@
-import { act, fireEvent, screen, within } from '@testing-library/react-native';
+import { act, cleanup, fireEvent, screen, within } from '@testing-library/react-native';
+import { useState } from 'react';
 import type { Paragraph } from '@biblioteca/shared';
 import { Dimensions, Platform, StyleSheet, Text } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Chip } from '@/components/chip';
+import { SearchField } from '@/components/search-field';
 import { STACK_BELOW, SettingRow } from '@/components/setting-row';
 import {
   MIN_SEGMENT_WIDTH,
@@ -13,17 +15,17 @@ import {
   segmentColumns,
 } from '@/components/segmented-control';
 import { loadBundledRepository } from '@/content/repository';
-import { LibraryScreen } from '@/features/library/library-screen';
+import { LibraryAllScreen } from '@/features/library/library-all-screen';
 import { ReaderParagraph } from '@/features/reader/reader-paragraph';
 import { ReaderScreen, TYPOGRAPHY_PANEL_MAX_HEIGHT } from '@/features/reader/reader-screen';
-import { SearchScreen } from '@/features/search/search-screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import NotFoundRoute from '@/app/+not-found';
 import { libraryHref, workHref } from '@/navigation-hrefs';
 import { loadedFonts, FontsProvider } from '@/theme/fonts';
 import { palettes } from '@/theme/palettes';
 import { router, screenOptions } from '@/test-support/expo-router-mock';
-import { createSettingsStore, renderWithProviders } from '@/test-support/render';
+import { renderWithProviders } from '@/test-support/render';
+import { styleWhilePressed } from '@/test-support/press';
 import { vosEditions } from '@/test-support/vos';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
@@ -164,6 +166,33 @@ describe('Chip and SegmentedControl', () => {
     });
     await fireEvent.press(screen.getByLabelText('Doi'));
     expect(onChange).toHaveBeenCalledWith('b');
+  });
+});
+
+describe('SegmentedControl: pressed look (docs/ui-spec-v2.md, 2.6 and 3)', () => {
+  const options = [
+    { value: 'a', label: 'Unu' },
+    { value: 'b', label: 'Doi' },
+  ];
+  const control = () => (
+    <SegmentedControl label="Tema" options={options} value="a" onChange={jest.fn()} />
+  );
+
+  it('dims to opacity 0.7 on native', async () => {
+    await renderWithProviders(control());
+    expect(await styleWhilePressed('Doi')).toMatchObject({ opacity: 0.7 });
+  });
+
+  it('shrinks to scale(.96) on web, with no opacity change (it was 0.7 everywhere before)', async () => {
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(control());
+      const style = await styleWhilePressed('Doi');
+      expect(style.transform).toEqual([{ scale: 0.96 }]);
+      expect(style.opacity).toBeUndefined();
+    } finally {
+      replaced.restore();
+    }
   });
 });
 
@@ -384,31 +413,29 @@ describe('SettingRow', () => {
   });
 });
 
-describe('LibraryScreen design', () => {
-  it('leads with the editorial line and tags each work with its licence', async () => {
-    await renderWithProviders(<LibraryScreen />);
-    expect(await screen.findByText('Cărți vechi, traduse cu grijă.')).toBeTruthy();
-    // The licence of the edition that opens first (the Romanian translation, by default).
-    expect(screen.getByText('Sub licență')).toBeTruthy();
+describe('LibraryAllScreen design', () => {
+  it('leads with the title of the page and names the author, year and language of each work', async () => {
+    await renderWithProviders(<LibraryAllScreen />);
+    expect(await screen.findByText('Toate lucrările bibliotecii')).toBeTruthy();
     // Author, year and language on one label line.
     expect(screen.getByText(/Geerhardus Vos · 1903 · Engleză/)).toBeTruthy();
   });
 
-  it('tags the work with the public-domain licence of the source text for an English reader', async () => {
-    await renderWithProviders(<LibraryScreen />, {
-      store: createSettingsStore({ readingLanguage: 'en' }),
-    });
-    expect(await screen.findByText('Domeniu public')).toBeTruthy();
+  it('does not tag a work with its licence, whichever language is read (check B6)', async () => {
+    await renderWithProviders(<LibraryAllScreen />);
+    await screen.findByText('EN');
+    expect(screen.queryByText(/licen/i)).toBeNull();
+    expect(screen.queryByText('Domeniu public')).toBeNull();
   });
 
-  it('sets the editions as outlined chips that wrap, next to the licence', async () => {
-    await renderWithProviders(<LibraryScreen />);
-    const edition = await screen.findByText('English · original');
-    // label > chip > row of chips
-    const row = edition.parent!.parent!;
-    expect(row).toHaveStyle({ flexDirection: 'row', flexWrap: 'wrap', gap: 8 });
-    expect(screen.getByText('Română · traducere').parent!.parent).toBe(row);
-    expect(screen.getByText('Sub licență').parent!.parent).toBe(row);
+  it('sets the editions as outlined badges that wrap', async () => {
+    await renderWithProviders(<LibraryAllScreen />);
+    const edition = await screen.findByText('EN');
+    // code > badge > the badge and its partial tag > the wrapping row of editions
+    const row = edition.parent!.parent!.parent!;
+    expect(row).toHaveStyle({ flexDirection: 'row', flexWrap: 'wrap', gap: 6 });
+    expect(screen.getByText('RO').parent!.parent!.parent).toBe(row);
+    expect(edition.parent).toHaveStyle({ borderWidth: 1, borderRadius: 999 });
   });
 });
 
@@ -527,18 +554,16 @@ describe('ReaderScreen design', () => {
     }
   });
 
-  it('sets the work title in the native header as a quiet running head, not a second heading', async () => {
+  it('sets the work title as a quiet running head in the reader, not as a heading', async () => {
     const { work, sections } = await bundled();
     await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
     await screen.findByRole('progressbar');
-    expect(screenOptions.at(-1)).toMatchObject({
-      title: work.titleRo,
-      headerTitleStyle: {
-        fontFamily: undefined, // fonts are not loaded under Jest: the system face
-        fontSize: 15,
-        color: palettes.light.textMuted,
-      },
-    });
+    const head = screen.getByTestId('reader-running-title');
+    expect(head).toHaveTextContent(work.titleRo);
+    expect(head).toHaveStyle({ color: palettes.light.textMuted });
+    expect(head.props.numberOfLines).toBe(1);
+    // The chapter is the heading of the page; the running head is not a second one.
+    expect(head.props.accessibilityRole).toBeUndefined();
   });
 
   it('offers the table of contents instead of "next" on the last chapter', async () => {
@@ -594,28 +619,30 @@ describe('ReaderParagraph', () => {
   });
 });
 
-describe('SearchScreen design', () => {
-  it('puts the chapter first in each result, so a long line cuts off the work title', async () => {
-    const { work, sections } = await bundled();
-    await renderWithProviders(<SearchScreen initialQuery="kingdom" />);
-    const rows = await screen.findAllByRole('link');
-    expect(rows.length).toBeGreaterThan(0);
-    const label = rows[0]!.props.accessibilityLabel as string;
-    const place = label.slice('Deschide rezultatul din '.length, label.indexOf(': '));
-    expect(
-      sections.map((section) => section.heading).some((heading) => place.startsWith(heading)),
-    ).toBe(true);
-    expect(place.endsWith(work.titleRo)).toBe(true);
-  });
-});
+describe('SearchField', () => {
+  function Field({ onChange }: { onChange?: (text: string) => void }) {
+    const [value, setValue] = useState('');
+    return (
+      <SearchField
+        value={value}
+        onChangeText={(text) => {
+          setValue(text);
+          onChange?.(text);
+        }}
+        placeholder="Caută"
+        label="Caută în text"
+        clearLabel="Șterge căutarea"
+      />
+    );
+  }
 
-describe('SearchScreen field and results', () => {
   it('keeps the clear button inside the field, so typing never resizes the input', async () => {
-    await renderWithProviders(<SearchScreen />);
+    await renderWithProviders(<Field />);
     const input = screen.getByLabelText('Caută în text');
     expect(screen.queryByLabelText('Șterge căutarea')).toBeNull();
     const emptyStyle = { paddingRight: 44, borderColor: palettes.light.borderStrong };
     expect(input).toHaveStyle(emptyStyle);
+    expect(input).toHaveStyle({ height: 48, borderWidth: 1, fontSize: 16 });
 
     await fireEvent.changeText(input, 'k');
     const clear = screen.getByLabelText('Șterge căutarea');
@@ -636,15 +663,26 @@ describe('SearchScreen field and results', () => {
     expect(screen.queryByLabelText('Șterge căutarea')).toBeNull();
   });
 
-  it('names only the chapter on a hit when every hit is from the same work', async () => {
-    const { work, sections } = await bundled();
-    await renderWithProviders(<SearchScreen initialQuery="kingdom" />);
-    const rows = await screen.findAllByRole('link');
-    expect(rows.length).toBeGreaterThan(0);
-    // The visible line is the chapter; the work title is repeated only for screen readers.
-    expect(screen.queryByText(new RegExp(work.titleRo))).toBeNull();
-    expect((await screen.findAllByText(sections[0]!.heading)).length).toBeGreaterThan(0);
-    expect(rows[0]!.props.accessibilityLabel).toContain(work.titleRo);
+  it('clears with Escape, and says nothing when it is already empty', async () => {
+    const changes: string[] = [];
+    await renderWithProviders(<Field onChange={(text) => changes.push(text)} />);
+    const input = screen.getByLabelText('Caută în text');
+    await fireEvent(input, 'keyPress', { nativeEvent: { key: 'Escape' } });
+    expect(changes).toEqual([]);
+    await fireEvent.changeText(input, 'kingdom');
+    await fireEvent(input, 'keyPress', { nativeEvent: { key: 'Escape' } });
+    expect(changes).toEqual(['kingdom', '']);
+  });
+
+  it('is a search field for the keyboard: no capitals, no corrections, a search key', async () => {
+    await renderWithProviders(<Field />);
+    const input = screen.getByLabelText('Caută în text');
+    expect(input.props).toMatchObject({
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      inputMode: 'search',
+      returnKeyType: 'search',
+    });
   });
 });
 
@@ -672,13 +710,30 @@ describe('SettingsScreen design', () => {
 });
 
 describe('NotFoundRoute', () => {
-  it('says "Pagină negăsită" once on the page: the header names the library', async () => {
+  it('says "Pagină negăsită" once on the page, inside the shell', async () => {
     await renderWithProviders(<NotFoundRoute />);
-    expect(screenOptions.at(-1)).toMatchObject({
-      title: 'Pagină negăsită', // the browser tab
-      headerTitle: 'Biblioteca', // the header (the page itself carries the title below)
-    });
     expect(screen.getAllByText('Pagină negăsită')).toHaveLength(1);
+    // The bars are there: a reader who lands on a wrong address can still go somewhere.
+    expect(screen.getByTestId('brand-bar')).toBeTruthy();
+    expect(screen.getByTestId('section-bar')).toBeTruthy();
+  });
+
+  it('names the browser tab after the page', async () => {
+    const fakeDocument = {
+      title: '',
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    };
+    setFakeDocument(fakeDocument);
+    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
+    try {
+      await renderWithProviders(<NotFoundRoute />);
+      expect(fakeDocument.title).toBe('Pagină negăsită · Biblioteca');
+      await cleanup();
+    } finally {
+      replaced.restore();
+      setFakeDocument(undefined);
+    }
   });
 
   it('shows a serif title and a text button back to the library', async () => {

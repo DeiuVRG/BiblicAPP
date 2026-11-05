@@ -145,11 +145,14 @@ export async function launchChromium(tool) {
 }
 
 /**
- * The URLs of the four screens the design covers, found by clicking through the app the way a
- * reader does: the library, the first work, its first chapter and Settings.
+ * The URLs of the screens the design covers, found by clicking through the app the way a reader
+ * does: the landing, the curated library, the full library, the authors list, search, the first
+ * work (a link on the full library, whose accordion is open for a small library), its first chapter
+ * and Settings. The routes of docs/ui-spec-v2.md 4.4: `/` is the landing, the library lives at
+ * `/library` (Selecție) and `/library/all`.
  */
 export async function discoverRoutes(page, base, timeout) {
-  await page.goto(`${base}/`, { waitUntil: 'domcontentloaded' });
+  await page.goto(`${base}/library/all`, { waitUntil: 'domcontentloaded' });
   const work = page.locator('a[href*="/work/"]').first();
   await work.waitFor({ state: 'visible', timeout });
   const workPath = new URL(await work.getAttribute('href'), `${base}/`).pathname;
@@ -158,7 +161,11 @@ export async function discoverRoutes(page, base, timeout) {
   await chapter.waitFor({ state: 'visible', timeout });
   const readerPath = new URL(await chapter.getAttribute('href'), `${base}/`).pathname;
   return {
-    library: '/',
+    landing: '/',
+    library: '/library',
+    'library-all': '/library/all',
+    authors: '/authors',
+    search: '/search',
     work: stripBase(workPath, base),
     reader: stripBase(readerPath, base),
     settings: '/settings',
@@ -189,14 +196,38 @@ const readerReady = (min) => {
   return progress && blocks.length >= 2;
 };
 
-/** The screens of the design, in the order of the reading flow. */
-export const SCREENS = ['library', 'work', 'reader', 'settings'];
+/** The screens of the design, in the order of the reading flow (the names of docs/ui-spec-v2.md 20.1). */
+export const SCREENS = [
+  'landing',
+  'library',
+  'library-all',
+  'authors',
+  'search',
+  'work',
+  'reader',
+  'settings',
+];
+
+/**
+ * What proves that a screen has drawn its content: a test id that only exists once the data is in.
+ * The screen a page stays on while its data loads has the shell but not these.
+ */
+const READY = {
+  landing: '[data-testid="doors"]',
+  library: '[data-testid="library-hero-search"]',
+  'library-all': '[data-testid="library-count"]',
+  authors: '[data-testid="authors-count"]',
+  search: '[data-testid="search-input"]',
+};
 
 /** Waits until a screen has drawn its content (fonts loaded, list rows or paragraphs on screen). */
 export async function waitForScreen(page, screen, timeout) {
-  if (screen === 'library') await page.locator('a[href*="/work/"]').first().waitFor({ timeout });
+  if (READY[screen]) await page.locator(READY[screen]).first().waitFor({ state: 'visible', timeout });
   else if (screen === 'work') await page.locator('a[href*="/read/"]').first().waitFor({ timeout });
   else if (screen === 'reader') await page.waitForFunction(readerReady, 30, { timeout });
   else await page.locator('[role="radiogroup"]').first().waitFor({ timeout });
+  // The landing and the library list their content once the packs are read.
+  if (screen === 'landing') await page.locator('[data-testid^="work-card-"]').first().waitFor({ timeout });
+  if (screen === 'library-all') await page.locator('a[href*="/work/"]').first().waitFor({ timeout });
   await page.evaluate(() => document.fonts.ready);
 }

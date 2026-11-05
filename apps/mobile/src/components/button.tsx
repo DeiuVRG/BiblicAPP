@@ -7,6 +7,7 @@ import { isDarkBand, isPhotoBand, useBandTone, useLinkTone } from '@/components/
 import { useFocusRing } from '@/components/focus-ring';
 import { useHover } from '@/components/hover';
 import { useLayout } from '@/theme/layout';
+import { useCoarsePointer } from '@/theme/pointer';
 import { useTheme } from '@/theme/theme-context';
 import { useReducedMotion } from '@/theme/reduced-motion';
 import { duration, easing, motion, radii, transition } from '@/theme/tokens';
@@ -15,6 +16,8 @@ import { duration, easing, motion, radii, transition } from '@/theme/tokens';
 export const MIN_TARGET = 44;
 /** The primary button is taller on a phone. */
 const PRIMARY_PHONE_HEIGHT = 48;
+/** The small button (the "Întreabă" of the brand bar) is this high for a mouse on a wide screen. */
+const SMALL_HEIGHT = 36;
 /** How far the arrow of a "NAME ›" link moves on hover. */
 const ARROW_SHIFT = 3;
 
@@ -36,6 +39,11 @@ interface Props extends Omit<PressableProps, 'children' | 'style'> {
   loading?: boolean;
   /** "NAME ›": the label is followed by an arrow that moves 3 px on hover. */
   arrow?: boolean;
+  /**
+   * `small` is for a bar (the brand bar): 36 high for a mouse on a wide screen and the 44 point
+   * target for a finger and on a phone, with less padding. The look is the same.
+   */
+  size?: 'regular' | 'small';
   /** The label is a glyph or a sample ("×", "−", "Aa"): no capitals, no tracking, no underline. */
   glyph?: boolean;
   /** Layout of the button itself (must be a plain style: `Link asChild` merges it). */
@@ -60,6 +68,7 @@ export function Button({
   expanded,
   loading = false,
   arrow = false,
+  size = 'regular',
   glyph = false,
   disabled,
   onPress,
@@ -73,6 +82,7 @@ export function Button({
   // Links are the ink where the band is a picture, and in a hero (whose links are always the ink).
   const inkLinks = useLinkTone() === 'ink' || isPhotoBand(band);
   const { wide } = useLayout();
+  const coarse = useCoarsePointer();
   const reduced = useReducedMotion();
   const { hovered, hoverProps } = useHover();
   const { focusProps, focusStyle } = useFocusRing();
@@ -135,7 +145,14 @@ export function Button({
       })
     : labelColor;
 
-  const height = filled && !wide ? PRIMARY_PHONE_HEIGHT : MIN_TARGET;
+  const small = size === 'small';
+  const height = small
+    ? wide && !coarse
+      ? SMALL_HEIGHT
+      : MIN_TARGET
+    : filled && !wide
+      ? PRIMARY_PHONE_HEIGHT
+      : MIN_TARGET;
   const busy = loading;
   const caption = loading ? '…' : title;
 
@@ -168,7 +185,7 @@ export function Button({
         styles.base,
         {
           minHeight: height,
-          paddingHorizontal: link ? 16 : 20,
+          paddingHorizontal: small ? 14 : link ? 16 : 20,
           borderRadius: visual === 'pill' ? radii.pill : ghost ? radii.md : radii.sm,
           backgroundColor: filled ? (hover ? colors.accentHover : colors.accentStrong) : undefined,
           borderWidth: filled || link ? 0 : 1,

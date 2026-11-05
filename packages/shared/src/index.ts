@@ -1,4 +1,32 @@
 export { canonicalJson, canonicalJsonBytes } from './canonical-json';
+export {
+  CatalogueAuthorSchema,
+  CatalogueManifestSchema,
+  CataloguePackSchema,
+  CatalogueSchema,
+  CatalogueShelfSchema,
+  CatalogueTraditionSchema,
+  CatalogueWorkSchema,
+  IssuingBodySchema,
+  StartEntrySchema,
+  TextKindSchema,
+  WORK_KINDS,
+  WorkKindSchema,
+  catalogueSigningPayload,
+} from './catalogue';
+export type {
+  Catalogue,
+  CatalogueAuthor,
+  CatalogueManifest,
+  CataloguePack,
+  CatalogueShelf,
+  CatalogueTradition,
+  CatalogueWork,
+  IssuingBody,
+  StartEntry,
+  TextKind,
+  WorkKind,
+} from './catalogue';
 export { isUlid, ULID_PATTERN } from './id-pattern';
 export {
   AuthorSchema,

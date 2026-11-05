@@ -4,12 +4,12 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo } from 'react';
 import { Platform } from 'react-native';
 
-import { AppHeader } from '@/components/app-header';
-import { useT, useUiLanguage } from '@/i18n';
+import { useUiLanguage } from '@/i18n';
 import { AppProviders } from '@/providers';
 import { useSettings } from '@/settings/settings-context';
+import { ShellRoot } from '@/shell/shell-root';
 import { applyDocumentTheme } from '@/theme/document-theme';
-import { useAppFonts, useFontFamilies } from '@/theme/fonts';
+import { useAppFonts } from '@/theme/fonts';
 import { buildNavigationTheme } from '@/theme/navigation-theme';
 import { useTheme } from '@/theme/theme-context';
 
@@ -19,10 +19,8 @@ import { useTheme } from '@/theme/theme-context';
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
 function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
-  const t = useT();
   const language = useUiLanguage();
   const { name, colors } = useTheme();
-  const fonts = useFontFamilies();
   const { ready: settingsReady } = useSettings();
   const ready = fontsReady && settingsReady;
   // Headers, back buttons and transitions read this instead of React Navigation's own themes.
@@ -54,24 +52,17 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
   return (
     <ThemeProvider value={navigationTheme}>
       <StatusBar style={colors.statusBar} />
-      <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor: colors.background },
-          headerTintColor: colors.text,
-          headerTitleStyle: { fontFamily: fonts.textSemiBold, fontSize: 20, color: colors.text },
-          headerShadowVisible: false,
-          headerBackTitle: t.common.back,
-          contentStyle: { backgroundColor: colors.background },
-          // The web header is drawn by the app (column-aligned, serif title); native keeps its own.
-          ...(Platform.OS === 'web' ? { header: (props) => <AppHeader {...props} /> } : {}),
-        }}
-      >
-        <Stack.Screen name="index" options={{ title: t.library.title }} />
-        <Stack.Screen name="work/[id]" options={{ title: t.work.title }} />
-        <Stack.Screen name="read/[id]/[section]" options={{ title: t.reader.title }} />
-        <Stack.Screen name="search" options={{ title: t.search.title }} />
-        <Stack.Screen name="settings" options={{ title: t.settings.title }} />
-      </Stack>
+      <ShellRoot>
+        {/* The shell is drawn by the screens themselves (the brand bar and the section bar are the
+            first children of each screen's scroll container, docs/ui-spec-v2.md 4.2), so the
+            navigator has no header of its own on any platform. */}
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: colors.background },
+          }}
+        />
+      </ShellRoot>
     </ThemeProvider>
   );
 }
