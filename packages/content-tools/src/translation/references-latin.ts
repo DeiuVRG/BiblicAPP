@@ -32,7 +32,12 @@ import type {
  *   without `et`) mean "and the following" and are kept as `ff`.
  * - `; 8, 3` and `; viii, 3` continue a run with a chapter of the same book; `v. 14` and
  *   `vv. 14-16` are verses of the chapter before; `ibid. 14` the same, `ibid. 6, 3` and
- *   `ibid. vi, 3` another chapter of the same book. A bare chapter cannot start a run.
+ *   `ibid. vi, 3` another chapter of the same book (a comma after `ibid.` is allowed). A bare
+ *   chapter cannot start a run. An `ibid.` takes the book of the reference before it in its
+ *   paragraph; without one it stays unresolved, and a chapter with verses is carried over as
+ *   `Ibid. 6:3` (`renderSegments`), which the notations of a translation read back.
+ * - After a single-chapter book `1, 3` is chapter 1, verse 3 (`Abd. 1, 3` is verse 3), with a note
+ *   for the translator; another first number before a comma starts a list of verses.
  * - The Vulgate numbers the psalms and the books of Kings and Esdras differently from the Hebrew
  *   Bible: the canonical item keeps the number of the source and is marked `vulgate`, and the run
  *   carries a note for the translator (see `books.ts`).

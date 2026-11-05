@@ -40,7 +40,7 @@ translations, `en` and `ro`, **each from the original** (never one from the othe
 to the source paragraphs. A public-domain English translation, when one exists (NPNF, Loeb-era
 editions before 1930), is given to the critic as a reference and is never copied.
 
-**Implemented on 5 November 2026 (deliverable P1-C2 of `docs/roadmap-v2.md`, ADR-017):** the target
+**Implemented on 5 November 2026 (deliverable P1-C2 of `docs/roadmap-v2.md`, ADR-024):** the target
 languages `ro` and `en`, and the source languages `en` (Vos), `la` (Augustine; the Apostles'
 Creed) and `grc` (the Creed of Constantinople). Everything that depends on a language is looked up
 in `packages/content-tools/src/translation/languages.ts` (the registry), `books.ts` and the
@@ -52,7 +52,7 @@ on the 62 committed drafts and final outputs are identical.
 | --- | --- | --- |
 | materials (all in `content/translation`) | `rules-ro.md`, `glossary-ro.csv`, `calques-ro.json`, `prompts/ro/` | `rules-en.md`, `glossary-en.csv`, `calques-en.json`, `prompts/en/` |
 | heading of a section in part 0 | `headingRo` | `headingEn` |
-| quotation marks | `„…”`, `«…»` (`QUOTES_ENGLISH`, `QUOTES_UNBALANCED`) | `“…”`, `‘…’` (`QUOTES_CURLY_UNBALANCED`) |
+| quotation marks | `„…”`, `«…»` (`QUOTES_ENGLISH`, `QUOTES_UNBALANCED`) | `“…”`, `‘…’` (`QUOTES_FOREIGN`, `QUOTES_CURLY_UNBALANCED`) |
 | `QUOTES_STRAIGHT` (straight `"`) | yes | yes |
 | s and t with a cedilla replaced by comma-below letters (`CEDILLA`) | yes | no |
 | notation of the book abbreviations in the job and in the checks | Romanian (`Mat. 4:17`) | English (`Matt. 4:17`) |
@@ -63,13 +63,17 @@ on the 62 committed drafts and final outputs are identical.
 | grammar of scripture references | English (`Matt. iv. 17`) | Latin (`Matth. IV, 17`, `Ioh. 3, 5`, `ibid.`; section 5.3) | none |
 | function words of the residue check | `RESIDUE_EN` | `RESIDUE_LA` | `RESIDUE_GRC` |
 | Greek in the source | `GREEK_MISSING` | `GREEK_MISSING` | `GREEK_COPY` instead |
+| `REF_MISSING`, `REF_EXTRA` | yes | yes | no: no grammar, nothing to compare (section 5) |
 | bands of `LENGTH_RATIO` (with the target) | `en` -> `ro`: section 4.2 | `la` -> `en`, `la` -> `ro` | those of `en` -> `ro` |
 
 The profile of a work (`profiles/<slug>.md`) is one file for both targets, with the key terms per
 language. A source in another language (German, French, ...) still gets jobs, without references,
 and no residue check; adding one is a list of function words in `languages.ts` and, when its
 authors cite Scripture in a notation of their own, a grammar next to `references-latin.ts`.
-`translation-jobs` prints a NOTE when the source language has no grammar of references.
+`translation-jobs` prints a NOTE when the source language has no grammar of references. Greek is
+in that case too, although it has function words (`RESIDUE_GRC`): a grammar of Greek references
+(`Ῥωμ. ε΄ 15`) is still to be written, so its jobs carry no references and `REF_MISSING` and
+`REF_EXTRA` are not applied to it.
 
 ## 2. Data model
 
@@ -331,10 +335,10 @@ languages a check exists; section 4.1 gives the same facts per pair of languages
 | `HEADING_MISSING`         | MAJOR    | no       | all                        | `part === 0` and no heading in the field of the target language (`headingRo`, `headingEn`)        |
 | `RESIDUE_EN`              | MAJOR    | no       | source `en`                | English function words left in the target: ≥ 4 hits or ≥ 3 % of tokens from a fixed list         |
 | `RESIDUE_LA`              | MAJOR    | no       | source `la`                | the same with the Latin list                                                                      |
-| `RESIDUE_GRC`             | MAJOR    | no       | source `grc`               | the same with the Greek list (accent-insensitive)                                                 |
-| `GREEK_COPY`              | MAJOR    | no       | source `grc`               | Greek script in the translation that is not an exact (NFC) copy of Greek in the source            |
-| `REF_MISSING`             | MAJOR    | no       | all                        | a canonical scripture reference of the source is missing from the target                          |
-| `REF_EXTRA`               | MAJOR    | no       | all                        | the target has a scripture reference the source does not have                                     |
+| `RESIDUE_GRC`             | MAJOR    | no       | source `grc`               | the same with the Greek list (accent-insensitive); a Greek term kept as an exact copy counts toward the 4 hits, not toward the 3 % |
+| `GREEK_COPY`              | MAJOR    | no       | source `grc`               | a run of Greek script in the translation that is not a whole run of the source, exact in NFC (a piece of a word is not a copy) |
+| `REF_MISSING`             | MAJOR    | no       | sources `en`, `la`         | a canonical scripture reference of the source is missing from the target                          |
+| `REF_EXTRA`               | MAJOR    | no       | sources `en`, `la`         | the target has a scripture reference the source does not have                                     |
 | `LENGTH_RATIO`            | MAJOR    | no       | all (bands per pair, 4.2)  | target/source characters outside the major band of the pair (MINOR outside the minor band)        |
 | `CALQUE`                  | MAJOR    | no       | all (files per target)     | a `FORBID` calque or glossary `FORBID` rendering matched (`WARN` rows → MINOR)                    |
 | `REF_FORMAT`              | MINOR    | no       | all                        | a reference in the target is not in the notation of the target language (4.1)                     |
@@ -343,7 +347,8 @@ languages a check exists; section 4.1 gives the same facts per pair of languages
 | `QUOTES_STRAIGHT`         | MINOR    | no       | all                        | straight `"` in the target                                                                        |
 | `QUOTES_ENGLISH`          | MINOR    | no       | target `ro`                | U+201C `“` in the target (Romanian opens with U+201E `„`)                                         |
 | `QUOTES_UNBALANCED`       | MINOR    | no       | target `ro`                | count of `„` ≠ count of `”` (after discounting `“`)                                               |
-| `QUOTES_CURLY_UNBALANCED` | MINOR    | no       | target `en`                | count of `“` ≠ count of `”` (single marks are not counted: `’` is also the apostrophe)            |
+| `QUOTES_CURLY_UNBALANCED` | MINOR    | no       | target `en`                | count of `“` ≠ count of `”`, or a `”` with no `“` open before it (swapped marks); single marks are not counted: `’` is also the apostrophe |
+| `QUOTES_FOREIGN`          | MINOR    | no       | target `en`                | a mark of another language: `„` `‚` `«` `»` `‹` `›` (English: `“…”`, `‘…’`); the pairing of `“` and `”` is judged once they are replaced |
 | `CEDILLA`                 | MINOR    | yes      | target `ro`                | ş ţ Ş Ţ (cedilla) → ș ț Ș Ț (comma below); not applied to English                                 |
 | `NFC`                     | MINOR    | yes      | all                        | text not in NFC                                                                                   |
 | `WHITESPACE`              | MINOR    | yes      | all                        | leading/trailing whitespace, runs of whitespace, line breaks inside a paragraph                   |
@@ -365,16 +370,21 @@ not counted (`Is.` is Isaiah, not the English `is`).
 - `RESIDUE_GRC`: `καὶ τοῦ τῆς τὸν τὴν ἐν εἰς διὰ`. A token is compared after it has been folded
   (NFD without accents, breathings and the iota subscript, lower case, one form of the sigma), so
   `και`, `ΚΑΙ`, `καὶ` and `καί` are the same word. The folding only looks words up; the Greek of a
-  text is never changed and never transliterated.
+  text is never changed and never transliterated. A token that is an exact copy of a run of the
+  Greek source (a term that the translation keeps, `(εἰς ἕνα Θεὸν)`; `GREEK_COPY` guards it) does
+  not count toward the 3 % share, so a short kept term is not a MAJOR finding in a short
+  paragraph; it counts toward the 4 hits, so a stretch of the source left in Greek is found.
 
 **Greek.** For a source that is not Greek, `GREEK_MISSING` requires every run of Greek script of
 the source to occur in the translation, in NFC (a decomposed copy is the same word; U+1F71 alpha
 with oxia is U+03AC alpha with tonos after NFC), which is the copy-exact rule of the editorial
 rules; a transliteration of a Greek word is a missing word. A Greek source is translated as a
 whole, so its Greek cannot be required: `GREEK_COPY` takes its place and requires the opposite,
-that every run of Greek script that the translation keeps is an exact NFC copy of a run of the
-source (`ὁμοούσιον` yes; `ὁμοουσιον`, `ὁμοούσιος` and `θεοτόκος`, which the source does not have,
-are MAJOR). It never asks for Greek and never produces a transliteration.
+that every run of Greek script that the translation keeps is a whole run of the source, exact in
+NFC (`ὁμοούσιον` yes; `ὁμοουσιον`, `ὁμοούσιος` and `θεοτόκος`, which the source does not have, are
+MAJOR, and so are a piece of a word, `ὁμοούσι` or `ούσιον`, a single letter, and a word broken by a
+Latin letter, whose pieces are runs of their own). It never asks for Greek and never produces a
+transliteration.
 
 ### 4.1 What depends on the languages
 
@@ -384,17 +394,22 @@ are MAJOR). It never asks for Greek and never produces a transliteration.
 | residue check | `RESIDUE_EN` | `RESIDUE_LA` (leaves out `in ad et non`) | `RESIDUE_LA` (leaves out `cum est ac in non`) | `RESIDUE_GRC` | `RESIDUE_GRC` |
 | Greek | `GREEK_MISSING` | `GREEK_MISSING` | `GREEK_MISSING` | `GREEK_COPY` | `GREEK_COPY` |
 | references of the source | English grammar | Latin grammar | Latin grammar | none | none |
+| `REF_MISSING`, `REF_EXTRA` | yes | yes | yes | no (nothing to compare) | no (nothing to compare) |
 | notation of the references of the target | Romanian | English | Romanian | English | Romanian |
 | `REF_FORMAT` flags | English abbreviations (`Matt.`, `Jno.`), roman numerals, `vs.` | roman numerals, Latin abbreviations (`Matth.`, `Ioh.`), a comma between chapter and verse | the same as `en` -> `ro` and the Latin notation | the same as `la` -> `en` | English abbreviations and roman numerals |
 | quotation marks | `„…”` | `“…”` | `„…”` | `“…”` | `„…”` |
-| quotation checks | `QUOTES_STRAIGHT`, `QUOTES_ENGLISH`, `QUOTES_UNBALANCED` | `QUOTES_STRAIGHT`, `QUOTES_CURLY_UNBALANCED` | as `en` -> `ro` | as `la` -> `en` | as `en` -> `ro` |
+| quotation checks | `QUOTES_STRAIGHT`, `QUOTES_ENGLISH`, `QUOTES_UNBALANCED` | `QUOTES_STRAIGHT`, `QUOTES_FOREIGN`, `QUOTES_CURLY_UNBALANCED` | as `en` -> `ro` | as `la` -> `en` | as `en` -> `ro` |
 | `CEDILLA` | yes | no | yes | no | yes |
 | `LENGTH_RATIO` bands (MAJOR / MINOR) | < 0.75, > 1.6 / < 0.85, > 1.45 | < 1.0, > 2.2 / < 1.1, > 1.9 | < 1.0, > 2.3 / < 1.1, > 2.0 | as `en` -> `ro` | as `en` -> `ro` |
 | glossary, calques | `glossary-ro.csv`, `calques-ro.json` | `glossary-en.csv`, `calques-en.json` | `-ro` | `-en` | `-ro` |
 
 `QUOTES_STRAIGHT` looks at the double quotation mark only, in both languages. The straight
 apostrophe and single quotation mark (`Augustine's`) are forbidden by `rules-en.md` (§7: always
-`’`) but are not checked by a code; the critic and the reviewer see them.
+`’`) but are not checked by a code; the critic and the reviewer see them. `QUOTES_FOREIGN` (English
+only) flags the marks `„ ‚ « » ‹ ›`; while one is in a paragraph the pairing of `“` and `”` is not
+judged there, only after they are replaced, so that one defect is one finding.
+`QUOTES_CURLY_UNBALANCED` also flags a closing `”` with no opening `“` before it, which a count
+cannot see (`”yes“`).
 
 `REF_FORMAT` for English flags a fragment only when it is a reference in some other notation and
 not also valid English (`Obad. 21` is valid in both). The unparsed-fragment safety net of
@@ -430,7 +445,10 @@ References are read by the grammar of the language of the source (English, Latin
 carried by the job as canonical items and written in the notation of the target language; the
 translation is read back by the grammar of the notation of the target, and `REF_MISSING` and
 `REF_EXTRA` compare the two as multisets of canonical items. The canonical form is the same for
-every pair of languages (book codes below), with one addition for the Vulgate (5.3).
+every pair of languages (book codes below), with one addition for the Vulgate (5.3). A source
+without a grammar (Greek, German, ...) has no references in its jobs, and `REF_MISSING` and
+`REF_EXTRA` are not applied to it: what the translator cites is neither missing nor extra, because
+there is nothing to compare it with (`REF_FORMAT` still looks at the notation).
 
 ### 5.1 English sources, Romanian notation
 
@@ -487,10 +505,15 @@ Format: `Matt. 4:17; Mark 1:15; Luke 4:43`, `John 3:3, 5; 18:36` (the book is no
 ranges with an en dash `1 Cor. 15:23–28`, `Matt. 18:23 ff.` ("and following"), `Obad. 21`, `Mark
 10:17, with v. 23` (the joiners are `;`, `, with`, `, and`, `with`, `and`). The extractor reads
 the abbreviations above, the full names (`Matthew 5:3`) and the old abbreviations (`Jno.`, `Mk.`),
-with or without the period, and the continuations `v.` / `vv.` and `; 6:20`. It does **not** read
-roman numerals, Latin or Romanian abbreviations; `REF_FORMAT` reports them. Two limits that are
-deliberate: a bare `5:12` cannot start a run (an English text has times and ratios, `10:30`, `3:1`),
-and a chapter named without verses is read only in the form that the job renders (`John 13`,
+with or without the period, the continuations `v.` / `vv.` and `; 6:20`, and `Ibid. 6:3` (the
+chapter and verses of the place cited before: section 5.3). It does **not** read roman numerals or
+Latin abbreviations (`Matth.`, `Ioh. 3, 5`): `REF_FORMAT` reports them. Nor does it read the
+Romanian abbreviations that English does not share (`Mat.`, `In.`, `Iac.`, `Evr.`, `Apoc.`), and
+`REF_FORMAT` does not report them either: a reference of the source written that way is
+`REF_MISSING`, and one that the source does not have is not noticed here (the critic and the
+reviewer see it). Two limits that are deliberate: a bare `5:12` cannot start a run (an English
+text has times and ratios, `10:30`, `3:1`; `Ibid. 5:12` can), and a chapter named without
+verses is read only in the form that the job renders (`John 13`,
 `Matt. 13`), so a prose such as "Job 5 times" is a reference `Job 5` that a reviewer sees as
 `REF_EXTRA`.
 
@@ -508,10 +531,11 @@ Forms (`references-latin.ts`, tests in `references-latin.test.ts` and `notation.
 | `Rom. viii. 19 sq.` (also `sqq.`, `seq.`, `seqq.`, `ss.`, `ff.`, `f.`, `et sqq.`) | `Rom 8:19ff` | `Rom. 8:19 ff.` / `Rom. 8:19 ș.urm.` |
 | `Matth. 5, 3; 6, 1`, `Rom. v. 12; vi. 3` | the same book, other chapter | `Matt. 5:3; 6:1` |
 | `Rom. 5, 12; v. 14`, `vv. 14-16`, `Apoc. 3, 20 cum v. 21` | verses of the chapter before | `Rom. 5:12; v. 14`, `Rev. 3:20 with v. 21` |
-| `ibid. 14`, `ib. 14`, `ibidem 14` | verses of the chapter before | after `;` as `v. 14`; at the start of a run, with the book: `Rom. 5:14` |
-| `ibid. 6, 3`, `ibid. vi, 3` | chapter 6 verse 3 of the book before | `John 6:3` |
+| `ibid. 14`, `ib. 14`, `ibidem 14`, `ibid., 14` | verses of the chapter before | after `;` as `v. 14`; at the start of a run, with the book: `Rom. 5:14` |
+| `ibid. 6, 3`, `ibid. vi, 3` | chapter 6 verse 3 of the book before | `John 6:3` (the book of the run before it in the paragraph); with none, `Ibid. 6:3` and the item `6:3` |
 | `Matth. V` (a chapter without verses; the citation must end there) | `Matt 5` | `Matt. 5` |
 | `Iud. 5`, `Abd. 21`, `2 Ioh. 5` (single-chapter books) | `Jude 5`, `Obad 21`, `2John 5` | |
+| `Abd. 1, 3`, `Philem. 1, 5`, `Iud. 1, 5` (single-chapter books, chapter 1 and the verse) | `Obad 3`, `Phlm 5`, `Jude 5`, with a note | `Obad. 3` |
 
 Rules of reading: an abbreviation is a book only when a chapter or verses follow; a numbered
 book needs its number (`I`, `II`, `III`, `IV` or `1`-`4`); the roman numeral of a chapter is
@@ -520,7 +544,17 @@ needs a book before it and never starts a run, and after a comma only a lower-ca
 is a chapter (an Arabic number there is the next verse); `ibid. N, M` is chapter N verse M
 (verses N and M are written `ibid. N et M`); `Iud.` / `Jud.` is Jude, the Book of Judges is
 `Iudic.` / `Judic.`; a verse list stops before the number of the next book (`Rom. 5, 12, 1 Cor.
-15, 22`), and `ibid.` without an antecedent stays unresolved (`vs 14`, `6:3`). Names accepted per
+15, 22`). `ibid.` takes the book (and, for verses only, the chapter) of the reference before it in
+its paragraph; a job sees one paragraph, so an `ibid.` without an antecedent there stays unresolved:
+verses only are `v. 14` (item `vs 14`), a chapter and verses are carried over as `Ibid. 6:3` (item
+`6:3`), which the notation of the translation reads back in English and in Romanian (a bare `6:3`
+says nothing in a translation and cannot be read in English, where `10:30` is a time). After a
+single-chapter book the Latin way of citing, `1, 3`, is chapter 1 verse 3 (`Abd. 1, 3` is
+`Obad. 3`; the job carries a note), while another first number before a comma starts a list of
+verses (`Iud. 3, 5`). A citation that the grammar cannot read whole is reported by `translation-jobs` as
+an unparsed fragment and never guessed: a verse left behind after a period and a space
+(`Matth. 4. 17` is read as the chapter alone and `17` is reported), white space before the period
+of the abbreviation (`Matth . IV , 17`), a number after a run (`Ioh. 3, 5, 200`). Names accepted per
 book are in `books.ts` (`LATIN_SPECS`): the abbreviations of the specification with the `i`/`j`
 variants (`Ioh.`/`Joh.`, `Iac.`/`Jac.`, `Ios.`/`Jos.`, `Iudic.`/`Judic.`, `Ier.`/`Jer.`,
 `Iob`/`Job`, `Ioel`/`Joel`, `Ion.`/`Jon.`) and a few full names (`Osee`, `Abdias`, `Iosue`).
@@ -602,7 +636,9 @@ edition; the app shows the translation as `Traducere` with the edition's licence
 Claude Batches API runner (production; this version runs through the orchestrator's agents),
 back-translation and embedding similarity as triage signals, the admin review app, glossary
 approval workflow per tradition, sources in German, French, Spanish, Italian and Dutch (function
-words, grammar of references, calques), Greek calques beyond the Latinisms of `calques-en.json`, a
+words, grammar of references, calques), a grammar of references for Greek sources (`Ῥωμ. ε΄ 15`;
+until it exists `REF_MISSING` and `REF_EXTRA` are not applied to them), Greek calques beyond the
+Latinisms of `calques-en.json`, a
 check of the overlap with public-domain English translations (the reference of the critic is not
 compared automatically), orthographic modernisation of
 old Romanian editions, multiple editions per work in the app (the reader currently keys works by
@@ -637,7 +673,7 @@ Deltas from the sections above, accepted after review:
 
 ### 10.1 The generalisation as built (P1-C2, 5 November 2026)
 
-Deltas from sections 1 to 9, as accepted after review (ADR-017 in `docs/decizii.md`):
+Deltas from sections 1 to 9, as accepted after review (ADR-024 in `docs/decizii.md`):
 
 - **Registry.** `languages.ts` holds the target languages (`ro`, `en`: heading field, cedilla,
   quotation marks, notation), the source languages with function words (`en`, `la`, `grc`) and the
@@ -678,3 +714,17 @@ Deltas from sections 1 to 9, as accepted after review (ADR-017 in `docs/decizii.
   175 Greek words. The Latin of the 66 sections of the treatise was run through the Latin grammar
   with the editor's marginal references still in the text: 244 runs, all of them in the margins, none
   in the prose of Augustine.
+- **Corrections after review (5 November 2026).** Two independent reviews of the work above found
+  the following, all fixed with a regression test each. `GREEK_COPY` compares whole runs of the
+  source (a piece of a word was a copy). `RESIDUE_GRC` no longer makes a short kept copy a MAJOR
+  finding (it counts toward the 4 hits, not the share). `REF_MISSING` and `REF_EXTRA` are not
+  applied to a source without a grammar of references. `QUOTES_FOREIGN` is new and a closing `”`
+  before any `“` is `QUOTES_CURLY_UNBALANCED`. An unresolved `ibid.` with a chapter is carried over
+  as `Ibid. 6:3`, which both notations read (the bare `6:3` could not be satisfied in English). The
+  Latin grammar reads `ibid., 14` and `Abd. 1, 3`, and reports `Matth. 4. 17` and `Matth . IV , 17`.
+  The review sheet is titled with `workTitle`, like the edition. `Song of Sol` is read in a
+  translation only, so the English source grammar reads exactly what it did before the
+  generalisation. `glossary-ro.csv` has Romanian rows for Greek terms and for the Latin terms of
+  Augustine's profile (scope = slug), as the profiles said; the `peccatum` row of `glossary-en.csv`
+  is anchored (its pattern was satisfied by *since*). The decision is ADR-024, the number that
+  `docs/roadmap-v2.md` gives it (ADR-017 is reserved there for "one chapter per screen").

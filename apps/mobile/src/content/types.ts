@@ -51,6 +51,21 @@ export interface SectionLocation {
   language: string;
 }
 
+/**
+ * One row of two editions of a work read side by side: the paragraph of each edition that renders the
+ * same paragraph of the source edition (docs/ui-spec-v2.md, 8.5). The row is keyed by that source
+ * paragraph, so a row exists for every paragraph of the source section even where an edition has not
+ * translated it yet: that side is null and the reader shows a placeholder, it never drops the row.
+ */
+export interface AlignedParagraph {
+  /** The id of the source paragraph both sides render (a translation's `sourceId`; a source's own id). */
+  sourceId: string;
+  /** The paragraph of the section that was asked about; null when that edition has none for this row. */
+  paragraph: Paragraph | null;
+  /** The paragraph of the other edition; null when it is not translated (yet). */
+  other: Paragraph | null;
+}
+
 export interface SearchHit {
   workId: string;
   editionId: string;

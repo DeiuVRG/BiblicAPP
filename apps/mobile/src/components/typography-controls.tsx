@@ -6,6 +6,7 @@ import { Stepper } from '@/components/stepper';
 import { useT } from '@/i18n';
 import { READING_FONTS } from '@/theme/font-families';
 import { clamp, roundLineHeight } from '@/settings/sanitize';
+import { useReadingMetrics } from '@/settings/reading-metrics';
 import { useSettings } from '@/settings/settings-context';
 import {
   FONT_SIZE_MAX,
@@ -16,46 +17,43 @@ import {
   THEME_PREFERENCES,
 } from '@/settings/types';
 
-/** Font size stepper. */
+/** Font size stepper: the size in use (the default of the window until the reader chooses one). */
 export function FontSizeControl() {
   const t = useT();
-  const { settings, update } = useSettings();
+  const { update } = useSettings();
+  const { fontSize } = useReadingMetrics();
   return (
     <Stepper
       label={t.settings.fontSize}
-      valueText={t.settings.fontSizeValue(settings.fontSize)}
+      valueText={t.settings.fontSizeValue(fontSize)}
       decreaseLabel={t.settings.decreaseFontSize}
       increaseLabel={t.settings.increaseFontSize}
-      canDecrease={settings.fontSize > FONT_SIZE_MIN}
-      canIncrease={settings.fontSize < FONT_SIZE_MAX}
-      onDecrease={() =>
-        update({ fontSize: clamp(settings.fontSize - 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })
-      }
-      onIncrease={() =>
-        update({ fontSize: clamp(settings.fontSize + 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })
-      }
+      canDecrease={fontSize > FONT_SIZE_MIN}
+      canIncrease={fontSize < FONT_SIZE_MAX}
+      onDecrease={() => update({ fontSize: clamp(fontSize - 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })}
+      onIncrease={() => update({ fontSize: clamp(fontSize + 1, FONT_SIZE_MIN, FONT_SIZE_MAX) })}
     />
   );
 }
 
-/** Line height stepper. */
+/**
+ * Line height stepper (1.3 to 2.0 in steps of 0.1). It starts from the multiple in use: a preset of
+ * the `Aa` sheet counts as the number it stands for, shown to one decimal place.
+ */
 export function LineHeightControl() {
   const t = useT();
-  const { settings, update } = useSettings();
+  const { update } = useSettings();
+  const { lineHeight } = useReadingMetrics();
   return (
     <Stepper
       label={t.settings.lineHeight}
-      valueText={t.settings.lineHeightValue(settings.lineHeight)}
+      valueText={t.settings.lineHeightValue(lineHeight)}
       decreaseLabel={t.settings.decreaseLineHeight}
       increaseLabel={t.settings.increaseLineHeight}
-      canDecrease={settings.lineHeight > LINE_HEIGHT_MIN + 1e-9}
-      canIncrease={settings.lineHeight < LINE_HEIGHT_MAX - 1e-9}
-      onDecrease={() =>
-        update({ lineHeight: roundLineHeight(settings.lineHeight - LINE_HEIGHT_STEP) })
-      }
-      onIncrease={() =>
-        update({ lineHeight: roundLineHeight(settings.lineHeight + LINE_HEIGHT_STEP) })
-      }
+      canDecrease={roundLineHeight(lineHeight) > LINE_HEIGHT_MIN + 1e-9}
+      canIncrease={roundLineHeight(lineHeight) < LINE_HEIGHT_MAX - 1e-9}
+      onDecrease={() => update({ lineSpacing: roundLineHeight(lineHeight - LINE_HEIGHT_STEP) })}
+      onIncrease={() => update({ lineSpacing: roundLineHeight(lineHeight + LINE_HEIGHT_STEP) })}
     />
   );
 }

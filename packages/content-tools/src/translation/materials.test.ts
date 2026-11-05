@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import { defined } from '../lib/invariant';
-import { loadCalques, loadGlossary } from './glossary';
+import { loadCalques, loadGlossary, ruleApplies } from './glossary';
 import type { GlossaryRule } from './glossary';
 import { AUGUSTINE_SLUG, CREED_SLUG } from './fixtures';
 
@@ -179,6 +179,37 @@ describe('the English materials', () => {
     expect(row('spiritus-sanctus').target.test('Holy Ghost')).toBe(false);
   });
 
+  it('peccatum is satisfied by the word sin and its family, not by words that begin with it', () => {
+    // a FIX row exists to report a translation that lacks the rendering: `\bsin\w*` was satisfied
+    // by "since", which nearly every paragraph has, so the row could never report anything
+    const target = row('peccatum').target;
+    for (const absent of [
+      'since then',
+      'a single transgression',
+      'sincere faith',
+      'the sinews of the body',
+      'Since the time of Adam, singular grace',
+      'sinecure',
+    ]) {
+      expect(target.test(absent), absent).toBe(false);
+    }
+    for (const present of [
+      'without sin',
+      'Sin',
+      'sins',
+      'a sinner',
+      'sinners',
+      'sinful flesh',
+      'sinfully',
+      'sinlessness',
+      'he sinned',
+      'the sinning',
+      'forgive us our trespasses',
+    ]) {
+      expect(target.test(present), present).toBe(true);
+    }
+  });
+
   it('forbids archaisms and "Holy Ghost" everywhere, with no source pattern', () => {
     for (const id of ['holy-ghost-forbid', 'no-archaisms']) {
       expect(row(id)).toMatchObject({ force: 'FORBID', source: null });
@@ -206,6 +237,139 @@ describe('the English materials', () => {
       'for-indeed',
       'but-moreover',
     ]);
+  });
+});
+
+describe('the Romanian rows for Latin and Greek terms', () => {
+  const glossary = loadGlossary(path.join(MATERIALS, 'glossary-ro.csv'));
+  const english = loadGlossary(path.join(MATERIALS, 'glossary-en.csv'));
+  const latinRows = glossary.filter((r) => r.scope === AUGUSTINE_SLUG);
+  const greekRows = glossary.filter((r) =>
+    ['homoousios', 'hypostasis', 'ousia', 'theotokos'].includes(r.termId),
+  );
+  const row = (id: string): GlossaryRule =>
+    defined(
+      glossary.find((r) => r.termId === id),
+      id,
+    );
+
+  it('has the terms of the profile of Augustine and of the Creed, all PROPUS', () => {
+    const ids = latinRows.map((r) => r.termId.replace(/^augustin-/, ''));
+    for (const id of [
+      'gratia',
+      'iustitia',
+      'iustificare',
+      'lex',
+      'spiritus',
+      'spiritus-sanctus',
+      'littera',
+      'fides',
+      'caritas',
+      'peccatum',
+      'liberum-arbitrium',
+      'voluntas',
+      'praedestinatio',
+      'ecclesia',
+      'episcopus',
+      'trinitas',
+      'baptismus',
+      'mediator',
+      'concupiscentia',
+    ]) {
+      expect(ids, id).toContain(id);
+    }
+    expect(greekRows).toHaveLength(4);
+    expect([...latinRows, ...greekRows].every((r) => r.status === 'PROPUS')).toBe(true);
+    expect(new Set(glossary.map((r) => r.termId)).size).toBe(glossary.length);
+  });
+
+  it('claims in the profiles are true: a FIX row for gratia and for homoousios in both glossaries', () => {
+    const fix = (rows: GlossaryRule[], id: string) =>
+      rows.find((r) => r.termId === id && r.force === 'FIX');
+    expect(fix(english, 'gratia')).toBeDefined();
+    expect(fix(glossary, 'augustin-gratia')).toBeDefined();
+    expect(fix(english, 'homoousios')).toBeDefined();
+    expect(fix(glossary, 'homoousios')).toBeDefined();
+    const profile = read(MATERIALS, 'profiles', `${AUGUSTINE_SLUG}.md`);
+    expect(profile).toContain('FIX in both glossaries');
+    expect(read(MATERIALS, 'profiles', `${CREED_SLUG}.md`)).toContain('glossary row `homoousios`');
+  });
+
+  it('applies the Latin rows to the work of the profile only, never to Vos or another work', () => {
+    for (const rule of latinRows) {
+      expect(ruleApplies(rule, AUGUSTINE_SLUG, 'undivided'), rule.termId).toBe(true);
+      expect(ruleApplies(rule, 'vos-1903-kingdom', 'protestant'), rule.termId).toBe(false);
+      expect(ruleApplies(rule, 'symbolum-apostolorum', 'undivided'), rule.termId).toBe(false);
+    }
+    for (const rule of greekRows) {
+      expect(ruleApplies(rule, CREED_SLUG, 'undivided'), rule.termId).toBe(true);
+    }
+  });
+
+  it('matches the Greek rows in Greek script only: nothing of the English of Vos matches', () => {
+    const vos = JSON.parse(read(ROOT, 'content/works/vos-1903-kingdom/edition-en.json')) as {
+      paragraphs: { text: string }[];
+    };
+    expect(vos.paragraphs.length).toBeGreaterThan(100);
+    for (const rule of greekRows) {
+      expect(rule.source?.test('homoousios hypostasis ousia theotokos consubstantial')).toBe(false);
+      expect(
+        vos.paragraphs.filter((p) => rule.source?.test(p.text)),
+        rule.termId,
+      ).toEqual([]);
+    }
+  });
+
+  it('renders the key terms as the profiles say', () => {
+    const cases: [string, string, string][] = [
+      ['augustin-gratia', 'gratia Dei', 'harul lui Dumnezeu'],
+      ['augustin-iustitia', 'perfectione justitiae hominis', 'desăvârșirea dreptății omului'],
+      ['augustin-iustitia', 'iustitia Dei', 'dreptatea lui Dumnezeu'],
+      ['augustin-iustificare', 'iustificatio impii', 'îndreptățirea celui nelegiuit'],
+      ['augustin-lex', 'lex bona est', 'legea este bună'],
+      ['augustin-spiritus', 'Spiritus vivificat', 'Duhul dă viață'],
+      ['augustin-spiritus-sanctus', 'Spiritus Sanctus', 'Duhul Sfânt'],
+      ['augustin-littera', 'littera occidit', 'litera ucide'],
+      ['augustin-fides', 'per fidem', 'prin credință'],
+      ['augustin-caritas', 'charitas Dei', 'dragostea lui Dumnezeu'],
+      ['augustin-peccatum', 'sine peccato', 'fără păcat'],
+      ['augustin-peccatum', 'peccatores', 'păcătoșii'],
+      ['augustin-liberum-arbitrium', 'libero arbitrio', 'liberul arbitru'],
+      ['augustin-voluntas', 'voluntas eius', 'voința lui'],
+      ['augustin-praedestinatio', 'praedestinatio sanctorum', 'predestinarea sfinților'],
+      ['augustin-ecclesia', 'in ecclesia', 'în Biserică'],
+      ['augustin-episcopus', 'episcopo Hipponensi', 'episcopul din Hippona'],
+      ['augustin-trinitas', 'trinitas', 'Treimea'],
+      ['augustin-baptismus', 'de Baptismo parvulorum', 'despre botezul pruncilor'],
+      ['augustin-mediator', 'excepto uno Mediatore', 'în afară de singurul Mijlocitor'],
+      ['augustin-concupiscentia', 'concupiscentiam nesciebam', 'concupiscența'],
+      ['homoousios', 'ὁμοούσιον τῷ Πατρί', 'de o ființă cu Tatăl'],
+      ['homoousios', 'ὁμοούσιον τῷ Πατρί', 'de-o-ființă cu Tatăl'],
+      ['hypostasis', 'τρεῖς ὑποστάσεις', 'trei ipostasuri'],
+      ['ousia', 'μία οὐσία', 'o singură ființă'],
+      ['theotokos', 'Θεοτόκος', 'Născătoarea de Dumnezeu'],
+    ];
+    for (const [id, source, target] of cases) {
+      const rule = row(id);
+      expect(rule.source?.test(source), `${id} source ${source}`).toBe(true);
+      expect(rule.target.test(target), `${id} target ${target}`).toBe(true);
+    }
+  });
+
+  it('does not take thanks, a verb of reading, "Spiritul Sfânt" or a like substance for the terms', () => {
+    expect(row('augustin-gratia').source?.test('gratias agimus Deo')).toBe(false);
+    expect(row('augustin-gratia').source?.test('gratis datur')).toBe(false);
+    expect(row('augustin-liberum-arbitrium').target.test('alegere liberă')).toBe(false);
+    expect(row('augustin-spiritus-sanctus').target.test('Spiritul Sfânt')).toBe(false);
+    expect(row('augustin-spiritus-sanctus-forbid')).toMatchObject({
+      force: 'FORBID',
+      source: null,
+    });
+    expect(row('augustin-spiritus-sanctus-forbid').target.test('Spiritul Sfânt')).toBe(true);
+    expect(row('homoousios').target.test('de ființă asemănătoare')).toBe(false);
+    // a word that merely begins like the rendering is not the rendering
+    expect(row('augustin-peccatum').target.test('păcălit de literatura vremii')).toBe(false);
+    expect(row('augustin-gratia').target.test('harta și harpa')).toBe(false);
   });
 });
 
@@ -268,6 +432,7 @@ describe('the profiles', () => {
     const files = [
       'rules-en.md',
       'glossary-en.csv',
+      'glossary-ro.csv',
       'calques-en.json',
       'prompts/en/draft.md',
       'prompts/en/critic.md',

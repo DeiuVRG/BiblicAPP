@@ -14,6 +14,7 @@ import type { BundledPack } from './bundled-packs';
 import { orderEditions, pickPrimaryEdition } from './editions';
 import { trustedKeys as defaultTrustedKeys } from './trusted-keys';
 import type {
+  AlignedParagraph,
   EditionDetail,
   EditionSummary,
   SearchHit,
@@ -38,6 +39,23 @@ export interface ContentRepository {
   getParagraphs(sectionId: string): Promise<Paragraph[]>;
   /** The work and the edition a section belongs to (a section id identifies its edition). */
   locateSection(sectionId: string): Promise<SectionLocation | null>;
+  /**
+   * The section of another edition of the same work that renders the same source section as
+   * `sectionId` (matched by `sourceId`: a translation's section names the section of the source
+   * edition it renders; a source section is its own source). The section itself when the other
+   * edition is its own; null when the other edition has not translated it yet, when either id is
+   * unknown or refused, or when the editions are not of one work.
+   */
+  getAlignedSection(sectionId: string, otherEditionId: string): Promise<Section | null>;
+  /**
+   * The paragraphs of a section paired, row by row, with those of the same section in another
+   * edition (docs/ui-spec-v2.md, 8.5). A row exists for every paragraph of the source section (the
+   * source edition's, when it is installed), in reading order, and the side that has no paragraph for
+   * it is null: a partial translation shows gaps, the rows are never dropped. For a pair of two
+   * translations (English and Romanian of a Latin work) both sides point at the source paragraph.
+   * Empty for an unknown or refused section or edition.
+   */
+  getAlignedParagraphs(sectionId: string, otherEditionId: string): Promise<AlignedParagraph[]>;
   /** Local full-text search across installed packs (case and diacritics insensitive). */
   search(query: string): Promise<SearchHit[]>;
   /**
@@ -116,6 +134,14 @@ function makeSnippet(text: string, matchIndex: number): string {
 function byOrdinal<T extends { ordinal: number }>(items: readonly T[]): T[] {
   return [...items].sort((a, b) => a.ordinal - b.ordinal);
 }
+
+/**
+ * What two editions share about a section or a paragraph: the id of the source unit it renders. A
+ * translation names it (`sourceId`); a source unit, and a translated one that names nothing (not
+ * aligned), is its own.
+ */
+const sourceKey = (unit: { id: string; sourceId?: string | undefined }): string =>
+  unit.sourceId ?? unit.id;
 
 /**
  * A pack that passed `verifyPack` (schemas, sha256 and Ed25519 signature against the pinned
@@ -254,6 +280,7 @@ export function createInMemoryRepository(
 
   const editionRecords = new Map<string, EditionRecord>();
   const sectionOwner = new Map<string, EditionRecord>();
+  const sectionById = new Map<string, Section>();
   const paragraphsBySection = new Map<string, Paragraph[]>();
   const summariesByWork = new Map<string, EditionSummary[]>();
   const packsByWork = new Map<string, Pack[]>();
@@ -266,7 +293,10 @@ export function createInMemoryRepository(
       state: (entry as { signatureVerified?: unknown }).signatureVerified === true ? 'verified' : 'pending',
     };
     editionRecords.set(pack.edition.id, record);
-    for (const section of pack.sections) sectionOwner.set(section.id, record);
+    for (const section of pack.sections) {
+      sectionOwner.set(section.id, record);
+      sectionById.set(section.id, section);
+    }
     for (const paragraph of pack.paragraphs) {
       const list = paragraphsBySection.get(paragraph.sectionId) ?? [];
       list.push(paragraph);
@@ -362,6 +392,33 @@ export function createInMemoryRepository(
     return (await record.check) ? record : null;
   };
 
+  // The sections of an edition by the source section they render, built on first use.
+  const sectionsByKey = new Map<string, Map<string, Section>>();
+  const sectionOfKey = (record: EditionRecord, key: string): Section | undefined => {
+    const editionId = record.summary.editionId;
+    let index = sectionsByKey.get(editionId);
+    if (!index) {
+      index = new Map(record.sections.map((section) => [sourceKey(section), section]));
+      sectionsByKey.set(editionId, index);
+    }
+    return index.get(key);
+  };
+
+  /** Both editions, fit to serve and of one work; null otherwise. */
+  const openPair = async (
+    sectionId: string,
+    otherEditionId: string,
+  ): Promise<{ mine: EditionRecord; other: EditionRecord; section: Section } | null> => {
+    const owner = sectionOwner.get(sectionId);
+    const section = sectionById.get(sectionId);
+    if (!owner || !section) return null;
+    const mine = await open(owner.summary.editionId);
+    const other = await open(otherEditionId);
+    if (!mine || !other) return null;
+    if (mine.entry.pack.work.id !== other.entry.pack.work.id) return null;
+    return { mine, other, section };
+  };
+
   const summaryOf = (record: WorkRecord, readingLanguage: ReadingLanguage): WorkSummary | null => {
     const primary = pickPrimaryEdition(record.editions, readingLanguage);
     if (!primary) return null;
@@ -431,6 +488,57 @@ export function createInMemoryRepository(
         editionId: owner.summary.editionId,
         language: owner.summary.language,
       };
+    },
+
+    async getAlignedSection(sectionId, otherEditionId) {
+      const pair = await openPair(sectionId, otherEditionId);
+      if (!pair) return null;
+      if (pair.mine === pair.other) return pair.section;
+      return sectionOfKey(pair.other, sourceKey(pair.section)) ?? null;
+    },
+
+    async getAlignedParagraphs(sectionId, otherEditionId) {
+      const pair = await openPair(sectionId, otherEditionId);
+      if (!pair) return [];
+      const key = sourceKey(pair.section);
+      const otherSection =
+        pair.mine === pair.other ? pair.section : sectionOfKey(pair.other, key);
+      const paragraphsOf = (section: Section | undefined) =>
+        section ? byOrdinal(paragraphsBySection.get(section.id) ?? []) : [];
+      const mine = paragraphsOf(pair.section);
+      const theirs = paragraphsOf(otherSection);
+      const byKey = (list: readonly Paragraph[]) =>
+        new Map(list.map((paragraph) => [sourceKey(paragraph), paragraph]));
+      const mineByKey = byKey(mine);
+      const theirsByKey = byKey(theirs);
+
+      // The order of the rows is the order of the source section, when the source is installed.
+      const sourceId = pair.mine.summary.sourceEditionId ?? pair.other.summary.sourceEditionId;
+      const sourceRecord =
+        pair.mine.summary.kind === 'source'
+          ? pair.mine
+          : pair.other.summary.kind === 'source'
+            ? pair.other
+            : sourceId === undefined
+              ? undefined
+              : await open(sourceId);
+      const order = paragraphsOf(
+        sourceRecord ? sectionOfKey(sourceRecord, key) : undefined,
+      ).map((paragraph) => paragraph.id);
+      // What the source does not have (it is not installed, or an id was added to a translation
+      // only) follows, mine first, so that no paragraph that exists is ever dropped.
+      const listed = new Set(order);
+      for (const paragraph of [...mine, ...theirs]) {
+        const id = sourceKey(paragraph);
+        if (listed.has(id)) continue;
+        listed.add(id);
+        order.push(id);
+      }
+      return order.map((id) => ({
+        sourceId: id,
+        paragraph: mineByKey.get(id) ?? null,
+        other: theirsByKey.get(id) ?? null,
+      }));
     },
 
     async search(query) {

@@ -26,7 +26,13 @@
     "provenance": {
       "source": "The Teaching of Jesus Concerning the Kingdom of God and the Church, Geerhardus Vos, American Tract Society, New York, 1903 (series The Teachings of Jesus, ed. John H. Kerr). Scan probably from the Internet Archive (see content/INVENTORY.md, P1-07).",
       "extractedBy": "OCR text layer of the scan, extracted with pdftotext -layout (poppler 24.02; content/sources/vos-1903-kingdom/raw-layout.txt, the same extraction as raw.txt but keeping indentation and line-end hyphens). Cleaned by packages/content-tools ingest-text with content/works/vos-1903-kingdom/ingest.config.json.",
-      "notes": "Not part of the pack: front matter, table of contents, and the printed indices of subjects and texts (they refer to the page numbers of the printed book). Removed: running heads, page numbers, signature marks and scan noise. Line-end hyphenation was resolved from the text's own usage. Chapter headings come from the table of contents (the OCR text of the headings is garbled). Known OCR damage was repaired by explicit, reviewable rules in ingest.config.json (page fixes, replacements, word fixes); four Greek words and one Hebrew word were restored from context. Not proof-read against the printed book: Scripture reference numerals and rare words may still carry OCR errors, and the drop-cap words that open each chapter were set in normal case."
+      "notes": "Not part of the pack: front matter, table of contents, and the printed indices of subjects and texts (they refer to the page numbers of the printed book). Removed: running heads, page numbers, signature marks and scan noise. Line-end hyphenation was resolved from the text's own usage. Chapter headings come from the table of contents (the OCR text of the headings is garbled). Known OCR damage was repaired by explicit, reviewable rules in ingest.config.json (page fixes, replacements, word fixes); four Greek words and one Hebrew word were restored from context. Not proof-read against the printed book: Scripture reference numerals and rare words may still carry OCR errors, and the drop-cap words that open each chapter were set in normal case.",
+      "kind": "native",
+      "transcription": true,
+      "sourceDescription": "The 1903 American Tract Society edition, from the text layer of a scan: extracted, cleaned and divided into chapters by the library's ingest tool. It has not been proof-read against the printed book.",
+      "review": {
+        "state": "needs-review"
+      }
     }
   },
   "sections": [

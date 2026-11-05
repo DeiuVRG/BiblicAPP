@@ -1,6 +1,7 @@
 # Materialele pipeline-ului de traducere
 
-Specificația: `docs/traducere-pipeline.md`. Decizii: `docs/decizii.md` (ADR-012).
+Specificația: `docs/traducere-pipeline.md`. Decizii: `docs/decizii.md` (ADR-012; ADR-024 pentru
+generalizarea la engleză și la surse latine și grecești).
 
 | Fișier | Rol | Cine îl citește |
 | --- | --- | --- |
@@ -8,7 +9,7 @@ Specificația: `docs/traducere-pipeline.md`. Decizii: `docs/decizii.md` (ADR-012
 | `rules-en.md` | reguli editoriale generice pentru engleză (aceleași principii, tipografie și notație engleze) | agenții (draft, critic, revizie), revizorii umani |
 | `output-contract.md` | forma JSON a ieșirilor (draft/final, raport critic) | agenții |
 | `profiles/<slug>.md` | profilul lucrării: tradiție, registru, nume, termeni-cheie, capcane | agenții |
-| `glossary-ro.csv` | glosar citibil de mașină (regex sursă/țintă, forță, status) | agenții și `translation-check` |
+| `glossary-ro.csv` | glosar citibil de mașină (regex sursă/țintă, forță, status); are și rândurile pentru termeni greci (orice lucrare) și cele `augustin-*` (scope = slug) | agenții și `translation-check` |
 | `glossary-en.csv` | glosarul pentru engleză (termeni latini și greci; toate rândurile `PROPUS`) | agenții și `translation-check` |
 | `calques-ro.json` | calcuri și false friends (regex pe traducere) | agenții și `translation-check` |
 | `calques-en.json` | latinisme și false friends pentru engleză (nivel `WARN`) | agenții și `translation-check` |

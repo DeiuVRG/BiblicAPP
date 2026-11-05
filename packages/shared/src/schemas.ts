@@ -76,10 +76,78 @@ export const LicenceSchema = z.object({
 });
 export type Licence = z.infer<typeof LicenceSchema>;
 
+/**
+ * Where the text of an edition comes from (docs/ui-spec-v2.md, 8.6): `ai` (a machine translation),
+ * `human` (a translation made by people), `native` (the work was written in the language of the
+ * edition: nothing was translated), `source` (the original text of a work in another language: the
+ * Latin of Augustine) and `unknown` (not recorded yet). That a text is also a transcription of a
+ * printed edition (OCR) is a flag of its own, `transcription`, because an edition can be both.
+ */
+export const PROVENANCE_KINDS = ['ai', 'human', 'native', 'source', 'unknown'] as const;
+export const ProvenanceKindSchema = z.enum(PROVENANCE_KINDS);
+export type ProvenanceKind = z.infer<typeof ProvenanceKindSchema>;
+
+/** A calendar date ("2026-11-04") or a date and time in ISO 8601. */
+const IsoDate = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/, 'expected an ISO date');
+
+/** One automatic check that ran over a translation, and how it came out. */
+export const ProvenanceCheckSchema = z.object({
+  /** What was checked: `parity` (one target paragraph per source paragraph), `references`, `glossary`, `calques`. */
+  code: NonEmpty,
+  /** `passed`: nothing left to look at. `flagged`: it raised flags that a reviewer has still to read. */
+  status: z.enum(['passed', 'flagged']),
+  /** How many flags it raised (the ones still open). */
+  flags: z.number().int().min(0).optional(),
+});
+export type ProvenanceCheck = z.infer<typeof ProvenanceCheckSchema>;
+
+/** Whether a person has read the text against its source. The reviewer's name is never stored here. */
+export const ProvenanceReviewSchema = z.object({
+  state: z.enum(['needs-review', 'reviewed']),
+  /** When it was reviewed (state `reviewed`). */
+  at: IsoDate.optional(),
+  /** The role of the reviewer ("theologian and philologist"), shown instead of a name. */
+  roleNote: z.string().optional(),
+});
+export type ProvenanceReview = z.infer<typeof ProvenanceReviewSchema>;
+
+/** A dated change made to the text after it was published. */
+export const ProvenanceCorrectionSchema = z.object({
+  at: IsoDate,
+  summary: NonEmpty,
+});
+export type ProvenanceCorrection = z.infer<typeof ProvenanceCorrectionSchema>;
+
+/**
+ * How an edition was made. `source`, `extractedBy` and `notes` are the original free-text record;
+ * every other field is new and optional (a pack built before them is unchanged and still valid):
+ * when they are absent the app derives what it can from the kind of the edition and the free
+ * text (`provenance.ts` in the app).
+ */
 export const ProvenanceSchema = z.object({
   source: z.string(),
   extractedBy: z.string(),
   notes: z.string(),
+  kind: ProvenanceKindSchema.optional(),
+  /** The text was recognised from a scan of a printed edition and cleaned, not collated with it. */
+  transcription: z.boolean().optional(),
+  /** Translations: the language of the text that was translated ("en", "la"). */
+  sourceLanguage: NonEmpty.optional(),
+  /** Machine translations: the model that wrote it ("claude-sonnet-5-5"). */
+  model: NonEmpty.optional(),
+  /** Machine translations: when it was generated. */
+  generatedAt: IsoDate.optional(),
+  /** The passes it went through, in order ("draft", "critic", "revision"). */
+  passes: z.array(NonEmpty).optional(),
+  /** The automatic checks that ran over it. */
+  checks: z.array(ProvenanceCheckSchema).optional(),
+  /** Source editions: what the edition is (the scan, the transcription, the cleaning). */
+  sourceDescription: NonEmpty.optional(),
+  review: ProvenanceReviewSchema.optional(),
+  /** Dated changes since publication, in any order (the app lists the newest first). */
+  corrections: z.array(ProvenanceCorrectionSchema).optional(),
 });
 export type Provenance = z.infer<typeof ProvenanceSchema>;
 

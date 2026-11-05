@@ -168,7 +168,8 @@ function translationJobs(args: string[]): number {
   if (!hasReferenceGrammar(edition.edition.language)) {
     out.write(
       `NOTE: no grammar of scripture references for source language ${edition.edition.language}; ` +
-        'the jobs carry no references\n',
+        'the jobs carry no references, and translation-check does not apply REF_MISSING and ' +
+        'REF_EXTRA to this source\n',
     );
   }
   for (const name of stale)

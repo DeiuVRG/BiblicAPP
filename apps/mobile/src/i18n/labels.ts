@@ -77,3 +77,15 @@ export function licenceNote(
   const translated = language === 'ro' ? licence.noteRo : licence.noteEn;
   return translated !== undefined && translated.trim() !== '' ? translated : licence.note;
 }
+
+/**
+ * "5 noiembrie 2026" / "5 November 2026" from an ISO date or date-time ("2026-11-05",
+ * "2026-11-05T02:08:41Z"); an empty string when it is not one.
+ */
+export function formatDateLong(iso: string | null | undefined, t: Strings): string {
+  const match = typeof iso === 'string' ? /^(\d{4})-(\d{2})-(\d{2})/.exec(iso) : null;
+  if (!match) return '';
+  const month = t.dates.months[Number(match[2]) - 1];
+  if (month === undefined) return '';
+  return t.dates.long(Number(match[3]), month, Number(match[1]));
+}

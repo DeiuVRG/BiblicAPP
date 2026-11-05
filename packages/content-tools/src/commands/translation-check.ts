@@ -20,12 +20,14 @@ references, length, calques and glossary, numbers, quotation marks and typograph
 find anomalies; they do not decide exegesis.
 
 The checks follow the languages of the job. The target language gives the heading field
-(headingRo, headingEn), the quotation marks (ro: „…” and the cedilla fix; en: “…” and
-QUOTES_CURLY_UNBALANCED) and the notation of references (Mat. 4:17, Matt. 4:17). The source
-language gives the function words of RESIDUE_EN, RESIDUE_LA and RESIDUE_GRC, the grammar of
-references and, with the target, the bands of LENGTH_RATIO. For a Greek source the Greek of
-the source is not asked for in the translation (GREEK_MISSING); what the translation keeps of
-it must be an exact copy (GREEK_COPY).
+(headingRo, headingEn), the quotation marks (ro: „…” and the cedilla fix; en: “…”, with
+QUOTES_FOREIGN for the marks of other languages and QUOTES_CURLY_UNBALANCED for the pairing) and
+the notation of references (Mat. 4:17, Matt. 4:17). The source language gives the function words
+of RESIDUE_EN, RESIDUE_LA and RESIDUE_GRC, the grammar of references and, with the target, the
+bands of LENGTH_RATIO. For a Greek source the Greek of the source is not asked for in the
+translation (GREEK_MISSING); what the translation keeps of it must be a whole word of the source,
+copied exactly (GREEK_COPY). A source without a grammar of references (Greek) has none in its
+jobs, and REF_MISSING and REF_EXTRA are not applied to it.
 
 Options:
   --job <file>        the job the output answers (required)

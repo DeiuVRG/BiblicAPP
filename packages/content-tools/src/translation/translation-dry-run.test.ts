@@ -363,6 +363,7 @@ describe('dry runs of the commands', () => {
       expect(await runTranslationJobs(['work/edition-grc.json', '--lang', 'en'])).toBe(0);
       expect(out).toContain(`${CREED_SLUG}-en-01-00  1  `);
       expect(out).toContain('NOTE: no grammar of scripture references for source language grc');
+      expect(out).toContain('does not apply REF_MISSING and REF_EXTRA to this source');
       out = '';
       writeJson('work/edition-la.json', augustineSource());
       expect(await runTranslationJobs(['work/edition-la.json', '--lang', 'en'])).toBe(0);

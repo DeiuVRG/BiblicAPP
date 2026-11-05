@@ -3,6 +3,7 @@ import type { TextProps, TextStyle } from 'react-native';
 
 import { isDarkBand, isPhotoBand, useBandTone } from '@/components/band-context';
 import type { BandTone } from '@/components/band-context';
+import { useReadingMetrics } from '@/settings/reading-metrics';
 import { useSettings } from '@/settings/settings-context';
 import { useFontFamilies } from '@/theme/fonts';
 import { useLayout } from '@/theme/layout';
@@ -76,6 +77,7 @@ export function useTypeStyle(variant: TypeVariant, tone?: TextTone | boolean): T
   const { wide } = useLayout();
   const { width } = useWindowDimensions();
   const { settings } = useSettings();
+  const metrics = useReadingMetrics();
   const band = useBandTone();
   const resolved: TextTone =
     tone === undefined
@@ -90,8 +92,8 @@ export function useTypeStyle(variant: TypeVariant, tone?: TextTone | boolean): T
       fonts,
       wide,
       width,
-      readingSize: settings.fontSize,
-      readingLineHeight: settings.lineHeight,
+      readingSize: metrics.fontSize,
+      readingLineHeight: metrics.lineHeight,
       readingFont: settings.readingFont,
     }),
     color: toneColor(colors, resolved, band),

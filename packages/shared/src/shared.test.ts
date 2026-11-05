@@ -257,3 +257,50 @@ describe('startup safety', () => {
     }
   });
 });
+
+describe('ProvenanceSchema (additive fields)', () => {
+  const withProvenance = (provenance: unknown) => ({
+    ...validPack,
+    edition: { ...validPack.edition, provenance },
+  });
+  const base = { source: 'test', extractedBy: 'test', notes: '' };
+
+  it('still accepts the original three-field record: a pack built before the new fields is valid', () => {
+    expect(PackSchema.safeParse(withProvenance(base)).success).toBe(true);
+    // ... and parsing it adds nothing, so its canonical form is unchanged.
+    const parsed = PackSchema.parse(withProvenance(base));
+    expect(parsed.edition.provenance).toEqual(base);
+  });
+
+  it('accepts and keeps the new fields', () => {
+    const full = {
+      ...base,
+      kind: 'ai',
+      transcription: false,
+      sourceLanguage: 'en',
+      model: 'claude-sonnet-5-5',
+      generatedAt: '2026-11-04',
+      passes: ['draft', 'critic', 'revision'],
+      checks: [
+        { code: 'parity', status: 'passed' },
+        { code: 'glossary', status: 'flagged', flags: 4 },
+      ],
+      sourceDescription: 'A scan, transcribed and cleaned.',
+      review: { state: 'reviewed', at: '2026-12-01T10:00:00Z', roleNote: 'theologian' },
+      corrections: [{ at: '2026-12-02', summary: 'A term was changed.' }],
+    };
+    const parsed = PackSchema.parse(withProvenance(full));
+    expect(parsed.edition.provenance).toEqual(full);
+  });
+
+  it.each([
+    ['an unknown kind', { ...base, kind: 'divine' }],
+    ['a review state that does not exist', { ...base, review: { state: 'approved' } }],
+    ['a check that is neither passed nor flagged', { ...base, checks: [{ code: 'x', status: 'ok' }] }],
+    ['a negative flag count', { ...base, checks: [{ code: 'x', status: 'flagged', flags: -1 }] }],
+    ['a date that is not ISO', { ...base, generatedAt: '4 November 2026' }],
+    ['a correction without a summary', { ...base, corrections: [{ at: '2026-12-02', summary: '' }] }],
+  ])('rejects %s', (_name, provenance) => {
+    expect(PackSchema.safeParse(withProvenance(provenance)).success).toBe(false);
+  });
+});
