@@ -72,7 +72,7 @@ from the Latin, never one from the other.
 
 | Latin | English | Română | Notes |
 | --- | --- | --- | --- |
-| gratia | grace | har | FIX in both glossaries. *gratuitum munus* = free gift: "dar gratuit". |
+| gratia | grace | har | FIX in both glossaries (`gratia`, `augustin-gratia`). *gratuitum munus* = free gift: "dar gratuit". |
 | littera | the letter | litera | the letter that kills (2 Cor. 3:6). Not "the literal sense" except *iuxta litteram*. |
 | spiritus / Spiritus | Spirit / spirit | Duhul / duhul | capital for the Holy Spirit and the Spirit of God; lower case for the human spirit; doubtful: `AMBIGUITATE`. |
 | lex | law (the Law for the Law of Moses as a whole) | lege (Legea) | beware of *legere*: *legas* is "you may read". |
@@ -116,7 +116,8 @@ exemplu.”
 ## Indicații pentru traducerea în română
 
 - Reguli generale: `rules-ro.md`; glosar: `glossary-ro.csv` (rândurile pentru lucrări protestante
-  nu se aplică, tradiția lucrării fiind `undivided`). Duhul Sfânt (nu „Spiritul Sfânt”), Hristos,
+  nu se aplică, tradiția lucrării fiind `undivided`; rândurile acestei lucrări sunt cele `augustin-*`,
+  legate de slug-ul ei, cu echivalentele din coloana Română de mai sus). Duhul Sfânt (nu „Spiritul Sfânt”), Hristos,
   Isus: ortografia numelui Domnului este o decizie deschisă pentru lucrările fără tradiție
   unică; se folosește „Isus”, ca în restul bibliotecii, până la hotărârea proprietarului.
 - Textul biblic citat de Augustin se traduce ca text al autorului, din latina lui, nu după

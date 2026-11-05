@@ -10,7 +10,7 @@ holy-ghost-forbid,,\bHoly Ghost\b,all,all,FORBID,PROPUS,Archaism; "Holy Spirit" 
 littera,\blitter(?:a|ae|am|is|arum)\b,\b(?:letters?|literal\w*)\b,all,all,FIX,PROPUS,littera → the letter (2 Cor. 3:6, the letter that kills); iuxta litteram → literally or according to the letter. litterae can also be an epistle or writings: "letter" still holds.
 fides,\bfid(?:es|ei|em|e|ibus|ium)\b,\b(?:faith|trust|fidelity|belief)\b,all,all,FIX,PROPUS,fides → faith (trust or fidelity where the context is not about believing).
 caritas,\b(?:ch?aritas|ch?aritatis|ch?aritati|ch?aritatem|ch?aritate)\b,\b(?:love|charity)\b,all,all,PREFER,PROPUS,caritas → love; "charity" only where the profile asks for it. Keep apart dilectio (love; delight in the one loved) and amor.
-peccatum,\bpecc\w+,\bsin\w*,all,all,FIX,PROPUS,peccatum → sin; peccator → sinner; peccare → to sin.
+peccatum,\bpecc\w+,\bsin(?:s|ful|fully|fulness|less|lessness|ner|ners|ned|ning)?\b|\btrespass\w*,all,all,FIX,PROPUS,peccatum → sin; peccator → sinner; peccare → to sin. The rendering is the word itself and its family (sins, sinful, sinless, sinner, sinned, sinning), not any word that starts with the letters: since, single and sincere are not sin.
 liberum-arbitrium,\bliber(?:um|i|o)\s+arbitri(?:um|i|o)\b,\bfree\s+will\b,all,all,FIX,PROPUS,liberum arbitrium → free will (some scholarly translations say "free choice"; use it only if the profile of the work asks for it).
 voluntas,\bvoluntat(?:is|i|em|e)?\b|\bvoluntas\b,\bwill\b,all,all,PREFER,PROPUS,voluntas → will (the faculty); voluntas Dei → the will of God. Not "wish" unless the context is a wish.
 praedestinatio,\bpra[ei]destinat\w*,\bpredestin\w*,all,all,FIX,PROPUS,praedestinatio → predestination; praedestinare → to predestine.

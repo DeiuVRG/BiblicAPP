@@ -48,7 +48,7 @@ opposite).
 | ποιητής | maker | făcător | |
 | μονογενής | only-begotten | unul-născut | |
 | γεννηθέντα οὐ ποιηθέντα | begotten, not made | născut, nu făcut | the contrast is the point |
-| ὁμοούσιον τῷ Πατρί | of one substance with the Father | de o ființă cu Tatăl | glossary row `homoousios` (FIX); never "of like substance" |
+| ὁμοούσιον τῷ Πατρί | of one substance with the Father | de o ființă cu Tatăl | glossary row `homoousios` (FIX, in both glossaries); never "of like substance" |
 | σαρκωθέντα | made flesh (incarnate) | întrupat | |
 | ἐνανθρωπήσαντα | became man | S-a făcut om | |
 | ἐκπορευόμενον | proceeds | purcede | |
