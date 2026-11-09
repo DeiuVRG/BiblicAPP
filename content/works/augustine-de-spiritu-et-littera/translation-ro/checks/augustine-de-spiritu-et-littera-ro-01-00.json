@@ -1,0 +1,54 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-01-00",
+  "file": "drafts/augustine-de-spiritu-et-littera-ro-01-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row augustin-iustitia (FIX) matched: iustitia → dreptate (implicit în această lucrare); „justiție” doar pentru sensul forensic sau distributiv. Varianta din tradiția Cornilescu „neprihănire” nu se folosește aici.",
+      "quoteSource": "justitiae",
+      "quoteTarget": "dreptății"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row augustin-peccatum (FIX) matched: peccatum → păcat; peccator → păcătos; peccare → a păcătui.",
+      "quoteSource": "peccati",
+      "quoteTarget": "păcatului"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row augustin-voluntas (PREFER) matched: voluntas → voință (facultatea); voluntas Dei → voia lui Dumnezeu. Nu „dorință” decât dacă contextul e o dorință.",
+      "quoteSource": "voluntas",
+      "quoteTarget": "voința"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row augustin-baptismus (FIX) matched: baptismus → botez. Modelul sursă e numai latinesc (în engleză „baptism” nu trebuie să potrivească).",
+      "quoteSource": "Baptismo",
+      "quoteTarget": "botezul"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row augustin-mediator (FIX) matched: mediator → Mijlocitorul (Hristos; 1 Tim. 2:5).",
+      "quoteSource": "Mediatore",
+      "quoteTarget": "Mijlocitor"
+    }
+  ],
+  "stats": {
+    "paragraphs": 1,
+    "sourceWords": 210,
+    "targetWords": 339,
+    "lengthRatio": 1.314
+  }
+}

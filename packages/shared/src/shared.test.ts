@@ -296,10 +296,16 @@ describe('ProvenanceSchema (additive fields)', () => {
   it.each([
     ['an unknown kind', { ...base, kind: 'divine' }],
     ['a review state that does not exist', { ...base, review: { state: 'approved' } }],
-    ['a check that is neither passed nor flagged', { ...base, checks: [{ code: 'x', status: 'ok' }] }],
+    [
+      'a check that is neither passed nor flagged',
+      { ...base, checks: [{ code: 'x', status: 'ok' }] },
+    ],
     ['a negative flag count', { ...base, checks: [{ code: 'x', status: 'flagged', flags: -1 }] }],
     ['a date that is not ISO', { ...base, generatedAt: '4 November 2026' }],
-    ['a correction without a summary', { ...base, corrections: [{ at: '2026-12-02', summary: '' }] }],
+    [
+      'a correction without a summary',
+      { ...base, corrections: [{ at: '2026-12-02', summary: '' }] },
+    ],
   ])('rejects %s', (_name, provenance) => {
     expect(PackSchema.safeParse(withProvenance(provenance)).success).toBe(false);
   });

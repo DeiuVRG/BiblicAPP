@@ -38,5 +38,16 @@ export const workHref = (id: string, edition?: string) =>
     params: { id, ...(edition === undefined ? null : { edition }) },
   }) as const;
 
-export const readHref = (id: string, section: string, extra?: { p?: string; q?: string }) =>
-  ({ pathname: '/read/[id]/[section]', params: { id, section, ...extra } }) as const;
+/**
+ * The reader at a section: `p` a paragraph to jump to, `q` words to find, `lang` the language of the
+ * edition to read (the reader opens the aligned section of that edition) and `pair` two editions read
+ * side by side ("ro+en"). A param that is not given is not written.
+ */
+export const readHref = (
+  id: string,
+  section: string,
+  extra?: { p?: string; q?: string; lang?: string; pair?: string },
+) => ({ pathname: '/read/[id]/[section]', params: { id, section, ...extra } }) as const;
+
+/** The policy page: how the texts of the library are made and checked. */
+export const transparencyHref = '/about/transparency' as const;

@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-nicaeno-constantinopolitanum-en-01-00",
+  "workSlug": "symbolum-nicaeno-constantinopolitanum",
+  "sourceEditionId": "01M6N24HR7XARYC7C7F399BFBK",
+  "sourceLanguage": "grc",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N24HR7XARYC7C7F399BFBM",
+    "ordinal": 0,
+    "kind": "section",
+    "heading": "1"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N24HR80HGE0FF8D4RTP7TQ",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Πιστεύομεν εἰς ἕνα θεὸν πατέρα παντοκράτορα, ποιητὴν οὐρανοῦ καὶ γῆς, ὁρατῶν τε πάντων καὶ ἀοράτων.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": null,
+    "nextParagraph": "Καὶ εἰς ἕνα κύριον Ἰησοῦν Χριστόν, τὸν υἱὸν τοῦ θεοῦ τὸν μονογενῆ, τὸν ἐκ τοῦ πατρὸς γεννηθέντα πρὸ πάντων τῶν αἰώνων, φῶς ἐκ φωτός, θεὸν ἀληθινὸν ἐκ θεοῦ ἀληθινοῦ, γεννηθέντα, οὐ ποιηθέντα, ὁμοούσιον τῷ πατρί· δι’ οὗ τὰ πάντα ἐγένετο·",
+    "previousSectionHeading": null
+  },
+  "wordCount": 15,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/symbolum-nicaeno-constantinopolitanum.md"
+  }
+}

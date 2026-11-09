@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-ro-12-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYKZ",
+    "ordinal": 11,
+    "kind": "section",
+    "heading": "12"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYM0",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "vitam æternam. Amen.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "carnis resurrectionem;",
+    "nextParagraph": null,
+    "previousSectionHeading": "11"
+  },
+  "wordCount": 3,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

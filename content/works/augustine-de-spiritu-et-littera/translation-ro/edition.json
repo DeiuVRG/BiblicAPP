@@ -1,0 +1,29 @@
+{
+  "workTitle": "Despre duh și literă",
+  "edition": {
+    "language": "ro",
+    "kind": "translation",
+    "licence": {
+      "status": "licensed",
+      "note": "Traducere nouă în română, făcută din latină, asistată de AI și în curs de revizuire umană (Biblioteca creștină, 2026). Textul latin-sursă este în domeniul public. Licența finală a traducerii va fi stabilită de proprietar înainte de publicare.",
+      "noteEn": "New Romanian translation made from the Latin, AI-assisted and under human review (Biblioteca creștină, 2026). The Latin source text is in the public domain. The final licence of the translation will be set by the owner before publication."
+    },
+    "provenance": {
+      "source": "Tradus din latina tratatului De spiritu et littera (412) al lui Augustin, ediția canonică content/works/augustine-de-spiritu-et-littera/edition-la.json (ediția 01M6N296SQ9VRJPZDX923CRAJ7): textul latin al ediției Clarendon Press din 1914 (William Bright), fără introducerea, rezumatele, notele și aparatul editorului, în limba engleză. Făcută din latină, nu din altă traducere: traducerile englezești din 1887, în domeniul public (volumul din Nicene and Post-Nicene Fathers și volumul D. Nutt din inventar, P2D-12), servesc doar drept referință pentru critic și nu sunt copiate.",
+      "extractedBy": "Translation pipeline v3-lite (docs/traducere-pipeline.md): draft, independent critic and revision passes on claude-sonnet-5-5 run by the project's orchestrator; deterministic checks (translation-check) and merge (translation-merge) from packages/content-tools.",
+      "notes": "Traducere-ciornă, nerevizuită încă de un om. Constatări deschise: translation-ro/review.md.",
+      "kind": "ai",
+      "sourceLanguage": "la",
+      "model": "claude-sonnet-5-5",
+      "passes": [
+        "draft",
+        "critic",
+        "revision"
+      ],
+      "review": {
+        "state": "needs-review"
+      }
+    },
+    "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7"
+  }
+}

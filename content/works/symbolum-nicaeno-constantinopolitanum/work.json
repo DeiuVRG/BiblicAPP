@@ -1,0 +1,35 @@
+{
+  "work": {
+    "id": "01M6N24HR6R73XVHKS9DKCCHBB",
+    "slug": "symbolum-nicaeno-constantinopolitanum",
+    "titleRo": "Simbolul niceo-constantinopolitan",
+    "titleOrig": "Σύμβολον τῆς Πίστεως",
+    "titleEn": "The Nicene-Constantinopolitan Creed",
+    "author": {
+      "name": "Sinodul I de la Constantinopol (381)",
+      "born": null,
+      "died": null,
+      "tradition": "undivided"
+    },
+    "languageOrig": "grc",
+    "year": 381
+  },
+  "edition": {
+    "id": "01M6N24HR7XARYC7C7F399BFBK",
+    "language": "grc",
+    "kind": "source",
+    "licence": {
+      "status": "public-domain",
+      "note": "The Creed of Constantinople is a text of the year 381, issued by the First Council of Constantinople; it has no individual author and is in the public domain. This edition reproduces the Greek text as printed by Philip Schaff in 1877 (Schaff died in 1893) and only that: the editor’s Latin version, English translation, footnotes and introductions are not included.",
+      "noteRo": "Simbolul de la Constantinopol este un text din anul 381, dat de Sinodul I de la Constantinopol; nu are un autor individual și este în domeniul public. Ediția reproduce textul grecesc așa cum l-a tipărit Philip Schaff în 1877 (Schaff a murit în 1893) și numai pe acesta: versiunea latină, traducerea engleză, notele de subsol și introducerile editorului nu sunt incluse."
+    },
+    "provenance": {
+      "source": "Philip Schaff, The Creeds of Christendom, with a History and Critical Notes, vol. II, The Greek and Latin Creeds, with Translations (New York: Harper & Brothers, 1877; sixth edition), section II, Symbolum Nicaeno-Constantinopolitanum, (a) Forma recepta Ecclesiae Orientalis, A.D. 381, “The Received Text of the Greek Church”, pp. 57-58: the Greek column only. Schaff cites the Acts of the First Council of Constantinople (Mansi, Conc. III, 565), the Acts of the Council of Chalcedon (Mansi VI, 957; VII, 111), the Acts of the Third Council of Constantinople (Mansi XI, 633) and Hahn, Bibliothek der Symbole, p. 111. Digital text: Christian Classics Ethereal Library, ccel.org/ccel/schaff/creeds2 (ThML, public domain), corrected against the page text of the 1919 printing (Internet Archive, bibliothecasymbo020scha) and read against the copy of the Creed of the 150 Fathers on Greek Wikisource (revision 91962).",
+      "extractedBy": "content/sources/symbolum-nicaeno-constantinopolitanum/build-edition.ts: takes the text of the Greek cells of the two tables in the ThML excerpt (markup and footnote markers removed), makes the ten corrections listed in SOURCE.md and cuts the text into twelve articles; the articles joined are the corrected text of the source, nothing is retyped. Ids by stableId.",
+      "notes": "Twelve sections, one per article, with the headings 1 to 12, after the twelve articles of the Creed as Orthodox catechesis counts them (the Longer Catechism of Philaret, questions 74 and 75, printed by Schaff); the division is an editorial layer and changes nothing in the text. The conciliar form (Πιστεύομεν, We believe), without the Filioque. Spelling and punctuation are Schaff’s: no capitals for the divine names; ἐκ δεξιῶν τοῦ πατρός, where the Greek Wikisource copy has ἐν δεξιᾷ. The ten corrections are misprints of the digital copy and of the print, the small capitals of the print written in lower case, and one choice among variants: Schaff prints τὸ κύριον, (καὶ) τὸ ζωοποιόν and lists three readings of Mansi; the edition reads τὸ κύριον καὶ ζωοποιόν, the second of them, which is also the reading of the Wikisource copy and of the Latin of Dionysius Exiguus that Schaff prints beside it. The elision is written with U+2019. Not part of the edition: Schaff’s Latin version, English translation, footnotes and introductions. Not collated with a manuscript or a critical edition and not yet read by a philologist. issuingBody (the work has no individual author): the First Council of Constantinople (labelEn \"First Council of Constantinople\", labelRo \"Sinodul I de la Constantinopol\", year 381); the author record above stands for it until the catalogue carries the issuing body (the work schema has no field for it; docs/ui-spec-v2.md, 6.8). Record of the sources: content/sources/symbolum-nicaeno-constantinopolitanum/SOURCE.md.",
+      "kind": "source",
+      "transcription": true,
+      "sourceDescription": "The Greek of the received text of the Creed of Constantinople as printed by Philip Schaff in 1877, keyed in by the Christian Classics Ethereal Library, corrected against the page text of the printed book and read against a second transcription; cut into twelve articles. Not collated with a critical edition."
+    }
+  }
+}

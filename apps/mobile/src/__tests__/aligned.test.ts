@@ -92,7 +92,10 @@ describe('getAlignedParagraphs', () => {
     expect(rows.map((row) => row.sourceId)).toEqual(source.map((p) => p.id));
     expect(rows.every((row) => row.paragraph?.sectionId === first.id)).toBe(true);
     // The translation has the first two; the rest is a gap, not a dropped row.
-    expect(rows.slice(0, 2).map((row) => row.other?.sourceId)).toEqual([source[0]!.id, source[1]!.id]);
+    expect(rows.slice(0, 2).map((row) => row.other?.sourceId)).toEqual([
+      source[0]!.id,
+      source[1]!.id,
+    ]);
     expect(rows.slice(2).every((row) => row.other === null)).toBe(true);
   });
 
@@ -169,10 +172,12 @@ describe('getAlignedParagraphs', () => {
   it('is empty for an unknown section or edition', async () => {
     const ro = translation({ sections: 3 }, 'vos-ro-3');
     const { repository } = await load([bundled, ro.signed]);
-    expect(await repository.getAlignedParagraphs('no-such-section', ro.pack.edition.id)).toEqual([]);
-    expect(await repository.getAlignedParagraphs(englishSections[0]!.id, 'no-such-edition')).toEqual(
+    expect(await repository.getAlignedParagraphs('no-such-section', ro.pack.edition.id)).toEqual(
       [],
     );
+    expect(
+      await repository.getAlignedParagraphs(englishSections[0]!.id, 'no-such-edition'),
+    ).toEqual([]);
   });
 });
 
@@ -193,5 +198,25 @@ describe('the bundled editions of Vos: R20, every work with two editions pairs b
       expect(rows.length).toBeGreaterThan(0);
       expect(new Set(rows.map((row) => row.sourceId)).size).toBe(rows.length);
     }
+  });
+});
+
+describe('locateParagraph', () => {
+  it('finds the section, edition and work of a paragraph, and nothing for an unknown id', async () => {
+    const ro = translation({ sections: 3 }, 'vos-ro-3');
+    const { repository } = await load([bundled, ro.signed]);
+    const paragraph = paragraphsOf(english, englishSections[2]!)[1]!;
+    expect(await repository.locateParagraph(paragraph.id)).toEqual({
+      workId: english.work.id,
+      editionId: english.edition.id,
+      language: 'en',
+      sectionId: englishSections[2]!.id,
+    });
+    const translated = ro.pack.paragraphs[0]!;
+    expect(await repository.locateParagraph(translated.id)).toMatchObject({
+      editionId: ro.pack.edition.id,
+      language: 'ro',
+    });
+    expect(await repository.locateParagraph('no-such-paragraph')).toBeNull();
   });
 });

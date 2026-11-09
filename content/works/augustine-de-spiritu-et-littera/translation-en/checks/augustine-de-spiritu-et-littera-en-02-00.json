@@ -1,0 +1,86 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-02-00",
+  "file": "final/augustine-de-spiritu-et-littera-en-02-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "message": "proposed (not approved) glossary row iustitia (FIX) matched: iustitia → righteousness (the default in works on grace and the law) or justice (the distributive or forensic sense). Context decides; keep one choice per passage and flag the doubtful ones AMBIGUITATE.",
+      "quoteSource": "justitia",
+      "quoteTarget": "righteousness"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "message": "proposed (not approved) glossary row peccatum (FIX) matched: peccatum → sin; peccator → sinner; peccare → to sin. The rendering is the word itself and its family (sins, sinful, sinless, sinner, sinned, sinning), not any word that starts with the letters: since, single and sincere are not sin.",
+      "quoteSource": "peccato",
+      "quoteTarget": "sin"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "message": "proposed (not approved) glossary row voluntas (PREFER) matched: voluntas → will (the faculty); voluntas Dei → the will of God. Not \"wish\" unless the context is a wish.",
+      "quoteSource": "voluntate",
+      "quoteTarget": "will"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "message": "proposed (not approved) glossary row iustificare (FIX) matched: iustificare → to justify; iustificatio → justification.",
+      "quoteSource": "justificabitur",
+      "quoteTarget": "justified"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "message": "proposed (not approved) glossary row peccatum (FIX) matched: peccatum → sin; peccator → sinner; peccare → to sin. The rendering is the word itself and its family (sins, sinful, sinless, sinner, sinned, sinning), not any word that starts with the letters: since, single and sincere are not sin.",
+      "quoteSource": "peccato",
+      "quoteTarget": "sin"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "message": "proposed (not approved) glossary row liberum-arbitrium (FIX) matched: liberum arbitrium → free will (some scholarly translations say \"free choice\"; use it only if the profile of the work asks for it).",
+      "quoteSource": "libero arbitrio",
+      "quoteTarget": "free will"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "message": "proposed (not approved) glossary row iustitia (FIX) matched: iustitia → righteousness (the default in works on grace and the law) or justice (the distributive or forensic sense). Context decides; keep one choice per passage and flag the doubtful ones AMBIGUITATE.",
+      "quoteSource": "justitiam",
+      "quoteTarget": "righteousness"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "message": "proposed (not approved) glossary row liberum-arbitrium (FIX) matched: liberum arbitrium → free will (some scholarly translations say \"free choice\"; use it only if the profile of the work asks for it).",
+      "quoteSource": "liberum arbitrium",
+      "quoteTarget": "free will"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "message": "proposed (not approved) glossary row voluntas (PREFER) matched: voluntas → will (the faculty); voluntas Dei → the will of God. Not \"wish\" unless the context is a wish.",
+      "quoteSource": "voluntatis",
+      "quoteTarget": "will"
+    }
+  ],
+  "stats": {
+    "paragraphs": 3,
+    "sourceWords": 383,
+    "targetWords": 571,
+    "lengthRatio": 1.234
+  }
+}

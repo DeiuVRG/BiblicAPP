@@ -55,9 +55,10 @@ export type FeatureName = keyof Features;
 
 /**
  * What is live in a delivered build. The shell phase delivers the library, the authors list and
- * search; the screens behind `ask`, `bookmarks`, `about` and `transparency` come with their own
- * phases, and each of those phases switches its flag on. With all four on, the section bar of Beta
- * 1 reads home, search, read, research, about, as docs/ui-spec-v2.md 4.2 and check S1 expect.
+ * search; the reader phase adds the policy page (`transparency`); the screens behind `ask`,
+ * `bookmarks` and `about` come with their own phases, and each of those phases switches its flag
+ * on. With all four on, the section bar of Beta 1 reads home, search, read, research, about, as
+ * docs/ui-spec-v2.md 4.2 and check S1 expect.
  */
 export const DELIVERED_FEATURES: Features = {
   library: true,
@@ -67,7 +68,7 @@ export const DELIVERED_FEATURES: Features = {
   ask: false,
   bookmarks: false,
   about: false,
-  transparency: false,
+  transparency: true,
   traditions: false,
   guides: false,
   dictionary: false,

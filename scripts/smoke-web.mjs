@@ -20,6 +20,11 @@
 //   6. what the review of the shell phase added (scripts/lib/smoke-review.mjs): the drawer on a stack
 //      of screens, the keys of the bar, one h1 per screen, the hero form, the placeholders, the
 //      breakpoints, the grids,
+//   6b. the work hub, the reader and the transparency panel (scripts/lib/smoke-reader.mjs): the
+//      card, the tabs and the contents of the hub (W1, W3-W7), the zones, the toolbar, the type, the
+//      chapter card, the outline, find, the keys, Aa, the progress bar and the way back (R1-R5, R10-R12,
+//      R15, R18, R19), the language switch and the two lanes (R6, R7), a phone's toolbar, bar and
+//      sheets (R13), and the panel (R9, T1, T2, T4, T5),
 //   7. the configuration of Beta 1: an export built with EXPO_PUBLIC_FEATURES=beta1 (built here into
 //      a temporary folder, or taken from --beta1-dist) has the five items of the bar, the two doors
 //      and the transparency band, which S1, S2, L2, L3 and L7 expect and the delivered flags do not
@@ -46,6 +51,7 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from 'playwright';
 
+import { readerChecks } from './lib/smoke-reader.mjs';
 import { beta1Checks, reviewChecks } from './lib/smoke-review.mjs';
 import { shellChecks } from './lib/smoke-shell.mjs';
 import { buildExport, serveExport } from './lib/web-export.mjs';
@@ -318,6 +324,8 @@ async function main() {
     };
     await shellChecks(checkContext);
     await reviewChecks(checkContext);
+    // 6b. The work hub, the reader and the transparency panel (scripts/lib/smoke-reader.mjs).
+    await readerChecks(checkContext);
 
     // 7. The flags of Beta 1: the same app built with EXPO_PUBLIC_FEATURES=beta1, served like the
     // export under test (the base path included).

@@ -1,0 +1,728 @@
+{
+  "work": {
+    "id": "01M6N296SNHD422E74A8A5SHHA",
+    "slug": "augustine-de-spiritu-et-littera",
+    "titleRo": "Despre duh și literă",
+    "titleOrig": "De spiritu et littera",
+    "titleEn": "On the Spirit and the Letter",
+    "author": {
+      "name": "Augustine of Hippo",
+      "born": 354,
+      "died": 430,
+      "tradition": "undivided"
+    },
+    "languageOrig": "la",
+    "year": 412
+  },
+  "edition": {
+    "id": "01M6N296SQ9VRJPZDX923CRAJ7",
+    "language": "la",
+    "kind": "source",
+    "licence": {
+      "status": "public-domain",
+      "note": "Latin text of Augustine of Hippo (died 430), as printed in the 1914 Clarendon Press edition of De spiritu et littera, reprinted from the edition of William Bright (Oxford, 1880; Bright died in 1901), before the project's public-domain cut-off year (1956). Only the Latin of Augustine is included: the introduction, chapter summaries, notes and apparatus of the 1914 editor are left out.",
+      "noteRo": "Textul latin al lui Augustin din Hipona (mort în 430), așa cum este tipărit în ediția Clarendon Press din 1914 a tratatului De spiritu et littera, retipărit după ediția lui William Bright (Oxford, 1880; Bright a murit în 1901), înainte de anul-limită al proiectului pentru domeniul public (1956). Ediția conține numai textul latin al lui Augustin: introducerea, rezumatele capitolelor, notele și aparatul editorului din 1914 sunt excluse.",
+      "noteEn": "Latin text of Augustine of Hippo (died 430), as printed in the 1914 Clarendon Press edition of De spiritu et littera, reprinted from the edition of William Bright (Oxford, 1880; Bright died in 1901), before the project's public-domain cut-off year (1956). Only the Latin of Augustine is included: the introduction, chapter summaries, notes and apparatus of the 1914 editor are left out."
+    },
+    "provenance": {
+      "source": "Augustine of Hippo, De spiritu et littera (412), Latin text as printed in St. Augustine, De spiritu et littera, with an introduction by William Bright, Oxford, Clarendon Press, 1914 (the Latin is reprinted from W. Bright, Select Anti-Pelagian Treatises of St. Augustine, Oxford, 1880). Scan: Cornell University Library, barcode 31924029218629 (HathiTrust OCR page text, from the owner's set of sources; content/INVENTORY.md, P2D-02; content/sources/augustine-de-spiritu-et-littera/SOURCE.md).",
+      "extractedBy": "OCR page text of the scan (112 page files), joined into content/sources/augustine-de-spiritu-et-littera/raw-layout.txt by extract.py; the editor's apparatus and the scan furniture were removed by clean.py in the same directory (deterministic, python3 -I; every removal is in clean.log); chapters, paragraphs, line-end hyphens and ids by packages/content-tools ingest-text with content/works/augustine-de-spiritu-et-littera/ingest.config.json.",
+      "notes": "Only the Latin of Augustine is in this edition. Left out: the library pages; William Bright's English introduction; the English chapter headings and summaries of the 1914 edition (the chapter headings here are the chapter numerals); the marginal references to Scripture and to other works; the footnotes (variant readings of the Vienna CSEL, marked V.); the editor's bracketed query; running heads, page numbers and signature marks; and the appendix of the volume, Augustine's Retractationes ii. 37 (another work). Structure: 36 chapters; one paragraph per numbered section of the traditional division (1-66, in order; the section numbers themselves are not in the text), except that chapter XXVIII begins inside section 48, which is therefore two paragraphs (67 paragraphs in all). The spelling is that of the edition (j, v, coelum, charitas, foeditas). Line-end hyphenation was resolved from the text's own usage; the edition's single quotation marks were restored where the OCR had lost them. Known OCR damage was repaired by explicit, reviewable rules (ingest.config.json, and RAW_FIXES in content/sources/augustine-de-spiritu-et-littera/clean.py): split or misread words, one displaced pair of words, and the Greek word θεοσέβεια (chapter XI). Not proof-read against the printed book: rare words and punctuation may still carry OCR errors; the readings to check are listed in content/sources/augustine-de-spiritu-et-littera/SOURCE.md.",
+      "kind": "source",
+      "transcription": true,
+      "sourceDescription": "The Latin text of the 1914 Clarendon Press edition, from the OCR text of a scan: the editor's English introduction, summaries, notes and references are left out; the text was cleaned and divided into chapters and numbered sections by the library's tools. It has not been proof-read against the printed book.",
+      "review": {
+        "state": "needs-review"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85T",
+      "ordinal": 0,
+      "kind": "chapter",
+      "heading": "I"
+    },
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85W",
+      "ordinal": 1,
+      "kind": "chapter",
+      "heading": "II"
+    },
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX860",
+      "ordinal": 2,
+      "kind": "chapter",
+      "heading": "III"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02G",
+      "ordinal": 3,
+      "kind": "chapter",
+      "heading": "IV"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02J",
+      "ordinal": 4,
+      "kind": "chapter",
+      "heading": "V"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02N",
+      "ordinal": 5,
+      "kind": "chapter",
+      "heading": "VI"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02R",
+      "ordinal": 6,
+      "kind": "chapter",
+      "heading": "VII"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02V",
+      "ordinal": 7,
+      "kind": "chapter",
+      "heading": "VIII"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02Y",
+      "ordinal": 8,
+      "kind": "chapter",
+      "heading": "IX"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3V5",
+      "ordinal": 9,
+      "kind": "chapter",
+      "heading": "X"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3V8",
+      "ordinal": 10,
+      "kind": "chapter",
+      "heading": "XI"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VA",
+      "ordinal": 11,
+      "kind": "chapter",
+      "heading": "XII"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VD",
+      "ordinal": 12,
+      "kind": "chapter",
+      "heading": "XIII"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VG",
+      "ordinal": 13,
+      "kind": "chapter",
+      "heading": "XIV"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VN",
+      "ordinal": 14,
+      "kind": "chapter",
+      "heading": "XV"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VQ",
+      "ordinal": 15,
+      "kind": "chapter",
+      "heading": "XVI"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VS",
+      "ordinal": 16,
+      "kind": "chapter",
+      "heading": "XVII"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VW",
+      "ordinal": 17,
+      "kind": "chapter",
+      "heading": "XVIII"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VY",
+      "ordinal": 18,
+      "kind": "chapter",
+      "heading": "XIX"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W2",
+      "ordinal": 19,
+      "kind": "chapter",
+      "heading": "XX"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W4",
+      "ordinal": 20,
+      "kind": "chapter",
+      "heading": "XXI"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W6",
+      "ordinal": 21,
+      "kind": "chapter",
+      "heading": "XXII"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W8",
+      "ordinal": 22,
+      "kind": "chapter",
+      "heading": "XXIII"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3WA",
+      "ordinal": 23,
+      "kind": "chapter",
+      "heading": "XXIV"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E61",
+      "ordinal": 24,
+      "kind": "chapter",
+      "heading": "XXV"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E63",
+      "ordinal": 25,
+      "kind": "chapter",
+      "heading": "XXVI"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E68",
+      "ordinal": 26,
+      "kind": "chapter",
+      "heading": "XXVII"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6B",
+      "ordinal": 27,
+      "kind": "chapter",
+      "heading": "XXVIII"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6E",
+      "ordinal": 28,
+      "kind": "chapter",
+      "heading": "XXIX"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6H",
+      "ordinal": 29,
+      "kind": "chapter",
+      "heading": "XXX"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6K",
+      "ordinal": 30,
+      "kind": "chapter",
+      "heading": "XXXI"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J64",
+      "ordinal": 31,
+      "kind": "chapter",
+      "heading": "XXXII"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J67",
+      "ordinal": 32,
+      "kind": "chapter",
+      "heading": "XXXIII"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6B",
+      "ordinal": 33,
+      "kind": "chapter",
+      "heading": "XXXIV"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6D",
+      "ordinal": 34,
+      "kind": "chapter",
+      "heading": "XXXV"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6H",
+      "ordinal": 35,
+      "kind": "chapter",
+      "heading": "XXXVI"
+    }
+  ],
+  "paragraphs": [
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85V",
+      "sectionId": "01M6N296XKBCVD7SQ55PJBX85T",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Lectis opusculis, quae ad te nuper elaboravi, fili charissime Marcelline, de Baptismo parvulorum, et de perfectione justitiae hominis, quod eam nemo in hac vita vel assecutus, vel assecuturus videatur, excepto uno Mediatore, qui humana perpessus est in similitudine carnis peccati, sine ullo omnino peccato: rescripsisti te moveri eo, quod in posteriore duorum libro fieri posse dixi, ut sit homo sine peccato, si voluntas ejus non desit ope adjuvante divina, et tamen praeter unum in quo omnes vivificabuntur, neminem fuisse vel fore in quo hic vivente esset ista perfectio. Absurdum enim tibi videtur dici, aliquid fieri posse cujus desit exemplum, cum, sicut credo, non dubites, nunquam esse factum ut per foramen acus camelus transiret, et tamen ille hoc quoque dixit Deo esse possibile: legas etiam duodecim millia legiones Angelorum pro Christo, ne pateretur, pugnare potuisse, nec tamen factum: legas fieri potuisse ut semel gentes exterminarentur a terra quae dabatur filiis Israel, Deum tamen paulatim fieri voluisse: et alia sexcenta possunt occurrere, quae fieri, vel potuisse, vel posse fateamur, et eorum tamen exempla quod facta sint proferre nequeamus. Unde non ideo negare debemus, fieri posse ut homo sine peccato sit, quia nullus est hominum, praeter illum qui non tantum homo, sed etiam natura Deus est, in quo id esse perfectum demonstrare possimus."
+    },
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85X",
+      "sectionId": "01M6N296XKBCVD7SQ55PJBX85W",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Hic fortasse respondeas, ista quae commemoravi facta non esse et fieri potuisse, opera esse divina; ut autem sit homo sine peccato, ad opus ipsius hominis pertinere, idque opus esse optimum, quo fiat plena et perfecta et ex omni prorsus parte absoluta justitia: et ideo non esse credendum, neminem vel fuisse, vel esse, vel fore in hac vita qui hoc opus impleverit, si ab homine impleri potest. Sed cogitare debes, quamvis ad hominem id agere pertineat, hoc quoque munus esse divinum, atque ideo non dubitare opus esse divinum. Deus est enim qui operatur in vobis, ait Apostolus, et velle et operari, pro bona voluntate."
+    },
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "sectionId": "01M6N296XKBCVD7SQ55PJBX85W",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Proinde non multum molesti sunt, et instandum est eis, ut si possunt, ostendant ita esse, qui dicunt vivere hic hominem, sive vixisse sine ullo omnino peccato. Nam si testimonia Scripturarum, quibus existimo definitum, nullum hominem hic viventem, quamvis utatur libero arbitrio, inveniri sine peccato, sicuti est, Ne intres in judicium cum servo tuo, quoniam non justificabitur in conspectu tuo omnis vivens, et caetera talia, quisquam docere potuerit aliter accipienda quam sonant, et demonstraverit aliquem vel aliquos sine ullo hic vixisse peccato; qui non ei, non solum minime adversatus, verum etiam plurimum gratulatus fuerit, non mediocribus invidentiae stimulis agitatur. Quin etiam si nemo est, aut fuit, aut erit, quod magis credo, tali puritate perfectus, et tamen esse, aut fuisse, aut fore defenditur et putatur; quantum ego judicare possum, non multum erratur, nec perniciose, cum quadam quisque benevolentia fallitur: si tamen qui hoc putat, se ipsum talem esse non putet, nisi revera ac liquido talem se esse perspexerit."
+    },
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "sectionId": "01M6N296XKBCVD7SQ55PJBX85W",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Sed illis acerrime ac vehementissime resistendum est, qui putant sine adjutorio Dei per se ipsam vim voluntatis humanae vel justitiam posse perficere, vel ad eam tenendo proficere: et cum urgeri coeperint, quomodo id praesumant asserere fieri sine ope divina, reprimunt se, nec hanc vocem audent emittere, quoniam vident quam sit impia, et non ferenda. Sed aiunt, ideo ista sine ope divina non fieri, quia et hominem Deus creavit cum libero voluntatis arbitrio, et dando praecepta ipse docet quemadmodum homini sit vivendum; et in eo utique adjuvat, quod docendo aufert ignorantiam, ut sciat homo in operibus suis quid evitare, et quid appetere debeat; quo per liberum arbitrium naturaliter insitum, viam demonstratam ingrediens, continenter et juste et pie vivendo ad beatam eandemque aeternam vitam pervenire mereatur."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02F",
+      "sectionId": "01M6N296XKBCVD7SQ55PJBX860",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Nos autem dicimus humanam voluntatem sic divinitus adjuvari ad faciendam justitiam, ut praeter quod creatus est homo cum libero arbitrio voluntatis, praeterque doctrinam qua ei praecipitur quemadmodum vivere debeat, accipiat Spiritum Sanctum, quo fiat in animo ejus delectatio dilectioque summi illius atque incommutabilis boni quod Deus est, etiam nunc cum adhuc per fidem ambulatur, nondum per speciem: ut hac sibi velut arrha data gratuiti muneris inardescat inhaerere Creatori, atque inflammetur accedere ad participationem illius veri luminis, ut ex illo ei bene sit, a quo habet ut sit. Nam neque liberum arbitrium quidquam nisi ad peccandum valet, si lateat veritatis via et cum id quod agendum et quo nitendum est coeperit non latere, nisi etiam delectet et ametur, non agitur, non suscipitur, non bene vivitur. Ut autem diligatur, charitas Dei diffunditur in cordibus nostris, non per arbitrium liberum quod surgit ex nobis, sed per Spiritum Sanctum qui datus est nobis."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02H",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02G",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Doctrina quippe illa, qua mandatum accipimus continenter recteque vivendi, littera est occidens, nisi adsit vivificans Spiritus. Neque enim solo illo modo intelligendum est quod legimus, Littera occidit, spiritus autem vivificat, ut aliquid figurate scriptum, cujus est absurda proprietas, non accipiamus sicut littera sonat, sed aliud quod significat intuentes, interiorem hominem spirituali intelligentia nutriamus, quoniam sapere secundum carnem mors est, sapere autem secundum spiritum vita et pax. Velut si quisquam multa quae scripta sunt in Cantico Canticorum carnaliter accipiat, non ad luminosae charitatis fructum, sed ad libidinosae cupiditatis affectum. Non ergo solo illo modo intelligendum est quod ait Apostolus, Littera occidit, spiritus autem vivificat: sed etiam illo, eoque vel maxime, quo apertissime alio loco dicit, Concupiscentiam nesciebam, nisi lex diceret, Non concupisces. Et paulo post ait: Occasione accepta peccatum per mandatum fefellit me, et per illud occidit. Ecce quid est, Littera occidit. Et utique non figurate aliquid dicitur, quod accipiendum non sit secundum litterae sonum, cum dicitur, Non concupisces: sed apertissimum saluberrimumque praeceptum est, quod si quis impleverit, nullum habebit omnino peccatum. Nam hoc ideo elegit Apostolus generale quiddam, quo cuncta complexus est, tanquam haec esset vox legis ab omni peccato prohibentis, quod ait, Non concupisces; neque enim ullum peccatum nisi concupiscendo committitur: proinde quae hoc praecipit, bona et laudabilis lex est. Sed ubi Sanctus non adjuvat Spiritus, inspirans pro concupiscentia mala concupiscentiam bonam, hoc est, charitatem diffundens in cordibus nostris; profecto illa lex, quamvis bona, auget prohibendo desiderium malum: sicut aquae impetus, si in eam partem non cesset influere, vehementior fit obice opposito, cujus molem cum evicerit, majore cumulo praecipitatus violentius per prona provolvitur. Nescio quo enim modo, hoc ipsum quod concupiscitur fit jucundius dum vetatur. Et hoc est quod fallit peccatum per mandatum, et per illud occidit, cum accedit etiam praevaricatio, quae nulla est ubi lex non est."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02K",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02J",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Sed totum ipsum apostolicae epistolae locum, si placet, consideremus, et sicut Dominus adjuverit pertractemus. Volo enim, si potuero, demonstrare illud quod ait Apostolus, Littera occidit, spiritus autem vivificat, non de figuratis locutionibus dictum, quamvis et illinc congruenter accipiatur; sed potius de lege aperte quod malum est prohibente. Quod cum ostendero, profecto manifestius apparebit, bene vivere donum esse divinum: non tantum quia homini Deus dedit liberum arbitrium, sine quo nec male nec bene vivitur; nec tantum quia praeceptum dedit, quo doceat quemadmodum sit vivendum: sed quia per Spiritum Sanctum diffundit charitatem in cordibus eorum quos praescivit ut praedestinaret, praedestinavit ut vocaret, vocavit ut justificaret, justificavit ut glorificaret. Hoc autem cum apparuerit, videbis, ut existimo, frustra dici illa tantum esse possibilia sine exemplo, quae Dei opera sunt; sicut de cameli transitu per foramen acus commemoravimus, et quaecumque alia sunt apud nos impossibilia, apud Deum autem facilia: et ideo non inter haec humanam deputandam esse justitiam, quod non ad Dei, sed ad hominis opus pertinere debeat; cujus perfectio, si est in hac vita possibilis, nullam esse causam cur sine exemplo esse credatur. Hoc ergo frustra dici, satis elucebit, cum et ipsam humanam justitiam operationi Dei tribuendam esse claruerit, quamvis non fiat sine hominis voluntate: et ideo ejus perfectionem etiam in hac vita esse possibilem, negare non possumus; quia omnia possibilia sunt Deo, sive quae facit sola sua voluntate, sive quae cooperantibus creaturae suae voluntatibus a se fieri posse constituit. Ac per hoc quidquid eorum non facit, sine exemplo est quidem in operibus factis; sed apud Deum et in ejus virtute habet causam qua fieri possit, et in ejus sapientia quare non factum sit: quae causa etiamsi lateat hominem, non se obliviscatur esse hominem, nec propterea Deo det insipientiam, quia non plene capit ejus sapientiam."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02M",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02J",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Attende igitur Apostolum ad Romanos explicantem, satisque monstrantem quod scripsit ad Corinthios, Littera occidit, spiritus autem vivificat, sic magis accipiendum, quemadmodum supra diximus; quoniam legis littera quae docet non esse peccandum, si spiritus vivificans desit, occidit: sciri enim facit peccatum potius quam caveri, et ideo magis augeri quam minui, quia malae concupiscentiae etiam praevaricatio legis accedit."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02P",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02N",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Volens ergo Apostolus commendare gratiam, quae per Jesum Christum omnibus gentibus venit, ne Judaei adversus caeteras gentes de accepta lege se extollerent; posteaquam dixit peccatum et mortem per unum hominem intrasse in genus humanum, et per unum hominem justitiam et vitam aeternam, illum Adam, hunc Christum apertissime insinuans, ait: Lex autem subintravit ut abundaret delictum; ubi autem abundavit delictum, superabundavit gratia: ut quemadmodum regnavit peccatum in mortem, sic et gratia regnet per justitiam in vitam aeternam per Jesum Christum Dominum nostrum. Deinde opponens sibi ipse quaestionem, Quid ergo dicemus? inquit. Permanebimus in peccato, ut gratia abundet? Absit. Vidit enim a perversis perverse posse accipi quod dixerat, Lex subintravit ut abundaret delictum; ubi autem abundavit delictum, superabundavit gratia: tanquam dixerit, propter abundantiam gratiae prodesse peccatum. Hoc diluens, respondit, Absit: atque subjecit, Qui mortui sumus peccato, quomodo vivemus in eo? Hoc est, cum id praestiterit gratia, ut moreremur peccato, quid aliud faciemus, si vivemus in eo, nisi ut gratiae simus ingrati? Neque enim qui laudat beneficium medicinae, prodesse morbos dicit et vulnera, a quibus illa hominem sanat: sed quanto majoribus medicina laudibus praedicatur, tanto magis vituperantur et horrentur vulnera et morbi, a quibus liberat quae ita laudatur. Sic laus et praedicatio gratiae vituperatio et damnatio est delictorum. Demonstranda enim fuerat homini foeditas languoris ejus, cui contra iniquitatem suam nec praeceptum sanctum et bonum profuit, quo magis aucta est iniquitas quam minuta; quandoquidem lex subintravit, ut abundaret delictum; ut eo modo convictus atque confusus, videret non tantum doctorem sibi esse necessarium, verum etiam adjutorem Deum, a quo ejus itinera dirigantur, ne dominetur ei omnis iniquitas, et confugiendo ad opem divinae misericordiae sanetur: atque ita ubi abundavit delictum, superabundet gratia, non peccantis merito, sed subvenientis auxilio."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02Q",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02N",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Consequenter eamdem medicinam in passione et resurrectione Christi mystice demonstratam ostendit Apostolus, dicens: An ignoratis quoniam quicumque baptizati sumus in Christo Jesu, in morte ipsius baptizati sumus? Consepulti ergo sumus illi per baptismum in mortem; ut quemadmodum surrexit Christus a mortuis per gloriam Patris, ita et nos in novitate vitae ambulemus. Si enim complantati fuimus similitudini mortis ejus, sed et resurrectionis erimus: hoc scientes, quia vetus homo noster simul crucifixus est, ut evacuetur corpus peccati, ut ultra non serviamus peccato. Qui enim mortuus est, justificatus est a peccato. Si autem mortui sumus cum Christo, credimus quia simul vivemus cum illo; scientes quia Christus surgens a mortuis jam non moritur, et mors ei ultra non dominabitur. Quod enim mortuus est peccato, mortuus est semel: quod autem vivit, vivit Deo. Ita et vos existimate vos mortuos esse peccato, vivere autem Deo in Christo Jesu. Nempe satis elucet mysterio Dominicae mortis et resurrectionis figuratum vitae nostrae veteris occasum, et exortum novae, demonstratamque iniquitatis abolitionem renovationemque justitiae. Unde igitur hoc tantum beneficium homini per litteram legis, nisi per fidem Jesu Christi?"
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02S",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02R",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Haec cogitatio sancta servat filios hominum, in protectione alarum Dei sperantes, ut inebrientur ab ubertate domus ejus, et torrente voluptatis ejus potentur: quoniam apud ipsum est fons vitae, et in lumine ejus videbimus lumen; qui praetendit misericordiam suam scientibus eum, et justitiam suam iis qui recto sunt corde. Neque enim quia sciunt, sed etiam ut sciant eum, praetendit misericordiam suam: nec quia recti sunt corde, sed etiam ut recti sint corde, praetendit justitiam suam, qua justificat impium. Haec cogitatio non effert in superbiam; quod vitium oritur, cum sibi quisque praefidit, seque sibi ad vivendum caput facit. Quo motu receditur ab illo fonte vitae, cujus solius haustu justitia bibitur, bona scilicet vita; et ab illo incommutabili lumine, cujus participatione anima rationalis quodam modo accenditur ut sit etiam ipsa factum creatumque lumen: sicut erat Joannes lucerna ardens et lucens; qui tamen unde luceret agnoscens, Nos, inquit, de plenitudine ejus accepimus: cujus, nisi illius utique in cujus comparatione Joannes non erat lumen? Illud enim erat verum lumen quod illuminat omnem hominem venientem in hunc mundum. Proinde cum dixisset in eodem psalmo, Praetende misericordiam tuam scientibus te, et justitiam tuam his qui recto sunt corde: Non veniat, inquit, mihi pes superbiae, et manus peccatorum non moveat me: ibi ceciderunt omnes qui operantur iniquitatem; expulsi sunt, nec potuerunt stare. Hac quippe impietate, qua tribuit sibi quisque quod Dei est, pellitur in tenebras suas, quae sunt opera iniquitatis. Haec enim plane ipse facit, et ad haec implenda sibi est idoneus. Opera vero justitiae non facit, nisi quantum ex illo fonte atque ex illo lumine percipit, ubi nullius indigens vita est, et ubi non est commutatio, nec momenti obumbratio."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02T",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02R",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Ideo Paulus Apostolus, qui cum Saulus prius vocaretur, non ob aliud, quantum mihi videtur, hoc nomen elegit, nisi ut se ostenderet parvum, tanquam minimum Apostolorum; multum contra superbos et arrogantes, et de suis operibus praesumentes, pro commendanda ista Dei gratia fortiter atque acriter dimicans; quia revera in illo evidentior et clarior apparuit, qui cum talia operaretur vehementer Ecclesiam Dei persequens, pro quibus summo supplicio dignus fuit, misericordiam pro damnatione suscepit, et pro poena consecutus est gratiam; merito pro ejus defensione clamat atque concertat, nec in re profunda et nimis abdita non intelligentium, et verba sua sana in perversum sensum detorquentium curat invidiam; dum tamen incunctanter praedicet donum Dei, quo uno salvi fiunt filii promissionis, filii beneficii divini, filii gratiae et misericordiae, filii Testamenti Novi. Primum, quod omnis ejus salutatio sic se habet: Gratia vobis et pax a Deo Patre et Domino Jesu Christo. Deinde, ad Romanos pene ipsa quaestio sola versatur, tam pugnaciter, tam multipliciter, et fatiget quidem legentis intentionem, sed tamen fatigatione utili ac salubri, ut interioris hominis magis exerceat membra quam frangat."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02W",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02V",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Inde sunt quae supra commemoravi. Inde est quod Judaeum arguit, eumque dicit Judaeum cognominari, et nequaquam id quod profitetur implere. Si autem tu, inquit, Judaeus cognominaris, et requiescis in lege, et gloriaris in Deo, et nosti voluntatem, et probas distantia, instructus ex lege, confidis te ipsum ducem esse caecorum, lumen eorum qui in tenebris, eruditorem insipientium, magistrum infantium, habentem formam scientiae et veritatis in lege. Qui ergo alium doces, te ipsum non doces? qui praedicas non furandum, furaris? qui dicis non adulterandum, adulteras? qui abominaris idola, sacrilegium facis? qui in lege gloriaris, per praevaricationem legis Deum inhonoras? Nomen enim Dei per vos blasphematur in Gentibus, sicut scriptum est. Circumcisio quidem prodest, si legem custodias: si autem praevaricator legis sis, circumcisio tua praeputium facta est. Si igitur praeputium justitias legis custodiat, nonne praeputium ejus in circumcisionem reputabitur; et judicabit quod ex natura est praeputium, legem perficiens, te qui per litteram et circumcisionem praevaricator legis es? Non enim qui in manifesto, Judaeus est, neque quae in manifesto in carne, est circumcisio; sed qui in abscondito, Judaeus est, et circumcisio cordis in spiritu, non littera, cujus laus non ex hominibus, sed ex Deo est. Hic manifestavit quemadmodum dixerit, gloriaris in Deo. Nam utique si vere talis Judaeus gloriaretur in Deo, eo modo quo postulat gratia, quae non operum meritis, sed gratuito datur, ex Deo esset laus ejus, non ex hominibus. Sed ita gloriabantur in Deo, velut qui soli meruissent legem ejus accipere, secundum illam vocem Psalmi, qua dictum est, Non fecit sic ulli genti, et judicia sua non manifestavit eis. Quam tamen Dei legem sua justitia se arbitrabantur implere, cum magis ejus praevaricatores essent. Unde illis iram operabatur, abundante peccato, quod ab scientibus perpetrabatur. Quia et quicumque faciebant quod lex jubebat, non adjuvante Spiritu gratiae, timore poenae faciebant, non amore justitiae: ac per hoc coram Deo non erat in voluntate, quod coram hominibus apparebat in opere; potiusque ex illo rei tenebantur, quod eos noverat Deus malle, si fieri posset impune, committere. Circumcisionem autem cordis dicit, puram scilicet ab omni illicita concupiscentia voluntatem: quod non fit littera docente et minante, sed Spiritu adjuvante atque sanante. Ideo laus talium non ex hominibus, sed ex Deo est, qui per suam gratiam praestat unde laudentur, de quo dicitur, In Domino laudabitur anima mea; et cui dicitur, Apud te laus mea: non quales illi sunt qui Deum laudari volunt quod homines sunt, se autem quod justi sunt."
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02X",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02V",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "‘Sed laudamus,’ inquiunt, ‘et Deum nostrae justificationis auctorem, in eo quod legem dedit, cujus intuitu noverimus quemadmodum vivere debeamus.’ Nec audiunt quod legunt, Quia non justificabitur ex lege omnis caro coram Deo. Potest enim fieri coram hominibus, non autem coram illo qui cordis ipsius et intimae voluntatis inspector est, ubi videt, etiamsi aliud faciat qui legem timet, quid tamen mallet facere, si liceret. Ac ne quisquam putaret hic Apostolum ea lege dixisse neminem justificari, quae in sacramentis veteribus multa continet figurata praecepta, unde etiam ipsa est circumcisio carnis, quam die octavo accipere parvuli jussi sunt; continuo subjunxit quam legem dixerit, et ait, Per legem enim cognitio peccati. Illa igitur lex est, de qua postea dicit, Peccatum non cognovi nisi per legem. Nam concupiscentiam nesciebam, nisi lex diceret, Non concupisces. Nam quid est aliud, Per legem enim cognitio peccati?"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3V4",
+      "sectionId": "01M6N296XM67B5DT6XFEEHB02Y",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Hic forte dicat illa humana praesumptio, ignorans Dei justitiam, et suam volens constituere, merito dixisse Apostolum, Quia ex lege nemo justificabitur: ostendit enim tantummodo lex quid faciendum, quidve cavendum sit, ut quod illa ostenderit voluntas impleat, ac sic homo justificetur, non per legis imperium, sed per liberum arbitrium. Sed, o homo, attende quod sequitur: Nunc autem, inquit, sine lege justitia Dei manifestata est, testificata per Legem et Prophetas. Parumne insonat surdis? Justitia, inquit, Dei manifestata est. Hanc ignorant qui suam volunt constituere: huic nolunt esse subjecti. Justitia, inquit, Dei manifestata est: non dixit, Justitia hominis, vel justitia propriae voluntatis; sed, justitia Dei, non qua Deus justus est, sed qua induit hominem, cum justificat impium. Haec testificatur per Legem et Prophetas huic quippe testimonium perhibent Lex et Prophetae. Lex quidem hoc ipso, quod jubendo et minando, et neminem justificando, satis indicat, dono Dei justificari hominem per adjutorium Spiritus: Prophetae autem, quia id quod praedixerunt, Christi implevit adventus. Nam hinc sequitur et adjungit, dicens, Justitia autem Dei per fidem Jesu Christi, hoc est, per fidem qua creditur in Christum. Sicut autem ista fides Christi dicta est non qua credit Christus: sic et illa justitia Dei non qua justus est Deus. Utrumque enim nostrum est; sed ideo Dei et Christi dicitur, quod ejus nobis largitate donatur. Justitia ergo Dei sine lege, non sine lege manifestata est. Quomodo enim per legem testificata, si sine lege manifestata? Sed justitia Dei sine lege est, quam Deus per Spiritum gratiae credenti confert sine adjutorio legis, hoc est, non adjuto a lege. Quandoquidem per legem ostendit homini infirmitatem suam, ut ad ejus misericordiam per fidem confugiens sanaretur. De sapientia quippe ejus dictum est, quod legem et misericordiam in lingua portet: legem scilicet, qua reos faciat superbos; misericordiam vero, qua justificet humiliatos. Justitia ergo Dei per fidem Jesu Christi in omnes qui credunt: non enim est distinctio: omnes enim peccaverunt, et egent gloria Dei, non gloria sua. Quid enim habent, quod non acceperunt? Si autem acceperunt, quid gloriantur, quasi non acceperint? Egent itaque gloria Dei, et vide quid sequatur: Justificati gratis per gratiam ipsius. Non itaque justificati per legem, non justificati per propriam voluntatem: sed justificati gratis per gratiam ipsius; non quod sine voluntate nostra fiat, sed voluntas nostra ostenditur infirma per legem, ut sanet gratia voluntatem, et sanata voluntas impleat legem, non constituta sub lege, nec indigens lege."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3V6",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3V5",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Justo enim lex non est posita: quae tamen bona est, si quis ea legitime utatur. Haec duo Apostolus velut inter se contraria connectens, monet movetque lectorem ad perscrutandam quaestionem atque solvendam. Quomodo enim bona est lex, si quis ea legitime utatur; si etiam quod sequitur verum est, Sciens hoc, quia justo lex non est posita? Nam quis legitime utitur lege, nisi justus? At ei non est posita, sed injusto. An et injustus, ut justificetur, id est, ut justus fiat, legitime lege uti debet, qua tanquam paedagogo perducatur ad gratiam, per quam solam quod lex jubet possit implere? Per ipsam quippe justificatur gratis, id est, nullis suorum operum praecedentibus meritis; alioquin gratia jam non est gratia: quando quidem ideo datur, non quia bona opera fecimus, sed ut ea facere valeamus; id est, non quia legem implevimus, sed ut legem implere possimus. Ille enim dixit, Non veni solvere legem, sed implere: de quo dictum est, Vidimus gloriam ejus, gloriam tanquam Unigeniti a Patre, plenum gratia et veritate. Haec est gloria de qua dictum est, Omnes enim peccaverunt, et egent gloria Dei: et haec est gratia de qua continuo dicit, Justificati gratis per gratiam ipsius. Injustus ergo legitime lege utitur, ut justus fiat; quod cum factus fuerit, ea jam non utatur tanquam vehiculo cum pervenerit, vel potius, ut supra dicta similitudine Apostoli utar, tanquam paedagogo cum eruditus fuerit. Quomodo enim justo lex non est posita, si et justo est necessaria, non qua injustus ad justificantem gratiam perducatur, sed qua legitime jam justus utatur? An forte, imo vero non forte, sed certe, sic legitime utitur lege jam justus, cum eam terrendis imponit injustis, ut cum et in ipsis coeperit inolitae concupiscentiae morbus incentivo prohibitionis et cumulo praevaricationis augeri, confugiant per fidem ad justificantem gratiam, et per donum Spiritus suavitate justitiae delectati poenam litterae minantis evadant? Ita non erunt contraria, neque inter se duo ista pugnabunt, ut etiam justus bona lege legitime utatur, et tamen justo lex posita non sit: non enim ex ea justificatus est, sed ex lege fidei, qua credidit nullo modo posse suae infirmitati ad implenda ea, quae lex factorum juberet, nisi divina gratia subveniri."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3V7",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3V5",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Ideo dicit, Ubi est ergo gloriatio tua? Exclusa est. Per quam legem? factorum? Non, sed per legem fidei. Sive gloriationem dixerit laudabilem, quae in Domino est, eamque exclusam, id est, non ut abscederet pulsam, sed ut emineret expressam. Unde et exclusores dicuntur quidam artifices argentarii. Hinc est et illud in Psalmis, Ut excludantur ii qui probati sunt argento: hoc est, ut emineant qui probati sunt eloquio Domini. Nam et alibi dicitur: Eloquia Domini eloquia casta, argentum igne examinatum. Sive gloriationem vitiosam de superbia venientem commemorare voluerit, eorum scilicet, qui cum sibi juste videntur vivere, ita gloriantur, quasi non acceperint: eamque non per legem factorum, sed per legem fidei dicit exclusam, id est, ejectam et abjectam; quia per legem fidei quisque cognoscit, si quid bene vivit, Dei gratia se habere, et ut perficiatur in dilectione justitiae non se aliunde consecuturum."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3V9",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3V8",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Quae cogitatio pium facit, quia pietas est vera sapientia: pietatem dico quam Graeci θεοσέβειαν vocant: ipsa quippe commendata est, cum dictum est homini, quod in libro Job legitur, Ecce pietas est sapientia. Θεοσέβεια porro, si ad verbi originem Latine expressam interpretaretur, Dei cultus dici poterat, qui in hoc maxime constitutus est, ut anima ei non sit ingrata. Unde et in ipso verissimo et singulari sacrificio, Domino Deo nostro agere gratias admonemur. Erit autem ingrata, si quod illi ex Deo est, sibi tribuerit, praecipueque justitiam, cujus operibus velut propriis et velut a semetipsa sibimet partis, non vulgariter, tanquam ex divitiis aut membrorum forma aut eloquentia, caeterisque, sive externis sive internis, sive corporis sive animi bonis, quae habere etiam scelerati solent, sed tanquam de iis quae proprie sunt bona bonorum quasi sapienter inflatur. Quo vitio repulsi a divinae stabilitate substantiae, etiam magni quidam viri ad idololatriae dedecus defluxerunt. Unde idem Apostolus in eadem Epistola, in qua vehemens defensor est gratiae, cum se dixisset esse Graecis ac Barbaris, sapientibus et insipientibus debitorem, et ideo quod ad ipsum pertineret, promptum esse et his qui Romae essent evangelizare: Non enim confundor, inquit, de Evangelio; virtus enim Dei est in salutem omni credenti, Judaeo primum et Graeco. Justitia enim Dei in eo revelatur ex fide in fidem, sicut scriptum est, Justus autem ex fide vivit. Haec est justitia Dei, quae in Testamento Veteri velata, in Novo revelatur: quae ideo justitia Dei dicitur, quod impertiendo eam justos facit; sicut Domini est salus, qua salvos facit. Et haec est fides, ex qua et in quam revelatur, ex fide scilicet annuntiantium, in fidem obedientium qua fide Jesu Christi, id est, quam nobis contulit Christus, credimus ex Deo nobis esse, pleniusque futurum esse, quod juste vivimus; unde illi ea pietate, qua solus colendus est, gratias agimus."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VB",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VA",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Nec immerito se Apostolus ex hoc articulo convertit ad eos cum detestatione commemorandos, qui vitio illo, quod superius memoravi, leves et inflati, ac per se ipsos velut per inane sublati, ubi non requiescerent, sed fracti dissilirent, in figmenta idolorum tanquam in lapides deciderunt. Quia enim commendaverat pietatem fidei, qua Deo justificati grati esse debemus, velut contrarium quod detestaremur subinferens: Revelatur enim, inquit, ira Dei de coelo super omnem impietatem et injustitiam hominum eorum qui veritatem in injustitia detinent: quia quod notum est Dei, manifestum est in illis; Deus enim illis manifestavit. Invisibilia enim ejus, a creatura mundi, per ea quae facta sunt, intellecta conspiciuntur, sempiterna quoque virtus ejus ac divinitas, ut sint inexcusabiles; quia cognoscentes Deum, non ut Deum glorificaverunt, aut gratias egerunt, sed evanuerunt in cogitationibus suis, et obscuratum est insipiens cor eorum: dicentes se esse sapientes, stulti facti sunt, et mutaverunt gloriam incorruptibilis Dei in similitudinem imaginis corruptibilis hominis, et volucrum, et quadrupedum, et serpentium. Vide quemadmodum non eos dixerit veritatis ignaros, sed quod veritatem in iniquitate detinuerint. Quia vero occurrebat animo, ut quaereretur unde illis esse potuerit cognitio veritatis, quibus Deus legem non dederat; neque hoc tacuit unde habere potuerint: per visibilia namque creaturae pervenisse eos dixit ad intelligentiam invisibilium Creatoris. Quoniam revera, sicut magna ingenia quaerere perstiterunt, sic invenire potuerunt. Ubi ergo impietas? Quia videlicet cum cognovissent Deum, non sicut Deum glorificaverunt, aut gratias egerunt, sed evanuerunt in cogitationibus suis. Eorum proprie vanitas morbus est, qui se ipsos seducunt, dum videntur sibi aliquid esse cum nihil sint. Denique hoc tumore superbiae sese obumbrantes, cujus pedem sibi non venire deprecatur sanctus ille cantor, qui dixit, In lumine tuo videbimus lumen; ab ipso lumine incommutabilis veritatis aversi sunt, et obscuratum est insipiens cor eorum. Non enim sapiens cor, quamvis cognovissent Deum; sed insipiens potius, quia non sicut Deum glorificaverunt, aut gratias egerunt. Dixit enim homini, Ecce pietas est sapientia: ac per hoc dicentes se esse sapientes, quod non aliter intelligendum est, nisi, hoc ipsum sibi tribuentes, stulti facti sunt."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VC",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VA",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Jam quae sequuntur quid opus est dicere? Per hanc quippe impietatem illi homines, illi, inquam, homines qui per creaturam Creatorem cognoscere potuerunt, quo prolapsi, cum Deus superbis resistit, atque ubi demersi sint, melius ipsius Epistolae consequentia docent, quam hic commemoratur a nobis. Neque enim isto opere hanc Epistolam exponendam suscepimus, sed ejus maxime testimonio demonstrare quantum possumus nitimur, non in eo nos divinitus adjuvari ad operandam justitiam, quod legem Deus dedit plenam bonis sanctisque praeceptis; sed quod ipsa voluntas nostra, sine qua operari bonum non possumus, adjuvetur et erigatur impartito Spiritu gratiae, sine quo adjutorio doctrina illa littera est occidens, quia reos potius praevaricationis tenet, quam justificat impios. Nam sicut illis per creaturam cognitoribus Creatoris ea ipsa cognitio nihil profuit ad salutem, quia cognoscentes Deum, non sicut Deum glorificaverunt, aut gratias egerunt, dicentes se esse sapientes: ita eos qui per legem cognoscunt quemadmodum sit homini vivendum, non justificat ipsa cognitio, quia volentes suam justitiam constituere, justitiae Dei non sunt subjecti."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VE",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VD",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Lex ergo factorum, id est, operum, per quam non excluditur illa gloriatio, et lex fidei, per quam excluditur, quo inter se differant, operae pretium est considerare; si tamen valemus advertere atque discernere. Cito enim quisque dixerit legem operum esse in Judaismo, legem autem fidei in Christianismo, propterea quia circumcisio caeteraque opera talia legis sunt, quae Christiana jam disciplina non servat: sed quantum fallat ista discretio, jam diu quidem est ut molimur ostendere, et acutis ad dignoscendum, tibique potissimum ac talibus, fortasse jam ostendimus: verumtamen quoniam res magna est, non incongruenter in ea manifestanda pluribus etiam atque etiam testimoniis immoramur. Ipsam enim dicit legem ex qua nemo justificatur, quam dicit subintrasse ut abundaret delictum, quam tamen ne quisquam ob hoc imperitus argueret et sacrilegus accusaret, defendit eam, dicens: Quid ergo dicemus? Lex peccatum est? Absit: sed peccatum non cognovi nisi per legem: nam concupiscentiam nesciebam nisi lex diceret, Non concupisces. Occasione itaque accepta, peccatum per mandatum operatum est in me omnem concupiscentiam. Dicit etiam, Lex quidem sancta, et mandatum sanctum et justum et bonum; sed peccatum, ut appareat peccatum, per bonum mihi operatum est mortem. Ipsa est ergo littera occidens, quae dicit, Non concupisces de qua item dicit quod paulo ante commemoravi, Per legem enim cognitio peccati. Nunc autem sine lege justitia Dei manifestata est, testificata per Legem et Prophetas, justitia autem Dei per fidem Jesu Christi in omnes qui credunt: non enim est distinctio. Omnes enim peccaverunt, et egent gloria Dei: justificati gratis per gratiam ipsius, per redemptionem quae est in Christo Jesu; quem proposuit Deus propitiatorium per fidem in sanguine ipsius, ad ostensionem justitiae ejus, propter propositum praecedentium peccatorum in Dei patientia, ad ostendendam justitiam ipsius in hoc tempore, ut sit justus et justificans eum qui ex fide est Jesu. Deinde subinfert unde nunc agimus: Ubi est ergo gloriatio tua? Exclusa est. Per quam legem? factorum? Non, sed per legem fidei. Lex ergo ista factorum ipsa est quae dicit, Non concupisces: quia per illam cognitio peccati est. Volo igitur scire, si quis mihi dicere audeat, utrum lex fidei non dicat, Non concupisces. Si enim non dicit, quid causae est cur non in ea positi securi atque impune peccemus? Hoc enim et illi putaverunt Apostolum dicere, de quibus ait: Et sicut dicunt nos quidam dicere, faciamus mala, ut veniant bona; quorum judicium justum est. Si autem dicit etiam ipsa, Non concupisces; sicut tam multa praecepta evangelica et apostolica testificari et clamare non cessant: quare lex factorum etiam ipsa non dicitur? Neque enim quia non habet opera veterum sacramentorum, circumcisionis videlicet atque caeterorum, ideo non sunt ‘opera’ quae habet in sacramentis suis huic tempori congruis; aut vero de operibus sacramentorum quaestio fuit, quando mentio legis ob hoc fiebat, quia per ipsam cognitio peccati est, et ideo ex ea nemo justificatur: unde non per illam exclusa est gloriatio, sed per legem fidei, ex qua justus vivit. Sed numquid et per istam non fit cognitio peccati, cum et ipsa dicat, Non concupisces?"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VF",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VD",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Quid igitur interest, breviter dicam. Quod operum lex minando imperat, hoc fidei lex credendo impetrat. Illa dicit, Non concupisces; ista dicit, Cum scirem quia nemo esse potest continens nisi Deus det, et hoc ipsum erat sapientiae, scire cujus esset hoc donum; adii Dominum, et deprecatus sum. Ipsa est illa sapientia quae pietas vocatur, qua colitur Pater luminum, a quo est omne datum optimum, et omne donum perfectum. Colitur autem sacrificio laudis actionisque gratiarum, ut cultor ejus non in se ipso, sed in illo glorietur. Ac per hoc lege operum dicit Deus, ‘Fac quod jubeo:’ lege fidei dicitur Deo, ‘Da quod jubes.’ Ideo enim jubet lex, ut admoneat quod faciat fides; id est, ut cui jubetur, si nondum potest, sciat quid petat: si autem continuo potest, et obedienter facit, debet etiam scire quo donante possit. Non enim spiritum hujus mundi accepimus, ait idem ipse constantissimus gratiae praedicator; sed spiritum qui ex Deo est, ut sciamus quae a Deo donata sunt nobis. Quis est autem spiritus mundi hujus, nisi superbiae spiritus? Quo cor insipiens obscuratum est eorum, qui cognitum Deum non ut Deum gratias agendo glorificaverunt: nec alio spiritu decipiuntur etiam illi, qui ignorantes Dei justitiam, et suam justitiam volentes constituere, justitiae Dei non sunt subjecti. Unde mihi videtur magis esse fidei filius, qui novit a quo speret quod nondum habet, quam qui sibi tribuit id quod habet: quamvis utrique horum praeferendus sit, qui et habet et novit a quo habet; si tamen non se credat esse quod nondum est; ne incidat in vitium illius Pharisaei, qui quanquam Deo gratias ageret ex iis quae habebat, nihil tamen petebat dari sibi, tanquam nihilo indigeret ad augendam perficiendamve justitiam. His igitur consideratis pertractatisque pro viribus quas Dominus donare dignatur, colligimus non justificari hominem praeceptis bonae vitae nisi per fidem Jesu Christi, hoc est, non lege operum, sed fidei; non littera, sed spiritu; non factorum meritis, sed gratuita gratia."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VH",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VG",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Quamvis itaque illos, quibus circumcisio persuadebatur, ita corripere atque corrigere videatur Apostolus, ut legis nomine eamdem circumcisionem appellet, caeterasque ejusmodi legis observationes, quas tanquam umbras futuri jam nunc respuunt Christiani, id tenentes quod per illas umbras figurate promittebatur: tamen legem ex qua neminem dicit justificari, non tantum in illis sacramentis quae habuerunt promissivas figuras, verum etiam in illis operibus vult intelligi, quae quisquis fecerit, juste vivit: ubi est et illud, Non concupisces. Atque ut hoc quod dicimus fiat planius, ipsum Decalogum videamus. Certe enim legem Moyses ministrandam populo accepit in monte, scriptam in lapideis tabulis digito Dei: haec decem praeceptis constringitur, ubi nihil de circumcisione mandatum est, nihil de victimis pecorum, quae nunc a Christianis non immolantur. In illis igitur decem praeceptis, excepta sabbati observatione, dicatur mihi quid non sit observandum a Christiano, sive de non faciendis colendisque idolis aliisque ullis diis praeter unum verum Deum, sive de non accipiendo nomine Dei in vanum, sive de honore parentibus deferendo, sive de cavendis fornicationibus, homicidiis, furtis, falsis testimoniis, adulteriis, re aliena concupiscenda. Quid horum quisquam dixerit Christianum non debere servare? An forte non istam legem quae in illis duabus tabulis scripta est, ‘litteram occidentem’ appellat Apostolus, sed illam circumcisionis aliorumque veterum jamque abolitorum sacramentorum? Sed quomodo putabimus, cum in ea sit, Non concupisces: per quod mandatum, quamvis sanctum et justum et bonum, fefellit me, inquit, peccatum, et per illud occidit? Quid enim aliud est, Littera occidit?"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VJ",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VG",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Quamvis evidentius eo ipso loco ad Corinthios, ubi ait, Littera occidit, spiritus autem vivificat; non aliam velit intelligi litteram, quam ipsum Decalogum in illis duabus tabulis scriptum. Sic enim dicit: Quoniam estis epistola Christi ministrata per nos, scripta non atramento, sed spiritu Dei vivi; non in tabulis lapideis, sed in tabulis cordis carnalibus. Confidentiam autem talem habemus per Christum ad Deum, non quia idonei simus cogitare aliquid a nobis quasi ex nobismetipsis; sed sufficientia nostra ex Deo est, qui idoneos nos fecit ministros Novi Testamenti, non litterae, sed spiritus. Littera enim occidit, spiritus autem vivificat. Si autem ministratio mortis in litteris figurata in lapidibus fuit in gloria; ita ut non possent intendere filii Israel in faciem Moysi, propter gloriam vultus ejus quae evacuatur; quare non magis ministratio spiritus erit in gloria? Si enim ministratio damnationis gloria est, multo magis abundabit ministerium justitiae in gloria. Dici de his verbis multa possunt, sed postea fortasse opportunius. Nunc autem adverte quam dicant litteram quae occidit, cui velut e contrario vivificantem spiritum ingerit. Ea certe est ministratio mortis in litteris figurata lapideis, et ministratio damnationis; quia lex subintravit, ut abundaret delictum. Porro autem praecepta ipsa tam sunt utilia facienti atque salubria, ut nisi quis ea fecerit, vitam habere non possit. An vero propter unum praeceptum quod ibi de sabbato est positum, dictus est Decalogus littera occidens, quoniam quisquis illum diem nunc usque observat sicut littera sonat, carnaliter sapit; sapere autem secundum carnem mors est; et illa novem praecepta quae sic recte observantur ut scripta sunt, non ad legem operum ex qua nemo justificatur, sed ad legem fidei ex qua justus vivit, pertinere putanda sunt? Quis tam absurde sentiat, ministrationem mortis in litteris figuratam lapideis, non dici ex omnibus decem praeceptis, sed ex uno solo quod ad sabbatum pertinet? Ubi ergo ponimus, Lex iram operatur; ubi enim non est lex, nec praevaricatio: et, Usque ad legem peccatum in mundo fuit; peccatum autem non deputabatur, cum lex non esset: et illud quod jam toties commemoravimus, Per legem cognitio peccati: maximeque illud ubi evidentius expressit unde agitur, Concupiscentiam nesciebam, nisi lex diceret, Non concupisces?"
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VK",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VG",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Quem totum locum attende, et vide utrum quidquam propter circumcisionem vel sabbatum, vel quid aliud umbratilis sacramenti, ac non totum propter hoc dicat, quod littera prohibens peccatum non vivificat hominem, sed potius occidit, augendo concupiscentiam, et iniquitatem praevaricatione cumulando, nisi liberet gratia per legem fidei quae est in Christo Jesu, cum diffunditur charitas in cordibus nostris per Spiritum sanctum qui datus est nobis. Cum enim dixisset, Ut serviamus in novitate spiritus, et non in vetustate litterae: Quid ergo dicemus? inquit. Lex peccatum est? Absit: sed peccatum non cognovi, nisi per legem. Nam concupiscentiam nesciebam, nisi lex diceret, Non concupisces. Occasione autem accepta, peccatum per mandatum operatum est in me omnem concupiscentiam. Sine lege enim peccatum mortuum erat. Ego autem vivebam aliquando sine lege, adveniente autem mandato peccatum revixit. Ego autem mortuus sum, et inventum est mihi mandatum quod erat in vitam, hoc esse in mortem. Peccatum enim occasione accepta per mandatum fefellit me, et per illud occidit. Itaque lex quidem sancta, et mandatum sanctum, et justum, et bonum. Quod ergo bonum est, factum est mihi mors? Absit. Sed peccatum ut appareat peccatum, per bonum mihi operatum est mortem, ut fiat super modum peccans peccatum per mandatum. Scimus enim quia lex spiritualis est; ego autem carnalis sum, venumdatus sub peccato. Quod enim operor, ignoro: non enim quod volo, hoc ago; sed quod odi, illud facio. Si autem quod nolo, hoc facio; consentio legi, quoniam bona. Nunc autem non jam ego operor illud, sed quod habitat in me peccatum. Scio enim quia non habitat in me, hoc est in carne mea, bonum. Velle enim adjacet mihi, perficere autem bonum non. Non enim quod volo facio bonum; sed quod nolo malum, hoc ago. Si autem quod nolo ego hoc facio, jam non ego operor illud, sed quod habitat in me peccatum. Invenio ergo legem volenti mihi facere bonum, quoniam mihi malum adjacet. Condelector enim legi Dei secundum interiorem hominem: video autem aliam legem in membris meis repugnantem legi mentis meae, et captivantem me in lege peccati, quae est in membris meis. Miser ego homo, quis me liberabit de corpore mortis hujus? Gratia Dei per Jesum Christum Dominum nostrum. Igitur ego ipse mente servio legi Dei, carne autem legi peccati."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VM",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VG",
+      "ordinal": 3,
+      "kind": "p",
+      "text": "Apparet igitur litterae vetustatem, si desit novitas spiritus, reos facere potius cognitione peccati, quam liberare a peccato. Unde et alibi scriptum est, Qui apponit scientiam, apponit et dolorem: non quia ipsa lex malum est, sed quia mandatum bonum habet in littera demonstrante, non in adjuvante spiritu: quod mandatum si fit timore poenae, non amore justitiae, serviliter fit, non liberaliter, et ideo nec fit. Non enim fructus est bonus, qui de charitatis radice non surgit. Porro autem si adsit fides quae per dilectionem operatur, incipit condelectari legi Dei secundum interiorem hominem, quae delectatio non litterae, sed spiritus donum est; etiamsi alia lex in membris adhuc repugnat legi mentis, donec in novitatem, quae de die in diem in interiore homine augetur, tota vetustas mutata pertranseat, liberante nos de corpore mortis hujus gratia Dei per Jesum Christum Dominum nostrum."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VP",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VN",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Haec gratia in Testamento vetere velata latitabat, quae in Christi Evangelio revelata est dispensatione temporum ordinatissima, sicut Deus novit cuncta disponere. Et fortasse ad illud ipsum ejus latibulum pertinet, quod in eo Decalogo, qui datus est in monte Sina, hoc solum praecepto figurato occultatum est, quod ad sabbatum pertinet. Sabbatum autem dies sanctificationis est. Nec vacat, quod inter omnia opera quae fecit Deus, illic primo sanctificatio sonuit, ubi ab omnibus operibus requievit: unde nunc non est disserendi locus. Verumtamen, quod rei de qua agitur satis esse arbitror, non frustra illo die populus ab omni opere servili abstinere praeceptus est, quo significatur peccatum, nisi quia non peccare sanctificationis est, hoc est, muneris Dei per Spiritum Sanctum: quod in lege, quae duabus lapideis tabulis conscripta est, solum inter caetera in umbra figurae positum est, qua Judaei sabbatum observant; ut hoc ipso significaretur tempus tunc fuisse occultandae gratiae, quae Novo Testamento fuerat per Christi passionem, tanquam scissionem veli, revelanda. Cum enim transierit, inquit, ad Christum, auferetur velamen."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VR",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VQ",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Dominus autem Spiritus est; ubi autem Spiritus Domini, ibi libertas. Hic autem Spiritus Dei, cujus dono justificamur, quo fit in nobis ut non peccare delectet, ubi libertas est; sicut praeter hunc Spiritum peccare delectat, ubi servitus, a cujus operibus abstinendum est: hic Spiritus Sanctus per quem diffunditur charitas in cordibus nostris, quae plenitudo legis est, etiam digitus Dei in Evangelio dicitur. Unde quia et illae tabulae digito Dei conscriptae sunt, et digitus Dei est Spiritus Dei per quem sanctificamur, ut ex fide viventes per dilectionem bene operemur; quem non moveat ista congruentia ibidemque distantia? Dies enim quinquaginta computantur a celebratione Paschae, quae occisione figuratae ovis per Moysen fieri praecepta est, in significationem utique futurae Dominicae passionis, usque ad diem qua Moyses legem accepit in tabulis digito Dei conscriptis: similiter ab occisione et resurrectione illius qui sicut ovis ad immolandum ductus est, quinquaginta diebus completis, congregatos in unum fideles digitus Dei, hoc est, Spiritus Sanctus implevit."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VT",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VS",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "In hac mirabili congruentia illud certe plurimum distat, quod ibi populus accedere ad locum ubi lex dabatur, horrendo terrore prohibetur: hic autem in eos supervenit Spiritus Sanctus, qui eum promissum exspectantes in unum fuerant congregati. Ibi in tabulis lapideis digitus Dei operatus est; hic, in cordibus hominum. Ibi ergo lex extrinsecus posita est, qua injusti terrerentur: hic intrinsecus data est, qua justificarentur. Nam, Non adulterabis, Non homicidium facies, Non concupisces, et si quod est aliud mandatum, quod utique in illis tabulis scriptum est, in hoc, inquit, sermone recapitulatur, in eo quod diliges proximum tuum tanquam te ipsum. Dilectio proximi malum non operatur. Plenitudo autem legis est charitas. Haec non in tabulis conscripta lapideis, sed diffusa est in cordibus nostris per Spiritum Sanctum qui datus est nobis. Lex ergo Dei est charitas. Huic prudentia carnis non est subjecta; neque enim potest: sed ad hanc prudentiam carnis terrendam cum in tabulis scribuntur opera charitatis, lex est operum, et littera occidens praevaricatorem: cum autem ipsa charitas diffunditur in corde credentium, lex est fidei, et spiritus vivificans dilectorem."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VV",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VS",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Vide nunc quemadmodum consonet ista discretio illis apostolicis verbis, quae paulo ante ob aliud commemorata et diligentius pertractanda distuleram. Manifestati, inquit, quoniam estis epistola Christi, ministrata per nos, scripta non atramento, sed Spiritu Dei vivi; non in tabulis lapideis, sed in tabulis cordis carnalibus. Ecce quemadmodum ostendit, quia illud extra hominem scribitur, ut eum forinsecus terrificet; hoc in ipso homine, ut eum intrinsecus justificet. Carnales autem tabulas cordis dixit, non carnalis prudentiae, sed tanquam viventis sensumque habentis, in comparatione lapidis qui sine sensu est. Et quod paulo post dicit, quod non poterant intendere filii Israel usque in finem vultus Moysi, et ideo eis per velum loquebatur; hoc significat, quia littera legis neminem justificat, sed velamen positum est in lectione Veteris Testamenti, donec ad Christum transeatur, et auferatur velamen; id est, transeatur ad gratiam, et intelligatur ab ipso nobis esse justificationem, qua faciamus quod jubet. Qui propterea jubet, ut in nobis deficientes ad illum confugiamus. Ideo vigilantissime cum dixisset, Confidentiam talem habemus per Christum ad Deum; ne nostris hoc viribus tribueretur, continuo commendavit unde agitur, dicens: Non quod idonei sumus cogitare aliquid a nobis quasi ex nobismetipsis; sed sufficientia nostra ex Deo est, qui et idoneos nos fecit ministros Novi Testamenti, non litterae, sed spiritus. Littera enim occidit, spiritus autem vivificat."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VX",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VW",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Proinde quia lex, sicut alibi dicit, praevaricationis gratia posita est, id est, littera ista extra hominem scripta, propterea eam et ministrationem mortis et ministrationem damnationis appellat: hanc autem, id est, Novi Testamenti, ministrationem spiritus et ministrationem justitiae dicit, quia per donum spiritus operamur justitiam, et a praevaricationis damnatione liberamur. Ideo illud evacuatur, hoc manet: quoniam terrens paedagogus auferetur, cum timori successerit charitas. Ubi enim Spiritus Domini, ibi libertas. Hanc autem ministrationem non ex meritis nostris, sed ex misericordia esse sic dicit: Propter quod habentes ministrationem hanc, sicut misericordiam consecuti non infirmemur; sed abjiciamus occulta confusionis, non ambulantes in astutia, neque dolo adulterantes verbum Dei. Hanc astutiam et dolum hypocrisim vult intelligi, qua volunt justi superbi videri. Unde et in illo psalmo, quem ad hujus ipsius gratiae testificationem commemorat idem apostolus: Beatus, inquit, cui non imputavit Dominus peccatum, neque est in ore ejus dolus. Haec est humilium sanctorum confessio, non se jactantium esse quod non sunt. Et paulo post: Non enim nosmetipsos, inquit, praedicamus, sed Jesum Christum Dominum, nos autem servos vestros per Jesum: quia Deus qui dixit de tenebris lumen clarescere, claruit in cordibus nostris ad illuminationem scientiae gloriae ejus in faciem Christi Jesu. Haec est scientia gloriae ejus, qua scimus ipsum esse lumen, quo tenebrae nostrae illuminentur. Et id ipsum attende quemadmodum inculcet: Habemus autem thesaurum istum in vasis fictilibus, ut eminentia virtutis sit Dei, et non ex nobis. Et paulo post cum eamdem gratiam uberius in Domino Jesu Christo commendans, usque ad illud veniret indumentum justitiae fidei, quo induti non nudi inveniamur, et propter hoc ingemiscimus mortalitate praegravati, habitaculum nostrum quod de coelo est superindui cupientes, ut absorbeatur mortale a vita, vide quid adjungat: Qui autem operatus est nos, inquit, in hoc ipsum Deus qui dedit nobis pignus Spiritus. Et post pauca intulit: Ut nos simus justitia Dei in ipso. Haec est illa justitia Dei, non qua ipse justus est, sed qua nos ab eo facti."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VZ",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VY",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Nemo ergo Christianorum aberret ab hac fide, quae sola Christiana est; neque quisquam, cum verecundatus fuerit dicere, per nos ipsos fieri nos justos, non hoc in nobis operante gratia Dei, quia videt hoc a fidelibus et piis ferri non posse cum dicitur, ad hoc se convertat ut dicat, ideo sine operatione gratiae Dei nos justos esse non posse, quia legem dedit, quia doctrinam instituit, quia bona praecepta mandavit. Illa enim sine adjuvante spiritu procul dubio est littera occidens; cum vero adest vivificans spiritus, hoc ipsum intus conscriptum facit diligi, quod foris scriptum lex faciebat timeri."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W0",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VY",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Inspice hoc paululum et in eo testimonio quod per prophetam de hac re praeclarissimum edictum est: Ecce dies veniunt, dicit Dominus, et consummabo super domum Israel et super domum Juda Testamentum Novum, non secundum Testamentum quod feci patribus eorum in die qua apprehendi manum eorum, ut educerem eos de terra Aegypti: quia ipsi non perseveraverunt in Testamento meo, et ego neglexi eos, dicit Dominus. Quia hoc Testamentum est quod ordinabo domui Israel: Post illos dies, dicit Dominus, dabo leges meas in cor illorum, et in mente eorum scribam eas: et ero eis in Deum, et ipsi erunt mihi in populum. Et non docebit unusquisque civem suum et unusquisque fratrem suum, dicens, Cognosce Dominum: quia omnes cognoscent me, a minore usque ad majorem eorum; quia propitius ero iniquitati eorum, et peccata eorum non memorabor ultra. Quid ad haec dicimus? Nempe in veteribus Libris aut nusquam aut difficile praeter hunc propheticum locum legitur facta commemoratio Testamenti Novi, ut omnino ipso nomine appellaretur: nam multis locis hoc significatur et praenuntiatur futurum, sed non ita ut etiam nomen legatur expressum. Considera igitur diligenter, quam differentiam inter duo Testamenta, id est, Vetus et Novum, Deus esse testatus sit."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W1",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3VY",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Cum dixisset, Non secundum Testamentum quod feci patribus eorum in die qua apprehendi manum eorum, ut educerem eos de terra Aegypti; vide quid adjunxit: Quia ipsi non perseveraverunt in Testamento meo. Vitio eorum deputat, quod in Testamento Dei non permanserunt; ne lex, quam tunc acceperunt, culpanda videatur. Ipsa est enim, quam non venit Christus solvere, sed implere: non tamen per eamdem legem justificatis impiis, sed per gratiam: hoc quippe agit vivificans spiritus, sine quo littera occidit. Si enim data esset lex quae posset vivificare, omnino ex lege esset justitia: sed conclusit Scriptura omnia sub peccato, ut promissio ex fide Jesu Christi daretur credentibus. Ex hac promissione, hoc est, ex Dei beneficio ipsa lex impletur, sine qua promissione praevaricatores fecit; vel usque ad effectum mali operis, si etiam repagula timoris concupiscentiae flamma transcenderit, vel certe in sola voluntate, si timor poenae suavitatem libidinis vicerit. Quod enim ait, Conclusit Scriptura omnia sub peccato, ut promissio ex fide Jesu Christi daretur credentibus; ipsius conclusionis utilitas dicta est. Nam Conclusit ad quos usus, nisi quemadmodum alibi dicit, Priusquam autem veniret fides, sub lege custodiebamur, conclusi in eam fidem quae postea revelata est? Lex ergo data est, ut gratia quaereretur: gratia data est, ut lex impleretur. Neque enim suo vitio non implebatur lex, sed vitio prudentiae carnis: quod vitium per legem demonstrandum, per gratiam sanandum fuit. Quod enim impossibile erat legis, in quo infirmabatur per carnem, misit Deus Filium suum in similitudine carnis peccati, et de peccato damnavit peccatum in carne, ut justitia legis impleretur in nobis, qui non secundum carnem ambulamus, sed secundum spiritum. Unde et in isto prophetico testimonio, Consummabo, inquit, super domum Israel et super domum Juda Testamentum Novum: quid est, Consummabo, nisi, Implebo? non secundum Testamentum quod feci patribus eorum in die qua apprehendi manum eorum, ut educerem eos de terra Aegypti."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W3",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3W2",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Ergo illud vetus erat, quia hoc novum est. Unde igitur illud vetus, hoc novum, cum lex eadem impleatur per Testamentum Novum, quae dixit in Vetere, Non concupisces? Quia ipsi, inquit, non perseveraverunt in Testamento meo, et ego neglexi eos, dicit Dominus. Ergo propter veteris hominis noxam, quae per litteram jubentem et minantem minime sanabatur, dicitur illud Testamentum vetus; hoc autem novum, propter novitatem spiritus, quae hominem novum sanat a vitio vetustatis. Denique attende quod sequitur, et vide quanta luce fiat perspicuum, quod sibi fidentes nolunt homines intueri: Quia hoc testamentum est, inquit, quod ordinabo domui Israel: Post dies illos, dicit Dominus, dabo leges meas in cor illorum, et in mente eorum scribam eas. Ecce est unde Apostolus ait, quod supra commemoravimus, Non in tabulis lapideis, sed in tabulis cordis; quia non atramento, sed spiritu Dei vivi. Nec ob aliud arbitror in eo loco Apostolum voluisse commemorare Testamentum Novum (ibi quippe ait, Qui et idoneos nos fecit ministros Novi Testamenti, non litterae, sed spiritus), nisi quia istam intuebatur prophetiam, cum diceret, Non in tabulis lapideis, sed in tabulis cordis carnalibus: quoniam hic dictum est, In cordibus eorum scribam eas, ubi nominatim promissum est Testamentum Novum."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W5",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3W4",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Quid sunt ergo leges Dei ab ipso Deo scriptae in cordibus, nisi ipsa praesentia Spiritus Sancti, qui est digitus Dei, quo praesente diffunditur charitas in cordibus nostris, quae plenitudo legis est, et praecepti finis? Nam quia Veteris Testamenti promissa terrena sunt licet (exceptis sacramentis, quae umbra erant futurorum, sicut est circumcisio, et sabbatum, et aliae dierum observationes, et quarumdam escarum caerimoniae, et multiplex sacrificiorum sacrorumque ritus, quae vetustati carnalis legis jugoque servili congruebant,) talia contineat praecepta justitiae, qualia nunc quoque observare praecipimur, quae maxime duabus illis tabulis sine figura adumbratae significationis expressa sunt, sicuti est, Non adulterabis, Non homicidium facies, Non concupisces, et si quod aliud est mandatum quod in hoc sermone recapitulatur, Diliges proximum tuum sicut te ipsum: tamen quia in eo, sicut dixi, promissa terrena et temporalia recitantur, quae bona sunt hujus corruptibilis carnis, quamvis eis sempiterna atque coelestia ad Novum scilicet Testamentum pertinentia figurentur; nunc ipsius bonum cordis promittitur, mentis bonum, spiritus bonum, hoc est, intelligibile bonum, cum dicitur, Dabo leges meas in mente eorum, et in cordibus eorum scribam eas. Unde significavit eos non forinsecus terrentem legem formidaturos, sed intrinsecus habitantem ipsam legis justitiam dilecturos."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W7",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3W6",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Deinde addidit et mercedem: Et ero eis in Deum, et ipsi erunt mihi in populum. Hoc est illud quod Deo ait ille, Mihi autem adhaerere Deo bonum est. Ero, inquit, illis in Deum, et ipsi erunt mihi populus. Quid hoc bono melius, quid hac felicitate felicius, vivere Deo, vivere de Deo, apud quem est fons vitae, et in cujus lumine videbimus lumen? De hac vita dicit ipse Dominus, Haec est autem vita aeterna, ut cognoscant te unum verum Deum, et quem misisti Jesum Christum: id est, te et quem misisti Jesum Christum unum verum Deum. Hoc enim et ipse promittit dilectoribus suis, dicens, Qui diligit me, mandata mea custodit: et qui diligit me, diligetur a Patre meo; et ego diligam eum, et ostendam me ipsum illi: utique in forma Dei in qua aequalis est Patri; non in forma servi, in qua se et impiis ostendet. Tunc enim fiet quod scriptum est, Tollatur impius, ut non videat gloriam Domini; quando ibunt sinistri in ignem aeternum, justi autem in vitam aeternam. Quae vita aeterna, sicut commemoravi, definita est ea esse, ut cognoscant unum verum Deum. Hinc dicit et Joannes: Dilectissimi, filii Dei sumus, et nondum apparuit quid erimus. Scimus quia cum apparuerit, similes ei erimus, quoniam videbimus eum sicuti est. Haec similitudo nunc incipit reformari, quamdiu homo interius renovatur de die in diem secundum imaginem ejus qui creavit eum."
+    },
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W9",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3W8",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Sed ad illius eminentiae perfectionem quae tunc futura est, quid hoc, aut quantum est? Siquidem Apostolus ad illa ineffabilia qualecumque adhibens de notis rebus exemplum, parvulam aetatem virili comparavit aetati. Cum essem, inquit, parvulus, quasi parvulus loquebar, quasi parvulus sapiebam, quasi parvulus cogitabam: cum autem factus sum vir, deposui ea quae parvuli erant. Cur autem hoc dixerit, consequenter ostendens, Videmus, inquit, nunc per speculum in aenigmate, tunc autem facie ad faciem: nunc scio ex parte, tunc autem cognoscam sicut et cognitus sum."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E5Y",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3WA",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Proinde etiam per hunc prophetam, cujus testimonium pertractamus, hoc additur: ut in eo merces, in eo finis, in eo perfectio felicitatis, in eo beatae aeternaeque vitae summa consistat. Cum enim dixisset, Et ero illis in Deum, et ipsi erunt mihi populus; continuo addidit, Et non docebit unusquisque civem suum et unusquisque fratrem suum, dicens, Cognosce Dominum: quia omnes cognoscent me, a minore usque ad majorem eorum. Nunc certe jam tempus est Testamenti Novi, cujus per prophetam facta est promissio per haec verba quae ex illa prophetia commemoravimus: cur ergo adhuc dicit unusquisque civi suo et fratri suo, ‘Cognosce Dominum?’ An forte non dicitur, cum Evangelium praedicetur, et ejus ipsa sit praedicatio, ut hoc ubique dicatur? Nam unde se Apostolus Gentium dicit esse doctorem, nisi quia hoc fit quod ipse ait, Quomodo invocabunt in quem non crediderunt? aut quomodo credent quem non audierunt? quomodo autem audient sine praedicante? Cum ergo nunc ista praedicatio usquequaque crebrescat, quomodo tempus est Testamenti Novi, de quo Propheta dixit, Et non docebit unusquisque civem suum et unusquisque fratrem suum, dicens, Cognosce Dominum: quia omnes cognoscent me, a minore usque ad majorem eorum; nisi quia ejusdem Testamenti Novi aeternam mercedem, id est, ipsius Dei beatissimam contemplationem promittendo conjunxit?"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E5Z",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3WA",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Quid ergo est, omnes a minore usque ad majorem eorum; nisi, omnes pertinentes spiritualiter ad domum Israel, et ad domum Juda, hoc est, ad filios Isaac, ad semen Abrahae? Ipsa est enim promissio, qua ei dictum est, In Isaac vocabitur tibi semen. Non enim qui filii carnis, hi filii Dei; sed filii promissionis deputantur in semen. Promissionis autem verbum hoc est: Ad hoc tempus veniam, et erit Sarae filius. Non solum autem, sed et Rebecca ex uno concubitu habens Isaac patris nostri. De nondum enim natis, neque qui aliquid operati fuerant boni aut mali, ut secundum electionem propositum Dei maneret, non ex operibus, sed ex vocante, dictum est ei quia major serviet minori. Haec est domus Israel, vel domus Juda propter Christum, qui venit ex tribu Juda. Domus filiorum promissionis haec est, non operum propriorum, sed beneficii Dei. Hoc enim Deus promittit, quod ipse facit: non enim ipse promittit et alius facit, quod jam non est promittere, sed praedicere. Ideo non ex operibus, sed ex vocante: ne ipsorum sit, non Dei; ne merces non imputetur secundum gratiam, sed secundum debitum, atque ita gratia jam non sit gratia, cujus vehemens defensor est atque assertor minimus Apostolorum, qui plus omnibus illis laboravit, non ipse autem, sed gratia Dei cum illo. Omnes enim, inquit, agnoscent me: Omnes, domus Israel et domus Juda. Neque enim omnes qui ex Israel, hi sunt Israel: sed omnes quibus dicitur in Psalmo pro susceptione matutina, hoc est, pro luce nova, Testamenti scilicet Novi, Universum semen Jacob, magnificate eum; timeat eum omne semen Israel. Universum omnino semen, prorsus omne semen promissorum atque vocatorum, sed eorum qui secundum propositum vocati sunt. Quos enim praedestinavit, illos et vocavit, quos autem vocavit, illos et justificavit; quos autem justificavit, illos et glorificavit. Ideo ex fide, ut secundum gratiam firma sit promissio omni semini, non ei tantum quod ex lege est, id est, quod ex Vetere Testamento venit ad Novum; sed et ei quod ex fide est, non sibi praemissa lege: ex fide autem Abraham, id est, imitatores fidei Abraham: qui est pater omnium nostrum, sicut scriptum est, Quia patrem multarum gentium posui te. Omnes ergo hi praedestinati, vocati, justificati, glorificati cognoscent Deum gratia Testamenti Novi, a minore usque ad majorem eorum."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E60",
+      "sectionId": "01M6N296XN5ZZKD6G61F1AX3WA",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Sicut ergo lex factorum scripta in tabulis lapideis, mercesque ejus terra illa promissionis, quam carnalis domus Israel cum ex Aegypto liberata esset accepit, pertinet ad Testamentum Vetus: ita lex fidei scripta in cordibus, mercesque ejus species contemplationis, quam spiritualis domus Israel ab hoc mundo liberata percipiet, pertinet ad Testamentum Novum. Tunc fiet quod dicit Apostolus, Sive prophetiae evacuabuntur, sive linguae cessabunt, sive scientia evacuabitur; illa scilicet parvulorum scientia in qua hic vivitur, quae ex parte est per speculum in aenigmate: propter hanc enim necessaria est prophetia, cum adhuc praeteritis futura succedunt; propter hanc linguae, id est, multiplicitas significationum, cum ex alio atque alio aliud atque aliud admonetur, qui nondum aeternam lucem perspicuae veritatis mente purgatissima contemplatur. Cum autem venerit quod perfectum est, et totum hoc quod ex parte est fuerit evacuatum; tunc quod assumpta carne carni apparuit, ostendet se ipsum dilectoribus suis: tunc erit vita aeterna, ut cognoscamus unum verum Deum; tunc similes ei erimus, quoniam tunc cognoscemus sicut et cogniti sumus. Tunc non docebit unusquisque civem suum, aut fratrem suum, dicens, Cognosce Dominum: omnes enim cognoscent eum, a minore usque ad majorem eorum. Quod multis modis intelligi potest. Sive quia et illic quisque sanctorum tanquam stella ab stella differt in gloria. Nec ad rem quidquam interest, utrum a minore usque ad majorem, sicut dictum est, an si a majore usque ad minorem diceretur: quod similiter nihil interest, etiamsi minores intellexerimus, qui tantummodo credere, majores autem qui etiam intelligere, quantum in hac vita potest, lumen incorporeum atque incommutabile valuerunt. Sive minores, tempore posteriores; majores autem, tempore priores, intelligi voluit. Simul enim promissam Dei contemplationem accepturi sunt omnes; quia et illi pro nobis meliora providerunt, ne sine nobis perfecti perficerentur. Et ideo velut priores reperiuntur minores, quia minus dilati sunt; sicut in illo evangelico denario per similitudinem dicitur, quem prius accipiunt qui posterius venerunt ad vineam. Sive quolibet alio modo, qui me in praesentia forsitan fugit, minores majoresque accipiendi sunt."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E62",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E61",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Illud tamen, quantum potes, diligenter attende, quod tanto molimine conor ostendere: cum Testamentum Novum Propheta promitteret, non secundum Testamentum quod prius factum est populo Israel ex Aegypto liberato, nihil eum de sacrificiorum vel quorumque sacramentorum commutatione dixisse, quamvis et ipsa sine dubio fuerat secutura, sicut secutam videmus, quod multis aliis locis eadem prophetica Scriptura testatur: sed tantummodo istam commendasse distantiam, quod leges suas daturus esset Deus in mentem eorum qui pertinerent ad hoc Testamentum, et eorum scripturus in cordibus; unde Apostolus sumpsit, non atramento, sed Spiritu Dei vivi, non in tabulis lapideis, sed in tabulis cordis carnalibus: sempiternamque mercedem justificationis hujus, non terram de qua pulsi sunt Amorrhaei et Chettaei, et aliae gentes quae ibi commemorantur, sed ipsum Deum, cui adhaerere bonum est, ut bonum Dei quod diligunt, Deus sit ipse quem diligunt; inter quem et homines nisi peccata non separant, quae nonnisi per eamdem gratiam dimittuntur. Unde cum dixisset, Omnes enim cognoscent me, a minore usque ad majorem eorum; mox addidit, Quia propitius ero iniquitati eorum, et peccata eorum non memorabor ultra. Per legem ergo factorum dicit Dominus, Non concupisces: per legem fidei dicit Dominus, Sine me nihil potestis facere; agebat enim de bonis operibus, hoc est, de palmitum fructibus. Cum igitur haec appareat distantia Veteris et Novi Testamenti, quod lex ibi in tabulis, hic in cordibus scribitur, ut quod ibi forinsecus terret, hic delectet intrinsecus, ibique fiat praevaricator per occidentem litteram, hic dilector per vivificantem spiritum: non ideo dicendum est quod Deus adjuvet nos ad operandam justitiam atque operetur in nobis et velle et operari pro bona voluntate, quia praeceptis justitiae forinsecus insonat sensibus nostris; sed quia intrinsecus incrementum dat, diffundendo charitatem in cordibus nostris per Spiritum sanctum, qui datus est nobis."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E64",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E63",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Videndum est autem quomodo dicat Apostolus, Cum enim Gentes, quae legem non habent, naturaliter quae legis sunt faciunt, hi legem non habentes ipsi sibi sunt lex, qui ostendunt opus legis scriptum in cordibus suis: ne videatur non esse certa distantia Novi Testamenti, quod leges suas Dominus in cordibus populi sui se scripturum esse promisit, quandoquidem hoc Gentes naturaliter habeant. Pertractanda igitur haec quaestio, quae non mediocris exorta est. Dicet enim aliquis, ‘Si Deus hinc discernit a Vetere Testamento Novum, quod in Vetere legem suam scripsit in tabulis, in Novo autem scripsit in cordibus: fideles Novi Testamenti unde discernuntur a Gentibus, quae habent opus legis scriptum in cordibus suis, quo naturaliter quae legis sunt faciunt; quasi jam illo populo vetere potiores, qui legem accepit in tabulis, et novo populo priores, cui hoc praestatur per Testamentum Novum, quod his natura jam praestitit?’"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E65",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E63",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "An forte eas gentes commemoravit Apostolus, scriptam in cordibus habere legem, quae ad Novum pertinent Testamentum? Ad hoc enim unde venerit, intuendum est. Primo Evangelium commendans, ait: Virtus enim Dei est in salutem omni credenti, Judaeo primum et Graeco. Justitia enim Dei in eo revelatur ex fide in fidem, sicut scriptum est, Justus autem ex fide vivit. Deinde loquitur de illis impiis, quibus propter superbiam nec cognitio Dei profuit, quia non sicut Deum glorificaverunt, aut gratias egerunt. Inde transit ad eos qui judicant et agunt talia, qualia condemnant, nimirum propter Judaeos, qui de lege Dei gloriabantur; quamvis adhuc eos nominatim non exprimat, et ideo dicit: Ira et indignatio, tribulatio et angustia in omnem animam hominis operantis malum, Judaei primum et Graeci: gloria autem et honor et pax omni operanti bonum, Judaeo primum et Graeco. Non est enim personarum acceptio apud Deum. Quicumque enim sine lege peccaverunt, sine lege et peribunt; et quicumque in lege peccaverunt, per legem judicabuntur. Non enim auditores legis justi sunt apud Deum, sed factores legis justificabuntur. His verbis hoc unde agitur subjungit, et dicit, Cum Gentes quae legem non habent, naturaliter quae legis sunt faciunt: et caetera quae jam supra commemoravi. Proinde non videtur alios hic significasse sub nomine Gentium, quam eos quos nomine Graeci supra significabat, cum diceret, Judaeo primum et Graeco. Porro si Evangelium virtus Dei est in salutem omni credenti, Judaeo primum et Graeco; et ira et indignatio et tribulatio et angustia in omnem animam hominis operantis malum, Judaei primum et Graeci; gloria autem et honor et pax omni operanti bonum, Judaeo primum et Graeco; iste autem Graecus nomine Gentium significatus est naturaliter quae legis sunt facientium, et quae scriptum habent opus legis in cordibus suis: profecto ad Evangelium pertinent Gentes, quibus lex in cordibus scripta est; eis quippe credentibus virtus Dei est in salutem. Quibus autem Gentibus bene operantibus gloriam et honorem pacemque promitteret, extra Evangelii gratiam constitutis? Quia enim personarum acceptio non est apud Deum, et non auditores legis, sed factores justificantur; ideo sive Judaeus sive Graecus, hoc est, quilibet ex Gentibus crediderit, salutem in Evangelio pariter habebit. Non enim est distinctio, sicut postea dicit. Omnes enim peccaverunt, et egent gloria Dei; justificati gratis per gratiam ipsius. Unde autem factorem legis Graecum justificari diceret, sine gratia Salvatoris?"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E66",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E63",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Neque enim contra se ipsum diceret, quod ait, factores legis justificabuntur; tanquam per opera, non per gratiam justificentur: cum dicat gratis justificari hominem per fidem sine operibus legis, nihil aliud volens intelligi in eo quod dicit, gratis, nisi quia justificationem opera non praecedunt. Aperte quippe alibi dicit, Si gratia, jam non ex operibus; alioquin gratia jam non est gratia. Sed sic intelligendum est, factores legis justificabuntur, ut sciamus eos aliter non esse factores legis, nisi justificentur: ut non justificatio factoribus accedat, sed ut factores justificatio praecedat. Quid est enim aliud, ‘justificati,’ quam justi facti, ab illo scilicet qui justificat impium, ut ex impio fiat justus? Si enim ita loqueremur, ut diceremus, ‘Homines liberabuntur;’ hoc utique intelligeretur, eis qui jam homines essent accedere liberationem: si autem diceremus, ‘Homines creabuntur;’ non utique intelligeretur eos creari qui erant, sed ipsa creatione homines fieri. Ita si dictum esset, ‘Factores legis honorabuntur;’ non recte acciperemus nisi honorem illis qui jam essent factores legis accedere: cum vero dictum est, factores legis justificabuntur; quid aliud dictum est quam, justi justificabuntur? factores enim legis utique justi sunt. Ac per hoc tantumdem est ac si diceretur, ‘Factores legis creabuntur, non qui erant, sed ut sint;’ ut sic intelligerent etiam Judaei legis auditores, indigere se gratia justificatoris, ut possint esse factores. Aut certe ita dictum est, justificabuntur, ac si diceretur, ‘justi habebuntur, justi deputabuntur,’ sicut dictum est de quodam, Ille autem volens se justificare; id est, ut justus haberetur et deputaretur. Unde aliter dicimus, ‘Deus sanctificat sanctos suos:’ aliter autem, Sanctificetur nomen tuum. Nam illud ideo, quia ipse illos facit esse sanctos, qui non erant sancti: hoc autem ideo, ut quod semper apud se sanctum est, sanctum etiam ab hominibus habeatur, id est, sancte timeatur."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E67",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E63",
+      "ordinal": 3,
+      "kind": "p",
+      "text": "Si ergo Gentes commemorans, naturaliter quae legis sunt facientes, et scriptum habentes opus legis in cordibus, illos intelligi voluit qui credunt in Christum; qui non sicut Judaei praemissa sibi lege veniunt ad fidem: non est cur eos conemur discernere ab iis quibus Dominus per Prophetam promittens Testamentum Novum, dixit leges suas se scripturum in cordibus eorum; quia et ipsi per insertionem, quam oleastro praestitam dicit, ad eamdem oleam, hoc est, ad eumdem Dei populum pertinent: potiusque concordat prophetico etiam hoc apostolicum testimonium: ut hoc sit pertinere ad Testamentum Novum, legem Dei habere non in tabulis, sed in cordibus scriptam; hoc est, in intimo affectu justitiam legis amplecti, ubi fides per dilectionem operatur. Quia ex fide justificat gentes Deus; quod Scriptura praevidens, praenuntiavit Abrahae, dicens, In semine tuo benedicentur omnes gentes; ut per hanc promissionis gratiam olivae insereretur oleaster, et fierent fideles Gentes filii Abrahae in semine Abrahae, quod est Christus; sectantes ejus fidem, qui non accepta in tabulis lege, nondumque habens ipsam circumcisionem, credidit Deo, et deputatum est illi ad justitiam. Ac sic tale erit hoc quod de ejusmodi Gentibus dixit Apostolus, quod opus legis scriptum habeant in cordibus suis: quale est illud ad Corinthios, non in tabulis lapideis, sed in tabulis cordis carnalibus. Ita enim fiunt de domo Israel, cum praeputium eorum in circumcisionem deputatur, eo quod justitiam legis non praecisione carnis ostendunt, sed cordis charitate custodiunt: quoniam si praeputium justitias legis custodiat, nonne praeputium ejus, inquit, in circumcisionem deputabitur? Et propterea in domo veri Israel, in quo dolus non est, participes sunt Testamenti Novi, quia dat Deus leges in mentem ipsorum, et in cordibus eorum scribit eas digito suo, Spiritu Sancto, quo ibi diffunditur charitas, quae legis est plenitudo."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E69",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E68",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Nec moveat quod naturaliter eos dixit, quae legis sunt facere, non Spiritu Dei, non fide, non gratia. Hoc enim agit Spiritus gratiae, ut imaginem Dei, in qua naturaliter facti sumus, instauret in nobis. Vitium quippe contra naturam est, quod utique sanat gratia: propter quam Deo dicitur, Miserere mei, sana animam meam, quoniam peccavi tibi. Proinde naturaliter homines quae legis sunt faciunt: qui enim hoc non faciunt, vitio suo non faciunt. Quo vitio lex Dei est deleta de cordibus; ac per hoc, vitio sanato, cum illic scribitur, fiunt quae legis sunt naturaliter: non quod per naturam negata sit gratia, sed potius per gratiam reparata natura. Per unum quippe hominem peccatum intravit in mundum, et per peccatum mors; et ita in omnes homines pertransivit, in quo omnes peccaverunt: et ideo quia non est distinctio, egent gloria Dei, justificati gratis per gratiam ipsius. Qua gratia in interiore homine renovato justitia scribitur, quam culpa deleverat: et haec misericordia super genus humanum per Christum Jesum Dominum nostrum. Unus enim Deus, unus et mediator Dei et hominum homo Christus Jesus."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6A",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E68",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Si autem hi qui naturaliter quae legis sunt faciunt nondum sunt habendi in numero eorum quos Christi justificat gratia, sed in eorum potius, quorum etiam impiorum, nec Deum verum veraciter justeque colentium, quaedam tamen facta vel legimus, vel novimus, vel audimus, quae secundum justitiae regulam non solum vituperare non possumus, verum etiam merito recteque laudamus: quanquam si discutiantur quo fine fiant, vix inveniuntur quae justitiae debitam laudem defensionemve mereantur:"
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6C",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6B",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Verumtamen quia non usque adeo in anima humana imago Dei terrenorum affectuum labe detrita est, ut nulla in ea velut lineamenta extrema remanserint, unde merito dici possit etiam in ipsa impietate vitae suae facere aliqua legis vel sapere; si hoc est quod dictum est, quia Gentes quae legem non habent, hoc est, legem Dei, naturaliter quae legis sunt faciunt, et quia hujusmodi homines ipsi sibi sunt lex, et scriptum opus legis habent in cordibus suis, id est, non omni modo deletum est, quod ibi per imaginem Dei cum crearentur impressum est: etiam sic illa differentia non perturbabitur, qua distat a Vetere Testamentum Novum, eo quod per Novum scribitur lex Dei in corde fidelium, quae per Vetus in tabulis scripta est. Hoc enim illic scribitur per renovationem, quod non omni modo deletum est per vetustatem. Nam sicut ipsa imago Dei renovatur in mente credentium per Testamentum Novum, quam non penitus impietas aboleverat; nam remanserat utique id quod anima hominis nisi rationalis esse non potest: ita etiam ibi lex Dei, non ex omni parte deleta per injustitiam, profecto scribitur renovata per gratiam. Nec istam inscriptionem, quae justificatio est, poterat efficere in Judaeis lex in tabulis scripta, sed solum praevaricationem. Nam et ipsi homines erant, et vis illa naturae inerat eis, qua legitimum aliquid anima rationalis et sentit et facit: sed pietas quae in aliam vitam transfert beatam et aeternam, legem habet immaculatam, convertentem animas, ut ex illo lumine renoventur, fiatque in eis, Signatum est super nos lumen vultus tui, Domine. Unde aversi obsolescere meruerunt: renovari autem nisi gratia Christiana, hoc est, nisi Mediatoris intercessione non possunt. Unus enim Deus, unus et mediator Dei et hominum homo Christus Jesus, qui dedit semetipsum redemptionem pro omnibus. A cujus gratia si alieni sunt illi de quibus agimus, qui secundum illum modum de quo superius satis diximus, naturaliter quae legis sunt faciunt; quid eis proderunt excusantes cogitationes, in die qua judicabit Deus occulta hominum, nisi forte ut mitius puniantur? Sicut enim non impediunt a vita aeterna justum quaedam peccata venialia, sine quibus haec vita non ducitur: sic ad salutem aeternam nihil prosunt impio aliqua bona opera, sine quibus difficillime vita cujuslibet pessimi hominis invenitur. Verumtamen sicut in regno Dei velut stella ab stella in gloria differunt sancti; sic et in damnatione poenae sempiternae tolerabilius erit Sodomae quam alteri civitati, et erunt quidam duplo amplius quibusdam gehennae filii: ita nec illud in judicio Dei vacabit, quod in ipsa impietate damnabili magis alius alio minusve peccaverit."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6D",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6B",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Quid ergo hinc Apostolus efficere voluit, quod jactantiam cohibens Judaeorum, cum dixisset, Non auditores legis justi sunt apud Deum, sed factores legis justificabuntur, continuo subjecit de his, qui legem non habentes, naturaliter quae legis sunt faciunt; si non illi sunt intelligendi, qui pertinent ad gratiam Mediatoris, sed illi potius, qui cum Deum verum vera pietate non colant, habent tamen quaedam opera bona in vita impia? An forte hoc ipso probandum credidit, quod supra dixerat, quia non est personarum acceptio apud Deum; et quod postea dixit, quia non Judaeorum est Deus tantum, sed et Gentium quod quantulacumque legis opera naturaliter insita non invenirentur in eis, qui legem non acceperunt, nisi ex reliquiis imaginis Dei; quam non contemnit, cum in eum credunt, apud quem non est acceptio personarum? Sed quodlibet horum accipiatur, constat gratiam Dei promissam esse Testamento Novo etiam per Prophetam: eamdemque gratiam in eo definitam, ut scribantur leges Dei in cordibus hominum, perveniantque ad eam cognitionem Dei, ubi non docebit unusquisque civem suum vel fratrem suum, dicens, Cognosce Deum; quia omnes cognoscent eum a minore usque ad majorem eorum. Hoc donum Spiritus Sancti est, quo diffunditur charitas in cordibus nostris: charitas non quaelibet, sed charitas Dei de corde puro et conscientia bona et fide non ficta, ex qua justus in hac peregrinatione vivens, ad speciem quoque perducitur post speculum et aenigma, et quidquid erat ex parte, ut facie ad faciem cognoscat, sicut et cognitus est. Unam enim petiit a Domino, et hanc requirit, ut inhabitet in domo Domini per omnes dies vitae suae, ad hoc ut contempletur delectationem Domini."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6F",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6E",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Nemo itaque glorietur ex eo quod videtur habere, tanquam non acceperit; aut ideo se putet accepisse, quia littera extrinsecus, vel ut legeretur apparuit, vel ut audiretur insonuit. Nam si per legem justitia, ergo Christus gratis mortuus est. Porro autem si non gratis mortuus est, ascendit in altum, captivam duxit captivitatem, et dedit dona hominibus inde habet, quicumque habet. Quisquis autem inde se habere negat, aut non habet, aut id quod habet auferetur ab eo. Unus enim Deus qui justificat circumcisionem ex fide, et praeputium per fidem: quod non ad aliquam differentiam dictum est, tanquam aliud sit ‘ex fide,’ et aliud ‘per fidem;’ sed ad varietatem locutionis. Alio quippe loco cum de Gentibus diceret, hoc est, de praeputio: Praevidens, inquit, Scriptura, quia ex fide justificat Gentes Deus. Itemque cum de circumcisione loqueretur, unde erat ipse: Nos, inquit, natura Judaei, et non ex Gentibus peccatores, scientes quia non justificatur homo ex operibus legis, nisi per fidem Jesu Christi, et nos in Christum Jesum credimus. Ecce et praeputium dixit justificari ex fide, et circumcisionem per fidem, si tamen circumcisio justitiam fidei teneat. Sic enim Gentes quae non sectabantur justitiam, apprehenderunt justitiam, justitiam autem quae ex fide est: impetrando eam ex Deo, non ex semetipsis praesumendo. Israel vero persequens legem justitiae, in legem justitiae non pervenit. Quare? Quia non ex fide, sed tanquam ex operibus: id est, tanquam eam per semetipsos operantes, non in se credentes operari Deum. Deus est enim qui operatur in nobis et velle et operari, pro bona voluntate. Ac per hoc offenderunt in lapidem offensionis. Nam quid dixerit, quia non ex fide, sed tanquam ex operibus; apertissime exposuit, dicens, Ignorantes enim Dei justitiam, et suam volentes constituere, justitiae Dei non sunt subjecti. Finis enim legis Christus, ad justitiam omni credenti. Et adhuc dubitamus quae sint opera legis, quibus homo non justificatur, si ea tanquam sua crediderit sine adjutorio et dono Dei, quod est ex fide Jesu Christi? et circumcisionem caeteraque talia suspicamur, quia etiam de his sacramentis aliis in locis talia quaedam leguntur? Sed hic utique non circumcisionem tanquam suam justitiam volebant constituere: quia et ipsam Deus praecipiendo constituit. Nec de illis operibus hoc intelligi potest, de quibus Dominus eis dicit, Rejicitis mandatum Dei, ut traditiones vestras statuatis. Quia persequens, inquit, legem justitiae, in legem justitiae non pervenit Israel: non dixit, Persequens traditiones suas, id est, consectans. Haec ergo sola distantia est, quia ipsum, Non concupisces, et caetera mandata ejus sancta et bona sibi tribuebant: quae ut possit homo facere, Deus operatur in homine per fidem Jesu Christi, qui finis est ad justitiam omni credenti; id est, cui per spiritum incorporatus factusque membrum ejus, potest quisque illo incrementum intrinsecus dante operari justitiam, de cujus operibus etiam ipse dixit, quia sine me nihil potestis facere."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6G",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6E",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Ideo quippe proponitur justitia legis, quod qui fecerit eam, vivet in illa; ut cum quisque infirmitatem suam cognoverit, non per suas vires, neque per litteram ipsius legis, quod fieri non potest, sed per fidem concilians justificatorem perveniat, et faciat, et vivat in ea. Opus enim quod qui fecerit, vivet in eo, non fit nisi a justificato. Justificatio autem ex fide impetratur: de qua scriptum est, Ne dixeris in corde tuo, Quis ascendit in coelum? hoc est Christum deducere: Aut, Quis descendit in abyssum? hoc est Christum a mortuis reducere. Sed quid dicit? Prope te est verbum in ore tuo, et in corde tuo: hoc est, inquit, verbum fidei quod praedicamus: quia si confitearis in ore tuo quia Dominus est Jesus, et credideris in corde tuo quia Deus illum suscitavit a mortuis, salvus eris. In tantum justus, in quantum salvus. Per hanc enim fidem credimus, quod etiam nos Deus a mortuis excitet: interim spiritu, ut in novitate ejus gratiae temperanter et juste et pie vivamus in hoc saeculo; post etiam carne nostra ad immortalitatem resurrectura, quod est meritum spiritus, qui eam in resurrectione sibi congrua, hoc est, in justificatione praecedit. Consepulti enim sumus Christo per Baptismum in mortem; ut quemadmodum Christus resurrexit a mortuis per gloriam Patris, sic et nos in novitate vitae ambulemus. Fide igitur Jesu Christi impetramus salutem, et quantum nobis inchoatur in re, et quantum perficienda exspectatur in spe. Omnis enim qui invocaverit nomen Domini, salvus erit. Quam multa multitudo, ait Psalmista, dulcedinis tuae, Domine, quam abscondisti timentibus te, perfecisti autem sperantibus in te! Ex lege timemus Deum, ex fide speramus in Deum: sed timentibus poenam absconditur gratia. Sub quo timore anima laborans, quando concupiscentiam malam non vicerit, nec timor ille quasi custos severus abscesserit; per fidem confugiat ad misericordiam Dei, ut det quod jubet, atque inspirata gratiae suavitate per Spiritum Sanctum faciat plus delectare quod praecipit, quam delectat quod impedit. Ita multa multitudo dulcedinis ejus, hoc est, lex fidei, charitas ejus conscripta in cordibus atque diffusa, perficitur sperantibus in eum, ut anima sanata non timore poenae, sed amore justitiae operetur bonum."
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6J",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6H",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Liberum ergo arbitrium evacuamus per gratiam? Absit: sed magis liberum arbitrium statuimus. Sicut enim lex per fidem, sic liberum arbitrium per gratiam non evacuatur, sed statuitur. Neque enim lex impletur nisi libero arbitrio: sed per legem cognitio peccati, per fidem impetratio gratiae contra peccatum, per gratiam sanatio animae a vitio peccati, per animae sanitatem libertas arbitrii, per liberum arbitrium justitiae dilectio, per justitiae dilectionem legis operatio. Ac per hoc, sicut lex non evacuatur, sed statuitur per fidem, quia fides impetrat gratiam, qua lex impleatur: ita liberum arbitrium non evacuatur per gratiam, sed statuitur, quia gratia sanat voluntatem, qua justitia libere diligatur. Omnia haec quae velut catenatim connexi, habent voces suas in Scripturis sanctis. Lex dicit: Non concupisces. Fides dicit: Sana animam meam, quoniam peccavi tibi. Gratia dicit: Ecce sanus factus es, jam noli peccare, ne quid tibi deterius contingat. Sanitas dicit: Domine Deus meus, exclamavi ad te, et sanasti me. Liberum arbitrium dicit: Voluntarie sacrificabo tibi. Dilectio justitiae dicit: Narraverunt mihi injusti delectationes, sed non sicut lex tua, Domine. Utquid ergo miseri homines aut de libero arbitrio audent superbire antequam liberentur, aut de suis viribus, si jam liberati sunt? Nec attendunt in ipso nomine liberi arbitrii utique libertatem sonare. Ubi autem Spiritus Domini, ibi libertas. Si ergo servi sunt peccati, quid se jactant de libero arbitrio? A quo enim quis devictus est, huic et servus addictus est. Si autem liberati sunt, quid se jactant velut de opere proprio, et gloriantur quasi non acceperint? An ita sunt liberi, ut nec illum velint habere Dominum, qui eis dicit, Sine me nihil potestis facere; et, Si vos Filius liberaverit, tunc vere liberi eritis?"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J62",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6K",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Quaeret aliquis, utrum fides ipsa, in qua salutis vel ad salutem connexionis hujus, quam commemoravi, esse videtur exordium, in nostra constituta sit potestate; quod facilius videbimus, si prius quid sit potestas aliquanto diligentius perspexerimus. Cum enim duo quaedam sint, velle et posse, unde nec qui vult continuo potest, nec qui potest continuo vult; quia sicut volumus aliquando quod non possumus, sic etiam possumus aliquando quod nolumus: satis evolutis ipsis etiam vocabulis resonat, quod ab eo quod est velle, voluntas; ab eo autem quod est posse, potestas, nomen accepit. Quapropter, sicut qui vult habet voluntatem, ita potestatem qui potest. Sed ut potestate aliquid fiat, voluntas aderit. Neque enim dici solet quispiam potestate fecisse, si quid fecit invitus. Quanquam, si subtilius advertamus, etiam quod quisque invitus facere cogitur, si facit, voluntate facit: sed quia mallet aliud, ideo invitus, hoc est, nolens facere dicitur. Malo quippe aliquo facere compellitur, quod volens evitare vel a se removere, facit quod cogitur. Nam si tanta voluntas sit, ut malit hoc non facere quam illud non pati; cogenti procul dubio resistit, nec facit. Ac per hoc, si facit, non quidem plena et libera voluntate, sed tamen non facit nisi voluntate; quam voluntatem quia effectus consequitur, non possumus dicere potestatem defuisse facienti. Si enim cogenti cedens vellet facere, nec posset; ei voluntatem adfuisse licet extortam, sed potestatem defuisse diceremus. Cum vero ideo non faciebat, quia nolebat, erat utique potestas, sed voluntas deerat, quamdiu cogenti reluctando non fecit. Hinc est quod etiam illi qui cogunt, vel qui suadent, solent dicere: ‘Quod habes in potestate, quare non facis, ut hoc malo careas?’ Et qui omnino facere non possunt, quod ideo coguntur ut faciant, quia posse creduntur, solent excusando respondere et dicere: ‘Facerem, si esset in potestate.’ Quid igitur ultra quaerimus, quandoquidem hanc dicimus potestatem, ubi voluntati adjacet facultas faciendi? Unde hoc quisque in potestate habere dicitur, quod si vult, facit; si non vult, non facit."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J63",
+      "sectionId": "01M6N296XPSBK3TFS0M42Q6E6K",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Attende jam illud quod excutiendum posuimus, utrum fides in potestate sit. De hac enim fide nunc loquimur, quam adhibemus cum aliquid credimus, non quam damus cum aliquid pollicemur; nam et ipsa dicitur fides. Sed aliter dicimus. ‘Non mihi habuit fidem:’ aliter, ‘Non mihi servavit fidem.’ Nam illud est, ‘Non credidit quod dixi:’ illud, ‘Non fecit quod dixit.’ Secundum hanc fidem qua credimus, fideles sumus Deo: secundum illam vero qua fit quod promittitur, etiam Deus ipse fidelis est nobis. Hoc enim dicit Apostolus: Fidelis Deus, qui non vos permittat tentari super id quod potestis. De illa itaque fide quaerimus, utrum in potestate sit, qua credimus Deo, vel credimus in Deum. Hinc enim scriptum est, Credidit Abraham Deo, et deputatum est illi ad justitiam; et, Credenti in eum qui justificat impium, deputatur fides ejus ad justitiam. Vide nunc utrum quisque credat, si noluerit; aut non credat, si voluerit. Quod si absurdum est (quid est enim credere, nisi consentire verum esse quod dicitur? consensio autem utique volentis est); profecto fides in potestate est. Sed, sicut Apostolus dicit, Non est potestas nisi a Deo. Quid igitur causae est cur non et de ista nobis dicatur, Quid enim habes quod non accepisti? Nam et ut credamus, Deus dedit. Nusquam autem legimus in Scripturis sanctis, Non est voluntas nisi a Deo. Et recte non scriptum est, quia verum non est: alioquin etiam peccatorum, quod absit, auctor est Deus, si non est voluntas nisi ab illo: quoniam mala voluntas jam sola peccatum est, etiam si desit effectus, id est, si non habeat potestatem. Porro cum voluntas mala potestatem accipit implere quod intendit, ex judicio Dei venit, apud quem non est iniquitas. Punit enim etiam isto modo; nec ideo injuste, quia occulte. Caeterum iniquus puniri se ignorat, nisi cum manifesto supplicio senserit nolens, quantum mali sit quod perpetravit volens. Hoc est quod de quibusdam Apostolus ait: Tradidit illos Deus in concupiscentias cordis illorum, ut faciant quae non conveniunt. Hinc et Dominus Pilato, Non haberes in me, inquit, potestatem, nisi data esset tibi desuper. Sed cum potestas datur, non necessitas utique imponitur. Unde cum David Saulis occidendi potestatem accepisset, maluit parcere, quam ferire. Unde intelligimus malos accipere potestatem ad damnationem malae voluntatis suae, bonos autem ad probationem bonae voluntatis suae."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J65",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J64",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Cum ergo fides in potestate sit, quoniam cum vult quisque credit, et cum credit, volens credit; deinde quaerendum est, imo recolendum, quam fidem tanta conflictatione commendet Apostolus. Non enim quodlibet credere bonum est: nam unde est illud, Fratres, nolite omni spiritui credere; sed probate spiritum qui ex Deo est? Nec in laudibus charitatis quod dictum est, Omnia credit, sic accipiendum est, ut charitati cujuspiam derogemus, si non quod audierit statim crediderit. Quid, quod eadem charitas admonet, non facile de fratre mali aliquid esse credendum, et cum tale aliquid dicitur, hoc ad se magis judicat pertinere ne credat? Postremo ipsa charitas qua omnia credit, non omni spiritui credit: ac per hoc, omnia quidem credit, sed Deo; quia non dictum est, Omnibus credit. Nulli itaque dubium est, eam fidem ab Apostolo commendari, qua creditur Deo."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J66",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J64",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Sed adhuc aliquid discernendum est: quoniam et illi qui sub lege sunt, et timore poenae justitiam suam facere conantur, et ideo non faciunt Dei justitiam, quia charitas eam facit, quam non libet nisi quod licet, non timor, qui cogitur in opere habere quod licet, cum aliud habeat in voluntate, qua mallet, si fieri posset, licere quod non licet: et illi ergo credunt Deo; nam si omnino non crederent, nec poenam legis utique formidarent. Sed non hanc fidem commendat Apostolus, qui dicit, Non enim accepistis spiritum servitutis iterum in timorem; sed accepistis spiritum adoptionis filiorum, in quo clamamus, Abba, Pater. Timor ergo ille servilis est: et ideo quamvis in illo Domino credatur, non tamen justitia diligitur, sed damnatio timetur. Filii vero clamant Abba, Pater, quarum duarum vocum una est ex circumcisione, altera ex praeputio, Judaei primum et Graeci: quoniam unus est Deus, qui justificat circumcisionem ex fide, et praeputium per fidem. Cum autem clamant, aliquid petunt: et quid petunt nisi quod esuriunt et sitiunt? Et hoc quid est, nisi quod de illis dictum est, Beati qui esuriunt et sitiunt justitiam, quoniam ipsi saturabuntur? Huc ergo transeant qui sub lege sunt, ut ex servis filii fiant: nec sic tamen, ut servi esse desistant; sed ut tanquam filii domino et patri liberaliter serviant, quia et hoc acceperunt: dedit enim potestatem ille Unicus, filios Dei fieri credentibus in nomine ejus: eosque admonuit petere, quaerere, pulsare, ut accipiant, et inveniant, et aperiatur eis; addens increpationem, et dicens, Si vos cum sitis mali, nostis bona data dare filiis vestris, quanto magis Pater vester qui in coelis est dabit bona petentibus se! Cum ergo virtus peccati lex inflammaverit aculeum mortis, ut occasione accepta peccatum per mandatum operetur omnem concupiscentiam, a quo petenda est continentia, nisi ab illo qui novit bona data dare filiis suis? An forte nescit insipiens, quod nemo esse possit continens, nisi Deus det? Hoc ergo ut sciat, ipsa indiget sapientia. Cur itaque non audit Patris sui spiritum dicentem per apostolum Christi, vel ipsum Christum qui dicit in Evangelio suo, Petite, et accipietis? loquentem etiam in apostolo suo, et dicentem, Si quis vestrum indiget sapientia, postulet a Deo, qui dat omnibus affluenter et non improperat, et dabitur illi; postulet autem in fide, nihil haesitans? Haec est fides, ex qua justus vivit: haec est fides, qua creditur in eum qui justificat impium: haec est fides, per quam excluditur gloriatio; sive ut abscedat qua in nobis inflamur, sive ut emineat qua in Domino gloriamur: haec est fides, qua impetratur largitas Spiritus, de quo dicitur, Nos enim Spiritu ex fide spem justitiae exspectamus. Ubi quidem quaeri adhuc potest, utrum ‘spem justitiae’ dixerit, qua sperat justitia, an qua speratur ipsa justitia: quoniam justus ex fide vivens, sperat utique vitam aeternam: itemque fides esuriens sitiensque justitiam renovatione de die in diem interioris hominis proficit in ea, et sperat in ea satiari in vita aeterna, ubi fiet id quod in Psalmo de Deo dicitur, Qui satiat in bonis desiderium tuum. Haec est fides, qua salvi fiunt, quibus dicitur: Gratia salvi facti estis per fidem; et hoc non ex vobis, sed Dei donum est: non ex operibus, ne forte quis extollatur. Ipsius enim sumus figmentum, creati in Christo Jesu in operibus bonis, quae praeparavit Deus ut in illis ambulemus. Postremo haec est fides, quae per dilectionem operatur, non per timorem; non formidando poenam, sed amando justitiam. Unde ergo ista dilectio, id est, charitas per quam fides operatur, nisi unde illam fides ipsa impetravit? Neque enim esset in nobis, quantacumque sit in nobis, nisi diffunderetur in cordibus nostris per Spiritum Sanctum, qui datus est nobis. Charitas quippe Dei dicta est diffundi in cordibus nostris, non qua nos ipse diligit, sed qua nos facit dilectores suos: sicut justitia Dei, qua justi ejus munere efficimur; et Domini salus, qua nos salvos facit; et fides Jesu Christi, qua nos fideles facit. Haec est justitia Dei, quam non solum docet per legis praeceptum, verum etiam dat per Spiritus donum."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J68",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J67",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Sed consequens est paululum quaerere, utrum voluntas illa qua credimus, etiam ipsa Dei donum sit, an ex illo naturaliter insito libero adhibeatur arbitrio. Si enim dixerimus eam non esse donum Dei, metuendum est ne existimemus invenisse nos aliquid, quod Apostolo increpanti et dicenti, Quid enim habes quod non accepisti? Si autem et accepisti, quid gloriaris quasi non acceperis? respondere possimus, ‘Ecce habemus voluntatem credendi, quam non accepimus: ecce ubi gloriamur, quod non acceperimus.’ Si autem dixerimus, etiam hujusmodi voluntatem non esse nisi donum Dei, rursus metuendum est, ne infideles atque impii non immerito se veluti juste excusare videantur, ideo non credidisse, quod dare illis Deus istam noluit voluntatem. Nam illud quod dictum est, Deus est enim qui operatur in nobis et velle et operari, pro bona voluntate: jam gratiae est, quam fides impetrat, ut possint esse hominis opera bona, quae operatur fides per dilectionem, quae diffunditur in corde per Spiritum Sanctum qui datus est nobis. Si credimus ut impetremus hanc gratiam, et utique voluntate credimus, de hac quaeritur unde sit nobis. Si natura, quare non omnibus, cum sit idem Deus omnium creator? Si dono Dei, etiam hoc quare non omnibus, cum omnes homines velit salvos fieri, et in agnitionem veritatis venire?"
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J69",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J67",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Prius igitur illud dicamus, et videamus utrum huic satisfaciat quaestioni, quod liberum arbitrium, naturaliter attributum a Creatore animae rationali, illa media vis est, quae vel intendi ad fidem, vel inclinari ad infidelitatem potest: et ideo nec istam voluntatem qua credit Deo, dici potest homo habere quam non acceperit; quandoquidem vocante Deo surgit de libero arbitrio, quod naturaliter cum crearetur accepit. Vult autem Deus omnes homines salvos fieri, et in agnitionem veritatis venire; non sic tamen, ut eis adimat liberum arbitrium, quo vel bene vel male utentes justissime judicentur. Quod cum fit, infideles quidem contra voluntatem Dei faciunt, cum ejus Evangelio non credunt: nec ideo tamen eam vincunt, verum se ipsos fraudant magno et summo bono, malisque poenalibus implicant, experturi in suppliciis potestatem ejus, cujus in donis misericordiam contempserunt. Ita voluntas Dei semper invicta est: vinceretur autem, si non inveniret quid de contemptoribus faceret, aut ullo modo possent evadere quod de talibus ille constituit. Qui enim dicit, verbi gratia, ‘Volo ut hi omnes servi mei operentur in vinea, et post laborem requiescentes epulentur, ita ut quisquis eorum hoc noluerit, in pistrino semper molat:’ videtur quidem quicumque contempserit, contra voluntatem domini sui facere; sed tunc eam vincet, si et pistrinum contemnens effugerit: quod nullo modo fieri potest sub Dei potestate. Unde scriptum est, Semel locutus est Deus, hoc est, incommutabiliter: quanquam et de unico Verbo possit intelligi. Deinde subjungens quid incommutabiliter sit locutus: Duo haec, inquit, audivi, quoniam potestas Dei est, et tibi, Domine, misericordia, quia tu reddes unicuique secundum opera sua. Ille igitur reus erit ad damnationem sub potestate ejus, qui contempserit ad credendum misericordiam ejus. Quisque autem crediderit, eique se a peccatis omnibus absolvendum, et ab omnibus vitiis sanandum, et calore ac lumine ejus accendendum illuminandumque commiserit; habebit ex ejus gratia opera bona, ex quibus etiam secundum corpus a mortis corruptione redimatur, coronetur, bonisque satietur, non temporalibus, sed aeternis, supra quam petimus et intelligimus."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6A",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J67",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Hunc ordinem tenuit Psalmus, ubi dicitur: Benedic, anima mea, Dominum, et noli oblivisci omnes retributiones ejus; qui propitius fit omnibus iniquitatibus tuis, qui sanat omnes languores tuos, qui redimit de corruptione vitam tuam, qui coronat te in miseratione et misericordia, qui satiat in bonis desiderium tuum. Et ne forte haec tanta bona hujus vetustatis, hoc est, mortalitatis deformitas desperaret: Renovabitur, inquit, sicut aquilae juventus tua. Tanquam diceret: Haec quae audisti, ad novum hominem et ad Novum pertinent Testamentum. Recole mecum eadem ipsa paululum, obsecro te, et inspice delectabiliter laudem misericordiae, hoc est, gratiae Dei. Benedic, inquit, anima mea, Dominum, et noli oblivisci omnes retributiones ejus: non ait, Tributiones, sed, retributiones ejus; quia retribuit bona pro malis. Qui propitius fit omnibus iniquitatibus tuis: hoc agitur in Baptismatis sacramento. Qui sanat omnes languores tuos: hoc agitur in hac vita fidelis hominis, dum caro concupiscit adversus spiritum, et spiritus adversus carnem, ut non quae volumus faciamus; dum alia lex in membris repugnat legi mentis; dum velle adjacet, perficere autem bonum non: qui languores vetustatis, si perseverante intentione proficimus, de die in diem crescente novitate sanantur, ex fide quae per dilectionem operatur. Qui redimit de corruptione vitam tuam: hoc fit in ultima resurrectione mortuorum. Qui coronat te in miseratione et misericordia: hoc fit in judicio, ubi cum Rex justus sederit in throno redditurus unicuique secundum opera ejus, quis gloriabitur castum se habere cor? aut quis gloriabitur mundum se esse a peccato? Ideo illic necessarium fuit commemorare miserationem et misericordiam Domini, ubi jam exigi debita et reddi merita sic possent videri, ut nullus esset misericordiae locus. Coronat ergo in miseratione et misericordia, sed etiam sic secundum opera. Segregabitur enim ad dexteram, cui dicatur, Esurivi, et dedisti mihi manducare: quoniam judicium sine misericordia, sed illi qui non fecit misericordiam: Beati autem misericordes, quoniam ipsorum miserebitur Deus. Jam vero cum sinistri ierint in ambustionem aeternam, justi autem in vitam aeternam: quia haec est, inquit, vita aeterna, ut cognoscant te unum verum Deum, et quem misisti Jesum Christum; illa cognitione, illa visione, illa contemplatione satiabitur in bonis animae desiderium. Hoc enim solum ei sat est; ultra non habet quod appetat, quod inhiet, quod requirat. Nam desiderio hujus satietatis ardebat, qui Domino Christo ait: Ostende nobis Patrem, et sufficit nobis. Cui responsum est: Qui me vidit, vidit et Patrem. Quia ipsa est vita aeterna, ut cognoscant unum verum Deum te, et quem misisti Jesum Christum. Sed si ille qui vidit Filium, vidit et Patrem; profecto qui videt Patrem et Filium, videt et Spiritum Sanctum Patris et Filii. Ita nec arbitrium liberum tollimus, et benedicit anima nostra Dominum, non obliviscens omnes retributiones ejus: nec ignorans Dei justitiam, suam vult constituere; sed credit in eum qui justificat impium, et vivit ex fide, donec ad speciem perducatur; fide scilicet quae per dilectionem operatur. Quae dilectio diffunditur in cordibus nostris, nec per sufficientiam propriae voluntatis, nec per litteram legis, sed per Spiritum Sanctum qui datus est nobis."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6C",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6B",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Haec disputatio, si quaestioni illi solvendae sufficit, sufficiat. Si autem respondetur, cavendum esse ne quisquam Deo tribuendum putet peccatum, quod admittitur per liberum arbitrium, si in eo quod dicitur, Quid habes quod non accepisti? propterea etiam voluntas qua credimus dono Dei tribuitur, quia de libero exsistit arbitrio, quod cum crearemur accepimus: attendat, et videat, non ideo tantum istam voluntatem divino muneri tribuendam, quia ex libero arbitrio est, quod nobis naturaliter concreatum est; verum etiam quod visorum suasionibus agit Deus, ut velimus, et ut credamus, sive extrinsecus per evangelicas exhortationes, ubi et mandata legis aliquid agunt, si ad hoc admonent hominem infirmitatis suae, ut ad gratiam justificantem credendo confugiat; sive intrinsecus, ubi nemo habet in potestate quid ei veniat in mentem, sed consentire vel dissentire propriae voluntatis est. His ergo modis quando Deus agit cum anima rationali, ut ei credat; neque enim credere potest quodlibet libero arbitrio, si nulla sit suasio vel vocatio cui credat; profecto et ipsum velle credere Deus operatur in homine, et in omnibus misericordia ejus praevenit nos: consentire autem vocationi Dei, vel ab ea dissentire, sicut dixi, propriae voluntatis est. Quae res non solum non infirmat quod dictum est, Quid enim habes quod non accepisti? verum etiam confirmat. Accipere quippe et habere anima non potest dona, de quibus hoc audit, nisi consentiendo: ac per hoc quid habeat, et quid accipiat, Dei est: accipere autem et habere utique accipientis et habentis est. Jam si ad illam profunditatem scrutandam quisquam nos coarctet, cur illi ita suadeatur ut persuadeatur, illi autem non ita; duo sola occurrunt interim quae respondere mihi placeat: O altitudo divitiarum! et, Numquid iniquitas apud Deum? Cui responsio ista displicet, quaerat doctiores, sed caveat ne inveniat praesumptores."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6E",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6D",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Concludamus igitur librum aliquando, cujus tanta prolixitate utrum aliquid egerimus, nescio; non apud te, cujus fidem scio, sed apud animos eorum propter quos me scribere voluisti; qui non contra nostram, sed (ut mitius loquar, et non dicam illius qui in suis Apostolis est locutus) certe contra tanti apostoli Pauli, non unam sententiam, sed tam vehementem, tam intentam vigilemque conflictationem malunt suam defensitare sententiam, quam eum audire obsecrantem per miserationem Dei, et dicentem, per gratiam Dei quae data est illi, non plus sapere praeter quam oportet sapere, sed sapere ad temperantiam, unicuique sicut Deus partitus est mensuram fidei."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6F",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6D",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Tu autem quid mihi proposueris, et quid tam longo disputationis hujus opere effecerimus, adverte. Movit te certe quemadmodum dictum fuerit, fieri posse ut sit homo sine peccato, si voluntas ejus non desit, ope adjuvante divina: quamvis nemo tam perfectae justitiae in hac vita fuerit, vel sit, vel futurus sit. Sic enim hoc ipsum in illis prius ad te conscriptis libris proposui: ‘Si a me quaeratur,’ inquam, ‘utrum homo sine peccato possit esse in hac vita; confitebor posse per Dei gratiam et liberum ejus arbitrium: ipsum quoque liberum arbitrium ad Dei gratiam, hoc est, ad Dei dona pertinere non ambigens, nec tantum ut sit, verum etiam ut bonum sit, id est, ad facienda mandata Domini convertatur; atque ita Dei gratia, non solum ostendat quid faciendum sit, sed adjuvet etiam, ut fieri possit quod ostenderit.’ Tibi autem absurdum visum est, sine exemplo esse rem quae fieri potest. Hinc exorta est hujus libri quaestio; ac per hoc ad nos pertinebat ostendere, fieri posse aliquid quamvis desit exemplum. Hinc ex Evangelio et ex Lege quaedam posuimus in sermonis hujus exordio, sicut de cameli transitu per foramen acus, et de duodecim millibus legionum Angelorum, qui potuerunt, si vellet, pugnare pro Christo, et de illis gentibus quas Deus dicit potuisse se a facie populi sui semel exterminare: quae omnia facta non sunt. His addi possunt etiam illa quae leguntur in libro Sapientiae, quam multa posset nova tormenta Deus exercere in impios ad nutum sibi serviente creatura, quae tamen non exercuit. Potest et de monte illo quem fides in mare transferret: quod tamen nusquam factum, vel legimus, vel audivimus. Quisquis enim horum aliquid Deo dixerit esse impossibile, vides quam desipiat, quamque adversus fidem Scripturae ejus loquatur. Multa alia hujusmodi possunt occurrere vel legenti vel cogitanti, quae possibilia Deo negare non possumus, quamvis eorum desit exemplum."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6G",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6D",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Sed quia dici potest, illa opera esse divina, juste autem vivere ad nostra opera pertinere; suscepi ostendere etiam hoc opus esse divinum, et hoc egi libro isto loquacius fortasse quam sat est: sed contra inimicos gratiae Dei etiam parum mihi dixisse videor; nihilque me tam multum dicere delectat, quam ubi mihi et Scriptura ejus plurimum suffragatur; et id agitur, ut qui gloriatur in Domino glorietur, et in omnibus gratias agamus Domino Deo nostro, ‘sursum cor habentes,’ unde a Patre luminum omne datum optimum et omne donum perfectum est. Nam si propterea non est opus Dei, quia per nos agitur, vel quia illo donante nos agimus, nec illud est opus Dei, ut mons transferatur in mare; quia per fidem hominum fieri posse Dominus dixit, et hoc ipsorum operi attribuit, dicens, Si habueritis in vobis fidem tanquam granum sinapis, dicetis monti huic, Tollere et mittere in mare; et fiet, et nihil impossibile erit vobis. Certe vobis dixit; non, Mihi aut Patri: et tamen hoc nullo modo facit homo, nisi illo donante et operante. Ecce quemadmodum sine exemplo est in hominibus perfecta justitia, et tamen impossibilis non est. Fieret enim, si tanta voluntas adhiberetur, quanta sufficit tantae rei. Esset autem tanta, si et nihil eorum quae pertinent ad justitiam nos lateret, et ea sic delectarent animum, ut quidquid aliud voluptatis dolorisve impedit, delectatio illa superaret: quod ut non sit, non ad impossibilitatem, sed ad judicium Dei pertinet. Quis enim nesciat, non esse in hominis potestate quid sciat, nec esse consequens ut quod appetendum cognitum fuerit appetatur, nisi tantum delectet, quantum diligendum est? Hoc autem sanitatis est animae."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6J",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6H",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Sed fortasse quispiam putaverit, nihil nobis deesse ad cognitionem justitiae, quod Dominus verbum consummans et brevians super terram, dixit in duobus praeceptis totam Legem Prophetasque pendere; nec ea tacuit, sed verbis apertissimis prompsit, Diliges, inquit, Dominum Deum tuum ex toto corde tuo, et ex tota anima tua, et ex tota mente tua; et diliges proximum tuum tanquam te ipsum. Quid verius, his impletis impleri omnino justitiam? Verumtamen qui hoc attendit, etiam illud attendat, quam in multis offendamus omnes, dum putamus Deo, quem diligimus, placere, vel non displicere quod facimus; et postea per Scripturam ejus, sive certa et perspicua ratione commoniti, cum didicerimus quod ei non placeat, poenitendo precamur ut ignoscat. Plena humana vita est documentis talibus. Unde autem minus novimus quid ei placeat, nisi quia et ipse minus notus est nobis? Videmus enim nunc per speculum in aenigmate, tunc autem facie ad faciem. Quis vero existimare audeat, cum eo ventum fuerit, quod ait, Ut cognoscam sicut et cognitus sum, tantam Dei dilectionem fore contemplatoribus ejus, quanta fidelibus nunc est: aut ullo modo hanc illi tanquam de proximo comparandam? Porro si quanto major notitia, tanto erit major dilectio; profecto nunc quantum deest dilectioni, tantum perficiendae justitiae deesse credendum est. Sciri enim aliquid vel credi, et tamen non diligi potest: diligi autem quod neque scitur neque creditur, non potest. At si credendo ad tantam dilectionem sancti pervenire potuerunt, qua certe majorem in hac vita esse non posse Dominus ipse testatus est, ut animam suam pro fide vel pro fratribus ponerent: cum ab hac peregrinatione in qua per fidem nunc ambulatur, perventum erit ad speciem, quam nondum visam speramus, et per patientiam exspectamus, procul dubio et ipsa dilectio non solum supra quam hic habemus, sed longe supra quam petimus et intelligimus erit; nec ideo tamen plus esse poterit, quam ex toto corde, ex tota anima, ex tota mente. Neque enim restat in nobis aliquid quod addi possit ad totum; quia si restabit aliquid, illud non erit totum. Proinde hoc primum praeceptum justitiae, quo jubemur diligere Deum ex toto corde, et ex tota anima, et ex tota mente, cui est de proximo diligendo alterum consequens, in illa vita implebimus, cum videbimus facie ad faciem. Sed ideo nobis hoc etiam nunc praeceptum est, ut admoneremur, quid fide exposcere, quo spem praemittere, et obliviscendo quae retro sunt, in quae anteriora nos extendere debeamus. Ac per hoc, quantum mihi videtur, in ea quae perficienda est justitia multum in hac vita ille profecit, qui quam longe sit a perfectione justitiae, proficiendo cognovit."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6K",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6H",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Sed si dici potest quaedam justitia minor huic vitae competens, qua justus ex fide vivit, quamvis peregrinus a Domino, et ideo per fidem ambulans, nondum per speciem: non absurde dicitur etiam ad istam pertinere ne peccet. Neque enim, si esse nondum potest tanta dilectio Dei, quanta illi cognitioni plenae perfectaeque debetur, jam culpae deputandum est. Aliud est enim totam nondum assequi charitatem, aliud nullam sequi cupiditatem. Quamobrem debet homo, quamvis longe minus amet Deum, quam eum potest amare conspectum, nihil tamen appetere illicitum: sicut etiam in his quae adjacent sensibus corporis, potest oculus nullis tenebris delectari, quamvis non possit in fulgentissima luce defigi. Verum ecce jam talem constituamus animam humanam in hoc corruptibili corpore, quae etsi nondum illa supereminentissima perfectione charitatis Dei omnes motus terrenae libidinis absorbuerit atque consumpserit, attamen in ista minore justitia ad illicitum aliquid operandum eidem libidini nulla inclinatione consentiat; ut ad illam vitam jam immortalem pertineat, Diliges Dominum Deum tuum ex toto corde tuo, et ex tota anima tua, et ex tota virtute tua; ad hanc autem, Non regnet peccatum in vestro mortali corpore ad obediendum desideriis ejus: ad illam, Non concupisces; ad istam, Post concupiscentias tuas non eas: ad illam, nihil amplius quaerere, quam in ea perfectione persistere; ad istam, hoc quod agit in opere habere, et illius perfectionem pro mercede sperare: ut per illam justus sine fine vivat in specie, quam in ista desideravit; per hanc autem justus vivat ex fide, in qua illam certo fine desiderat. (His constitutis peccatum erit hominis ex fide viventis, aliquando alicui delectationi illicitae consentire: non tantum in illis horrendis facinoribus et flagitiis perpetrandis, verum etiam in levioribus; ut vel aurem alicui voci quae audienda non esset, vel linguam alicui quae dicenda non esset, accommodet; vel in ipso corde aliquid ita cogitet, ut mallet licitum quod male delectat, et per praeceptum scitur illicitum: etiam ista quippe consensio est ad peccatum, quae utique fieret, nisi poena terreret.) Tales justi ex fide viventes, non opus habent dicere, Dimitte nobis debita nostra, sicut et nos dimittimus debitoribus nostris? falsumque esse convincunt, quod scriptum est, Non justificabitur in conspectu tuo omnis vivens? et illud, Si dixerimus quia peccatum non habemus, nosmetipsos decipimus, et veritas in nobis non est? et illud, Quia non est homo qui non peccabit? et illud, Non est justus in terra qui faciet bonum et non peccabit? (utrumque enim hoc testimonium non de praeterito dicit, id est, Peccavit; sed de futuro, id est, peccabit) et si qua alia in hanc sententiam sancta Scriptura commemorat? Sed quoniam haec falsa esse non possunt, illud esse consequens video, ut qualemlibet vel quantamlibet in hac vita potuerimus definire justitiam, nullus in ea sit hominum qui nullum habeat omnino peccatum; omnique homini sit necessarium dare ut detur illi, dimittere ut dimittatur illi; et si quid habet justitiae, non de suo sibi esse praesumere, sed de gratia justificantis Dei, et adhuc tamen ab illo esurire et sitire justitiam, qui est panis vivus, et apud quem est fons vitae: qui sic operatur justificationem in sanctis suis in hujus vitae tentatione laborantibus, ut tamen sit et quod petentibus largiter adjiciat, et quod confitentibus clementer ignoscat."
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6M",
+      "sectionId": "01M6N296XQW8RQ4K4KR6W50J6H",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Sed inveniant isti, si possunt, aliquem sub onere corruptionis hujus viventem, cui jam non habeat Deus quod ignoscat: nisi tamen eum fateantur non doctrina legis datae, sed etiam infuso spiritu gratiae, ut talis esset, adjutum; non cujuscemodi peccati crimen, sed ipsius impietatis incurrent. Sane quanquam talem, si testimonia illa divina competenter accipiant, prorsus invenire non possunt: nullo modo tamen dicendum, Deo deesse possibilitatem, qua voluntas sic adjuvetur humana, ut non solum justitia ista quae ex fide est, omni ex parte modo perficiatur in homine, verum etiam illa secundum quam postea in aeternum in ipsa ejus contemplatione vivendum est. Quandoquidem si nunc velit in quoquam etiam hoc corruptibile induere incorruptionem, atque hic inter homines morituros eum jubere vivere minime moriturum, ut tota penitus vetustate consumpta nulla lex in membris ejus repugnet legi mentis, Deumque ubique praesentem ita cognoscat, sicut sancti postea cognituri sunt, quis demens audeat affirmare, non posse? Sed quare non faciat, quaerunt homines; nec qui quaerunt, se attendunt esse homines. Scio quod sicut impossibilitas, ita et iniquitas non est apud Deum. Et scio quod superbis resistit, humilibus autem dat gratiam. Et scio quod illi, cui ne extolleretur datus erat stimulus carnis, angelus Satanae, qui eum colaphizaret, semel et iterum et tertio deprecanti dictum est, Sufficit tibi gratia mea; nam virtus in infirmitate perficitur. Aliquid ergo est in abdito et profundo judiciorum Dei, ut etiam justorum omne os obstruatur in laude sua, et non aperiatur nisi in laudem Dei. Hoc autem aliquid quis possit scrutari, quis investigare, quis nosse? tam sunt inscrutabilia judicia ejus, et investigabiles viae ejus! Quis enim cognovit sensum Domini? aut quis consiliarius illi fuit? Aut quis prior dedit illi, et retribuetur ei? Quoniam ex ipso, et per ipsum, et in ipso sunt omnia; ipsi gloria in saecula saeculorum. Amen."
+    }
+  ]
+}

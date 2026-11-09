@@ -17,27 +17,29 @@ describe('SettingsScreen', () => {
 
   it('persists typography settings and restores them on the next start', async () => {
     const first = await renderWithProviders(<SettingsScreen />);
-    expect(await screen.findByText('18 pt')).toBeTruthy();
+    // No size chosen yet: the window decides (17 on a phone, which is what the tests render in).
+    expect(await screen.findByText('17 pt')).toBeTruthy();
 
     await fireEvent.press(screen.getByLabelText('Mărește dimensiunea textului'));
     await fireEvent.press(screen.getByLabelText('Mărește spațierea rândurilor'));
     await fireEvent.press(screen.getByLabelText('Sepia'));
 
-    expect(await screen.findByText('19 pt')).toBeTruthy();
+    expect(await screen.findByText('18 pt')).toBeTruthy();
     expect(screen.getByText('1,7')).toBeTruthy();
     expect(await stored()).toEqual({
-      fontSize: 19,
-      lineHeight: 1.7,
+      fontSize: 18,
+      lineSpacing: 1.7,
       theme: 'sepia',
       readingFont: 'serif',
       readingLanguage: 'ro', // the tests run as on a Romanian device
       uiLanguage: 'system',
+      readerPair: null,
     });
 
     // A fresh app start reads the stored settings.
     await first.unmount();
     await renderWithProviders(<SettingsScreen />);
-    expect(await screen.findByText('19 pt')).toBeTruthy();
+    expect(await screen.findByText('18 pt')).toBeTruthy();
     expect(screen.getByLabelText('Sepia').props.accessibilityState).toMatchObject({
       selected: true,
     });
@@ -71,13 +73,13 @@ describe('SettingsScreen', () => {
     expect(await stored()).toMatchObject({ readingFont: 'sans' });
   });
 
-  it('keeps the font size within 14 to 26 and ignores corrupt stored data', async () => {
+  it('keeps the font size within 14 to 34 and ignores corrupt stored data', async () => {
     await AsyncStorage.setItem(
       SETTINGS_KEY,
       JSON.stringify({ fontSize: 99, lineHeight: 'x', theme: 'neon', readingLanguage: 'fr' }),
     );
     await renderWithProviders(<SettingsScreen />);
-    expect(await screen.findByText('26 pt')).toBeTruthy();
+    expect(await screen.findByText('34 pt')).toBeTruthy();
     expect(screen.getByLabelText('Mărește dimensiunea textului')).toBeDisabled();
     expect(screen.getByLabelText('Automat').props.accessibilityState).toMatchObject({
       selected: true,
@@ -119,7 +121,7 @@ describe('SettingsScreen languages', () => {
 
   it('starts from the device: Romanian, with the interface following the system', async () => {
     await renderWithProviders(<SettingsScreen />);
-    await screen.findByText('18 pt');
+    await screen.findByText('17 pt');
     expect(reading().getByLabelText('Română').props.accessibilityState).toMatchObject({
       selected: true,
     });
@@ -133,7 +135,7 @@ describe('SettingsScreen languages', () => {
 
   it('persists the reading language and restores it on the next start', async () => {
     const first = await renderWithProviders(<SettingsScreen />);
-    await screen.findByText('18 pt');
+    await screen.findByText('17 pt');
     await fireEvent.press(reading().getByLabelText('English'));
     expect(reading().getByLabelText('English').props.accessibilityState).toMatchObject({
       selected: true,
@@ -142,7 +144,7 @@ describe('SettingsScreen languages', () => {
 
     await first.unmount();
     await renderWithProviders(<SettingsScreen />);
-    await screen.findByText('18 pt');
+    await screen.findByText('17 pt');
     expect(reading().getByLabelText('English').props.accessibilityState).toMatchObject({
       selected: true,
     });
@@ -150,7 +152,7 @@ describe('SettingsScreen languages', () => {
 
   it('switches the whole interface to English at once, persists it and keeps it', async () => {
     const first = await renderWithProviders(<SettingsScreen />);
-    await screen.findByText('18 pt');
+    await screen.findByText('17 pt');
     expect(screen.getByText('Mărimea textului')).toBeTruthy();
 
     await fireEvent.press(ui().getByLabelText('English'));

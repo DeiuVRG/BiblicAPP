@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-en-05-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYKH",
+    "ordinal": 4,
+    "kind": "section",
+    "heading": "5"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKJ",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "descendit ad inferna; tertia die resurrexit a mortuis;",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "passus sub Pontio Pilato, crucifixus, mortuus, et sepultus;",
+    "nextParagraph": "ascendit ad cælos; sedet ad dexteram Dei Patris omnipotentis;",
+    "previousSectionHeading": "4"
+  },
+  "wordCount": 8,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

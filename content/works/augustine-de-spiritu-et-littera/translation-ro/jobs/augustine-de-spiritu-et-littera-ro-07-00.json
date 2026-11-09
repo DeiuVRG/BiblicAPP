@@ -1,0 +1,44 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-07-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N296XM67B5DT6XFEEHB02R",
+    "ordinal": 6,
+    "kind": "chapter",
+    "heading": "VII"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02S",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Haec cogitatio sancta servat filios hominum, in protectione alarum Dei sperantes, ut inebrientur ab ubertate domus ejus, et torrente voluptatis ejus potentur: quoniam apud ipsum est fons vitae, et in lumine ejus videbimus lumen; qui praetendit misericordiam suam scientibus eum, et justitiam suam iis qui recto sunt corde. Neque enim quia sciunt, sed etiam ut sciant eum, praetendit misericordiam suam: nec quia recti sunt corde, sed etiam ut recti sint corde, praetendit justitiam suam, qua justificat impium. Haec cogitatio non effert in superbiam; quod vitium oritur, cum sibi quisque praefidit, seque sibi ad vivendum caput facit. Quo motu receditur ab illo fonte vitae, cujus solius haustu justitia bibitur, bona scilicet vita; et ab illo incommutabili lumine, cujus participatione anima rationalis quodam modo accenditur ut sit etiam ipsa factum creatumque lumen: sicut erat Joannes lucerna ardens et lucens; qui tamen unde luceret agnoscens, Nos, inquit, de plenitudine ejus accepimus: cujus, nisi illius utique in cujus comparatione Joannes non erat lumen? Illud enim erat verum lumen quod illuminat omnem hominem venientem in hunc mundum. Proinde cum dixisset in eodem psalmo, Praetende misericordiam tuam scientibus te, et justitiam tuam his qui recto sunt corde: Non veniat, inquit, mihi pes superbiae, et manus peccatorum non moveat me: ibi ceciderunt omnes qui operantur iniquitatem; expulsi sunt, nec potuerunt stare. Hac quippe impietate, qua tribuit sibi quisque quod Dei est, pellitur in tenebras suas, quae sunt opera iniquitatis. Haec enim plane ipse facit, et ad haec implenda sibi est idoneus. Opera vero justitiae non facit, nisi quantum ex illo fonte atque ex illo lumine percipit, ubi nullius indigens vita est, et ubi non est commutatio, nec momenti obumbratio.",
+      "references": []
+    },
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02T",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Ideo Paulus Apostolus, qui cum Saulus prius vocaretur, non ob aliud, quantum mihi videtur, hoc nomen elegit, nisi ut se ostenderet parvum, tanquam minimum Apostolorum; multum contra superbos et arrogantes, et de suis operibus praesumentes, pro commendanda ista Dei gratia fortiter atque acriter dimicans; quia revera in illo evidentior et clarior apparuit, qui cum talia operaretur vehementer Ecclesiam Dei persequens, pro quibus summo supplicio dignus fuit, misericordiam pro damnatione suscepit, et pro poena consecutus est gratiam; merito pro ejus defensione clamat atque concertat, nec in re profunda et nimis abdita non intelligentium, et verba sua sana in perversum sensum detorquentium curat invidiam; dum tamen incunctanter praedicet donum Dei, quo uno salvi fiunt filii promissionis, filii beneficii divini, filii gratiae et misericordiae, filii Testamenti Novi. Primum, quod omnis ejus salutatio sic se habet: Gratia vobis et pax a Deo Patre et Domino Jesu Christo. Deinde, ad Romanos pene ipsa quaestio sola versatur, tam pugnaciter, tam multipliciter, et fatiget quidem legentis intentionem, sed tamen fatigatione utili ac salubri, ut interioris hominis magis exerceat membra quam frangat.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Consequenter eamdem medicinam in passione et resurrectione Christi mystice demonstratam ostendit Apostolus, dicens: An ignoratis quoniam quicumque baptizati sumus in Christo Jesu, in morte ipsius baptizati sumus? Consepulti ergo sumus illi per baptismum in mortem; ut quemadmodum surrexit Christus a mortuis per gloriam Patris, ita et nos in novitate vitae ambulemus. Si enim complantati fuimus similitudini mortis ejus, sed et resurrectionis erimus: hoc scientes, quia vetus homo noster simul crucifixus est, ut evacuetur corpus peccati, ut ultra non serviamus peccato. Qui enim mortuus est, justificatus est a peccato. Si autem mortui sumus cum Christo, credimus quia simul vivemus cum illo; scientes quia Christus surgens a mortuis jam non moritur, et mors ei ultra non dominabitur. Quod enim mortuus est peccato, mortuus est semel: quod autem vivit, vivit Deo. Ita et vos existimate vos mortuos esse peccato, vivere autem Deo in Christo Jesu. Nempe satis elucet mysterio Dominicae mortis et resurrectionis figuratum vitae nostrae veteris occasum, et exortum novae, demonstratamque iniquitatis abolitionem renovationemque justitiae. Unde igitur hoc tantum beneficium homini per litteram legis, nisi per fidem Jesu Christi?",
+    "nextParagraph": "Inde sunt quae supra commemoravi. Inde est quod Judaeum arguit, eumque dicit Judaeum cognominari, et nequaquam id quod profitetur implere. Si autem tu, inquit, Judaeus cognominaris, et requiescis in lege, et gloriaris in Deo, et nosti voluntatem, et probas distantia, instructus ex lege, confidis te ipsum ducem esse caecorum, lumen eorum qui in tenebris, eruditorem insipientium, magistrum infantium, habentem formam scientiae et veritatis in lege. Qui ergo alium doces, te ipsum non doces? qui praedicas non furandum, furaris? qui dicis non adulterandum, adulteras? qui abominaris idola, sacrilegium facis? qui in lege gloriaris, per praevaricationem legis Deum inhonoras? Nomen enim Dei per vos blasphematur in Gentibus, sicut scriptum est. Circumcisio quidem prodest, si legem custodias: si autem praevaricator legis sis, circumcisio tua praeputium facta est. Si igitur praeputium justitias legis custodiat, nonne praeputium ejus in circumcisionem reputabitur; et judicabit quod ex natura est praeputium, legem perficiens, te qui per litteram et circumcisionem praevaricator legis es? Non enim qui in manifesto, Judaeus est, neque quae in manifesto in carne, est circumcisio; sed qui in abscondito, Judaeus est, et circumcisio cordis in spiritu, non littera, cujus laus non ex hominibus, sed ex Deo est. Hic manifestavit quemadmodum dixerit, gloriaris in Deo. Nam utique si vere talis Judaeus gloriaretur in Deo, eo modo quo postulat gratia, quae non operum meritis, sed gratuito datur, ex Deo esset laus ejus, non ex hominibus. Sed ita gloriabantur in Deo, velut qui soli meruissent legem ejus accipere, secundum illam vocem Psalmi, qua dictum est, Non fecit sic ulli genti, et judicia sua non manifestavit eis. Quam tamen Dei legem sua justitia se arbitrabantur implere, cum magis ejus praevaricatores essent. Unde illis iram operabatur, abundante peccato, quod ab scientibus perpetrabatur. Quia et quicumque faciebant quod lex jubebat, non adjuvante Spiritu gratiae, timore poenae faciebant, non amore justitiae: ac per hoc coram Deo non erat in voluntate, quod coram hominibus apparebat in opere; potiusque ex illo rei tenebantur, quod eos noverat Deus malle, si fieri posset impune, committere. Circumcisionem autem cordis dicit, puram scilicet ab omni illicita concupiscentia voluntatem: quod non fit littera docente et minante, sed Spiritu adjuvante atque sanante. Ideo laus talium non ex hominibus, sed ex Deo est, qui per suam gratiam praestat unde laudentur, de quo dicitur, In Domino laudabitur anima mea; et cui dicitur, Apud te laus mea: non quales illi sunt qui Deum laudari volunt quod homines sunt, se autem quod justi sunt.",
+    "previousSectionHeading": "VI"
+  },
+  "wordCount": 446,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

@@ -40,6 +40,8 @@ interface Props extends TextProps {
    * title: one `h1` per screen, not one per line).
    */
   heading?: boolean;
+  /** The 600 face of the reading-chrome family (Source Serif 4 has no synthesised bold worth using). */
+  strong?: boolean;
 }
 
 /** The default tone of a variant. */
@@ -102,8 +104,18 @@ export function useTypeStyle(variant: TypeVariant, tone?: TextTone | boolean): T
 }
 
 /** Themed text on the type scale (`theme/typography.ts`). */
-export function AppText({ variant = 'body', muted, tone, level, heading, style, ...rest }: Props) {
+export function AppText({
+  variant = 'body',
+  muted,
+  tone,
+  level,
+  heading,
+  strong,
+  style,
+  ...rest
+}: Props) {
   const base = useTypeStyle(variant, tone ?? muted);
+  const fonts = useFontFamilies();
   const isHeading = heading ?? HEADING_VARIANTS.has(variant);
   const role = rest.accessibilityRole ?? (isHeading ? 'header' : undefined);
   const headingLevel = level ?? HEADING_LEVELS[variant] ?? 2;
@@ -117,7 +129,7 @@ export function AppText({ variant = 'body', muted, tone, level, heading, style, 
       {...levelProps}
       {...rest}
       accessibilityRole={role}
-      style={[base, style]}
+      style={[base, strong ? { fontFamily: fonts.textSemiBold } : null, style]}
     />
   );
 }

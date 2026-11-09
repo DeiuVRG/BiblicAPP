@@ -1,0 +1,226 @@
+{
+  "_comment": "Config for clean.txt, the output of content/sources/augustine-de-spiritu-et-littera/clean.py (see its docstring and the SOURCE.md next to it). Running heads, page numbers, signature marks, marginal references, footnotes and the editor's chapter summaries are already removed there, so the detection of heads and feet is switched off (headers.minRepeats 1000, footers.zoneLines 0, noiseLineMaxChars 0). Paragraphs start at the lines that clean.py indented (one per numbered section): mode layout, with shortEndChars so high that the short-line cue never fires, and no abbreviations. Quotation marks are already the edition's (clean.py), so typographicQuotes is off. Each chapter has a one-line heading block (its numeral), so the configured heading is the numeral. replacements and wordFixes repair OCR damage and are listed with their reason.",
+  "firstChapterMarker": "^\\s*CHAPTER\\s+I\\s*$",
+  "chapterMarker": "^\\s*CHAPTER\\s+([IVXLCDM]+)\\s*$",
+  "headingTemplate": "{heading}",
+  "allCapsHeadings": false,
+  "headers": {
+    "zoneLines": 1,
+    "minRepeats": 1000,
+    "similarity": 0.65
+  },
+  "footers": {
+    "zoneLines": 0,
+    "maxChars": 1
+  },
+  "paragraphs": {
+    "mode": "layout",
+    "indentMin": 2,
+    "indentMax": 9,
+    "shortEndChars": 1000,
+    "abbreviations": []
+  },
+  "noiseLineMaxChars": 0,
+  "lineNoise": [],
+  "chapters": [
+    {
+      "number": "I",
+      "heading": "I"
+    },
+    {
+      "number": "II",
+      "heading": "II"
+    },
+    {
+      "number": "III",
+      "heading": "III"
+    },
+    {
+      "number": "IV",
+      "heading": "IV"
+    },
+    {
+      "number": "V",
+      "heading": "V"
+    },
+    {
+      "number": "VI",
+      "heading": "VI"
+    },
+    {
+      "number": "VII",
+      "heading": "VII"
+    },
+    {
+      "number": "VIII",
+      "heading": "VIII"
+    },
+    {
+      "number": "IX",
+      "heading": "IX"
+    },
+    {
+      "number": "X",
+      "heading": "X"
+    },
+    {
+      "number": "XI",
+      "heading": "XI"
+    },
+    {
+      "number": "XII",
+      "heading": "XII"
+    },
+    {
+      "number": "XIII",
+      "heading": "XIII"
+    },
+    {
+      "number": "XIV",
+      "heading": "XIV"
+    },
+    {
+      "number": "XV",
+      "heading": "XV"
+    },
+    {
+      "number": "XVI",
+      "heading": "XVI"
+    },
+    {
+      "number": "XVII",
+      "heading": "XVII"
+    },
+    {
+      "number": "XVIII",
+      "heading": "XVIII"
+    },
+    {
+      "number": "XIX",
+      "heading": "XIX"
+    },
+    {
+      "number": "XX",
+      "heading": "XX"
+    },
+    {
+      "number": "XXI",
+      "heading": "XXI"
+    },
+    {
+      "number": "XXII",
+      "heading": "XXII"
+    },
+    {
+      "number": "XXIII",
+      "heading": "XXIII"
+    },
+    {
+      "number": "XXIV",
+      "heading": "XXIV"
+    },
+    {
+      "number": "XXV",
+      "heading": "XXV"
+    },
+    {
+      "number": "XXVI",
+      "heading": "XXVI"
+    },
+    {
+      "number": "XXVII",
+      "heading": "XXVII"
+    },
+    {
+      "number": "XXVIII",
+      "heading": "XXVIII"
+    },
+    {
+      "number": "XXIX",
+      "heading": "XXIX"
+    },
+    {
+      "number": "XXX",
+      "heading": "XXX"
+    },
+    {
+      "number": "XXXI",
+      "heading": "XXXI"
+    },
+    {
+      "number": "XXXII",
+      "heading": "XXXII"
+    },
+    {
+      "number": "XXXIII",
+      "heading": "XXXIII"
+    },
+    {
+      "number": "XXXIV",
+      "heading": "XXXIV"
+    },
+    {
+      "number": "XXXV",
+      "heading": "XXXV"
+    },
+    {
+      "number": "XXXVI",
+      "heading": "XXXVI"
+    }
+  ],
+  "pageFixes": [],
+  "replacements": [
+    {
+      "pattern": "\\bjusti cabitur\\b",
+      "flags": "g",
+      "replace": "justificabitur",
+      "note": "OCR: the 'fi' of 'justificabitur' is lost and the word split (chapter IX)"
+    },
+    {
+      "pattern": "\\bverum etiam\\. adjutorem\\b",
+      "flags": "g",
+      "replace": "verum etiam adjutorem",
+      "note": "stray full stop before the margin of the line (chapter II, section 3)"
+    },
+    {
+      "pattern": "\\bnos divinitus\\. adjuvari\\b",
+      "flags": "g",
+      "replace": "nos divinitus adjuvari",
+      "note": "stray full stop at the end of a line (chapter XII, section 20)"
+    },
+    {
+      "pattern": "ė",
+      "flags": "g",
+      "replace": "e",
+      "note": "OCR: 'e' with a dot ('prodėrunt', chapter XXVIII)"
+    },
+    {
+      "pattern": "\\bcerimoniae\\b",
+      "flags": "g",
+      "replace": "caerimoniae",
+      "note": "OCR 'ceri-moniae' (chapter XXI, section 36); Augustine quotes the phrase as 'caerimoniae' in Retractationes ii. 37, printed on page 98 of the same volume, and the margin of the line refers to it ('See below, p. 98')"
+    },
+    {
+      "pattern": "\\s+([;:?!])",
+      "flags": "g",
+      "replace": "$1",
+      "note": "the print sets a space before ; : ? !, Latin text has none"
+    }
+  ],
+  "wordFixes": {
+    "praecipiturquemadmodum": "praecipitur quemadmodum",
+    "computantura": "computantur a",
+    "sufficientiu": "sufficientia",
+    "filem": "fidem",
+    "filli": "filii",
+    "justitius": "justitias",
+    "NON": "non",
+    "deoσéßetav": "θεοσέβειαν",
+    "Oeoσéßeia": "Θεοσέβεια"
+  },
+  "typographicQuotes": false,
+  "hyphenation": {
+    "keep": [],
+    "join": []
+  }
+}

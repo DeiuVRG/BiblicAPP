@@ -13,7 +13,7 @@
 // the centuries, the shelves unfolded, the sheet of a filter, the drawer of the section bar, the
 // menu of a phone) and again after the app navigated to it (a link click, the browser's back
 // button). For every state it asserts that
-//   1. the colour of the page title (the first heading, or the running head of the reader), the
+//   1. the colour of the page title (the first heading, or the title of the work in the toolbar of the reader), the
 //      background of the bars of the shell, the bands of the screen (sampled at several points)
 //      and the background of <html> and <body> all belong to the palette of the active theme
 //      (apps/mobile/src/theme/palettes.ts is the source of truth, read from the file),
@@ -27,9 +27,10 @@
 // scenario, the semantics the design relies on are checked in the DOM: the themed focus ring, the
 // search field (it keeps its size while typing, the clear button stays inside it), the state of
 // the theme radios (their rows on a narrow container, and that the keyboard drives them), the
-// typography button and the progress bar, the balanced title of the work page, the not-found
-// page, and that nothing overflows on a narrow phone with the search field or the typography
-// sheet in use.
+// text-appearance control and the progress bar, the balanced title of the work page, the not-found
+// page, and that nothing overflows on a narrow phone with the search field or the text-appearance
+// panel in use. The reader is also probed in two lanes, with its panels open (text appearance,
+// tools, find, the transparency dialog) and the transparency policy page is one of the screens.
 // Exits 1 on any failure (a screenshot of the failing state goes to test-results/), 2 on a usage
 // or setup error. Build the export first: pnpm --filter mobile export:web
 
@@ -38,6 +39,7 @@ import { readFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 import {
+  READER_SCREENS,
   SCREENS,
   discoverRoutes,
   launchChromium,
@@ -186,11 +188,11 @@ function probe(minContrast) {
       [...node.childNodes].some((child) => child.nodeType === 3 && child.textContent.trim() !== ''),
     ) ?? element;
 
-  // The title of the page: the running head of the reader (the page has a toolbar of its own
-  // there), otherwise the first level-1 heading. Screens the user came from stay in the DOM,
-  // hidden: only a visible one counts.
+  // The title of the page: the name of the work in the toolbar of the reader (the page has a
+  // toolbar of its own there, and it is the level-1 heading), otherwise the first level-1 heading.
+  // Screens the user came from stay in the DOM, hidden: only a visible one counts.
   const pageTitle =
-    [...document.querySelectorAll('[data-testid="reader-running-title"]')].filter(visible).at(-1) ??
+    [...document.querySelectorAll('[data-testid="reader-title"]')].filter(visible).at(-1) ??
     [...document.querySelectorAll('h1, [role="heading"][aria-level="1"]')].filter(visible).at(0);
 
   // The bars of the shell (docs/ui-spec-v2.md, 4.1 and 4.2) of the screen in front.
@@ -275,14 +277,23 @@ const TITLES = {
   search: /^Căutare · Biblioteca$/,
   work: /^.+ · Biblioteca$/,
   reader: /^.+ · .+ · Biblioteca$/,
+  'reader-lanes': /^.+ · .+ · Biblioteca$/,
+  'about-transparency': /^Angajamentul nostru de transparență · Biblioteca$/,
   settings: /^Setări · Biblioteca$/,
 };
 
 // The screens whose title sits in a dark hero band (the masthead).
-const HERO_SCREENS = new Set(['landing', 'library', 'library-all', 'authors', 'search']);
+const HERO_SCREENS = new Set([
+  'landing',
+  'library',
+  'library-all',
+  'authors',
+  'search',
+  'about-transparency',
+]);
 
 /** Everything wrong with one probed state of `screen`, as readable lines. */
-function judge(found, expectName, screen, { overlay = false } = {}) {
+function judge(found, expectName, screen, { overlay = false, untitled = false } = {}) {
   const palette = palettes[expectName];
   const problems = [];
   const expectColour = (what, actual, wanted) => {
@@ -309,7 +320,7 @@ function judge(found, expectName, screen, { overlay = false } = {}) {
   // of the window (it is the sticky header). The reader has no brand bar of its own.
   const { shell } = found;
   const phone = found.viewportWidth <= 640;
-  if (screen !== 'reader') {
+  if (!READER_SCREENS.has(screen)) {
     if (shell.brandBackground === null) problems.push('no brand bar');
     else {
       expectColour('brand bar background', shell.brandBackground, palette.cream);
@@ -330,18 +341,18 @@ function judge(found, expectName, screen, { overlay = false } = {}) {
         `the section bar is ${shell.sectionHeight} px high, expected ${wanted} (+ border)`,
       );
   }
-  // The title of the page: light on the dark hero of the library pages, the text colour elsewhere,
-  // the quiet running head in the reader.
-  const titleToken =
-    screen === 'reader' ? 'textMuted' : HERO_SCREENS.has(screen) ? 'mastheadInk' : 'text';
+  // The title of the page: light on the dark hero of the library pages, the text colour elsewhere
+  // (the name of the work in the toolbar of the reader is the text colour, too).
+  const titleToken = HERO_SCREENS.has(screen) ? 'mastheadInk' : 'text';
   if (found.pageTitle)
     expectColour('page title colour', found.pageTitle.colour, palette[titleToken]);
-  else problems.push('no page title found');
+  else if (!untitled) problems.push('no page title found');
   if (TITLES[screen] && !TITLES[screen].test(found.title))
     problems.push(`browser tab title is "${found.title}", expected ${TITLES[screen]}`);
   if (found.overflowX > 0) problems.push(`the page scrolls sideways by ${found.overflowX} px`);
-  // On a phone the title stops at the gutter, like the text around it.
-  const gutter = 24;
+  // On a phone the title stops at the gutter, like the text around it (16 points in the toolbar of
+  // the reader, 24 on the pages).
+  const gutter = READER_SCREENS.has(screen) ? 16 : 24;
   if (
     found.viewportWidth < 768 &&
     found.pageTitleRight !== null &&
@@ -573,11 +584,12 @@ async function semanticsProblems(page, scenario, site, routes) {
     problems.push(`the clear button (${JSON.stringify(clear)}) is not inside the field`);
   expectEqual('sideways overflow with the search field in use', await page.evaluate(overflowOf), 0);
 
-  // The reader: the progress bar and the typography button carry their state in the DOM, the
-  // sheet closes with Escape and fits a narrow phone.
+  // The reader: the progress bar carries its state in the DOM, and so does the control of the text
+  // appearance (the button of the toolbar on a wide screen, the Text cell of the bottom bar on a
+  // phone); the panel closes with Escape and fits a narrow phone.
   await open('reader', routes.reader);
   const progress = await page.evaluate(() => {
-    const bar = document.querySelector('[role="progressbar"]');
+    const bar = document.querySelector('[role="progressbar"][aria-valuenow]');
     return (
       bar && {
         now: bar.getAttribute('aria-valuenow'),
@@ -592,33 +604,50 @@ async function semanticsProblems(page, scenario, site, routes) {
     expectEqual('progress aria-valuemin', progress.min, '0');
     expectEqual('progress aria-valuemax', progress.max, '100');
   }
-  const toggle = page.getByRole('button', { name: /Aspectul textului/ });
-  expectEqual(
-    'typography button aria-expanded',
-    await toggle.getAttribute('aria-expanded'),
-    'false',
-  );
+  const wideReader = scenario.viewport.width > 880;
+  const toggle = wideReader
+    ? page.getByRole('button', { name: /Aspectul textului/ })
+    : page.locator('[data-testid="thumb-cell-text"]:visible').first();
+  const panel = page
+    .locator(
+      `${wideReader ? '[data-testid="typography-panel"]' : '[data-testid="aa-sheet"]'}:visible`,
+    )
+    .first();
+  if (wideReader) {
+    expectEqual(
+      'text appearance button aria-expanded',
+      await toggle.getAttribute('aria-expanded'),
+      'false',
+    );
+  }
   await toggle.click();
+  if (wideReader) {
+    expectEqual(
+      'text appearance button aria-expanded (open)',
+      await toggle.getAttribute('aria-expanded'),
+      'true',
+    );
+  }
+  await panel.waitFor({ timeout: args.timeout });
   expectEqual(
-    'typography button aria-expanded (open)',
-    await toggle.getAttribute('aria-expanded'),
-    'true',
-  );
-  await page.getByText('Mărimea textului').first().waitFor({ timeout: args.timeout });
-  expectEqual(
-    'sideways overflow with the typography sheet open',
+    'sideways overflow with the text appearance panel open',
     await page.evaluate(overflowOf),
     0,
   );
   await page.keyboard.press('Escape');
-  await page.waitForTimeout(200);
-  expectEqual(
-    'typography button aria-expanded (Escape)',
-    await toggle.getAttribute('aria-expanded'),
-    'false',
-  );
-  if (await page.getByText('Mărimea textului').count())
-    problems.push('Escape did not close the typography sheet');
+  // (A sheet slides away before it leaves the page.)
+  try {
+    await panel.waitFor({ state: 'detached', timeout: 2000 });
+  } catch {
+    problems.push('Escape did not close the text appearance panel');
+  }
+  if (wideReader) {
+    expectEqual(
+      'text appearance button aria-expanded (Escape)',
+      await toggle.getAttribute('aria-expanded'),
+      'false',
+    );
+  }
 
   // The work page: its display title breaks into balanced lines (no one-word last line).
   await open('work', routes.work);
@@ -802,7 +831,7 @@ async function main() {
         viewport: scenario.viewport,
       });
       if (scenario.stored) {
-        const value = JSON.stringify({ fontSize: 18, lineHeight: 1.6, theme: scenario.stored });
+        const value = JSON.stringify({ theme: scenario.stored });
         await context.addInitScript(
           ([key, stored]) => {
             try {
@@ -888,12 +917,63 @@ async function main() {
           ['[data-testid="section-item-read"]:visible'],
         ],
         ...(narrow ? [['landing', 'menu', '/', ['[data-testid="menu-button"]:visible']]] : []),
+        // The reader with its panels open: the controls of the toolbar on a wide screen, the cells of
+        // the bottom bar on a phone (their panels are sheets).
+        ...(narrow
+          ? [
+              ['reader', 'text sheet', routes.reader, ['[data-testid="thumb-cell-text"]:visible']],
+              [
+                'reader',
+                'tools sheet',
+                routes.reader,
+                ['[data-testid="thumb-cell-tools"]:visible'],
+              ],
+              [
+                'reader',
+                'language sheet',
+                routes.reader,
+                ['[data-testid="thumb-cell-language"]:visible'],
+              ],
+              [
+                'reader',
+                'contents drawer',
+                routes.reader,
+                ['[data-testid="thumb-cell-contents"]:visible'],
+              ],
+              ['reader', 'find bar', routes.reader, ['[data-testid="thumb-cell-find"]:visible']],
+            ]
+          : [
+              [
+                'reader',
+                'text appearance panel',
+                routes.reader,
+                ['[data-testid="aa-button"]:visible'],
+              ],
+              ['reader', 'tools drawer', routes.reader, ['[data-testid="tools-button"]:visible']],
+              ['reader', 'find bar', routes.reader, ['[data-testid="find-button"]:visible']],
+              [
+                'reader',
+                'transparency dialog',
+                routes.reader,
+                ['[data-testid="transparency-button"]:visible'],
+              ],
+              [
+                'reader-lanes',
+                'two lanes with find',
+                routes['reader-lanes'],
+                ['[data-testid="find-button"]:visible'],
+              ],
+            ]),
       ];
       for (const [screen, how, path, clicks] of states) {
         await page.goto(`${site.base}${path}`, { waitUntil: 'domcontentloaded' });
         await waitForScreen(page, screen, args.timeout);
         for (const selector of clicks) await page.locator(selector).first().click();
-        await check(screen, how, { overlay: /sheet|menu/.test(how) });
+        await check(screen, how, {
+          overlay: /sheet|menu|dialog/.test(how),
+          // (The Tools drawer of the toolbar folds the title away while it is open.)
+          untitled: /tools drawer/.test(how),
+        });
       }
 
       // Every screen after the app navigated to it: links forward, the back button, a header link.

@@ -1,0 +1,37 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-03-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N296XKBCVD7SQ55PJBX860",
+    "ordinal": 2,
+    "kind": "chapter",
+    "heading": "III"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XM67B5DT6XFEEHB02F",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Nos autem dicimus humanam voluntatem sic divinitus adjuvari ad faciendam justitiam, ut praeter quod creatus est homo cum libero arbitrio voluntatis, praeterque doctrinam qua ei praecipitur quemadmodum vivere debeat, accipiat Spiritum Sanctum, quo fiat in animo ejus delectatio dilectioque summi illius atque incommutabilis boni quod Deus est, etiam nunc cum adhuc per fidem ambulatur, nondum per speciem: ut hac sibi velut arrha data gratuiti muneris inardescat inhaerere Creatori, atque inflammetur accedere ad participationem illius veri luminis, ut ex illo ei bene sit, a quo habet ut sit. Nam neque liberum arbitrium quidquam nisi ad peccandum valet, si lateat veritatis via et cum id quod agendum et quo nitendum est coeperit non latere, nisi etiam delectet et ametur, non agitur, non suscipitur, non bene vivitur. Ut autem diligatur, charitas Dei diffunditur in cordibus nostris, non per arbitrium liberum quod surgit ex nobis, sed per Spiritum Sanctum qui datus est nobis.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Sed illis acerrime ac vehementissime resistendum est, qui putant sine adjutorio Dei per se ipsam vim voluntatis humanae vel justitiam posse perficere, vel ad eam tenendo proficere: et cum urgeri coeperint, quomodo id praesumant asserere fieri sine ope divina, reprimunt se, nec hanc vocem audent emittere, quoniam vident quam sit impia, et non ferenda. Sed aiunt, ideo ista sine ope divina non fieri, quia et hominem Deus creavit cum libero voluntatis arbitrio, et dando praecepta ipse docet quemadmodum homini sit vivendum; et in eo utique adjuvat, quod docendo aufert ignorantiam, ut sciat homo in operibus suis quid evitare, et quid appetere debeat; quo per liberum arbitrium naturaliter insitum, viam demonstratam ingrediens, continenter et juste et pie vivendo ad beatam eandemque aeternam vitam pervenire mereatur.",
+    "nextParagraph": "Doctrina quippe illa, qua mandatum accipimus continenter recteque vivendi, littera est occidens, nisi adsit vivificans Spiritus. Neque enim solo illo modo intelligendum est quod legimus, Littera occidit, spiritus autem vivificat, ut aliquid figurate scriptum, cujus est absurda proprietas, non accipiamus sicut littera sonat, sed aliud quod significat intuentes, interiorem hominem spirituali intelligentia nutriamus, quoniam sapere secundum carnem mors est, sapere autem secundum spiritum vita et pax. Velut si quisquam multa quae scripta sunt in Cantico Canticorum carnaliter accipiat, non ad luminosae charitatis fructum, sed ad libidinosae cupiditatis affectum. Non ergo solo illo modo intelligendum est quod ait Apostolus, Littera occidit, spiritus autem vivificat: sed etiam illo, eoque vel maxime, quo apertissime alio loco dicit, Concupiscentiam nesciebam, nisi lex diceret, Non concupisces. Et paulo post ait: Occasione accepta peccatum per mandatum fefellit me, et per illud occidit. Ecce quid est, Littera occidit. Et utique non figurate aliquid dicitur, quod accipiendum non sit secundum litterae sonum, cum dicitur, Non concupisces: sed apertissimum saluberrimumque praeceptum est, quod si quis impleverit, nullum habebit omnino peccatum. Nam hoc ideo elegit Apostolus generale quiddam, quo cuncta complexus est, tanquam haec esset vox legis ab omni peccato prohibentis, quod ait, Non concupisces; neque enim ullum peccatum nisi concupiscendo committitur: proinde quae hoc praecipit, bona et laudabilis lex est. Sed ubi Sanctus non adjuvat Spiritus, inspirans pro concupiscentia mala concupiscentiam bonam, hoc est, charitatem diffundens in cordibus nostris; profecto illa lex, quamvis bona, auget prohibendo desiderium malum: sicut aquae impetus, si in eam partem non cesset influere, vehementior fit obice opposito, cujus molem cum evicerit, majore cumulo praecipitatus violentius per prona provolvitur. Nescio quo enim modo, hoc ipsum quod concupiscitur fit jucundius dum vetatur. Et hoc est quod fallit peccatum per mandatum, et per illud occidit, cum accedit etiam praevaricatio, quae nulla est ubi lex non est.",
+    "previousSectionHeading": "II"
+  },
+  "wordCount": 149,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

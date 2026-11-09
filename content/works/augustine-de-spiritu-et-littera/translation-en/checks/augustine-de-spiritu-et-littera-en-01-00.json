@@ -1,0 +1,54 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-01-00",
+  "file": "final/augustine-de-spiritu-et-littera-en-01-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row iustitia (FIX) matched: iustitia → righteousness (the default in works on grace and the law) or justice (the distributive or forensic sense). Context decides; keep one choice per passage and flag the doubtful ones AMBIGUITATE.",
+      "quoteSource": "justitiae",
+      "quoteTarget": "righteousness"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row peccatum (FIX) matched: peccatum → sin; peccator → sinner; peccare → to sin. The rendering is the word itself and its family (sins, sinful, sinless, sinner, sinned, sinning), not any word that starts with the letters: since, single and sincere are not sin.",
+      "quoteSource": "peccati",
+      "quoteTarget": "sin"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row voluntas (PREFER) matched: voluntas → will (the faculty); voluntas Dei → the will of God. Not \"wish\" unless the context is a wish.",
+      "quoteSource": "voluntas",
+      "quoteTarget": "will"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row baptismus (FIX) matched: baptismus → baptism.",
+      "quoteSource": "Baptismo",
+      "quoteTarget": "baptism"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "message": "proposed (not approved) glossary row mediator (FIX) matched: mediator → Mediator (Christ; 1 Tim. 2:5).",
+      "quoteSource": "Mediatore",
+      "quoteTarget": "Mediator"
+    }
+  ],
+  "stats": {
+    "paragraphs": 1,
+    "sourceWords": 210,
+    "targetWords": 336,
+    "lengthRatio": 1.275
+  }
+}

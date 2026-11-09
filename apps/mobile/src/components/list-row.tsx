@@ -22,6 +22,7 @@ interface Props {
   indent?: number;
   /** Marks the entry in progress with the accent rule on the left. */
   current?: boolean;
+  testID?: string;
 }
 
 /**
@@ -35,10 +36,16 @@ export function LinkRow({
   children,
   indent = 0,
   current = false,
+  testID,
 }: Props) {
   return (
     <Link href={href} asChild>
-      <RowPressable accessibilityLabel={accessibilityLabel} indent={indent} current={current}>
+      <RowPressable
+        testID={testID}
+        accessibilityLabel={accessibilityLabel}
+        indent={indent}
+        current={current}
+      >
         {children}
       </RowPressable>
     </Link>

@@ -25,9 +25,10 @@ describe('the sections of the bar', () => {
     ]);
   });
 
-  it('shows only home, search and read while the other screens are not live', () => {
-    expect(keys(FEATURES)).toEqual(['home', 'search', 'read']);
+  it('shows only home, search, read and the policy page of "Despre" while the other screens are not live', () => {
+    expect(keys(FEATURES)).toEqual(['home', 'search', 'read', 'about']);
     expect(entriesOf(FEATURES, 'read')).toEqual(['curated', 'all', 'authors']);
+    expect(entriesOf(FEATURES, 'about')).toEqual(['transparency']);
   });
 
   it('shows home, search, read, research and about once the Beta 1 screens are live (check S1)', () => {
@@ -40,14 +41,19 @@ describe('the sections of the bar', () => {
     const noAuthors = { ...FEATURES, authors: false };
     expect(entriesOf(noAuthors, 'read')).toEqual(['curated', 'all']);
     const noLibrary = { ...FEATURES, library: false, authors: false };
-    expect(keys(noLibrary)).toEqual(['home', 'search']);
-    expect(keys({ ...FEATURES, search: false })).toEqual(['home', 'read']);
+    expect(keys(noLibrary)).toEqual(['home', 'search', 'about']);
+    expect(keys({ ...FEATURES, search: false })).toEqual(['home', 'read', 'about']);
+    expect(keys({ ...FEATURES, transparency: false })).toEqual(['home', 'search', 'read']);
   });
 
   it('keeps the entries of a drawer in their order when only some are live', () => {
-    const onlyTransparency = { ...FEATURES, transparency: true };
+    const onlyTransparency = { ...FEATURES, transparency: true, about: false };
     expect(keys(onlyTransparency)).toEqual(['home', 'search', 'read', 'about']);
     expect(entriesOf(onlyTransparency, 'about')).toEqual(['transparency']);
+    expect(entriesOf({ ...FEATURES, about: true }, 'about')).toEqual([
+      'aboutLibrary',
+      'transparency',
+    ]);
   });
 
   it('adds the later sections only when their flags are on', () => {

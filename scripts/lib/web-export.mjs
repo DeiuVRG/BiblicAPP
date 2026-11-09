@@ -175,8 +175,9 @@ export async function launchChromium(tool) {
  * The URLs of the screens the design covers, found by clicking through the app the way a reader
  * does: the landing, the curated library, the full library, the authors list, search, the first
  * work (a link on the full library, whose accordion is open for a small library), its first chapter
- * and Settings. The routes of docs/ui-spec-v2.md 4.4: `/` is the landing, the library lives at
- * `/library` (Selecție) and `/library/all`.
+ * (alone, and in two lanes: `?pair=ro+en`), the transparency page and Settings. The routes of
+ * docs/ui-spec-v2.md 4.4: `/` is the landing, the library lives at `/library` (Selecție) and
+ * `/library/all`.
  */
 export async function discoverRoutes(page, base, timeout) {
   await page.goto(`${base}/library/all`, { waitUntil: 'domcontentloaded' });
@@ -195,6 +196,8 @@ export async function discoverRoutes(page, base, timeout) {
     search: '/search',
     work: stripBase(workPath, base),
     reader: stripBase(readerPath, base),
+    'reader-lanes': `${stripBase(readerPath, base)}?pair=ro+en`,
+    'about-transparency': '/about/transparency',
     settings: '/settings',
   };
 }
@@ -205,25 +208,32 @@ function stripBase(path, base) {
   return prefix && path.startsWith(`${prefix}/`) ? path.slice(prefix.length) : path;
 }
 
-// Evaluated inside the page: the reader is on screen when its own progress bar (the one with a
-// value; the loading view has none) is visible and at least two visible leaf text blocks of `min`
-// characters (rendered paragraphs) are. Visible matters: a screen the reader was opened from stays
-// in the DOM under it (display: none), and its table of contents has text blocks too.
-const readerReady = (min) => {
+// Evaluated inside the page: the reader is on screen when its toolbar and its own progress bar (the
+// one with a value; the loading view has none) are visible and at least two visible leaf text blocks
+// of `min` characters (rendered paragraphs) are. Visible matters: a screen the reader was opened
+// from stays in the DOM under it (display: none), and its table of contents has text blocks too.
+// `lanes` asks for the two-lane form: at least one row of lanes.
+const readerReady = ({ min, lanes }) => {
   const visible = (el) => {
     const box = el.getBoundingClientRect();
     return box.width > 0 && box.height > 0;
   };
+  const shown = (testId) =>
+    [...document.querySelectorAll(`[data-testid="${testId}"]`)].some(visible);
   const progress = [...document.querySelectorAll('[role="progressbar"][aria-valuenow]')].some(
     visible,
   );
   const blocks = [...document.querySelectorAll('div, span, p')].filter(
     (el) => el.children.length === 0 && (el.textContent ?? '').trim().length >= min && visible(el),
   );
-  return progress && blocks.length >= 2;
+  const rows = [...document.querySelectorAll('[data-testid^="lane-row-"]')].some(visible);
+  return shown('reader-toolbar') && progress && blocks.length >= 2 && (!lanes || rows);
 };
 
-/** The screens of the design, in the order of the reading flow (the names of docs/ui-spec-v2.md 20.1). */
+/**
+ * The screens of the design, in the order of the reading flow (the names of docs/ui-spec-v2.md 20.1):
+ * `reader-lanes` is the reader with two editions side by side and `about-transparency` the policy page.
+ */
 export const SCREENS = [
   'landing',
   'library',
@@ -232,8 +242,13 @@ export const SCREENS = [
   'search',
   'work',
   'reader',
+  'reader-lanes',
+  'about-transparency',
   'settings',
 ];
+
+/** The screens whose content is the reader (no brand bar: it has a toolbar of its own). */
+export const READER_SCREENS = new Set(['reader', 'reader-lanes']);
 
 /**
  * What proves that a screen has drawn its content: a test id that only exists once the data is in.
@@ -248,6 +263,7 @@ const READY = {
   // The title of Settings (the phone menu has a theme selector of its own, so a radio group is no
   // proof that the page is there).
   settings: '[data-testid="settings-title"]',
+  'about-transparency': '[data-testid="transparency-policy-body"]',
 };
 
 /** Waits until a screen has drawn its content (fonts loaded, list rows or paragraphs on screen). */
@@ -256,7 +272,10 @@ export async function waitForScreen(page, screen, timeout) {
   if (READY[screen])
     await page.locator(`${READY[screen]}:visible`).first().waitFor({ state: 'visible', timeout });
   else if (screen === 'work') await page.locator('a[href*="/read/"]').first().waitFor({ timeout });
-  else if (screen === 'reader') await page.waitForFunction(readerReady, 30, { timeout });
+  else if (screen === 'reader')
+    await page.waitForFunction(readerReady, { min: 30, lanes: false }, { timeout });
+  else if (screen === 'reader-lanes')
+    await page.waitForFunction(readerReady, { min: 30, lanes: true }, { timeout });
   else await page.locator(`${READY.settings}:visible`).first().waitFor({ timeout });
   // The landing and the library list their content once the packs are read.
   if (screen === 'landing')

@@ -1,0 +1,39 @@
+{
+  "work": {
+    "id": "01M6N296SNHD422E74A8A5SHHA",
+    "slug": "augustine-de-spiritu-et-littera",
+    "titleRo": "Despre duh și literă",
+    "titleOrig": "De spiritu et littera",
+    "titleEn": "On the Spirit and the Letter",
+    "author": {
+      "name": "Augustine of Hippo",
+      "born": 354,
+      "died": 430,
+      "tradition": "undivided"
+    },
+    "languageOrig": "la",
+    "year": 412
+  },
+  "edition": {
+    "id": "01M6N296SQ9VRJPZDX923CRAJ7",
+    "language": "la",
+    "kind": "source",
+    "licence": {
+      "status": "public-domain",
+      "note": "Latin text of Augustine of Hippo (died 430), as printed in the 1914 Clarendon Press edition of De spiritu et littera, reprinted from the edition of William Bright (Oxford, 1880; Bright died in 1901), before the project's public-domain cut-off year (1956). Only the Latin of Augustine is included: the introduction, chapter summaries, notes and apparatus of the 1914 editor are left out.",
+      "noteRo": "Textul latin al lui Augustin din Hipona (mort în 430), așa cum este tipărit în ediția Clarendon Press din 1914 a tratatului De spiritu et littera, retipărit după ediția lui William Bright (Oxford, 1880; Bright a murit în 1901), înainte de anul-limită al proiectului pentru domeniul public (1956). Ediția conține numai textul latin al lui Augustin: introducerea, rezumatele capitolelor, notele și aparatul editorului din 1914 sunt excluse.",
+      "noteEn": "Latin text of Augustine of Hippo (died 430), as printed in the 1914 Clarendon Press edition of De spiritu et littera, reprinted from the edition of William Bright (Oxford, 1880; Bright died in 1901), before the project's public-domain cut-off year (1956). Only the Latin of Augustine is included: the introduction, chapter summaries, notes and apparatus of the 1914 editor are left out."
+    },
+    "provenance": {
+      "source": "Augustine of Hippo, De spiritu et littera (412), Latin text as printed in St. Augustine, De spiritu et littera, with an introduction by William Bright, Oxford, Clarendon Press, 1914 (the Latin is reprinted from W. Bright, Select Anti-Pelagian Treatises of St. Augustine, Oxford, 1880). Scan: Cornell University Library, barcode 31924029218629 (HathiTrust OCR page text, from the owner's set of sources; content/INVENTORY.md, P2D-02; content/sources/augustine-de-spiritu-et-littera/SOURCE.md).",
+      "extractedBy": "OCR page text of the scan (112 page files), joined into content/sources/augustine-de-spiritu-et-littera/raw-layout.txt by extract.py; the editor's apparatus and the scan furniture were removed by clean.py in the same directory (deterministic, python3 -I; every removal is in clean.log); chapters, paragraphs, line-end hyphens and ids by packages/content-tools ingest-text with content/works/augustine-de-spiritu-et-littera/ingest.config.json.",
+      "notes": "Only the Latin of Augustine is in this edition. Left out: the library pages; William Bright's English introduction; the English chapter headings and summaries of the 1914 edition (the chapter headings here are the chapter numerals); the marginal references to Scripture and to other works; the footnotes (variant readings of the Vienna CSEL, marked V.); the editor's bracketed query; running heads, page numbers and signature marks; and the appendix of the volume, Augustine's Retractationes ii. 37 (another work). Structure: 36 chapters; one paragraph per numbered section of the traditional division (1-66, in order; the section numbers themselves are not in the text), except that chapter XXVIII begins inside section 48, which is therefore two paragraphs (67 paragraphs in all). The spelling is that of the edition (j, v, coelum, charitas, foeditas). Line-end hyphenation was resolved from the text's own usage; the edition's single quotation marks were restored where the OCR had lost them. Known OCR damage was repaired by explicit, reviewable rules (ingest.config.json, and RAW_FIXES in content/sources/augustine-de-spiritu-et-littera/clean.py): split or misread words, one displaced pair of words, and the Greek word θεοσέβεια (chapter XI). Not proof-read against the printed book: rare words and punctuation may still carry OCR errors; the readings to check are listed in content/sources/augustine-de-spiritu-et-littera/SOURCE.md.",
+      "kind": "source",
+      "transcription": true,
+      "sourceDescription": "The Latin text of the 1914 Clarendon Press edition, from the OCR text of a scan: the editor's English introduction, summaries, notes and references are left out; the text was cleaned and divided into chapters and numbered sections by the library's tools. It has not been proof-read against the printed book.",
+      "review": {
+        "state": "needs-review"
+      }
+    }
+  }
+}

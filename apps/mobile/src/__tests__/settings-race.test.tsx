@@ -21,11 +21,12 @@ describe('SettingsProvider', () => {
   it('does not overwrite stored fields when update() runs before the stored settings load', async () => {
     const stored = {
       fontSize: 22,
-      lineHeight: 1.7,
+      lineSpacing: 1.7,
       theme: 'dark',
       readingFont: 'literata',
       readingLanguage: 'en',
       uiLanguage: 'en',
+      readerPair: null,
     };
     const data = new Map([[SETTINGS_KEY, JSON.stringify(stored)]]);
     let release!: () => void;
@@ -98,13 +99,15 @@ describe('SettingsProvider', () => {
       release();
       await gate;
     });
+    // (A record from before the line spacing had presets stored the number as `lineHeight`.)
     expect(sink.current?.settings).toEqual({
       fontSize: 20,
-      lineHeight: 1.5,
+      lineSpacing: 1.5,
       theme: 'light',
       readingFont: 'serif',
       readingLanguage: 'en',
       uiLanguage: 'system',
+      readerPair: null,
     });
   });
 });

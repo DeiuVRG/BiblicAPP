@@ -17,6 +17,7 @@ import type {
   AlignedParagraph,
   EditionDetail,
   EditionSummary,
+  ParagraphLocation,
   SearchHit,
   SectionLocation,
   WorkDetail,
@@ -39,6 +40,8 @@ export interface ContentRepository {
   getParagraphs(sectionId: string): Promise<Paragraph[]>;
   /** The work and the edition a section belongs to (a section id identifies its edition). */
   locateSection(sectionId: string): Promise<SectionLocation | null>;
+  /** The section, edition and work a paragraph belongs to (the "where to start" paragraphs name source paragraphs). */
+  locateParagraph(paragraphId: string): Promise<ParagraphLocation | null>;
   /**
    * The section of another edition of the same work that renders the same source section as
    * `sectionId` (matched by `sourceId`: a translation's section names the section of the source
@@ -282,6 +285,7 @@ export function createInMemoryRepository(
   const sectionOwner = new Map<string, EditionRecord>();
   const sectionById = new Map<string, Section>();
   const paragraphsBySection = new Map<string, Paragraph[]>();
+  const sectionOfParagraph = new Map<string, string>();
   const summariesByWork = new Map<string, EditionSummary[]>();
   const packsByWork = new Map<string, Pack[]>();
   for (const entry of accepted) {
@@ -298,6 +302,7 @@ export function createInMemoryRepository(
       sectionById.set(section.id, section);
     }
     for (const paragraph of pack.paragraphs) {
+      sectionOfParagraph.set(paragraph.id, paragraph.sectionId);
       const list = paragraphsBySection.get(paragraph.sectionId) ?? [];
       list.push(paragraph);
       paragraphsBySection.set(paragraph.sectionId, list);
@@ -462,10 +467,17 @@ export function createInMemoryRepository(
       const record = await open(editionId);
       if (!record) return null;
       const { pack } = record.entry;
+      const { manifest } = record.entry;
       return {
         ...record.summary,
         work: works.get(pack.work.id)?.work ?? pack.work,
         edition: pack.edition,
+        pack: {
+          revision: manifest.revision,
+          version: manifest.version,
+          size: manifest.size,
+          createdAt: manifest.createdAt,
+        },
       };
     },
 
@@ -487,6 +499,18 @@ export function createInMemoryRepository(
         workId: owner.entry.pack.work.id,
         editionId: owner.summary.editionId,
         language: owner.summary.language,
+      };
+    },
+
+    async locateParagraph(paragraphId) {
+      const sectionId = sectionOfParagraph.get(paragraphId);
+      const owner = sectionId === undefined ? undefined : sectionOwner.get(sectionId);
+      if (sectionId === undefined || !owner || !(await open(owner.summary.editionId))) return null;
+      return {
+        workId: owner.entry.pack.work.id,
+        editionId: owner.summary.editionId,
+        language: owner.summary.language,
+        sectionId,
       };
     },
 

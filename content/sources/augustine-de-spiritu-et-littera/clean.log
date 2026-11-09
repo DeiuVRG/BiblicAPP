@@ -1,0 +1,890 @@
+p031 RAW-FIX    'perspexerit.\n:\n4. Sed illis' -> 'perspexerit.\n4. Sed illis'  (stray ':' line: the colon printed after 'fallitur' was displaced by the OCR (next fix))
+p031 RAW-FIX    'falli-\ntur si tamen' -> 'falli-\ntur: si tamen'  (the displaced colon, put back after 'fallitur')
+p037 RAW-FIX    'ut inebrientur ab ii.\n' -> 'ut inebrientur ab\n'  ('ii.' is the rest of a marginal reference (Ps. xxxv.) glued to the line)
+p050 RAW-FIX    'Quod\n22. Quid igitur interest, breviter dicam.\n' -> '22. Quid igitur interest, breviter dicam. Quod\n'  ('Quod' closes the line of section 22 in the print; the OCR put it before the line)
+p057 RAW-FIX    'auferetur velamen.\nin\nCHAPTER XVI' -> 'auferetur velamen.\nCHAPTER XVI'  (stray 'in' of a broken marginal reference ('in ... xiii. 10.'))
+p065 RAW-FIX    'lumen?\nhac vita dicit ipse Dominus, Haec est autem\n' -> 'lumen?\nDe hac vita dicit ipse Dominus, Haec est autem vita\n'  ('De' (the OCR joined it to the marginal reference 'De Ps. xxxv.') and 'vita' (put after the footnote) belong to this line of the print: 'De hac vita dicit ipse Dominus, Haec est autem vita')
+p065 RAW-FIX    'De Ps. xxxv.\nvita John xvii. 3.\n(xxxvi.) 10.' -> 'Ps. xxxv.\nJohn xvii. 3.\n(xxxvi.) 10.'  (the marginal reference without the two words that belong to the Latin line (previous fix))
+p101 RAW-FIX    'desiderat. (His constitutis pec- [Qu, insert\n' -> 'desiderat. (His constitutis pec-\n'  (first piece of the editor's query '[Qu. insert Verum this before ecce, Bened.]')
+p101 RAW-FIX    'aliquando alicui Verum\n' -> 'aliquando alicui\n'  (second piece of the editor's query)
+p101 RAW-FIX    'in illis Bened.]\n' -> 'in illis\n'  (third piece of the editor's query)
+p101 RAW-FIX    "30.\nthis before\necce,'" -> ''  (last pieces of the editor's query and a digit of a reference)
+p102 RAW-FIX    '1 Johni. 8.' -> '1 John i. 8.'  (marginal reference 'John' and 'i.' run together)
+p040 RAW-FIX    "14. Sed laudamus,' inquiunt, et Deum nostrae" -> '14. ‘Sed laudamus,’ inquiunt, ‘et Deum nostrae'  (opponent's words, two pieces)
+p041 RAW-FIX    "vivere debeamus.'" -> 'vivere debeamus.’'  (end of the second piece (section 14))
+p050 RAW-FIX    "ideo non sunt 'opera' quae" -> 'ideo non sunt ‘opera’ quae'  (a term)
+p051 RAW-FIX    "Deus, 'Fac quod jubeo:' lege fidei dicitur Deo, 'Da" -> 'Deus, ‘Fac quod jubeo:’ lege fidei dicitur Deo, ‘Da'  (two sayings)
+p051 RAW-FIX    "quod jubes.' Ideo" -> 'quod jubes.’ Ideo'  (end of the second saying)
+p052 RAW-FIX    "est, litteram occidentem' appellat" -> 'est, ‘litteram occidentem’ appellat'  (a term (the opening mark was lost))
+p067 RAW-FIX    "suo et fratri suo, Cognosce Dominum?' An forte" -> 'suo et fratri suo, ‘Cognosce Dominum?’ An forte'  (words of Jeremiah (opening lost))
+p072 RAW-FIX    "enim aliquis, 'Si Deus hinc" -> 'enim aliquis, ‘Si Deus hinc'  (opponent's objection, opening)
+p072 RAW-FIX    "quod his natura jam praestitit ? '" -> 'quod his natura jam praestitit?’'  (its end (a space before '?' and the closing mark))
+p074 RAW-FIX    "aliud, 'justificati,' quam" -> 'aliud, ‘justificati,’ quam'  (a term)
+p074 RAW-FIX    "ut diceremus,' Homines\nliberabuntur;' hoc" -> 'ut diceremus, ‘Homines\nliberabuntur;’ hoc'  (an example sentence (the OCR glued the opening mark to the comma))
+p074 RAW-FIX    "mus,' Homines creabuntur;' non" -> 'mus, ‘Homines creabuntur;’ non'  (an example sentence)
+p075 RAW-FIX    "Ita si dictum esset, Factores legis honorabuntur ;'" -> 'Ita si dictum esset, ‘Factores legis honorabuntur;’'  (an example sentence (opening lost))
+p075 RAW-FIX    "Factores legis creabuntur, non qui ³ erant, sed ut sint ; '" -> '‘Factores legis creabuntur, non qui ³ erant, sed ut sint;’'  (an example sentence (opening lost))
+p075 RAW-FIX    "retur, 'justi habebuntur, justi deputabuntur,' sicut" -> 'retur, ‘justi habebuntur, justi deputabuntur,’ sicut'  (a saying)
+p075 RAW-FIX    "ter dicimus, 'Deus sanctificat sanctos suos:' aliter" -> 'ter dicimus, ‘Deus sanctificat sanctos suos:’ aliter'  (a saying)
+p081 RAW-FIX    "sit 'ex fide,' et aliud 'per fidem;' sed" -> 'sit ‘ex fide,’ et aliud ‘per fidem;’ sed'  (two phrases)
+p086 RAW-FIX    'solent dicere: Quod habes in' -> 'solent dicere: ‘Quod habes in'  (a saying (opening lost))
+p086 RAW-FIX    "ut hoc malo careas?' Et" -> 'ut hoc malo careas?’ Et'  (its end)
+p086 RAW-FIX    "dere et dicere: Facerem, si esset in potestate.' Quid" -> 'dere et dicere: ‘Facerem, si esset in potestate.’ Quid'  (a saying (opening lost))
+p086 RAW-FIX    "Sed aliter dicimus. Non mihi habuit\nfidem:' aliter,' Non mihi servavit fidem.' Nam illud est,\n'Non credidit quod dixi:' illud, 'Non fecit quod\ndixit.' Secundum" -> 'Sed aliter dicimus. ‘Non mihi habuit\nfidem:’ aliter, ‘Non mihi servavit fidem.’ Nam illud est,\n‘Non credidit quod dixi:’ illud, ‘Non fecit quod\ndixit.’ Secundum'  (four sayings (the OCR glued two opening marks to the comma, lost the first))
+p090 RAW-FIX    "utrum 'spem justi-\ntiae' dixerit" -> 'utrum ‘spem justi-\ntiae’ dixerit'  (a phrase)
+p091 RAW-FIX    "possimus, 'Ecce habemus" -> 'possimus, ‘Ecce habemus'  (an objection, opening)
+p091 RAW-FIX    "quod non acceperimus.' Si autem" -> 'quod non acceperimus.’ Si autem'  (its end)
+p092 RAW-FIX    "'Volo ut hi omnes servi mei" -> '‘Volo ut hi omnes servi mei'  (an example, opening)
+p092 RAW-FIX    "in pistrino semper molat:' videtur" -> 'in pistrino semper molat:’ videtur'  (its end)
+p097 RAW-FIX    "proposui: 'Si a me quaeratur,' inquam, ' utrum" -> 'proposui: ‘Si a me quaeratur,’ inquam, ‘utrum'  (quotation of Augustine's own earlier text, two pieces)
+p097 RAW-FIX    "possit quod ostenderit.' Tibi autem" -> 'possit quod ostenderit.’ Tibi autem'  (its end)
+p098 RAW-FIX    'Domino Deo nostro, sursum\n' -> 'Domino Deo nostro, ‘sursum\n'  (a liturgical phrase, opening lost)
+p098 RAW-FIX    "cor habentes,' unde" -> 'cor habentes,’ unde'  (its end)
+p029 HEAD       DE SPIRITU ET LITTERA
+p029 FOOTNOTE   1 legionum V.
+p029 CHAPTER    I
+p029 SUMMARY    The occasion of writing this book. The fact that a thing has
+p029 SUMMARY    not happened is no proof that it is impossible.
+p029 REF-LINE   Mer. ii. 6,
+p029 SECTION    1
+p029 REF-END    Rom. viii.
+p029 REF-END    De Pecc.
+p029 REF-END    7, 20.
+p029 REF-END    1 Cor. xv. 22.
+p029 REF-END    Matt. xix. 24,
+p029 REF-END    Matt. xxvi.
+p029 FN-MARK    ¹  in: 'duodecim millia legiones ¹ Angelorum pro Christo, ne'
+p029 REF-END    Deut. xxxi.
+p029 REF-END    Judg. ii. 3.
+p029 REF-LINE   26.
+p029 REF-LINE   53.
+p029 REF-LINE   3.
+p030 HEAD       24
+p030 HEAD       DE SPIRITU ET LITTERA [CHAP. II
+p030 CHAPTER    II
+p030 SUMMARY    The error of those who say that men can live here without sin, less
+p030 SUMMARY    pernicious. The error of those who deny the necessity of Grace,
+p030 SUMMARY    more serious, and to be vigorously refuted.
+p030 SECTION    2
+p030 REF-START  Phil. ii, 13.
+p030 REF-LINE   Ps. cxlii.
+p030 REF-LINE   (cxliii.) 2.
+p030 SECTION    3
+p031 HEAD       CHAP. III] DE SPIRITU ET LITTERA
+p031 HEAD       25
+p031 SECTION    4
+p031 CHAPTER    III
+p031 SUMMARY    True Grace a gift of the Holy Spirit, whereby a delight in and
+p031 SUMMARY    love of goodness is produced in the soul.
+p031 SECTION    5
+p031 REF-END    2 Cor. v. 7.
+p032 HEAD       26
+p032 HEAD       DE SPIRITU ET LITTERA [CHAP. IV
+p032 REF-START  Rom. v. 5.
+p032 CHAPTER    IV
+p032 SUMMARY    The teaching of Law, without the life-giving Spirit, is the 'letter
+p032 SUMMARY    that killeth.'
+p032 SECTION    6
+p032 REF-START  2 Cor. iii. 6.
+p032 REF-START  Rom. viii. 6.
+p032 REF-LINE   Rom. vii.
+p032 REF-LINE   7, 11.
+p033 HEAD       CHAP. V] DE SPIRITU ET LITTERA
+p033 HEAD       27
+p033 REF-END    Rom. iv. 15.
+p033 CHAPTER    V
+p033 SUMMARY    What is to be here treated of.
+p033 SECTION    7
+p034 HEAD       28
+p034 HEAD       [CHAP. V
+p034 HEAD       DE SPIRITU ET LITTERA
+p034 REF-LINE   Rom. viii.
+p034 REF-LINE   29, 30.
+p034 REF-START  Mark x. 27.
+p034 SECTION    8
+p035 HEAD       CHAP. VI] DE SPIRITU ET LITTERA
+p035 HEAD       29
+p035 REF-LINE   6
+p035 CHAPTER    VI
+p035 SUMMARY    The abounding of the offence' through the Law.
+p035 REF-LINE   sq.
+p035 SECTION    9
+p035 REF-END    Rom. v. 12
+p035 REF-END    Rom. v. 20.
+p035 REF-END    Rom. vi.1.
+p036 HEAD       30
+p036 HEAD       [CHAP. VI
+p036 HEAD       DE SPIRITU ET LITTERA
+p036 REF-START  Ps. cxviii.
+p036 REF-LINE   (cxix.) 133.
+p036 SECTION    10
+p036 REF-START  Rom, vi. 3 sq.
+p037 HEAD       CHAP. VII] DE SPIRITU ET LITTERA
+p037 HEAD       31
+p037 FOOTNOTE   torrentem... potent V
+p037 CHAPTER    VII
+p037 SUMMARY    From what source good works flow.
+p037 REF-LINE   (xxxvi.) S-
+p037 REF-END    Ps. xxxv.
+p037 SECTION    11
+p037 FN-MARK    ¹  in: 'tur¹: quoniam apud ipsum est fons vitae, et in lumine'
+p037 REF-END    Rom. iv. 5.
+p037 REF-END    John v. 35.
+p037 REF-END    John i. 16.
+p038 HEAD       32
+p038 HEAD       DE SPIRITU ET LITTERA [CHAP. VII
+p038 FOOTNOTE   1 dimicat V.
+p038 REF-LINE   John i. 9.
+p038 REF-LINE   Ps. xxxv.
+p038 REF-LINE   (xxxvi.)
+p038 REF-LINE   11-13.
+p038 REF-START  James i. 17.
+p038 REF-LINE   1
+p038 REF-START  Acts xiii. 9.
+p038 SECTION    12
+p038 FN-MARK    ¹  in: 'cans ¹; quia revera in illo evidentior et clarior apparuit,'
+p039 HEAD       CHAP. VIII] DE SPIRITU ET LITTERA
+p039 HEAD       33
+p039 SIGNATURE  C
+p039 SIGNATURE  1709
+p039 REF-LINE   1 Cor. i. 3;
+p039 REF-LINE   &c.
+p039 REF-END    Rom. i. 7;
+p039 REF-END    2 Cor. i. 2,
+p039 CHAPTER    VIII
+p039 REF-LINE   17-29.
+p039 SUMMARY    Observance of the Law. The boasting of the Jews described. Fear
+p039 SUMMARY    of punishment. Circumcision of the heart. In what sense
+p039 SUMMARY    Pelagians acknowledge God as the Author of justification.
+p039 SECTION    13
+p039 REF-END    Rom. ii.
+p039 REF-END    Isa. lii, 5.
+p040 HEAD       34
+p040 HEAD       DE SPIRITU ET LITTERA [CHAP. VIII
+p040 FOOTNOTE   1 Iudaeus est et circumcisione cordis, qui spiritu V.
+p040 FN-MARK    ¹  in: 'scondito, Judaeus est, et circumcisio cordis in spiritu¹,'
+p040 REF-START  Ps. cxlvii. 20.
+p040 REF-START  Rom. iv. 15.
+p040 REF-START  Ps. xxxiii.
+p040 REF-LINE   (xxxiv.) 3.
+p040 REF-LINE   Ps. xxi.
+p040 REF-LINE   (xxii.) 26.
+p040 SECTION    14
+p041 HEAD       CHAP. IX] DE SPIRITU ET LITTERA
+p041 HEAD       35
+p041 SIGNATURE  C 2
+p041 REF-END    Rom. iii. 20.
+p041 REF-END    Lev. xii. 3.
+p041 REF-END    Rom. vii. 7.
+p041 CHAPTER    IX
+p041 SUMMARY    ' The righteousness of God manifested through the Law
+p041 SUMMARY    and the Prophets.'
+p041 REF-LINE   11.
+p041 REF-END    Rom. x. 3.
+p041 SECTION    15
+p041 REF-END    Cp. Gal, iii.
+p041 REF-END    Rom. iii. 21.
+p042 HEAD       36
+p042 HEAD       DE SPIRITU ET LITTERA [CHAP. IX
+p042 FOOTNOTE   1 adiutus V.
+p042 REF-START  Rom. iii. 22.
+p042 FN-MARK    ¹  in: 'confert sine adjutorio legis, hoc est, non adjuto¹ a lege.'
+p042 REF-START  Prov. iii. 16;
+p042 REF-START  Rom. iii. 23.
+p042 REF-LINE   LXX.
+p042 REF-LINE   Cp. 1 Cor.
+p042 REF-LINE   iv. 7.
+p043 HEAD       CHAP. X] DE SPIRITU ET LITTERA
+p043 HEAD       37
+p043 FOOTNOTE   1 sana V.
+p043 REF-END    Rom. iii. 24.
+p043 FN-MARK    ¹  in: 'tem, et sanata¹ voluntas impleat legem, non constituta'
+p043 CHAPTER    X
+p043 SUMMARY    How it is that 'the Law was not made for a righteous man.'
+p043 REF-END    1 Tim. i. 9, 8.
+p043 SECTION    16
+p043 REF-END    Gal, iii. 24.
+p043 REF-END    Rom. xi. 6.
+p043 REF-END    Matt. v. 17.
+p043 REF-END    John i. 14.
+p044 HEAD       38
+p044 HEAD       [CHAP. X
+p044 HEAD       DE SPIRITU ET LITTERA
+p044 REF-LINE   Rom, iii. 27.
+p044 SECTION    17
+p044 REF-START  Ps. xi. (xii.)7.
+p044 REF-LINE   Ps. lxvii.
+p044 REF-LINE   (lxviii.) 31.
+p045 HEAD       CHAP. XI]
+p045 HEAD       39
+p045 HEAD       DE SPIRITU ET LITTERA
+p045 FOOTNOTE   1 sive internis om. V.
+p045 CHAPTER    XI
+p045 SUMMARY    Godliness is wisdom. That is called 'the righteousness of God,'
+p045 SUMMARY    which God produces.
+p045 REF-LINE   28.
+p045 SECTION    18
+p045 REF-END    Job xxviii.
+p045 FN-MARK    ¹  in: 'caeterisque, sive externis sive internis ¹, sive corporis'
+p046 HEAD       40
+p046 HEAD       DE SPIRITU ET LITTERA [CHAP. XII
+p046 REF-LINE   Rom. i.
+p046 REF-LINE   14-17.
+p046 REF-LINE   Ps. iii. 9.
+p046 CHAPTER    XII
+p046 SUMMARY    Knowledge of God through creatures. Law without Grace.
+p046 SECTION    19
+p046 REF-START  Rom. i. 18-
+p046 REF-LINE   23.
+p047 HEAD       CHAP. XII DE SPIRITU ET LITTERA
+p047 HEAD       41
+p047 FOOTNOTE   1 cantator V.
+p047 REF-END    Cp. Gal. vi. 3.
+p047 REF-END    Ps. xxxv.
+p047 REF-END    12, 10.
+p047 FN-MARK    ¹  in: 'venire deprecatur sanctus ille cantor¹, qui dixit, In'
+p047 REF-LINE   (xxxvi.)
+p048 HEAD       42
+p048 HEAD       DE SPIRITU ET LITTERA [CHAP. XIII
+p048 FOOTNOTE   1 dei add. V.
+p048 SECTION    20
+p048 REF-START  James iv. 6.
+p048 FN-MARK    ¹  in: 'sapientes: ita eos qui per legem¹ cognoscunt quemad-'
+p048 REF-LINE   Rom. x. 3.
+p048 CHAPTER    XIII
+p048 SUMMARY    'The Law of Works' and 'the Law of Faith.'
+p048 SECTION    21
+p049 HEAD       CHAP. XIII] DE SPIRITU ET LITTERA
+p049 HEAD       43
+p049 REF-END    Rom. v. 20.
+p049 REF-END    Rom. vii.
+p049 REF-END    Rom. iii.
+p049 REF-LINE   7-13.
+p049 REF-LINE   21-27.
+p050 HEAD       44
+p050 HEAD       DE SPIRITU ET LITTERA [CHAP. XIII
+p050 REF-START  Rom, iii. s.
+p050 REF-LINE   Wisd. viii. 21.
+p050 SECTION    22
+p050 REF-START  Exod. xx. 17.
+p051 HEAD       CHAP. XIII] DE SPIRITU ET LITTERA
+p051 HEAD       45
+p051 FOOTNOTE   1 iam add. V.
+p051 REF-LINE   21, 22.
+p051 REF-END    James i. 17.
+p051 REF-END    2 Cor. x. 17.
+p051 REF-END    1 Cor. ii, 12.
+p051 REF-END    Rom. i.
+p051 REF-END    Rom. x. 3.
+p051 FN-MARK    ¹  in: 'credat¹ esse quod nondum est; ne incidat in vitium'
+p051 REF-END    Luke xviii.
+p051 REF-LINE   11, 12.
+p052 HEAD       46
+p052 HEAD       DE SPIRITU ET LITTERA [CHAP. XIV
+p052 CHAPTER    XIV
+p052 SUMMARY    The Decalogue also 'kills,' unless Grace is present.
+p052 SECTION    23
+p052 REF-START  Exod. xxxi.
+p052 REF-LINE   18; Deut.
+p052 REF-LINE   ix. 10.
+p052 NOISE      (
+p053 HEAD       CHAP. XIV] DE SPIRITU ET LITTERA
+p053 HEAD       47
+p053 FOOTNOTE   2 figurata lapideis facta est V.
+p053 FOOTNOTE   1 id add. V.
+p053 FN-MARK    ¹  in: 'litorum sacramentorum? Sed quomodo¹ putabimus,'
+p053 SECTION    24
+p053 REF-END    2 Cor. iii. 2-9.
+p053 REF-END    Rom. v. 20.
+p054 HEAD       48
+p054 HEAD       DE SPIRITU ET LITTERA [CHAP. XIV
+p054 REF-START  Rom. viii. 6.
+p054 REF-START  Rom. iv. 15.
+p054 REF-START  Rom. v. 13.
+p054 REF-START  Rom, iii. 20.
+p054 REF-START  Rom. vii. 7.
+p054 SECTION    25
+p054 REF-LINE   Rom. v. 5.
+p054 REF-LINE   Rom. vii,
+p054 REF-LINE   6-25.
+p055 HEAD       CHAP. XIV] DE SPIRITU ET LITTERA
+p055 HEAD       49
+p055 SIGNATURE  Ꭰ
+p055 SIGNATURE  1709
+p055 SECTION    26
+p056 HEAD       50
+p056 HEAD       DE SPIRITU ET LITTERA [CHAP. XV
+p056 REF-START  Eccles. i. 18.
+p056 REF-LINE   Gal. v. 6.
+p056 REF-LINE   Gen. ii. 3.
+p056 CHAPTER    XV
+p056 SUMMARY    Grace, concealed in the Old Testament, is revealed in the New.
+p056 SECTION    27
+p057 HEAD       CHAP. XVI] DE SPIRITU ET LITTERA
+p057 HEAD       51
+p057 SIGNATURE  D 2
+p057 FOOTNOTE   2 id est spiritaliter sabbatizandum add. V.
+p057 FOOTNOTE   1 scissione V.
+p057 FOOTNOTE   3 figurate occisione V.
+p057 REF-END    2 Cor. iii, 16.
+p057 FN-MARK    ¹  in: 'quam scissionem¹ veli, revelanda. Cum enim trans-'
+p057 CHAPTER    XVI
+p057 SUMMARY    Why the Holy Spirit is called the Finger of God.
+p057 REF-LINE   xiii. 10.
+p057 REF-END    2 Cor. iii. 17.
+p057 SECTION    28
+p057 FN-MARK    ²  in: 'nendum² est: hic Spiritus Sanctus per quem diffunditur'
+p057 REF-END    Rom. v. 5;
+p057 REF-END    Luke xi. 20.
+p057 FN-MARK    ³  in: 'quae occisione figuratae³ ovis per Moysen fieri prae-'
+p058 HEAD       52
+p058 HEAD       [CHAP. XVII
+p058 HEAD       DE SPIRITU ET LITTERA
+p058 REF-LINE   Isa. liii. 7.
+p058 REF-START  Acts ii. 2-4.
+p058 REF-LINE   9, 10.
+p058 CHAPTER    XVII
+p058 SUMMARY    Comparison of the Law of Moses with the New Law.
+p058 SECTION    29
+p058 REF-START  Exod. xx. 18.
+p058 REF-START  Rom. xiii.
+p058 REF-START  Rom. v. 5.
+p058 REF-START  Rom. viii. 7.
+p058 SECTION    30
+p059 HEAD       CHAP. XVIII] DE SPIRITU ET LITTERA
+p059 HEAD       53
+p059 FOOTNOTE   1 viventes sensumque habentes V.
+p059 REF-LINE   13-16.
+p059 REF-END    2 Cor. iii. 3.
+p059 FN-MARK    ¹  in: 'tiae, sed tanquam viventis sensumque habentis¹, in com-'
+p059 REF-END    2 Cor. iii.
+p059 REF-END    2 Cor. iii, 4-6.
+p059 CHAPTER    XVIII
+p059 SUMMARY    The Old Law ministers death; the New, righteousness.
+p059 REF-END    Gal, iii. 19.
+p059 SECTION    31
+p060 HEAD       54
+p060 HEAD       DE SPIRITU ET LITTERA [CHAP. XVIII
+p060 SIGNATURE  ย
+p060 FOOTNOTE   1 inluminantur V.
+p060 REF-START  2 Cor. iii. 17.
+p060 REF-START  2 Cor. iv. 1,2.
+p060 REF-START  2 Cor. iv. 5-7.
+p060 FN-MARK    ¹  in: 'illuminentur¹. Et id ipsum attende quemadmodum'
+p060 REF-LINE   Ps. xxxi.
+p060 REF-LINE   (xxxii.) 2;
+p060 REF-LINE   Rom. iv.8.
+p061 HEAD       CHAP. XIX] DE SPIRITU ET LITTERA
+p061 HEAD       55
+p061 REF-END    2 Cor. v. 3, 4.
+p061 REF-END    2 Cor.v.5, 21.
+p061 CHAPTER    XIX
+p061 SUMMARY    Christian Faith as to the assistance of Grace. The prophecy of
+p061 SUMMARY    Jeremiah as to the New Testament. The Law.
+p061 SUMMARY    Grace.
+p061 SECTION    32
+p061 REF-LINE   31-34.
+p061 SECTION    33
+p061 REF-END    Jer. xxxi.
+p062 HEAD       56
+p062 HEAD       DE SPIRITU ET LITTERA [CHAP. XIX
+p062 SECTION    34
+p062 REF-START  Matt. v. 17.
+p062 REF-LINE   Gal. iii.
+p062 REF-LINE   21-23.
+p063 HEAD       CHAP. XX] DE SPIRITU ET LITTERA
+p063 HEAD       57
+p063 REF-END    Rom. viii.
+p063 CHAPTER    XX
+p063 SUMMARY    The Old Law. The New Law.
+p063 SECTION    35
+p063 REF-LINE   3, 4.
+p064 HEAD       58
+p064 HEAD       DE SPIRITU ET LITTERA [CHAP. XXI
+p064 REF-START  2 Cor. iii. 3, 6.
+p064 CHAPTER    XXI
+p064 SUMMARY    The Law written in the hearts.
+p064 SECTION    36
+p065 HEAD       CHAP. XXII] DE SPIRITU ET LITTERA
+p065 HEAD       59
+p065 FOOTNOTE   1 carnali lege V.
+p065 REF-LINE   p. 98.
+p065 REF-END    See below,
+p065 FN-MARK    ¹  in: 'quae vetustati carnalis legis¹ jugoque servili con-'
+p065 REF-END    Rom. xiii. 9.
+p065 CHAPTER    XXII
+p065 SUMMARY    The eternal reward.
+p065 REF-LINE   (lxxiii.) 28.
+p065 SECTION    37
+p065 REF-END    Ps. Ixxii.
+p065 REF-LINE   Ps. xxxv.
+p065 REF-LINE   John xvii. 3.
+p065 REF-LINE   (xxxvi.) 10.
+p066 HEAD       60
+p066 HEAD       DE SPIRITU ET LITTERA [CHAP. XXIII
+p066 REF-START  John xiv. 21.
+p066 REF-START  Phil. ii. 6, 7.
+p066 REF-START  Isa. xxvi. 10.
+p066 REF-START  1 John iii. 2.
+p066 REF-START  2 Cor. iv. 16.
+p066 REF-START  Col. iii. 10.
+p066 REF-LINE   Matt. xxv.
+p066 REF-LINE   46.
+p066 CHAPTER    XXIII
+p066 SUMMARY    The renovation which is now wrought, compared with the perfection
+p066 SUMMARY    of the future life.
+p066 SECTION    38
+p066 REF-START  1 Cor. xiii.
+p066 REF-LINE   11, 12.
+p067 HEAD       CHAP. XXIV] DE SPIRITU ET LITTERA
+p067 HEAD       61
+p067 CHAPTER    XXIV
+p067 SUMMARY    The eternal reward, proper to the New Testament, foretold by the
+p067 SUMMARY    Prophet. How that reward will belong to all. The Apostle an
+p067 SUMMARY    earnest defender of Grace. The law written in the hearts, and
+p067 SUMMARY    the reward consisting in the everlasting vision, belong to the New
+p067 SUMMARY    Testament. Who among the blessed are greater and lesser.
+p067 SECTION    39
+p067 REF-END    1 Tim. ii. 7.
+p067 REF-END    Rom.x. 14.
+p067 REF-LINE   6
+p068 HEAD       62
+p068 HEAD       DE SPIRITU ET LITTERA [CHAP. XXIV
+p068 REF-LINE   Rom. ix.
+p068 REF-LINE   7-13.
+p068 SECTION    40
+p068 REF-START  Rom. iv. 4;
+p068 REF-START  Rom. ix. 7.
+p068 REF-LINE   xi. 6.
+p068 REF-LINE   1 Cor. xv.
+p068 REF-LINE   9, 10.
+p069 HEAD       CHAP. XXIV] DE SPIRITU ET LITTERA
+p069 HEAD       63
+p069 REF-LINE   (xxii.) 1, 24.
+p069 REF-LINE   28, 30.
+p069 REF-LINE   16, 17.
+p069 REF-END    Ps. xxi.
+p069 REF-END    Rom. viii.
+p069 REF-END    Rom. iv.
+p069 SECTION    41
+p069 REF-END    1 Cor. xiii.
+p069 REF-LINE   8, 9.
+p070 HEAD       64
+p070 HEAD       DE SPIRITU ET LITTERA [CHAP. XXIV
+p070 FOOTNOTE   1 verbum add. V
+p070 REF-LINE   12.
+p070 REF-LINE   1
+p070 REF-START  John xvii. 3.
+p070 REF-START  1 John iii. 2.
+p070 REF-START  1 Cor. xiii.
+p070 REF-START  1 Cor. xv. 41.
+p070 REF-START  Heb. xi. 40.
+p070 REF-LINE   Matt, xx.
+p070 REF-LINE   8-12.
+p071 HEAD       CHAP. XXV] DE SPIRITU ET LITTERA
+p071 HEAD       65
+p071 SIGNATURE  E
+p071 SIGNATURE  1709
+p071 CHAPTER    XXV
+p071 REF-LINE   6
+p071 SUMMARY    The difference between the Old and New Testaments.'
+p071 SECTION    42
+p071 REF-END    2 Cor. iii. 3.
+p071 REF-END    Josh. xii.
+p071 REF-END    Ps. Ixxii,
+p071 REF-END    Exod. xx. 17.
+p071 REF-END    John xv. 5.
+p071 REF-LINE   (lxxiii.) 28.
+p072 HEAD       66
+p072 HEAD       DE SPIRITU ET LITTERA [CHAP. XXVI
+p072 REF-START  Phil. ii. 13.
+p072 REF-LINE   1 Cor. iii. 7.
+p072 REF-LINE   Rom. v. 5.
+p072 REF-LINE   Rom. ii.
+p072 REF-LINE   14, 15.
+p072 CHAPTER    XXVI
+p072 SUMMARY    Discussion of the Apostle's passage on the Gentiles, who are said
+p072 SUMMARY    to fulfil the Law by nature, and to have it written in their hearts.
+p072 SECTION    43
+p072 SECTION    44
+p073 HEAD       CHAP. XXVI] DE SPIRITU ET LITTERA
+p073 HEAD       67
+p073 SIGNATURE  E 2
+p073 REF-LINE   17.
+p073 REF-END    Rom. i. 16,
+p073 REF-END    Rom, i. 21.
+p073 REF-END    Rom. ii.8-13.
+p073 REF-END    Rom. i. 16;
+p073 REF-LINE   ii. 8.
+p074 HEAD       68
+p074 HEAD       DE SPIRITU ET LITTERA [CHAP. XXVI
+p074 FOOTNOTE   ¹ nihilque aliud uelit V.
+p074 REF-LINE   Rom. iii.
+p074 REF-LINE   22-24.
+p074 SECTION    45
+p074 REF-START  Rom, iii, 28.
+p074 REF-LINE   1
+p074 FN-MARK    ¹  in: 'volens ¹ intelligi in eo quod dicit, gratis, nisi quia justi-'
+p074 REF-START  Rom. xi. 6.
+p074 REF-START  Rom. iv. 5.
+p075 HEAD       CHAP. XXVI] DE SPIRITU ET LITTERA
+p075 HEAD       69
+p075 FOOTNOTE   1 iam homines add. V.
+p075 FOOTNOTE   2 recte non V.
+p075 FOOTNOTE   3 quia V.
+p075 FN-MARK    ¹  in: 'eos creari qui¹ erant, sed ipsa creatione homines fieri.'
+p075 FN-MARK    2  in: 'non recte 2 acciperemus nisi honorem illis qui jam'
+p075 FN-MARK    ³  in: '‘Factores legis creabuntur, non qui ³ erant, sed ut sint;’'
+p075 REF-END    Luke x. 29.
+p075 REF-END    Matt. vi. 9.
+p075 SECTION    46
+p075 REF-END    Rom. xi, 24.
+p076 HEAD       70
+p076 HEAD       DE SPIRITU ET LITTERA [CHAP. XXVII
+p076 REF-LINE   Gal, v. 6.
+p076 REF-LINE   Gal. iii. 8.
+p076 REF-LINE   Rom. iv. 3.
+p076 REF-START  Gal. iii. 16.
+p076 REF-START  Gen. xv. 6;
+p076 REF-START  Rom. ii. 15.
+p076 REF-START  2 Cor. iii. 3.
+p076 REF-START  Rom. ii, 26.
+p076 REF-START  Rom. v. 5.
+p076 REF-LINE   John i. 47.
+p076 REF-LINE   Rom. xiii, 10.
+p076 CHAPTER    XXVII
+p076 SUMMARY    To fulfil the Law'naturally,' means according to nature as
+p076 SUMMARY    restored by Grace.
+p076 SECTION    47
+p077 HEAD       CHAP. XXVII] DE SPIRITU ET LITTERA
+p077 HEAD       71
+p077 REF-END    Ps.xl.(xli.)5.
+p077 REF-END    Rom. v. 12.
+p077 REF-END    Rom. iii.
+p077 REF-END    1 Tim, ii, 5.
+p077 SECTION    48
+p077 REF-LINE   22-24.
+p078 HEAD       72
+p078 HEAD       DE SPIRITU ET LITTERA [CHAP. XXVIII
+p078 FOOTNOTE   1 animal rationale V.
+p078 REF-LINE   Ps. xviii.
+p078 REF-LINE   (xix.) 8
+p078 CHAPTER    XXVIII
+p078 SUMMARY    The Image of God not wholly effaced in unbelievers. Venial sins.
+p078 UNNUMBERED chapter XXVIII begins inside section 48
+p078 FN-MARK    ¹  in: 'nalis¹ et sentit et facit: sed pietas quae in aliam vitam'
+p079 HEAD       CHAP. XXVIII] DE SPIRITU ET LITTERA
+p079 HEAD       73
+p079 REF-LINE   14-16.
+p079 REF-END    Ps. iv. 7.
+p079 REF-END    1 Tim. ii.5, 6.
+p079 REF-END    Rom. ii,
+p079 REF-END    1 Cor. xv. 41.
+p079 REF-END    Luke x. 12.
+p079 REF-END    Matt. xxiii.
+p079 REF-LINE   15.
+p079 SECTION    49
+p079 REF-END    Rom. ii. 13.
+p079 REF-END    Rom. ii, 11;
+p079 REF-LINE   iii. 29.
+p080 HEAD       74
+p080 HEAD       DE SPIRITU ET LITTERA [CHAP. XXIX
+p080 REF-LINE   29.
+p080 REF-START  Of. Rom. iii.
+p080 REF-START  Jer. xxxi. 34.
+p080 REF-START  Heb. viii. 11.
+p080 REF-START  1 Tim. i. 5.
+p080 REF-LINE   1 Cor. xiii.
+p080 REF-LINE   12.
+p080 REF-LINE   Ps. xxvi.
+p080 REF-LINE   (xxvii.) 4.
+p080 REF-LINE   1 Cor. iv. 7.
+p080 CHAPTER    XXIX
+p080 SUMMARY    Righteousness from the gift of God.
+p080 SECTION    50
+p080 REF-START  Gal. ii. 21.
+p080 REF-LINE   Ps. lxvii.
+p080 REF-LINE   (lxviii.) 19;
+p080 REF-LINE   Eph. iv, 8.
+p081 HEAD       CHAP. XXIX] DE SPIRITU ET LITTERA
+p081 HEAD       75
+p081 REF-LINE   xix. 26.
+p081 REF-LINE   Rom. iii. 30.
+p081 REF-END    Luke viii. 18;
+p081 REF-END    Gal. iii. s.
+p081 REF-END    Gal. ii, 15, 16.
+p081 REF-END    Rom. ix.
+p081 REF-END    Phil. ii. 13.
+p081 REF-END    Rom. ix. 32.
+p081 REF-END    Rom. x. 3, 4.
+p081 REF-LINE   30, 31.
+p082 HEAD       76
+p082 HEAD       DE SPIRITU ET LITTERA [CHAP. XXIX
+p082 FOOTNOTE   1 sancta et iusta V.
+p082 REF-START  Mark vii. 9.
+p082 REF-START  Rom. ix. 31.
+p082 REF-START  Exod. xx. 17.
+p082 FN-MARK    ¹  in: 'sancta et bona¹ sibi tribuebant: quae ut possit homo'
+p082 REF-START  John xv. 5.
+p082 REF-LINE   Rom. x. 5.
+p082 SECTION    51
+p082 REF-START  Rom. x. 6-9,
+p083 HEAD       CHAP. XXIX] DE SPIRITU ET LITTERA
+p083 HEAD       77
+p083 FOOTNOTE   1 quod ei meritum spiritus facit V.
+p083 REF-END    Tit. ii. 12.
+p083 FN-MARK    ¹  in: 'quod est meritum spiritus,¹ qui eam in resurrectione'
+p083 REF-END    Rom. vi. 4.
+p083 REF-END    Joel ii. 32;
+p083 REF-END    Ps. xxx.
+p083 REF-END    (xxxi.) 20.
+p083 REF-LINE   Rom. x. 13.
+p084 HEAD       78
+p084 HEAD       DE SPIRITU ET LITTERA [CHAP. XXX
+p084 CHAPTER    XXX
+p084 SUMMARY    Whether Free Will is made void through Grace.
+p084 SECTION    52
+p084 REF-START  Rom. iii. 31.
+p084 REF-START  Rom. iii. 20.
+p084 REF-START  Exod. xx. 17.
+p084 REF-START  John v. 14.
+p084 REF-START  2 Cor. iii. 17.
+p084 REF-START  2 Pet. ii. 19.
+p084 REF-LINE   Ps. xl. (xli.)
+p084 REF-LINE   5.
+p084 REF-LINE   Ps. xxix.
+p084 REF-LINE   (xxx.) 3.
+p084 REF-LINE   Ps. liii.
+p084 REF-LINE   (liv.) 8.
+p084 REF-LINE   Ps. cxviii.
+p084 REF-LINE   (exix.) 85.
+p085 HEAD       CHAP. XXXI] DE SPIRITU ET LITTERA
+p085 HEAD       79
+p085 FOOTNOTE   1 satis elucet et ipsis V.
+p085 REF-END    1 Cor. iv. 7.
+p085 REF-END    John xv. 5.
+p085 REF-LINE   John viii, 36.
+p085 CHAPTER    XXXI
+p085 SUMMARY    Whether Faith is in our own power.
+p085 SECTION    53
+p085 FN-MARK    ¹  in: 'ipsis¹ etiam vocabulis resonat, quod ab eo quod est'
+p086 HEAD       80
+p086 HEAD       HA
+p086 HEAD       DE SPIRITU ET LITTERA [CHAP. XXXI
+p086 NOISE-RUN  n
+p086 NOISE-RUN  us
+p086 NOISE-RUN  it
+p086 NOISE-RUN  st
+p086 NOISE-RUN  Ju
+p086 NOISE-RUN  ro
+p086 NOISE-RUN  est
+p086 NOISE-RUN  qu
+p086 NOISE-RUN  Nu
+p086 NOISE-RUN  VO
+p086 NOISE-RUN  ve
+p086 NOISE-RUN  au
+p086 NOISE-RUN  de
+p086 NOISE-RUN  Cu
+p086 NOISE-RUN  int
+p086 NOISE-RUN  qu
+p086 NOISE-RUN  qu
+p086 NOISE-RUN  cu
+p086 NOISE-RUN  Sit
+p086 NOISE-RUN  da
+p086 NOISE-RUN  8C
+p086 NOISE-RUN  H
+p086 NOISE-RUN  po
+p086 NOISE-RUN  te
+p086 NOISE-RUN  C
+p086 NOISE-RUN  m
+p086 NOISE-RUN  a
+p086 NOISE-RUN  S
+p086 NOISE-RUN  ST
+p086 NOISE      (
+p086 SECTION    54
+p086 REF-START  1 Cor. x. 13.
+p086 REF-START  Rom, iv. 3, 5.
+p087 HEAD       CHAP. XXXI] DE SPIRITU ET LITTERA
+p087 HEAD       81
+p087 SIGNATURE  F
+p087 SIGNATURE  1709
+p087 FOOTNOTE   1 quo intenditur V.
+p087 REF-END    Rom. xiii. 1.
+p087 REF-END    1 Cor. iv. 7.
+p087 FN-MARK    ¹  in: 'intendit ¹, ex judicio Dei venit, apud quem non est ini-'
+p087 REF-END    Rom. ix. 14.
+p087 REF-END    Rom. i. 24,
+p087 REF-END    John xix. 11.
+p087 REF-LINE   28.
+p088 HEAD       82 DE SPIRITU ET LITTERA [CHAP. XXXII
+p088 CHAPTER    XXXII
+p088 SUMMARY    What Faith is to be praised.
+p088 SECTION    55
+p088 REF-START  1 John iv. 1.
+p088 REF-START  1 Cor. xiii. 7.
+p088 SECTION    56
+p088 REF-START  Rom. viii. 15.
+p089 HEAD       CHAP. XXXII] DE SPIRITU ET LITTERA
+p089 HEAD       83
+p089 SIGNATURE  F 2
+p089 SIGNATURE  1709
+p089 REF-END    Rom, ii. 9.
+p089 REF-END    Rom. iii, 30.
+p089 REF-END    Matt. v. 6.
+p089 REF-END    John i, 12.
+p089 REF-END    Matt, vii.
+p089 REF-END    1 Cor. xv. 56.
+p089 REF-END    Rom, vii. 8.
+p089 REF-END    Wisd. viii.
+p089 REF-LINE   7-11.
+p089 REF-LINE   21.
+p089 REF-END    Matt. vii. 7.
+p089 REF-END    James i. 5, 6.
+p089 REF-END    Rom. i. 17.
+p089 REF-END    Rom. iv. 5.
+p090 HEAD       84 DE SPIRITU ET LITTERA [CHAP. XXXII
+p090 FOOTNOTE   1 quam sperat V.
+p090 REF-START  Rom. iii. 27.
+p090 REF-LINE   Gal. v. 5.
+p090 REF-LINE   Ps. cii.
+p090 REF-LINE   (ciii.) 5.
+p090 REF-LINE   Eph. ii.
+p090 REF-LINE   8-10.
+p090 FN-MARK    ¹  in: 'tiae’ dixerit, qua sperat ¹ justitia, an qua speratur ipsa'
+p090 REF-START  2 Cor. iv. 16.
+p090 REF-START  Rom. iii, 21.
+p090 REF-LINE   Gal. v. 6.
+p090 REF-LINE   Rom. v. 5.
+p090 REF-LINE   Ps. iii. 9.
+p090 REF-LINE   Gal, ii. 16.
+p091 HEAD       CHAP. XXXIII] DE SPIRITU ET LITTERA 85
+p091 SIGNATURE  F 3
+p091 CHAPTER    XXXIII
+p091 SUMMARY    Whence comes the will to believe. Free will a 'midway power.'
+p091 SECTION    57
+p091 REF-END    1 Cor. iv. 7.
+p091 REF-END    Phil, ii, 13.
+p091 REF-END    1 Tim. ii. 4.
+p091 SECTION    58
+p092 HEAD       86
+p092 HEAD       DE SPIRITU ET LITTERA [CHAP. XXXIII
+p092 REF-START  1 Tim. ii. 4.
+p092 REF-START  Ps. lxi. (lxii.)
+p092 REF-LINE   12, 13.
+p093 HEAD       CHAP. XXXIII] DE SPIRITU ET LITTERA
+p093 HEAD       87
+p093 FOOTNOTE   1 non adtributiones' V.
+p093 REF-END    Eph. iii. 20.
+p093 REF-LINE   2-5.
+p093 REF-END    Ps. cii. (ciii.)
+p093 SECTION    59
+p093 FN-MARK    ¹  in: 'visci omnes retributiones ejus: non ait, Tributiones¹,'
+p093 REF-END    (al. v. 17.
+p093 REF-END    Rom. vii.
+p093 REF-LINE   23, 18.
+p094 HEAD       88
+p094 HEAD       DE SPIRITU ET LITTERA [CHAP. XXXIII
+p094 REF-LINE   Gal. v. 6.
+p094 REF-START  Matt. xvi. 27.
+p094 REF-LINE   Cp. Prov.
+p094 REF-LINE   xx. 8, 9.
+p094 REF-LINE   Matt. xxv.
+p094 REF-LINE   35.
+p094 REF-LINE   46.
+p094 REF-START  James ii. 13.
+p094 REF-START  Matt. v. 7.
+p094 REF-START  Matt. xxv.
+p094 REF-START  John xvii. 3.
+p094 REF-START  John xiv. 8,
+p094 REF-LINE   Ps. cii. 5.
+p094 REF-LINE   9.
+p094 REF-LINE   Rom. x. 3.
+p095 HEAD       CHAP. XXXIV] DE SPIRITU ET LITTERA
+p095 HEAD       89
+p095 CHAPTER    XXXIV
+p095 SUMMARY    The will to believe, from God.
+p095 SECTION    60
+p096 HEAD       90
+p096 HEAD       DE SPIRITU ET LITTERA [CHAP. XXXV
+p096 REF-START  Rom. xi. 33.
+p096 REF-START  Rom. ix. 14.
+p096 REF-LINE   Rom. xii.
+p096 REF-LINE   1, 3.
+p096 CHAPTER    XXXV
+p096 SUMMARY    Conclusion of the work.
+p096 SECTION    61
+p096 SECTION    62
+p097 HEAD       CHAP. XXXV] DE SPIRITU ET LITTERA
+p097 HEAD       91
+p097 REF-LINE   Mer. ii. s. 7.
+p097 REF-END    De Pecc.
+p097 REF-END    Matt. xix. 24.
+p097 REF-END    Deut. xxxi.
+p097 REF-END    Wisd. xi. 18;
+p097 REF-END    Mark xi. 23.
+p097 REF-LINE   Cp. Matt.
+p097 REF-LINE   xxvi. 53.
+p097 REF-LINE   3; Judg. ii. 3.
+p097 REF-LINE   xvi. 24.
+p098 HEAD       92
+p098 HEAD       DE SPIRITU ET LITTERA [CHAP. XXXV
+p098 SECTION    63
+p098 REF-START  2 Cor. x. 17.
+p098 REF-START  James i. 17.
+p098 REF-START  Luke xvii. 6.
+p098 REF-LINE   Mark xi.
+p098 REF-LINE   23, 24;
+p099 HEAD       CHAP. XXXVI] DE SPIRITU ET LITTERA
+p099 HEAD       93
+p099 CHAPTER    XXXVI
+p099 SUMMARY    When the commandment of Love will be perfectly fulfilled. Sins
+p099 SUMMARY    of ignorance. What sort of Righteousness belonging to this
+p099 SUMMARY    life can be asserted as existing without sin.
+p099 SUMMARY    Although perfect
+p099 SUMMARY    Righteousness is not found here, it is yet not impossible.
+p099 REF-LINE   37-40.
+p099 REF-END    Rom. ix. 28.
+p099 SECTION    64
+p099 REF-END    Matt. xxii.
+p099 REF-END    James iii. 2.
+p099 REF-END    1 Cor. xiii. 12.
+p099 REF-END    1 Cor. xiii, 12.
+p100 HEAD       94 DE SPIRITU ET LITTERA [CHAP. XXXVI
+p100 REF-START  John xv. 13.
+p100 REF-START  Rom. viii. 25.
+p100 REF-LINE   2 Cor. v. 7.
+p100 REF-START  Eph. iii. 20.
+p100 REF-START  Phil. iii. 13.
+p100 SECTION    65
+p100 REF-START  Rom. i. 17.
+p101 HEAD       CHAP. XXXVI] DE SPIRITU ET LITTERA
+p101 HEAD       95
+p101 REF-END    Deut. vi. 5.
+p101 REF-END    Rom. vi. 12.
+p101 REF-END    Ecclus, xviii.
+p102 HEAD       96 DE SPIRITU ET LITTERA [CHAP. XXXVI
+p102 REF-LINE   Ps. cxlii.
+p102 REF-LINE   (cxliii.) 2.
+p102 REF-LINE   3 Kings
+p102 REF-LINE   (1 Kings)
+p102 REF-LINE   viii. 46.
+p102 REF-LINE   Eccles.
+p102 REF-LINE   vii. 21.
+p102 REF-START  Matt. vi. 12.
+p102 REF-START  1 John i. 8.
+p102 REF-START  John vi. 51.
+p102 REF-LINE   Luke vi.
+p102 REF-LINE   37, 38.
+p102 REF-LINE   Ps. xxxv. 10.
+p102 SECTION    66
+p103 HEAD       CHAP. XXXVI] DE SPIRITU ET LITTERA
+p103 HEAD       97
+p103 REF-END    Rom. x. 6.
+p103 REF-END    1 Cor. xv. 53.
+p103 REF-END    Rom. vii, 23.
+p103 REF-END    Rom. ix, 14.
+p103 REF-END    James iv. 6.
+p103 REF-END    2 Cor. xii.
+p103 REF-END    Rom. xi.
+p103 REF-LINE   7-9.
+p103 REF-LINE   33-36.

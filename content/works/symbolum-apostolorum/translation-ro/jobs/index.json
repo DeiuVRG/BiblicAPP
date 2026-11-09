@@ -1,0 +1,116 @@
+{
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "targetLanguage": "ro",
+  "sourceSha256": "995e576b86fcc7e24cc99d742628d70025fe1eeed1a7e4ff5dbca33d61453354",
+  "jobs": [
+    {
+      "jobId": "symbolum-apostolorum-ro-01-00",
+      "file": "symbolum-apostolorum-ro-01-00.json",
+      "sectionOrdinal": 0,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 9
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-02-00",
+      "file": "symbolum-apostolorum-ro-02-00.json",
+      "sectionOrdinal": 1,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 9
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-03-00",
+      "file": "symbolum-apostolorum-ro-03-00.json",
+      "sectionOrdinal": 2,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 10
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-04-00",
+      "file": "symbolum-apostolorum-ro-04-00.json",
+      "sectionOrdinal": 3,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 8
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-05-00",
+      "file": "symbolum-apostolorum-ro-05-00.json",
+      "sectionOrdinal": 4,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 8
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-06-00",
+      "file": "symbolum-apostolorum-ro-06-00.json",
+      "sectionOrdinal": 5,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 9
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-07-00",
+      "file": "symbolum-apostolorum-ro-07-00.json",
+      "sectionOrdinal": 6,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 7
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-08-00",
+      "file": "symbolum-apostolorum-ro-08-00.json",
+      "sectionOrdinal": 7,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 4
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-09-00",
+      "file": "symbolum-apostolorum-ro-09-00.json",
+      "sectionOrdinal": 8,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 5
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-10-00",
+      "file": "symbolum-apostolorum-ro-10-00.json",
+      "sectionOrdinal": 9,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 2
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-11-00",
+      "file": "symbolum-apostolorum-ro-11-00.json",
+      "sectionOrdinal": 10,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 2
+    },
+    {
+      "jobId": "symbolum-apostolorum-ro-12-00",
+      "file": "symbolum-apostolorum-ro-12-00.json",
+      "sectionOrdinal": 11,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 3
+    }
+  ]
+}

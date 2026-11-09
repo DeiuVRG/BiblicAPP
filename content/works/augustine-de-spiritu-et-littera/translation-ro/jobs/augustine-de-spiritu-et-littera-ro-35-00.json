@@ -1,0 +1,51 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-35-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N296XQW8RQ4K4KR6W50J6D",
+    "ordinal": 34,
+    "kind": "chapter",
+    "heading": "XXXV"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6E",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Concludamus igitur librum aliquando, cujus tanta prolixitate utrum aliquid egerimus, nescio; non apud te, cujus fidem scio, sed apud animos eorum propter quos me scribere voluisti; qui non contra nostram, sed (ut mitius loquar, et non dicam illius qui in suis Apostolis est locutus) certe contra tanti apostoli Pauli, non unam sententiam, sed tam vehementem, tam intentam vigilemque conflictationem malunt suam defensitare sententiam, quam eum audire obsecrantem per miserationem Dei, et dicentem, per gratiam Dei quae data est illi, non plus sapere praeter quam oportet sapere, sed sapere ad temperantiam, unicuique sicut Deus partitus est mensuram fidei.",
+      "references": []
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6F",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Tu autem quid mihi proposueris, et quid tam longo disputationis hujus opere effecerimus, adverte. Movit te certe quemadmodum dictum fuerit, fieri posse ut sit homo sine peccato, si voluntas ejus non desit, ope adjuvante divina: quamvis nemo tam perfectae justitiae in hac vita fuerit, vel sit, vel futurus sit. Sic enim hoc ipsum in illis prius ad te conscriptis libris proposui: ‘Si a me quaeratur,’ inquam, ‘utrum homo sine peccato possit esse in hac vita; confitebor posse per Dei gratiam et liberum ejus arbitrium: ipsum quoque liberum arbitrium ad Dei gratiam, hoc est, ad Dei dona pertinere non ambigens, nec tantum ut sit, verum etiam ut bonum sit, id est, ad facienda mandata Domini convertatur; atque ita Dei gratia, non solum ostendat quid faciendum sit, sed adjuvet etiam, ut fieri possit quod ostenderit.’ Tibi autem absurdum visum est, sine exemplo esse rem quae fieri potest. Hinc exorta est hujus libri quaestio; ac per hoc ad nos pertinebat ostendere, fieri posse aliquid quamvis desit exemplum. Hinc ex Evangelio et ex Lege quaedam posuimus in sermonis hujus exordio, sicut de cameli transitu per foramen acus, et de duodecim millibus legionum Angelorum, qui potuerunt, si vellet, pugnare pro Christo, et de illis gentibus quas Deus dicit potuisse se a facie populi sui semel exterminare: quae omnia facta non sunt. His addi possunt etiam illa quae leguntur in libro Sapientiae, quam multa posset nova tormenta Deus exercere in impios ad nutum sibi serviente creatura, quae tamen non exercuit. Potest et de monte illo quem fides in mare transferret: quod tamen nusquam factum, vel legimus, vel audivimus. Quisquis enim horum aliquid Deo dixerit esse impossibile, vides quam desipiat, quamque adversus fidem Scripturae ejus loquatur. Multa alia hujusmodi possunt occurrere vel legenti vel cogitanti, quae possibilia Deo negare non possumus, quamvis eorum desit exemplum.",
+      "references": []
+    },
+    {
+      "id": "01M6N296XQW8RQ4K4KR6W50J6G",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "Sed quia dici potest, illa opera esse divina, juste autem vivere ad nostra opera pertinere; suscepi ostendere etiam hoc opus esse divinum, et hoc egi libro isto loquacius fortasse quam sat est: sed contra inimicos gratiae Dei etiam parum mihi dixisse videor; nihilque me tam multum dicere delectat, quam ubi mihi et Scriptura ejus plurimum suffragatur; et id agitur, ut qui gloriatur in Domino glorietur, et in omnibus gratias agamus Domino Deo nostro, ‘sursum cor habentes,’ unde a Patre luminum omne datum optimum et omne donum perfectum est. Nam si propterea non est opus Dei, quia per nos agitur, vel quia illo donante nos agimus, nec illud est opus Dei, ut mons transferatur in mare; quia per fidem hominum fieri posse Dominus dixit, et hoc ipsorum operi attribuit, dicens, Si habueritis in vobis fidem tanquam granum sinapis, dicetis monti huic, Tollere et mittere in mare; et fiet, et nihil impossibile erit vobis. Certe vobis dixit; non, Mihi aut Patri: et tamen hoc nullo modo facit homo, nisi illo donante et operante. Ecce quemadmodum sine exemplo est in hominibus perfecta justitia, et tamen impossibilis non est. Fieret enim, si tanta voluntas adhiberetur, quanta sufficit tantae rei. Esset autem tanta, si et nihil eorum quae pertinent ad justitiam nos lateret, et ea sic delectarent animum, ut quidquid aliud voluptatis dolorisve impedit, delectatio illa superaret: quod ut non sit, non ad impossibilitatem, sed ad judicium Dei pertinet. Quis enim nesciat, non esse in hominis potestate quid sciat, nec esse consequens ut quod appetendum cognitum fuerit appetatur, nisi tantum delectet, quantum diligendum est? Hoc autem sanitatis est animae.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Haec disputatio, si quaestioni illi solvendae sufficit, sufficiat. Si autem respondetur, cavendum esse ne quisquam Deo tribuendum putet peccatum, quod admittitur per liberum arbitrium, si in eo quod dicitur, Quid habes quod non accepisti? propterea etiam voluntas qua credimus dono Dei tribuitur, quia de libero exsistit arbitrio, quod cum crearemur accepimus: attendat, et videat, non ideo tantum istam voluntatem divino muneri tribuendam, quia ex libero arbitrio est, quod nobis naturaliter concreatum est; verum etiam quod visorum suasionibus agit Deus, ut velimus, et ut credamus, sive extrinsecus per evangelicas exhortationes, ubi et mandata legis aliquid agunt, si ad hoc admonent hominem infirmitatis suae, ut ad gratiam justificantem credendo confugiat; sive intrinsecus, ubi nemo habet in potestate quid ei veniat in mentem, sed consentire vel dissentire propriae voluntatis est. His ergo modis quando Deus agit cum anima rationali, ut ei credat; neque enim credere potest quodlibet libero arbitrio, si nulla sit suasio vel vocatio cui credat; profecto et ipsum velle credere Deus operatur in homine, et in omnibus misericordia ejus praevenit nos: consentire autem vocationi Dei, vel ab ea dissentire, sicut dixi, propriae voluntatis est. Quae res non solum non infirmat quod dictum est, Quid enim habes quod non accepisti? verum etiam confirmat. Accipere quippe et habere anima non potest dona, de quibus hoc audit, nisi consentiendo: ac per hoc quid habeat, et quid accipiat, Dei est: accipere autem et habere utique accipientis et habentis est. Jam si ad illam profunditatem scrutandam quisquam nos coarctet, cur illi ita suadeatur ut persuadeatur, illi autem non ita; duo sola occurrunt interim quae respondere mihi placeat: O altitudo divitiarum! et, Numquid iniquitas apud Deum? Cui responsio ista displicet, quaerat doctiores, sed caveat ne inveniat praesumptores.",
+    "nextParagraph": "Sed fortasse quispiam putaverit, nihil nobis deesse ad cognitionem justitiae, quod Dominus verbum consummans et brevians super terram, dixit in duobus praeceptis totam Legem Prophetasque pendere; nec ea tacuit, sed verbis apertissimis prompsit, Diliges, inquit, Dominum Deum tuum ex toto corde tuo, et ex tota anima tua, et ex tota mente tua; et diliges proximum tuum tanquam te ipsum. Quid verius, his impletis impleri omnino justitiam? Verumtamen qui hoc attendit, etiam illud attendat, quam in multis offendamus omnes, dum putamus Deo, quem diligimus, placere, vel non displicere quod facimus; et postea per Scripturam ejus, sive certa et perspicua ratione commoniti, cum didicerimus quod ei non placeat, poenitendo precamur ut ignoscat. Plena humana vita est documentis talibus. Unde autem minus novimus quid ei placeat, nisi quia et ipse minus notus est nobis? Videmus enim nunc per speculum in aenigmate, tunc autem facie ad faciem. Quis vero existimare audeat, cum eo ventum fuerit, quod ait, Ut cognoscam sicut et cognitus sum, tantam Dei dilectionem fore contemplatoribus ejus, quanta fidelibus nunc est: aut ullo modo hanc illi tanquam de proximo comparandam? Porro si quanto major notitia, tanto erit major dilectio; profecto nunc quantum deest dilectioni, tantum perficiendae justitiae deesse credendum est. Sciri enim aliquid vel credi, et tamen non diligi potest: diligi autem quod neque scitur neque creditur, non potest. At si credendo ad tantam dilectionem sancti pervenire potuerunt, qua certe majorem in hac vita esse non posse Dominus ipse testatus est, ut animam suam pro fide vel pro fratribus ponerent: cum ab hac peregrinatione in qua per fidem nunc ambulatur, perventum erit ad speciem, quam nondum visam speramus, et per patientiam exspectamus, procul dubio et ipsa dilectio non solum supra quam hic habemus, sed longe supra quam petimus et intelligimus erit; nec ideo tamen plus esse poterit, quam ex toto corde, ex tota anima, ex tota mente. Neque enim restat in nobis aliquid quod addi possit ad totum; quia si restabit aliquid, illud non erit totum. Proinde hoc primum praeceptum justitiae, quo jubemur diligere Deum ex toto corde, et ex tota anima, et ex tota mente, cui est de proximo diligendo alterum consequens, in illa vita implebimus, cum videbimus facie ad faciem. Sed ideo nobis hoc etiam nunc praeceptum est, ut admoneremur, quid fide exposcere, quo spem praemittere, et obliviscendo quae retro sunt, in quae anteriora nos extendere debeamus. Ac per hoc, quantum mihi videtur, in ea quae perficienda est justitia multum in hac vita ille profecit, qui quam longe sit a perfectione justitiae, proficiendo cognovit.",
+    "previousSectionHeading": "XXXIV"
+  },
+  "wordCount": 659,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

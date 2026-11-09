@@ -41,8 +41,20 @@ export interface WorkDetail {
   primaryEditionId: string;
 }
 
+/** What the signed manifest of an edition's pack says about it (the revision date is shown in the Transparency panel). */
+export interface PackInfo {
+  /** The content revision: it grows when the text, the status or a correction changes. */
+  revision: number;
+  /** The pack format version. */
+  version: string;
+  /** Bytes of the pack. */
+  size: number;
+  /** When the pack was built (ISO 8601). */
+  createdAt: string;
+}
+
 /** An edition with the metadata of its work and the edition record itself (licence, provenance). */
-export type EditionDetail = EditionSummary & { work: Work; edition: Edition };
+export type EditionDetail = EditionSummary & { work: Work; edition: Edition; pack: PackInfo };
 
 /** Where a section lives: a section id identifies its edition. */
 export interface SectionLocation {
@@ -64,6 +76,11 @@ export interface AlignedParagraph {
   paragraph: Paragraph | null;
   /** The paragraph of the other edition; null when it is not translated (yet). */
   other: Paragraph | null;
+}
+
+/** Where a paragraph lives: its section and, through it, its edition and work. */
+export interface ParagraphLocation extends SectionLocation {
+  sectionId: string;
 }
 
 export interface SearchHit {

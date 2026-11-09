@@ -34,6 +34,8 @@ interface Props {
   testID?: string;
   inputRef?: Ref<TextInputInstance>;
   style?: StyleProp<ViewStyle>;
+  /** The height of the field: 48 by default (34 in the reader's outline panel on a wide screen). */
+  height?: number;
 }
 
 /**
@@ -58,6 +60,7 @@ export function SearchField({
   testID = 'search-field',
   inputRef,
   style,
+  height = SEARCH_FIELD_HEIGHT,
 }: Props) {
   const { colors } = useTheme();
   const fonts = useFontFamilies();
@@ -95,7 +98,7 @@ export function SearchField({
             borderColor: colors.borderStrong,
             fontFamily: fonts.text,
           },
-          { paddingRight: value.length > 0 ? CLEAR_SLOT : EDGE },
+          { height, paddingRight: value.length > 0 ? Math.min(CLEAR_SLOT, height) : EDGE },
           joined ? styles.joined : null,
           // A placeholder that is still too long for a narrow field ends in "…" instead of being cut
           // through a letter (the web's own `text-overflow`; not part of React Native's types).
@@ -112,7 +115,18 @@ export function SearchField({
           label={clearLabel}
           onPress={() => onChangeText('')}
           textStyle={[styles.clearText, { color: colors.textMuted }]}
-          style={styles.clear}
+          style={
+            // A shorter field has a smaller clear button: it stays inside the box with 2 around it.
+            height < SEARCH_FIELD_HEIGHT
+              ? {
+                  ...styles.clear,
+                  height: height - 4,
+                  minHeight: height - 4,
+                  width: height - 4,
+                  minWidth: height - 4,
+                }
+              : styles.clear
+          }
         />
       ) : null}
     </View>

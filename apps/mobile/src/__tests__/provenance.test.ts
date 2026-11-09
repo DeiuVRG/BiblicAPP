@@ -1,4 +1,4 @@
-import type { Edition } from '@biblioteca/shared';
+import type { Edition, Pack } from '@biblioteca/shared';
 
 import {
   CORRECTIONS_PER_PAGE,
@@ -7,10 +7,11 @@ import {
   resolveProvenance,
 } from '@/content/provenance';
 import { bundledPack } from '@/test-support/packs';
-import type { Pack } from '@biblioteca/shared';
 
 const edition = (
-  patch: Omit<Partial<Edition>, 'provenance'> & { provenance?: Partial<Edition['provenance']> } = {},
+  patch: Omit<Partial<Edition>, 'provenance'> & {
+    provenance?: Partial<Edition['provenance']>;
+  } = {},
 ): Edition => ({
   id: 'e1',
   language: 'en',
@@ -60,7 +61,9 @@ describe('resolveProvenance: what the record says', () => {
       resolveProvenance(edition({ provenance: { kind: 'native', transcription: true } })),
     ).toMatchObject({ lead: 'native', transcriptionNote: true });
     expect(
-      resolveProvenance(edition({ language: 'la', provenance: { kind: 'source', transcription: true } })),
+      resolveProvenance(
+        edition({ language: 'la', provenance: { kind: 'source', transcription: true } }),
+      ),
     ).toMatchObject({ lead: 'source', transcriptionNote: true });
     // When the lead is the transcription itself there is no second note.
     expect(

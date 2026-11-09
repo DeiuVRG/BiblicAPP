@@ -1,0 +1,110 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-01-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingEn": "Chapter I",
+  "paragraphs": [
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "text": "I recently composed for you, my dearest son Marcellinus, short works on the baptism of infants and on the perfection of human righteousness, namely that no one in this life seems either to have attained it or to be going to attain it, except for the one Mediator, who endured the human lot in the likeness of the flesh of sin, without any sin at all. After reading them, you wrote back that you were troubled by my saying, in the second of the two books, that it is possible for a human being to be without sin, if his will is not lacking, with divine help assisting, and yet that, apart from the one in whom all will be given life, there had been or would be no one in whom this perfection existed while he lived here. For it seems absurd to you to say that something can happen for which an example is lacking, when, as I believe, you do not doubt that it has never happened that a camel passed through the eye of a needle, and yet the Lord said that this too is possible for God. You may also read that twelve thousand legions of angels could have fought for Christ so that he would not suffer, but it did not happen. You may read that it could have happened that the nations were driven out all at once from the land that was being given to the children of Israel, but that God nevertheless willed it to happen gradually. And six hundred other things can come to mind that we admit either could have happened or can happen, and yet we cannot produce examples of their having happened. Therefore we ought not to deny that it is possible for a human being to be without sin simply because there is no human being in whom we can demonstrate that this has been brought to perfection, apart from the one who is not only man but also God by nature.",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "perfectione justitiae hominis",
+          "quoteTarget": "perfection of human righteousness",
+          "note": "perfectio is rendered ‘perfection’ (no glossary row; the term recurs through the treatise). In the last sentence id esse perfectum is rendered ‘that this has been brought to perfection’ to keep the echo of perfectio; id is the state of being without sin."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "in similitudine carnis peccati",
+          "quoteTarget": "in the likeness of the flesh of sin",
+          "note": "Quotation of Rom. 8:3 woven into the sentence, translated as the author’s text from his Latin (the Vulgate has in similitudinem carnis peccati). The genitive is kept literally, ‘the flesh of sin’, and not smoothed to ‘sinful flesh’; the reviewer may prefer the latter."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "in quo omnes vivificabuntur",
+          "quoteTarget": "in whom all will be given life",
+          "note": "Quotation of 1 Cor. 15:22 (in Christo omnes vivificabuntur) with the relative pronoun in place of the name. vivificare is ‘give life’, as in the profile."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "INFO",
+          "quoteSource": "ille hoc quoque dixit Deo esse possibile",
+          "quoteTarget": "the Lord said that this too is possible for God",
+          "note": "ille is the Lord (the saying on the camel and the needle, Matt. 19:24–26 and parallels), not named in the Latin. The draft had ‘he’; the critic observed that this pronoun has no antecedent in its English sentence, and the reading of ille is certain, so it is rendered ‘the Lord’ (the form of the profile’s table of names). The reviewer may prefer ‘he’, which leaves the demonstrative unresolved as the Latin does."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "MINOR",
+          "quoteSource": "duodecim millia legiones Angelorum",
+          "quoteTarget": "twelve thousand legions of angels",
+          "note": "Paraphrase of Matt. 26:53, where the Vulgate has ‘more than twelve legions of angels’; the Latin of the edition has twelve thousand legions. Translated as written, not corrected. The only footnote of the printed edition on legiones reads ‘legionum V.’ (a variant of case), so it does not query the numeral; to verify against the critical apparatus whether twelve thousand is Augustine’s own reading."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "semel gentes exterminarentur a terra",
+          "quoteTarget": "driven out all at once from the land",
+          "note": "exterminare: ‘drive out’ (the classical sense; Exod. 23:29–30 speaks of driving the nations out little by little) or ‘destroy’ (Deut. 7:22 speaks of consuming them little by little). ‘Exterminated’ is avoided as a false friend. The Latin names no passage; the margin of the printed edition refers to Deut. 31:3 and Judg. 2:3."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "alia sexcenta",
+          "quoteTarget": "six hundred other things",
+          "note": "sexcenta is the Latin idiom for ‘a great many’. The number is kept as written (numbers in words stay words); it reads as a hyperbole in English as well."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "1 Tim. 2:5",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Rom. 8:3",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "1 Cor. 15:22",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "Matt. 19:24, 26",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mark 10:25, 27",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Luke 18:25, 27",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Matt. 26:53",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Exod. 23:29–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Deut. 7:22",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Deut. 31:3",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Judg. 2:3",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Chapter I, one paragraph (De spiritu et littera 1.1). Revised after the critic: (1) the opening period is divided at the colon of the edition, the works in one sentence and ‘After reading them, you wrote back…’ in the next (first finding, applied); (2) ille is ‘the Lord’ (second finding, applied; see the DE_VERIFICAT flag); (3) read as English only, the accusative with infinitive id esse perfectum demonstrare is now a that-clause. The ablative absolute ope adjuvante divina is kept as ‘with divine help assisting’ because the Latin leaves open whether it belongs to the condition or to the whole claim. The job carries no references; the biblical material was identified by the translator and listed in scripture (Rom. 8:3 and 1 Cor. 15:22 are woven-in quotations, the rest allusions). For the gradual expulsion of the nations, Exod. 23:29–30 and Deut. 7:22 match paulatim; Deut. 31:3 and Judg. 2:3 are the references in the margin of the printed edition (the verse of Deut. 31 is read from the raw page, to be confirmed); the reviewer may prune this list. Choices to review: carnis peccati kept as ‘the flesh of sin’; ‘twelve thousand legions’ as written; exterminarentur as ‘driven out’; sexcenta as ‘six hundred’; humana perpessus est as ‘endured the human lot’."
+}

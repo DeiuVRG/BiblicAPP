@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-ro-10-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYKV",
+    "ordinal": 9,
+    "kind": "section",
+    "heading": "10"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKW",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "remissionem peccatorum;",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "sanctam ecclesiam catholicam; sanctorum communionem;",
+    "nextParagraph": "carnis resurrectionem;",
+    "previousSectionHeading": "9"
+  },
+  "wordCount": 2,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

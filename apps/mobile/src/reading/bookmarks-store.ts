@@ -29,7 +29,8 @@ function parseBookmarks(raw: unknown): WorkBookmark[] {
     list.push({
       workId: value.workId,
       editionId: value.editionId,
-      addedAt: typeof value.addedAt === 'number' && Number.isFinite(value.addedAt) ? value.addedAt : 0,
+      addedAt:
+        typeof value.addedAt === 'number' && Number.isFinite(value.addedAt) ? value.addedAt : 0,
     });
   }
   return list.sort((a, b) => b.addedAt - a.addedAt).slice(0, MAX_BOOKMARKS);

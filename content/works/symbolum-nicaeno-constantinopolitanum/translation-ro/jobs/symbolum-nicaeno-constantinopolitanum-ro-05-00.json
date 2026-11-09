@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-nicaeno-constantinopolitanum-ro-05-00",
+  "workSlug": "symbolum-nicaeno-constantinopolitanum",
+  "sourceEditionId": "01M6N24HR7XARYC7C7F399BFBK",
+  "sourceLanguage": "grc",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N24HR80HGE0FF8D4RTP7TY",
+    "ordinal": 4,
+    "kind": "section",
+    "heading": "5"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N24HR80HGE0FF8D4RTP7TZ",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "καὶ ἀναστάντα τῇ τρίτῃ ἡμέρᾳ κατὰ τὰς γραφάς,",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "σταυρωθέντα τε ὑπὲρ ἡμῶν ἐπὶ Ποντίου Πιλάτου, καὶ παθόντα καὶ ταφέντα,",
+    "nextParagraph": "καὶ ἀνελθόντα εἰς τοὺς οὐρανούς, καὶ καθεζόμενον ἐκ δεξιῶν τοῦ πατρός,",
+    "previousSectionHeading": "4"
+  },
+  "wordCount": 8,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-nicaeno-constantinopolitanum.md"
+  }
+}

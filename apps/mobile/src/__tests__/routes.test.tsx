@@ -85,12 +85,21 @@ describe('the route tree (docs/ui-spec-v2.md, 4.4)', () => {
   });
 });
 
+describe('the policy page (check Q3)', () => {
+  it('draws the eight commitments, the Ask block and the report button at /about/transparency', async () => {
+    await renderWithProviders(<TransparencyRoute />);
+    expect(screen.getByRole('header', { name: t.transparency.pageTitle })).toBeTruthy();
+    for (let n = 1; n <= 8; n += 1) expect(screen.getByTestId(`commitment-${n}`)).toBeTruthy();
+    expect(screen.getByTestId('commitment-ask')).toBeTruthy();
+    expect(screen.getByTestId('transparency-page-report')).toBeTruthy();
+  });
+});
+
 describe('the sections that are not built yet', () => {
   const coming: [string, () => React.JSX.Element, string][] = [
     ['/ask', AskRoute, t.nav.ask],
     ['/bookmarks', BookmarksRoute, t.nav.bookmarks],
     ['/about', AboutRoute, t.nav.aboutLibrary],
-    ['/about/transparency', TransparencyRoute, t.nav.transparency],
     ['/authors/[slug]', AuthorRoute, t.nav.authors],
   ];
 

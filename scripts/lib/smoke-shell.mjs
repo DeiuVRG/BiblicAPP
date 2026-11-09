@@ -65,8 +65,8 @@ export async function shellChecks({ browser, origin, basePath, timeout, step, pr
       .map((el) => el.getAttribute('data-testid').replace('section-item-', '')),
   );
   expect(
-    items.join() === 'home,search,read',
-    `S1: the bar has ${items.join()}, expected home,search,read`,
+    items.join() === 'home,search,read,about',
+    `S1: the bar has ${items.join()}, expected home,search,read,about`,
   );
   const rail = await wide.evaluate(() => {
     const style = getComputedStyle(document.querySelector('[data-testid="section-item-search"] *'));
@@ -76,7 +76,7 @@ export async function shellChecks({ browser, origin, basePath, timeout, step, pr
     rail.transform === 'uppercase' && rail.size === '13px',
     `S1: the items are ${rail.size} ${rail.transform}, expected 13px uppercase`,
   );
-  step('S1: brand bar 64 + section bar 48, items home, search, read');
+  step('S1: brand bar 64 + section bar 48, items home, search, read, about');
 
   // --- L2, L6: the landing -----------------------------------------------------------------------
   const shelfLinks = await wide.evaluate(() =>

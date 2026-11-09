@@ -1,0 +1,20 @@
+{
+  "workTitle": "Simbolul Apostolilor",
+  "edition": {
+    "language": "ro",
+    "kind": "translation",
+    "licence": {
+      "status": "licensed",
+      "note": "Traducere nouă în română, făcută din latină, asistată de AI și în curs de revizuire umană (Biblioteca creștină, 2026). Textul-sursă latin este în domeniul public. Licența finală a traducerii va fi stabilită de proprietar înainte de publicare.",
+      "noteEn": "New Romanian translation made from the Latin, AI-assisted and under human review (Biblioteca creștină, 2026). The Latin source text is in the public domain. The final licence of the translation will be set by the owner before publication."
+    },
+    "provenance": {
+      "source": "Translated from the Latin of the received form of the Apostles’ Creed (content/works/symbolum-apostolorum/edition-la.json, edition 01M6N22MB1KM4MNQAEGTHJ8EPG), not from any English or Romanian translation.",
+      "extractedBy": "Translation pipeline v3-lite (docs/traducere-pipeline.md): draft, independent critic and revision passes on claude-sonnet-5-5 run by the project’s orchestrator; deterministic checks (translation-check) and merge (translation-merge) from packages/content-tools.",
+      "notes": "Draft translation, not yet reviewed by a human. Open findings: translation-ro/review.md.",
+      "kind": "ai",
+      "sourceLanguage": "la"
+    },
+    "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG"
+  }
+}

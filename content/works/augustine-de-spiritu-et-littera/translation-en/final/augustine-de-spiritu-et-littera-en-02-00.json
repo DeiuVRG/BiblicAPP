@@ -1,0 +1,124 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-02-00",
+  "pass": "revised",
+  "model": "claude-sonnet-5-5",
+  "headingEn": "Chapter II",
+  "paragraphs": [
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "text": "At this point you may perhaps reply that the things I mentioned, which have not been done although they could have been done, are divine works; but that for a human being to be without sin belongs to that human being’s own work, and that this work is the best, the one by which righteousness becomes full and perfect and complete in absolutely every respect; and that for this reason it must not be believed that no one has been, or is, or will be in this life who has accomplished this work, if a human being can accomplish it. But you must consider that, although it belongs to the human being to do this, this too is a divine gift, and so you must not doubt that it is a divine work. For it is God who works in you, says the Apostle, both to will and to work, for the sake of good will.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Deus est enim qui operatur in vobis, ait Apostolus, et velle et operari, pro bona voluntate",
+          "quoteTarget": "For it is God who works in you, says the Apostle, both to will and to work, for the sake of good will",
+          "note": "Phil. 2:13 as Augustine quotes it (his Old Latin text: velle et operari), translated as the author’s text and not taken from an English Bible; to be replaced later with a licensed edition."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "pro bona voluntate",
+          "quoteTarget": "for the sake of good will",
+          "note": "The Latin leaves open whose good will is meant (God’s good pleasure, or the good will that God works in the human being). The rendering keeps the preposition and leaves the question open."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "hoc quoque munus esse divinum",
+          "quoteTarget": "this too is a divine gift",
+          "note": "munus can be a gift or a task or duty. Gift is chosen because the argument that follows (God works both the willing and the working) makes the human task itself God’s gift; the profile also renders gratuitum munus as free gift."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "opus esse divinum",
+          "quoteTarget": "a divine work",
+          "note": "opus (opera) is rendered work(s) throughout, together with operari, to work (Phil. 2:13); proposed for the glossary."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Phil. 2:13",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "text": "Accordingly, those who say that a human being lives here, or has lived here, without any sin at all are not very troublesome, and they must be pressed to show, if they can, that it is so. For if anyone is able to teach that the testimonies of the Scriptures (such as Do not enter into judgment with your servant, for in your sight no one living will be justified, and other such texts), by which, I think, it has been settled that no human being living here, even though he uses free will, is found without sin, are to be understood otherwise than they sound, and demonstrates that one person or several have lived here without any sin, then whoever does not both refrain from opposing him in the least and even congratulate him heartily is driven by no slight goads of envy. Moreover, even if no one is, or has been, or will be perfect in such purity—which I am more inclined to believe—and yet it is maintained and thought that there is, or has been, or will be such a person, the error, as far as I can judge, is neither great nor pernicious, when someone is mistaken through a kind of benevolence; provided, however, that whoever holds this view does not think that he himself is such a person unless he has truly and clearly perceived that he is.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Ne intres in judicium cum servo tuo, quoniam non justificabitur in conspectu tuo omnis vivens",
+          "quoteTarget": "Do not enter into judgment with your servant, for in your sight no one living will be justified",
+          "note": "Ps. 142:2 (Vulgate numbering) as Augustine quotes it from the Old Latin; non ... omnis vivens is rendered no one living. Translated as the author’s text; to be replaced later with a licensed edition."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "qui non ei, non solum minime adversatus, verum etiam plurimum gratulatus fuerit",
+          "quoteTarget": "whoever does not both refrain from opposing him in the least and even congratulate him heartily",
+          "note": "The Latin is elliptical: non before ei negates the whole pair non solum ... verum etiam, so the envious person is the one who does not both refrain from opposing and heartily congratulate (the only reading that fits invidentiae stimulis). Rendered with does not both ... and even. The punctuation of the edition (ei,) may be worth checking against another edition."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Ps. 142:2",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "text": "But those must be resisted most sharply and most vehemently who think that the strength of the human will, by itself and without the help of God, can either perfect righteousness or make progress by holding a course toward it; and when they begin to be pressed on how they presume to assert that this happens without divine help, they hold themselves back and do not dare to utter this statement, because they see how impious and intolerable it is. But they say that these things do not happen without divine help because God both created the human being with free will and, by giving commandments, himself teaches how a human being must live; and God certainly helps in that he removes ignorance by teaching, so that a human being may know what he must avoid and what he must seek in his works, and so that thereby, through the free will implanted by nature, entering upon the way that has been shown and living with self-control, righteously, and piously, he may deserve to reach a life at once blessed and eternal.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "ad eam tenendo proficere",
+          "quoteTarget": "make progress by holding a course toward it",
+          "note": "tenendo is read as holding a course (tenere ad, to steer toward) and proficere as advancing, the second member of vel justitiam posse perficere, vel ... proficere. Alternative reading: advancing by holding to righteousness. The wordplay perficere / proficere is only partly kept (perfect / make progress)."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "libero voluntatis arbitrio",
+          "quoteTarget": "created the human being with free will",
+          "note": "liberum voluntatis arbitrium is rendered with the glossary term free will (liberum arbitrium); the genitive voluntatis is absorbed in the term, not omitted."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "continenter et juste et pie vivendo",
+          "quoteTarget": "living with self-control, righteously, and piously",
+          "note": "continenter is rendered with self-control (continently would be read as chastity only); juste is rendered righteously, in line with the righteousness family. Proposed for the glossary: continentia, self-control."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "dando praecepta",
+          "quoteTarget": "by giving commandments",
+          "note": "praeceptum is rendered commandment, to be kept apart from lex (law); proposed for the glossary."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "sine adjutorio Dei",
+          "quoteTarget": "without the help of God",
+          "note": "adiutorium, ops (divina) and adiuvare are rendered help (to help); proposed for the glossary."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "pervenire mereatur",
+          "quoteTarget": "he may deserve to reach",
+          "note": "mereri is rendered to deserve (the opponents’ claim of merit); proposed for the glossary together with meritum, merit."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "No quotation marks are added round Scripture quoted by the author, because the Latin has none; the quoted spans are identified by the CITAT_BIBLIC flags. hic is rendered here (in this life). Pelagius is not named in the Latin and is not added. Revision: the critic’s verdict was ok, with two MINOR findings on the readability of the English syntax; both were checked against the Latin and applied, none rejected. In paragraph 2 the examples (such as Do not enter into judgment …) now stand next to the testimonies they illustrate, which also restores the Latin order of nullum hominem hic viventem, quamvis utatur libero arbitrio, inveniri sine peccato; in paragraph 3 in eo … quod is rendered helps in that he removes ignorance by teaching. For the reviewer: continenter et juste et pie vivendo may echo Titus 2:12 (sobrie et juste et pie vivamus); it is not listed in scripture because the edition gives no reference there and the wording differs."
+}

@@ -1,0 +1,37 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-18-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N296XN5ZZKD6G61F1AX3VW",
+    "ordinal": 17,
+    "kind": "chapter",
+    "heading": "XVIII"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VX",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Proinde quia lex, sicut alibi dicit, praevaricationis gratia posita est, id est, littera ista extra hominem scripta, propterea eam et ministrationem mortis et ministrationem damnationis appellat: hanc autem, id est, Novi Testamenti, ministrationem spiritus et ministrationem justitiae dicit, quia per donum spiritus operamur justitiam, et a praevaricationis damnatione liberamur. Ideo illud evacuatur, hoc manet: quoniam terrens paedagogus auferetur, cum timori successerit charitas. Ubi enim Spiritus Domini, ibi libertas. Hanc autem ministrationem non ex meritis nostris, sed ex misericordia esse sic dicit: Propter quod habentes ministrationem hanc, sicut misericordiam consecuti non infirmemur; sed abjiciamus occulta confusionis, non ambulantes in astutia, neque dolo adulterantes verbum Dei. Hanc astutiam et dolum hypocrisim vult intelligi, qua volunt justi superbi videri. Unde et in illo psalmo, quem ad hujus ipsius gratiae testificationem commemorat idem apostolus: Beatus, inquit, cui non imputavit Dominus peccatum, neque est in ore ejus dolus. Haec est humilium sanctorum confessio, non se jactantium esse quod non sunt. Et paulo post: Non enim nosmetipsos, inquit, praedicamus, sed Jesum Christum Dominum, nos autem servos vestros per Jesum: quia Deus qui dixit de tenebris lumen clarescere, claruit in cordibus nostris ad illuminationem scientiae gloriae ejus in faciem Christi Jesu. Haec est scientia gloriae ejus, qua scimus ipsum esse lumen, quo tenebrae nostrae illuminentur. Et id ipsum attende quemadmodum inculcet: Habemus autem thesaurum istum in vasis fictilibus, ut eminentia virtutis sit Dei, et non ex nobis. Et paulo post cum eamdem gratiam uberius in Domino Jesu Christo commendans, usque ad illud veniret indumentum justitiae fidei, quo induti non nudi inveniamur, et propter hoc ingemiscimus mortalitate praegravati, habitaculum nostrum quod de coelo est superindui cupientes, ut absorbeatur mortale a vita, vide quid adjungat: Qui autem operatus est nos, inquit, in hoc ipsum Deus qui dedit nobis pignus Spiritus. Et post pauca intulit: Ut nos simus justitia Dei in ipso. Haec est illa justitia Dei, non qua ipse justus est, sed qua nos ab eo facti.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Vide nunc quemadmodum consonet ista discretio illis apostolicis verbis, quae paulo ante ob aliud commemorata et diligentius pertractanda distuleram. Manifestati, inquit, quoniam estis epistola Christi, ministrata per nos, scripta non atramento, sed Spiritu Dei vivi; non in tabulis lapideis, sed in tabulis cordis carnalibus. Ecce quemadmodum ostendit, quia illud extra hominem scribitur, ut eum forinsecus terrificet; hoc in ipso homine, ut eum intrinsecus justificet. Carnales autem tabulas cordis dixit, non carnalis prudentiae, sed tanquam viventis sensumque habentis, in comparatione lapidis qui sine sensu est. Et quod paulo post dicit, quod non poterant intendere filii Israel usque in finem vultus Moysi, et ideo eis per velum loquebatur; hoc significat, quia littera legis neminem justificat, sed velamen positum est in lectione Veteris Testamenti, donec ad Christum transeatur, et auferatur velamen; id est, transeatur ad gratiam, et intelligatur ab ipso nobis esse justificationem, qua faciamus quod jubet. Qui propterea jubet, ut in nobis deficientes ad illum confugiamus. Ideo vigilantissime cum dixisset, Confidentiam talem habemus per Christum ad Deum; ne nostris hoc viribus tribueretur, continuo commendavit unde agitur, dicens: Non quod idonei sumus cogitare aliquid a nobis quasi ex nobismetipsis; sed sufficientia nostra ex Deo est, qui et idoneos nos fecit ministros Novi Testamenti, non litterae, sed spiritus. Littera enim occidit, spiritus autem vivificat.",
+    "nextParagraph": "Nemo ergo Christianorum aberret ab hac fide, quae sola Christiana est; neque quisquam, cum verecundatus fuerit dicere, per nos ipsos fieri nos justos, non hoc in nobis operante gratia Dei, quia videt hoc a fidelibus et piis ferri non posse cum dicitur, ad hoc se convertat ut dicat, ideo sine operatione gratiae Dei nos justos esse non posse, quia legem dedit, quia doctrinam instituit, quia bona praecepta mandavit. Illa enim sine adjuvante spiritu procul dubio est littera occidens; cum vero adest vivificans spiritus, hoc ipsum intus conscriptum facit diligi, quod foris scriptum lex faciebat timeri.",
+    "previousSectionHeading": "XVII"
+  },
+  "wordCount": 318,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

@@ -90,7 +90,10 @@ export type ProvenanceKind = z.infer<typeof ProvenanceKindSchema>;
 /** A calendar date ("2026-11-04") or a date and time in ISO 8601. */
 const IsoDate = z
   .string()
-  .regex(/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/, 'expected an ISO date');
+  .regex(
+    /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/,
+    'expected an ISO date',
+  );
 
 /** One automatic check that ran over a translation, and how it came out. */
 export const ProvenanceCheckSchema = z.object({

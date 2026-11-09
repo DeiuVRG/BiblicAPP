@@ -124,6 +124,28 @@ All heuristics are data, in `ingest.config.json` next to the work:
 `--verbose` prints removed foot lines, indented lines that were not accepted as paragraph starts,
 paragraph starts decided by the short-line cue only, and every hyphen decision, for review.
 
+## Sources that are page-text directories, not PDFs
+
+Some volumes of the owner's set (HathiTrust page text, `Anna's Archive` folders) are a directory of
+`00000001.txt ...` files, one per page, with no PDF: there is nothing for `pdftotext` to extract.
+The pattern, first used for Augustine's *De spiritu et littera* (`content/sources/augustine-de-spiritu-et-littera/`):
+
+1. `extract.py` joins the page files, byte for byte, with a form feed between pages
+   (`raw-layout.txt`; the page texts have no layout, so `raw.txt` is identical) and records the
+   sha256 of every page file (`raw-pages.sha256`).
+2. When the page carries the editor's apparatus that `ingest.config.json` cannot express (marginal
+   references on the same lines as the text, footnotes of variant readings, English summaries,
+   numbered sections), a deterministic `clean.py` (stdlib only, run `python3 -I`) cuts it out and
+   writes `clean.txt` in the shape that `ingest-text` expects, plus `clean.log` with every removal.
+   It fails (exit 1) unless its invariants hold (chapter and section sequences, no digits or
+   reference leftovers, running heads matching the chapters).
+3. `ingest-text clean.txt --work content/works/<slug>/work.json` does the rest: chapters, line-end
+   hyphens, repairs of single words (`wordFixes`, `replacements`), stable ids. For numbered
+   sections that start a paragraph, `clean.py` indents the first line by four spaces and the config
+   uses `paragraphs.mode: "layout"` with `shortEndChars` set so high that the short-line cue never
+   fires; running-head and foot detection are switched off (`minRepeats` 1000, `footers.zoneLines` 0)
+   because `clean.py` has already removed them.
+
 ## Tests
 
 `pnpm --filter @biblioteca/content-tools test` (Vitest): dehyphenation, paragraph joining,

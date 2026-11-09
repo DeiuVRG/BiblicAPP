@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-en-11-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYKX",
+    "ordinal": 10,
+    "kind": "section",
+    "heading": "11"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKY",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "carnis resurrectionem;",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "remissionem peccatorum;",
+    "nextParagraph": "vitam æternam. Amen.",
+    "previousSectionHeading": "10"
+  },
+  "wordCount": 2,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-ro-01-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYK9",
+    "ordinal": 0,
+    "kind": "section",
+    "heading": "1"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKA",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Credo in Deum Patrem omnipotentem; Creatorem cæli et terræ.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": null,
+    "nextParagraph": "Et in Jesum Christum, Filium ejus unicum, Dominum nostrum;",
+    "previousSectionHeading": null
+  },
+  "wordCount": 9,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

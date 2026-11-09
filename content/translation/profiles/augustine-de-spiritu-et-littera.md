@@ -33,8 +33,11 @@ from the Latin, never one from the other.
   of Otto Weber (P2L-10) is protected: not used.
 - Tradition of the work: `undivided` (a Father of the West claimed by Catholics, Protestants
   and, in part, the Orthodox). Glossary rows for `all` and `undivided` apply.
-- Sections: one section per chapter of the edition, headed `Caput I`, `Caput II`, ...; the
-  translated heading is "Chapter I" (`headingEn`) and "Capitolul I" (`headingRo`).
+- Sections: one section per chapter of the edition (36), headed with the numeral of the chapter
+  (`I`, `II`, ... `XXXVI`; the 1914 edition has only English chapter summaries, which are excluded,
+  so there is no Latin chapter title); the translated heading is "Chapter I" (`headingEn`) and
+  "Capitolul I" (`headingRo`). Paragraphs: one per numbered section of the traditional division
+  (1-66), 67 in all (see the trap about section 48).
 
 ## Register and voice
 
@@ -104,6 +107,16 @@ from the Latin, never one from the other.
 - A chain of participles and ablative absolutes (*accepta occasione*, *lege veniente*) is
   rendered with clauses (see `calques-en.json`).
 - The Latin of the treatise has no section numbers inside the paragraph; do not add "§".
+- Chapter XXVII ends in the middle of section 48 with an unfinished sentence (`... laudem
+  defensionemve mereantur:`) that chapter XXVIII completes (`Verumtamen quia non usque adeo ...`).
+  The two halves are two paragraphs of the edition, translated one by one (a job carries the
+  neighbouring paragraph as context): keep the colon at the end of the first half and do not close
+  the sentence there.
+- The edition prints single quotation marks (`‘...’`) round the words of an opponent, an example
+  sentence or a term (`‘Sed laudamus,’ inquiunt, ‘et Deum ...’`, `‘Fac quod jubeo’`,
+  `‘Da quod jubes’`); they are kept in the Latin of the edition. Render them with the quotation
+  marks of the target language. Scripture quoted by Augustine is not in quotation marks in the
+  Latin.
 
 ## Exemplar passage (tone)
 

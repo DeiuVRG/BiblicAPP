@@ -118,7 +118,8 @@ describe('page titles (the browser tab)', () => {
     expect(fakeDocument.title).toBe('Full library · Biblioteca');
 
     await renderWithProviders(<SettingsScreen />, { store });
-    await screen.findByText(en.settings.about);
+    // ("About" is also an item of the section bar once the policy pages are delivered.)
+    await screen.findByLabelText('Interface language');
     expect(fakeDocument.title).toBe('Settings · Biblioteca');
 
     await renderWithProviders(<SearchScreen />, { store });

@@ -23,7 +23,10 @@ export function defaultFontSize(windowWidth: number): number {
 }
 
 /** The size of the reader's text: the one the reader chose, or the default of the window. */
-export function effectiveFontSize(settings: Pick<ReaderSettings, 'fontSize'>, width: number): number {
+export function effectiveFontSize(
+  settings: Pick<ReaderSettings, 'fontSize'>,
+  width: number,
+): number {
   return settings.fontSize ?? defaultFontSize(width);
 }
 

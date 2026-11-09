@@ -1,0 +1,37 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-01-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N296XKBCVD7SQ55PJBX85T",
+    "ordinal": 0,
+    "kind": "chapter",
+    "heading": "I"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XKBCVD7SQ55PJBX85V",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Lectis opusculis, quae ad te nuper elaboravi, fili charissime Marcelline, de Baptismo parvulorum, et de perfectione justitiae hominis, quod eam nemo in hac vita vel assecutus, vel assecuturus videatur, excepto uno Mediatore, qui humana perpessus est in similitudine carnis peccati, sine ullo omnino peccato: rescripsisti te moveri eo, quod in posteriore duorum libro fieri posse dixi, ut sit homo sine peccato, si voluntas ejus non desit ope adjuvante divina, et tamen praeter unum in quo omnes vivificabuntur, neminem fuisse vel fore in quo hic vivente esset ista perfectio. Absurdum enim tibi videtur dici, aliquid fieri posse cujus desit exemplum, cum, sicut credo, non dubites, nunquam esse factum ut per foramen acus camelus transiret, et tamen ille hoc quoque dixit Deo esse possibile: legas etiam duodecim millia legiones Angelorum pro Christo, ne pateretur, pugnare potuisse, nec tamen factum: legas fieri potuisse ut semel gentes exterminarentur a terra quae dabatur filiis Israel, Deum tamen paulatim fieri voluisse: et alia sexcenta possunt occurrere, quae fieri, vel potuisse, vel posse fateamur, et eorum tamen exempla quod facta sint proferre nequeamus. Unde non ideo negare debemus, fieri posse ut homo sine peccato sit, quia nullus est hominum, praeter illum qui non tantum homo, sed etiam natura Deus est, in quo id esse perfectum demonstrare possimus.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": null,
+    "nextParagraph": "Hic fortasse respondeas, ista quae commemoravi facta non esse et fieri potuisse, opera esse divina; ut autem sit homo sine peccato, ad opus ipsius hominis pertinere, idque opus esse optimum, quo fiat plena et perfecta et ex omni prorsus parte absoluta justitia: et ideo non esse credendum, neminem vel fuisse, vel esse, vel fore in hac vita qui hoc opus impleverit, si ab homine impleri potest. Sed cogitare debes, quamvis ad hominem id agere pertineat, hoc quoque munus esse divinum, atque ideo non dubitare opus esse divinum. Deus est enim qui operatur in vobis, ait Apostolus, et velle et operari, pro bona voluntate.",
+    "previousSectionHeading": null
+  },
+  "wordCount": 210,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

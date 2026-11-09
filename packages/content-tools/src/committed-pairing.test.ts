@@ -31,7 +31,9 @@ function installedPacks(): Pack[] {
     .filter((entry) => entry.isDirectory())
     .map((entry) =>
       PackSchema.parse(
-        JSON.parse(fs.readFileSync(path.join(packsDir, entry.name, 'pack.json'), 'utf8')) as unknown,
+        JSON.parse(
+          fs.readFileSync(path.join(packsDir, entry.name, 'pack.json'), 'utf8'),
+        ) as unknown,
       ),
     );
 }
@@ -71,7 +73,9 @@ describe('committed packs: every work pairs by sourceId (R20)', () => {
       });
 
       for (const pack of packs.filter((candidate) => candidate.edition.kind === 'translation')) {
-        const source = packs.find((candidate) => candidate.edition.id === pack.edition.sourceEditionId);
+        const source = packs.find(
+          (candidate) => candidate.edition.id === pack.edition.sourceEditionId,
+        );
         if (!source) continue;
 
         it(`aligns ${pack.edition.language} 1:1 to the source: no source unit rendered twice, none outside it`, () => {
@@ -79,7 +83,9 @@ describe('committed packs: every work pairs by sourceId (R20)', () => {
           const sourceParagraphs = new Map(source.paragraphs.map((p) => [p.id, p]));
 
           const sectionKeys = pack.sections.map((section) => section.sourceId);
-          expect(sectionKeys.every((key) => key !== undefined && sourceSections.has(key))).toBe(true);
+          expect(sectionKeys.every((key) => key !== undefined && sourceSections.has(key))).toBe(
+            true,
+          );
           expect(new Set(sectionKeys).size).toBe(sectionKeys.length);
 
           const paragraphKeys = pack.paragraphs.map((paragraph) => paragraph.sourceId);

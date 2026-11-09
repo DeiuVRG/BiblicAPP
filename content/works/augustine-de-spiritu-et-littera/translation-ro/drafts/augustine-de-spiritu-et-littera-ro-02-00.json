@@ -1,0 +1,103 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-02-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "Capitolul II",
+  "paragraphs": [
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "text": "Aici ai putea răspunde, poate, că acele lucruri pe care le-am amintit nu s-au făcut, dar s-ar fi putut face, și sunt lucrări dumnezeiești; că a fi fără păcat ține, în schimb, de lucrarea omului însuși și că această lucrare este cea mai bună, cea prin care dreptatea devine deplină, desăvârșită și cu totul împlinită în orice privință; și că de aceea nu trebuie crezut că nu a existat, nu există și nu va exista în această viață nimeni care să fi împlinit această lucrare, dacă ea poate fi împlinită de către om. Trebuie însă să te gândești că și acest dar este dumnezeiesc, deși a face aceasta ține de om; și de aceea nu trebuie să te îndoiești că este o lucrare dumnezeiască. Căci Dumnezeu este cel care lucrează în voi, zice Apostolul, și voirea, și lucrarea, pentru buna voință.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Deus est enim qui operatur in vobis, ait Apostolus, et velle et operari, pro bona voluntate",
+          "quoteTarget": "Dumnezeu este cel care lucrează în voi, zice Apostolul, și voirea, și lucrarea, pentru buna voință",
+          "note": "Citat din Fil. 2:13, introdus de «ait Apostolus». Trimiterea nu este în job (paragraful nu are referințe): a fost identificată de traducător din memorie, neverificată în acest job. Tradus din latina lui Augustin, ca text al autorului, nu după o ediție românească a Bibliei; «pro bona voluntate» este redat «pentru buna voință», păstrând ambiguitatea lui pro (fără posesiv adăugat). De înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "ad opus ipsius hominis pertinere",
+          "quoteTarget": "de lucrarea omului însuși",
+          "note": "«opus» (și «opera», «operari») este redat consecvent «lucrare» (lucrarea omului, lucrări dumnezeiești, a lucra), pentru că pe antiteza opus hominis / opus divinum se sprijină argumentul capitolului. Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "opera esse divina",
+          "quoteTarget": "sunt lucrări dumnezeiești",
+          "note": "«divinus» este redat «dumnezeiesc» (nu «divin») în tot capitolul (lucrări dumnezeiești, dar dumnezeiesc, ajutor dumnezeiesc). Fără rând în glosar; propus pentru glosar după aprobare."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "hoc quoque munus esse divinum",
+          "quoteTarget": "și acest dar este dumnezeiesc",
+          "note": "«munus» poate însemna «dar» sau «sarcină, îndatorire». Ales «dar» (ca în «gratuitum munus» = «dar gratuit» din profil), pentru că de la «munus divinum» urmează firesc «opus divinum» (Dumnezeu lucrează în noi voirea și lucrarea). Lectura «și această sarcină este dumnezeiască» rămâne posibilă; de revizuit."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Fil. 2:13",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "text": "Prin urmare, cei care spun că aici trăiește sau a trăit un om fără absolut niciun păcat nu sunt prea supărători, și trebuie să se insiste pe lângă ei ca, dacă pot, să arate că așa stau lucrurile. Căci dacă cineva va putea să arate că mărturiile Scripturilor – prin care socotesc că s-a stabilit că niciun om care trăiește aici, oricât s-ar folosi de liber arbitru, nu se găsește fără păcat, precum aceasta: Să nu intri la judecată cu robul tău, căci în fața ta nu va fi îndreptățit niciunul dintre cei vii, și altele asemenea – trebuie înțelese altfel decât sună, și va dovedi că unul sau mai mulți au trăit aici fără niciun păcat, atunci cel care nu se poartă astfel față de el – nu doar fără să i se opună câtuși de puțin, ci felicitându-l cu multă căldură – este frământat de înțepăturile deloc ușoare ale invidiei. Ba mai mult, chiar dacă nu este, nu a fost și nu va fi nimeni desăvârșit într-o asemenea puritate, ceea ce mai degrabă cred, și totuși se susține și se crede că este, a fost sau va fi un astfel de om; atât cât pot eu să judec, nu se greșește mult, nici în chip dăunător, când oricine se înșală cu o anumită bunăvoință; cu condiția însă ca cel care crede aceasta să nu se creadă pe sine un astfel de om, decât dacă a văzut cu adevărat și limpede că este unul.",
+      "flags": [
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "Ne intres in judicium cum servo tuo, quoniam non justificabitur in conspectu tuo omnis vivens",
+          "quoteTarget": "Să nu intri la judecată cu robul tău, căci în fața ta nu va fi îndreptățit niciunul dintre cei vii",
+          "note": "Citat din Ps. 142:2 (numerotarea Vulgatei; Ps. 143:2 în numerotarea ebraică). Trimiterea nu este în job: a fost identificată de traducător din memorie, neverificată în acest job. Tradus din latina lui Augustin, ca text al autorului, nu după o ediție românească a Bibliei; «non ... omnis vivens» este redat «niciunul dintre cei vii», în acord cu parafraza din aceeași frază («nullum hominem hic viventem»). Latina nu are ghilimele la citatele biblice, deci nici româna. De înlocuit ulterior cu o ediție licențiată."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "qui non ei, non solum minime adversatus, verum etiam plurimum gratulatus fuerit",
+          "quoteTarget": "cel care nu se poartă astfel față de el – nu doar fără să i se opună câtuși de puțin, ci felicitându-l cu multă căldură",
+          "note": "Negația inițială (qui non) privește întregul grup «non solum minime adversatus, verum etiam plurimum gratulatus»: invidios este cel care nu se poartă astfel (nu doar fără opoziție, ci cu felicitări călduroase). «astfel» este singurul cuvânt adăugat, ca româna să păstreze această structură. «ei» poate trimite la cel care arată (quisquam) sau la cel despre care se arată că a trăit fără păcat; lăsat ambiguu, ca în latină («față de el»). De revizuit."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "Ps. 142:2",
+          "mode": "quote-author-rendering"
+        }
+      ]
+    },
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "text": "Dar cu cea mai mare asprime și vehemență trebuie combătuți cei care cred că puterea voinței omenești, prin ea însăși, fără ajutorul lui Dumnezeu, poate fie să desăvârșească dreptatea, fie să înainteze spre ea, stăruind; iar ei, când încep să fie întrebați cu insistență cum se încumetă să afirme că aceasta se face fără ajutor dumnezeiesc, se rețin și nu îndrăznesc să rostească această afirmație, pentru că văd cât este de necucernică și de neîngăduit. Însă ei spun că acestea nu se fac fără ajutor dumnezeiesc tocmai pentru că Dumnezeu l-a creat pe om cu liberul arbitru al voinței și, dându-i porunci, îl învață el însuși cum trebuie să trăiască omul; și îl ajută, desigur, prin aceea că, învățându-l, înlătură neștiința, ca omul să știe în lucrările sale ce trebuie să evite și ce trebuie să caute; ca astfel, prin liberul arbitru sădit în el de la natură, pășind pe calea arătată, trăind cu înfrânare, cu dreptate și cu evlavie, să merite să ajungă la viața fericită și totodată veșnică.",
+      "flags": [
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "ad eam tenendo proficere",
+          "quoteTarget": "să înainteze spre ea, stăruind",
+          "note": "«tenendo» stă fără obiect lângă «ad eam» («spre ea»): «ținând (calea)», «stăruind». Redat «stăruind». Este posibil ca textul tipărit să fie o variantă pentru «tendendo» («năzuind spre ea»); nu am verificat o altă ediție. Sensul de ansamblu (progres spre dreptate prin forța voinței, fără ajutor) rămâne același. De verificat în ediția critică."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "continenter et juste et pie vivendo",
+          "quoteTarget": "trăind cu înfrânare, cu dreptate și cu evlavie",
+          "note": "«continenter» poate fi «cu înfrânare, cu cumpătare» sau «fără întrerupere». Ales «cu înfrânare», după triada cu «juste» și «pie» (trei însușiri ale vieții). De revizuit."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "sine adjutorio Dei",
+          "quoteTarget": "fără ajutorul lui Dumnezeu",
+          "note": "«adjutorium» (și «ope divina», «adjuvat») este redat «ajutor» / «a ajuta»; «ope divina» → «ajutor dumnezeiesc». Fără rând în glosar; termen central al antitezei voluntas / adiutorium din profil; propus pentru glosar după aprobare."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "Draft pentru critic. Redări de reținut: opus / opera = lucrare; divinus = dumnezeiesc; munus = dar; adiutorium / ops = ajutor; psalm în numerotarea Vulgatei (Ps. 142:2). Trimiterile Fil. 2:13 și Ps. 142:2 nu sunt în job (referințele paragrafelor sunt goale): au fost identificate de traducător din memorie și nu sunt verificate într-o ediție. Citatele biblice sunt traduse din latina lui Augustin, fără ghilimele, ca în ediția latină. Singura legătură adăugată pentru structura frazei: «astfel» în par. 2 (qui non ei ... fuerit); vezi flag-ul AMBIGUITATE."
+}

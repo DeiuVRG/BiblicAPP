@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-nicaeno-constantinopolitanum-ro-08-00",
+  "workSlug": "symbolum-nicaeno-constantinopolitanum",
+  "sourceEditionId": "01M6N24HR7XARYC7C7F399BFBK",
+  "sourceLanguage": "grc",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N24HR80HGE0FF8D4RTP7V4",
+    "ordinal": 7,
+    "kind": "section",
+    "heading": "8"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N24HR80HGE0FF8D4RTP7V5",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Καὶ εἰς τὸ πνεῦμα τὸ ἅγιον, τὸ κύριον καὶ ζωοποιόν, τὸ ἐκ τοῦ πατρὸς ἐκπορευόμενον, τὸ σὺν πατρὶ καὶ υἱῷ συμπροσκυνούμενον καὶ συνδοξαζόμενον, τὸ λαλῆσαν διὰ τῶν προφητῶν·",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "καὶ πάλιν ἐρχόμενον μετὰ δόξης κρῖναι ζῶντας καὶ νεκρούς· οὗ τῆς βασιλείας οὐκ ἔσται τέλος.",
+    "nextParagraph": "εἰς μίαν, ἁγίαν, καθολικὴν καὶ ἀποστολικὴν ἐκκλησίαν·",
+    "previousSectionHeading": "7"
+  },
+  "wordCount": 28,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-nicaeno-constantinopolitanum.md"
+  }
+}

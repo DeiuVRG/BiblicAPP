@@ -20,6 +20,8 @@ interface Props<T extends string> {
   options: readonly Option<T>[];
   value: T;
   onChange(value: T): void;
+  /** The narrowest a segment may get before the options wrap into two rows (84 by default; the compact panels pass less). */
+  minSegment?: number;
 }
 
 /** Narrowest a segment may get (a label such as "Întunecat" plus padding) before the options wrap. */
@@ -46,9 +48,14 @@ export interface Corners {
  * (scaled with the system font size), otherwise two rows. `width` is unknown (null) until the
  * control has been laid out; it starts as a single row.
  */
-export function segmentColumns(count: number, width: number | null, fontScale = 1): number {
+export function segmentColumns(
+  count: number,
+  width: number | null,
+  fontScale = 1,
+  minSegment: number = MIN_SEGMENT_WIDTH,
+): number {
   if (width === null || width <= 0 || count <= 2) return count;
-  const needed = count * MIN_SEGMENT_WIDTH * Math.min(Math.max(fontScale, 1), MAX_SCALE);
+  const needed = count * minSegment * Math.min(Math.max(fontScale, 1), MAX_SCALE);
   return width >= needed ? count : Math.ceil(count / 2);
 }
 
@@ -87,13 +94,19 @@ export function radioKeyAction(
  * a large system font) the options wrap into two rows instead of being squeezed. On web it behaves
  * like a native radio group: one tab stop, arrow keys move the choice, Space chooses.
  */
-export function SegmentedControl<T extends string>({ label, options, value, onChange }: Props<T>) {
+export function SegmentedControl<T extends string>({
+  label,
+  options,
+  value,
+  onChange,
+  minSegment,
+}: Props<T>) {
   const { colors } = useTheme();
   const { fontScale } = useWindowDimensions();
   const [width, setWidth] = useState<number | null>(null);
   // The mounted segments by value, so that an arrow key can move the focus along with the choice.
   const [segments] = useState(() => new Map<T, { focus?: () => void }>());
-  const rows = chunk(options, segmentColumns(options.length, width, fontScale));
+  const rows = chunk(options, segmentColumns(options.length, width, fontScale, minSegment));
 
   const move = (from: number, action: 'next' | 'previous' | 'first' | 'last') => {
     const last = options.length - 1;

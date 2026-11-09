@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-nicaeno-constantinopolitanum-ro-09-00",
+  "workSlug": "symbolum-nicaeno-constantinopolitanum",
+  "sourceEditionId": "01M6N24HR7XARYC7C7F399BFBK",
+  "sourceLanguage": "grc",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N24HR80HGE0FF8D4RTP7V6",
+    "ordinal": 8,
+    "kind": "section",
+    "heading": "9"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N24HR80HGE0FF8D4RTP7V7",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "εἰς μίαν, ἁγίαν, καθολικὴν καὶ ἀποστολικὴν ἐκκλησίαν·",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Καὶ εἰς τὸ πνεῦμα τὸ ἅγιον, τὸ κύριον καὶ ζωοποιόν, τὸ ἐκ τοῦ πατρὸς ἐκπορευόμενον, τὸ σὺν πατρὶ καὶ υἱῷ συμπροσκυνούμενον καὶ συνδοξαζόμενον, τὸ λαλῆσαν διὰ τῶν προφητῶν·",
+    "nextParagraph": "ὁμολογοῦμεν ἓν βάπτισμα εἰς ἄφεσιν ἁμαρτιῶν·",
+    "previousSectionHeading": "8"
+  },
+  "wordCount": 7,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-nicaeno-constantinopolitanum.md"
+  }
+}

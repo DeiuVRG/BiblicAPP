@@ -1,0 +1,86 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-02-00",
+  "file": "drafts/augustine-de-spiritu-et-littera-ro-02-00.json",
+  "ok": true,
+  "strictOk": true,
+  "findings": [
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "message": "proposed (not approved) glossary row augustin-iustitia (FIX) matched: iustitia → dreptate (implicit în această lucrare); „justiție” doar pentru sensul forensic sau distributiv. Varianta din tradiția Cornilescu „neprihănire” nu se folosește aici.",
+      "quoteSource": "justitia",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "message": "proposed (not approved) glossary row augustin-peccatum (FIX) matched: peccatum → păcat; peccator → păcătos; peccare → a păcătui.",
+      "quoteSource": "peccato",
+      "quoteTarget": "păcat"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85X",
+      "message": "proposed (not approved) glossary row augustin-voluntas (PREFER) matched: voluntas → voință (facultatea); voluntas Dei → voia lui Dumnezeu. Nu „dorință” decât dacă contextul e o dorință.",
+      "quoteSource": "voluntate",
+      "quoteTarget": "voință"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "message": "proposed (not approved) glossary row augustin-iustificare (FIX) matched: iustificare → a îndreptăți; iustificatio → îndreptățire.",
+      "quoteSource": "justificabitur",
+      "quoteTarget": "îndreptățit"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "message": "proposed (not approved) glossary row augustin-peccatum (FIX) matched: peccatum → păcat; peccator → păcătos; peccare → a păcătui.",
+      "quoteSource": "peccato",
+      "quoteTarget": "păcat"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Y",
+      "message": "proposed (not approved) glossary row augustin-liberum-arbitrium (FIX) matched: liberum arbitrium → liber arbitru („alegere liberă” din unele traduceri moderne nu se folosește).",
+      "quoteSource": "libero arbitrio",
+      "quoteTarget": "liber arbitru"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "message": "proposed (not approved) glossary row augustin-iustitia (FIX) matched: iustitia → dreptate (implicit în această lucrare); „justiție” doar pentru sensul forensic sau distributiv. Varianta din tradiția Cornilescu „neprihănire” nu se folosește aici.",
+      "quoteSource": "justitiam",
+      "quoteTarget": "dreptatea"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "message": "proposed (not approved) glossary row augustin-liberum-arbitrium (FIX) matched: liberum arbitrium → liber arbitru („alegere liberă” din unele traduceri moderne nu se folosește).",
+      "quoteSource": "liberum arbitrium",
+      "quoteTarget": "liberul arbitru"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85Z",
+      "message": "proposed (not approved) glossary row augustin-voluntas (PREFER) matched: voluntas → voință (facultatea); voluntas Dei → voia lui Dumnezeu. Nu „dorință” decât dacă contextul e o dorință.",
+      "quoteSource": "voluntatis",
+      "quoteTarget": "voinței"
+    }
+  ],
+  "stats": {
+    "paragraphs": 3,
+    "sourceWords": 383,
+    "targetWords": 556,
+    "lengthRatio": 1.231
+  }
+}

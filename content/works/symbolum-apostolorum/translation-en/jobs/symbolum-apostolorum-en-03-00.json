@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-en-03-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYKD",
+    "ordinal": 2,
+    "kind": "section",
+    "heading": "3"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKE",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "qui conceptus est de Spiritu Sancto, natus ex Maria virgine;",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Et in Jesum Christum, Filium ejus unicum, Dominum nostrum;",
+    "nextParagraph": "passus sub Pontio Pilato, crucifixus, mortuus, et sepultus;",
+    "previousSectionHeading": "2"
+  },
+  "wordCount": 10,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-01-00",
+  "pass": "critic",
+  "model": "claude-sonnet-5-5",
+  "findings": [
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "severity": "MINOR",
+      "category": "gramatica",
+      "quoteSource": "Lectis opusculis, quae ad te nuper elaboravi, fili charissime Marcelline, de Baptismo parvulorum, et de perfectione justitiae hominis, quod",
+      "quoteTarget": "After reading the short works that I recently composed for you, my dearest son Marcellinus, on the baptism of infants and on the perfection of human righteousness—namely that",
+      "problem": "Sentence structure and word order, not sense. The opening sentence has about 140 words and follows the Latin period too closely. The participial phrase ‘After reading’ is separated from its subject and verb (‘you wrote back’) by about 70 words, among them a 43-word clause between em dashes (a dash is meant for an incidental break, and this clause is the substance of the works), and the relative clause with the vocative stands between ‘the short works’ and ‘on the baptism of infants’. Every element is faithful to the Latin, but the reader has to hold the opening phrase through the whole parenthesis, so the sentence reads as a transposed Latin period rather than as English written in English (rules §1, priority 2). Rules §4 allow a division within the paragraph when English requires it, and the Latin itself has a colon after ‘peccato’.",
+      "proposal": "Divide at the colon of the edition and put the works in a main clause, keeping every element: ‘I recently composed for you, my dearest son Marcellinus, short works on the baptism of infants and on the perfection of human righteousness, namely that no one in this life seems either to have attained it or to be going to attain it, except for the one Mediator, who endured the human lot in the likeness of the flesh of sin, without any sin at all. After reading them, you wrote back that you were troubled by my saying, in the second of the two books, that …’ (the rest as in the draft)."
+    },
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "severity": "MINOR",
+      "category": "agentivitate",
+      "quoteSource": "et tamen ille hoc quoque dixit Deo esse possibile",
+      "quoteTarget": "and yet he said that this too is possible for God",
+      "problem": "The speaker is not identifiable in the English. Latin ille is a demonstrative that points to a person both correspondents know, the Lord, whose words on the camel and the needle and on what is possible for God are Matt. 19:24–26 (and parallels). English ‘he’ is an anaphoric pronoun and needs an antecedent in its sentence, but there is none: the Mediator is named a whole sentence earlier, and the nearest ‘he’ is the generic human being of ‘while he lived here’. A reader who does not have the Gospel saying in mind can attribute the words to someone else, so the agent of ‘said’ is less secure in English than in Latin. The sense is not changed, but the referent has to be supplied from outside the sentence.",
+      "proposal": "and yet the Lord said that this too is possible for God (‘the Lord’ as in the profile’s table of names; ‘Christ’ would also do). This resolves the pronoun without adding anything the Latin does not mean."
+    }
+  ],
+  "verdict": "ok",
+  "summary": "Compared sentence by sentence in both directions: three Latin periods, and the English divides the second at its colons into four sentences, without loss. No omission, addition or change of sense. Negations (nemo … videatur, non desit, non dubites, nunquam, ne pateretur, nec tamen, non ideo … quia), the conditional (si voluntas ejus non desit), the causal and concessive links (enim, cum, quia, unde) and the hedges and modal verbs (videatur, sicut credo, legas, potuisse and posse, fateamur, debemus) are all kept, and the roles are right (angels fighting for Christ so that he would not suffer; God willing the expulsion to be gradual). Names and numbers agree (Marcellinus, Israel, the two books, twelve thousand, six hundred, the one Mediator). The job carries no converted references, so there was nothing to compare with references[].target. Rom. 8:3 and 1 Cor. 15:22 are rendered as Augustine’s own wording, with no modern Bible text behind them. Glossary and profile are followed (righteousness, sin, will, baptism, Mediator; ‘human being’ for homo and ‘man’ only for Christ; vivificare as ‘give life’); no calque of the list and no archaism. Two MINOR remarks on the English as such: the construction of the opening sentence, and the antecedent of ‘he’ (ille). Considered and not raised, because defensible and without effect on the argument: ‘six hundred’ for sexcenta, ‘driven out’ for exterminarentur (the Latin allows ‘drive out’ or ‘destroy’), ‘twelve thousand legions’ as printed, ‘the human lot’ for humana perpessus est. For the human reviewer, outside the text: in the printed edition the footnote on legiones reads only ‘legionum V.’ (a variant of case; the numeral is not reported as doubtful), and its margin cites Deut. 31 and Judg. 2:3 for the expulsion of the nations (the raw text does not keep the verse of the first), while the draft’s scripture list has Exod. 23:29–30 and Deut. 7:22, the closer match for paulatim; which references to list is the reviewer’s choice. Nothing points to a corrupt source."
+}

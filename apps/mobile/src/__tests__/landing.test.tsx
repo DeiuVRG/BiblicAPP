@@ -285,7 +285,8 @@ describe('LandingScreen: the beta band, transparency and the footer', () => {
     expect(footer.getByTestId('footer-link-contact')).toBeTruthy();
     expect(footer.getByTestId('footer-link-settings')).toBeTruthy();
     expect(footer.queryByTestId('footer-link-about')).toBeNull();
-    expect(footer.queryByTestId('footer-link-transparency')).toBeNull();
+    // The policy page is live in a delivered build; the About page is not yet.
+    expect(footer.getByTestId('footer-link-transparency')).toBeTruthy();
     expect(footer.getByTestId('footer-language-switch')).toBeTruthy();
     expect(footer.getByTestId('footer-version')).toHaveTextContent(/^Versiunea \d/);
     await fireEvent.press(footer.getByTestId('footer-link-settings'));

@@ -1,0 +1,112 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-01-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingRo": "Capitolul I",
+  "paragraphs": [
+    {
+      "sourceId": "01M6N296XKBCVD7SQ55PJBX85V",
+      "text": "După ce ai citit micile lucrări pe care ți le-am alcătuit de curând, preaiubite fiule Marcelin, despre botezul pruncilor și despre desăvârșirea dreptății omului, în sensul că nimeni în această viață nu pare nici să o fi atins, nici să o atingă în viitor, cu excepția unicului Mijlocitor, care a îndurat cele omenești în asemănarea cărnii păcatului, fără absolut niciun păcat, mi-ai răspuns în scris că te tulbură faptul că am spus, în a doua dintre cele două cărți, că este cu putință ca un om să fie fără păcat, dacă nu-i lipsește voința, iar ajutorul divin îi vine în sprijin, și că, totuși, afară de unul în care li se va da viață tuturor, nu a existat și nici nu va exista nimeni în care, pe când trăiește aici, să se afle acea desăvârșire. Căci ți se pare absurd să se spună că poate să se întâmple ceva pentru care lipsește un exemplu, deși, după cum cred, nu te îndoiești că nu s-a întâmplat niciodată ca o cămilă să treacă prin urechea acului, și totuși el a spus că și aceasta este cu putință pentru Dumnezeu: poți citi, de asemenea, că douăsprezece mii de legiuni de îngeri ar fi putut lupta pentru Hristos, ca să nu pătimească, și totuși nu s-a întâmplat; poți citi că ar fi putut să se întâmple ca neamurile să fie nimicite dintr-o dată, din țara care se dădea fiilor lui Israel, dar că Dumnezeu a voit totuși ca aceasta să se întâmple treptat; și se pot ivi alte șase sute de lucruri despre care recunoaștem fie că ar fi putut să se întâmple, fie că pot să se întâmple, și totuși nu putem aduce exemple ale acestora care să arate că s-au întâmplat. Prin urmare, nu trebuie să negăm că este cu putință ca un om să fie fără păcat doar pentru că nu există niciun om – în afară de cel care nu este numai om, ci și Dumnezeu prin natură – în care să putem arăta că aceasta a fost desăvârșită.",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "quod eam nemo in hac vita vel assecutus, vel assecuturus videatur",
+          "quoteTarget": "în sensul că nimeni în această viață nu pare nici să o fi atins, nici să o atingă în viitor",
+          "note": "«quod» + conjunctiv după «de perfectione justitiae hominis» poate fi explicativ («că», conținutul tezei din lucrările citite) sau cauzal («întrucât»). Redat explicativ, ca și «exempla quod facta sint» din a doua frază și potrivit argumentului (teza: nimeni, în afară de Hristos, nu a atins desăvârșirea). «assecuturus» (participiu viitor) este redat prin «să o atingă în viitor»; «eam» poate fi «perfectionem» sau «justitiam» (ambele feminine), iar pronumele «o» păstrează aceeași ambiguitate."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "de perfectione justitiae hominis",
+          "quoteTarget": "desăvârșirea dreptății omului",
+          "note": "perfectio și perfectum («ista perfectio», «id esse perfectum») sunt redate consecvent prin «desăvârșire» și «a desăvârși»; glosarul nu are rând. Propunere: perfectio → desăvârșire, perfectus → desăvârșit («perfecțiune» nu se folosește). Termen cu miză în toată lucrarea."
+        },
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "parvulorum",
+          "quoteTarget": "pruncilor",
+          "note": "parvuli → «prunci» (botezul pruncilor, uz bisericesc românesc), nu «copii mici»; glosarul nu are rând. Propunere de adăugat: parvulus → prunc; termenul revine în toată lucrarea."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "in similitudine carnis peccati",
+          "quoteTarget": "în asemănarea cărnii păcatului",
+          "note": "Citat din Rom. 8:3, inserat în frază fără ghilimele; tradus ca text al autorului, nu după o ediție românească a Bibliei. Marcat «quote-author-rendering»."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "INFO",
+          "quoteSource": "in quo omnes vivificabuntur",
+          "quoteTarget": "în care li se va da viață tuturor",
+          "note": "Aluzie la 1 Cor. 15:22 («in Christo omnes vivificabuntur»), cu «in quo» în locul numelui; tradus ca text al autorului. vivificare → «a da viață» (profil), nu «a învia». Marcat «allusion»."
+        },
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MINOR",
+          "quoteSource": "ille hoc quoque dixit Deo esse possibile",
+          "quoteTarget": "el a spus că și aceasta este cu putință pentru Dumnezeu",
+          "note": "«ille» nu este numit; din context (cămila și urechea acului, Mat. 19:24, 26) este Hristos. Redat prin «el» (literă mică, ca pentru pronumele referitoare la Dumnezeu), fără a adăuga numele; în română «el» poate fi luat greșit drept «acul» din propoziția precedentă, deci revizorul poate prefera o redare mai explicită. «hoc quoque» = «și aceasta»: și acest fapt (trecerea cămilei prin urechea acului) este cu putință pentru Dumnezeu."
+        },
+        {
+          "code": "CITAT_BIBLIC",
+          "severity": "MINOR",
+          "quoteSource": "duodecim millia legiones Angelorum",
+          "quoteTarget": "douăsprezece mii de legiuni de îngeri",
+          "note": "Parafrază după Mat. 26:53, unde textul evanghelic are «mai mult de douăsprezece legiuni de îngeri»; latina ediției spune «duodecim millia legiones» (douăsprezece mii de legiuni). Tradus cum este, ca text al autorului; nu am verificat aparatul critic al ediției, deci rămâne de văzut dacă este citarea lui Augustin sau lectura ediției. Marcat «allusion»."
+        },
+        {
+          "code": "DE_VERIFICAT",
+          "severity": "MINOR",
+          "quoteSource": "exterminarentur",
+          "quoteTarget": "să fie nimicite",
+          "note": "exterminare are aici sensul larg «a izgoni / a nimici». Pasajul face aluzie (identificată de traducător, nu dată în job) la Ex. 23:29–30 și Deut. 7:22, unde neamurile din țara făgăduită sunt alungate sau nimicite «puțin câte puțin». Ales «a nimici»; alternativa «a alunga» rămâne posibilă. Ambele trimiteri sunt marcate «allusion»."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "alia sexcenta",
+          "quoteTarget": "alte șase sute de lucruri",
+          "note": "«sexcenta» («șase sute») este numărul concret, folosit în latină cu valoare idiomatică (o mulțime, «nenumărate»). Redat literal, conform regulii despre numerele în litere; revizorul poate hotărî dacă păstrează numărul concret."
+        }
+      ],
+      "scripture": [
+        {
+          "ref": "1 Tim. 2:5",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Rom. 8:3",
+          "mode": "quote-author-rendering"
+        },
+        {
+          "ref": "1 Cor. 15:22",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 19:24",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 19:26",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Mat. 26:53",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Ex. 23:29–30",
+          "mode": "allusion"
+        },
+        {
+          "ref": "Deut. 7:22",
+          "mode": "allusion"
+        }
+      ]
+    }
+  ],
+  "notes": "Jobul nu are referințe biblice; intrările din `scripture` sunt citate și aluzii identificate de traducător, de verificat de revizor (mai ales 1 Tim. 2:5 pentru «uno Mediatore» și Ex. 23:29–30; Deut. 7:22). Trei propoziții în latină, trei în română; colonul latin după «peccato» este redat prin virgulă, iar enumerarea cu «legas» prin două puncte și punct și virgulă."
+}

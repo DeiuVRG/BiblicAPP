@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-apostolorum-en-09-00",
+  "workSlug": "symbolum-apostolorum",
+  "sourceEditionId": "01M6N22MB1KM4MNQAEGTHJ8EPG",
+  "sourceLanguage": "la",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N22MB3DBZQJW64VR2YDYKS",
+    "ordinal": 8,
+    "kind": "section",
+    "heading": "9"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKT",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "sanctam ecclesiam catholicam; sanctorum communionem;",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Credo in Spiritum Sanctum;",
+    "nextParagraph": "remissionem peccatorum;",
+    "previousSectionHeading": "8"
+  },
+  "wordCount": 5,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/symbolum-apostolorum.md"
+  }
+}

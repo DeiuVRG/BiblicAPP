@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 // Captures the screenshots of the web export used in the README and in design reviews: the
-// library, a work, the reader and Settings, in the light and dark themes (and sepia on request), at
-// the sizes of docs/ui-spec-v2.md 20.1: desktop 1366x900, phone 390x844 and, on request, tablet
-// 768x1024, with a device scale factor of 1 (the sizes of the reference captures, so that a
-// side-by-side is possible).
+// library, a work, the reader (alone, in two lanes, with its panels open), the transparency page and
+// panel and Settings, in the light and dark themes (and sepia on request), at the sizes of
+// docs/ui-spec-v2.md 20.1: desktop 1366x900, phone 390x844 and, on request, tablet 768x1024, with a
+// device scale factor of 1 (the sizes of the reference captures, so that a side-by-side is possible).
 //
 //   node scripts/screenshots-web.mjs [--out docs/screenshots/v2] [--dist apps/mobile/dist]
-//        [--base-path /BiblicAPP] [--screens library,work,reader,settings]
+//        [--base-path /BiblicAPP] [--screens library,work,reader,reader-lanes,reader-aa,settings]
 //        [--schemes light,dark,sepia] [--sizes phone,desktop,tablet] [--scale 1] [--full-page]
 //        [--port N] [--timeout ms]
 //
 // Files are named <screen>-<theme>-<size>.png (for example reader-dark-phone.png), with -full before
-// the extension when --full-page is given (the window as tall as the page). Build the
+// the extension when --full-page is given (the window as tall as the page). `reader-aa`,
+// `reader-tools`, `reader-outline` (phone only) and `transparency` are the reader with that panel
+// open; `about-transparency` is the policy page. Build the
 // export first: pnpm --filter mobile export:web. Each shot is a fresh browser context (empty
 // storage, so the work page offers "Începe lectura") with the colour scheme emulated; sepia is a
 // stored setting (the system scheme stays light), like in the app.
@@ -41,6 +43,55 @@ const SCHEMES = ['light', 'dark', 'sepia'];
 const DEFAULT_SCHEMES = ['light', 'dark'];
 const DEFAULT_SIZES = ['phone', 'desktop'];
 const SETTINGS_KEY = 'biblioteca:settings:v1';
+
+/**
+ * Shots that are a state of another screen: the screen they open, the sizes they exist for (all when
+ * absent) and what to press first. On a phone the controls of the toolbar are the cells of the bottom bar.
+ */
+const STATES = {
+  'reader-aa': {
+    screen: 'reader',
+    act: (page, size) =>
+      pressAndWait(
+        page,
+        size === 'phone' ? 'thumb-cell-text' : 'aa-button',
+        size === 'phone' ? 'aa-sheet-panel' : 'typography-panel',
+      ),
+  },
+  'reader-tools': {
+    screen: 'reader',
+    act: (page, size) =>
+      pressAndWait(
+        page,
+        size === 'phone' ? 'thumb-cell-tools' : 'tools-button',
+        size === 'phone' ? 'tools-sheet-panel' : 'tool-theme',
+      ),
+  },
+  'reader-outline': {
+    screen: 'reader',
+    sizes: ['phone'],
+    act: (page) => pressAndWait(page, 'thumb-cell-contents', 'outline-panel'),
+  },
+  transparency: {
+    screen: 'reader',
+    act: async (page, size) => {
+      if (size === 'phone') await pressAndWait(page, 'thumb-cell-tools', 'tool-report');
+      await pressAndWait(
+        page,
+        size === 'phone' ? 'tool-report' : 'transparency-button',
+        'transparency-panel',
+      );
+    },
+  },
+};
+
+/** Presses the control with this test id and waits for the element that it opens. */
+async function pressAndWait(page, pressId, opensId) {
+  await page.locator(`[data-testid="${pressId}"]:visible`).first().click();
+  await page.locator(`[data-testid="${opensId}"]:visible`).first().waitFor({ state: 'visible' });
+  await page.mouse.move(1, 1); // no entry is left in its hover state under the pointer
+  await page.waitForTimeout(600); // a sheet slides in, a dialog fades in
+}
 
 const list = (value, allowed, what) => {
   const items = value
@@ -78,14 +129,15 @@ const args = parseArgs(
   'screenshots',
   {
     '--out': (value, a) => (a.out = resolve(value)),
-    '--screens': (value, a) => (a.screens = list(value, SCREENS, 'screen')),
+    '--screens': (value, a) =>
+      (a.screens = list(value, [...SCREENS, ...Object.keys(STATES)], 'screen')),
     '--schemes': (value, a) => (a.schemes = list(value, SCHEMES, 'scheme')),
     '--sizes': (value, a) => (a.sizes = list(value, Object.keys(SIZES), 'size')),
     '--scale': (value, a) => (a.scale = Number(value)),
   },
 );
 const out = args.out ?? join(root, 'docs/screenshots/v2');
-const screens = args.screens ?? SCREENS;
+const screens = args.screens ?? [...SCREENS, ...Object.keys(STATES)];
 const schemes = args.schemes ?? DEFAULT_SCHEMES;
 const sizes = args.sizes ?? DEFAULT_SIZES;
 const scale = args.scale ?? 1;
@@ -120,15 +172,21 @@ async function main() {
                 /* storage unavailable */
               }
             },
-            [SETTINGS_KEY, JSON.stringify({ fontSize: 18, lineHeight: 1.6, theme: 'sepia' })],
+            [SETTINGS_KEY, JSON.stringify({ theme: 'sepia' })],
           );
         }
         for (const screen of screens) {
+          const state = STATES[screen];
+          // A panel that a phone only has (the outline drawer) has no shot at the other sizes.
+          if (state?.sizes && !state.sizes.includes(size)) continue;
           const page = await context.newPage();
           page.setDefaultTimeout(args.timeout);
-          await page.goto(`${site.base}${routes[screen]}`, { waitUntil: 'domcontentloaded' });
-          await waitForScreen(page, screen, args.timeout);
+          await page.goto(`${site.base}${routes[state?.screen ?? screen]}`, {
+            waitUntil: 'domcontentloaded',
+          });
+          await waitForScreen(page, state?.screen ?? screen, args.timeout);
           await page.waitForTimeout(500); // let the last layout pass settle
+          if (state) await state.act(page, size);
           // The bar behind the second line of the landing's title sweeps in over 550 ms after a delay of
           // 250 ms: a still taken before it ends shows a bar that stops short of the full stop.
           await page.waitForFunction(heroSweepDone, null, { timeout: args.timeout });

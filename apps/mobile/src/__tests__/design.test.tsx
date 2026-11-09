@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, screen, within } from '@testing-library/react-native';
+import { act, cleanup, fireEvent, screen } from '@testing-library/react-native';
 import { useState } from 'react';
 import type { Paragraph } from '@biblioteca/shared';
 import { Dimensions, Platform, StyleSheet, Text } from 'react-native';
@@ -14,28 +14,18 @@ import {
   SegmentedControl,
   segmentColumns,
 } from '@/components/segmented-control';
-import { loadBundledRepository } from '@/content/repository';
 import { LibraryAllScreen } from '@/features/library/library-all-screen';
 import { ReaderParagraph } from '@/features/reader/reader-paragraph';
-import { ReaderScreen, TYPOGRAPHY_PANEL_MAX_HEIGHT } from '@/features/reader/reader-screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import NotFoundRoute from '@/app/+not-found';
-import { libraryHref, workHref } from '@/navigation-hrefs';
+import { libraryHref } from '@/navigation-hrefs';
 import { loadedFonts, FontsProvider } from '@/theme/fonts';
 import { palettes } from '@/theme/palettes';
 import { router, screenOptions } from '@/test-support/expo-router-mock';
 import { renderWithProviders } from '@/test-support/render';
 import { styleWhilePressed } from '@/test-support/press';
-import { vosEditions } from '@/test-support/vos';
 
 jest.mock('expo-router', () => jest.requireActual('@/test-support/expo-router-mock'));
-
-/** The Vos work and the sections of its English edition (eleven chapters). */
-async function bundled() {
-  const { repository } = await loadBundledRepository();
-  const { work, english, englishSections } = await vosEditions(repository);
-  return { repository, work, english, sections: englishSections };
-}
 
 /** Installs (or removes) a stand-in `document`: there is none under Jest, and web code checks it. */
 function setFakeDocument(value: unknown) {
@@ -436,149 +426,6 @@ describe('LibraryAllScreen design', () => {
     expect(row).toHaveStyle({ flexDirection: 'row', flexWrap: 'wrap', gap: 6 });
     expect(screen.getByText('RO').parent!.parent!.parent).toBe(row);
     expect(edition.parent).toHaveStyle({ borderWidth: 1, borderRadius: 999 });
-  });
-});
-
-describe('ReaderScreen design', () => {
-  it('shows the position as a running head and as a progress value', async () => {
-    const { work, sections } = await bundled();
-    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-    const progress = await screen.findByRole('progressbar');
-    expect(progress).toHaveTextContent(`1 din ${sections.length} · 0 %`);
-    expect(progress.props.accessibilityValue).toMatchObject({ min: 0, max: 100, now: 0 });
-    expect(progress.props.accessibilityLabel).toContain('Progresul lecturii');
-  });
-
-  it('shows the chapter heading as printed, numeral included', async () => {
-    const { work, sections } = await bundled();
-    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-    expect(await screen.findByText(sections[0]!.heading)).toBeTruthy();
-  });
-
-  it('opens the typography sheet from the Aa button, changes the size and closes it again', async () => {
-    const { work, sections } = await bundled();
-    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-    const toggle = await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă');
-    expect(screen.queryByText('Mărimea textului')).toBeNull();
-
-    await fireEvent.press(toggle);
-    expect(screen.getByText('Mărimea textului')).toBeTruthy();
-    expect(screen.getByText('Spațierea rândurilor')).toBeTruthy();
-    expect(screen.getByLabelText('Întunecat')).toBeTruthy();
-    expect(toggle.props.accessibilityState).toMatchObject({ expanded: true });
-
-    await fireEvent.press(screen.getByLabelText('Mărește dimensiunea textului'));
-    expect(await screen.findByText('19 pt')).toBeTruthy();
-
-    await fireEvent.press(toggle);
-    expect(screen.queryByText('Mărimea textului')).toBeNull();
-  });
-
-  it('keeps the typography panel to 45 % of the window and scrolls inside it (never covers all the text)', async () => {
-    // Regression: the panel grew with its content (four rows since the reading font was added) and
-    // left no text on a 320 x 568 phone or on a phone on its side.
-    expect(TYPOGRAPHY_PANEL_MAX_HEIGHT).toBe(0.45);
-    const before = Dimensions.get('window');
-    const { work, sections } = await bundled();
-    try {
-      await act(async () => {
-        Dimensions.set({ window: { ...before, width: 320, height: 568 } });
-      });
-      await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-      await fireEvent.press(
-        await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă'),
-      );
-      const panel = screen.getByTestId('typography-panel');
-      expect(StyleSheet.flatten(panel.props.style).maxHeight).toBe(Math.round(568 * 0.45));
-      // The controls are inside a scroll view, so what does not fit can still be reached.
-      const scroll = panel.queryAll((node) => node.type === 'RCTScrollView');
-      expect(scroll).toHaveLength(1);
-      expect(within(scroll[0]!).getByText('Mărimea textului')).toBeTruthy();
-      expect(within(scroll[0]!).getByLabelText('Întunecat')).toBeTruthy();
-      // On its side: 45 % of 375.
-      await act(async () => {
-        Dimensions.set({ window: { ...before, width: 667, height: 375 } });
-      });
-      expect(StyleSheet.flatten(screen.getByTestId('typography-panel').props.style).maxHeight).toBe(
-        Math.round(375 * 0.45),
-      );
-    } finally {
-      await act(async () => {
-        Dimensions.set({ window: before });
-      });
-    }
-  });
-
-  it('closes the typography sheet with Escape on web, and only then', async () => {
-    const listeners = new Map<string, (event: { key: string }) => void>();
-    setFakeDocument({
-      addEventListener: (type: string, listener: (event: { key: string }) => void) =>
-        listeners.set(type, listener),
-      removeEventListener: (type: string) => listeners.delete(type),
-    });
-    const replaced = jest.replaceProperty(Platform, 'OS', 'web');
-    try {
-      const { work, sections } = await bundled();
-      await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-      const toggle = await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă');
-      expect(listeners.has('keydown')).toBe(false); // nothing listens while the sheet is closed
-
-      await fireEvent.press(toggle);
-      expect(screen.getByText('Mărimea textului')).toBeTruthy();
-      expect(listeners.has('keydown')).toBe(true);
-
-      await act(async () => listeners.get('keydown')!({ key: 'a' }));
-      expect(screen.getByText('Mărimea textului')).toBeTruthy();
-      await act(async () => listeners.get('keydown')!({ key: 'Escape' }));
-      expect(screen.queryByText('Mărimea textului')).toBeNull();
-      expect(toggle.props.accessibilityState).toMatchObject({ expanded: false });
-      expect(listeners.has('keydown')).toBe(false);
-    } finally {
-      replaced.restore();
-      setFakeDocument(undefined);
-    }
-  });
-
-  it('listens to no keys on iOS and Android', async () => {
-    const addEventListener = jest.fn();
-    setFakeDocument({ addEventListener, removeEventListener: jest.fn() });
-    try {
-      const { work, sections } = await bundled();
-      await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-      await fireEvent.press(
-        await screen.findByLabelText('Aspectul textului: mărime, spațiere, temă'),
-      );
-      expect(addEventListener).not.toHaveBeenCalled();
-    } finally {
-      setFakeDocument(undefined);
-    }
-  });
-
-  it('sets the work title as a quiet running head in the reader, which is also its one h1', async () => {
-    const { work, sections } = await bundled();
-    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={sections[0]!.id} />);
-    await screen.findByRole('progressbar');
-    const head = screen.getByTestId('reader-running-title');
-    expect(head).toHaveTextContent(work.titleRo);
-    expect(head).toHaveStyle({ color: palettes.light.textMuted });
-    expect(head.props.numberOfLines).toBe(1);
-    // It looks like a running head, and it is the level-1 heading of the screen (one h1 per
-    // screen, docs/ui-spec-v2.md 18): the chapter title below it is the level 2.
-    expect(head.props.accessibilityRole).toBe('header');
-    expect(head.props['aria-level']).toBe(1);
-  });
-
-  it('offers the table of contents instead of "next" on the last chapter', async () => {
-    const { work, english, sections } = await bundled();
-    const last = sections[sections.length - 1]!;
-    await renderWithProviders(<ReaderScreen workId={work.workId} sectionId={last.id} />);
-    await screen.findByText(last.heading);
-
-    expect(screen.queryByLabelText('Capitolul următor')).toBeNull();
-    expect(screen.getByLabelText('Capitolul anterior')).not.toBeDisabled();
-    await fireEvent.press(screen.getByText('La cuprins'));
-    // Back to the page of the work, on the edition that was being read.
-    expect(router.replace).toHaveBeenCalledWith(workHref(work.workId, english.editionId));
   });
 });
 

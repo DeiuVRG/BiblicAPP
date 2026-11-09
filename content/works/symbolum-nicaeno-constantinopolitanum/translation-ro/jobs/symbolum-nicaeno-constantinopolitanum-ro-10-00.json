@@ -1,0 +1,37 @@
+{
+  "jobId": "symbolum-nicaeno-constantinopolitanum-ro-10-00",
+  "workSlug": "symbolum-nicaeno-constantinopolitanum",
+  "sourceEditionId": "01M6N24HR7XARYC7C7F399BFBK",
+  "sourceLanguage": "grc",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N24HR80HGE0FF8D4RTP7V8",
+    "ordinal": 9,
+    "kind": "section",
+    "heading": "10"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N24HR80HGE0FF8D4RTP7V9",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "ὁμολογοῦμεν ἓν βάπτισμα εἰς ἄφεσιν ἁμαρτιῶν·",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "εἰς μίαν, ἁγίαν, καθολικὴν καὶ ἀποστολικὴν ἐκκλησίαν·",
+    "nextParagraph": "προσδοκῶμεν ἀνάστασιν νεκρῶν,",
+    "previousSectionHeading": "9"
+  },
+  "wordCount": 6,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/symbolum-nicaeno-constantinopolitanum.md"
+  }
+}

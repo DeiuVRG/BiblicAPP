@@ -259,6 +259,11 @@ export const ro = {
     wordsValue: (words: string) => `~${words}`,
     // The label of the row of the edition switch and its chips (the transparency row).
     transparencyRow: 'Cum a fost făcut textul',
+    chipTranslationAi: 'Traducere AI',
+    chipTranslation: 'Traducere',
+    chipOriginal: 'Text original',
+    chipTranscription: 'Transcriere',
+    chipUnknown: 'Origine neînregistrată',
     details: 'Detalii',
     detailsLabel: 'Detalii despre cum a fost făcut textul',
     readBilingual: 'Citește în două limbi',
@@ -348,6 +353,7 @@ export const ro = {
     linkNotCopied: 'Linkul nu a putut fi copiat.',
     nextChapter: (heading: string) => `Capitolul următor: ${heading}`,
     nextChapterLabel: (heading: string) => `Deschide capitolul următor: ${heading}`,
+    nextChapterEyebrow: 'Capitolul următor',
     gap: 'Traducerea acestui pasaj nu este încă disponibilă.',
     laneUnavailable: 'indisponibilă pentru această secțiune',
     laneLabel: (language: string) => language,
@@ -598,14 +604,13 @@ export const ro = {
     correctionsOlder: 'Mai vechi',
     correctionsPage: (page: number, pages: number) => `Pagina ${page} din ${pages}`,
     packRevision: (revision: number, date: string) =>
-      date === ''
-        ? `Revizia ediției: ${revision}.`
-        : `Revizia ediției: ${revision}, din ${date}.`,
+      date === '' ? `Revizia ediției: ${revision}.` : `Revizia ediției: ${revision}, din ${date}.`,
     report: 'Raportează o problemă cu această lucrare',
     policyLink: 'Angajamentul nostru de transparență',
     // The mail of a report (P1): a prefilled message; the form comes in P2.
     reportSubject: (title: string, language: string) => `Raport: ${title} (${language})`,
-    reportIntro: 'Descrie problema aici, sub linia „Comentariu”. Nu șterge identificatorii de mai jos.',
+    reportIntro:
+      'Descrie problema aici, sub linia „Comentariu”. Nu șterge identificatorii de mai jos.',
     reportType: 'Tip (alege unul: Traducere, Formatare, Text-sursă, Citat biblic, Altele)',
     reportEdition: 'Ediție',
     reportLanguage: 'Limbă',
@@ -660,6 +665,9 @@ export const ro = {
     reportButton: 'Raportează o problemă',
     aiWorks: 'Toate lucrările traduse cu AI',
     aiWorksNone: 'Nicio lucrare tradusă cu AI nu este instalată.',
+    aiWorksMore: 'Arată mai multe',
+    aiWorkModel: 'Model',
+    aiWorkDate: 'Data',
     aiRow: (from: string, to: string) => `${from} → ${to}`,
     aiRowLabel: (title: string, status: string) => `${title}: ${status}`,
   },

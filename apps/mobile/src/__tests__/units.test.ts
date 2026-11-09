@@ -67,14 +67,46 @@ describe('reading navigation', () => {
 
 describe('settings sanitising', () => {
   it('clamps and falls back to defaults', () => {
+    // `lineHeight` is what an older version stored as the line spacing.
     expect(sanitizeSettings({ fontSize: 5, lineHeight: 9, theme: 'dark' })).toEqual({
       ...DEFAULT_SETTINGS,
       fontSize: 14,
-      lineHeight: 2,
+      lineSpacing: 2,
       theme: 'dark',
     });
+    expect(sanitizeSettings({ fontSize: 99 }).fontSize).toBe(34);
     expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
     expect(sanitizeSettings({ fontSize: '20', theme: 'x' })).toEqual(DEFAULT_SETTINGS);
+  });
+
+  it('keeps "no size chosen yet" (null), so the window decides until the reader chooses', () => {
+    expect(DEFAULT_SETTINGS.fontSize).toBeNull();
+    expect(sanitizeSettings({ fontSize: null }).fontSize).toBeNull();
+    expect(sanitizeSettings({ fontSize: 22.4 }).fontSize).toBe(22);
+  });
+
+  it('keeps the three presets of the line spacing and a number of the stepper, and nothing else', () => {
+    for (const lineSpacing of ['compact', 'normal', 'relaxed'] as const) {
+      expect(sanitizeSettings({ lineSpacing }).lineSpacing).toBe(lineSpacing);
+    }
+    expect(sanitizeSettings({ lineSpacing: 1.74 }).lineSpacing).toBe(1.7);
+    expect(sanitizeSettings({ lineSpacing: 0.2 }).lineSpacing).toBe(1.3);
+    expect(sanitizeSettings({ lineSpacing: 'airy' }).lineSpacing).toBe('normal');
+    expect(sanitizeSettings({ lineSpacing: Number.NaN }).lineSpacing).toBe('normal');
+    // The preset wins over a stale number stored beside it.
+    expect(sanitizeSettings({ lineSpacing: 'relaxed', lineHeight: 1.4 }).lineSpacing).toBe(
+      'relaxed',
+    );
+  });
+
+  it('keeps a well-formed reading pair and drops a malformed one', () => {
+    expect(sanitizeSettings({ readerPair: 'ro+en' }).readerPair).toBe('ro+en');
+    expect(sanitizeSettings({ readerPair: 'en+orig' }).readerPair).toBe('en+orig');
+    expect(sanitizeSettings({ readerPair: 'ro+ro' }).readerPair).toBeNull();
+    expect(sanitizeSettings({ readerPair: 'ro' }).readerPair).toBeNull();
+    expect(sanitizeSettings({ readerPair: 'RO+EN' }).readerPair).toBeNull();
+    expect(sanitizeSettings({ readerPair: 7 }).readerPair).toBeNull();
+    expect(sanitizeSettings({ readerPair: null }).readerPair).toBeNull();
   });
 
   it('keeps a valid reading language and interface language', () => {
@@ -104,17 +136,20 @@ describe('settings sanitising', () => {
 
   it('gives settings stored before the languages existed the defaults of the device', () => {
     const stored = { fontSize: 20, lineHeight: 1.5, theme: 'sepia' };
+    const kept = { fontSize: 20, lineSpacing: 1.5, theme: 'sepia' };
     expect(sanitizeSettings(stored, createDefaultSettings('ro-RO'))).toEqual({
-      ...stored,
+      ...kept,
       readingFont: 'serif',
       readingLanguage: 'ro',
       uiLanguage: 'system',
+      readerPair: null,
     });
     expect(sanitizeSettings(stored, createDefaultSettings('en-US'))).toEqual({
-      ...stored,
+      ...kept,
       readingFont: 'serif',
       readingLanguage: 'en',
       uiLanguage: 'system',
+      readerPair: null,
     });
   });
 });
@@ -136,12 +171,13 @@ describe('default settings', () => {
 
   it('use the (pinned) Romanian device of the tests', () => {
     expect(DEFAULT_SETTINGS).toEqual({
-      fontSize: 18,
-      lineHeight: 1.6,
+      fontSize: null,
+      lineSpacing: 'normal',
       theme: 'system',
       readingFont: 'serif',
       readingLanguage: 'ro',
       uiLanguage: 'system',
+      readerPair: null,
     });
   });
 });

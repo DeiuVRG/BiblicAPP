@@ -1,0 +1,44 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-28-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N296XPSBK3TFS0M42Q6E6B",
+    "ordinal": 27,
+    "kind": "chapter",
+    "heading": "XXVIII"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6C",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Verumtamen quia non usque adeo in anima humana imago Dei terrenorum affectuum labe detrita est, ut nulla in ea velut lineamenta extrema remanserint, unde merito dici possit etiam in ipsa impietate vitae suae facere aliqua legis vel sapere; si hoc est quod dictum est, quia Gentes quae legem non habent, hoc est, legem Dei, naturaliter quae legis sunt faciunt, et quia hujusmodi homines ipsi sibi sunt lex, et scriptum opus legis habent in cordibus suis, id est, non omni modo deletum est, quod ibi per imaginem Dei cum crearentur impressum est: etiam sic illa differentia non perturbabitur, qua distat a Vetere Testamentum Novum, eo quod per Novum scribitur lex Dei in corde fidelium, quae per Vetus in tabulis scripta est. Hoc enim illic scribitur per renovationem, quod non omni modo deletum est per vetustatem. Nam sicut ipsa imago Dei renovatur in mente credentium per Testamentum Novum, quam non penitus impietas aboleverat; nam remanserat utique id quod anima hominis nisi rationalis esse non potest: ita etiam ibi lex Dei, non ex omni parte deleta per injustitiam, profecto scribitur renovata per gratiam. Nec istam inscriptionem, quae justificatio est, poterat efficere in Judaeis lex in tabulis scripta, sed solum praevaricationem. Nam et ipsi homines erant, et vis illa naturae inerat eis, qua legitimum aliquid anima rationalis et sentit et facit: sed pietas quae in aliam vitam transfert beatam et aeternam, legem habet immaculatam, convertentem animas, ut ex illo lumine renoventur, fiatque in eis, Signatum est super nos lumen vultus tui, Domine. Unde aversi obsolescere meruerunt: renovari autem nisi gratia Christiana, hoc est, nisi Mediatoris intercessione non possunt. Unus enim Deus, unus et mediator Dei et hominum homo Christus Jesus, qui dedit semetipsum redemptionem pro omnibus. A cujus gratia si alieni sunt illi de quibus agimus, qui secundum illum modum de quo superius satis diximus, naturaliter quae legis sunt faciunt; quid eis proderunt excusantes cogitationes, in die qua judicabit Deus occulta hominum, nisi forte ut mitius puniantur? Sicut enim non impediunt a vita aeterna justum quaedam peccata venialia, sine quibus haec vita non ducitur: sic ad salutem aeternam nihil prosunt impio aliqua bona opera, sine quibus difficillime vita cujuslibet pessimi hominis invenitur. Verumtamen sicut in regno Dei velut stella ab stella in gloria differunt sancti; sic et in damnatione poenae sempiternae tolerabilius erit Sodomae quam alteri civitati, et erunt quidam duplo amplius quibusdam gehennae filii: ita nec illud in judicio Dei vacabit, quod in ipsa impietate damnabili magis alius alio minusve peccaverit.",
+      "references": []
+    },
+    {
+      "id": "01M6N296XPSBK3TFS0M42Q6E6D",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Quid ergo hinc Apostolus efficere voluit, quod jactantiam cohibens Judaeorum, cum dixisset, Non auditores legis justi sunt apud Deum, sed factores legis justificabuntur, continuo subjecit de his, qui legem non habentes, naturaliter quae legis sunt faciunt; si non illi sunt intelligendi, qui pertinent ad gratiam Mediatoris, sed illi potius, qui cum Deum verum vera pietate non colant, habent tamen quaedam opera bona in vita impia? An forte hoc ipso probandum credidit, quod supra dixerat, quia non est personarum acceptio apud Deum; et quod postea dixit, quia non Judaeorum est Deus tantum, sed et Gentium quod quantulacumque legis opera naturaliter insita non invenirentur in eis, qui legem non acceperunt, nisi ex reliquiis imaginis Dei; quam non contemnit, cum in eum credunt, apud quem non est acceptio personarum? Sed quodlibet horum accipiatur, constat gratiam Dei promissam esse Testamento Novo etiam per Prophetam: eamdemque gratiam in eo definitam, ut scribantur leges Dei in cordibus hominum, perveniantque ad eam cognitionem Dei, ubi non docebit unusquisque civem suum vel fratrem suum, dicens, Cognosce Deum; quia omnes cognoscent eum a minore usque ad majorem eorum. Hoc donum Spiritus Sancti est, quo diffunditur charitas in cordibus nostris: charitas non quaelibet, sed charitas Dei de corde puro et conscientia bona et fide non ficta, ex qua justus in hac peregrinatione vivens, ad speciem quoque perducitur post speculum et aenigma, et quidquid erat ex parte, ut facie ad faciem cognoscat, sicut et cognitus est. Unam enim petiit a Domino, et hanc requirit, ut inhabitet in domo Domini per omnes dies vitae suae, ad hoc ut contempletur delectationem Domini.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Si autem hi qui naturaliter quae legis sunt faciunt nondum sunt habendi in numero eorum quos Christi justificat gratia, sed in eorum potius, quorum etiam impiorum, nec Deum verum veraciter justeque colentium, quaedam tamen facta vel legimus, vel novimus, vel audimus, quae secundum justitiae regulam non solum vituperare non possumus, verum etiam merito recteque laudamus: quanquam si discutiantur quo fine fiant, vix inveniuntur quae justitiae debitam laudem defensionemve mereantur:",
+    "nextParagraph": "Nemo itaque glorietur ex eo quod videtur habere, tanquam non acceperit; aut ideo se putet accepisse, quia littera extrinsecus, vel ut legeretur apparuit, vel ut audiretur insonuit. Nam si per legem justitia, ergo Christus gratis mortuus est. Porro autem si non gratis mortuus est, ascendit in altum, captivam duxit captivitatem, et dedit dona hominibus inde habet, quicumque habet. Quisquis autem inde se habere negat, aut non habet, aut id quod habet auferetur ab eo. Unus enim Deus qui justificat circumcisionem ex fide, et praeputium per fidem: quod non ad aliquam differentiam dictum est, tanquam aliud sit ‘ex fide,’ et aliud ‘per fidem;’ sed ad varietatem locutionis. Alio quippe loco cum de Gentibus diceret, hoc est, de praeputio: Praevidens, inquit, Scriptura, quia ex fide justificat Gentes Deus. Itemque cum de circumcisione loqueretur, unde erat ipse: Nos, inquit, natura Judaei, et non ex Gentibus peccatores, scientes quia non justificatur homo ex operibus legis, nisi per fidem Jesu Christi, et nos in Christum Jesum credimus. Ecce et praeputium dixit justificari ex fide, et circumcisionem per fidem, si tamen circumcisio justitiam fidei teneat. Sic enim Gentes quae non sectabantur justitiam, apprehenderunt justitiam, justitiam autem quae ex fide est: impetrando eam ex Deo, non ex semetipsis praesumendo. Israel vero persequens legem justitiae, in legem justitiae non pervenit. Quare? Quia non ex fide, sed tanquam ex operibus: id est, tanquam eam per semetipsos operantes, non in se credentes operari Deum. Deus est enim qui operatur in nobis et velle et operari, pro bona voluntate. Ac per hoc offenderunt in lapidem offensionis. Nam quid dixerit, quia non ex fide, sed tanquam ex operibus; apertissime exposuit, dicens, Ignorantes enim Dei justitiam, et suam volentes constituere, justitiae Dei non sunt subjecti. Finis enim legis Christus, ad justitiam omni credenti. Et adhuc dubitamus quae sint opera legis, quibus homo non justificatur, si ea tanquam sua crediderit sine adjutorio et dono Dei, quod est ex fide Jesu Christi? et circumcisionem caeteraque talia suspicamur, quia etiam de his sacramentis aliis in locis talia quaedam leguntur? Sed hic utique non circumcisionem tanquam suam justitiam volebant constituere: quia et ipsam Deus praecipiendo constituit. Nec de illis operibus hoc intelligi potest, de quibus Dominus eis dicit, Rejicitis mandatum Dei, ut traditiones vestras statuatis. Quia persequens, inquit, legem justitiae, in legem justitiae non pervenit Israel: non dixit, Persequens traditiones suas, id est, consectans. Haec ergo sola distantia est, quia ipsum, Non concupisces, et caetera mandata ejus sancta et bona sibi tribuebant: quae ut possit homo facere, Deus operatur in homine per fidem Jesu Christi, qui finis est ad justitiam omni credenti; id est, cui per spiritum incorporatus factusque membrum ejus, potest quisque illo incrementum intrinsecus dante operari justitiam, de cujus operibus etiam ipse dixit, quia sine me nihil potestis facere.",
+    "previousSectionHeading": "XXVII"
+  },
+  "wordCount": 667,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

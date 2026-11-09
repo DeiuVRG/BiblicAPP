@@ -2,7 +2,7 @@ import { BETA_1_FEATURES, DELIVERED_FEATURES, FEATURES, featuresFor } from '@/co
 import { liveSections } from '@/shell/sections';
 
 describe('the feature flags of a build', () => {
-  it('deliver the library, the authors list and search, and not yet the screens of later phases', () => {
+  it('deliver the library, the authors list, search and the policy page, and not yet the screens of later phases', () => {
     expect(DELIVERED_FEATURES).toMatchObject({
       library: true,
       authors: true,
@@ -10,7 +10,7 @@ describe('the feature flags of a build', () => {
       ask: false,
       bookmarks: false,
       about: false,
-      transparency: false,
+      transparency: true,
     });
   });
 
@@ -30,10 +30,10 @@ describe('the feature flags of a build', () => {
         BETA_1_FEATURES[name as keyof typeof BETA_1_FEATURES] !==
         DELIVERED_FEATURES[name as keyof typeof DELIVERED_FEATURES],
     );
-    expect(changed.sort()).toEqual(['about', 'ask', 'bookmarks', 'transparency']);
+    expect(changed.sort()).toEqual(['about', 'ask', 'bookmarks']);
   });
 
-  it('give the section bar of Beta 1 its five items, and the delivered build its three', () => {
+  it('give the section bar of Beta 1 its five items, and the delivered build its four', () => {
     expect(liveSections(BETA_1_FEATURES).map((section) => section.key)).toEqual([
       'home',
       'search',
@@ -41,10 +41,12 @@ describe('the feature flags of a build', () => {
       'research',
       'about',
     ]);
+    // "Despre" is there for the policy page alone until the About page comes.
     expect(liveSections(DELIVERED_FEATURES).map((section) => section.key)).toEqual([
       'home',
       'search',
       'read',
+      'about',
     ]);
   });
 });

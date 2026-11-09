@@ -1,0 +1,116 @@
+{
+  "workSlug": "symbolum-nicaeno-constantinopolitanum",
+  "sourceEditionId": "01M6N24HR7XARYC7C7F399BFBK",
+  "targetLanguage": "ro",
+  "sourceSha256": "591ae3ca57c163ffe814c8584902397dec6336f50efb8dde6511d564d7f0df83",
+  "jobs": [
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-01-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-01-00.json",
+      "sectionOrdinal": 0,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 15
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-02-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-02-00.json",
+      "sectionOrdinal": 1,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 40
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-03-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-03-00.json",
+      "sectionOrdinal": 2,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 25
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-04-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-04-00.json",
+      "sectionOrdinal": 3,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 11
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-05-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-05-00.json",
+      "sectionOrdinal": 4,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 8
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-06-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-06-00.json",
+      "sectionOrdinal": 5,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 11
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-07-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-07-00.json",
+      "sectionOrdinal": 6,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 15
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-08-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-08-00.json",
+      "sectionOrdinal": 7,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 28
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-09-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-09-00.json",
+      "sectionOrdinal": 8,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 7
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-10-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-10-00.json",
+      "sectionOrdinal": 9,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 6
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-11-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-11-00.json",
+      "sectionOrdinal": 10,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 3
+    },
+    {
+      "jobId": "symbolum-nicaeno-constantinopolitanum-ro-12-00",
+      "file": "symbolum-nicaeno-constantinopolitanum-ro-12-00.json",
+      "sectionOrdinal": 11,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 6
+    }
+  ]
+}

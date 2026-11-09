@@ -1,0 +1,332 @@
+{
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "targetLanguage": "ro",
+  "sourceSha256": "747153fa5ff73e9d9f5d3c3876f308fe0a6c362379cfda910e14f2b60d31900c",
+  "jobs": [
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-01-00",
+      "file": "augustine-de-spiritu-et-littera-ro-01-00.json",
+      "sectionOrdinal": 0,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 210
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-02-00",
+      "file": "augustine-de-spiritu-et-littera-ro-02-00.json",
+      "sectionOrdinal": 1,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 3,
+      "words": 383
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-03-00",
+      "file": "augustine-de-spiritu-et-littera-ro-03-00.json",
+      "sectionOrdinal": 2,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 149
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-04-00",
+      "file": "augustine-de-spiritu-et-littera-ro-04-00.json",
+      "sectionOrdinal": 3,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 299
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-05-00",
+      "file": "augustine-de-spiritu-et-littera-ro-05-00.json",
+      "sectionOrdinal": 4,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 347
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-06-00",
+      "file": "augustine-de-spiritu-et-littera-ro-06-00.json",
+      "sectionOrdinal": 5,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 459
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-07-00",
+      "file": "augustine-de-spiritu-et-littera-ro-07-00.json",
+      "sectionOrdinal": 6,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 446
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-08-00",
+      "file": "augustine-de-spiritu-et-littera-ro-08-00.json",
+      "sectionOrdinal": 7,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 537
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-09-00",
+      "file": "augustine-de-spiritu-et-littera-ro-09-00.json",
+      "sectionOrdinal": 8,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 390
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-10-00",
+      "file": "augustine-de-spiritu-et-littera-ro-10-00.json",
+      "sectionOrdinal": 9,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 492
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-11-00",
+      "file": "augustine-de-spiritu-et-littera-ro-11-00.json",
+      "sectionOrdinal": 10,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 296
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-12-00",
+      "file": "augustine-de-spiritu-et-littera-ro-12-00.json",
+      "sectionOrdinal": 11,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 491
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-13-00",
+      "file": "augustine-de-spiritu-et-littera-ro-13-00.json",
+      "sectionOrdinal": 12,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 803
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-14-00",
+      "file": "augustine-de-spiritu-et-littera-ro-14-00.json",
+      "sectionOrdinal": 13,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 4,
+      "words": 1084
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-15-00",
+      "file": "augustine-de-spiritu-et-littera-ro-15-00.json",
+      "sectionOrdinal": 14,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 164
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-16-00",
+      "file": "augustine-de-spiritu-et-littera-ro-16-00.json",
+      "sectionOrdinal": 15,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 155
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-17-00",
+      "file": "augustine-de-spiritu-et-littera-ro-17-00.json",
+      "sectionOrdinal": 16,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 384
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-18-00",
+      "file": "augustine-de-spiritu-et-littera-ro-18-00.json",
+      "sectionOrdinal": 17,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 318
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-19-00",
+      "file": "augustine-de-spiritu-et-littera-ro-19-00.json",
+      "sectionOrdinal": 18,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 3,
+      "words": 589
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-20-00",
+      "file": "augustine-de-spiritu-et-littera-ro-20-00.json",
+      "sectionOrdinal": 19,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 194
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-21-00",
+      "file": "augustine-de-spiritu-et-littera-ro-21-00.json",
+      "sectionOrdinal": 20,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 189
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-22-00",
+      "file": "augustine-de-spiritu-et-littera-ro-22-00.json",
+      "sectionOrdinal": 21,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 227
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-23-00",
+      "file": "augustine-de-spiritu-et-littera-ro-23-00.json",
+      "sectionOrdinal": 22,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 82
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-24-00",
+      "file": "augustine-de-spiritu-et-littera-ro-24-00.json",
+      "sectionOrdinal": 23,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 3,
+      "words": 888
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-25-00",
+      "file": "augustine-de-spiritu-et-littera-ro-25-00.json",
+      "sectionOrdinal": 24,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 284
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-26-00",
+      "file": "augustine-de-spiritu-et-littera-ro-26-00.json",
+      "sectionOrdinal": 25,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 4,
+      "words": 1082
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-27-00",
+      "file": "augustine-de-spiritu-et-littera-ro-27-00.json",
+      "sectionOrdinal": 26,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 243
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-28-00",
+      "file": "augustine-de-spiritu-et-littera-ro-28-00.json",
+      "sectionOrdinal": 27,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 667
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-29-00",
+      "file": "augustine-de-spiritu-et-littera-ro-29-00.json",
+      "sectionOrdinal": 28,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 798
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-30-00",
+      "file": "augustine-de-spiritu-et-littera-ro-30-00.json",
+      "sectionOrdinal": 29,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 270
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-31-00",
+      "file": "augustine-de-spiritu-et-littera-ro-31-00.json",
+      "sectionOrdinal": 30,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 686
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-32-00",
+      "file": "augustine-de-spiritu-et-littera-ro-32-00.json",
+      "sectionOrdinal": 31,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 2,
+      "words": 785
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-33-00",
+      "file": "augustine-de-spiritu-et-littera-ro-33-00.json",
+      "sectionOrdinal": 32,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 3,
+      "words": 999
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-34-00",
+      "file": "augustine-de-spiritu-et-littera-ro-34-00.json",
+      "sectionOrdinal": 33,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 1,
+      "words": 280
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-35-00",
+      "file": "augustine-de-spiritu-et-littera-ro-35-00.json",
+      "sectionOrdinal": 34,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 3,
+      "words": 659
+    },
+    {
+      "jobId": "augustine-de-spiritu-et-littera-ro-36-00",
+      "file": "augustine-de-spiritu-et-littera-ro-36-00.json",
+      "sectionOrdinal": 35,
+      "part": 0,
+      "parts": 1,
+      "paragraphs": 3,
+      "words": 1224
+    }
+  ]
+}

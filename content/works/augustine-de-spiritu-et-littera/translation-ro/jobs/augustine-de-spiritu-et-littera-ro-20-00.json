@@ -1,0 +1,37 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-ro-20-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "ro",
+  "section": {
+    "id": "01M6N296XN5ZZKD6G61F1AX3W2",
+    "ordinal": 19,
+    "kind": "chapter",
+    "heading": "XX"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3W3",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Ergo illud vetus erat, quia hoc novum est. Unde igitur illud vetus, hoc novum, cum lex eadem impleatur per Testamentum Novum, quae dixit in Vetere, Non concupisces? Quia ipsi, inquit, non perseveraverunt in Testamento meo, et ego neglexi eos, dicit Dominus. Ergo propter veteris hominis noxam, quae per litteram jubentem et minantem minime sanabatur, dicitur illud Testamentum vetus; hoc autem novum, propter novitatem spiritus, quae hominem novum sanat a vitio vetustatis. Denique attende quod sequitur, et vide quanta luce fiat perspicuum, quod sibi fidentes nolunt homines intueri: Quia hoc testamentum est, inquit, quod ordinabo domui Israel: Post dies illos, dicit Dominus, dabo leges meas in cor illorum, et in mente eorum scribam eas. Ecce est unde Apostolus ait, quod supra commemoravimus, Non in tabulis lapideis, sed in tabulis cordis; quia non atramento, sed spiritu Dei vivi. Nec ob aliud arbitror in eo loco Apostolum voluisse commemorare Testamentum Novum (ibi quippe ait, Qui et idoneos nos fecit ministros Novi Testamenti, non litterae, sed spiritus), nisi quia istam intuebatur prophetiam, cum diceret, Non in tabulis lapideis, sed in tabulis cordis carnalibus: quoniam hic dictum est, In cordibus eorum scribam eas, ubi nominatim promissum est Testamentum Novum.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Cum dixisset, Non secundum Testamentum quod feci patribus eorum in die qua apprehendi manum eorum, ut educerem eos de terra Aegypti; vide quid adjunxit: Quia ipsi non perseveraverunt in Testamento meo. Vitio eorum deputat, quod in Testamento Dei non permanserunt; ne lex, quam tunc acceperunt, culpanda videatur. Ipsa est enim, quam non venit Christus solvere, sed implere: non tamen per eamdem legem justificatis impiis, sed per gratiam: hoc quippe agit vivificans spiritus, sine quo littera occidit. Si enim data esset lex quae posset vivificare, omnino ex lege esset justitia: sed conclusit Scriptura omnia sub peccato, ut promissio ex fide Jesu Christi daretur credentibus. Ex hac promissione, hoc est, ex Dei beneficio ipsa lex impletur, sine qua promissione praevaricatores fecit; vel usque ad effectum mali operis, si etiam repagula timoris concupiscentiae flamma transcenderit, vel certe in sola voluntate, si timor poenae suavitatem libidinis vicerit. Quod enim ait, Conclusit Scriptura omnia sub peccato, ut promissio ex fide Jesu Christi daretur credentibus; ipsius conclusionis utilitas dicta est. Nam Conclusit ad quos usus, nisi quemadmodum alibi dicit, Priusquam autem veniret fides, sub lege custodiebamur, conclusi in eam fidem quae postea revelata est? Lex ergo data est, ut gratia quaereretur: gratia data est, ut lex impleretur. Neque enim suo vitio non implebatur lex, sed vitio prudentiae carnis: quod vitium per legem demonstrandum, per gratiam sanandum fuit. Quod enim impossibile erat legis, in quo infirmabatur per carnem, misit Deus Filium suum in similitudine carnis peccati, et de peccato damnavit peccatum in carne, ut justitia legis impleretur in nobis, qui non secundum carnem ambulamus, sed secundum spiritum. Unde et in isto prophetico testimonio, Consummabo, inquit, super domum Israel et super domum Juda Testamentum Novum: quid est, Consummabo, nisi, Implebo? non secundum Testamentum quod feci patribus eorum in die qua apprehendi manum eorum, ut educerem eos de terra Aegypti.",
+    "nextParagraph": "Quid sunt ergo leges Dei ab ipso Deo scriptae in cordibus, nisi ipsa praesentia Spiritus Sancti, qui est digitus Dei, quo praesente diffunditur charitas in cordibus nostris, quae plenitudo legis est, et praecepti finis? Nam quia Veteris Testamenti promissa terrena sunt licet (exceptis sacramentis, quae umbra erant futurorum, sicut est circumcisio, et sabbatum, et aliae dierum observationes, et quarumdam escarum caerimoniae, et multiplex sacrificiorum sacrorumque ritus, quae vetustati carnalis legis jugoque servili congruebant,) talia contineat praecepta justitiae, qualia nunc quoque observare praecipimur, quae maxime duabus illis tabulis sine figura adumbratae significationis expressa sunt, sicuti est, Non adulterabis, Non homicidium facies, Non concupisces, et si quod aliud est mandatum quod in hoc sermone recapitulatur, Diliges proximum tuum sicut te ipsum: tamen quia in eo, sicut dixi, promissa terrena et temporalia recitantur, quae bona sunt hujus corruptibilis carnis, quamvis eis sempiterna atque coelestia ad Novum scilicet Testamentum pertinentia figurentur; nunc ipsius bonum cordis promittitur, mentis bonum, spiritus bonum, hoc est, intelligibile bonum, cum dicitur, Dabo leges meas in mente eorum, et in cordibus eorum scribam eas. Unde significavit eos non forinsecus terrentem legem formidaturos, sed intrinsecus habitantem ipsam legis justitiam dilecturos.",
+    "previousSectionHeading": "XIX"
+  },
+  "wordCount": 194,
+  "materials": {
+    "rules": "content/translation/rules-ro.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-ro.csv",
+    "calques": "content/translation/calques-ro.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}

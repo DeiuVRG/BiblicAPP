@@ -38,7 +38,7 @@ export interface ResolvedProvenance {
 }
 
 const AI_MARKERS =
-  /\b(?:AI|IA|LLM)\b|artificial|inteligen[țţt]|machine[- ]translat|mașin|claude|sonnet|opus|\bgpt\b/i;
+  /\b(?:AI|IA|LLM)\b|artificial|inteligen[\u021B\u0163t]|machine[- ]translat|mașin|claude|sonnet|opus|\bgpt\b/i;
 const HUMAN_MARKERS = /\btranslated by\b|\btranslator\b|\btradus(?:ă)? de\b|\btraducător/i;
 const TRANSCRIPTION_MARKERS = /\bOCR\b|\bscan\b|\bscanned\b|\bscană\b|\bscanare\b|transcri/i;
 

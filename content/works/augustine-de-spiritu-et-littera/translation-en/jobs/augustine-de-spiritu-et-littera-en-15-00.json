@@ -1,0 +1,37 @@
+{
+  "jobId": "augustine-de-spiritu-et-littera-en-15-00",
+  "workSlug": "augustine-de-spiritu-et-littera",
+  "sourceEditionId": "01M6N296SQ9VRJPZDX923CRAJ7",
+  "sourceLanguage": "la",
+  "targetLanguage": "en",
+  "section": {
+    "id": "01M6N296XN5ZZKD6G61F1AX3VN",
+    "ordinal": 14,
+    "kind": "chapter",
+    "heading": "XV"
+  },
+  "part": 0,
+  "parts": 1,
+  "paragraphs": [
+    {
+      "id": "01M6N296XN5ZZKD6G61F1AX3VP",
+      "ordinal": 0,
+      "kind": "p",
+      "text": "Haec gratia in Testamento vetere velata latitabat, quae in Christi Evangelio revelata est dispensatione temporum ordinatissima, sicut Deus novit cuncta disponere. Et fortasse ad illud ipsum ejus latibulum pertinet, quod in eo Decalogo, qui datus est in monte Sina, hoc solum praecepto figurato occultatum est, quod ad sabbatum pertinet. Sabbatum autem dies sanctificationis est. Nec vacat, quod inter omnia opera quae fecit Deus, illic primo sanctificatio sonuit, ubi ab omnibus operibus requievit: unde nunc non est disserendi locus. Verumtamen, quod rei de qua agitur satis esse arbitror, non frustra illo die populus ab omni opere servili abstinere praeceptus est, quo significatur peccatum, nisi quia non peccare sanctificationis est, hoc est, muneris Dei per Spiritum Sanctum: quod in lege, quae duabus lapideis tabulis conscripta est, solum inter caetera in umbra figurae positum est, qua Judaei sabbatum observant; ut hoc ipso significaretur tempus tunc fuisse occultandae gratiae, quae Novo Testamento fuerat per Christi passionem, tanquam scissionem veli, revelanda. Cum enim transierit, inquit, ad Christum, auferetur velamen.",
+      "references": []
+    }
+  ],
+  "context": {
+    "previousParagraph": "Apparet igitur litterae vetustatem, si desit novitas spiritus, reos facere potius cognitione peccati, quam liberare a peccato. Unde et alibi scriptum est, Qui apponit scientiam, apponit et dolorem: non quia ipsa lex malum est, sed quia mandatum bonum habet in littera demonstrante, non in adjuvante spiritu: quod mandatum si fit timore poenae, non amore justitiae, serviliter fit, non liberaliter, et ideo nec fit. Non enim fructus est bonus, qui de charitatis radice non surgit. Porro autem si adsit fides quae per dilectionem operatur, incipit condelectari legi Dei secundum interiorem hominem, quae delectatio non litterae, sed spiritus donum est; etiamsi alia lex in membris adhuc repugnat legi mentis, donec in novitatem, quae de die in diem in interiore homine augetur, tota vetustas mutata pertranseat, liberante nos de corpore mortis hujus gratia Dei per Jesum Christum Dominum nostrum.",
+    "nextParagraph": "Dominus autem Spiritus est; ubi autem Spiritus Domini, ibi libertas. Hic autem Spiritus Dei, cujus dono justificamur, quo fit in nobis ut non peccare delectet, ubi libertas est; sicut praeter hunc Spiritum peccare delectat, ubi servitus, a cujus operibus abstinendum est: hic Spiritus Sanctus per quem diffunditur charitas in cordibus nostris, quae plenitudo legis est, etiam digitus Dei in Evangelio dicitur. Unde quia et illae tabulae digito Dei conscriptae sunt, et digitus Dei est Spiritus Dei per quem sanctificamur, ut ex fide viventes per dilectionem bene operemur; quem non moveat ista congruentia ibidemque distantia? Dies enim quinquaginta computantur a celebratione Paschae, quae occisione figuratae ovis per Moysen fieri praecepta est, in significationem utique futurae Dominicae passionis, usque ad diem qua Moyses legem accepit in tabulis digito Dei conscriptis: similiter ab occisione et resurrectione illius qui sicut ovis ad immolandum ductus est, quinquaginta diebus completis, congregatos in unum fideles digitus Dei, hoc est, Spiritus Sanctus implevit.",
+    "previousSectionHeading": "XIV"
+  },
+  "wordCount": 164,
+  "materials": {
+    "rules": "content/translation/rules-en.md",
+    "contract": "content/translation/output-contract.md",
+    "glossary": "content/translation/glossary-en.csv",
+    "calques": "content/translation/calques-en.json",
+    "profile": "content/translation/profiles/augustine-de-spiritu-et-littera.md"
+  }
+}
