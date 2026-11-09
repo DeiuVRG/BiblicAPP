@@ -1,0 +1,152 @@
+{
+  "jobId": "symbolum-apostolorum-en-01-00",
+  "pass": "draft",
+  "model": "claude-sonnet-5-5",
+  "headingEn": "The Apostles’ Creed",
+  "paragraphs": [
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKA",
+      "text": "I believe in God the Father almighty, Creator of heaven and earth.",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKC",
+      "text": "And in Jesus Christ, his only Son, our Lord;",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "Et in Jesum Christum, Filium ejus unicum, Dominum nostrum;",
+          "quoteTarget": "And in Jesus Christ, his only Son, our Lord;",
+          "note": "LENGTH_RATIO 0.76 (MAJOR) is expected and the text is left as it is. The English has nine words for the nine of the Latin, and it is the Latin words that are longer; English needs no article here and nothing may be added. The verb is not repeated, as in the Latin: the article continues ‘I believe in’ of the previous paragraph."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKE",
+      "text": "who was conceived by the Holy Spirit, born of the Virgin Mary;",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "qui conceptus est de Spiritu Sancto, natus ex Maria virgine;",
+          "quoteTarget": "who was conceived by the Holy Spirit, born of the Virgin Mary;",
+          "note": "LENGTH_RATIO 1.03 (MINOR) is expected and the text is left as it is: the line is formulaic and every Latin word has its English counterpart (ten Latin words, twelve English words, the two extra ones being the articles of ‘the Holy Spirit’ and ‘the Virgin Mary’). Prepositions: de is ‘by’ (the profile’s table), ex is ‘of’."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKG",
+      "text": "suffered under Pontius Pilate, was crucified, died, and was buried;",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKJ",
+      "text": "he descended to the dead; on the third day he rose again from the dead;",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "MAJOR",
+          "quoteSource": "descendit ad inferna",
+          "quoteTarget": "he descended to the dead",
+          "note": "The edition reads inferna (neuter plural, ‘the lower regions’); the profile’s table lists inferos. Both name the abode or the company of the dead (Hades, Sheol). Rendered ‘the dead’ as the profile prescribes; ‘into hell’ is deliberately not used, and a literal alternative would be ‘to the underworld’. The English does not choose among the readings that the churches give to the clause (the state of death, Hades or Sheol, limbo, hell). A reviewer should confirm the rendering for the edition that the library adopts."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKM",
+      "text": "he ascended to heaven; he is seated at the right hand of God the Father almighty;",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "ad cælos",
+          "quoteTarget": "to heaven",
+          "note": "The Latin plural (‘the heavens’) is the ordinary way of saying heaven, in the Creed as in Scripture. Rendered in the singular, as English idiom requires and as in ‘heaven and earth’ of the first line. ad is kept as ‘to’ (not ‘into’), in parallel with ad inferna."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKP",
+      "text": "from there he will come to judge the living and the dead.",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKR",
+      "text": "I believe in the Holy Spirit;",
+      "flags": [],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKT",
+      "text": "the holy catholic Church; the communion of saints;",
+      "flags": [
+        {
+          "code": "AMBIGUITATE",
+          "severity": "INFO",
+          "quoteSource": "sanctorum communionem",
+          "quoteTarget": "the communion of saints",
+          "note": "sanctorum can be masculine (the communion of the saints, the holy ones) or neuter (a sharing in holy things, the sacraments). The profile asks that the translator not resolve it: the traditional ‘communion of saints’ is kept and no gloss is added."
+        },
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "sanctam ecclesiam catholicam; sanctorum communionem;",
+          "quoteTarget": "the holy catholic Church; the communion of saints;",
+          "note": "LENGTH_RATIO 0.96 (MAJOR) is expected and the text is left as it is: the Latin words are long (ecclesiam, catholicam, communionem) and English adds only the articles and ‘of’. Nothing is added to the items."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKW",
+      "text": "the forgiveness of sins;",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "remissionem peccatorum;",
+          "quoteTarget": "the forgiveness of sins;",
+          "note": "LENGTH_RATIO 1.04 (MINOR) is expected and the text is left as it is: two long Latin words (23 characters) become four English words (24 characters), the extra two being the article and ‘of’; nothing may be added."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKY",
+      "text": "the resurrection of the body;",
+      "flags": [
+        {
+          "code": "TERMEN_NOU",
+          "severity": "INFO",
+          "quoteSource": "carnis resurrectionem",
+          "quoteTarget": "the resurrection of the body",
+          "note": "carnis is ‘of the flesh’ in Latin. Rendered ‘body’ as the profile’s table proposes, which is the established liturgical English; the literal alternative is ‘the resurrection of the flesh’. One choice for the whole work, to be approved with the profile (its Romanian column also has ‘body’: învierea trupului)."
+        }
+      ],
+      "scripture": []
+    },
+    {
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYM0",
+      "text": "eternal life. Amen.",
+      "flags": [
+        {
+          "code": "ALTA",
+          "severity": "INFO",
+          "quoteSource": "vitam æternam. Amen.",
+          "quoteTarget": "eternal life. Amen.",
+          "note": "LENGTH_RATIO 0.95 (MAJOR) is expected and the text is left as it is: ‘vitam æternam’ and ‘eternal life’ are both two words and need no article. The Latin has no et before vitam, so no ‘and’ is added in English."
+        }
+      ],
+      "scripture": []
+    }
+  ],
+  "notes": "The Creed is three sentences cut into twelve aligned lines, so each English line keeps the open punctuation of the Latin (semicolons, lower-case continuations) and adds neither ‘I believe’ nor ‘and’ where the Latin has none; ‘he’ is supplied where English needs a subject, since qui governs the whole second article. Choices to review: inferna as ‘the dead’ (profile; AMBIGUITATE), carnis as ‘body’ (profile; TERMEN_NOU), sanctorum communionem as ‘communion of saints’ (ambiguity kept), de Spiritu Sancto as ‘by’ and ex Maria virgine as ‘of’, ad cælos as ‘to heaven’. The semicolon after omnipotentem is rendered as a comma, because a semicolon would make ‘Creator of heaven and earth’ read as a separate item instead of an apposition. The LENGTH_RATIO findings on lines 2, 3, 9, 10 and 12 are expected: the la>en bands were measured on Augustine’s prose, and the lines of the Creed are as short in English as in Latin. No scripture is marked, as the profile says the Creed has none."
+}

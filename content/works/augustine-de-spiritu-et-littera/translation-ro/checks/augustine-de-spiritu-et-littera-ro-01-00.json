@@ -1,6 +1,6 @@
 {
   "jobId": "augustine-de-spiritu-et-littera-ro-01-00",
-  "file": "drafts/augustine-de-spiritu-et-littera-ro-01-00.json",
+  "file": "final/augustine-de-spiritu-et-littera-ro-01-00.json",
   "ok": true,
   "strictOk": true,
   "findings": [
@@ -48,7 +48,7 @@
   "stats": {
     "paragraphs": 1,
     "sourceWords": 210,
-    "targetWords": 339,
-    "lengthRatio": 1.314
+    "targetWords": 342,
+    "lengthRatio": 1.326
   }
 }

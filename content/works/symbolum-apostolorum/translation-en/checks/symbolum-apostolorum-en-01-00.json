@@ -1,0 +1,92 @@
+{
+  "jobId": "symbolum-apostolorum-en-01-00",
+  "file": "drafts/symbolum-apostolorum-en-01-00.json",
+  "ok": true,
+  "strictOk": false,
+  "findings": [
+    {
+      "check": "LENGTH_RATIO",
+      "severity": "MAJOR",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKC",
+      "message": "translation is shorter than expected: 0.76 of the source length in characters"
+    },
+    {
+      "check": "LENGTH_RATIO",
+      "severity": "MAJOR",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKT",
+      "message": "translation is shorter than expected: 0.96 of the source length in characters"
+    },
+    {
+      "check": "LENGTH_RATIO",
+      "severity": "MAJOR",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYM0",
+      "message": "translation is shorter than expected: 0.95 of the source length in characters"
+    },
+    {
+      "check": "LENGTH_RATIO",
+      "severity": "MINOR",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKE",
+      "message": "translation is shorter than expected: 1.03 of the source length in characters"
+    },
+    {
+      "check": "LENGTH_RATIO",
+      "severity": "MINOR",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKW",
+      "message": "translation is shorter than expected: 1.04 of the source length in characters"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKE",
+      "message": "proposed (not approved) glossary row spiritus (PREFER) matched: spiritus → spirit or Spirit. \"Spirit\" (capital) for the Holy Spirit and the Spirit of God; \"spirit\" for the human spirit; the adjective spiritalis → spiritual. Flag a doubtful case AMBIGUITATE.",
+      "quoteSource": "Spiritu",
+      "quoteTarget": "Spirit"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKE",
+      "message": "proposed (not approved) glossary row spiritus-sanctus (FIX) matched: Spiritus Sanctus → the Holy Spirit. Never \"Holy Ghost\" (see holy-ghost-forbid).",
+      "quoteSource": "Spiritu Sancto",
+      "quoteTarget": "Holy Spirit"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKR",
+      "message": "proposed (not approved) glossary row spiritus (PREFER) matched: spiritus → spirit or Spirit. \"Spirit\" (capital) for the Holy Spirit and the Spirit of God; \"spirit\" for the human spirit; the adjective spiritalis → spiritual. Flag a doubtful case AMBIGUITATE.",
+      "quoteSource": "Spiritum",
+      "quoteTarget": "Spirit"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKR",
+      "message": "proposed (not approved) glossary row spiritus-sanctus (FIX) matched: Spiritus Sanctus → the Holy Spirit. Never \"Holy Ghost\" (see holy-ghost-forbid).",
+      "quoteSource": "Spiritum Sanctum",
+      "quoteTarget": "Holy Spirit"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKT",
+      "message": "proposed (not approved) glossary row ecclesia (FIX) matched: ecclesia → the Church (capital) for the whole Church; a church (lower case) for a local community or a building.",
+      "quoteSource": "ecclesiam",
+      "quoteTarget": "Church"
+    },
+    {
+      "check": "FLAG_PROPOSED",
+      "severity": "INFO",
+      "sourceId": "01M6N22MB3DBZQJW64VR2YDYKW",
+      "message": "proposed (not approved) glossary row peccatum (FIX) matched: peccatum → sin; peccator → sinner; peccare → to sin. The rendering is the word itself and its family (sins, sinful, sinless, sinner, sinned, sinning), not any word that starts with the letters: since, single and sincere are not sin.",
+      "quoteSource": "peccatorum",
+      "quoteTarget": "sins"
+    }
+  ],
+  "stats": {
+    "paragraphs": 12,
+    "sourceWords": 76,
+    "targetWords": 112,
+    "lengthRatio": 1.113
+  }
+}
