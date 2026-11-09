@@ -15,7 +15,7 @@ import {
 import { loadWorkMeta } from './work-file';
 
 // The two documents of the creeds shelf that are committed (P1-C4): the Apostles' Creed in Latin
-// and the Creed of Constantinople in Greek. Each is a source edition of twelve articles, one section
+// and the Creed of Constantinople in Greek. Each is a source edition of twelve articles in one section
 // and one paragraph per article, made by content/sources/<slug>/build-edition.ts from a verbatim
 // excerpt of a public domain book. The test does not pin the text: it checks that the files agree
 // with each other (ids, metadata, jobs, the checksums recorded in SOURCE.md) and that the defects
@@ -52,17 +52,18 @@ describe.each(CREEDS)('committed creed $slug', ({ slug, file, language }) => {
     expect(pack.work.titleRo).toBeTruthy();
   });
 
-  it('has twelve sections, numbered 1 to 12, with one paragraph each', () => {
-    expect(pack.sections.map((section) => section.heading)).toEqual(
-      Array.from({ length: 12 }, (_, index) => String(index + 1)),
+  // One section holds the whole creed; its twelve articles are the paragraphs, in order. (The first
+  // ingest made one section per article, which cost one translation job per article: restructured.)
+  it('has one section with the twelve articles as paragraphs, in order', () => {
+    expect(pack.sections).toHaveLength(1);
+    const [section] = pack.sections;
+    expect(section).toMatchObject({ ordinal: 0, kind: 'chapter' });
+    expect(section!.heading.length).toBeGreaterThan(0);
+    const own = pack.paragraphs.filter((paragraph) => paragraph.sectionId === section!.id);
+    expect(own).toHaveLength(12);
+    own.forEach((paragraph, index) =>
+      expect(paragraph).toMatchObject({ ordinal: index, kind: 'p' }),
     );
-    pack.sections.forEach((section, index) => {
-      expect(section.ordinal).toBe(index);
-      expect(section.kind).toBe('section');
-      const own = pack.paragraphs.filter((paragraph) => paragraph.sectionId === section.id);
-      expect(own).toHaveLength(1);
-      expect(own[0]).toMatchObject({ ordinal: 0, kind: 'p' });
-    });
   });
 
   it('has ULID ids, all different, and the ids of work.json', () => {

@@ -7,8 +7,8 @@
   "section": {
     "id": "01M6N22MB3DBZQJW64VR2YDYK9",
     "ordinal": 0,
-    "kind": "section",
-    "heading": "1"
+    "kind": "chapter",
+    "heading": "Symbolum Apostolorum"
   },
   "part": 0,
   "parts": 1,
@@ -19,14 +19,91 @@
       "kind": "p",
       "text": "Credo in Deum Patrem omnipotentem; Creatorem cæli et terræ.",
       "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKC",
+      "ordinal": 1,
+      "kind": "p",
+      "text": "Et in Jesum Christum, Filium ejus unicum, Dominum nostrum;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKE",
+      "ordinal": 2,
+      "kind": "p",
+      "text": "qui conceptus est de Spiritu Sancto, natus ex Maria virgine;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKG",
+      "ordinal": 3,
+      "kind": "p",
+      "text": "passus sub Pontio Pilato, crucifixus, mortuus, et sepultus;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKJ",
+      "ordinal": 4,
+      "kind": "p",
+      "text": "descendit ad inferna; tertia die resurrexit a mortuis;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKM",
+      "ordinal": 5,
+      "kind": "p",
+      "text": "ascendit ad cælos; sedet ad dexteram Dei Patris omnipotentis;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKP",
+      "ordinal": 6,
+      "kind": "p",
+      "text": "inde venturus est judicare vivos et mortuos.",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKR",
+      "ordinal": 7,
+      "kind": "p",
+      "text": "Credo in Spiritum Sanctum;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKT",
+      "ordinal": 8,
+      "kind": "p",
+      "text": "sanctam ecclesiam catholicam; sanctorum communionem;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKW",
+      "ordinal": 9,
+      "kind": "p",
+      "text": "remissionem peccatorum;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYKY",
+      "ordinal": 10,
+      "kind": "p",
+      "text": "carnis resurrectionem;",
+      "references": []
+    },
+    {
+      "id": "01M6N22MB3DBZQJW64VR2YDYM0",
+      "ordinal": 11,
+      "kind": "p",
+      "text": "vitam æternam. Amen.",
+      "references": []
     }
   ],
   "context": {
     "previousParagraph": null,
-    "nextParagraph": "Et in Jesum Christum, Filium ejus unicum, Dominum nostrum;",
+    "nextParagraph": null,
     "previousSectionHeading": null
   },
-  "wordCount": 9,
+  "wordCount": 76,
   "materials": {
     "rules": "content/translation/rules-en.md",
     "contract": "content/translation/output-contract.md",

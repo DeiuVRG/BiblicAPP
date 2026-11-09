@@ -36,74 +36,8 @@
     {
       "id": "01M6N24HR7XARYC7C7F399BFBM",
       "ordinal": 0,
-      "kind": "section",
-      "heading": "1"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7TR",
-      "ordinal": 1,
-      "kind": "section",
-      "heading": "2"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7TT",
-      "ordinal": 2,
-      "kind": "section",
-      "heading": "3"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7TW",
-      "ordinal": 3,
-      "kind": "section",
-      "heading": "4"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7TY",
-      "ordinal": 4,
-      "kind": "section",
-      "heading": "5"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7V0",
-      "ordinal": 5,
-      "kind": "section",
-      "heading": "6"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7V2",
-      "ordinal": 6,
-      "kind": "section",
-      "heading": "7"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7V4",
-      "ordinal": 7,
-      "kind": "section",
-      "heading": "8"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7V6",
-      "ordinal": 8,
-      "kind": "section",
-      "heading": "9"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7V8",
-      "ordinal": 9,
-      "kind": "section",
-      "heading": "10"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7VA",
-      "ordinal": 10,
-      "kind": "section",
-      "heading": "11"
-    },
-    {
-      "id": "01M6N24HR80HGE0FF8D4RTP7VC",
-      "ordinal": 11,
-      "kind": "section",
-      "heading": "12"
+      "kind": "chapter",
+      "heading": "Σύμβολον τῆς Πίστεως"
     }
   ],
   "paragraphs": [
@@ -116,78 +50,78 @@
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7TS",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7TR",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 1,
       "kind": "p",
       "text": "Καὶ εἰς ἕνα κύριον Ἰησοῦν Χριστόν, τὸν υἱὸν τοῦ θεοῦ τὸν μονογενῆ, τὸν ἐκ τοῦ πατρὸς γεννηθέντα πρὸ πάντων τῶν αἰώνων, φῶς ἐκ φωτός, θεὸν ἀληθινὸν ἐκ θεοῦ ἀληθινοῦ, γεννηθέντα, οὐ ποιηθέντα, ὁμοούσιον τῷ πατρί· δι’ οὗ τὰ πάντα ἐγένετο·"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7TV",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7TT",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 2,
       "kind": "p",
       "text": "τὸν δι’ ἡμᾶς τοὺς ἀνθρώπους καὶ διὰ τὴν ἡμετέραν σωτηρίαν κατελθόντα ἐκ τῶν οὐρανῶν καὶ σαρκωθέντα ἐκ πνεύματος ἁγίου καὶ Μαρίας τῆς παρθένου καὶ ἐνανθρωπήσαντα,"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7TX",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7TW",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 3,
       "kind": "p",
       "text": "σταυρωθέντα τε ὑπὲρ ἡμῶν ἐπὶ Ποντίου Πιλάτου, καὶ παθόντα καὶ ταφέντα,"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7TZ",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7TY",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 4,
       "kind": "p",
       "text": "καὶ ἀναστάντα τῇ τρίτῃ ἡμέρᾳ κατὰ τὰς γραφάς,"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7V1",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7V0",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 5,
       "kind": "p",
       "text": "καὶ ἀνελθόντα εἰς τοὺς οὐρανούς, καὶ καθεζόμενον ἐκ δεξιῶν τοῦ πατρός,"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7V3",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7V2",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 6,
       "kind": "p",
       "text": "καὶ πάλιν ἐρχόμενον μετὰ δόξης κρῖναι ζῶντας καὶ νεκρούς· οὗ τῆς βασιλείας οὐκ ἔσται τέλος."
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7V5",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7V4",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 7,
       "kind": "p",
       "text": "Καὶ εἰς τὸ πνεῦμα τὸ ἅγιον, τὸ κύριον καὶ ζωοποιόν, τὸ ἐκ τοῦ πατρὸς ἐκπορευόμενον, τὸ σὺν πατρὶ καὶ υἱῷ συμπροσκυνούμενον καὶ συνδοξαζόμενον, τὸ λαλῆσαν διὰ τῶν προφητῶν·"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7V7",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7V6",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 8,
       "kind": "p",
       "text": "εἰς μίαν, ἁγίαν, καθολικὴν καὶ ἀποστολικὴν ἐκκλησίαν·"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7V9",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7V8",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 9,
       "kind": "p",
       "text": "ὁμολογοῦμεν ἓν βάπτισμα εἰς ἄφεσιν ἁμαρτιῶν·"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7VB",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7VA",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 10,
       "kind": "p",
       "text": "προσδοκῶμεν ἀνάστασιν νεκρῶν,"
     },
     {
       "id": "01M6N24HR80HGE0FF8D4RTP7VD",
-      "sectionId": "01M6N24HR80HGE0FF8D4RTP7VC",
-      "ordinal": 0,
+      "sectionId": "01M6N24HR7XARYC7C7F399BFBM",
+      "ordinal": 11,
       "kind": "p",
       "text": "καὶ ζωὴν τοῦ μέλλοντος αἰῶνος. Ἀμήν."
     }
