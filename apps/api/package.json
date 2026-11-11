@@ -17,11 +17,11 @@
     "eval": "tsx src/eval/run-eval.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "1.0.0",
+    "@anthropic-ai/sdk": "1.6.0",
     "@biblioteca/content-tools": "workspace:*",
     "@biblioteca/shared": "workspace:*",
-    "@hono/node-server": "2.1.5",
-    "hono": "4.13.13",
+    "@hono/node-server": "2.1.6",
+    "hono": "4.13.17",
     "zod": "4.6.7"
   },
   "devDependencies": {
